@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Hiring Translators}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $N$: Number of translators
+    \item $M$: Number of required languages
+    \item $Cost_i$: Cost of hiring translator $i$, for $i = 1, 2, \ldots, N$
+    \item $Languages_i$: Set of languages that translator $i$ can translate, for $i = 1, 2, \ldots, N$
+    \item $RequiredLanguages$: List of required languages, indexed by $j = 1, 2, \ldots, M$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_i$: Binary variable indicating whether translator $i$ is hired (1) or not (0), for $i = 1, 2, \ldots, N$
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost of hiring translators:
+\[
+\min \sum_{i=1}^{N} Cost_i \cdot x_i
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Each required language must be covered by at least one hired translator:
+    \[
+    \forall j \in \{1, 2, \ldots, M\}, \quad \sum_{i: j \in Languages_i} x_i \geq 1
+    \]
+    \item Binary constraints for decision variables:
+    \[
+    \forall i \in \{1, 2, \ldots, N\}, \quad x_i \in \{0, 1\}
+    \]
+\end{itemize}
+
+\end{document}

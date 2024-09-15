@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $N$: Number of different shares (constant)
+    \item $Bought_i$: Amount of each share $i$ initially bought, for $i = 1, 2, \ldots, N$
+    \item $BuyPrice_i$: Purchase price of each share $i$, for $i = 1, 2, \ldots, N$
+    \item $CurrentPrice_i$: Current market price of each share $i$, for $i = 1, 2, \ldots, N$
+    \item $FuturePrice_i$: Expected future market price of each share $i$, for $i = 1, 2, \ldots, N$
+    \item $TransactionRate$: Transaction cost rate per share sold (constant)
+    \item $TaxRate$: Capital gains tax rate on the profit from selling shares (constant)
+    \item $K$: Amount of money the investor needs to raise (constant)
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_i$: Number of shares $i$ sold, for $i = 1, 2, \ldots, N$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the expected value of the investor's portfolio next year:
+\[
+\text{Maximize} \quad \sum_{i=1}^{N} (Bought_i - x_i) \cdot FuturePrice_i
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    & x_i \geq 0 \quad \text{for } i = 1, 2, \ldots, N \quad \text{(Non-negativity constraint)} \\
+    & x_i \leq Bought_i \quad \text{for } i = 1, 2, \ldots, N \quad \text{(Cannot sell more than bought)} \\
+    & \sum_{i=1}^{N} \left[ x_i \cdot CurrentPrice_i - x_i \cdot (CurrentPrice_i - BuyPrice_i) \cdot TaxRate - x_i \cdot CurrentPrice_i \cdot TransactionRate \right] \geq K \quad \text{(Amount raised constraint)}
+\end{align}
+
+\end{document}

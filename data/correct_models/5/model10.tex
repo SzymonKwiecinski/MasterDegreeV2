@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model for School Assignment Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $S$: Total number of schools
+    \item $G$: Total number of student groups
+    \item $N$: Total number of neighborhoods
+    \item $Capacity_{s,g}$: Capacity of school $s$ for student group $g$, for $s = 1, \ldots, S$ and $g = 1, \ldots, G$
+    \item $Population_{n,g}$: Population of student group $g$ in neighborhood $n$, for $n = 1, \ldots, N$ and $g = 1, \ldots, G$
+    \item $Distance_{n,s}$: Distance between neighborhood $n$ and school $s$, for $n = 1, \ldots, N$ and $s = 1, \ldots, S$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_{n,g,s}$: Number of students from group $g$ in neighborhood $n$ assigned to school $s$
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total distance traveled by all students:
+\[
+\min \sum_{n=1}^{N} \sum_{g=1}^{G} \sum_{s=1}^{S} Distance_{n,s} \cdot x_{n,g,s}
+\]
+
+\subsection*{Constraints}
+\begin{enumerate}
+    \item Total number of students from each student group $g$ assigned from neighborhood $n$ to schools does not exceed the population of group $g$ in neighborhood $n$:
+    \[
+    \sum_{s=1}^{S} x_{n,g,s} \leq Population_{n,g} \quad \forall n = 1, \ldots, N, \forall g = 1, \ldots, G
+    \]
+    
+    \item Total number of students from each student group $g$ assigned to school $s$ does not exceed the capacity of school $s$ for student group $g$:
+    \[
+    \sum_{n=1}^{N} x_{n,g,s} \leq Capacity_{s,g} \quad \forall s = 1, \ldots, S, \forall g = 1, \ldots, G
+    \]
+    
+    \item Each student is assigned to exactly one school:
+    \[
+    \sum_{s=1}^{S} x_{n,g,s} = Population_{n,g} \quad \forall n = 1, \ldots, N, \forall g = 1, \ldots, G
+    \]
+    
+    \item All populations, capacities, and distances are non-negative:
+    \[
+    x_{n,g,s} \geq 0 \quad \forall n = 1, \ldots, N, \forall g = 1, \ldots, G, \forall s = 1, \ldots, S
+    \]
+\end{enumerate}
+
+\end{document}

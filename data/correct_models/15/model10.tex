@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $P$: Number of parts
+    \item $M$: Number of machines
+    \item $TimeRequired_{m,p}$: Time required to produce one batch of part $p$ on machine $m$
+    \item $MachineCosts_m$: Cost associated with using machine $m$
+    \item $Availability_m$: Availability of machine $m$ per month
+    \item $Prices_p$: Selling price of one batch of part $p$
+    \item $MinBatches_p$: Minimum number of batches of part $p$ to be produced
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_p$: Number of batches of part $p$ to be produced
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the profit, which is the total sales minus the costs of using the machines:
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} Prices_p \cdot x_p - \sum_{m=1}^{M} MachineCosts_m \cdot \sum_{p=1}^{P} TimeRequired_{m,p} \cdot x_p
+\]
+
+\subsection*{Constraints}
+\begin{enumerate}
+    \item Non-negativity constraint for the number of batches:
+    \[
+    x_p \geq 0 \quad \forall p = 1, 2, \ldots, P
+    \]
+    \item Machine time availability constraint:
+    \[
+    \sum_{p=1}^{P} TimeRequired_{m,p} \cdot x_p \leq Availability_m \quad \forall m = 1, 2, \ldots, M
+    \]
+    \item Minimum production requirement:
+    \[
+    x_p \geq MinBatches_p \quad \forall p = 1, 2, \ldots, P
+    \]
+\end{enumerate}
+
+\end{document}

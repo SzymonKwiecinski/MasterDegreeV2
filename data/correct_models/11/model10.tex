@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Optimal Trading Strategy}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $Capacity$: Maximum storage capacity (constant)
+    \item $HoldingCost$: Cost of holding one unit of product (constant)
+    \item $Price_t$: Selling price in period $t$, for $t = 1, \ldots, N$
+    \item $Cost_t$: Cost of buying in period $t$, for $t = 1, \ldots, N$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $B_t$: Quantity of goods bought in period $t$, for $t = 1, \ldots, N$
+    \item $S_t$: Quantity of goods sold in period $t$, for $t = 1, \ldots, N$
+    \item $I_t$: Inventory level at the end of period $t$, for $t = 1, \ldots, N$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit over the months:
+\[
+\max \sum_{t=1}^{N} \left( Price_t \cdot S_t - Cost_t \cdot B_t - HoldingCost \cdot I_t \right)
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    & I_t \geq 0 \quad \forall t = 1, \ldots, N & \text{(Non-negative inventory)} \\
+    & S_t \geq 0 \quad \forall t = 1, \ldots, N & \text{(Non-negative sales)} \\
+    & B_t \geq 0 \quad \forall t = 1, \ldots, N & \text{(Non-negative purchases)} \\
+    & I_t \leq Capacity \quad \forall t = 1, \ldots, N & \text{(Storage capacity)} \\
+    & I_t = I_{t-1} + B_t - S_t \quad \forall t = 1, \ldots, N & \text{(Inventory balance)} \\
+    & I_0 = 0 & \text{(Initial inventory)}
+\end{align}
+
+\end{document}

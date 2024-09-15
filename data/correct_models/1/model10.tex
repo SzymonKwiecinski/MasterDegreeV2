@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Maximizing Firm's Total Revenue}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $M$: Number of different goods produced by the firm.
+    \item $N$: Number of different raw materials used by the firm.
+    \item $Available_i$: Available amount of raw material $i$ for $i = 1, 2, \ldots, N$.
+    \item $Requirements_{ij}$: Requirement of material $j$ for producing one unit of good $i$ for $i = 1, 2, \ldots, M$ and $j = 1, 2, \ldots, N$.
+    \item $Prices_i$: Revenue earned from selling one unit of good $i$ for $i = 1, 2, \ldots, M$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_i$: Quantity of good $i$ produced for $i = 1, 2, \ldots, M$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total revenue:
+\[
+\text{Maximize } Z = \sum_{i=1}^{M} Prices_i \cdot x_i
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Non-negativity constraints for goods quantities:
+    \[
+    x_i \geq 0 \quad \text{for } i = 1, 2, \ldots, M
+    \]
+    \item Raw material availability constraints:
+    \[
+    \sum_{i=1}^{M} Requirements_{ij} \cdot x_i \leq Available_j \quad \text{for } j = 1, 2, \ldots, N
+    \]
+\end{itemize}
+
+\end{document}

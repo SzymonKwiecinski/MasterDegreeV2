@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Nurse Staffing}
+
+\subsection*{Objective}
+Minimize the number of nurses that the hospital needs to hire for the planning period.
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $T$: Number of days in the planning period.
+    \item $Period$: The planning period for nurse staffing.
+    \item $Demand_t$: The demand for nurses on day $t$, for $t = 1, 2, \ldots, T$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $N$: The number of nurses to hire.
+\end{itemize}
+
+\subsection*{Mathematical Formulation}
+\begin{align*}
+    \text{Minimize} \quad & N \\
+    \text{subject to} \quad & N \geq Demand_t \quad \forall t = 1, 2, \ldots, T \\
+    & N \geq 0
+\end{align*}
+
+\end{document}

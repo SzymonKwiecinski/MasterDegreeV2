@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model for Electricity Distribution}
+
+\subsection*{Objective}
+Minimize the total transmission cost from power plants to cities.
+
+\begin{equation}
+\text{Minimize} \quad Z = \sum_{p=1}^{P} \sum_{c=1}^{C} \text{TransmissionCosts}_{pc} \cdot x_{pc}
+\end{equation}
+
+\subsection*{Constraints}
+
+\begin{align}
+& \text{1. Each power plant has a limited supply capacity:} \nonumber \\
+& \sum_{c=1}^{C} x_{pc} \leq \text{Supply}_p \quad \forall p = 1, \ldots, P \\
+& \text{2. Each city has a specific electricity demand:} \nonumber \\
+& \sum_{p=1}^{P} x_{pc} = \text{Demand}_c \quad \forall c = 1, \ldots, C \\
+& \text{3. Electricity sent from any power plant to any city is non-negative:} \nonumber \\
+& x_{pc} \geq 0 \quad \forall p = 1, \ldots, P, \; \forall c = 1, \ldots, C
+\end{align}
+
+\subsection*{Parameters}
+
+\begin{itemize}
+    \item $P$: Number of power plants (constant)
+    \item $C$: Number of cities (constant)
+    \item $\text{Supply}_p$: Electricity supply capacity of power plant $p$, for $p = 1, \ldots, P$
+    \item $\text{Demand}_c$: Electricity demand of city $c$, for $c = 1, \ldots, C$
+    \item $\text{TransmissionCosts}_{pc}$: Transmission cost from power plant $p$ to city $c$
+\end{itemize}
+
+\subsection*{Decision Variables}
+
+\begin{itemize}
+    \item $x_{pc}$: Amount of electricity transmitted from power plant $p$ to city $c$
+\end{itemize}
+
+\end{document}

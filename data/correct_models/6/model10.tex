@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model for Finding the Chebychev Center}
+
+\subsection*{Objective}
+Maximize the radius \( r \) of the ball centered at the Chebychev center that lies entirely within the set \( P \).
+
+\[
+\text{Maximize } r
+\]
+
+\subsection*{Constraints}
+\begin{align}
+& \text{1. The radii of balls are non-negative:} \\
+& r \geq 0 \\
+& \text{2. The ball must be completely within the set } P, \text{ which is defined by the constraints } Ax \leq b: \\
+& A x + r \|A_i\|_2 \leq b_i, \quad \forall i = 1, 2, \ldots, M
+\end{align}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( M \): The number of inequalities defining the set \( P \).
+    \item \( N \): The ambient space dimension of the set \( P \).
+    \item \( A \in \mathbb{R}^{M \times N} \): The coefficients of the linear inequalities defining the set \( P \).
+    \item \( b \in \mathbb{R}^{M} \): The right-hand side of the inequalities defining the set \( P \).
+\end{itemize}
+
+\end{document}

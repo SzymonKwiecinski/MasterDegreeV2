@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Knapsack Problem Formulation}
+
+\subsection*{Objective}
+Maximize the total value of the items packed in the knapsack.
+
+\[
+\text{Maximize} \quad Z = \sum_{k=1}^{K} \text{Value}_k \cdot x_k
+\]
+
+\subsection*{Constraints}
+\begin{align}
+& \sum_{k=1}^{K} \text{Size}_k \cdot x_k \leq C \quad & \text{(Total size constraint)} \\
+& x_k \in \{0, 1\} \quad \forall k \in \{1, 2, \ldots, K\} \quad & \text{(Binary decision for each item)} \\
+& C \geq 0 \quad & \text{(Non-negative knapsack capacity)} \\
+& \text{Size}_k \geq 0 \quad \forall k \in \{1, 2, \ldots, K\} \quad & \text{(Non-negative size for each item)} \\
+& \text{Value}_k \geq 0 \quad \forall k \in \{1, 2, \ldots, K\} \quad & \text{(Non-negative value for each item)}
+\end{align}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $C$: Total Capacity of the Knapsack (constant)
+    \item $\text{Value}_k$: Value of item $k$ (array of size $K$)
+    \item $\text{Size}_k$: Size of item $k$ (array of size $K$)
+\end{itemize}
+
+\end{document}

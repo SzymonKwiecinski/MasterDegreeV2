@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Food Selection Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $K$: Number of different types of food
+    \item $M$: Number of nutrients to consider
+    \item $Price_k$: Price of food $k$ for $k = 1, 2, \ldots, K$
+    \item $Demand_m$: Demand for nutrient $m$ for $m = 1, 2, \ldots, M$
+    \item $Nutrition_{k,m}$: Amount of nutrient $m$ in food $k$ for $k = 1, 2, \ldots, K$ and $m = 1, 2, \ldots, M$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_k$: Number of units purchased from food type $k$ for $k = 1, 2, \ldots, K$
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost of the foods purchased:
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} Price_k \cdot x_k
+\]
+
+\subsection*{Constraints}
+\begin{enumerate}
+    \item The total amount of each nutrient from all food types must meet or exceed the specific demand for that nutrient:
+    \[
+    \sum_{k=1}^{K} Nutrition_{k,m} \cdot x_k \geq Demand_m \quad \text{for } m = 1, 2, \ldots, M
+    \]
+    \item The number of units purchased from each food type is non-negative:
+    \[
+    x_k \geq 0 \quad \text{for } k = 1, 2, \ldots, K
+    \]
+\end{enumerate}
+
+\end{document}

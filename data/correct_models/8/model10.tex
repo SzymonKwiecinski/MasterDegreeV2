@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Production Optimization}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $NumProducts$: Number of different products
+    \item $NumMachines$: Number of different machines
+    \item $ProduceTime_{k,m}$: Time to produce one unit of product $k$ on machine $m$, for $k = 1, \ldots, NumProducts$ and $m = 1, \ldots, NumMachines$
+    \item $AvailableTime_m$: Total available time on machine $m$, for $m = 1, \ldots, NumMachines$
+    \item $Profit_k$: Profit from producing one unit of product $k$, for $k = 1, \ldots, NumProducts$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_k$: Quantity of product $k$ to be produced, for $k = 1, \ldots, NumProducts$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize} \quad Z = \sum_{k=1}^{NumProducts} Profit_k \cdot x_k
+\]
+
+\subsection*{Constraints}
+\begin{enumerate}
+    \item Non-negativity constraints for each product:
+    \[
+    x_k \geq 0 \quad \text{for } k = 1, \ldots, NumProducts
+    \]
+    \item Production time constraints for each machine:
+    \[
+    \sum_{k=1}^{NumProducts} ProduceTime_{k,m} \cdot x_k \leq AvailableTime_m \quad \text{for } m = 1, \ldots, NumMachines
+    \]
+\end{enumerate}
+
+\end{document}

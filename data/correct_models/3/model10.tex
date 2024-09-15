@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $NumParts$: Number of spare parts to be produced
+    \item $NumMachines$: Number of machines available
+    \item $Time_{ks}$: Time taken to make one unit of spare part $k$ on machine $s$, for $k = 1, 2, \ldots, NumParts$ and $s = 1, 2, \ldots, NumMachines$
+    \item $Profit_k$: Profit from producing one unit of spare part $k$, for $k = 1, 2, \ldots, NumParts$
+    \item $Capacity_s$: Capacity of machine $s$ for the month, for $s = 1, 2, \ldots, NumMachines$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_k$: Quantity of spare part $k$ to be produced, for $k = 1, 2, \ldots, NumParts$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit from the production of spare parts:
+\[
+\text{Maximize } Z = \sum_{k=1}^{NumParts} Profit_k \cdot x_k
+\]
+
+\subsection*{Constraints}
+\begin{enumerate}
+    \item Non-negativity constraints for the quantity of each spare part:
+    \[
+    x_k \geq 0 \quad \text{for } k = 1, 2, \ldots, NumParts
+    \]
+    \item Machine capacity constraints:
+    \[
+    \sum_{k=1}^{NumParts} Time_{ks} \cdot x_k \leq Capacity_s \quad \text{for } s = 1, 2, \ldots, NumMachines
+    \]
+\end{enumerate}
+
+\end{document}

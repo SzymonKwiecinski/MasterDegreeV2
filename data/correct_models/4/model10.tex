@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $N$: Number of different illuminations (constant)
+    \item $M$: Number of lamp powers (constant)
+    \item $Coefficients_{ij}$: Coefficients relating lamp powers to illumination, where $i \in \{1, \ldots, N\}$ and $j \in \{1, \ldots, M\}$
+    \item $DesiredIlluminations_i$: Desired level of illuminations for $i \in \{1, \ldots, N\}$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $P_j$: Power of lamp $j$ for $j \in \{1, \ldots, M\}$
+    \item $E_i$: Absolute error for illumination $i$ for $i \in \{1, \ldots, N\}$
+\end{itemize}
+
+\subsection*{Objective}
+Minimize the absolute error between the actual illumination levels and the desired illumination levels:
+\[
+\min \sum_{i=1}^{N} E_i
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    &\sum_{j=1}^{M} Coefficients_{ij} \cdot P_j - DesiredIlluminations_i \leq E_i, \quad \forall i \in \{1, \ldots, N\} \\
+    &DesiredIlluminations_i - \sum_{j=1}^{M} Coefficients_{ij} \cdot P_j \leq E_i, \quad \forall i \in \{1, \ldots, N\} \\
+    &P_j \geq 0, \quad \forall j \in \{1, \ldots, M\}
+\end{align}
+
+\end{document}
