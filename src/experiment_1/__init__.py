@@ -38,7 +38,6 @@ def run(
 
         for correct_model in correct_models:
             print(f"START {exp_retry=}, {correct_model.number=}\n")
-
             model_path = retry_experiment_path / str(correct_model.number)
             model_path.mkdir(exist_ok=True)
             report = Report(
