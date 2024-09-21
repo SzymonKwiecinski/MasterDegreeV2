@@ -4,7 +4,12 @@ from typing import Any, Optional
 
 from openai.types.chat import ChatCompletion
 
-from src.templates import data_template, latex_math_model_template
+from src.templates import (
+    data_template,
+    latex_math_model_template,
+    wrong_code_template,
+    code_error_template,
+)
 import csv
 import json
 from math import fabs
@@ -118,6 +123,13 @@ class Message:
         )
 
     @classmethod
+    def from_syntax_error(cls, wrong_code: str, code_error: str) -> "Message":
+        return cls.from_user(
+            wrong_code_template.format(code=wrong_code)
+            + code_error_template.format(error=code_error)
+        )
+
+    @classmethod
     def from_task(cls) -> "Message":
         pass
 
@@ -148,7 +160,7 @@ class OpenAiPrompt:
         client: Any,
         expert: Expert,
         log_dir: Path | None = None,
-        temperature: int = 0,
+        temperature: float = 0,
     ):
         self.client = client
         self.expert = expert
@@ -175,7 +187,6 @@ class OpenAiPrompt:
         for message in self.messages:
             _messages.append(message.dict())
 
-        print(model.value)
         self.raw_message_response: ChatCompletion = self.client.chat.completions.create(
             model=model.value, messages=_messages, temperature=self.temperature
         )
@@ -204,6 +215,8 @@ class OpenAiPrompt:
 
 
 class Report(BaseModel):
+    experiment_name: str
+    experiment_iteration: int
     task_number: int  # folder name
     code_fix_count: int = 0  # how many times code was fixed , can be 0
     code_syntax_status: bool = False  #

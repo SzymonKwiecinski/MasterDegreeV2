@@ -1,0 +1,16 @@
+experiment_11:
+  py_c_model: "gpt-4o-mini-2024-07-18"
+  py_f_model: "gpt-4o-mini-2024-07-18"
+  fix_retries: 3
+experiment_12:
+  py_c_model: "gpt-4o-2024-08-06"
+  py_f_model: "gpt-4o-mini-2024-07-18"
+  fix_retries: 3
+experiment_13:
+  py_c_model: "gpt-4o-mini-2024-07-18"
+  py_f_model: "gpt-4o-2024-08-06"
+  fix_retries: 3
+experiment_14:
+  py_c_model: "gpt-4o-2024-08-06"
+  py_f_model: "gpt-4o-2024-08-06"
+  fix_retries: 3

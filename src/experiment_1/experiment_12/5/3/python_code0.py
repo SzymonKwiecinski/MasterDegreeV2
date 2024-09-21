@@ -1,0 +1,30 @@
+import pulp
+
+# Data from JSON
+data = {
+    'NumParts': 5,
+    'NumMachines': 2,
+    'Time': [[2, 3], [1, 2], [3, 2], [3, 1], [1, 1]],
+    'Profit': [30, 20, 40, 25, 10],
+    'Capacity': [700, 1000]
+}
+
+# Problem
+problem = pulp.LpProblem("Maximize_Profit", pulp.LpMaximize)
+
+# Decision Variables
+x_vars = [pulp.LpVariable(f'x_{k}', lowBound=0, cat='Continuous') for k in range(data['NumParts'])]
+
+# Objective Function
+problem += pulp.lpSum(data['Profit'][k] * x_vars[k] for k in range(data['NumParts'])), "Total_Profit"
+
+# Constraints
+# Machine capacity constraints
+for s in range(data['NumMachines']):
+    problem += (pulp.lpSum(data['Time'][k][s] * x_vars[k] for k in range(data['NumParts'])) <= data['Capacity'][s]), f"Capacity_Machine_{s+1}"
+
+# Solve
+problem.solve()
+
+# Print the objective value
+print(f' (Objective Value): <OBJ>{pulp.value(problem.objective)}</OBJ>')
