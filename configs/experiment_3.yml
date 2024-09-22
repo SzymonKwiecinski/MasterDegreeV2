@@ -8,3 +8,18 @@ experiment_3b1:
   py_c_model: "gpt-4o-mini-2024-07-18"
   py_f_model: "gpt-4o-mini-2024-07-18"
   fix_retries: 1
+experiment_3b2:
+  or_c_model: "gpt-4o-2024-08-06"
+  py_c_model: "gpt-4o-mini-2024-07-18"
+  py_f_model: "gpt-4o-mini-2024-07-18"
+  fix_retries: 1
+experiment_3b3:
+  or_c_model: "gpt-4o-mini-2024-07-18"
+  py_c_model: "gpt-4o-2024-08-06"
+  py_f_model: "gpt-4o-mini-2024-07-18"
+  fix_retries: 1
+experiment_3b4:
+  or_c_model: "gpt-4o-2024-08-06"
+  py_c_model: "gpt-4o-2024-08-06"
+  py_f_model: "gpt-4o-mini-2024-07-18"
+  fix_retries: 1
