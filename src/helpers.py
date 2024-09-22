@@ -47,14 +47,24 @@ def run_python_code(
     if ".py" not in abs_code_path.name:
         raise ValueError(f"{abs_code_path.name=} should has '.py'!")
 
-    response = subprocess.run(
-        shlex.split(f"{abs_python_interpreter_path} {abs_code_path}"),
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        timeout=4,
-    )
-
-    return response.stderr.decode(), response.stdout.decode(), abs_code_path.read_text()
+    try:
+        response = subprocess.run(
+            shlex.split(f"{abs_python_interpreter_path} {abs_code_path}"),
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            timeout=6,
+        )
+        return (
+            response.stderr.decode(),
+            response.stdout.decode(),
+            abs_code_path.read_text(),
+        )
+    except subprocess.TimeoutExpired:
+        return (
+            "subprocess.TimeoutExpired timed out after 6 seconds. In code can be infinitive loop",
+            "",
+            abs_code_path.read_text(),
+        )
 
 
 def chat_completion_to_text(chat_completion: ChatCompletion) -> str:

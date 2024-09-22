@@ -10,8 +10,8 @@ from src.core import ChatModel, OpenAiPrompt, Message
 from src.templates import python_file_name_template, code_error_template
 from openai import Client
 
-TASKS_NUMBER = 60  # 63
-EXP_RETRY = 1  # 10
+TASKS_NUMBER = 63  # 63
+EXP_RETRY = 10  # 10
 
 
 def run(
