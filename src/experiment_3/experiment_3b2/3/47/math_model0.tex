@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Integer Linear Programming Model for Shift Assignment}
+
+\textbf{Given:}
+\begin{itemize}
+    \item $S$: Number of shifts.
+    \item $officers\_needed_s$: Number of officers needed for shift $s$, $s \in \{1, \ldots, S\}$.
+    \item $shift\_cost_s$: Cost for starting shift $s$, $s \in \{1, \ldots, S\}$.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{align*}
+    x_s &: \text{Number of officers starting at shift } s, \; s \in \{1, \ldots, S\}
+\end{align*}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } \quad \sum_{s=1}^{S} shift\_cost_s \cdot x_s
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+    x_s + x_{s-1} &\geq officers\_needed_s, \quad \forall s = 1, \ldots, S
+\end{align*}
+
+\textbf{Note:}
+- We consider the shifts to be cyclic, implying $x_0 = x_S$ and $x_{S+1} = x_1$.
+
+\textbf{Non-negativity and Integer Constraints:}
+\[
+x_s \geq 0 \text{ and } x_s \in \mathbb{Z}, \quad \forall s = 1, \ldots, S
+\]
+
+\end{document}

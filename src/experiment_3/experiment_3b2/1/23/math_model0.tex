@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+Let us define the decision variables for this problem:
+
+\begin{itemize}
+    \item \( \text{recruit}_{k,i} \): Number of manpower type \( k \) recruited in year \( i \).
+    \item \( \text{redundant}_{k,i} \): Number of manpower type \( k \) made redundant in year \( i \).
+    \item \( \text{overmanning}_{k,i} \): Number of excess manpower type \( k \) employed in year \( i \).
+    \item \( \text{short}_{k,i} \): Number of manpower type \( k \) on short-time working in year \( i \).
+\end{itemize}
+
+The objective is to minimize the total cost, given by:
+
+\[
+\text{Minimize } \sum_{k=1}^{K} \sum_{i=1}^{I} \left( \text{costredundancy}_k \cdot \text{redundant}_{k,i} + \text{costoverman}_k \cdot \text{overmanning}_{k,i} + \text{costshort}_k \cdot \text{short}_{k,i} \right)
+\]
+
+Subject to the constraints:
+
+\begin{itemize}
+    \item \textbf{Manpower balance constraint:}
+    \[
+    \text{strength}_{k, 1} = \text{strength}_k - \text{moreonewaste}_k \cdot \text{strength}_k + \text{recruit}_{k, 1} - \text{redundant}_{k,1}
+    \]
+    
+    For \( i > 1 \):
+    \[
+    \text{strength}_{k, i} = (1 - \text{lessonewaste}_k) \cdot \text{recruit}_{k, i-1} + (1 - \text{moreonewaste}_k) \cdot (\text{strength}_{k,i-1} + \text{overmanning}_{k,i-1}) - \text{redundant}_{k,i}
+    \]
+
+    \item \textbf{Demand constraint:}
+    \[
+    \text{strength}_{k,i} + \text{overmanning}_{k,i} + \frac{1}{2} \cdot \text{short}_{k,i} \geq \text{requirement}_{k,i}
+    \]
+
+    \item \textbf{Recruitment constraints:}
+    \[
+    \text{recruit}_{k,i} \leq \text{recruit}_k
+    \]
+
+    \item \textbf{Overmanning constraints:}
+    \[
+    \sum_{k=1}^{K} \text{overmanning}_{k,i} \leq \text{num\_overman}
+    \]
+
+    \item \textbf{Short-time working constraints:}
+    \[
+    \text{short}_{k,i} \leq \text{num\_shortwork}
+    \]
+
+    \item \textbf{Non-negativity constraints:}
+    \[
+    \text{recruit}_{k,i}, \text{redundant}_{k,i}, \text{overmanning}_{k,i}, \text{short}_{k,i} \geq 0
+    \]
+\end{itemize}
+
+This LP model will help the company decide the optimal number of recruitments, redundancies, overmanning, and short-time working employees to minimize the total cost while meeting manpower requirements.
+
+\end{document}

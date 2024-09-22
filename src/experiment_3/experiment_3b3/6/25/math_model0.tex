@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Economy's Linear Programming Problem}
+
+\subsection*{Variables}
+
+Let:
+\begin{itemize}
+    \item \( produce_{k,t} \): amount of units produced by industry \( k \) in year \( t \)
+    \item \( buildcapa_{k,t} \): amount of units used to build productive capacity for industry \( k \) in year \( t \)
+    \item \( stock_{k,t} \): amount of stock of industry \( k \) held in year \( t \)
+\end{itemize}
+
+\subsection*{Parameters}
+
+Given input parameters:
+\begin{itemize}
+    \item \( inputone_{k,j} \): input from industry \( j \) needed for industry \( k \)
+    \item \( manpowerone_{k} \): manpower required by industry \( k \)
+    \item \( inputtwo_{k,j} \): input from industry \( j \) needed to build capacity for industry \( k \)
+    \item \( manpowertwo_{k} \): manpower required to build capacity for industry \( k \)
+    \item \( stock_{k} \): initial stock of industry \( k \) at year 0
+    \item \( capacity_{k} \): initial capacity of industry \( k \)
+    \item \( manpower_{limit} \): total limit of manpower available per year
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Maximize the total production in the last two years:
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} (produce_{k,T} + produce_{k,T-1})
+\]
+
+\subsection*{Constraints}
+
+1. **Production constraint for each industry in each year:**
+\[
+produce_{k,t} \leq stock_{k,t-1} + \sum_{j=1}^{K} inputone_{k,j} \cdot produce_{j,t-1} \quad \forall k, t=1,...,T
+\]
+
+2. **Capacity constraint for each industry:**
+\[
+stock_{k,t} = stock_{k,t-1} + produce_{k,t} - buildcapa_{k,t} \quad \forall k, t=1,...,T
+\]
+
+3. **Manpower constraint for each year:**
+\[
+\sum_{k=1}^{K} manpowerone_{k} \cdot produce_{k,t} + \sum_{k=1}^{K} manpowertwo_{k} \cdot buildcapa_{k,t} \leq manpower_{limit} \quad \forall t=1,...,T
+\]
+
+4. **Capacity building after one year:**
+\[
+capacity_{k,t+2} \geq buildcapa_{k,t+1} \quad \forall k, t=1,...,T-2
+\]
+
+5. **Non-negativity constraints:**
+\[
+produce_{k,t} \geq 0, \quad buildcapa_{k,t} \geq 0, \quad stock_{k,t} \geq 0 \quad \forall k, t=1,...,T
+\]
+
+\end{document}

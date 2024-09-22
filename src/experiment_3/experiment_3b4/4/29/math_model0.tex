@@ -1,0 +1,25 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Objective:}
+
+Minimize \( D \)
+
+\subsection*{Subject to:}
+
+\begin{align*}
+y_k - (bx_k + a) & \leq D, \quad \text{for } k = 1, 2, \ldots, K \\
+(bx_k + a) - y_k & \leq D, \quad \text{for } k = 1, 2, \ldots, K \\
+\end{align*}
+
+\subsection*{Variables:}
+\begin{itemize}
+    \item \( a \): intercept of the fitted line
+    \item \( b \): slope of the fitted line
+    \item \( D \): maximum deviation
+\end{itemize}
+
+\end{document}

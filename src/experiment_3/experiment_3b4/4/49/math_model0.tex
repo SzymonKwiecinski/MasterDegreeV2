@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\subsection*{Decision Variables}
+Let \( x_p \) be the number of batches of part \( p \) produced per month, where \( p = 1, 2, \ldots, P \).
+
+\subsection*{Objective Function}
+The objective is to maximize the total profit, which is the difference between the revenue from selling the parts and the costs of using the machines. The objective function can be expressed as:
+
+\[
+\text{Maximize} \quad Z = \sum_{p=1}^{P} (\text{price}_p \times x_p) - \sum_{m=1}^{M} \left( \sum_{p=1}^{P} (\text{time}_{m,p} \times x_p) \times \text{cost}_m \right)
+\]
+
+\subsection*{Constraints}
+
+1. \textbf{Machine Availability Constraint:}
+   \[
+   \sum_{p=1}^{P} (\text{time}_{m,p} \times x_p) \leq \text{available}_m \quad \text{for } m = 1, 2, \ldots, M-2
+   \]
+
+2. \textbf{Combined Availability for Machines \( M \) and \( M-1 \):}
+   \[
+   \sum_{p=1}^{P} (\text{time}_{M,p} \times x_p) + \sum_{p=1}^{P} (\text{time}_{M-1,p} \times x_p) \leq \text{available}_M + \text{available}_{M-1}
+   \]
+
+3. \textbf{Contractual Obligations:}
+   \[
+   x_p \geq \text{min\_batches}_p \quad \text{for } p = 1, 2, \ldots, P
+   \]
+
+4. \textbf{Non-negativity:}
+   \[
+   x_p \geq 0 \quad \text{for } p = 1, 2, \ldots, P
+   \]
+
+\subsection*{Solution}
+By solving the above linear programming model, you will obtain the number of batches of each part that should be produced in order to maximize the profit while satisfying all constraints.
+
+\end{document}

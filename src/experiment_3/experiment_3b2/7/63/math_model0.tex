@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Model for Minimizing Large Rolls Used}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{large\_roll\_width} \): Width of the large roll.
+    \item \( \text{inch}_j \): Width of smaller roll type \( j \) for \( j = 1, \ldots, M \).
+    \item \( \text{demand}_j \): Demand for smaller roll type \( j \) for \( j = 1, \ldots, M \).
+    \item \( \text{pattern}_{i,j} \): Number of rolls of type \( j \) produced by pattern \( i \) for \( i = 1, \ldots, N \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_i \): Number of times pattern \( i \) is used, integer, \( i = 1, \ldots, N \).
+\end{itemize}
+
+\subsection*{Objective Function}
+\[
+\text{Minimize} \quad \sum_{i=1}^{N} x_i
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+    \sum_{i=1}^{N} \text{pattern}_{i,j} \cdot x_i & \geq \text{demand}_j, \quad \forall j = 1, \ldots, M \\
+    x_i & \geq 0 \quad \text{and integer}, \quad \forall i = 1, \ldots, N
+\end{align*}
+
+\end{document}

@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Translator Selection}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item Let \( T = \{1, 2, \ldots, N\} \) be the set of available translators.
+    \item Let \( L = \{1, 2, \ldots, M\} \) be the set of required languages.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{cost}_i \): Cost of hiring translator \( i \in T \).
+    \item \( S_i \): Set of languages that translator \( i \) can translate (subset of \( L \)).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( x_i \) be a binary variable such that:
+    \[
+    x_i = 
+    \begin{cases} 
+    1 & \text{if translator } i \text{ is selected} \\ 
+    0 & \text{otherwise} 
+    \end{cases}
+    \]
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost of selected translators:
+\[
+\text{Minimize } Z = \sum_{i \in T} \text{cost}_i \cdot x_i
+\]
+
+\subsection*{Constraints}
+Ensure all required languages are covered:
+\[
+\sum_{i \in T} x_i \cdot \mathbb{I}(j \in S_i) \geq 1 \quad \forall j \in L
+\]
+where \( \mathbb{I}(j \in S_i) \) is an indicator function that is 1 if language \( j \) is in the set of languages that translator \( i \) can translate, and 0 otherwise.
+
+\subsection*{Binary Constraints}
+\[
+x_i \in \{0, 1\} \quad \forall i \in T
+\]
+
+\subsection*{Output}
+\begin{itemize}
+    \item \( \text{selected\_translators} = \{i \in T : x_i = 1\} \)
+    \item \( \text{total\_cost} = Z \)
+\end{itemize}
+
+\end{document}

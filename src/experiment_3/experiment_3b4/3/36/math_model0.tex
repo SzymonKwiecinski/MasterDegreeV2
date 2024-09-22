@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+\[
+\text{Minimize:} \quad \sum_{k=1}^{K} \text{price}_k \times x_k
+\]
+
+\textbf{Subject to:}
+
+1. Total weight constraint:
+\[
+\sum_{k=1}^{K} x_k = \text{alloy\_quant}
+\]
+
+2. Metal composition constraints:
+\[
+\sum_{k=1}^{K} \text{ratio}_{k,m} \times x_k = \text{target}_m \times \text{alloy\_quant}, \quad \forall m = 1, \ldots, M
+\]
+
+3. Non-negativity constraints:
+\[
+x_k \geq 0, \quad \forall k = 1, \ldots, K
+\]
+
+\end{document}

@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Sets and Indices:}
+\begin{itemize}
+    \item $K$: Number of industries
+    \item $T$: Time period (5 years)
+    \item $k, j$: Indices for industries (where $k, j \in \{1, \ldots, K\}$)
+    \item $t$: Index for time periods (where $t \in \{1, 2, \ldots, T\}$)
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $inputone_{k, j}$: Input from industry $j$ required by industry $k$
+    \item $manpowerone_{k}$: Manpower required by industry $k$ to produce
+    \item $inputtwo_{k, j}$: Input from industry $j$ required by industry $k$ to build capacity
+    \item $manpowertwo_{k}$: Manpower required by industry $k$ to build capacity
+    \item $stock_{k}$: Initial stock of industry $k$ at year 0
+    \item $capacity_{k}$: Initial capacity of industry $k$
+    \item $demand_{k}$: Exogenous demand for industry $k$
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $produce_{k, t}$: Amount produced by industry $k$ in year $t$
+    \item $buildcapa_{k, t}$: Amount used to build productive capacity for industry $k$ in year $t$
+    \item $stockhold_{k, t}$: Amount of stock of industry $k$ held at the end of year $t$
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{k=1}^K \sum_{t=1}^T manpowerone_{k} \cdot produce_{k, t} + \sum_{k=1}^K \sum_{t=1}^T manpowertwo_{k} \cdot buildcapa_{k, t}
+\]
+
+\textbf{Constraints:}
+\begin{align}
+    & \text{Production Capacity Constraints:} \\
+    & stock_{k} + \sum_{t=1}^T produce_{k, t} + \sum_{t=1}^T stockhold_{k, t-1} \geq demand_{k}, \quad \forall k \\
+    & produce_{k, t} \leq capacity_{k}, \quad \forall k, \forall t \\
+    \\
+    & \text{Input Constraints:} \\
+    & \sum_{j=1}^K inputone_{k, j} \cdot produce_{j, t-1} + \sum_{j=1}^K inputtwo_{k, j} \cdot buildcapa_{j, t-2} \leq stockhold_{k, t-1}, \quad \forall k, \forall t \\
+    \\
+    & \text{Manpower Constraints:} \\
+    & manpowerone_{k} \cdot produce_{k, t} + manpowertwo_{k} \cdot buildcapa_{k, t} \leq manpower_{total}, \quad \forall k, \forall t \\
+    \\
+    & \text{Stock Management Constraints:} \\
+    & stockhold_{k, t} = stock_{k} + \sum_{u=1}^t produce_{k, u} - demand_{k} - stock_{k, t-1}, \quad \forall k, \forall t
+\end{align}
+
+\end{document}

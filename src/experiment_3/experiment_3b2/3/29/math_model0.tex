@@ -1,0 +1,20 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+Objective: Minimize \( D \)
+
+Subject to constraints:
+\begin{align*}
+y_k - (bx_k + a) &\leq D, \quad \forall k \\
+(bx_k + a) - y_k &\leq D, \quad \forall k
+\end{align*}
+
+Decision Variables:
+\begin{align*}
+a & : \text{Intercept of the fitted line} \\
+b & : \text{Slope of the fitted line} \\
+D & : \text{Maximum deviation to be minimized}
+\end{align*}
+
+\end{document}

@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Formulation}
+
+\textbf{Decision Variables:}
+Let \( x_{i,j} \) be the amount of currency \( i \) exchanged to currency \( j \).
+
+\textbf{Objective Function:}
+\[
+\text{maximize} \quad \sum_{i=1}^{N} x_{i,N} \cdot \text{rate}_{i,N}
+\]
+
+\textbf{Constraints:}
+1. Exchange Limit Constraint:
+\[
+\sum_{j=1}^{N} x_{i,j} \leq \text{limit}_i, \quad \forall i = 1, \ldots, N
+\]
+
+2. Initial Currency Constraint:
+\[
+\sum_{j=1}^{N} x_{j,i} \cdot \text{rate}_{j,i} \leq \text{start}_i + \sum_{k=1}^{N} x_{i,k}, \quad \forall i = 1, \ldots, N
+\]
+
+3. Non-negativity Constraint:
+\[
+x_{i,j} \geq 0, \quad \forall i, j = 1, \ldots, N
+\]
+
+\end{document}

@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\subsection*{Objective}
+Minimize the maximum thrust \( M \):
+
+\[
+\min M
+\]
+
+\subsection*{Subject to}
+
+\begin{align*}
+x_{t+1} &= x_t + v_t, & t = 0, 1, \ldots, T-1\\
+v_{t+1} &= v_t + a_t, & t = 0, 1, \ldots, T-1\\
+|a_t| &\leq M, & t = 0, 1, \ldots, T-1\\
+x_0 &= \text{given initial position} &\\
+v_0 &= \text{given initial velocity} &\\
+x_T &= \text{target final position} &\\
+v_T &= \text{target final velocity} &
+\end{align*}
+
+\subsection*{Variables}
+\begin{align*}
+x_t &\quad \text{Position at time } t \\
+v_t &\quad \text{Velocity at time } t \\
+a_t &\quad \text{Acceleration at time } t \\
+M &\quad \text{Maximum thrust (to be minimized)}
+\end{align*}
+
+\end{document}

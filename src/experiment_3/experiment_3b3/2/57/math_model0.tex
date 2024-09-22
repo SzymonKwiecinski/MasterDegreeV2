@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Seaport Container Management}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $T$: Total number of months
+    \item $demand_{t}$: Demand for containers by ships in month $t$ for $t = 1, \ldots, T$
+    \item $unload\_cost_{t}$: Cost to unload a single container in month $t$
+    \item $unload\_capacity_{t}$: Maximum number of containers that can be unloaded in month $t$
+    \item $holding\_cost$: Cost for holding a container in the yard
+    \item $max\_container$: Maximum number of containers that can be stored in the yard at the end of any month
+    \item $init\_container$: Initial number of containers in the yard at the start of the first month
+    \item $num\_cranes$: Maximum number of cranes that can be rented each month
+    \item $crane\_capacity$: Capacity of each crane to load containers
+    \item $crane\_cost$: Cost for renting a crane
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $amount_{t}$: Number of containers unloaded in month $t$
+    \item $crane_{t}$: Number of cranes rented in month $t$
+    \item $inventory_{t}$: Number of containers held in the yard at the end of month $t$
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+
+\[
+\text{Total Cost} = \sum_{t=1}^{T} (unload\_cost_{t} \cdot amount_{t} + holding\_cost \cdot inventory_{t} + crane\_cost \cdot crane_{t})
+\]
+
+\subsection*{Constraints}
+
+\begin{align}
+    \text{Unloading Capacity Constraint:} \quad & amount_{t} \leq unload\_capacity_{t}, \quad \forall t \\
+    \text{Demand Fulfillment:} \quad & amount_{t} + inventory_{t-1} - inventory_{t} = demand_{t}, \quad \forall t \;\; (t > 1) \\
+    \text{Initial Inventory:} \quad & inventory_{1} = init\_container + amount_{1} \\
+    \text{Yard Capacity:} \quad & inventory_{t} \leq max\_container, \quad \forall t \\
+    \text{Crane Limit:} \quad & crane_{t} \leq num\_cranes, \quad \forall t \\
+    \text{Loading Capacity Constraint:} \quad & crane_{t} \cdot crane\_capacity \geq demand_{t} - inventory_{t-1}, \quad \forall t \;\; (t > 1) \\
+    \text{Final Inventory Constraint:} \quad & inventory_{T} = 0 
+\end{align}
+
+\subsection*{Output}
+The solution will give:
+\begin{itemize}
+    \item $containers\_unloaded$: $[amount_{t} \; \text{for} \; t = 1, \ldots, T]$
+    \item $cranes\_rented$: $[crane_{t} \; \text{for} \; t = 1, \ldots, T]$
+    \item $total\_cost$: Total Cost
+\end{itemize}
+
+\end{document}

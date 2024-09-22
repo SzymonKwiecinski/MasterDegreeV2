@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item $t \in \{1, \ldots, T\}$: Index for the months.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $\text{demand}_t$: Demand for containers in month $t$.
+    \item \text{unload\_cost}_t$: Unloading cost per container in month $t$.
+    \item \text{unload\_capacity}_t$: Maximum number of containers that can be unloaded in month $t$.
+    \item \text{holding\_cost}$: Holding cost per container stored in the yard.
+    \item \text{max\_container}$: Maximum storage capacity of the yard.
+    \item \text{init\_container}$: Initial number of containers in the yard at the start of the first month.
+    \item \text{num\_cranes}$: Maximum number of cranes available for rental each month.
+    \item \text{crane\_capacity}$: Loading capacity per crane.
+    \item \text{crane\_cost}$: Cost per crane rented.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_t$: Number of containers unloaded in month $t$.
+    \item $y_t$: Number of cranes rented in month $t$.
+    \item $h_t$: Number of containers held in the yard at the end of month $t$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize} \quad \sum_{t=1}^{T} \left( \text{unload\_cost}_t \cdot x_t + \text{crane\_cost} \cdot y_t + \text{holding\_cost} \cdot h_t \right)
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    & x_t \leq \text{unload\_capacity}_t, \quad \forall t \label{eq:unload_capacity} \\
+    & h_1 = x_1 + \text{init\_container} - \text{demand}_1 \label{eq:init_balance} \\
+    & h_t = x_t + h_{t-1} - \text{demand}_t, \quad \forall t = 2, \ldots, T \label{eq:balance} \\
+    & h_t \leq \text{max\_container}, \quad \forall t \label{eq:max_storage} \\
+    & y_t \cdot \text{crane\_capacity} \geq \text{demand}_t, \quad \forall t \label{eq:crane_capacity} \\
+    & y_t \leq \text{num\_cranes}, \quad \forall t \label{eq:max_cranes} \\
+    & h_T = 0 \label{eq:end_balance} \\
+    & x_t \geq 0, \quad h_t \geq 0, \quad y_t \in \mathbb{Z}^+ \cup \{0\}, \quad \forall t \label{eq:nonnegative}
+\end{align}
+
+\end{document}

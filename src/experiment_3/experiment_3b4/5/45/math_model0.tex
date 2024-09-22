@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+Let \( x_a \) be the number of clicks purchased (in thousands) for ad type \( a \), where \( a \) ranges from 1 to \( A \).
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+Z = \sum_{a=1}^{A} \text{cost}_a \times x_a
+\]
+
+\subsection*{Constraints}
+1. Total clicks from young visitors:
+   \[
+   \sum_{a=1}^{A} \text{young\_click}_{a} \times x_a \geq \text{goal\_young}
+   \]
+
+2. Total clicks from old visitors:
+   \[
+   \sum_{a=1}^{A} \text{old\_click}_{a} \times x_a \geq \text{goal\_old}
+   \]
+
+3. Unique clicks from young visitors:
+   \[
+   \sum_{a=1}^{A} \text{young\_click}_{a} \times \text{unique\_click}_{a} \times x_a \geq \text{goal\_unique\_young}
+   \]
+
+4. Unique clicks from old visitors:
+   \[
+   \sum_{a=1}^{A} \text{old\_click}_{a} \times \text{unique\_click}_{a} \times x_a \geq \text{goal\_unique\_old}
+   \]
+
+5. Maximum clicks for each ad type:
+   \[
+   x_a \leq \text{max\_click}_{a} \quad \text{for all } a = 1, 2, \ldots, A
+   \]
+
+6. Non-negativity:
+   \[
+   x_a \geq 0 \quad \text{for all } a = 1, 2, \ldots, A
+   \]
+
+\end{document}

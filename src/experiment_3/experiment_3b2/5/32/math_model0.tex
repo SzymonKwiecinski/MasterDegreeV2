@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Sets and Indices:}
+\begin{itemize}
+    \item \( k \in \{1, \ldots, K\} \): Index for products.
+    \item \( s \in \{1, \ldots, S\} \): Index for production stages.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \(\text{produce\_time}_{k, s}\): Time required to produce one unit of product \( k \) at stage \( s \).
+    \item \(\text{time}_{s}\): Available working hours at stage \( s \).
+    \item \(\text{profit}_{k}\): Unitary profit for product \( k \).
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( x_k \geq 0 \): Quantity of product \( k \) to produce.
+\end{itemize}
+
+\textbf{Objective:}
+\[
+\text{Maximize} \quad Z = \sum_{k=1}^{K} \text{profit}_k \times x_k
+\]
+
+\textbf{Subject to:}
+\[
+\sum_{k=1}^{K} \text{produce\_time}_{k, s} \times x_k \leq \text{time}_s \quad \forall s = 1, \ldots, S
+\]
+
+\textbf{Non-negativity:}
+\[
+x_k \geq 0 \quad \forall k = 1, \ldots, K
+\]
+
+\end{document}

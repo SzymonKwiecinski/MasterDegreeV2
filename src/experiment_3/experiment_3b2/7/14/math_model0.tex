@@ -1,0 +1,26 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_i$: production quantity of the $i$-th product
+    \item $u$: binary variable indicating machine capacity upgrade ($1$ if upgraded, $0$ otherwise)
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{i=1}^{P} \left(\text{price}_i \cdot x_i - \text{cost}_i \cdot x_i - \text{investPercentage}_i \cdot \text{price}_i \cdot x_i\right) - \text{upgradeCost} \cdot u
+\]
+
+\textbf{Subject to:}
+\begin{align*}
+    & \sum_{i=1}^{P} \left(\text{cost}_i \cdot x_i\right) \leq \text{cash} + \sum_{i=1}^{P} \left(\text{investPercentage}_i \cdot \text{price}_i \cdot x_i\right) \quad & (\text{Cash Constraint}) \\
+    & \sum_{i=1}^{P} \left(\text{hour}_i \cdot x_i\right) \leq \text{availableHours} + \text{upgradeHours} \cdot u \quad & (\text{Machine Hours Constraint}) \\
+    & u \in \{0, 1\} \quad & (\text{Binary Upgrade Variable}) \\
+    & x_i \geq 0 \quad \text{for all } i \quad & (\text{Non-negativity Constraint})
+\end{align*}
+
+\end{document}

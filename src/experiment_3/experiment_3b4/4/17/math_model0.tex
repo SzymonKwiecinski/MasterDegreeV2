@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Decision Variables:}
+\begin{align*}
+\text{Let } x_i & \text{ be the number of shares of stock } i \text{ to sell, for } i = 1, \ldots, N.
+\end{align*}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } \sum_{i=1}^{N} (bought_i - x_i) \times \text{futurePrice}_i
+\]
+
+\textbf{Constraints:}
+
+1. \textbf{Net Amount Raised Constraint:}
+\[
+\sum_{i=1}^{N} \left[ x_i \times \text{currentPrice}_i - \frac{\text{transactionRate}}{100} \times x_i \times \text{currentPrice}_i - \frac{\text{taxRate}}{100} \times \max(0, x_i \times \text{currentPrice}_i - x_i \times \text{buyPrice}_i) \right] \geq K
+\]
+
+2. \textbf{Non-negativity:}
+\[
+0 \leq x_i \leq bought_i, \quad \text{for } i = 1, \ldots, N.
+\]
+
+\textbf{Explanation:}
+\begin{itemize}
+    \item The objective function aims to maximize the expected value of the portfolio next year, which is the sum of the expected values of the remaining shares of each stock.
+    \item The net amount raised constraint ensures that the amount obtained from selling shares, after accounting for transaction costs and taxes on any capital gains, meets or exceeds the required amount \( K \).
+    \item The constraints ensure that the number of shares sold \( x_i \) is non-negative and cannot exceed the number of shares initially bought.
+\end{itemize}
+
+\end{document}

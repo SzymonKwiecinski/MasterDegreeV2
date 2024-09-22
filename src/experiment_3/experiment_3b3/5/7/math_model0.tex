@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Trajectory Optimization}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item \( x_t \) be the position of the rocket at time \( t \)
+    \item \( v_t \) be the velocity of the rocket at time \( t \)
+    \item \( a_t \) be the acceleration of the rocket at time \( t \)
+\end{itemize}
+
+\subsection*{Model Equations}
+The discrete-time model can be defined as:
+\[
+x_{t+1} = x_t + v_t
+\]
+\[
+v_{t+1} = v_t + a_t
+\]
+
+\subsection*{Parameters}
+Given:
+\begin{itemize}
+    \item Initial position \( x_0 \)
+    \item Initial velocity \( v_0 \)
+    \item Target position \( x_T \)
+    \item Target velocity \( v_T \)
+    \item Total time \( T \)
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the maximum thrust required, which can be expressed as:
+\[
+\text{Minimize} \quad \max_{t} |a_t|
+\]
+
+\subsection*{Constraints}
+The constraints of the problem can be defined as follows:
+\begin{align*}
+x_0 &= x_0 \\
+v_0 &= v_0 \\
+x_T &= x_T \\
+v_T &= v_T
+\end{align*}
+
+And for each time step from \( t = 0 \) to \( t = T-1 \):
+\begin{align*}
+x_{t+1} &= x_t + v_t \quad \text{for } t = 0, 1, \ldots, T-1 \\
+v_{t+1} &= v_t + a_t \quad \text{for } t = 0, 1, \ldots, T-1
+\end{align*}
+
+\subsection*{Output}
+The output will be in the following format:
+\[
+\{
+    "x": [x_i \text{ for } i = 0, \ldots, T],
+    "v": [v_i \text{ for } i = 0, \ldots, T],
+    "a": [a_i \text{ for } i = 0, \ldots, T],
+    "fuel\_spend": \text{total fuel spent}
+\}
+\]
+
+\end{document}

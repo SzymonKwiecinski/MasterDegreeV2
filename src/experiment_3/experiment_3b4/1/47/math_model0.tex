@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Indices and Sets}
+\begin{itemize}
+    \item \( S \): Number of shifts in a day.
+    \item \( s \): Index for shifts, \( s = 1, 2, \ldots, S \).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \texttt{officers\_needed}$_s$: Number of officers required for shift \( s \).
+    \item \texttt{shift\_cost}$_s$: Cost of starting a shift at \( s \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_s \): Number of officers starting at shift \( s \).
+\end{itemize}
+
+\subsection*{Objective}
+Minimize the total cost for assigning officers to shifts:
+\[
+\text{Minimize } Z = \sum_{s=1}^{S} \texttt{shift\_cost}_s \cdot x_s
+\]
+
+\subsection*{Constraints}
+Each shift \( s \) must have the required number of officers, considering that each officer works for two consecutive shifts:
+\[
+x_s + x_{s-1} \geq \texttt{officers\_needed}_s, \quad \forall s = 1, 2, \ldots, S
+\]
+*Note: For the first shift, assume \( x_0 = x_S \) to account for the cyclic nature of shifts.*
+
+\subsection*{Non-negativity}
+\[
+x_s \geq 0, \quad \forall s = 1, 2, \ldots, S
+\]
+
+\end{document}

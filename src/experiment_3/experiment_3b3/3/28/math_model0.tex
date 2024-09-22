@@ -1,0 +1,73 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Fitting a Line}
+
+Given a set of observations \( (x_k, y_k) \) for \( k = 1, \ldots, K \), we aim to fit the best straight line of the form:
+
+\[
+y = bx + a
+\]
+
+where \( a \) is the intercept and \( b \) is the slope.
+
+\subsection*{Objective Function}
+
+Our objective is to minimize the sum of absolute deviations between the observed values \( y_k \) and the predicted values \( bx_k + a \). Thus, we can express our objective function as:
+
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} |y_k - (bx_k + a)|
+\]
+
+To handle the absolute values, we introduce auxiliary variables \( e_k \) for \( k = 1, \ldots, K \) such that:
+
+\[
+|y_k - (bx_k + a)| \leq e_k
+\]
+
+This leads to the equivalent formulation of our objective function:
+
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} e_k
+\]
+
+\subsection*{Constraints}
+
+To ensure that the auxiliary variables \( e_k \) correctly represent the absolute deviations, we define the following constraints:
+
+1. \( y_k - (bx_k + a) \leq e_k \) for \( k = 1, \ldots, K \)
+2. \( -(y_k - (bx_k + a)) \leq e_k \) for \( k = 1, \ldots, K \)
+
+Thus, we can write the linear constraints as:
+
+\[
+\begin{align*}
+y_k - bx_k - a & \leq e_k, \quad \forall k \in \{1, \ldots, K\} \\
+-bx_k - a + y_k & \leq e_k, \quad \forall k \in \{1, \ldots, K\}
+\end{align*}
+\]
+
+\subsection*{Final Model}
+
+The complete linear programming model can be summarized as follows:
+
+\[
+\begin{array}{ll}
+\text{Minimize} & \sum_{k=1}^{K} e_k \\
+\text{Subject to} & y_k - bx_k - a \leq e_k, \quad \forall k \in \{1, \ldots, K\} \\
+& -bx_k - a + y_k \leq e_k, \quad \forall k \in \{1, \ldots, K\} \\
+& e_k \geq 0, \quad \forall k \in \{1, \ldots, K\}
+\end{array}
+\]
+
+\subsection*{Output Information}
+
+The solution to this linear programming model will yield:
+
+\begin{itemize}
+    \item \( \text{intercept} = a \)
+    \item \( \text{slope} = b \)
+\end{itemize}
+
+\end{document}

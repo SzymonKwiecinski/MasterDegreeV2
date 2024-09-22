@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Seaport Container Management}
+
+% Variables
+Let:
+\begin{itemize}
+    \item \( amount_t \): number of containers unloaded in month \( t \) 
+    \item \( crane_t \): number of cranes rented in month \( t \)
+    \item \( hold_t \): number of containers held in the yard at the end of month \( t \)
+    \item \( total\_cost \): total cost over the period
+\end{itemize}
+
+% Parameters
+Given parameters:
+\begin{itemize}
+    \item \( demand_t \): demand for containers by ships in month \( t \)
+    \item \( unload\_cost_t \): unloading cost per container in month \( t \)
+    \item \( unload\_capacity_t \): unloading capacity in month \( t \)
+    \item \( holding\_cost \): holding cost per container per month
+    \item \( max\_container \): maximum containers that can be stored in the yard
+    \item \( init\_container \): initial number of containers in the yard
+    \item \( num\_cranes \): maximum number of cranes that can be rented
+    \item \( crane\_capacity \): capacity of each crane
+    \item \( crane\_cost \): rental cost per crane
+\end{itemize}
+
+% Objective Function
+\begin{align*}
+    \text{Minimize } & total\_cost = \sum_{t=1}^{T} (unload\_cost_t \cdot amount_t + holding\_cost \cdot hold_t + crane\_cost \cdot crane_t) 
+\end{align*}
+
+% Constraints
+Subject to:
+\begin{align*}
+    & amount_t \leq unload\_capacity_t, \quad \forall t \in [1, T] \quad \text{(Unloading Capacity)} \\
+    & hold_t = hold_{t-1} + amount_t - demand_t, \quad \forall t \in [1, T] \\
+    & hold_t \leq max\_container, \quad \forall t \in [1, T] \quad \text{(Yard Capacity)} \\
+    & hold_0 = init\_container \quad \text{(Initial Condition)} \\
+    & hold_T = 0 \quad \text{(Final Condition)} \\
+    & crane_t \cdot crane\_capacity \geq amount_t, \quad \forall t \in [1, T] \quad \text{(Loading Capacity)} \\
+    & crane_t \leq num\_cranes, \quad \forall t \in [1, T] \quad \text{(Cranes Limit)} \\
+    & amount_t \geq 0, \quad crane_t \geq 0, \quad \forall t \in [1, T] \quad \text{(Non-negativity)}
+\end{align*}
+
+\end{document}

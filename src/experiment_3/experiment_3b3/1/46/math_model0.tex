@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Steel Production}
+
+Let:
+\begin{itemize}
+    \item \( S \) = number of different types of steel
+    \item \( A \) = number of different alloys
+    \item \( \text{available}_{a} \) = available tons of alloy \( a \)
+    \item \( \text{carbon}_{a} \) = percentage of carbon in alloy \( a \)
+    \item \( \text{nickel}_{a} \) = percentage of nickel in alloy \( a \)
+    \item \( \text{alloy\_price}_{a} \) = purchase price of alloy \( a \) per ton
+    \item \( \text{steel\_price}_{s} \) = selling price of steel \( s \) per ton
+    \item \( \text{carbon\_min}_{s} \) = minimum percentage of carbon required for steel \( s \)
+    \item \( \text{nickel\_max}_{s} \) = maximum percentage of nickel allowed for steel \( s \)
+    \item \( X_{a,s} \) = amount of alloy \( a \) used in steel \( s \)
+    \item \( T_{s} \) = total amount of steel type \( s \) produced
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize profit:
+\[
+\text{Total Profit} = \sum_{s=1}^{S} (\text{steel\_price}_{s} \cdot T_{s}) - \sum_{a=1}^{A} (\text{alloy\_price}_{a} \cdot \sum_{s=1}^{S} X_{a,s})
+\]
+
+\subsection*{Constraints}
+
+1. **Availability of Alloys:**
+\[
+\sum_{s=1}^{S} X_{a,s} \leq \text{available}_{a} \quad \forall a \in \{1, 2, \ldots, A\}
+\]
+
+2. **Carbon Requirement for Steel:**
+\[
+\sum_{a=1}^{A} \left( \frac{\text{carbon}_{a}}{100} \cdot X_{a,s} \right) \geq \text{carbon\_min}_{s} \cdot T_{s} \quad \forall s \in \{1, 2, \ldots, S\}
+\]
+
+3. **Nickel Requirement for Steel:**
+\[
+\sum_{a=1}^{A} \left( \frac{\text{nickel}_{a}}{100} \cdot X_{a,s} \right) \leq \text{nickel\_max}_{s} \cdot T_{s} \quad \forall s \in \{1, 2, \ldots, S\}
+\]
+
+4. **Alloy Usage Limitation:**
+\[
+\sum_{s=1}^{S} X_{1,s} \leq 0.4 \cdot \sum_{s=1}^{S} T_{s}
+\]
+
+5. **Non-negativity:**
+\[
+X_{a,s} \geq 0 \quad \forall a \in \{1, 2, \ldots, A\}, \, s \in \{1, 2, \ldots, S\}
+\]
+\[
+T_{s} \geq 0 \quad \forall s \in \{1, 2, \ldots, S\}
+\]
+
+\subsection*{Decision Variables}
+- \( X_{a,s} \): amount of alloy \( a \) used in steel type \( s \)
+- \( T_{s} \): total amount of steel type \( s \) produced
+
+\subsection*{Output}
+The output will consist of:
+\begin{itemize}
+    \item Alloy usage: \( \text{alloy\_use}[a][s] = X_{a,s} \)
+    \item Total steel produced: \( \text{total\_steel}[s] = T_{s} \)
+    \item Total profit: \( \text{total\_profit} \)
+\end{itemize}
+
+\end{document}

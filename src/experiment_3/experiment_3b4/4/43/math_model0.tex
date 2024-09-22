@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Wild Sports}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item \( j \) : Index for products \( j = 1, 2, \ldots, M \).
+    \item \( i \) : Index for raw materials \( i = 1, 2, \ldots, N \).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{available}_i \) : Available units of raw material \( i \).
+    \item \( \text{req}_{i,j} \) : Units of raw material \( i \) required to produce one unit of product \( j \).
+    \item \( \text{price}_j \) : Selling price per unit of product \( j \).
+    \item \( \text{cost}_j \) : Production cost per unit of product \( j \).
+    \item \( \text{demand}_j \) : Forecasted maximum demand of product \( j \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_j \) : Number of units of product \( j \) to be produced.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize} \quad \sum_{j=1}^{M} (\text{price}_j - \text{cost}_j) x_j
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+& \text{Raw Material Constraints:} \\
+& \sum_{j=1}^{M} \text{req}_{i,j} x_j \leq \text{available}_i, \quad \forall i = 1, 2, \ldots, N \\
+& \text{Demand Constraints:} \\
+& x_j \leq \text{demand}_j, \quad \forall j = 1, 2, \ldots, M \\
+& \text{Non-negativity Constraints:} \\
+& x_j \geq 0, \quad \forall j = 1, 2, \ldots, M
+\end{align*}
+
+\end{document}

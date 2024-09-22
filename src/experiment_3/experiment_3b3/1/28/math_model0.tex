@@ -1,0 +1,85 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Fitting a Line}
+
+Given the data points \((x_k, y_k)\) for \(k = 1, 2, \ldots, K\), we aim to fit the best straight line defined by the equation:
+
+\[
+y = bx + a
+\]
+
+where \(b\) is the slope and \(a\) is the intercept. The objective is to minimize the sum of the absolute deviations between the observed values of \(y\) and the predicted values from the linear model.
+
+\subsection*{Objective Function}
+
+The objective function to minimize can be expressed as:
+
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} |y_k - (bx_k + a)|
+\]
+
+Let \(d_k\) be the deviation, such that:
+
+\[
+d_k = y_k - (bx_k + a)
+\]
+
+Thus, we introduce non-negative slack variables \(u_k\) and \(v_k\) such that:
+
+\[
+d_k = u_k - v_k \quad \text{with} \quad u_k, v_k \geq 0
+\]
+
+We can reformulate the objective function:
+
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} (u_k + v_k)
+\]
+
+\subsection*{Constraints}
+
+The constraints will be generated from the definitions of \(d_k\):
+
+\[
+y_k - (bx_k + a) \leq u_k \quad \forall k = 1, \ldots, K
+\]
+
+\[
+-(y_k - (bx_k + a)) \leq v_k \quad \forall k = 1, \ldots, K
+\]
+
+Which can be written as:
+
+\[
+y_k - bx_k - a \leq u_k \quad \forall k = 1, \ldots, K
+\]
+
+\[
+-bx_k - a + y_k \leq v_k \quad \forall k = 1, \ldots, K
+\]
+
+\subsection*{Complete Linear Program}
+
+To summarize, the complete linear programming model for this problem is:
+
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} (u_k + v_k)
+\]
+
+Subject to:
+
+\[
+y_k - bx_k - a \leq u_k \quad \forall k = 1, \ldots, K
+\]
+
+\[
+-bx_k - a + y_k \leq v_k \quad \forall k = 1, \ldots, K
+\]
+
+\[
+u_k, v_k \geq 0 \quad \forall k = 1, \ldots, K
+\]
+
+\end{document}

@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Movement Optimization Problem}
+
+We define the following variables:
+\begin{itemize}
+    \item \( x_t \): Position of the rocket at time \( t \)
+    \item \( v_t \): Velocity of the rocket at time \( t \)
+    \item \( a_t \): Acceleration of the rocket at time \( t \)
+\end{itemize}
+
+The discrete-time model can be described as follows:
+\[
+x_{t+1} = x_t + v_t
+\]
+\[
+v_{t+1} = v_t + a_t
+\]
+
+The objective of our problem is to minimize the total fuel consumption, which is expressed as:
+\[
+\text{Minimize } Z = \sum_{t=0}^{T-1} |a_t|
+\]
+
+Subject to the constraints:
+\begin{align*}
+x_0 &= \text{initial position} \\
+v_0 &= \text{initial velocity} \\
+x_T &= \text{target position} \\
+v_T &= \text{target velocity} \\
+T &= \text{total time}
+\end{align*}
+
+The output of the optimization problem is structured as follows:
+
+\begin{itemize}
+    \item \( x \): List of positions of the rocket at each time step from \( 0 \) to \( T \)
+    \item \( v \): List of velocities of the rocket at each time step from \( 0 \) to \( T \)
+    \item \( a \): List of accelerations of the rocket at each time step from \( 0 \) to \( T \)
+    \item \text{fuel\_spend}: Total fuel spent by the rocket
+\end{itemize}
+
+The expected output format is:
+\[
+\{
+    "x": [x_i \text{ for } i \text{ in } 1, ..., T],
+    "v": [v_i \text{ for } i \text{ in } 1, ..., T],
+    "a": [a_i \text{ for } i \text{ in } 1, ..., T],
+    "fuel\_spend": \text{fuel\_spent},
+\}
+\]
+
+\end{document}

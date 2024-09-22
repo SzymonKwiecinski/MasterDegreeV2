@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Rocket Path Optimization}
+
+\subsection*{Objective:}
+Minimize the total fuel spent, which is the sum of the absolute values of the accelerations over the time period from $t = 0$ to $t = T-1$.
+
+\[
+\text{Minimize } \sum_{t=0}^{T-1} |a_t|
+\]
+
+\subsection*{Subject to:}
+1. Dynamics of the rocket:
+   \[
+   x_{t+1} = x_t + v_t \quad \text{for } t = 0, 1, \ldots, T-1
+   \]
+   \[
+   v_{t+1} = v_t + a_t \quad \text{for } t = 0, 1, \ldots, T-1
+   \]
+
+2. Initial conditions:
+   \[
+   x_0 = x_0 \quad \text{(given)}
+   \]
+   \[
+   v_0 = v_0 \quad \text{(given)}
+   \]
+
+3. Final conditions:
+   \[
+   x_T = x_T \quad \text{(target position)}
+   \]
+   \[
+   v_T = v_T \quad \text{(target velocity)}
+   \]
+
+\subsection*{Variables:}
+\[
+x_t, v_t, a_t \text{ for } t = 0, 1, \ldots, T
+\]
+
+\end{document}

@@ -1,0 +1,17 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\textbf{Linear Programming Model for Soybean Transportation:}
+
+\begin{align*}
+\text{Minimize } & Z = \sum_{(i,j) \in A} C_{i,j} \cdot x_{i,j} \\
+\text{subject to} & \\
+& \sum_{j: (k, j) \in A} x_{k,j} \leq \text{supply}_{k}, \quad \forall k \text{ (Supply constraints)} \\
+& \sum_{i: (i, l) \in A} x_{i,l} = \text{demand}_{l}, \quad \forall l \text{ (Demand constraints)} \\
+& \sum_{i: (i, p) \in A} x_{i,p} = \sum_{j: (p, j) \in A} x_{p,j}, \quad \forall p \text{ (Flow conservation for ports)} \\
+& x_{i,j} \geq 0, \quad \forall (i,j) \in A \text{ (Non-negativity constraints)}
+\end{align*}
+
+\end{document}

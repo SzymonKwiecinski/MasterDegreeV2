@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Steel Production}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( x_{a,s} \) be the amount of alloy \( a \) used in steel type \( s \) (in tons).
+    \item Let \( y_s \) be the total amount of steel type \( s \) produced (in tons).
+\end{itemize}
+
+\textbf{Objective:} Maximize total profit
+
+\[
+\text{Maximize } Z = \sum_{s=1}^S \text{steel\_price}_s \cdot y_s - \sum_{a=1}^A \text{alloy\_price}_a \cdot \sum_{s=1}^S x_{a,s}
+\]
+
+\textbf{Subject to constraints:}
+
+1. **Alloy availability constraints:**
+\[
+\sum_{s=1}^S x_{a,s} \leq \text{available}_{a}, \quad \forall a \in \{1, \ldots, A\}
+\]
+
+2. **Carbon content constraints for each steel type:**
+\[
+\sum_{a=1}^A \frac{\text{carbon}_{a}}{100} x_{a,s} \geq \text{carbon\_min}_{s} \cdot y_s, \quad \forall s \in \{1, \ldots, S\}
+\]
+
+3. **Nickel content constraints for each steel type:**
+\[
+\sum_{a=1}^A \frac{\text{nickel}_{a}}{100} x_{a,s} \leq \text{nickel\_max}_{s} \cdot y_s, \quad \forall s \in \{1, \ldots, S\}
+\]
+
+4. **Maximum limit on alloy 1 usage:**
+\[
+\sum_{s=1}^S x_{1,s} \leq 0.4 \cdot \sum_{s=1}^S y_s
+\]
+
+5. **Non-negativity constraints:**
+\[
+x_{a,s} \geq 0, \quad y_s \geq 0 \quad \forall a \in \{1, \ldots, A\}, s \in \{1, \ldots, S\}
+\]
+
+\end{document}

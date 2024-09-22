@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Objective:} Maximize profit
+
+\begin{align*}
+\text{Maximize: } & Z = \text{sell\_price} \times \text{n\_steel\_quant} - \sum_{k=1}^{K} \left( \frac{\text{cost}_k}{1000} \times \text{amount}_k \right) - \text{mang\_price} \times \text{num\_mang} - \text{melt\_price} \times \sum_{k=1}^{K} \text{amount}_k
+\end{align*}
+
+\textbf{Subject to:}
+
+\begin{align*}
+1. & \quad \text{Total manganese requirement:} \\
+& \sum_{k=1}^{K} \text{contmn}_k \times \text{amount}_k + \text{num\_mang} = \text{mn\_percent} \times \text{n\_steel\_quant} \\
+2. & \quad \text{Total silicon requirement (lower bound):} \\
+& \sum_{k=1}^{K} \text{contsi}_k \times \text{amount}_k \geq \text{si\_min} \times \text{n\_steel\_quant} \\
+3. & \quad \text{Total silicon requirement (upper bound):} \\
+& \sum_{k=1}^{K} \text{contsi}_k \times \text{amount}_k \leq \text{si\_max} \times \text{n\_steel\_quant} \\
+4. & \quad \text{Total mass of minerals:} \\
+& \sum_{k=1}^{K} \text{amount}_k = \text{n\_steel\_quant} \\
+5. & \quad \text{Non-negativity constraints:} \\
+& \text{amount}_k \geq 0 \quad \text{for all } k = 1, \ldots, K \\
+& \text{num\_mang} \geq 0
+\end{align*}
+
+\end{document}

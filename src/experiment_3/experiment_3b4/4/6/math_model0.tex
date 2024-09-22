@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+Minimize the total fuel consumption:
+\[
+\min \sum_{t=0}^{T-1} |a_t|
+\]
+
+\textbf{Subject to:}
+\begin{align*}
+x_{t+1} &= x_t + v_t, &\forall t = 0, 1, \ldots, T-1, \\
+v_{t+1} &= v_t + a_t, &\forall t = 0, 1, \ldots, T-1, \\
+x_0 &= \text{given initial position}, \\
+v_0 &= \text{given initial velocity}, \\
+x_T &= \text{target position}, \\
+v_T &= \text{target velocity}.
+\end{align*}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \(x_t\): Position of the rocket at time \(t\).
+    \item \(v_t\): Velocity of the rocket at time \(t\).
+    \item \(a_t\): Acceleration of the rocket at time \(t\).
+\end{itemize}
+
+\textbf{Constraints:}
+\begin{align*}
+& x_0 \text{ is given}, \\
+& v_0 \text{ is given}, \\
+& x_T \text{ is a target position}, \\
+& v_T \text{ is a target velocity}.
+\end{align*}
+
+\textbf{Variables:}
+\begin{align*}
+x &= [x_0, x_1, \ldots, x_T], \\
+v &= [v_0, v_1, \ldots, v_T], \\
+a &= [a_0, a_1, \ldots, a_{T-1}].
+\end{align*}
+
+\textbf{Output:}
+\begin{itemize}
+    \item \(x\): Positions at each time step.
+    \item \(v\): Velocities at each time step.
+    \item \(a\): Accelerations at each time step.
+    \item \text{Fuel spend}: Total fuel consumption \(\sum_{t=0}^{T-1} |a_t|\).
+\end{itemize}
+
+\end{document}

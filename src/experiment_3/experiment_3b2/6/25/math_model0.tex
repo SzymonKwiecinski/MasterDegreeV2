@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Formulation}
+
+\subsection*{Decision Variables}
+Let:
+\begin{align*}
+    \text{produce}_{k, t} & : \text{Units produced by industry } k \text{ in year } t, \\
+    \text{buildcapa}_{k, t} & : \text{Units used to build productive capacity for industry } k \text{ in year } t, \\
+    \text{stockhold}_{k, t} & : \text{Stock of industry } k \text{ held in year } t.
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+    \text{inputone}_{k, j} & : \text{Input from industry } j \text{ required by industry } k, \\
+    \text{manpowerone}_{k} & : \text{Manpower units required by industry } k \text{ for production}, \\
+    \text{inputtwo}_{k, j} & : \text{Input from industry } j \text{ required to increase capacity in industry } k, \\
+    \text{manpowertwo}_{k} & : \text{Manpower units required to increase capacity of industry } k, \\
+    \text{stock}_{k} & : \text{Initial stock of industry } k \text{ at year 0}, \\
+    \text{capacity}_{k} & : \text{Initial capacity of industry } k \text{ at year 0}, \\
+    \text{manpower\_limit} & : \text{Yearly manpower capacity}.
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total production in the last two years:
+\[
+\max \sum_{k=1}^K \sum_{t=T-1}^T \text{produce}_{k, t}
+\]
+
+\subsection*{Constraints}
+
+\subsubsection*{Production and Capacity Constraints}
+For each industry $k$ in each year $t$:
+\[
+\text{produce}_{k, t} + \text{buildcapa}_{k, t} \leq \text{capacity}_{k, t} + \text{stockhold}_{k, t-1}, \quad \forall k, t
+\]
+
+\subsubsection*{Input Constraints}
+For each industry $k$ in each year $t$:
+\[
+\sum_{j=1}^K \text{inputone}_{k, j} \times \text{produce}_{k, t} \leq \text{available\_input}_{j, t-1}, \quad \forall k, t
+\]
+
+\subsubsection*{Manpower Constraints}
+For each year $t$:
+\[
+\sum_{k=1}^K \left( \text{manpowerone}_{k} \times \text{produce}_{k, t} + \text{manpowertwo}_{k} \times \text{buildcapa}_{k, t} \right) \leq \text{manpower\_limit}, \quad \forall t
+\]
+
+\subsubsection*{Stock Constraints}
+For each industry $k$ in each year $t$:
+\[
+\text{stockhold}_{k, t} = \text{stockhold}_{k, t-1} + \text{produce}_{k, t} - \text{used\_for\_production}_{k, t}, \quad \forall k, t
+\]
+
+\subsubsection*{Initial Conditions}
+Initial stock and capacity for each industry $k$:
+\begin{align*}
+    \text{stockhold}_{k, 0} & = \text{stock}_{k}, \\
+    \text{capacity}_{k, 0} & = \text{capacity}_{k}.
+\end{align*}
+
+\subsection*{Non-negativity Constraints}
+\[
+\text{produce}_{k, t}, \text{buildcapa}_{k, t}, \text{stockhold}_{k, t} \geq 0, \quad \forall k, t
+\]
+
+\end{document}

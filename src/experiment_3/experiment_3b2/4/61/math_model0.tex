@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item Let $N$ be the number of clusters.
+    \item $i \in \{1, 2, \ldots, N\}$ represents each cluster.
+    \item $j \in \{\text{isolate}, \text{scan}\}$ for the type of intervention.
+    \item $k \in \{\text{central}, \text{distributed}\}$ for the processing method.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $t_{ij}^{\text{central}}$ - Processing time for intervention type $j$ at cluster $i$ using central processing.
+    \item $t_{ij}^{\text{distributed}}$ - Processing time for intervention type $j$ at cluster $i$ using distributed processing.
+    \item $c^{\text{central}}$ - Opportunity cost per hour for central processing.
+    \item $c^{\text{distributed}}$ - Opportunity cost per hour for distributed processing.
+    \item $H^{\text{central}}_{\max}$ - Maximum hours available for central processing.
+    \item $H^{\text{distributed}}_{\max}$ - Maximum hours available for distributed processing.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_{ij}^{\text{central}} \in \{0, 1\}$ - Binary variable, equals 1 if intervention type $j$ is selected for cluster $i$ using central processing.
+    \item $x_{ij}^{\text{distributed}} \in \{0, 1\}$ - Binary variable, equals 1 if intervention type $j$ is selected for cluster $i$ using distributed processing.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } Z = c^{\text{central}} \sum_{i=1}^{N} \sum_{j} t_{ij}^{\text{central}} x_{ij}^{\text{central}} + c^{\text{distributed}} \sum_{i=1}^{N} \sum_{j} t_{ij}^{\text{distributed}} x_{ij}^{\text{distributed}}
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    & \sum_{j} (x_{ij}^{\text{central}} + x_{ij}^{\text{distributed}}) = 1, \quad \forall i \in \{1, \ldots, N\} && \text{(Each cluster uses one intervention)} \\
+    & \sum_{i=1}^{N} \sum_{j} t_{ij}^{\text{central}} x_{ij}^{\text{central}} \leq H^{\text{central}}_{\max} && \text{(Central processing time limit)} \\
+    & \sum_{i=1}^{N} \sum_{j} t_{ij}^{\text{distributed}} x_{ij}^{\text{distributed}} \leq H^{\text{distributed}}_{\max} && \text{(Distributed processing time limit)} \\
+    & x_{ij}^{\text{central}}, x_{ij}^{\text{distributed}} \in \{0, 1\}, \quad \forall i, j
+\end{align}
+
+\end{document}

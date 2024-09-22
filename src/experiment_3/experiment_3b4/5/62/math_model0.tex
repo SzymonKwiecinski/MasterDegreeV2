@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+% Define the problem
+\textbf{Objective:} Minimize the total distance traveled by visiting all towns and returning to the start city.
+
+\textbf{Decision Variables:}
+Let \( x_{ij} \) be a binary variable:
+\[
+x_{ij} = 
+\begin{cases} 
+1, & \text{if the traveler goes directly from city } i \text{ to city } j, \\
+0, & \text{otherwise.}
+\end{cases}
+\]
+
+\textbf{Parameters:}
+- \( \text{distance}_{ij} \): Distance between city \( i \) and city \( j \).
+- \( N \): Number of towns to be visited.
+
+\textbf{Constraints:}
+1. The traveler must leave each city exactly once:
+   \[
+   \sum_{j=1, j \neq i}^{N} x_{ij} = 1, \quad \forall i \in \{1, \ldots, N\}
+   \]
+   
+2. The traveler must enter each city exactly once:
+   \[
+   \sum_{i=1, i \neq j}^{N} x_{ij} = 1, \quad \forall j \in \{1, \ldots, N\}
+   \]
+
+3. Subtour elimination constraints, to ensure a single tour that visits every city:
+   Let \( u_i \) be a continuous auxiliary variable:
+   \[
+   u_i - u_j + N \times x_{ij} \leq N-1, \quad \forall i, j \in \{2, \ldots, N\}, i \neq j
+   \]
+
+\textbf{Objective Function:}
+Minimize the total travel distance:
+\[
+\text{Minimize } \sum_{i=1}^{N} \sum_{j=1}^{N} \text{distance}_{ij} \times x_{ij}
+\]
+
+\textbf{Model Constraints}
+- \( x_{ij} \in \{0, 1\} \) for all \( i, j \).
+- \( u_i \) is a real number for all \( i \).
+
+The problem is now fully defined and can be solved using MILP solvers to obtain the sequence of cities and the total distance.
+
+\end{document}

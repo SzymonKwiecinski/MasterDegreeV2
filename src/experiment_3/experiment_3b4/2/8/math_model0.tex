@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Spare Automobile Parts Production Problem}
+\author{}
+\date{}
+\maketitle
+
+\section*{Objective:}
+Maximize the total profit:
+\begin{equation}
+Z = \sum_{k=1}^{K} \text{profit}_k \times \text{quantity}_k
+\end{equation}
+
+\section*{Constraints:}
+
+For each shop \(s = 1, \ldots, S\):
+\begin{equation}
+\sum_{k=1}^{K} \text{time}_{k, s} \times \text{quantity}_k \leq \text{capacity}_s
+\end{equation}
+
+\section*{Non-negativity:}
+\begin{equation}
+\text{quantity}_k \geq 0 \quad \forall \, k = 1, \ldots, K
+\end{equation}
+
+\end{document}

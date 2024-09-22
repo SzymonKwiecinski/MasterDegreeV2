@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for DEC Computer Systems Production}
+
+\subsection*{Variables}
+
+Let \( x_i \) be the number of systems produced for system \( i \) where \( i = 1, 2, \ldots, N \).
+
+Let \( y_i \) be the number of alternative memory boards used for system \( i \) where \( i = 1, 2, \ldots, N \).
+
+\subsection*{Parameters}
+
+\begin{itemize}
+    \item \( \text{is\_workstation}[i] \): Boolean indicating if system \( i \) is a workstation (WS).
+    \item \( \text{price}[i] \): Price of system \( i \) in dollars.
+    \item \( \text{disk\_drives}[i] \): Average number of disk drives requested for system \( i \).
+    \item \( \text{256K\_boards}[i] \): Average number of 256K memory boards used for system \( i \).
+    \item \( \text{max\_cpu} \): Maximum available CPUs.
+    \item \( \text{min\_disk} \): Minimum available disk drives.
+    \item \( \text{max\_disk} \): Maximum available disk drives.
+    \item \( \text{min\_mem} \): Minimum available 256K memory boards.
+    \item \( \text{max\_mem} \): Maximum available 256K memory boards.
+    \item \( \text{demand}[i] \): Maximum demand for system \( i \).
+    \item \( \text{demand\_GP} \): Maximum demand for the whole GP family.
+    \item \( \text{demand\_WS} \): Maximum demand for the whole WS family.
+    \item \( \text{preorder}[i] \): Preorders for system \( i \).
+    \item \( \text{alt\_mem} \): Available alternative memory boards.
+    \item \( \text{alt\_compatible}[i] \): Boolean indicating if alternative memory can be used in system \( i \).
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Maximize the profit:
+
+\[
+\text{Profit} = \sum_{i=1}^{N} ( \text{price}[i] \cdot x_i - \text{cost\_of\_boards}[i] - \text{cost\_of\_disks}[i] )
+\]
+
+where:
+\[
+\text{cost\_of\_boards}[i] = \text{256K\_boards}[i] \cdot x_i + \text{alt\_mem} \cdot y_i
+\]
+\[
+\text{cost\_of\_disks}[i] = \text{disk\_drives}[i] \cdot x_i
+\]
+
+\subsection*{Constraints}
+
+\begin{align*}
+    & \sum_{i=1}^{N} x_i \leq \text{max\_cpu} & \text{(CPU Constraint)} \\
+    & \sum_{i=1}^{N} \text{disk\_drives}[i] \cdot x_i \leq \text{max\_disk} & \text{(Disk Drive Constraint)} \\
+    & \sum_{i=1}^{N} \text{256K\_boards}[i] \cdot x_i + \sum_{i=1}^{N} y_i \cdot \text{alt\_compatible}[i] \leq \text{max\_mem} & \text{(Memory Board Constraint)} \\
+    & x_i \geq \text{preorder}[i] & \text{(Preorder Fulfillment)} \\
+    & x_i \leq \text{demand}[i] & \text{(Individual Demand)} \\
+    & x_i \leq \text{demand\_GP} & \text{(GP Family Demand)} \text{ if } \text{is\_workstation}[i] = \text{false} \\
+    & x_i \leq \text{demand\_WS} & \text{(WS Family Demand)} \text{ if } \text{is\_workstation}[i] = \text{true} \\
+    & x_i \geq 0, \quad y_i \geq 0 \quad \forall i & \text{(Non-negativity)}
+\end{align*}
+
+\subsection*{Output}
+
+The output will include:
+\begin{itemize}
+    \item A list of systems produced, detailing the number produced, total 256K boards used, total alternative boards used, and total disk drives used.
+    \item The total profit calculated from the above model.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mixed-Integer Programming Model for Power Generation Scheduling}
+
+\subsection*{Sets and Indices}
+\begin{align*}
+    & \text{Let } T \text{ be the number of periods in a day.} \\
+    & \text{Let } K \text{ be the number of generator types.} \\
+    & t \in \{1, 2, \ldots, T\} \text{ index of time periods.} \\
+    & k \in \{1, 2, \ldots, K\} \text{ index of generator types.}
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+    & \text{demand}_{t} \quad  \text{Electricity demand in period } t. \\
+    & \text{num}_{k} \quad \text{Number of available generators of type } k. \\
+    & \text{minlevel}_{k} \quad \text{Minimum generation level of type } k \text{ generator.} \\
+    & \text{maxlevel}_{k} \quad \text{Maximum generation level of type } k \text{ generator.} \\
+    & \text{runcost}_{k} \quad \text{Cost of running type } k \text{ generator at minimum level per hour.} \\
+    & \text{extracost}_{k} \quad \text{Additional cost per megawatt above minimum level for type } k. \\
+    & \text{startcost}_{k} \quad \text{Cost of starting up a type } k \text{ generator.}
+\end{align*}
+
+\subsection*{Variables}
+\begin{align*}
+    & \text{numon}_{k,t} \in \mathbb{Z}_+ \quad \text{Number of type } k \text{ generators on in period } t. \\
+    & \text{genabove}_{k,t} \in \mathbb{R}_+ \quad \text{Total generation above minimum by generators of type } k \text{ in period } t. \\
+    & \text{startup}_{k,t} \in \{0, 1\} \quad \text{Binary variable indicating if a type } k \text{ generator starts in period } t.
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\begin{align*}
+    \min \sum_{t=1}^{T} \sum_{k=1}^{K} & \left( \text{numon}_{k,t} \cdot \text{runcost}_{k} + \text{genabove}_{k,t} \cdot \text{extracost}_{k} + \text{startup}_{k,t} \cdot \text{startcost}_{k} \right)
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+    & \sum_{k=1}^{K} \left( \text{numon}_{k,t} \cdot \text{minlevel}_{k} + \text{genabove}_{k,t} \right) \geq \text{demand}_{t}, \quad \forall t \quad \text{(Demand satisfaction)} \\
+    & \text{genabove}_{k,t} \leq \text{numon}_{k,t} \cdot (\text{maxlevel}_{k} - \text{minlevel}_{k}), \quad \forall k, \forall t \quad \text{(Generation limits)} \\
+    & \text{numon}_{k,t} \leq \text{num}_{k}, \quad \forall k, \forall t \quad \text{(Availability of generators)} \\
+    & \text{startup}_{k,t} \geq \frac{\text{numon}_{k,t} - \text{numon}_{k,t-1}}{\text{num}_{k}}, \quad \forall k, \forall t, \quad t > 1 \quad \text{(Startup cost modeling)} \\
+    & \text{startup}_{k,1} \geq \frac{\text{numon}_{k,1}}{\text{num}_{k}}, \quad \forall k \quad \text{(Initial startup)}
+\end{align*}
+
+\end{document}

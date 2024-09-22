@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $\text{sell}_{k,i}$: Units of product $k$ sold in month $i$.
+    \item $\text{manufacture}_{k,i}$: Units of product $k$ manufactured in month $i$.
+    \item $\text{storage}_{k,i}$: Units of product $k$ stored at the end of month $i$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{maximize} \quad \sum_{i=1}^{I} \sum_{k=1}^{K} \left( \text{profit}_k \cdot \text{sell}_{k,i} - \text{store\_price} \cdot \text{storage}_{k,i} \right)
+\]
+
+\subsection*{Constraints}
+1. \textbf{Machine Time Constraints:}
+\[
+\sum_{k=1}^{K} \text{time}_{k,m} \cdot \text{manufacture}_{k,i} \leq (\text{num}_{m} - \text{maintain}_{i,m}) \times 24 \times \text{n\_workhours}, \quad \forall i, m
+\]
+
+2. \textbf{Manufacturing and Storage Constraints:}
+\[
+\text{manufacture}_{k,i} + \text{storage}_{k,i-1} = \text{sell}_{k,i} + \text{storage}_{k,i}, \quad \forall i, k
+\]
+
+3. \textbf{Marketing Limits:}
+\[
+\text{sell}_{k,i} \leq \text{limit}_{k,i}, \quad \forall i, k
+\]
+
+4. \textbf{Storage Capacity:}
+\[
+\text{storage}_{k,i} \leq 100, \quad \forall i, k
+\]
+
+5. \textbf{Initial Condition:}
+\[
+\text{storage}_{k,0} = 0, \quad \forall k
+\]
+
+6. \textbf{Final Stock Requirement:}
+\[
+\text{storage}_{k,I} \geq \text{keep\_quantity}, \quad \forall k
+\]
+
+\subsection*{Non-negativity Constraints}
+\[
+\text{sell}_{k,i}, \text{manufacture}_{k,i}, \text{storage}_{k,i} \geq 0, \quad \forall i, k
+\]
+
+\end{document}

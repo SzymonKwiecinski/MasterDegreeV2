@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+
+\section*{MILP Model for Nurse Night Shift Scheduling}
+
+\subsection*{Decision Variables}
+Let \( x_j \) be the integer number of nurses who start their shift period on day \( j \), where \( j = 1, \ldots, 7 \).
+
+\subsection*{Objective Function}
+Minimize the total number of nurses:
+\[
+\min \sum_{j=1}^{7} x_j
+\]
+
+\subsection*{Constraints}
+For each day \( j = 1, \ldots, 7 \), ensure that the demand \( d_j \) is met:
+\[
+\sum_{i=0}^{\text{period} - 1} x_{(j-i-1) \mod 7 + 1} \geq d_j \quad \forall \, j = 1, \ldots, 7
+\]
+
+\subsection*{Variable Domain}
+\[
+x_j \geq 0 \quad \text{and integer} \quad \forall \, j = 1, \ldots, 7
+\]
+
+\end{document}

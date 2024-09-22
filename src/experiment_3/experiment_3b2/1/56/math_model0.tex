@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Objective Function}
+Minimize the total time:
+\[
+\text{Minimize } Z = \sum_{n=1}^{N} \sum_{w=1}^{W-1} x_{n,w} \cdot \text{west\_time}_{n,w} + \sum_{n=1}^{N-1} \sum_{w=1}^{W} y_{n,w} \cdot \text{north\_time}_{n,w}
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+& x_{n,w} \in \{0, 1\} && \forall n \in \{1, \ldots, N\}, \forall w \in \{1, \ldots, W-1\} \\
+& y_{n,w} \in \{0, 1\} && \forall n \in \{1, \ldots, N-1\}, \forall w \in \{1, \ldots, W\} \\
+& \sum_{w=1}^{W} y_{1,w} = 1 && \text{Start at (1,1)} \\
+& \sum_{n=1}^{N} x_{n,W} = 1 && \text{End at (N,W)} \\
+& x_{n,w} - x_{n,w-1} + y_{n,w} - y_{n-1,w} = 0 && \forall n, w \text{ for flow conservation}
+\end{align*}
+
+\subsection*{Variables}
+- \( x_{n,w} \): binary variable indicating a movement west from street \( n \) along avenue \( w \).
+- \( y_{n,w} \): binary variable indicating a movement north from avenue \( w \) along street \( n \).
+
+\section*{Solution}
+The solution will denote the path and the total travel time, presented in the form:
+\[
+\begin{align*}
+\text{paths} &= [(n,w) \mid \text{sequence of moves}] \\
+\text{total\_time} &= \text{total travel time}
+\end{align*}
+\]
+
+\end{document}

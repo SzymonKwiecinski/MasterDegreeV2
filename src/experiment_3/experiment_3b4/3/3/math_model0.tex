@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Electricity Capacity Expansion}
+
+We are tasked with planning the electricity capacity expansion for the next \( T \) years using the following input parameters:
+
+\begin{itemize}
+    \item Forecasted electricity demand for year \( t \): \( \text{demand}_t \)
+    \item Existing oil-fired plant capacity for year \( t \): \( \text{oil}_t \)
+    \item Capital cost per megawatt of coal-fired capacity: \( \text{coal\_cost} \)
+    \item Capital cost per megawatt of nuclear power capacity: \( \text{nuke\_cost} \)
+    \item Maximum percentage of nuclear capacity allowed: \( \text{max\_nuke} \)
+    \item Lifetime of coal plants in years: \( \text{coal\_life} \)
+    \item Lifetime of nuclear plants in years: \( \text{nuke\_life} \)
+\end{itemize}
+
+\subsection*{Decision Variables}
+
+\begin{align*}
+    \text{coal\_add}_t & : \text{Megawatts of coal capacity added in year } t, \quad t = 1, \ldots, T \\
+    \text{nuke\_add}_t & : \text{Megawatts of nuclear capacity added in year } t, \quad t = 1, \ldots, T 
+\end{align*}
+
+\subsection*{Objective Function}
+
+Minimize the total cost of capacity expansion:
+
+\[
+\text{Minimize} \quad Z = \sum_{t=1}^{T} \left( \text{coal\_cost} \times \text{coal\_add}_t + \text{nuke\_cost} \times \text{nuke\_add}_t \right)
+\]
+
+\subsection*{Constraints}
+
+1. \textbf{Demand Satisfaction Constraint:} Total capacity must meet or exceed demand for each year \( t \).
+
+\[
+\text{oil}_t + \sum_{i=\max(1, t-\text{coal\_life}+1)}^{t} \text{coal\_add}_i + \sum_{j=\max(1, t-\text{nuke\_life}+1)}^{t} \text{nuke\_add}_j \geq \text{demand}_t, \quad t = 1, \ldots, T
+\]
+
+2. \textbf{Nuclear Capacity Constraint:} Limit on the percentage of total capacity that can be nuclear.
+
+\[
+\left( \sum_{j=\max(1, t-\text{nuke\_life}+1)}^{t} \text{nuke\_add}_j \right) \leq \frac{\text{max\_nuke}}{100} \times \left( \text{oil}_t + \sum_{i=\max(1, t-\text{coal\_life}+1)}^{t} \text{coal\_add}_i + \sum_{j=\max(1, t-\text{nuke\_life}+1)}^{t} \text{nuke\_add}_j \right), \quad t = 1, \ldots, T
+\]
+
+3. \textbf{Non-negativity Constraints:}
+
+\[
+\text{coal\_add}_t \geq 0, \quad \text{nuke\_add}_t \geq 0, \quad t = 1, \ldots, T
+\]
+
+\end{document}

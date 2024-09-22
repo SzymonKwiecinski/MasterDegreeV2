@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the MILP Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $N$: Number of clusters
+    \item $isolate\_central_i$: Processing time for isolation intervention at cluster $i$ using central processing
+    \item $scan\_central_i$: Processing time for scanning intervention at cluster $i$ using central processing
+    \item $isolate\_distributed_i$: Processing time for isolation intervention at cluster $i$ using distributed processing
+    \item $scan\_distributed_i$: Processing time for scanning intervention at cluster $i$ using distributed processing
+    \item $central\_cost$: Cost per hour for central processing
+    \item $distributed\_cost$: Cost per hour for distributed processing
+    \item $max\_central$: Maximum hours allotted for central processing
+    \item $max\_distributed$: Maximum hours allotted for distributed processing
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_i \in \{0, 1\}$: Intervention type at cluster $i$ (1 if isolate, 0 if scan)
+    \item $y_{i, c} \in \{0, 1\}$: Processing method for cluster $i$ (1 if central, 0 if distributed)
+    \item $amount_i$: Amount of resources allocated to intervention at cluster $i$ (continuous variable)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} \left( central\_cost \cdot (isolate\_central_i \cdot x_i \cdot y_{i, c} + scan\_central_i \cdot (1 - x_i) \cdot y_{i, c}) + distributed\_cost \cdot (isolate\_distributed_i \cdot x_i \cdot (1 - y_{i, c}) + scan\_distributed_i \cdot (1 - x_i) \cdot (1 - y_{i, c})) \right)
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    \sum_{i=1}^{N} (isolate\_central_i \cdot x_i + scan\_central_i \cdot (1 - x_i)) \cdot y_{i, c} & \leq max\_central \\
+    \sum_{i=1}^{N} (isolate\_distributed_i \cdot x_i + scan\_distributed_i \cdot (1 - x_i)) \cdot (1 - y_{i, c}) & \leq max\_distributed \\
+    x_i + (1 - x_i) & = 1 \quad \forall i \in \{1, \ldots, N\} \\
+    y_{i, c} + (1 - y_{i, c}) & = 1 \quad \forall i \in \{1, \ldots, N\}
+\end{align}
+
+\subsection*{Output Format}
+The output will specify the interventions as follows:
+\begin{verbatim}
+{
+    "interventions": [
+        {
+            "cluster_id": i,
+            "type": "isolate" or "scan",
+            "method": "central" or "distributed",
+            "amount": amount_i
+        } for i in 1, ..., N
+    ],
+    "total_cost": Z
+}
+\end{verbatim}
+
+\end{document}

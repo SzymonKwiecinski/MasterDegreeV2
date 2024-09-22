@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}\\
+Maximize:
+\[
+Z = \sum_{p=1}^{P} \left( \text{price}_p \cdot x_p - \sum_{m=1}^{M} \text{time}_{m,p} \cdot \text{cost}_m \cdot x_p \right)
+\]
+
+\textbf{Subject to:}\\
+Machine availability for each machine \( m \):
+\[
+\sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \leq \text{available}_m \quad \forall m = 1, \ldots, M
+\]
+
+Minimum production requirement for each part \( p \):
+\[
+x_p \geq \text{min\_batches}_p \quad \forall p = 1, \ldots, P
+\]
+
+Non-negativity:
+\[
+x_p \geq 0 \quad \forall p = 1, \ldots, P
+\]
+
+\end{document}

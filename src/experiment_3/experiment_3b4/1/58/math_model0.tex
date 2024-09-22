@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for MIP Problem}
+
+We are tasked with determining the optimal number of batches of each part to produce in order to maximize profit for a division of an auto parts manufacturer. The division uses several machines, each with specific costs and availability constraints.
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item Let \( P \) denote the set of parts, indexed by \( p = 1, 2, \ldots, P \).
+    \item Let \( M \) denote the set of machines, indexed by \( m = 1, 2, \ldots, M \).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{time\_required}_{m,p} \): Time in hours required by machine \( m \) to produce 100 units of part \( p \).
+    \item \( \text{machine\_costs}_{m} \): Cost per hour to use machine \( m \).
+    \item \( \text{availability}_{m} \): Maximum available hours for machine \( m \) in a month.
+    \item \( \text{prices}_{p} \): Selling price for 100 units of part \( p \).
+    \item \( \text{setup\_time}_{p} \): Setup time required on machine 1 for part \( p \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{batches}_{p} \): Number of batches of part \( p \) to produce.
+    \item \( \text{setup\_flags}_{p} \in \{0, 1\} \): Binary variable indicating whether part \( p \) is set up on machine 1.
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Maximize the total profit, which is the revenue minus the total machine costs:
+
+\[
+\text{Total Profit} = \sum_{p=1}^{P} \text{prices}_{p} \times \text{batches}_{p} - \sum_{m=1}^{M} \text{machine\_costs}_{m} \times \left( \sum_{p=1}^{P} \text{time\_required}_{m,p} \times \text{batches}_{p} + \delta_{m,1} \sum_{p=1}^{P} \text{setup\_time}_{p} \times \text{setup\_flags}_{p} \right)
+\]
+
+where \( \delta_{m,1} \) is the Kronecker delta function, which is 1 if \( m = 1 \) and 0 otherwise.
+
+\subsection*{Constraints}
+
+\[
+\sum_{p=1}^{P} \text{time\_required}_{m,p} \times \text{batches}_{p} + \delta_{m,1} \sum_{p=1}^{P} \text{setup\_time}_{p} \times \text{setup\_flags}_{p} \leq \text{availability}_{m}, \quad \forall m = 1, \ldots, M
+\]
+
+\[
+\text{setup\_flags}_{p} \geq \frac{\text{batches}_{p}}{M}, \quad \forall p = 1, \ldots, P
+\]
+
+\[
+\text{batches}_{p} \geq 0, \quad \forall p = 1, \ldots, P
+\]
+
+\[
+\text{setup\_flags}_{p} \in \{0, 1\}, \quad \forall p = 1, \ldots, P
+\]
+
+The first constraint ensures that the total time used by each machine does not exceed its availability. The Kronecker delta is used to add setup time for machine 1 only. The second constraint ensures setup time is only incurred if at least one batch of a part is produced.
+
+\end{document}

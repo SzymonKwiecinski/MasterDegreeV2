@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+We are given \( N \) currencies. Let \( x_{i,j} \) be the amount of currency \( i \) to be converted to currency \( j \). The objective is to maximize the amount of currency \( N \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{start}_i \): Initial amount of currency \( i \).
+    \item \( \text{limit}_i \): Maximum limit of currency \( i \) that can be exchanged.
+    \item \( \text{rate}_{i,j} \): Exchange rate from currency \( i \) to currency \( j \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_{i,j} \): Amount of currency \( i \) to be exchanged for currency \( j \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the final amount of currency \( N \):
+\[
+\max \sum_{i=1}^{N} x_{i,N} \cdot \text{rate}_{i,N}
+\]
+
+\subsection*{Constraints}
+\begin{enumerate}
+    \item For each currency \( i \), the sum of exchanges cannot exceed the start amount plus received amounts:
+    \[
+    \sum_{j=1, j \neq i}^{N} x_{i,j} \leq \text{start}_i + \sum_{k=1, k \neq i}^{N} x_{k,i} \cdot \text{rate}_{k,i}, \quad \forall i = 1, \dots, N
+    \]
+    \item For each currency \( i \), the exchanged amount cannot exceed its limit:
+    \[
+    \sum_{j=1, j \neq i}^{N} x_{i,j} \leq \text{limit}_i, \quad \forall i = 1, \dots, N
+    \]
+    \item Non-negativity constraint:
+    \[
+    x_{i,j} \geq 0, \quad \forall i, j = 1, \dots, N
+    \]
+\end{enumerate}
+
+This formulation ensures that we maximize the amount of currency \( N \) while respecting the transaction limits for each currency.
+
+\end{document}

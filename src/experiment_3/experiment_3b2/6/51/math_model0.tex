@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+The objective of this linear programming problem is to maximize the total number of unique clicks within the given budget. We have various constraints based on demographic goals and advertisement costs.
+
+\subsection*{Parameters}
+
+\begin{itemize}
+    \item $A$: Number of ad types.
+    \item $goal_{young}$: Target number of clicks from visitors aged 18-25, in thousands.
+    \item $goal_{old}$: Target number of clicks from visitors older than 25, in thousands.
+    \item $goal_{unique\_young}$: Target number of unique clicks from visitors aged 18-25, in thousands.
+    \item $goal_{unique\_old}$: Target number of unique clicks from visitors older than 25, in thousands.
+    \item $young\_click_{a}$: Percentage of clicks from ad type $a$ from visitors aged 18-25.
+    \item $old\_click_{a}$: Percentage of clicks from ad type $a$ from older visitors.
+    \item $cost_{a}$: Cost per 1000 clicks for ad type $a$.
+    \item $max\_click_{a}$: Maximum allowable clicks for ad type $a$, in thousands.
+    \item $unique\_click_{a}$: Percentage of unique visitors for ad type $a$.
+    \item $budget$: Total advertising budget.
+\end{itemize}
+
+\subsection*{Decision Variables}
+
+\begin{itemize}
+    \item $clicks_{a}$: Number of clicks purchased for ad type $a$, in thousands.
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Maximize the total number of unique clicks:
+\[
+\text{Maximize } \sum_{a=1}^{A} (unique\_click_{a} \times clicks_{a})
+\]
+
+\subsection*{Constraints}
+
+1. Budget Constraint:
+   \[
+   \sum_{a=1}^{A} (cost_{a} \times clicks_{a}) \leq budget
+   \]
+
+2. Demographic Clicks Constraints:
+   \[
+   \sum_{a=1}^{A} (young\_click_{a} \times clicks_{a}) \geq goal_{young}
+   \]
+   \[
+   \sum_{a=1}^{A} (old\_click_{a} \times clicks_{a}) \geq goal_{old}
+   \]
+
+3. Unique Clicks Constraints:
+   \[
+   \sum_{a=1}^{A} \left(young\_click_{a} \times unique\_click_{a} \times clicks_{a} \right) \geq goal_{unique\_young}
+   \]
+   \[
+   \sum_{a=1}^{A} \left(old\_click_{a} \times unique\_click_{a} \times clicks_{a} \right) \geq goal_{unique\_old}
+   \]
+
+4. Maximum Clicks Constraints:
+   \[
+   0 \leq clicks_{a} \leq max\_click_{a}, \quad \forall a = 1, \ldots, A
+   \]
+
+By solving this linear programming model, we can determine the optimal number of clicks to purchase for each ad type to maximize unique clicks while satisfying all constraints.
+
+\end{document}

@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Production Optimization}
+
+\subsection*{Definitions}
+\begin{itemize}
+    \item Let \( K \) be the number of products.
+    \item Let \( S \) be the number of stages in production.
+    \item Let \( \text{produce\_time}_{k,s} \) be the time required to produce 1 unit of product \( k \) at stage \( s \).
+    \item Let \( \text{time}_{s} \) be the total available working hours for stage \( s \).
+    \item Let \( \text{profit}_{k} \) be the profit earned from producing 1 unit of product \( k \).
+    \item Let \( \text{quantity}_{k} \) be the quantity of product \( k \) to produce.
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to maximize the total profit:
+
+\[
+\text{Maximize} \quad Z = \sum_{k=1}^{K} \text{profit}_{k} \cdot \text{quantity}_{k}
+\]
+
+\subsection*{Constraints}
+The production must respect the available time for each stage. For each stage \( s \):
+
+\[
+\sum_{k=1}^{K} \text{produce\_time}_{k,s} \cdot \text{quantity}_{k} \leq \text{time}_{s} \quad \forall s = 1, \ldots, S
+\]
+
+\subsection*{Non-negativity Constraints}
+The quantity produced for each product must be non-negative:
+
+\[
+\text{quantity}_{k} \geq 0 \quad \forall k = 1, \ldots, K
+\]
+
+\subsection*{Summary of the LP Model}
+The complete linear programming model can be summarized as follows:
+
+\begin{align*}
+    \text{Maximize} \quad & Z = \sum_{k=1}^{K} \text{profit}_{k} \cdot \text{quantity}_{k} \\
+    \text{subject to} \quad & \sum_{k=1}^{K} \text{produce\_time}_{k,s} \cdot \text{quantity}_{k} \leq \text{time}_{s}, \quad \forall s = 1, \ldots, S \\
+    & \text{quantity}_{k} \geq 0, \quad \forall k = 1, \ldots, K
+\end{align*}
+
+\end{document}

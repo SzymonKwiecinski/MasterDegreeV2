@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\subsection*{Decision Variables}
+For each production process \( l \), let \( x_l \) be the number of times the process is executed.
+
+\subsection*{Objective Function}
+Maximize the total revenue:
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} \text{price}_p \left( \sum_{l=1}^{L} \text{output}_{lp} \times x_l \right) - \sum_{l=1}^{L} \text{cost}_l \left( \sum_{p=1}^{P} \text{output}_{lp} \times x_l \right)
+\]
+
+\subsection*{Constraints}
+For each crude oil type \( i \), the total amount used in all processes does not exceed the allocated amount:
+\[
+\sum_{l=1}^{L} \text{input}_{li} \times x_l \leq \text{allocated}_i, \quad \forall i = 1, 2, \ldots, O
+\]
+
+Non-negativity constraints:
+\[
+x_l \geq 0, \quad \forall l = 1, 2, \ldots, L
+\]
+
+\end{document}

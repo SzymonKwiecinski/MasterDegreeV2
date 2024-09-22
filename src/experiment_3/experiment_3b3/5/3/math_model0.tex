@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Electricity Capacity Planning}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item \( t \): Year, where \( t = 1, 2, \ldots, T \)
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( d_t \): Demand for electricity in year \( t \) (megawatts)
+    \item \( oil_t \): Existing oil capacity available in year \( t \) (megawatts)
+    \item \( coal\_cost \): Capital cost per megawatt of coal-fired capacity
+    \item \( nuke\_cost \): Capital cost per megawatt of nuclear power capacity
+    \item \( max\_nuke \): Maximum percentage of total capacity that can be nuclear
+    \item \( coal\_life \): Lifespan of coal-fired plants (years)
+    \item \( nuke\_life \): Lifespan of nuclear plants (years)
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( coal_t \): Coal capacity added in year \( t \) (megawatts)
+    \item \( nuke_t \): Nuclear capacity added in year \( t \) (megawatts)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{t=1}^{T} (coal\_cost \cdot coal_t + nuke\_cost \cdot nuke_t)
+\]
+
+\subsection*{Constraints}
+
+1. **Demand Satisfaction**:
+\[
+oil_t + \sum_{i=1}^{\min(t, coal\_life)} coal_{t-i} + \sum_{j=1}^{\min(t, nuke\_life)} nuke_{t-j} \geq d_t \quad \forall t
+\]
+
+2. **Total Capacity Constraint**:
+\[
+nuke_{cap\_total} \leq \frac{max\_nuke}{100} \cdot (oil_t + \sum_{i=1}^{T} coal_i + \sum_{j=1}^{T} nuke_j) \quad \forall t
+\]
+where \( nuke_{cap\_total} = \sum_{j=1}^{t} nuke_j \)
+
+3. **Non-negativity**:
+\[
+coal_t \geq 0, \quad nuke_t \geq 0 \quad \forall t
+\]
+
+\subsection*{Output}
+The output will be a dictionary of the form:
+\[
+\text{Output} = \{ 
+    \text{"coal\_cap\_added"}: [coal_t \text{ for } t \in 1, \ldots, T], 
+    \text{"nuke\_cap\_added"}: [nuke_t \text{ for } t \in 1, \ldots, T], 
+    \text{"total\_cost"}: \text{total\_cost} 
+\}
+\]
+
+\end{document}

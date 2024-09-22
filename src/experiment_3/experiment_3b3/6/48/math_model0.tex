@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Fine Foods Company Gift Basket Production}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( regular\_used_{w} \) = hours of regular labor used in week \( w \)
+    \item Let \( overtime\_used_{w} \) = hours of overtime labor used in week \( w \)
+    \item Let \( regular\_basket_{w} \) = number of baskets assembled with regular labor in week \( w \)
+    \item Let \( overtime\_basket_{w} \) = number of baskets assembled with overtime labor in week \( w \)
+    \item Let \( inventory_{w} \) = number of baskets on hand at the end of week \( w \)
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( W \) = total number of weeks
+    \item \( demand_{w} \) = demand for week \( w \)
+    \item \( regular\_labor_{w} \) = available regular labor hours in week \( w \)
+    \item \( overtime\_labor_{w} \) = available overtime labor hours in week \( w \)
+    \item \( regular\_cost \) = cost of regular labor per hour
+    \item \( overtime\_cost \) = cost of overtime labor per hour
+    \item \( assembly\_time \) = hours required to assemble one basket
+    \item \( material\_cost \) = cost of materials for one basket
+    \item \( selling\_price \) = selling price for one basket
+    \item \( holding\_cost \) = holding cost of unsold baskets per week
+    \item \( salvage\_value \) = salvage value of unsold baskets at the end of week \( W \)
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{w=1}^{W} \left( selling\_price \times (regular\_basket_{w} + overtime\_basket_{w}) - (regular\_cost \times regular\_used_{w} + overtime\_cost \times overtime\_used_{w}) - material\_cost \times (regular\_basket_{w} + overtime\_basket_{w}) - holding\_cost \times inventory_{w} \right)
+\]
+\[
++ salvage\_value \times inventory_{W}
+\]
+
+\textbf{Subject to:}
+\begin{align*}
+& regular\_used_{w} + overtime\_used_{w} \leq regular\_labor_{w} + overtime\_labor_{w}, \quad \forall w \in \{1, \ldots, W\} \\
+& regular\_basket_{w} = \frac{regular\_used_{w}}{assembly\_time}, \quad \forall w \in \{1, \ldots, W\} \\
+& overtime\_basket_{w} = \frac{overtime\_used_{w}}{assembly\_time}, \quad \forall w \in \{1, \ldots, W\} \\
+& inventory_{w} = inventory_{w-1} + regular\_basket_{w} + overtime\_basket_{w} - demand_{w}, \quad \forall w \in \{2, \ldots, W\} \\
+& inventory_{1} = 0 \\
+& inventory_{W} \geq 0 \\
+& regular\_used_{w}, overtime\_used_{w} \geq 0, \quad \forall w \in \{1, \ldots, W\} \\
+& regular\_basket_{w}, overtime\_basket_{w} \geq 0, \quad \forall w \in \{1, \ldots, W\} \\
+& inventory_{w} \geq 0, \quad \forall w \in \{1, \ldots, W\}
+\end{align*}
+
+\end{document}

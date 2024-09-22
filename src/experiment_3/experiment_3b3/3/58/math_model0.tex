@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Maximizing Profit in Auto Parts Production}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( batches_{p} \) be the number of batches produced for part \( p \) where \( p = 1, \ldots, P \).
+    \item Let \( setup\_flags_{p} \) be a binary variable that indicates whether part \( p \) is set up (1) or not (0).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( time_{m,p} \): time (in hours) required on machine \( m \) to produce one batch of part \( p \).
+    \item \( cost_{m} \): cost (in $/hour) for using machine \( m \).
+    \item \( available_{m} \): available hours per month for machine \( m \).
+    \item \( price_{p} \): selling price per batch of part \( p \).
+    \item \( setup\_time_{p} \): setup time (in hours) required on machine 1 for part \( p \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} \left( price_{p} \cdot batches_{p} - \sum_{m=1}^{M} cost_{m} \cdot time_{m,p} \cdot batches_{p} \right)
+\]
+
+\subsection*{Constraints}
+
+1. **Machine Availability Constraints**:
+   For each machine \( m \):
+   \[
+   \sum_{p=1}^{P} (time_{m,p} \cdot batches_{p}) \leq available_{m} \quad \forall m = 1, \ldots, M
+   \]
+
+2. **Setup Time Constraint for Machine 1**:
+   For parts that require setup, if a part is produced, it includes setup time:
+   \[
+   (setup\_time_{p} \cdot setup\_flags_{p}) + \sum_{p=1}^{P} (time_{1,p} \cdot batches_{p}) \leq available_{1} \quad \forall p
+   \]
+
+3. **Binary Setup Flags**:
+   \[
+   setup\_flags_{p} \in \{0, 1\} \quad \forall p = 1, \ldots, P
+   \]
+
+4. **Non-negativity Constraint**:
+   \[
+   batches_{p} \geq 0 \quad \forall p = 1, \ldots, P
+   \]
+
+\subsection*{Output Variables}
+The output will include:
+\begin{itemize}
+    \item \( batches \): the number of batches produced for each part, i.e., \( [batches_{p} \text{ for } p = 1, \ldots, P] \).
+    \item \( setup\_flags \): the setup flags for parts, i.e., \( [setup\_flags_{p} \text{ for } p = 1, \ldots, P] \).
+    \item \( total\_profit \): the total profit obtained for the month.
+\end{itemize}
+
+\end{document}

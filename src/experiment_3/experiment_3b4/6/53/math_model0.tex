@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Soybean Transportation Problem}
+
+\subsection*{Sets and Indices}
+- Let \( n \) be the number of cities involved in the transportation network.
+- Let \( A \) be the set of all routes available in the network.
+- Index \( i \) denotes the start of a route and \( j \) denotes the end of a route.
+
+\subsection*{Parameters}
+- \( C_{i,j} \): Cost of transportation per metric ton from city \( i \) to city \( j \).
+- \( supply_k \): Supply of soybeans available at terminal city \( k \).
+- \( demand_l \): Demand for soybeans at destination city \( l \).
+
+\subsection*{Decision Variables}
+- \( amount_{i,j} \): Amount of soybeans to be transported from city \( i \) to city \( j \).
+
+\subsection*{Objective Function}
+The objective is to minimize the total transportation cost:
+\[
+\text{Minimize} \quad \sum_{(i,j) \in A} C_{i,j} \times amount_{i,j}
+\]
+
+\subsection*{Constraints}
+1. \textbf{Supply Constraints:} 
+   For each source terminal \( k \):
+   \[
+   \sum_{j: (k,j) \in A} amount_{k,j} \leq supply_k
+   \]
+
+2. \textbf{Demand Constraints:} 
+   For each destination city \( l \):
+   \[
+   \sum_{i: (i,l) \in A} amount_{i,l} \geq demand_l
+   \]
+
+3. \textbf{Flow Conservation Constraints:} 
+   For each intermediate city \( p \), ensure that the inflow equals the outflow:
+   \[
+   \sum_{i: (i,p) \in A} amount_{i,p} = \sum_{j: (p,j) \in A} amount_{p,j}
+   \]
+
+4. \textbf{Non-Negativity Constraints:}
+   \[
+   amount_{i,j} \geq 0 \quad \forall (i,j) \in A
+   \]
+
+\subsection*{Summary}
+The above linear programming model determines the optimal transportation amount \( amount_{i,j} \) for each route in order to minimize the total transportation cost while satisfying all demand and supply constraints.
+
+\end{document}

@@ -1,0 +1,18 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+\[
+\max \sum_{i=1}^{N} \text{futurePrice}_i \cdot (\text{bought}_i - x_i)
+\]
+
+\textbf{Subject to:}
+\[
+\sum_{i=1}^{N} \left( \text{currentPrice}_i \cdot x_i - \text{transactionRate} \cdot \text{currentPrice}_i \cdot x_i - \text{taxRate} \cdot \max(0, \text{currentPrice}_i \cdot x_i - \text{buyPrice}_i \cdot x_i) \right) \geq K
+\]
+\[
+0 \leq x_i \leq \text{bought}_i \quad \text{for } i=1,2,\ldots,N
+\]
+
+\end{document}

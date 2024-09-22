@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Rocket Path Control}
+
+\subsection*{Given Parameters}
+\begin{itemize}
+    \item Initial position, $x_0$
+    \item Initial velocity, $v_0$
+    \item Target position at time $T$, $x_T$
+    \item Target velocity at time $T$, $v_T$
+    \item Time horizon, $T$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_t$: Position of the rocket at time $t$, for $t = 1, \ldots, T$
+    \item $v_t$: Velocity of the rocket at time $t$, for $t = 1, \ldots, T$
+    \item $a_t$: Acceleration of the rocket at time $t$, for $t = 0, \ldots, T-1$
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total fuel consumption, which is proportional to the absolute value of the acceleration:
+\[
+\min \sum_{t=0}^{T-1} |a_t|
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    & x_{t+1} = x_t + v_t, \quad t = 0, \ldots, T-1 \\
+    & v_{t+1} = v_t + a_t, \quad t = 0, \ldots, T-1 \\
+    & x_0 \text{ is given} \\
+    & v_0 \text{ is given} \\
+    & x_T \text{ is given} \\
+    & v_T \text{ is given}
+\end{align}
+
+To transform the absolute value in the objective function, we introduce auxiliary variables $u_t$ such that:
+\begin{align}
+    & u_t \geq a_t \\
+    & u_t \geq -a_t
+\end{align}
+Thus, the objective function becomes:
+\[
+\min \sum_{t=0}^{T-1} u_t
+\]
+
+\end{document}

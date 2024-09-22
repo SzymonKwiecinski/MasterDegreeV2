@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for DEC Production Planning}
+
+\subsection*{Decision Variables}
+\begin{align*}
+x_i & : \text{Number of system } i \text{ produced (floating point)} \\
+\text{mem\_used}_i & : \text{Number of 256K memory boards used by system } i \\
+\text{alt\_used}_i & : \text{Number of alternative memory boards used by system } i \\
+\text{disk\_used}_i & : \text{Number of disk drives used by system } i
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+\text{is\_workstation}_i & : \text{True if system } i \text{ is a workstation, otherwise False} \\
+\text{price}_i & : \text{Price of system } i \\
+\text{disk\_i} & : \text{Average number of disk drives per system } i \\
+\text{mem\_i} & : \text{Average number of 256K memory boards per system } i \\
+\text{max\_cpu} & : \text{Maximum available CPU units} \\
+\text{min\_disk}, \text{max\_disk} & : \text{Range of available disk drives} \\
+\text{min\_mem}, \text{max\_mem} & : \text{Range of available 256K memory boards} \\
+\text{demand}_i & : \text{Maximum demand for system } i \\
+\text{demand\_GP} & : \text{Maximum demand for GP systems} \\
+\text{demand\_WS} & : \text{Maximum demand for WS systems} \\
+\text{preorder}_i & : \text{Pre-orders that need to be fulfilled for system } i \\
+\text{alt\_mem} & : \text{Available units of alternative memory boards} \\
+\text{alt\_compatible}_i & : \text{True if alternative memory boards can be used in system } i
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Profit} = \sum_{i=1}^{N} \left( \text{price}_i \times x_i \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+\sum_{i=1}^{N} x_i & \leq \text{max\_cpu} \\
+\sum_{i=1}^{N} \text{disk\_i} \times x_i & \geq \text{min\_disk} \\
+\sum_{i=1}^{N} \text{disk\_i} \times x_i & \leq \text{max\_disk} \\
+\sum_{i=1}^{N} \text{mem\_i} \times x_i & \geq \text{min\_mem} \\
+\sum_{i=1}^{N} \text{mem\_i} \times x_i & \leq \text{max\_mem} \\
+x_i & \leq \text{demand}_i, \quad \forall i = 1, \ldots, N \\
+\sum_{i: \text{is\_workstation}_i = \text{false}} x_i & \leq \text{demand\_GP} \\
+\sum_{i: \text{is\_workstation}_i = \text{true}} x_i & \leq \text{demand\_WS} \\
+x_i & \geq \text{preorder}_i, \quad \forall i = 1, \ldots, N \\
+\text{alt\_used}_i & \leq \text{alt\_mem}, \quad \forall i: \text{alt\_compatible}_i = \text{true} \\
+\text{mem\_used}_i + \text{alt\_used}_i & = \text{mem\_i} \times x_i, \quad \forall i = 1, \ldots, N \\
+\text{disk\_used}_i & = \text{disk\_i} \times x_i, \quad \forall i = 1, \ldots, N
+\end{align*}
+
+\end{document}

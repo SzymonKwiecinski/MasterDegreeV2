@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Custom Tees Online Advertising Campaign}
+
+\subsection*{Decision Variables}
+Let \( \text{clicks}_a \) be the number of thousands of clicks purchased for ad type \( a \) where \( a = 1, 2, \ldots, A \).
+
+\subsection*{Objective Function}
+Minimize the total cost of the ad campaign:
+\[
+\text{Minimize} \quad \sum_{a=1}^{A} \text{cost}_a \times \text{clicks}_a
+\]
+
+\subsection*{Constraints}
+
+1. Goal for clicks from visitors aged 18-25:
+\[
+\sum_{a=1}^{A} \text{young\_click}_{a} \times \text{clicks}_a \geq \text{goal\_young}
+\]
+
+2. Goal for clicks from visitors older than 25:
+\[
+\sum_{a=1}^{A} \text{old\_click}_{a} \times \text{clicks}_a \geq \text{goal\_old}
+\]
+
+3. Goal for unique clicks from visitors aged 18-25:
+\[
+\sum_{a=1}^{A} \left( \text{unique\_click}_{a} \times \text{young\_click}_{a} \right) \times \text{clicks}_a \geq \text{goal\_unique\_young}
+\]
+
+4. Goal for unique clicks from visitors older than 25:
+\[
+\sum_{a=1}^{A} \left( \text{unique\_click}_{a} \times \text{old\_click}_{a} \right) \times \text{clicks}_a \geq \text{goal\_unique\_old}
+\]
+
+5. Maximum allowable clicks for each ad type:
+\[
+\text{clicks}_a \leq \text{max\_click}_{a}, \quad \forall a = 1, 2, \ldots, A
+\]
+
+6. Non-negativity constraints:
+\[
+\text{clicks}_a \geq 0, \quad \forall a = 1, 2, \ldots, A
+\]
+
+\subsection*{Parameters}
+\begin{align*}
+\text{age group click percentages:} & \quad \text{young\_click}_{a}, \text{old\_click}_{a} \\
+\text{cost per 1000 clicks:} & \quad \text{cost}_{a} \\
+\text{maximum clicks:} & \quad \text{max\_click}_{a} \\
+\text{unique click percentages:} & \quad \text{unique\_click}_{a}
+\end{align*}
+
+\end{document}

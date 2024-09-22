@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Mining Operations}
+
+\subsection*{Sets and Indices}
+
+- Let \( K \) be the set of mines, indexed by \( k \), where \( k = 1, 2, \ldots, \text{n\_mines} \).
+- Let \( I \) be the set of years, indexed by \( i \), where \( i = 1, 2, \ldots, n_{\text{years}} \).
+
+\subsection*{Parameters}
+
+- \( \text{n\_maxwork} \): Maximum number of mines that can be operated in any one year.
+- \( \text{royalty}_k \): Royalty payable for keeping mine \( k \) open per year.
+- \( \text{limit}_k \): Maximum possible output from mine \( k \) per year.
+- \( \text{quality}_k \): Quality of ore from mine \( k \).
+- \( \text{requiredquality}_i \): Required quality of blended ore in year \( i \).
+- \( \text{price} \): Selling price per ton of blended ore.
+- \( \text{discount} \): Discount rate for future revenue.
+
+\subsection*{Decision Variables}
+
+- \( \text{isoperated}_{k,i} \in \{0, 1\} \): Binary variable indicating if mine \( k \) is operated in year \( i \).
+- \( \text{amount}_{k,i} \geq 0 \): Continuous variable representing the amount of ore produced by mine \( k \) in year \( i \).
+
+\subsection*{Objective Function}
+
+Maximize the discounted profit over all years:
+
+\[
+\max \sum_{i=1}^{I} \frac{1}{(1 + \text{discount})^i} \left( \text{price} \times \sum_{k=1}^{K} \text{amount}_{k,i} - \sum_{k=1}^{K} \text{royalty}_k \times \text{isoperated}_{k,i} \right)
+\]
+
+\subsection*{Constraints}
+
+1. \textbf{Ore Quality Constraint:} For each year, the produced ore must meet the required quality:
+
+\[
+\sum_{k=1}^{K} \text{amount}_{k,i} \times \text{quality}_k = \text{requiredquality}_i \times \sum_{k=1}^{K} \text{amount}_{k,i}, \quad \forall i \in I
+\]
+
+2. \textbf{Operation Limit Constraint:} At most \(\text{n\_maxwork}\) mines can be operated each year:
+
+\[
+\sum_{k=1}^{K} \text{isoperated}_{k,i} \leq \text{n\_maxwork}, \quad \forall i \in I
+\]
+
+3. \textbf{Capacity Constraint:} The amount of ore produced from any mine cannot exceed its limit:
+
+\[
+0 \leq \text{amount}_{k,i} \leq \text{limit}_k \times \text{isoperated}_{k,i}, \quad \forall k \in K, \forall i \in I
+\]
+
+4. \textbf{Sequential Operation Constraint:} A mine can only be operated if it has been kept open:
+
+\[
+\text{isoperated}_{k,i} \leq \text{isoperated}_{k,i-1} + 1, \quad \forall k \in K, \forall i = 2, \ldots, I 
+\]
+
+\end{document}

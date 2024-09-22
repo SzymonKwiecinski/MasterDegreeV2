@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+Let \( K \) be the number of products, and \( S \) be the number of production stages.
+Define decision variables:
+\[
+x_k \geq 0 \quad \text{for } k = 1, 2, \ldots, K
+\]
+
+Objective function:
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} \text{profit}_k \cdot x_k
+\]
+
+Subject to constraints:
+\[
+\sum_{k=1}^{K} \text{produce\_time}_{k, s} \cdot x_k \leq \text{time}_s \quad \text{for } s = 1, 2, \ldots, S
+\]
+
+All \( x_k \) are non-negative:
+\[
+x_k \geq 0 \quad \text{for } k = 1, 2, \ldots, K
+\]
+
+\end{document}

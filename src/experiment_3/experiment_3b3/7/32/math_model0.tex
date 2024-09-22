@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Definitions:}
+
+\begin{itemize}
+    \item Let \( K \) be the number of products.
+    \item Let \( S \) be the number of stages.
+    \item Let \( \text{produce\_time}_{k,s} \) be the time required to produce one unit of product \( k \) at stage \( s \).
+    \item Let \( \text{time}_{s} \) be the total available time at stage \( s \).
+    \item Let \( \text{profit}_{k} \) be the unit profit for product \( k \).
+    \item Let \( q_{k} \) be the quantity produced of product \( k \).
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} \text{profit}_{k} \cdot q_{k}
+\]
+
+\textbf{Subject to the constraints:}
+\[
+\sum_{k=1}^{K} \text{produce\_time}_{k,s} \cdot q_{k} \leq \text{time}_{s}, \quad \forall s = 1,\ldots,S
+\]
+
+\textbf{Non-negativity Constraints:}
+\[
+q_{k} \geq 0, \quad \forall k = 1,\ldots,K
+\]
+
+\textbf{Output:}
+The quantities to be produced for each product are represented as:
+\[
+\text{quantity} = [q_{1}, q_{2}, \ldots, q_{K}]
+\]
+
+\end{document}

@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\textbf{Decision Variables:}
+\begin{align*}
+x_p &: \text{Number of batches of part } p \text{ produced each month.}
+\end{align*}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} \left( \text{price}_p \cdot x_p \right) - \sum_{m=1}^{M} \left( \text{cost}_m \cdot \sum_{p=1}^{P} \left( \text{time}_{m,p} \cdot x_p \right) \right)
+\]
+
+\textbf{Subject to:}
+
+\textbf{Machine Availability Constraints:}
+\[
+\sum_{p=1}^{P} \left( \text{time}_{m,p} \cdot x_p \right) \leq \text{available}_m \quad \forall m = 1, \ldots, M
+\]
+
+\textbf{Minimum Batch Production Constraints:}
+\[
+x_p \geq \text{min_batches}_p \quad \forall p = 1, \ldots, P
+\]
+
+\textbf{Non-negativity Constraints:}
+\[
+x_p \geq 0 \quad \forall p = 1, \ldots, P
+\]
+
+\end{document}

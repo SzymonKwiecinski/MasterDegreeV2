@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Electricity Capacity Expansion}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $T$: Number of years for planning.
+    \item $\text{demand}_t$: Demand for electricity in megawatts in year $t$, for $t = 1, \ldots, T$.
+    \item $\text{oil}_t$: Existing oil-fired capacity available in year $t$, for $t = 1, \ldots, T$.
+    \item $\text{coal\_cost}$: Capital cost per megawatt for coal-fired capacity.
+    \item $\text{nuke\_cost}$: Capital cost per megawatt for nuclear power capacity.
+    \item $\text{max\_nuke}$: Maximum percentage of total capacity that can be nuclear.
+    \item $\text{coal\_life}$: Lifespan of coal plants in years.
+    \item $\text{nuke\_life}$: Lifespan of nuclear plants in years.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_t^{coal}$: New coal-fired capacity added in year $t$, for $t = 1, \ldots, T$.
+    \item $x_t^{nuke}$: New nuclear power capacity added in year $t$, for $t = 1, \ldots, T$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total capital cost:
+\[
+\text{Minimize } \sum_{t=1}^{T} (\text{coal\_cost} \cdot x_t^{coal} + \text{nuke\_cost} \cdot x_t^{nuke})
+\]
+
+\subsection*{Constraints}
+
+\begin{itemize}
+    \item \textbf{Demand Satisfaction Constraint:}
+    \[
+    \text{oil}_t + \sum_{i=\max(1, t-\text{coal\_life}+1)}^{t} x_i^{coal} + \sum_{i=\max(1, t-\text{nuke\_life}+1)}^{t} x_i^{nuke} \geq \text{demand}_t, \quad \forall t = 1, \ldots, T
+    \]
+
+    \item \textbf{Nuclear Capacity Limit:}
+    \[
+    \sum_{i=\max(1, t-\text{nuke\_life}+1)}^{t} x_i^{nuke} \leq \frac{\text{max\_nuke}}{100} \left(\text{oil}_t + \sum_{i=\max(1, t-\text{coal\_life}+1)}^{t} x_i^{coal} + \sum_{i=\max(1, t-\text{nuke\_life}+1)}^{t} x_i^{nuke}\right), \quad \forall t = 1, \ldots, T
+    \]
+
+    \item \textbf{Non-negativity:}
+    \[
+    x_t^{coal} \geq 0, \quad x_t^{nuke} \geq 0, \quad \forall t = 1, \ldots, T
+    \]
+\end{itemize}
+
+\end{document}

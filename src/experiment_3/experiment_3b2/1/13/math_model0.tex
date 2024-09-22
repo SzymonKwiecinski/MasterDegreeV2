@@ -1,0 +1,17 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\text{Maximize: } r
+
+\text{Subject to: }
+\begin{align*}
+a_1^T \mathbf{y} + \|a_1\|_2 r &\leq b_1, \\
+a_2^T \mathbf{y} + \|a_2\|_2 r &\leq b_2, \\
+&\vdots \\
+a_m^T \mathbf{y} + \|a_m\|_2 r &\leq b_m,
+\end{align*}
+
+\mathbf{y} \in \mathbb{R}^N, \quad r \geq 0
+
+\end{document}

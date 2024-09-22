@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model of the Knapsack Problem}
+
+\textbf{Given:}
+\begin{itemize}
+    \item $C$: Maximum capacity of the knapsack.
+    \item $value_k$: Value of item $k$ for $k = 1, \ldots, K$.
+    \item $size_k$: Size of item $k$ for $k = 1, \ldots, K$.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $isincluded_k$: Binary variable that equals 1 if item $k$ is included in the knapsack, 0 otherwise.
+\end{itemize}
+
+\textbf{Objective:}
+\[
+\text{Maximize} \quad \sum_{k=1}^{K} value_k \cdot isincluded_k
+\]
+
+\textbf{Subject to:}
+\[
+\sum_{k=1}^{K} size_k \cdot isincluded_k \leq C
+\]
+\[
+isincluded_k \in \{0, 1\} \quad \text{for } k = 1, \ldots, K
+\]
+
+\end{document}

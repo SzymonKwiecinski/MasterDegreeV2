@@ -1,0 +1,85 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for DEC's Production Problem}
+
+\subsection*{Sets}
+Let \( N \) be the number of different computer systems produced by DEC, indexed by \( i \in \{1, 2, \ldots, N\} \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( is\_workstation_i \): A binary variable indicating if system \( i \) is a workstation (1) or a general-purpose system (0).
+    \item \( price_i \): The price of system \( i \) (in dollars).
+    \item \( disk_i \): Average disk drives requested for system \( i \).
+    \item \( mem_i \): Average number of 256K memory boards required for system \( i \).
+    \item \( max\_cpu \): Maximum number of CPUs available.
+    \item \( min\_disk \): Minimum number of disk drives available.
+    \item \( max\_disk \): Maximum number of disk drives available.
+    \item \( min\_mem \): Minimum number of 256K memory boards available.
+    \item \( max\_mem \): Maximum number of 256K memory boards available.
+    \item \( demand_i \): Maximum demand for system \( i \) in the next quarter.
+    \item \( demand\_GP \): Maximum demand for the general-purpose (GP) family.
+    \item \( demand\_WS \): Maximum demand for the workstation (WS) family.
+    \item \( preorder_i \): Preorders received for system \( i \).
+    \item \( alt\_mem \): Number of alternative memory boards available.
+    \item \( alt\_compatible_i \): A binary variable indicating if system \( i \) can use the alternative memory board.
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let \( x_i \) be the number of systems produced of type \( i \) (can be non-integer).  
+Let \( m_i \) be the number of 256K memory boards used for system \( i \).  
+Let \( a_i \) be the number of alternative memory boards used for system \( i \).  
+Let \( d_i \) be the number of disk drives used for system \( i \).  
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Profit} = \sum_{i=1}^{N} (price_i \cdot x_i) - \text{Costs}
+\]
+
+\subsection*{Constraints}
+
+1. CPU constraints:
+\[
+\sum_{i=1}^{N} x_i \leq max\_cpu
+\]
+
+2. Disk drives constraints:
+\[
+\sum_{i=1}^{N} d_i \cdot x_i \geq min\_disk
+\]
+\[
+\sum_{i=1}^{N} d_i \cdot x_i \leq max\_disk
+\]
+
+3. Memory constraints:
+\[
+\sum_{i=1}^{N} m_i \cdot x_i + \sum_{i=1}^{N} a_i \cdot x_i \leq min\_mem
+\]
+\[
+\sum_{i=1}^{N} m_i \cdot x_i + \sum_{i=1}^{N} a_i \cdot x_i \leq max\_mem
+\]
+
+4. Demand constraints:
+\[
+x_i \geq preorder_i \quad \forall i
+\]
+\[
+\sum_{i \in GP} x_i \leq demand\_GP
+\]
+\[
+\sum_{i \in WS} x_i \leq demand\_WS
+\]
+
+5. Alternative memory board constraints:
+\[
+a_i \leq alt\_mem \cdot alt\_compatible_i \quad \forall i
+\]
+
+6. Non-negativity and other conditions:
+\[
+x_i \geq 0 \quad \text{and can be non-integer}
+\]
+
+\end{document}

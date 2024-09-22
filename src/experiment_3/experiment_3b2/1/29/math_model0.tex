@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Fitting a Straight Line}
+
+Given data points for \( y_k \) and \( x_k \) for \( k = 1, \ldots, K \), we want to find the parameters \( a \) (intercept) and \( b \) (slope) such that the line \( y = bx + a \) minimizes the maximum deviation of the observed values.
+
+\subsection*{Model Formulation}
+
+\textbf{Objective:}
+
+\[
+\min \Delta 
+\]
+
+\textbf{Subject to Constraints:}
+
+For each \( k = 1, \ldots, K \), we introduce constraints for the deviations:
+
+\[
+y_k - (b x_k + a) \leq \Delta
+\]
+
+\[
+(b x_k + a) - y_k \leq \Delta
+\]
+
+\textbf{Variables:}
+
+- \( a \): Intercept of the line
+- \( b \): Slope of the line
+- \( \Delta \): Maximum deviation
+
+\textbf{Optimization:}
+
+Our goal is to solve this linear program to obtain the values of \( a \) and \( b \) which minimize \( \Delta \).
+
+\end{document}

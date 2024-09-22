@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Cafeteria Staffing Problem}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( N \) be the total number of days.
+    \item Let \( num_n \) be the number of required employees on day \( n \), for \( n = 1, 2, \ldots, N \).
+    \item Let \( total\_number \) be the total number of employees to hire.
+    \item Let \( n\_working\_days \) be the number of consecutive working days for each employee.
+    \item Let \( n\_resting\_days \) be the number of consecutive resting days for each employee.
+    \item Define \( is\_work_{n,i} \) as a binary variable that indicates if employee \( i \) is working on day \( n \) (1 if working, 0 if resting).
+\end{itemize}
+
+\textbf{Objective:}
+\begin{align*}
+    \text{Minimize } & total\_number
+\end{align*}
+
+\textbf{Constraints:}
+For each day \( n \) (from 1 to \( N \)):
+\begin{align*}
+    \sum_{i=1}^{total\_number} is\_work_{n,i} & \geq num_n \quad \forall n 
+\end{align*}
+
+To ensure each employee works for \( n\_working\_days \) and rests for \( n\_resting\_days \):
+\begin{align*}
+    is\_work_{n,i} + is\_work_{n+1,i} + \ldots + is\_work_{n+n\_working\_days-1,i} & = n\_working\_days \quad \forall i, n \text{ such that } n + n\_working\_days - 1 \leq N \\
+    is\_work_{n+n\_working\_days,i} + is\_work_{n+n\_working_days+1,i} + \ldots + is\_work_{n+n\_working_days+n\_resting\_days-1,i} & = 0 \quad \forall i, n \text{ such that } n + n\_working\_days + n\_resting\_days - 1 \leq N
+\end{align*}
+
+\textbf{Output:}
+\begin{align*}
+    \text{Output } & \{total\_number, is\_work_{n,i} \text{ for } n=1,\ldots,N \text{ and } i=1,\ldots,total\_number\}
+\end{align*}
+
+\end{document}

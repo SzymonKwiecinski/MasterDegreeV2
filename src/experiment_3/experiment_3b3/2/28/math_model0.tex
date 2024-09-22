@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Line Fitting}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( a \) be the intercept of the fitted line.
+    \item Let \( b \) be the slope of the fitted line.
+    \item Let \( d_k \) be the absolute deviation for each observation \( k \) where \( k = 1, 2, \ldots, K \).
+\end{itemize}
+
+\textbf{Given:}
+\begin{itemize}
+    \item A set of observed values \( y_k \) for \( k = 1, \ldots, K \).
+    \item A set of corresponding values \( x_k \) for \( k = 1, \ldots, K \).
+\end{itemize}
+
+\textbf{Objective:}  
+Minimize the total absolute deviation:
+
+\[
+\min \sum_{k=1}^{K} d_k
+\]
+
+\textbf{Subject to:}
+\begin{align*}
+d_k & \geq y_k - (b x_k + a), \quad \forall k \in \{1, \ldots, K\} \\
+d_k & \geq -(y_k - (b x_k + a)), \quad \forall k \in \{1, \ldots, K\} \\
+d_k & \geq 0, \quad \forall k \in \{1, \ldots, K\}
+\end{align*}
+
+\textbf{Output:}  
+The fitted line is defined by the parameters:
+\begin{itemize}
+    \item \texttt{intercept} = \( a \)
+    \item \texttt{slope} = \( b \)
+\end{itemize}
+
+\end{document}

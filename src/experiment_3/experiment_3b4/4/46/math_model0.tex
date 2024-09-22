@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} Maximize the total profit
+
+\[
+\text{Maximize } \quad Z = \sum_{s=1}^{S} \left( \text{steel\_price}_{s} \cdot \text{total\_steel}_{s} \right) - \sum_{a=1}^{A} \sum_{s=1}^{S} \left( \text{alloy\_price}_{a} \cdot \text{alloy\_amount}_{a,s} \right)
+\]
+
+\textbf{Subject to:}
+
+\[
+\sum_{s=1}^{S} \text{alloy\_amount}_{a,s} \leq \text{available}_{a}, \quad \forall a = 1, \ldots, A
+\]
+
+\[
+\sum_{a=1}^{A} \text{alloy\_amount}_{a,s} = \text{total\_steel}_{s}, \quad \forall s = 1, \ldots, S
+\]
+
+\[
+\sum_{a=1}^{A} \left( \frac{\text{carbon}_{a}}{100} \cdot \text{alloy\_amount}_{a,s} \right) \geq \frac{\text{carbon\_min}_{s}}{100} \cdot \text{total\_steel}_{s}, \quad \forall s = 1, \ldots, S
+\]
+
+\[
+\sum_{a=1}^{A} \left( \frac{\text{nickel}_{a}}{100} \cdot \text{alloy\_amount}_{a,s} \right) \leq \frac{\text{nickel\_max}_{s}}{100} \cdot \text{total\_steel}_{s}, \quad \forall s = 1, \ldots, S
+\]
+
+\[
+\text{alloy\_amount}_{1,s} \leq 0.4 \cdot \text{total\_steel}_{s}, \quad \forall s = 1, \ldots, S
+\]
+
+\textbf{Variables:}
+- \(\text{alloy\_amount}_{a,s} \geq 0\), the amount of alloy \(a\) used in steel type \(s\).
+- \(\text{total\_steel}_{s} \geq 0\), the total amount of steel type \(s\) produced.
+
+\end{document}

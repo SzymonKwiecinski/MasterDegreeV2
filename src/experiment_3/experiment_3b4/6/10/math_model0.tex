@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for School Assignment Problem}
+
+\subsection*{Decision Variables}
+\[
+x_{n,s,g} \geq 0
+\]
+- \( x_{n,s,g} \): Number of students of grade \( g \) from neighborhood \( n \) assigned to school \( s \).
+
+\subsection*{Objective Function}
+Minimize the total distance traveled by all students:
+\[
+\text{Minimize } \sum_{n=1}^{N} \sum_{s=1}^{S} \sum_{g=1}^{G} d_{n,s} \cdot x_{n,s,g}
+\]
+
+\subsection*{Constraints}
+
+\begin{itemize}
+    \item \textbf{Capacity Constraints:}
+    \[
+    \sum_{n=1}^{N} x_{n,s,g} \leq \text{capacity}_{s,g}, \quad \forall s, \forall g
+    \]
+    - Ensure that the number of students assigned to each school for each grade does not exceed its capacity.
+
+    \item \textbf{Population Constraints:}
+    \[
+    \sum_{s=1}^{S} x_{n,s,g} = \text{population}_{n,g}, \quad \forall n, \forall g
+    \]
+    - Ensure that all students from each neighborhood in each grade are assigned to some school.
+\end{itemize}
+
+\end{document}

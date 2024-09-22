@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{MILP Formulation for Cutting Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $W$: Width of the large roll (inches).
+    \item $M$: Number of different types of smaller rolls.
+    \item $N$: Number of different cutting patterns.
+    \item $w_j$: Width of roll type $j$, for $j = 1, \dots, M$.
+    \item $d_j$: Demand for roll type $j$, for $j = 1, \dots, M$.
+    \item $p_{i,j}$: Number of rolls of width type $j$ produced by pattern $i$, for $i = 1, \dots, N$ and $j = 1, \dots, M$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_i$: Integer variable representing the number of times pattern $i$ is used, for $i = 1, \dots, N$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total number of large rolls used:
+\[
+\text{minimize} \quad \sum_{i=1}^{N} x_i
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Demand satisfaction for each roll type $j$:
+    \[
+    \sum_{i=1}^{N} p_{i,j} x_i \geq d_j, \quad \forall j = 1, \dots, M
+    \]
+    \item Non-negativity and integrality of the decision variables:
+    \[
+    x_i \geq 0 \quad \text{and integer}, \quad \forall i = 1, \dots, N
+    \]
+\end{itemize}
+
+\end{document}

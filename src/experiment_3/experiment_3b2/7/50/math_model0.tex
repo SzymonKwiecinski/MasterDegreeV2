@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model}
+
+Given:
+\begin{itemize}
+    \item $P$: Number of different parts.
+    \item $M$: Number of different machines.
+    \item $time_{m,p}$: Time in hours required to produce a batch of part $p$ on machine $m$.
+    \item $cost_{m}$: Cost per hour for using machine $m$.
+    \item $available_{m}$: Available hours for machine $m$ per month.
+    \item $price_{p}$: Selling price per batch of part $p$.
+    \item $min\_batches_{p}$: Minimum batches of part $p$ required to be produced each month.
+    \item $extra\_cost_{m}$: Additional cost per hour for extra machine time on machine $m$.
+    \item $max\_extra_{m}$: Maximum extra hours for machine $m$.
+\end{itemize}
+
+Decision Variables:
+\begin{align*}
+    & batches_{p} \geq 0, && \text{number of batches of part } p \text{ to produce each month.} \\
+    & extra\_time_{m} \geq 0, && \text{extra hours purchased for each machine } m.
+\end{align*}
+
+Objective Function:
+\[
+\text{Maximize } \sum_{p=1}^{P} \left( price_{p} \times batches_{p} \right) - \sum_{m=1}^{M} \left( cost_{m} \times \left(\sum_{p=1}^{P} time_{m,p} \times batches_{p} + extra\_time_{m}\right) \right) - \sum_{m=1}^{M} \left( extra\_cost_{m} \times extra\_time_{m} \right)
+\]
+
+Subject to:
+\begin{align*}
+    & \sum_{p=1}^{P} time_{m,p} \times batches_{p} \leq available_{m} + extra\_time_{m}, && \forall m = 1, ..., M \\
+    & batches_{p} \geq min\_batches_{p}, && \forall p = 1, ..., P \\
+    & extra\_time_{m} \leq max\_extra_{m}, && \forall m = 1, ..., M \\
+    & batches_{p} \geq 0, && \forall p = 1, ..., P \\
+    & extra\_time_{m} \geq 0, && \forall m = 1, ..., M
+\end{align*}
+
+\end{document}

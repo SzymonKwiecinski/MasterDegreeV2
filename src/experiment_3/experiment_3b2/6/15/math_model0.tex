@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Model}
+
+\subsection*{Decision Variables}
+\begin{align*}
+x_i &\geq 0, \quad \text{integer, for } i = 1, 2, \ldots, N \quad (\text{units produced}) \\
+y &\geq 0, \quad \text{integer} \quad (\text{overtime assembly hours}) \\
+z &\in \{0, 1\} \quad (\text{material discount indicator})
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the daily profit:
+\[
+\text{Profit} = \sum_{i=1}^{N} (\text{price}_i \cdot x_i) - \left( \sum_{i=1}^{N} (\text{materialCost}_i \cdot x_i) \cdot (1 - \text{materialDiscount} \cdot z) \right) - \text{overtimeAssemblyCost} \cdot y
+\]
+
+\subsection*{Constraints}
+\begin{align}
+\sum_{i=1}^{N} (\text{assemblyHour}_i \cdot x_i) &\leq \text{maxAssembly} + y, \\
+\sum_{i=1}^{N} (\text{testingHour}_i \cdot x_i) &\leq \text{maxTesting}, \\
+y &\leq \text{maxOvertimeAssembly}, \\
+\sum_{i=1}^{N} (\text{materialCost}_i \cdot x_i) &\geq \text{discountThreshold} \cdot z, \\
+x_i &\geq 0, \quad \text{integer},\; \forall i, \\
+y &\geq 0, \quad \text{integer}, \\
+z &\in \{0, 1\}
+\end{align}
+
+\end{document}

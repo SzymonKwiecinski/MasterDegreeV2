@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\begin{document}
+
+\section*{Mathematical Formulation}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( N \): Total number of days.
+    \item \(\text{num}_{n}\): Required number of employees on day \( n \).
+    \item \( n_{\text{working\_days}} \): Number of consecutive working days for each employee.
+    \item \( n_{\text{resting\_days}} \): Number of consecutive resting days for each employee.
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item \( x_i \in \{0, 1\} \): 1 if employee \( i \) is employed, 0 otherwise.
+    \item \( y_{n,i} \in \{0, 1\} \): 1 if employee \( i \) works on day \( n \), 0 otherwise.
+\end{itemize}
+
+\subsection*{Objective}
+\begin{align*}
+    \min \sum_{i=1}^{T} x_i
+\end{align*}
+
+\subsection*{Constraints}
+
+\begin{align*}
+    &\sum_{i=1}^{T} y_{n,i} \geq \text{num}_{n}, \quad \forall n = 1, 2, \ldots, N \\
+    &\sum_{k=0}^{n_{\text{working\_days}} - 1} y_{n+k,i} \leq n_{\text{working\_days}} \cdot x_i, \quad \forall i, \quad \forall n = 1, 2, \ldots, N - n_{\text{working\_days}} + 1 \\
+    &y_{n,i} = 0, \quad \forall i, \quad \forall n \text{ where } (n \mod (n_{\text{working\_days}} + n_{\text{resting\_days}})) \geq n_{\text{working\_days}} \\
+    &x_i \in \{0, 1\}, \quad y_{n,i} \in \{0, 1\}, \quad \forall i, n
+\end{align*}
+
+\subsection*{Explanation}
+
+- The first constraint ensures that the required number of employees are working each day.
+- The second constraint ensures that if an employee is working, they don't work more than \( n_{\text{working\_days}} \) consecutive days.
+- The third constraint ensures that employees take the required rest days after their consecutive working period.
+
+\end{document}

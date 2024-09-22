@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\subsection*{Mixed Integer Programming Model}
+
+\textbf{Decision Variables:}
+\begin{align*}
+x_{k,t} &: \text{Number of type } k \text{ generators operating in period } t. \\
+y_{k,t} &: \text{Binary variable, 1 if at least one generator of type } k \text{ is started in period } t. \\
+p_{k,t} &: \text{Total power output above minimum level from type } k \text{ generators in period } t.
+\end{align*}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize} \quad \sum_{t=1}^{T} \sum_{k=1}^{K} \left( x_{k,t} \cdot \text{runcost}_k + p_{k,t} \cdot \text{extracost}_k + y_{k,t} \cdot \text{startcost}_k \right)
+\]
+
+\textbf{Constraints:}
+\begin{align}
+& \sum_{k=1}^{K} \left( x_{k,t} \cdot \text{minlevel}_k + p_{k,t} \right) = \text{demand}_t, \quad \forall t = 1, \ldots, T \\
+& 0 \leq p_{k,t} \leq x_{k,t} \cdot (\text{maxlevel}_k - \text{minlevel}_k), \quad \forall k = 1, \ldots, K, \forall t = 1, \ldots, T \\
+& 0 \leq x_{k,t} \leq \text{num}_k, \quad \forall k = 1, \ldots, K, \forall t = 1, \ldots, T \\
+& y_{k,t} \geq \frac{x_{k,t} - x_{k,t-1}}{\text{num}_k}, \quad \forall k = 1, \ldots, K, \forall t = 2, \ldots, T \\
+& y_{k,1} \geq \frac{x_{k,1}}{\text{num}_k}, \quad \forall k = 1, \ldots, K
+\end{align}
+
+\end{document}

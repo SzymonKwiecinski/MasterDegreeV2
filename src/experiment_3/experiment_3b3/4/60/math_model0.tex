@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mixed Integer Linear Programming Model}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item $I$: Set of projects, indexed by $i$.
+    \item $J$: Set of consultants, indexed by $j$.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $f_j$: Fixed cost of hiring consultant $j$, for $j = 1, \ldots, J$.
+    \item $c_{i,j}$: Additional cost of assigning project $i$ to consultant $j$, for $i = 1, \ldots, I$ and $j = 1, \ldots, J$.
+    \item $K$: Maximum number of projects that can be assigned to a consultant.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_{j}$: Binary variable indicating whether consultant $j$ is hired ($x_{j} = 1$) or not ($x_{j} = 0$).
+    \item $y_{i,j}$: Binary variable indicating whether project $i$ is assigned to consultant $j$ ($y_{i,j} = 1$) or not ($y_{i,j} = 0$).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{j=1}^{J} f_j x_j + \sum_{i=1}^{I} \sum_{j=1}^{J} c_{i,j} y_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Each project must be assigned to exactly one consultant:
+    \[
+    \sum_{j=1}^{J} y_{i,j} = 1, \quad \forall i = 1, \ldots, I
+    \]
+
+    \item A consultant can only work on projects if they are hired:
+    \[
+    y_{i,j} \leq x_{j}, \quad \forall i = 1, \ldots, I, \forall j = 1, \ldots, J
+    \]
+
+    \item A consultant can be assigned to a maximum of $K$ projects:
+    \[
+    \sum_{i=1}^{I} y_{i,j} \leq K x_{j}, \quad \forall j = 1, \ldots, J
+    \]
+
+    \item Binary conditions:
+    \[
+    x_j \in \{0,1\}, \quad \forall j = 1, \ldots, J
+    \]
+    \[
+    y_{i,j} \in \{0,1\}, \quad \forall i = 1, \ldots, I, \forall j = 1, \ldots, J
+    \]
+\end{itemize}
+
+\subsection*{Output}
+\begin{itemize}
+    \item \texttt{assignments}: $[ [y_{1,1}, y_{1,2}, \ldots, y_{1,I}], [y_{2,1}, y_{2,2}, \ldots, y_{2,I}], \ldots, [y_{J,1}, y_{J,2}, \ldots, y_{J,I}] ]$
+    \item \texttt{total\_cost}: $Z$
+\end{itemize}
+
+\end{document}

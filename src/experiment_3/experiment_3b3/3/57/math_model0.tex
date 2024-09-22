@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Seaport Container Management}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( amount_t \): Number of containers unloaded in month \( t \), \( t = 1, \ldots, T \)
+    \item \( crane_t \): Number of cranes rented in month \( t \), \( t = 1, \ldots, T \)
+    \item \( inventory_t \): Number of containers in the yard at the end of month \( t \), \( t = 1, \ldots, T \)
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( demand_t \): Demand for containers in month \( t \)
+    \item \( unload\_cost_t \): Cost to unload a container in month \( t \)
+    \item \( unload\_capacity_t \): Maximum containers that can be unloaded in month \( t \)
+    \item \( holding\_cost \): Holding cost per container
+    \item \( max\_container \): Maximum containers the yard can store
+    \item \( init\_container \): Initial number of containers in the yard
+    \item \( num\_cranes \): Maximum number of cranes that can be rented per month
+    \item \( crane\_capacity \): Capacity of each crane
+    \item \( crane\_cost \): Cost of renting one crane
+\end{itemize}
+
+\textbf{Objective:} Minimize the total cost over \( T \) months:
+
+\[
+\text{Minimize } Z = \sum_{t=1}^{T} \left( unload\_cost_t \cdot amount_t + holding\_cost \cdot inventory_t + crane\_cost \cdot crane_t \right)
+\]
+
+\textbf{Subject to:}
+\begin{align}
+    inventory_t & = inventory_{t-1} + amount_t - demand_t, \quad t = 1, \ldots, T \\
+    inventory_0 & = init\_container \\
+    inventory_t & \leq max\_container, \quad t = 1, \ldots, T \\
+    amount_t & \leq unload\_capacity_t, \quad t = 1, \ldots, T \\
+    amount_t & \geq 0, \quad t = 1, \ldots, T \\
+    crane_t & \cdot crane\_capacity \geq demand_t - inventory_{t-1}, \quad t = 1, \ldots, T \\
+    crane_t & \leq num\_cranes, \quad t = 1, \ldots, T \\
+    crane_t & \geq 0, \quad t = 1, \ldots, T \\
+    inventory_T & = 0 
+\end{align}
+
+\textbf{Output:}
+\begin{itemize}
+    \item Containers Unloaded: \( [amount_t \text{ for } t = 1, \ldots, T] \)
+    \item Cranes Rented: \( [crane_t \text{ for } t = 1, \ldots, T] \)
+    \item Total Cost: \( total\_cost \)
+\end{itemize}
+
+\end{document}

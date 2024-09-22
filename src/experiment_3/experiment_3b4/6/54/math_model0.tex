@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Decision Variables}
+Let \( x_p \) be the number of batches produced for part \( p \), for \( p = 1, 2, \ldots, P \).
+
+\subsection*{Objective Function}
+We aim to maximize the total profit:
+
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} \left( \text{price}_p \times x_p \right) - \sum_{m=2}^{M} \sum_{p=1}^{P} \left( \text{time}_{m,p} \times x_p \times \text{cost}_m \right) - \left( \sum_{p=1}^{P} \text{time}_{1,p} \times x_p \right) \text{cost}_{\text{Machine 1}}
+\]
+
+Where:
+\[
+\text{cost}_{\text{Machine 1}} = 
+\begin{cases} 
+\text{standard\_cost}, & \text{if} \ \sum_{p=1}^{P} \text{time}_{1,p} \times x_p \leq \text{overtime\_hour} \\
+\text{overtime\_cost}, & \text{otherwise}
+\end{cases}
+\]
+
+\subsection*{Constraints}
+
+1. Production Constraints:
+   \[
+   x_p \geq \text{min\_batches}_p, \quad \forall p = 1, 2, \ldots, P
+   \]
+
+2. Machine Availability Constraints for \( m = 2, 3, \ldots, M \):
+   \[
+   \sum_{p=1}^{P} \text{time}_{m,p} \times x_p \leq \text{available}_m, \quad \forall m
+   \]
+
+\subsection*{Non-negativity}
+\[
+x_p \geq 0, \quad \forall p = 1, 2, \ldots, P
+\]
+
+\section*{Objective}
+Determine the values of \( x_p \) for each part \( p \) to maximize the total profit \( Z \).
+
+\end{document}

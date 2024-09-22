@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Formulation for Network Intervention}
+
+\subsection*{Sets and Indices}
+\begin{align*}
+    &N: \text{Number of clusters, indexed by } i = 1, \ldots, N.
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+    &\text{Processing Times:} \\
+    &\quad \text{Central Isolation: } \text{isolate\_central}_i, \quad \text{for } i = 1, \ldots, N. \\
+    &\quad \text{Central Scan: } \text{scan\_central}_i, \quad \text{for } i = 1, \ldots, N. \\
+    &\quad \text{Distributed Isolation: } \text{isolate\_distributed}_i, \quad \text{for } i = 1, \ldots, N. \\
+    &\quad \text{Distributed Scan: } \text{scan\_distributed}_i, \quad \text{for } i = 1, \ldots, N. \\
+    &\text{Costs:} \\
+    &\quad \text{central\_cost}, \text{ distributed\_cost}. \\
+    &\text{Maximum Hours:} \\
+    &\quad \text{max\_central}, \quad \text{max\_distributed}.
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    &x_{i, \text{isolate, central}} \in \{0, 1\}: \text{If cluster } i \text{ is isolated centrally.} \\
+    &x_{i, \text{isolate, distributed}} \in \{0, 1\}: \text{If cluster } i \text{ is isolated distributedly.} \\
+    &x_{i, \text{scan, central}} \in \{0, 1\}: \text{If cluster } i \text{ is scanned centrally.} \\
+    &x_{i, \text{scan, distributed}} \in \{0, 1\}: \text{If cluster } i \text{ is scanned distributedly.}
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\begin{align*}
+    \text{Minimize } & \sum_{i=1}^{N} \left( \text{central\_cost} \times (\text{isolate\_central}_i \times x_{i, \text{isolate, central}} + \text{scan\_central}_i \times x_{i, \text{scan, central}}) \right. \\
+    & \left. + \text{distributed\_cost} \times (\text{isolate\_distributed}_i \times x_{i, \text{isolate, distributed}} + \text{scan\_distributed}_i \times x_{i, \text{scan, distributed}}) \right)
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+    &\text{Processing Time Constraints:} \\
+    &\sum_{i=1}^{N} (\text{isolate\_central}_i \times x_{i, \text{isolate, central}} + \text{scan\_central}_i \times x_{i, \text{scan, central}}) \leq \text{max\_central}, \\
+    &\sum_{i=1}^{N} (\text{isolate\_distributed}_i \times x_{i, \text{isolate, distributed}} + \text{scan\_distributed}_i \times x_{i, \text{scan, distributed}}) \leq \text{max\_distributed}.
+\end{align*}
+
+\begin{align*}
+    &\text{Intervention Assignment Constraints:} \\
+    &x_{i, \text{isolate, central}} + x_{i, \text{isolate, distributed}} + x_{i, \text{scan, central}} + x_{i, \text{scan, distributed}} = 1, \quad \forall i.
+\end{align*}
+
+\end{document}

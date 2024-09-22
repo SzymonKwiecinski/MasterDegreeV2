@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\subsection*{Variables}
+Let \( x_{i,j} \) be the amount of currency \( i \) exchanged for currency \( j \).
+
+\subsection*{Objective}
+Maximize the total amount of currency \( N \) at the end of the day:
+\[
+\text{Maximize } Z = x_{N,N} + \sum_{k=1}^{N-1} x_{k,N}
+\]
+
+\subsection*{Constraints}
+1. Currency exchange limits:
+\[
+\sum_{j=1}^{N} x_{i,j} \leq \text{limit}_i \quad \forall i \in \{1, 2, \ldots, N\}
+\]
+
+2. Currency available for exchange:
+\[
+x_{i,j} \leq \text{start}_i \quad \forall i,j \in \{1, 2, \ldots, N\}
+\]
+
+3. Exchange rates:
+\[
+x_{i,j} \cdot \text{rate}_{i,j} \leq x_{j,i} \quad \forall i,j \in \{1, 2, \ldots, N\} \text{ and } i \neq j
+\]
+
+4. Non-negativity constraints:
+\[
+x_{i,j} \geq 0 \quad \forall i,j \in \{1, 2, \ldots, N\}
+\]
+
+5. Conservation of currency:
+For each currency \( i \) the total currency after transactions must equal the initial amount:
+\[
+\text{start}_i + \sum_{j=1}^{N} x_{j,i} - \sum_{j=1}^{N} x_{i,j} = \text{final}_i \quad \forall i \in \{1, 2, \ldots, N\}
+\]
+
+Where \( \text{final}_N \) represents the final amount of currency \( N \).
+
+\end{document}

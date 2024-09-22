@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model for Maximizing Profit}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item Let \( P \) be the set of parts produced, indexed by \( p \).
+    \item Let \( M \) be the set of machines, indexed by \( m \).
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{time\_required}_{m,p} \): Time required on machine \( m \) to produce a batch of part \( p \).
+    \item \( \text{cost}_{m} \): Cost per hour of using machine \( m \).
+    \item \( \text{availability}_{m} \): Hours available per month on machine \( m \).
+    \item \( \text{prices}_{p} \): Selling price per batch of part \( p \).
+    \item \( \text{min\_batches}_{p} \): Minimum batches of part \( p \) to be produced.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( \text{batches}_{p} \): Number of batches of part \( p \) to be produced.
+\end{itemize}
+
+\textbf{Objective:}
+
+Maximize the total profit, which is the difference between total revenue and total cost:
+
+\[
+\text{Maximize} \quad \text{total\_profit} = \sum_{p \in P} \left( \text{prices}_{p} \times \text{batches}_{p} \right) - \sum_{m \in M} \left( \text{cost}_{m} \times \sum_{p \in P} \text{time\_required}_{m,p} \times \text{batches}_{p} \right)
+\]
+
+\textbf{Constraints:}
+
+\begin{enumerate}
+    \item Machine time availability constraints for all machines except \( m = M \) and \( m = M-1 \):
+    \[
+    \sum_{p \in P} \text{time\_required}_{m,p} \times \text{batches}_{p} \leq \text{availability}_{m}, \quad \forall m \in \{1, \ldots, M-2\}
+    \]
+
+    \item Combined availability constraint for machines \( M \) and \( M-1 \):
+    \[
+    \sum_{p \in P} \left( \text{time\_required}_{M,p} \times \text{batches}_{p} + \text{time\_required}_{M-1,p} \times \text{batches}_{p} \right) \leq \text{availability}_{M} + \text{availability}_{M-1}
+    \]
+
+    \item Minimum production requirements:
+    \[
+    \text{batches}_{p} \geq \text{min\_batches}_{p}, \quad \forall p \in P
+    \]
+
+    \item Non-negativity constraints:
+    \[
+    \text{batches}_{p} \geq 0, \quad \forall p \in P
+    \]
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item \( K \): Set of products, indexed by \( k \).
+    \item \( S \): Set of production stages, indexed by \( s \).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{produce\_time}_{k,s} \): Necessary time to produce 1 unit of product \( k \) at stage \( s \).
+    \item \( \text{time}_{s} \): Availability in working hours for stage \( s \).
+    \item \( \text{profit}_{k} \): Unitary profit for product \( k \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{quantity}_{k} \): Production quantity for product \( k \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+\max \sum_{k=1}^{K} \text{profit}_{k} \cdot \text{quantity}_{k}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Time constraints for each stage \( s \):
+    \[
+    \sum_{k=1}^{K} \text{produce\_time}_{k,s} \cdot \text{quantity}_{k} \leq \text{time}_{s} \quad \forall s = 1,...,S
+    \]
+    \item Non-negativity constraints:
+    \[
+    \text{quantity}_{k} \geq 0 \quad \forall k = 1,...,K
+    \]
+\end{itemize}
+
+\end{document}

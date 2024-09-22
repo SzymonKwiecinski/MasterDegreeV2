@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} e_k
+\]
+
+\textbf{Subject to:}
+\[
+e_k \geq y_k - (bx_k + a), \quad \forall k = 1, \ldots, K
+\]
+\[
+e_k \geq -(y_k - (bx_k + a)), \quad \forall k = 1, \ldots, K
+\]
+
+Where:
+- \( e_k \) is the absolute deviation for the \( k \)-th data point.
+- \( b \) is the slope of the line.
+- \( a \) is the intercept of the line.
+
+The goal is to determine the values for \( a \) and \( b \).
+
+\end{document}
+{
+    "intercept": intercept_value,
+    "slope": slope_value
+}

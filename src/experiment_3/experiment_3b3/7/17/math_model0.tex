@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Stock Selling Problem}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( s_i \) be the number of shares of stock \( i \) to sell, where \( i = 1, \ldots, N \).
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{bought}_i \): number of shares bought of stock \( i \)
+    \item \( \text{buyPrice}_i \): price at which shares of stock \( i \) were bought
+    \item \( \text{currentPrice}_i \): current price of shares of stock \( i \)
+    \item \( \text{futurePrice}_i \): expected future price of shares of stock \( i \)
+    \item \( \text{transactionRate} \): transaction cost percentage 
+    \item \( \text{taxRate} \): tax rate on capital gains percentage
+    \item \( K \): net amount of money needed 
+\end{itemize}
+
+\textbf{Objective Function:}
+Maximize the expected value of the portfolio next year after selling shares:
+\[
+\text{Maximize } Z = \sum_{i=1}^{N} \left( \left( \text{futurePrice}_i - \text{buyPrice}_i \right) \cdot \text{bought}_i - \left( \text{transactionRate} / 100 \cdot \left( \text{currentPrice}_i \cdot s_i \right) + \text{taxRate} / 100 \cdot \left( \text{currentPrice}_i \cdot s_i - \text{buyPrice}_i \cdot s_i \right) \right) \right)
+\]
+
+\textbf{Constraints:}
+1. The amount raised after transaction costs and taxes must be at least \( K \):
+\[
+\sum_{i=1}^{N} \left( \text{currentPrice}_i \cdot s_i - \left( \text{transactionRate} / 100 \cdot \left( \text{currentPrice}_i \cdot s_i \right) + \text{taxRate} / 100 \cdot \left( \text{currentPrice}_i \cdot s_i - \text{buyPrice}_i \cdot s_i \right) \right) \right) \geq K
+\]
+
+2. The number of shares sold should not exceed the number of shares bought:
+\[
+s_i \leq \text{bought}_i \quad \forall i
+\]
+
+3. Non-negativity constraints:
+\[
+s_i \geq 0 \quad \forall i
+\]
+
+\end{document}

@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Decision Variables}
+Let \( \text{buyquantity}_{n} \geq 0 \) be the quantity bought in period \( n \), \( \text{sellquantity}_{n} \geq 0 \) be the quantity sold in period \( n \), and \( \text{stock}_{n} \geq 0 \) be the stock level at the end of period \( n \), for \( n = 1, \ldots, N \).
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize } \sum_{n=1}^{N} \left( \text{price}_{n} \cdot \text{sellquantity}_{n} - \text{cost}_{n} \cdot \text{buyquantity}_{n} - \text{holding\_cost} \cdot \text{stock}_{n} \right)
+\]
+
+\subsection*{Constraints}
+1. \textbf{Capacity Constraint:}
+\[ 
+\text{stock}_{n} \leq \text{capacity}, \quad \forall n = 1, 2, \ldots, N 
+\]
+
+2. \textbf{Balance Constraint:}
+\[
+\text{stock}_{n} = \text{stock}_{n-1} + \text{buyquantity}_{n} - \text{sellquantity}_{n}, \quad \forall n = 1, 2, \ldots, N
+\]
+where \( \text{stock}_{0} = 0 \).
+
+3. \textbf{Initial and Final Stock Constraints:}
+\[
+\text{stock}_{0} = 0, \quad \text{stock}_{N} = 0
+\]
+
+\end{document}

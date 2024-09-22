@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+Maximize the total profit
+\[
+\text{maximize} \quad Z = \sum_{k=1}^{K} \text{profit}_k \cdot x_k
+\]
+
+\textbf{Subject to the constraints:}
+\[
+\sum_{k=1}^{K} \text{time}_{k, s} \cdot x_k \leq \text{capacity}_s \quad \text{for each shop } s = 1, \ldots, S
+\]
+\[
+x_k \geq 0 \quad \text{for each part } k = 1, \ldots, K
+\]
+
+\noindent Where:
+\begin{itemize}
+    \item \( \text{time}_{k, s} \) is the required worker-hours for part \( k \) in shop \( s \).
+    \item \( \text{profit}_k \) is the profit generated from part \( k \).
+    \item \( \text{capacity}_s \) is the capacity of shop \( s \) in terms of worker-hours available.
+    \item \( x_k \) is the quantity of part \( k \) to produce.
+\end{itemize}
+
+\end{document}

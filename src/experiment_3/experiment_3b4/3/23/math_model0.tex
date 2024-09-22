@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Minimizing Manpower Costs}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $K$: Total number of manpower categories.
+    \item $I$: Total number of years.
+    \item $\text{requirement}_{k, i}$: Requirement for manpower $k$ in year $i$.
+    \item $\text{strength}_{k}$: Initial strength of manpower $k$.
+    \item $\text{lessonewaste}_{k}$: Wastage rate for manpower $k$ with less than one year's service.
+    \item $\text{moreonewaste}_{k}$: Wastage rate for manpower $k$ with more than one year's service.
+    \item $\text{recruit}_{k}$: Maximum number of recruits for manpower $k$ per year.
+    \item $\text{costredundancy}_{k}$: Cost of redundancy for manpower $k$.
+    \item $\text{num\_overman}$: Maximum number of overmanned workers over all categories.
+    \item $\text{costoverman}_{k}$: Cost of overmanning per employee for manpower $k$.
+    \item $\text{num\_shortwork}$: Maximum number of workers on short-time working per category.
+    \item $\text{costshort}_{k}$: Cost of short-time working per employee for manpower $k$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $r_{k, i}$: Number of recruits for manpower $k$ in year $i$.
+    \item $o_{k, i}$: Number of overmanned workers for manpower $k$ in year $i$.
+    \item $s_{k, i}$: Number of short-time workers for manpower $k$ in year $i$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost over all years and manpower categories:
+
+\[
+\min \sum_{i=1}^{I} \sum_{k=1}^{K} \left( \text{costredundancy}_k \cdot r_{k, i} + \text{costoverman}_k \cdot o_{k, i} + \text{costshort}_k \cdot s_{k, i} \right)
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    & \text{For } i = 1, \ldots, I, \; k = 1, \ldots, K: \nonumber \\
+    & x_{k, i} = x_{k, i-1} (1 - \text{moreonewaste}_k) + r_{k, i} (1 - \text{lessonewaste}_k) \label{eq:staffing_level} \\
+    & x_{k, i} + o_{k, i} + \frac{s_{k, i}}{2} \geq \text{requirement}_{k, i} \label{eq:requirement} \\
+    & o_{k, i} \leq \text{num\_overman} \label{eq:overman} \\
+    & s_{k, i} \leq \text{num\_shortwork} \label{eq:shortwork} \\
+    & r_{k, i} \leq \text{recruit}_{k} \label{eq:recruit_limit} \\
+    & x_{k, i}, r_{k, i}, o_{k, i}, s_{k, i} \geq 0 \label{eq:non_negativity}
+\end{align}
+
+\subsection*{Initial Conditions}
+\[
+x_{k, 0} = \text{strength}_k, \quad \text{for } k = 1, \ldots, K
+\]
+
+\end{document}

@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\begin{document}
+
+\section*{MILP Formulation for Traveling Salesman Problem}
+
+\textbf{Sets:}  
+Let \( I = \{1, \ldots, N\} \) represent the set of cities, where 1 corresponds to \textit{start\_city}.
+
+\textbf{Parameters:}  
+\( d_{i,j} \): Distance between city \( i \) and city \( j \).
+
+\textbf{Decision Variables:}  
+\[
+x_{i,j} =
+\begin{cases} 
+1, & \text{if the path from city } i \text{ to city } j \text{ is part of the tour} \\ 
+0, & \text{otherwise}
+\end{cases}
+\]
+
+\textbf{Objective Function:}  
+Minimize the total distance traveled:
+\[
+\min \sum_{i \in I} \sum_{j \in I, j \neq i} d_{i,j} \cdot x_{i,j}
+\]
+
+\textbf{Constraints:}
+\begin{align}
+& \sum_{j \in I, j \neq i} x_{i,j} = 1, \quad \forall i \in I \quad \text{(each city is left once)} \\
+& \sum_{i \in I, i \neq j} x_{i,j} = 1, \quad \forall j \in I \quad \text{(each city is entered once)} \\
+& \sum_{i \in S} \sum_{j \in S, j \neq i} x_{i,j} \leq |S| - 1, \quad \forall S \subset I, 2 \leq |S| \leq N \quad \text{(sub-tour elimination)}
+\end{align}
+
+This set of constraints and the objective function forms a complete MILP model for solving the TSP with symmetric distances. The solution will provide the optimal sequence of cities \texttt{visit\_order} and the \texttt{total\_distance}.
+
+\end{document}

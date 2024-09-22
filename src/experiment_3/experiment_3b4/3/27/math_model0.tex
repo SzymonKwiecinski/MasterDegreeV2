@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} Minimize the overall yearly cost associated with relocating the departments.
+
+\textbf{Sets:}
+\begin{itemize}
+    \item $K$: Set of departments, indexed by $k$.
+    \item $L$: Set of cities, including London, indexed by $l$.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $benefit_{k, l}$: Benefit (in thousands of pounds) derived when department $k$ is relocated to city $l$.
+    \item $communication_{k, j}$: Quantity of communication between department $k$ and department $j$.
+    \item $cost_{l, m}$: Unit cost of communication between city $l$ and city $m$.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $islocated_{k, l} \in \{0, 1\}$: Binary variable, equal to 1 if department $k$ is relocated to city $l$, 0 otherwise.
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} \sum_{l=1}^{L} \left( -benefit_{k, l} \times islocated_{k, l} \right) + \sum_{k=1}^{K} \sum_{j=1}^{K} \sum_{l=1}^{L} \sum_{m=1}^{L} \left( communication_{k, j} \times cost_{l, m} \times islocated_{k, l} \times islocated_{j, m} \right)
+\]
+
+\textbf{Constraints:}
+\begin{itemize}
+    \item Each department must be located in exactly one city:
+    \[
+    \sum_{l=1}^{L} islocated_{k, l} = 1, \quad \forall k \in K
+    \]
+    
+    \item No city can have more than three departments:
+    \[
+    \sum_{k=1}^{K} islocated_{k, l} \leq 3, \quad \forall l \in L
+    \]
+\end{itemize}
+
+\textbf{Binary Constraints:}
+\[
+islocated_{k, l} \in \{0, 1\}, \quad \forall k \in K, l \in L
+\]
+
+\end{document}

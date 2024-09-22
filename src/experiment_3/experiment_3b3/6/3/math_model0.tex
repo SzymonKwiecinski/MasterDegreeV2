@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Electricity Capacity Expansion}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item \( x_{c,t} \): Amount of coal-fired capacity added in year \( t \) (in megawatts)
+    \item \( x_{n,t} \): Amount of nuclear power capacity added in year \( t \) (in megawatts)
+\end{itemize}
+
+\subsection*{Parameters}
+Given:
+\begin{itemize}
+    \item \( T \): Number of years
+    \item \( d_t \): Demand for electricity in year \( t \) (in megawatts)
+    \item \( o_t \): Existing oil-fired capacity in year \( t \) (in megawatts)
+    \item \( C_c \): Capital cost of coal-fired capacity (per megawatt)
+    \item \( C_n \): Capital cost of nuclear power capacity (per megawatt)
+    \item \( M_n \): Maximum allowable percentage of total capacity that can be nuclear (percentage)
+    \item \( L_c \): Lifespan of coal-fired plants (in years)
+    \item \( L_n \): Lifespan of nuclear plants (in years)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{t=1}^{T} \left( C_c \cdot x_{c,t} + C_n \cdot x_{n,t} \right)
+\]
+
+\subsection*{Constraints}
+1. Capacity availability constraint:
+\[
+o_t + \sum_{j=\max(1, t-L_c+1)}^{t} x_{c,j} + \sum_{j=\max(1, t-L_n+1)}^{t} x_{n,j} \geq d_t \quad \forall t = 1, \ldots, T
+\]
+
+2. Maximum nuclear capacity constraint:
+\[
+\sum_{j=1}^{t} x_{n,j} \leq \frac{M_n}{100} \left( o_t + \sum_{j=1}^{t} x_{c,j} + \sum_{j=1}^{t} x_{n,j} \right) \quad \forall t = 1, \ldots, T
+\]
+
+3. Non-negativity constraints:
+\[
+x_{c,t} \geq 0, \quad x_{n,t} \geq 0 \quad \forall t = 1, \ldots, T
+\]
+
+\subsection*{Output Format}
+The output should provide the following:
+\begin{itemize}
+    \item \texttt{coal\_cap\_added}: List of coal capacity added in each year.
+    \item \texttt{nuke\_cap\_added}: List of nuclear capacity added in each year.
+    \item \texttt{total\_cost}: Total cost of the system.
+\end{itemize}
+
+\end{document}

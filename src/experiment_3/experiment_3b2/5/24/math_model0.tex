@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Sets}
+\begin{align*}
+    & K = \{1, 2, \ldots, n\_mines\} \quad \text{(set of mines)} \\
+    & I = \{1, 2, \ldots, n\_years\} \quad \text{(set of years)}
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+    & \text{royalty}_{k} \quad \text{(yearly royalty for mine } k) \\
+    & \text{limit}_{k} \quad \text{(upper limit of ore production for mine } k) \\
+    & \text{quality}_{k} \quad \text{(ore quality from mine } k) \\
+    & \text{requiredquality}_{i} \quad \text{(required ore quality in year } i) \\
+    & \text{price} \quad \text{(price per ton of blended ore)} \\
+    & \text{discount} \quad \text{(discount rate)}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    & \text{isoperated}_{k,i} \in \{0, 1\} \quad \forall k \in K, \forall i \in I \\
+    & \text{amount}_{k,i} \geq 0 \quad \forall k \in K, \forall i \in I
+\end{align*}
+
+\subsection*{Objective}
+Maximize the NPV of profits:
+\begin{align*}
+    \max \sum_{i \in I} \Bigg(\frac{\text{price}}{(1 + \text{discount})^{i}} \times \sum_{k \in K} \text{amount}_{k,i} - \sum_{k \in K} \text{royalty}_{k} \times \text{isoperated}_{k,i}\Bigg)
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+    & \sum_{k \in K} \text{amount}_{k,i} \times \text{quality}_{k} = \text{requiredquality}_{i} \times \sum_{k \in K} \text{amount}_{k,i}, \quad \forall i \in I \\
+    & \text{amount}_{k,i} \leq \text{limit}_{k} \times \text{isoperated}_{k,i}, \quad \forall k \in K, \forall i \in I \\
+    & \sum_{k \in K} \text{isoperated}_{k,i} \leq \text{n\_maxwork}, \quad \forall i \in I
+\end{align*}
+
+\end{document}

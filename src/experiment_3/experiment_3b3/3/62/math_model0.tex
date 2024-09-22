@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Traveling Salesman Problem}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( x_{i,j} \) be a binary variable that is equal to 1 if the traveler travels directly from city \( i \) to city \( j \), and 0 otherwise.
+    \item Let \( d_{i,j} \) be the distance between city \( i \) and city \( j \).
+    \item Let \( N \) be the total number of towns to visit.
+\end{itemize}
+
+\textbf{Objective Function:}
+The objective is to minimize the total distance traveled:
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} \sum_{j=1}^{N} d_{i,j} \cdot x_{i,j}
+\]
+
+\textbf{Constraints:}
+1. Each town must be visited exactly once:
+\[
+\sum_{j=1, j \neq i}^{N} x_{i,j} = 1 \quad \forall i \in \{1, 2, \ldots, N\}
+\]
+ 
+2. Each town must be departed from exactly once:
+\[
+\sum_{i=1, i \neq j}^{N} x_{i,j} = 1 \quad \forall j \in \{1, 2, \ldots, N\}
+\]
+
+3. Subtour elimination constraints (Miller-Tucker-Zemlin formulation):
+\[
+u_i - u_j + N \cdot x_{i,j} \leq N - 1 \quad \forall i \neq j, \quad i,j \in \{1, 2, \ldots, N\}
+\]
+where \( u_i \) is an auxiliary variable representing the position of town \( i \) in the tour.
+
+4. The traveler must start and end at the designated start city, e.g., \( \text{start\_city} \):
+\[
+x_{\text{start\_city},j} = 1 \quad \forall j \in \{1, 2, \ldots, N\} \quad \text{and} \quad x_{j,\text{start\_city}} = 1 \quad \forall j \in \{1, 2, \ldots, N\}
+\]
+
+\textbf{Output:}
+\begin{itemize}
+    \item The sequence of cities visited after \(\text{start\_city}\) is denoted as \( \text{visit\_order} \).
+    \item The total distance traveled on the optimal journey is denoted as \( \text{total\_distance} = Z \).
+\end{itemize}
+
+\end{document}

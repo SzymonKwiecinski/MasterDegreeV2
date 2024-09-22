@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Auto Parts Manufacturer}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item Let \( P \) be the number of different parts.
+    \item Let \( M \) be the number of different machines.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( time_{m,p} \): time required (in hours) on machine \( m \) to produce a batch of part \( p \).
+    \item \( cost_{m} \): cost (in currency units) per hour for using machine \( m \).
+    \item \( available_{m} \): availability (in hours) of machine \( m \) per month.
+    \item \( price_{p} \): selling price (in currency units) of part \( p \) per batch.
+    \item \( setup\_time_{p} \): setup time (in hours) required for machine 1 before producing part \( p \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( batches_{p} \): number of batches of part \( p \) produced (for \( p = 1, \ldots, P \)).
+    \item \( setup\_flag_{p} \): binary variable indicating whether part \( p \) is set up (\( setup\_flag_{p} = 1 \)) or not (\( setup\_flag_{p} = 0 \)).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+\text{Total Profit} = \sum_{p=1}^{P} (price_{p} \cdot batches_{p}) - \sum_{m=1}^{M} (cost_{m} \cdot \text{hours\_used}_{m})
+\]
+where 
+\[
+\text{hours\_used}_{m} = \sum_{p=1}^{P} (time_{m,p} \cdot batches_{p}) + \sum_{p=1}^{P} (setup\_time_{p} \cdot setup\_flag_{p}) \text{ for } m = 1
+\]
+and 
+\[
+\text{hours\_used}_{m} = \sum_{p=1}^{P} (time_{m,p} \cdot batches_{p}) \text{ for } m \neq 1
+\]
+
+\subsection*{Constraints}
+1. Machine availability constraints:
+\[
+\sum_{p=1}^{P} (time_{m,p} \cdot batches_{p}) + \sum_{p=1}^{P} (setup\_time_{p} \cdot setup\_flag_{p}) \leq available_{m} \quad \forall m \in \{1, 2, \ldots, M\}
+\]
+
+2. Non-negativity constraints:
+\[
+batches_{p} \geq 0 \quad \forall p \in \{1, 2, \ldots, P\}
+\]
+
+3. Binary setup flag constraints:
+\[
+setup\_flag_{p} \in \{0, 1\} \quad \forall p \in \{1, 2, \ldots, P\}
+\]
+
+\subsection*{Output}
+The output will include:
+\begin{itemize}
+    \item \( batches_{p} \): the number of batches of each part produced.
+    \item \( setup\_flag_{p} \): indicates whether part \( p \) is set up.
+    \item \( total\_profit \): representing the total profit obtained for the month.
+\end{itemize}
+
+\end{document}

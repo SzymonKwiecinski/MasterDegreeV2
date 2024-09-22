@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $P$: Number of different parts
+    \item $M$: Number of different machines
+    \item $time_{m,p}$: Time required (in hours) on machine $m$ to produce a batch of 100 part $p$
+    \item $cost_{m}$: Cost (in dollars per hour) for using machine $m$
+    \item $available_{m}$: Availability (in hours) of machine $m$ per month
+    \item $price_{p}$: Price (in dollars) per batch of part $p$
+    \item $min\_batches_{p}$: Minimum required batches of part $p$ per month
+    \item $standard\_cost$: Labor cost (in dollars per hour) for up to $overtime\_hour$ hours
+    \item $overtime\_cost$: Labor cost (in dollars per hour) for overtime
+    \item $overtime\_hour$: Maximum hours before overtime costs apply
+    \item $min\_profit$: Minimum desired profit
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $batches_{p}$: Number of batches produced for part $p$, for $p = 1, \ldots, P$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} (price_{p} \cdot batches_{p}) - \sum_{m=1}^{M} (cost_{m} \cdot \sum_{p=1}^{P}(time_{m,p} \cdot batches_{p}))
+\]
+
+\subsection*{Constraints}
+
+\begin{align*}
+\text{Machine Availability Constraints:} \quad & \sum_{p=1}^{P} (time_{m,p} \cdot batches_{p}) \leq available_{m}, \quad \forall m = 1, \ldots, M \\
+\text{Minimum Batches Constraints:} \quad & batches_{p} \geq min\_batches_{p}, \quad \forall p = 1, \ldots, P \\
+\text{Labor Costs for Machine 1:} \quad & \sum_{p=1}^{P} (time_{1,p} \cdot batches_{p}) \leq \text{Allocated Hours for Machine 1} \\
+& \text{if within } overtime\_hour: \quad \text{Labor Cost} = standard\_cost \cdot \sum_{p=1}^{P} (time_{1,p} \cdot batches_{p}) \\
+& \text{if exceeding } overtime\_hour: \\
+& \quad \text{Labor Cost} = \left( standard\_cost \cdot overtime\_hour \right) + \left( overtime\_cost \cdot \left(\sum_{p=1}^{P} (time_{1,p} \cdot batches_{p}) - overtime\_hour \right) \right) \\
+\text{Profit Requirement:} \quad & Z \geq min\_profit
+\end{align*}
+
+\end{document}

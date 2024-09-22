@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+\begin{align*}
+x_p & : \text{number of batches of part } p \text{ produced, for } p = 1, 2, \ldots, P.
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the profit:
+\begin{align*}
+\text{Profit} = \sum_{p=1}^{P} \text{price}_p \times x_p - \sum_{m=2}^{M} \text{cost}_m \times \sum_{p=1}^{P} \text{time}_{m,p} \times x_p - c_1(x)
+\end{align*}
+
+Where \(c_1(x)\) is the cost for machine 1:
+\begin{align*}
+c_1(x) = 
+\begin{cases} 
+\text{standard\_cost} \times \sum_{p=1}^{P} \text{time}_{1,p} \times x_p, & \text{if } \sum_{p=1}^{P} \text{time}_{1,p} \times x_p \leq \text{overtime\_hour} \\
+\text{standard\_cost} \times \text{overtime\_hour} + \text{overtime\_cost} \times \left(\sum_{p=1}^{P} \text{time}_{1,p} \times x_p - \text{overtime\_hour}\right), & \text{otherwise} 
+\end{cases}
+\end{align*}
+
+\subsection*{Constraints}
+1. Machine Time Constraints (for machines \(m = 2, 3, \ldots, M\)):
+\begin{align*}
+\sum_{p=1}^{P} \text{time}_{m,p} \times x_p \leq \text{available}_m, & \quad \forall m = 2, 3, \ldots, M
+\end{align*}
+
+2. Minimum Batch Production:
+\begin{align*}
+x_p \geq \text{min\_batches}_p, & \quad \forall p = 1, 2, \ldots, P
+\end{align*}
+
+3. Profit Constraint:
+\begin{align*}
+\text{Profit} \geq \text{min\_profit}
+\end{align*}
+
+\subsection*{Non-negativity Constraints}
+\begin{align*}
+x_p \geq 0, & \quad \forall p = 1, 2, \ldots, P
+\end{align*}
+
+\end{document}

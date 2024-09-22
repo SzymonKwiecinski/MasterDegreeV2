@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+\begin{align*}
+x_a &: \text{The number of clicks (in thousands) purchased for ad type } a.
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total number of unique clicks:
+\begin{align*}
+\text{Maximize } Z = \sum_{a=1}^{A} \text{unique\_click}_a \times x_a 
+\end{align*}
+
+\subsection*{Constraints}
+1. Budget constraint:
+\begin{align*}
+\sum_{a=1}^{A} \text{cost}_a \times x_a \leq \text{budget}
+\end{align*}
+
+2. Age group click constraints:
+\begin{align*}
+\sum_{a=1}^{A} \text{young\_click}_a \times x_a &\geq \text{goal\_young} \\
+\sum_{a=1}^{A} \text{old\_click}_a \times x_a &\geq \text{goal\_old}
+\end{align*}
+
+3. Unique click constraints:
+\begin{align*}
+\sum_{a=1}^{A} \text{unique\_click}_a \times \text{young\_click}_a \times x_a &\geq \text{goal\_unique\_young} \\
+\sum_{a=1}^{A} \text{unique\_click}_a \times \text{old\_click}_a \times x_a &\geq \text{goal\_unique\_old}
+\end{align*}
+
+4. Maximum clicks constraint:
+\begin{align*}
+0 \leq x_a \leq \text{max\_click}_a \quad \forall a = 1, \ldots, A
+\end{align*}
+
+\end{document}

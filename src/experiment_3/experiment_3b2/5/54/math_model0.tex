@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Problem Formulation}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $p$: Index for parts, $p = 1, \ldots, P$.
+    \item $m$: Index for machines, $m = 1, \ldots, M$.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $time_{m,p}$: Hours required on machine $m$ to produce 100 parts of type $p$.
+    \item $cost_{m}$: Operational cost per hour for machine $m$.
+    \item $available_{m}$: Availability of machine $m$ in hours per month.
+    \item $price_{p}$: Selling price per batch of 100 parts of type $p$.
+    \item $min\_batches_{p}$: Minimum batches of part $p$ required to be produced each month.
+    \item $standard\_cost$: Labor cost per hour up to $overtime\_hour$ hours for machine 1.
+    \item $overtime\_cost$: Overtime labor cost per hour for machine 1.
+    \item $overtime\_hour$: Threshold for overtime hours for machine 1.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $batches_{p}$: Number of batches of part $p$ to produce.
+    \item $x_{1}$: Standard labor hours used on machine 1.
+    \item $y_{1}$: Overtime labor hours used on machine 1.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\begin{align*}
+    \text{Maximize} \quad & \sum_{p=1}^{P} \left( price_{p} \times batches_{p} \right) \\
+    & - \sum_{m=2}^{M} \left( cost_{m} \times \sum_{p=1}^{P} time_{m,p} \times batches_{p} \right) \\
+    & - \left( standard\_cost \times x_{1} + overtime\_cost \times y_{1} \right)
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+    & \sum_{p=1}^{P} time_{m,p} \times batches_{p} \leq available_{m}, & \forall m = 2, \ldots, M \\
+    & x_{1} + y_{1} \geq \sum_{p=1}^{P} time_{1,p} \times batches_{p} & \text{(labor hours for machine 1)} \\
+    & x_{1} \leq overtime\_hour & \text{(standard hours constraint)} \\
+    & y_{1} \geq 0, \quad x_{1} \geq 0 & \text{(non-negativity of hours)} \\
+    & batches_{p} \geq min\_batches_{p}, & \forall p = 1, \ldots, P \\
+    & batches_{p} \geq 0 & \text{(non-negativity of batches)}
+\end{align*}
+
+\end{document}

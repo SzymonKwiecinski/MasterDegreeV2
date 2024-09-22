@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+Let \( x_p \) be the number of batches of part \( p \) produced, for \( p = 1, \ldots, P \).
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\begin{align*}
+\text{Maximize } Z = & \sum_{p=1}^{P} \left(\text{price}_p \cdot x_p\right) \\
+& - \sum_{m=1}^{M} \left(\text{cost}_m \cdot \sum_{p=1}^{P} \left(\text{time}_{m,p} \cdot x_p\right) \right)
+\end{align*}
+
+\subsection*{Constraints}
+\begin{enumerate}
+    \item Minimum production requirements:
+    \[
+    x_p \geq \text{min\_batches}_p \quad \text{for } p = 1, \ldots, P
+    \]
+
+    \item Machine time availability:
+    \begin{align*}
+    & \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \leq \text{available}_m \quad \text{for } m = 1, \ldots, M-2 \\
+    & \sum_{p=1}^{P} \text{time}_{M-1,p} \cdot x_p + \sum_{p=1}^{P} \text{time}_{M,p} \cdot x_p \leq \text{available}_{M-1} + \text{available}_M
+    \end{align*}
+
+    \item Non-negativity:
+    \[
+    x_p \geq 0 \quad \text{for } p = 1, \ldots, P
+    \]
+    
+\end{enumerate}
+
+\end{document}

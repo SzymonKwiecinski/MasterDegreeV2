@@ -1,0 +1,18 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Objective Function}
+\begin{align*}
+\text{Maximize } Z = \sum_{k=1}^{K} \text{profit}_{k} \times x_k
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+& \sum_{k=1}^{K} \text{time}_{k, s} \times x_k \leq \text{capacity}_{s} \quad \text{for each } s = 1, \ldots, S \\
+& x_k \geq 0 \quad \text{for each } k = 1, \ldots, K
+\end{align*}
+
+\end{document}

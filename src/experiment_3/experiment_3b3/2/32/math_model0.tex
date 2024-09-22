@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Product Production}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+
+We are tasked with determining the optimal quantities of products to produce in order to maximize profit while satisfying production constraints across different stages.
+
+\section*{Parameters}
+
+Let:
+\begin{itemize}
+    \item \( K \): Number of products
+    \item \( S \): Number of stages
+    \item \( \text{produce\_time}_{k,s} \): Time required to produce 1 unit of product \( k \) at stage \( s \) (in hours)
+    \item \( \text{time}_{s} \): Total available time for stage \( s \) (in hours)
+    \item \( \text{profit}_{k} \): Profit per unit of product \( k \)
+    \item \( x_{k} \): Quantity of product \( k \) to be produced
+\end{itemize}
+
+\section*{Objective Function}
+
+We aim to maximize the total profit given by:
+
+\[
+\text{Maximize} \quad Z = \sum_{k=1}^{K} \text{profit}_{k} \cdot x_{k}
+\]
+
+\section*{Constraints}
+
+For each stage \( s \) (where \( s = 1, 2, \ldots, S \)), we have the following constraints based on the available time:
+
+\[
+\sum_{k=1}^{K} \text{produce\_time}_{k,s} \cdot x_{k} \leq \text{time}_{s}, \quad \forall s = 1, 2, \ldots, S
+\]
+
+Additionally, we include non-negativity constraints:
+
+\[
+x_{k} \geq 0, \quad \forall k = 1, 2, \ldots, K
+\]
+
+\section*{Complete Model}
+
+Putting it all together, the linear programming model can be stated as follows:
+
+\begin{align*}
+\text{Maximize} & \quad Z = \sum_{k=1}^{K} \text{profit}_{k} \cdot x_{k} \\
+\text{subject to} & \quad \sum_{k=1}^{K} \text{produce\_time}_{k,s} \cdot x_{k} \leq \text{time}_{s}, \quad \forall s = 1, 2, \ldots, S \\
+& \quad x_{k} \geq 0, \quad \forall k = 1, 2, \ldots, K
+\end{align*}
+
+\end{document}

@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{MILP Model for Nurse Scheduling}
+
+\textbf{Parameters:}
+\begin{align*}
+\text{period} & : \text{ Number of consecutive days a nurse works on night shifts.} \\
+d_j & : \text{ Demand for nurses on night shift for day } j \in \{1, \ldots, 7\}.
+\end{align*}
+
+\textbf{Decision Variables:}
+\begin{align*}
+\text{Let } start_j & \text{ be the number of nurses starting their period on day } j \in \{1, \ldots, 7\}. \\
+\text{Let } total & \text{ be the total number of nurses hired.}
+\end{align*}
+
+\textbf{Objective:}
+\[
+\min \; total
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+\text{Total Nurses Hired: } \\
+total & = \sum_{j=1}^{7} start_j \\
+
+\text{Demand Satisfaction: } \\
+\sum_{k=0}^{\text{period}-1} start_{(j-k-1) \mod 7 + 1} & \geq d_j \quad \forall j \in \{1, \ldots, 7\} \\
+
+\text{Non-negativity and Integer Constraints: } \\
+start_j & \geq 0 \quad \text{and integer} \quad \forall j \in \{1, \ldots, 7\}
+\end{align*}
+
+\textbf{Explanation:}
+\begin{itemize}
+    \item The objective is to minimize the total number of nurses hired.
+    \item The constraint ensures that for each day \( j \), the number of nurses currently on shift meets the demand \( d_j \). 
+    \item Nurses work for a consecutive number of \text{period} days, hence for each day \( j \), the supply of nurses comes from those who started their shift up to \text{period} days prior.
+    \item The modulo operation accommodates the weekly cycle, ensuring that day indices wrap around from 7 back to 1.
+\end{itemize}
+
+\end{document}

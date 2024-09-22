@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( \text{islocated}_{k, l} \) be a binary variable such that:
+    \[
+    \text{islocated}_{k, l} = 
+    \begin{cases} 
+    1, & \text{if department } k \text{ is located in city } l \\
+    0, & \text{otherwise.}
+    \end{cases}
+    \]
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{benefit}_{k, l} \) is the benefit for department \( k \) from relocation at city \( l \) (in thousands of pounds).
+    \item \( \text{communication}_{k, j} \) is the quantity of communication between department \( k \) and city \( j \).
+    \item \( \text{cost}_{l, m} \) is the unit cost of communication between city \( l \) and city \( m \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the overall yearly cost, which includes the benefits and communication costs:
+\[
+\min \sum_{k=1}^{K} \sum_{l=1}^{L} \left( -\text{benefit}_{k, l} \cdot \text{islocated}_{k, l} \right) + \sum_{k=1}^{K} \sum_{j=1}^{K} \sum_{l=1}^{L} \sum_{m=1}^{L} \left( \text{communication}_{k, j} \cdot \text{cost}_{l, m} \cdot \text{islocated}_{k, l} \cdot \text{islocated}_{j, m} \right)
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Each department must be located in exactly one city:
+    \[
+    \sum_{l=1}^{L} \text{islocated}_{k, l} = 1, \quad \forall k \in \{1, \ldots, K\}
+    \]
+    \item No city can host more than three departments:
+    \[
+    \sum_{k=1}^{K} \text{islocated}_{k, l} \leq 3, \quad \forall l \in \{1, \ldots, L\}
+    \]
+    \item Binary constraints for decision variables:
+    \[
+    \text{islocated}_{k, l} \in \{0, 1\}, \quad \forall k \in \{1, \ldots, K\}, \forall l \in \{1, \ldots, L\}
+    \]
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Formulation:}
+
+We are given a set \( P \) defined by linear inequality constraints as follows:
+
+\[
+P = \{ x \in \mathbb{R}^N \mid a_i^T x \leq b_i, \, i = 1, \ldots, m \}
+\]
+
+We aim to find a ball with the maximum possible radius \( r \) centered at \( y \), entirely contained within \( P \).
+
+\[
+\text{Maximize } r
+\]
+
+Subject to:
+
+\[
+a_i^T y + \|a_i\| r \leq b_i \quad \text{for } i = 1, \ldots, m
+\]
+
+Where:
+- \( y \) is the center of the ball.
+- \( r \) is the radius of the ball.
+- \( a_i \in \mathbb{R}^N \),
+- \( b_i \in \mathbb{R} \),
+- \(\|a_i\|\) is the Euclidean norm of \( a_i \).
+
+\end{document}

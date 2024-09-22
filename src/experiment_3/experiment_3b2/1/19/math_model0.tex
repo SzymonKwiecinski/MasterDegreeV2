@@ -1,0 +1,88 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Indices}
+\begin{align*}
+i & \quad \text{Oil type, } i = 1, \ldots, I \\
+m & \quad \text{Month, } m = 1, \ldots, M \\
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+\text{buy\_price}_{i, m} & \quad \text{Price of oil } i \text{ in month } m \\
+\text{sell\_price} & \quad \text{Selling price of the final product per ton} \\
+\text{is\_vegetable}_{i} & \quad \begin{cases} 
+1 & \text{if oil } i \text{ is vegetable} \\ 
+0 & \text{otherwise} 
+\end{cases} \\
+\text{max\_veg} & \quad \text{Max refining capacity for vegetable oils per month} \\
+\text{max\_non\_veg} & \quad \text{Max refining capacity for non-vegetable oils per month} \\
+\text{storage\_size} & \quad \text{Max storage capacity for each oil (tons)} \\
+\text{storage\_cost} & \quad \text{Storage cost per ton per month} \\
+\text{max\_hardness} & \quad \text{Maximum hardness constraint} \\
+\text{min\_hardness} & \quad \text{Minimum hardness constraint} \\
+\text{hardness}_{i} & \quad \text{Hardness of oil } i \\
+\text{init\_amount} & \quad \text{Initial storage amount for each oil type (tons)} \\
+\text{min\_usage} & \quad \text{Minimum usage if an oil is used} \\
+\text{dependency}_{i, j} & \quad \begin{cases} 
+1 & \text{if using oil } i \text{ requires using oil } j \\ 
+0 & \text{otherwise}
+\end{cases} \\
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+\text{buyquantity}_{i, m} & \quad \text{Amount of oil } i \text{ bought in month } m \\
+\text{refine}_{i, m} & \quad \text{Amount of oil } i \text{ refined in month } m \\
+\text{storage}_{i, m} & \quad \text{Amount of oil } i \text{ in storage at end of month } m \\
+\text{use}_{i, m} & \quad \begin{cases}
+1 & \text{if oil } i \text{ is used in month } m \\
+0 & \text{otherwise}
+\end{cases} \\
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total profit over all months:
+\[
+\text{Maximize} \quad \sum_{m=1}^{M} \left( \text{sell\_price} \cdot \sum_{i=1}^{I} \text{refine}_{i, m} - \sum_{i=1}^{I} \left(\text{buy\_price}_{i, m} \cdot \text{buyquantity}_{i, m} + \text{storage\_cost} \cdot \text{storage}_{i, m} \right) \right)
+\]
+
+\subsection*{Constraints}
+
+\begin{itemize}
+\item \textbf{Refinement Capacity Constraints:}
+\begin{align*}
+\sum_{i: \text{is\_vegetable}_i = 1} \text{refine}_{i, m} & \leq \text{max\_veg}, \quad \forall m \\
+\sum_{i: \text{is\_vegetable}_i = 0} \text{refine}_{i, m} & \leq \text{max\_non\_veg}, \quad \forall m 
+\end{align*}
+
+\item \textbf{Storage and Balance Constraints:}
+\begin{align*}
+\text{storage}_{i, m} &= \text{storage}_{i, m-1} + \text{buyquantity}_{i, m} - \text{refine}_{i, m}, \quad \forall i, \forall m \\
+\text{storage}_{i, 0} &= \text{init\_amount}, \quad \forall i \\
+\text{storage}_{i, M} &= \text{init\_amount}, \quad \forall i \\
+0 \leq \text{storage}_{i, m} & \leq \text{storage\_size}, \quad \forall i, \forall m 
+\end{align*}
+
+\item \textbf{Hardness Constraints:}
+\begin{align*}
+\text{min\_hardness} \leq \frac{\sum_{i=1}^{I} \text{hardness}_{i} \cdot \text{refine}_{i, m}}{\sum_{i=1}^{I} \text{refine}_{i, m}} & \leq \text{max\_hardness}, \quad \forall m
+\end{align*}
+
+\item \textbf{Usage Constraints:}
+\begin{align*}
+\sum_{i=1}^{I} \text{use}_{i, m} & \leq 3, \quad \forall m \\
+\text{min\_usage} \cdot \text{use}_{i, m} \leq \text{refine}_{i, m} & \leq \text{storage}_{i, m-1} + \text{buyquantity}_{i, m}, \quad \forall i, \forall m \\
+\text{use}_{i, m} & \geq \text{use}_{j, m} \cdot \text{dependency}_{i, j}, \quad \forall i, j, \forall m
+\end{align*}
+
+\item \textbf{Binary Constraints:}
+\begin{align*}
+\text{use}_{i, m} & \in \{0, 1\}, \quad \forall i, \forall m
+\end{align*}
+\end{itemize}
+
+\end{document}

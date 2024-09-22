@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( x_{a,s} \) be the amount of alloy \( a \) used in producing steel type \( s \) (in tons).
+    \item Let \( y_s \) be the total amount of steel type \( s \) produced (in tons).
+\end{itemize}
+
+\textbf{Objective:} Maximize the total profit
+\[
+\text{Maximize } Z = \sum_{s=1}^{S} \text{steel\_price}_s \cdot y_s - \sum_{a=1}^{A} \text{alloy\_price}_a \cdot \sum_{s=1}^{S} x_{a,s}
+\]
+
+\textbf{Subject to:}
+
+1. \textbf{Alloy Availability:}
+\[
+\sum_{s=1}^{S} x_{a,s} \leq \text{available}_a, \quad \forall a = 1, \ldots, A
+\]
+
+2. \textbf{Carbon Requirement:}
+\[
+\sum_{a=1}^{A} x_{a,s} \cdot \frac{\text{carbon}_a}{100} \geq \text{carbon\_min}_s \cdot y_s, \quad \forall s = 1, \ldots, S
+\]
+
+3. \textbf{Nickel Requirement:}
+\[
+\sum_{a=1}^{A} x_{a,s} \cdot \frac{\text{nickel}_a}{100} \leq \text{nickel\_max}_s \cdot y_s, \quad \forall s = 1, \ldots, S
+\]
+
+4. \textbf{Alloy 1 Constraint:}
+\[
+\sum_{s=1}^{S} x_{1,s} \leq 0.4 \cdot \sum_{s=1}^{S} y_s
+\]
+
+5. \textbf{Non-negativity:}
+\[
+x_{a,s} \geq 0, \quad \forall a = 1, \ldots, A, \quad \forall s = 1, \ldots, S
+\]
+\[
+y_s \geq 0, \quad \forall s = 1, \ldots, S
+\]
+
+\end{document}

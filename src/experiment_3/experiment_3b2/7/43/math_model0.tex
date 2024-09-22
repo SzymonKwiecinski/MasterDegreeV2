@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+Let \( x_j \) be the amount of product \( j \) produced, where \( j = 1, 2, \ldots, M \).
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize} \quad Z = \sum_{j=1}^{M} ( \text{price}_j - \text{cost}_j ) x_j
+\]
+
+\subsection*{Constraints}
+
+1. **Material Availability Constraints:**
+
+   For each raw material \( i \), the total usage should not exceed the available quantity:
+   \[
+   \sum_{j=1}^{M} \text{req}_{i,j} \cdot x_j \leq \text{available}_i, \quad \text{for } i = 1, 2, \ldots, N
+   \]
+
+2. **Demand Constraints:**
+
+   The production of each product should not exceed its forecasted demand:
+   \[
+   x_j \leq \text{demand}_j, \quad \text{for } j = 1, 2, \ldots, M
+   \]
+
+3. **Non-negativity Constraints:**
+
+   All decision variables must be non-negative:
+   \[
+   x_j \geq 0, \quad \text{for } j = 1, 2, \ldots, M
+   \]
+
+\end{document}

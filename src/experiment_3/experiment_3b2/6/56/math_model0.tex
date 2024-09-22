@@ -1,0 +1,20 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+\[
+\text{Minimize: } \sum_{n=1}^{N} \sum_{w=1}^{W-1} \left( x_{n,w}^{\text{west}} \cdot \text{west\_time}_{n,w} \right) + \sum_{n=1}^{N-1} \sum_{w=1}^{W} \left( x_{n,w}^{\text{north}} \cdot \text{north\_time}_{n,w} \right)
+\]
+
+\textbf{Subject to:}
+
+\begin{align*}
+& x_{n,w-1}^{\text{west}} + x_{n-1,w}^{\text{north}} = x_{n,w}^{\text{west}} + x_{n,w}^{\text{north}}, \quad \forall n = 2, \ldots, N-1, \forall w = 2, \ldots, W-1 \\
+& x_{1,1}^{\text{west}} + x_{1,1}^{\text{north}} = 1 \\
+& x_{N,W-1}^{\text{west}} + x_{N-1,W}^{\text{north}} = 1 \\
+& x_{n,w}^{\text{west}}, x_{n,w}^{\text{north}} \in \{0, 1\}, \quad \forall n, w
+\end{align*}
+
+\end{document}

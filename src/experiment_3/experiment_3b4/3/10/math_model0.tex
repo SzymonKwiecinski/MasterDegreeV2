@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+\[
+\min \sum_{n=1}^{N} \sum_{s=1}^{S} \sum_{g=1}^{G} d_{n,s} \cdot x_{n,s,g}
+\]
+
+\textbf{Subject to:}
+
+\text{1. Capacity Constraints:}
+\[
+\sum_{n=1}^{N} x_{n,s,g} \leq capacity_{s,g}, \quad \forall s = 1, \ldots, S, \quad \forall g = 1, \ldots, G
+\]
+
+\text{2. Population Constraints:}
+\[
+\sum_{s=1}^{S} x_{n,s,g} = population_{n,g}, \quad \forall n = 1, \ldots, N, \quad \forall g = 1, \ldots, G
+\]
+
+\text{3. Non-negativity Constraints:}
+\[
+x_{n,s,g} \geq 0, \quad \forall n = 1, \ldots, N, \quad \forall s = 1, \ldots, S, \quad \forall g = 1, \ldots, G
+\]
+
+\end{document}

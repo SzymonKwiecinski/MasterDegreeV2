@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Indices}
+\begin{align*}
+k & : \text{Type of manpower (e.g., skilled, semi-skilled, unskilled)} \\
+i & : \text{Year (e.g., year 1, year 2, ..., I)}
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+\text{requirement}_{k,i} & : \text{Required number of manpower of type } k \text{ in year } i \\
+\text{strength}_{k} & : \text{Current number of manpower of type } k \text{ at year 0} \\
+\text{lessonewaste}_{k} & : \text{Wastage rate for manpower } k \text{ with less than one year's service} \\
+\text{moreonewaste}_{k} & : \text{Wastage rate for manpower } k \text{ with more than one year's service} \\
+\text{recruit}_{k} & : \text{Maximum number of manpower } k \text{ that can be recruited per year} \\
+\text{costredundancy}_{k} & : \text{Redundancy cost per employee of manpower } k \\
+\text{num\_overman} & : \text{Maximum number of overmanned workers allowed} \\
+\text{costoverman}_{k} & : \text{Cost of overmanning per employee of manpower } k \\
+\text{num\_shortwork} & : \text{Maximum number of workers for short-time working per manpower type} \\
+\text{costshort}_{k} & : \text{Cost of short-time working per employee of manpower } k
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+\text{recruit}_{k,i} & : \text{Number of recruitments for manpower } k \text{ in year } i \\
+\text{overmanning}_{k,i} & : \text{Number of overmanned manpower } k \text{ in year } i \\
+\text{short}_{k,i} & : \text{Number of manpower } k \text{ on short-time in year } i \\
+\text{redundancy}_{k,i} & : \text{Number of redundancies for manpower } k \text{ in year } i
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total redundancy cost:
+\[
+\min \sum_{k=1}^{K} \sum_{i=1}^{I} \text{redundancy}_{k,i} \times \text{costredundancy}_{k}
+\]
+
+\subsection*{Constraints}
+1. \textbf{Manpower Balance:}
+\[
+\text{strength}_{k,i} = \text{strength}_{k} + \sum_{j=1}^{i} (\text{recruit}_{k,j} - \text{redundancy}_{k,j}) - \text{lessonewaste}_{k} \cdot \text{recruit}_{k,i} - \text{moreonewaste}_{k} \cdot (\text{strength}_{k,i} - \text{recruit}_{k,i})
+\]
+
+2. \textbf{Requirement Satisfaction:}
+\[
+\text{strength}_{k,i} + \text{overmanning}_{k,i} - \text{short}_{k,i} \geq \text{requirement}_{k,i} + \text{short}_{k,i}/2
+\]
+
+3. \textbf{Recruitment Limits:}
+\[
+\text{recruit}_{k,i} \leq \text{recruit}_{k}
+\]
+
+4. \textbf{Overmanning and Short-time Limits:}
+\[
+\sum_{k=1}^{K} \text{overmanning}_{k,i} \leq \text{num\_overman}
+\]
+\[
+\text{short}_{k,i} \leq \text{num\_shortwork}
+\]
+
+\end{document}

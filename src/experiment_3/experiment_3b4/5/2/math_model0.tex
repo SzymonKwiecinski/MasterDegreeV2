@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $N$: Number of computer systems.
+    \item $price_i$: Price of system $i$.
+    \item $disk_i$: Average disk units requested for system $i$.
+    \item $mem_i$: Average 256K memory boards requested for system $i$.
+    \item $max\_cpu$: Maximum units of CPUs available.
+    \item $[min\_disk, max\_disk]$: Range of availability for disk drives.
+    \item $[min\_mem, max\_mem]$: Range of availability for 256K memory boards.
+    \item $demand_i$: Maximum demand for system $i$.
+    \item $demand\_GP$: Maximum demand for GP family.
+    \item $demand\_WS$: Maximum demand for WS family.
+    \item $preorder_i$: Preorders for system $i$ to be fulfilled.
+    \item $alt\_mem$: Units of alternative memory board available.
+    \item $is\_workstation[i]$: Indicator if system $i$ is WS.
+    \item $alt\_compatible[i]$: Indicator if system $i$ can use alternative memory.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_i$: Number of systems $i$ produced (continuous variable).
+    \item $a_i$: Number of alternative memory boards used for system $i$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the profit, defined as:
+\[
+\text{Profit} = \sum_{i=1}^{N} (price_i \cdot x_i)
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    & \sum_{i=1}^{N} x_i \leq max\_cpu & \text{(CPU constraint)} \\
+    & \sum_{i=1}^{N} (disk_i \cdot x_i) \leq max\_disk & \text{(Max disk drive constraint)} \\
+    & \sum_{i=1}^{N} (disk_i \cdot x_i) \geq min\_disk & \text{(Min disk drive constraint)} \\
+    & \sum_{i=1}^{N} (mem_i \cdot x_i - a_i) \leq max\_mem & \text{(Max 256K memory constraint using main memory)} \\
+    & \sum_{i=1}^{N} (mem_i \cdot x_i - a_i) \geq min\_mem & \text{(Min 256K memory constraint using main memory)} \\
+    & \sum_{i=1}^{N} a_i \leq alt\_mem & \text{(Alternative memory constraint)} \\
+    & a_i \leq alt\_compatible[i] \cdot mem_i \cdot x_i & \text{(Use of alternative memory only if compatible)} \\
+    & x_i \leq demand_i & \forall i=1,...,N, \text{(Individual system demand constraints)} \\
+    & \sum_{\{i \mid \neg is\_workstation[i]\}} x_i \leq demand\_GP & \text{(GP family demand constraint)} \\
+    & \sum_{\{i \mid is\_workstation[i]\}} x_i \leq demand\_WS & \text{(WS family demand constraint)} \\
+    & x_i \geq preorder_i & \forall i=1,...,N, \text{(Preorder fulfillment constraint)}
+\end{align}
+
+\end{document}

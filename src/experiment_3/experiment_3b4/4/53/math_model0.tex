@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\title{Soybean Transportation Problem}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Formulation}
+
+We are given a transportation network consisting of $n$ cities, where soybeans are shipped from terminal city $k$ to port city $p$, and from port city $p$ to destination city $l$. The task is to determine the optimal shipment of soybeans that minimizes transportation costs.
+
+\subsection*{Objective Function}
+
+Minimize the total transportation cost:
+
+\[
+Z = \sum_{(i,j) \in A} C_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+
+\begin{itemize}
+    \item \textbf{Supply Constraints:}
+    \begin{align}
+    \sum_{j \mid (i,j) \in A} x_{i,j} &\leq \text{supply}_{i}, \quad \forall \, i \text{ terminal}
+    \end{align}
+
+    \item \textbf{Demand Constraints:}
+    \begin{align}
+    \sum_{i \mid (i,j) \in A} x_{i,j} &\geq \text{demand}_{j}, \quad \forall \, j \text{ destination}
+    \end{align}
+
+    \item \textbf{Non-negativity Constraints:}
+    \begin{align}
+    x_{i,j} &\geq 0, \quad \forall \, (i,j) \in A
+    \end{align}
+\end{itemize}
+
+\section*{Decision Variables}
+
+Let $x_{i,j}$ denote the quantity of soybeans shipped from city $i$ to city $j$.
+
+\section*{Input and Output}
+
+The input consists of transportation routes with costs, supply at each terminal city, and demand at each destination city. The output is the optimal shipment plan and the associated total transportation cost.
+
+\end{document}

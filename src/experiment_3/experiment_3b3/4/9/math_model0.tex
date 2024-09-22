@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item $i = 1, \ldots, N$: Index for road segments
+    \item $j = 1, \ldots, M$: Index for lamps
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $\text{coeff}_{i,j}$: Coefficient representing the contribution of lamp $j$ to the illumination of segment $i$
+    \item $\text{desired}_i$: Desired illumination of segment $i$
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item $power_j$: Power of lamp $j$
+    \item $ill_i$: Illumination of segment $i$, defined as:
+    \[
+    ill_i = \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot power_j
+    \]
+\end{itemize}
+
+\textbf{Objective:} 
+Minimize the total absolute error between the illuminations and the desired illuminations:
+\[
+\text{Minimize} \quad \sum_{i=1}^{N} |ill_i - \text{desired}_i|
+\]
+
+\textbf{Subject to:}
+\[
+ill_i = \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot power_j \quad \text{for } i = 1, 2, \ldots, N
+\]
+
+\textbf{Output:}
+\begin{itemize}
+    \item $power_j$: Optimal power settings for each lamp $j$
+    \item $error$: Total absolute error calculated as:
+    \[
+    error = \sum_{i=1}^{N} |ill_i - \text{desired}_i|
+    \end{itemize}
+\end{document}

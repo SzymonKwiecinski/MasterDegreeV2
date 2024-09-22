@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\subsection*{Variables}
+Let \( x_{i,j} \) be the amount of currency \( i \) exchanged to currency \( j \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( N \): Number of available currencies.
+    \item \( \text{start}_i \): Starting amount of currency \( i \), for \( i = 1, \ldots, N \).
+    \item \( \text{limit}_i \): Limit on the total amount of currency \( i \) that can be exchanged, for \( i = 1, \ldots, N \).
+    \item \( \text{rate}_{i,j} \): Exchange rate from currency \( i \) to currency \( j \), for \( i, j = 1, \ldots, N \) with \( \text{rate}_{i,j} > 0 \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total amount of currency \( N \) at the end of the day:
+\[
+\text{Maximize } z = \text{final\_amount\_of\_currency}_N
+\]
+
+\subsection*{Constraints}
+1. For each currency \( i \):
+\[
+\sum_{j=1}^{N} x_{i,j} \leq \text{limit}_i \quad \forall i = 1, \ldots, N
+\]
+2. The amount of currency \( i \) after all exchanges:
+\[
+\text{final\_amount\_of\_currency}_i = \text{start}_i + \sum_{j=1}^{N} x_{j,i} - \sum_{j=1}^{N} x_{i,j} \quad \forall i = 1, \ldots, N
+\]
+3. The exchange rates limit:
+\[
+x_{i,j} \leq \text{rate}_{i,j} \cdot \text{final\_amount\_of\_currency}_i \quad \forall i, j = 1, \ldots, N
+\]
+4. Non-negativity constraints:
+\[
+x_{i,j} \geq 0 \quad \forall i, j = 1, \ldots, N
+\]
+
+\subsection*{Final Model Formulation}
+The complete linear programming model can be summarized as follows:
+
+\[
+\begin{align*}
+\text{Maximize} \quad & z \\
+\text{subject to} \quad & \sum_{j=1}^{N} x_{i,j} \leq \text{limit}_i, \quad \forall i = 1, \ldots, N \\
+                       & \text{final\_amount\_of\_currency}_i = \text{start}_i + \sum_{j=1}^{N} x_{j,i} - \sum_{j=1}^{N} x_{i,j}, \quad \forall i = 1, \ldots, N \\
+                       & x_{i,j} \leq \text{rate}_{i,j} \cdot \text{final\_amount\_of\_currency}_i, \quad \forall i, j = 1, \ldots, N \\
+                       & x_{i,j} \geq 0, \quad \forall i, j = 1, \ldots, N
+\end{align*}
+\]
+
+\end{document}

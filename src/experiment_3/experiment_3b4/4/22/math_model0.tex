@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Manpower Planning}
+
+\subsection*{Decision Variables}
+Let:
+\begin{align*}
+R_{k,i} & : \text{number of recruits of manpower type } k \text{ in year } i, \\
+O_{k,i} & : \text{number of overmanning manpower of type } k \text{ in year } i, \\
+S_{k,i} & : \text{number of short-time manpower of type } k \text{ in year } i, \\
+Red_{k,i} & : \text{number of redundancies of manpower type } k \text{ in year } i.
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize total redundancy costs:
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} \sum_{i=1}^{I} \text{costredundancy}_{k} \times Red_{k,i}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item \textbf{Manpower Balance Constraint:}
+    \[
+    \text{strength}_{k} \times (1 - \text{moreonewaste}_{k}) - \text{requirement}_{k,i} + R_{k,i} - Red_{k,i} + O_{k,i} + 0.5 \times S_{k,i} \geq 0 \quad \forall k, i
+    \]
+    This constraint ensures the available manpower meets the requirement considering wastage, recruitment, redundancy, overmanning, and short-time working.
+
+    \item \textbf{Recruitment Limit Constraint:}
+    \[
+    0 \leq R_{k,i} \leq \text{recruit}_{k} \quad \forall k, i
+    \]
+
+    \item \textbf{Overmanning Limit Constraint:}
+    \[
+    \sum_{k=1}^{K} O_{k,i} \leq \text{num\_overman} \quad \forall i
+    \]
+
+    \item \textbf{Short-time Limit Constraint:}
+    \[
+    0 \leq S_{k,i} \leq \text{num\_shortwork} \quad \forall k, i
+    \]
+
+    \item \textbf{Non-negativity Constraint:}
+    \[
+    R_{k,i}, O_{k,i}, S_{k,i}, Red_{k,i} \geq 0 \quad \forall k, i
+    \]
+\end{itemize}
+
+\subsection*{Notes}
+- After initial recruitment, the ``strength'' for the subsequent years needs to be updated according to recruitment and wastage.
+- The full system of constraints must be solved simultaneously to get the optimal workforce plan that minimizes redundancy costs.
+
+\end{document}

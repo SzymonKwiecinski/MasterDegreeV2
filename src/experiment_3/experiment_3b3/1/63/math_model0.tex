@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Paper Cutting Problem}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item Let \( M \) be the number of different types of smaller rolls.
+    \item Let \( N \) be the number of different cutting patterns available.
+    \item Let \( j \in \{1, 2, \ldots, M\} \) index the types of smaller rolls.
+    \item Let \( i \in \{1, 2, \ldots, N\} \) index the cutting patterns.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{large\_roll\_width} \): Width of the large roll in inches.
+    \item \( \text{demand}_j \): Demand for rolls of width \( \text{inch}_j \).
+    \item \( \text{pattern}_{i,j} \): Number of rolls of width \( \text{inch}_j \) produced by pattern \( i \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( x_i \) be the number of times cutting pattern \( i \) is used.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total number of large rolls used:
+
+\[
+\text{Minimize} \quad Z = \sum_{i=1}^{N} x_i
+\]
+
+\subsection*{Constraints}
+
+1. **Demand Satisfaction**:
+   Ensure that the demand for each roll width is met:
+   \[
+   \sum_{i=1}^{N} x_i \cdot \text{pattern}_{i,j} \geq \text{demand}_j \quad \forall j \in \{1, 2, \ldots, M\}
+   \]
+
+2. **Non-negativity**:
+   \[
+   x_i \geq 0 \quad \forall i \in \{1, 2, \ldots, N\}
+   \]
+
+3. **Integer Constraints**:
+   \[
+   x_i \in \mathbb{Z}^+ \quad \forall i \in \{1, 2, \ldots, N\}
+   \]
+
+\subsection*{Output}
+The output will consist of the patterns used and the total number of large rolls utilized:
+
+\begin{itemize}
+    \item \textbf{Patterns}:
+    \begin{itemize}
+        \item For each pattern \( i \):
+        \[
+        \text{pattern} = [\text{pattern}_{i,1}, \text{pattern}_{i,2}, \ldots, \text{pattern}_{i,M}]
+        \]
+        \item Amount used of each pattern \( i \) is \( x_i \).
+    \end{itemize}
+    \item Total large rolls used:
+    \[
+    \text{total\_large\_rolls\_used} = Z
+    \]
+\end{itemize}
+
+\end{document}

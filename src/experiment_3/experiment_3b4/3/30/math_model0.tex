@@ -1,0 +1,26 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Quadratic Fit}
+
+\textbf{Objective:}
+\[
+\min \sum_{k=1}^{K} (e_k^+ + e_k^-)
+\]
+
+\textbf{Subject to:}
+\[
+y_k - (c \cdot x_k^2 + b \cdot x_k + a) = e_k^+ - e_k^-, \quad \forall k = 1, 2, \ldots, K
+\]
+\[
+e_k^+, e_k^- \geq 0, \quad \forall k = 1, 2, \ldots, K
+\]
+
+Where:
+- \( c \) is the coefficient of the quadratic term.
+- \( b \) is the coefficient of the linear term.
+- \( a \) is the constant term.
+- \( e_k^+ \) and \( e_k^- \) are auxiliary variables representing deviations.
+
+\end{document}

@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\begin{document}
+
+\section*{MIP Formulation for Power Generation}
+
+\subsection*{Sets and Indices}
+\begin{align*}
+T & : \text{Number of periods in a day} \\
+K & : \text{Number of generator types} \\
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+\text{demand}_{t} & : \text{Electricity demand in period } t, \; t=1,\dots,T \\
+\text{num}_{k} & : \text{Number of available generators of type } k, \; k=1,\dots,K \\
+\text{minlevel}_{k} & : \text{Minimum generation level of type } k \\
+\text{maxlevel}_{k} & : \text{Maximum generation level of type } k \\
+\text{runcost}_{k} & : \text{Running cost at minimum level for type } k \\
+\text{extracost}_{k} & : \text{Extra cost per MW above minimum for type } k \\
+\text{startcost}_{k} & : \text{Startup cost for type } k \\
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+\text{numon}_{k,t} & : \text{Number of generators of type } k \text{ that are on in period } t \\
+\text{level}_{k,t} & : \text{Power level above minimum for generators of type } k \text{ in period } t \\
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\begin{align*}
+\text{Minimize} \quad & \sum_{t=1}^{T} \sum_{k=1}^{K} \left( \text{numon}_{k,t} \cdot \text{runcost}_{k} + \text{level}_{k,t} \cdot \text{extracost}_{k} + \text{u}_{k,t} \cdot \text{startcost}_{k} \right)
+\end{align*}
+where \( \text{u}_{k,t} \) is a binary variable indicating if at least one generator of type \( k \) starts in period \( t \).
+
+\subsection*{Constraints}
+
+1. Meet demand in each period:
+\begin{align*}
+\sum_{k=1}^{K} \left( \text{numon}_{k,t} \cdot \text{minlevel}_{k} + \text{level}_{k,t} \right) & \geq \text{demand}_{t}, \quad \forall t=1,\dots,T
+\end{align*}
+
+2. Generator operational limits:
+\begin{align*}
+0 \leq \text{level}_{k,t} & \leq \text{numon}_{k,t} \cdot (\text{maxlevel}_{k} - \text{minlevel}_{k}), \quad \forall k=1,\dots,K, \; t=1,\dots,T \\
+0 \leq \text{numon}_{k,t} & \leq \text{num}_{k}, \quad \forall k=1,\dots,K, \; t=1,\dots,T
+\end{align*}
+
+3. Binary start-up condition:
+\begin{align*}
+\text{u}_{k,t} \geq & \text{numon}_{k,t} - \text{numon}_{k,t-1}, \quad \forall k=1,\dots,K, \; t=1,\dots,T
+\end{align*}
+
+\end{document}

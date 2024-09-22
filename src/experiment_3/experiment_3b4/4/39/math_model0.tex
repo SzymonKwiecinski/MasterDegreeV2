@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+
+\textbf{Mathematical Model:}
+
+\textbf{Given Data:}
+\begin{itemize}
+    \item Let \( N \) be the total number of days.
+    \item Let \( \text{num}[n] \) denote the desired number of employees on day \( n \).
+    \item Let \( n_{\text{working\_days}} \) be the number of consecutive working days.
+    \item Let \( n_{\text{resting\_days}} \) be the number of consecutive resting days.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( x_i \in \{0, 1\} \): Binary variable, where \( x_i = 1 \) if employee \( i \) is employed, otherwise 0.
+    \item \( y_{i,n} \in \{0, 1\} \): Binary variable indicating if employee \( i \) works on day \( n \).
+\end{itemize}
+
+\textbf{Objective:}
+
+Minimize the total number of employees:
+\[
+\min \sum_{i=1}^{\infty} x_i
+\]
+
+\textbf{Constraints:}
+
+1. Ensure that the number of employees working each day meets the requirement:
+\[
+\sum_{i=1}^{\infty} y_{i,n} \geq \text{num}[n] \quad \forall n = 1, 2, \ldots, N
+\]
+
+2. Enforce working and resting schedule constraints for each employee:
+   - If employee \( i \) works on day \( d \), they must continue working for \( n_{\text{working\_days}} \) and then rest for \( n_{\text{resting\_days}} \).
+\[
+\begin{aligned}
+    &y_{i,n} \leq x_i &&\quad \forall i, \forall n \\
+    &y_{i,n} = 0 \quad \text{if } \left((n - d) \mod (n_{\text{working\_days}} + n_{\text{resting\_days}}) \geq n_{\text{working\_days}}\right)
+\end{aligned}
+\]
+
+The model considers hiring the minimum number of employees while covering daily staffing needs and maintaining the working/resting schedules.
+
+\end{document}

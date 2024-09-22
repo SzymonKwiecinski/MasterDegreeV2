@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+\begin{align*}
+x_i & : \text{Production quantity of product } i, \quad i = 1, \ldots, P \\
+u & : \text{Binary variable for machine upgrade (1 if upgrade, 0 otherwise)}
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize total net income:
+\[
+\text{Maximize } Z = \sum_{i=1}^{P} \left( (\text{price}_i - \text{cost}_i) x_i - \text{investPercentage}_i \times \text{price}_i \times x_i \right) - \text{upgradeCost} \times u
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+\sum_{i=1}^{P} \text{hour}_i \times x_i & \leq \text{availableHours} + \text{upgradeHours} \times u & \text{(Machine capacity constraint)} \\
+\sum_{i=1}^{P} (\text{cost}_i \times x_i - \text{investPercentage}_i \times \text{price}_i \times x_i) + \text{upgradeCost} \times u & \leq \text{cash} & \text{(Cash availability constraint)} \\
+x_i & \geq 0 & \text{for all } i \\
+u & \in \{0, 1\} & \text{(Binary constraint)}
+\end{align*}
+
+\end{document}

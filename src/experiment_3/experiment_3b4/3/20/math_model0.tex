@@ -1,0 +1,75 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model for Production and Storage Optimization}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item $k$: Product index, $k = 1, \ldots, K$
+    \item $m$: Machine index, $m = 1, \ldots, M$
+    \item $i$: Month index, $i = 1, \ldots, I$
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $num_{m}$: Number of machine $m$
+    \item $profit_{k}$: Profit per unit of product $k$
+    \item $time_{k, m}$: Production time of product $k$ on machine $m$
+    \item $maintain_{i, m}$: Number of machine $m$ under maintenance in month $i$
+    \item $limit_{k, i}$: Marketing limitation on product $k$ in month $i$
+    \item $store\_price$: Storage cost per unit per month
+    \item $keep\_quantity$: Required stock quantity of each product at the end
+    \item $n\_workhours$: Number of work hours per day
+    \item $days\_per\_month$: Number of working days in a month (assumed to be 24)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $sell_{k, i}$: Amount of product $k$ sold in month $i$
+    \item $manufacture_{k, i}$: Amount of product $k$ manufactured in month $i$
+    \item $storage_{k, i}$: Amount of product $k$ stored at the end of month $i$
+\end{itemize}
+
+\textbf{Objective Function:}
+
+Maximize the total profit over all months, considering sales profit and storage costs:
+
+\[
+\max \sum_{i=1}^{I} \left( \sum_{k=1}^{K} profit_{k} \times sell_{k, i} - \sum_{k=1}^{K} store\_price \times storage_{k, i} \right)
+\]
+
+\textbf{Constraints:}
+
+\begin{itemize}
+    \item \textbf{Machine time constraints:} For each month $i$ and each machine $m$,
+    \[
+    \sum_{k=1}^{K} time_{k, m} \times manufacture_{k, i} \leq (num_{m} - maintain_{i, m}) \times n\_workhours \times days\_per\_month
+    \]
+
+    \item \textbf{Product balance constraints:} For each product $k$ and month $i$,
+    \[
+    storage_{k, i-1} + manufacture_{k, i} = sell_{k, i} + storage_{k, i}
+    \]
+    where $storage_{k, 0} = 0$ (no initial stock).
+
+    \item \textbf{Marketing limitations:} For each product $k$ and month $i$,
+    \[
+    sell_{k, i} \leq limit_{k, i}
+    \]
+
+    \item \textbf{Storage constraints:} For each product $k$ and month $i$,
+    \[
+    0 \leq storage_{k, i} \leq 100
+    \]
+
+    \item \textbf{Final storage requirement:} For each product $k$,
+    \[
+    storage_{k, I} = keep\_quantity
+    \]
+\end{itemize}
+
+This LP model will help determine an optimal plan for manufacturing, selling, and storing products over a given time horizon aligning with the machine availability, market capacity, and inventory holding constraints.
+
+\end{document}

@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Problem Description}
+
+Consider a set \( P \) described by linear inequality constraints, defined as:
+
+\[
+P = \{ x \in \mathbb{R}^N \mid a_i^T x \leq b_i , \; i = 1, \ldots, m \}
+\]
+
+where \( a_i \in \mathbb{R}^N \) and \( b_i \in \mathbb{R} \).
+
+A ball with center \( y \) in \( \mathbb{R}^N \) and radius \( r \) is defined as the set of all points within (Euclidean) distance \( r \) from \( y \). Mathematically, this is represented as:
+
+\[
+B(y, r) = \{ x \in \mathbb{R}^N \mid \| x - y \|_2 \leq r \}
+\]
+
+The objective is to find a ball with the largest possible radius, which is entirely contained within the set \( P \). The center of such a ball is called the Chebyshev center of \( P \).
+
+\subsection*{Input}
+
+The input is provided in the following format:
+
+\begin{verbatim}
+{
+    "A": [[a_i_j for j in 1, ..., n] for i in 1, ..., m],
+    "b": [b_i for i in 1, ..., m]
+}
+\end{verbatim}
+
+\subsection*{Output}
+
+The output will contain:
+
+\begin{verbatim}
+{
+    "center": [y_j for j in 1, ..., n],
+    "radius": r
+}
+\end{verbatim}
+
+where:
+\begin{itemize}
+    \item \texttt{center} is a list of floats of length \( N \) representing the center of the ball.
+    \item \texttt{radius} is a float representing the radius of the ball.
+\end{itemize}
+
+\end{document}

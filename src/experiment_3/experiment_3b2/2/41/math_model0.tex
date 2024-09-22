@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} Minimize the number of disks used
+\begin{equation}
+\min \sum_{i=1}^{M} y_i
+\end{equation}
+
+\textbf{Subject to:}
+
+\begin{equation}
+\sum_{i=1}^{M} x_{ij} = 1, \quad \forall j=1,...,N
+\end{equation}
+
+\begin{equation}
+\sum_{j=1}^{N} size_{j} \times x_{ij} \leq \text{capacity} \times y_i, \quad \forall i=1,...,M
+\end{equation}
+
+\begin{equation}
+x_{ij} \in \{0, 1\}, \quad \forall i=1,...,M, \, j=1,...,N
+\end{equation}
+
+\begin{equation}
+y_i \in \{0, 1\}, \quad \forall i=1,...,M
+\end{equation}
+
+\end{document}

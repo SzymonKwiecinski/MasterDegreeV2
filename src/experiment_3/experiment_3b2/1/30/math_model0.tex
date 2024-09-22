@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation for Quadratic Curve Fitting}
+
+Given the input data:
+
+- \( y = [y_1, y_2, \ldots, y_K] \)
+- \( x = [x_1, x_2, \ldots, x_K] \)
+
+We aim to find the coefficients \(a\), \(b\), and \(c\) for the quadratic equation \(y = c \cdot x^2 + b \cdot x + a\) such that the sum of the absolute deviations is minimized.
+
+\[
+\text{Minimize } \sum_{k=1}^{K} (e_k^+ + e_k^-)
+\]
+
+Subject to the constraints for each \(k = 1, \ldots, K\):
+
+\[
+e_k^+ - e_k^- = y_k - (c \cdot x_k^2 + b \cdot x_k + a)
+\]
+
+\[
+e_k^+ \geq 0, \quad e_k^- \geq 0
+\]
+
+where:
+- \(c\) is the coefficient of the quadratic term,
+- \(b\) is the coefficient of the linear term,
+- \(a\) is the constant term.
+
+\end{document}

@@ -1,0 +1,25 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+\[
+\text{Minimize } d
+\]
+
+\textbf{Subject to the constraints:}
+\[
+d \geq y_k - (bx_k + a) \quad \text{for } k = 1, \ldots, K
+\]
+\[
+d \geq (bx_k + a) - y_k \quad \text{for } k = 1, \ldots, K
+\]
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( a \): Intercept of the fitted line
+    \item \( b \): Slope of the fitted line
+    \item \( d \): Maximum deviation
+\end{itemize}
+
+\end{document}

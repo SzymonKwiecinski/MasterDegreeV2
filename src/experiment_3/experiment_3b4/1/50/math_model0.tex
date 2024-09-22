@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\textbf{Decision Variables:}
+\begin{align*}
+&\text{Let } batches_p \text{ be the number of batches produced for part } p, \quad \forall p = 1, \ldots, P. \\
+&\text{Let } extra\_time_m \text{ be the additional hours purchased for machine } m, \quad \forall m = 1, \ldots, M.
+\end{align*}
+
+\textbf{Objective Function:}
+Maximize the total profit given by:
+\begin{equation}
+\text{Profit} = \sum_{p=1}^{P} \left( price_p \cdot batches_p \right) - \sum_{m=1}^{M} \left( cost_m \cdot \left( \sum_{p=1}^{P} time_{m,p} \cdot batches_p \right) + extra\_cost_m \cdot extra\_time_m \right)
+\end{equation}
+
+\textbf{Constraints:}
+\begin{align}
+&\sum_{p=1}^{P} time_{m,p} \cdot batches_p \leq available_m + extra\_time_m, \quad \forall m = 1, \ldots, M \\
+&extra\_time_m \leq max\_extra_m, \quad \forall m = 1, \ldots, M \\
+&batches_p \geq min\_batches_p, \quad \forall p = 1, \ldots, P \\
+&batches_p \geq 0, \quad \forall p = 1, \ldots, P \\
+&extra\_time_m \geq 0, \quad \forall m = 1, \ldots, M
+\end{align}
+
+\end{document}

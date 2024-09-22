@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\subsection*{Decision Variables}
+Let \( x_a \) be the number of clicks purchased for ad type \( a \) in thousands, for \( a = 1, 2, \ldots, A \).
+
+\subsection*{Objective Function}
+Maximize the total number of unique clicks:
+\[
+\text{Maximize } \sum_{a=1}^{A} \text{unique\_click}_{a} \times x_a
+\]
+
+\subsection*{Constraints}
+1. Budget Constraint:
+\[
+\sum_{a=1}^{A} \text{cost}_{a} \times x_a \leq \text{budget}
+\]
+
+2. Clicks Constraints for Different Age Groups:
+\[
+\sum_{a=1}^{A} \text{young\_click}_{a} \times x_a \geq \text{goal\_young}
+\]
+\[
+\sum_{a=1}^{A} \text{old\_click}_{a} \times x_a \geq \text{goal\_old}
+\]
+
+3. Unique Clicks Constraints for Age Groups:
+\[
+\sum_{a=1}^{A} \text{young\_click}_{a} \times \text{unique\_click}_{a} \times x_a \geq \text{goal\_unique\_young}
+\]
+\[
+\sum_{a=1}^{A} \text{old\_click}_{a} \times \text{unique\_click}_{a} \times x_a \geq \text{goal\_unique\_old}
+\]
+
+4. Maximum Clicks Constraint:
+\[
+0 \leq x_a \leq \text{max\_click}_{a}, \quad \forall a = 1, 2, \ldots, A
+\]
+
+\subsection*{Non-negativity Constraints}
+\[
+x_a \geq 0, \quad \forall a = 1, 2, \ldots, A
+\]
+
+\subsection*{Output Variables}
+- The optimal number of clicks purchased for each ad type \( a \) is represented as \( x_a \).
+- The total number of unique clicks is computed as: 
+  \[
+  \text{total\_unique\_clicks} = \sum_{a=1}^{A} \text{unique\_click}_{a} \times x_a
+  \]
+
+\end{document}

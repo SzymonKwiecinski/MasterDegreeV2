@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Nutritional Optimization}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( K \) be the number of different foods available in the market.
+    \item Let \( M \) be the number of different nutritional ingredients.
+    \item \( \text{price}_{k} \): Price per unit of food \( k \) for \( k = 1, 2, \ldots, K \).
+    \item \( \text{demand}_{m} \): Minimum units of nutrient \( m \) required per day for \( m = 1, 2, \ldots, M \).
+    \item \( \text{nutri}_{k, m} \): Amount of nutrient \( m \) in one unit of food \( k \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( \text{quantity}_{k} \) be the quantity of food \( k \) to purchase, for \( k = 1, 2, \ldots, K \).
+\end{itemize}
+
+\subsection*{Objective Function}
+We aim to minimize the total cost of purchased foods:
+\[
+\text{Minimize: } Z = \sum_{k=1}^{K} \text{price}_{k} \cdot \text{quantity}_{k}
+\]
+
+\subsection*{Constraints}
+Each nutrient must meet its daily demand:
+\[
+\sum_{k=1}^{K} \text{nutri}_{k, m} \cdot \text{quantity}_{k} \geq \text{demand}_{m}, \quad \forall m = 1, 2, \ldots, M
+\]
+
+Additionally, the quantities purchased must be non-negative:
+\[
+\text{quantity}_{k} \geq 0, \quad \forall k = 1, 2, \ldots, K
+\]
+
+\subsection*{Final Model}
+The complete linear programming model can be summarized as follows:
+
+\begin{align*}
+\text{Minimize:} & \quad Z = \sum_{k=1}^{K} \text{price}_{k} \cdot \text{quantity}_{k} \\
+\text{Subject to:} & \quad \sum_{k=1}^{K} \text{nutri}_{k, m} \cdot \text{quantity}_{k} \geq \text{demand}_{m}, \quad \forall m = 1, 2, \ldots, M \\
+& \quad \text{quantity}_{k} \geq 0, \quad \forall k = 1, 2, \ldots, K
+\end{align*}
+
+\end{document}

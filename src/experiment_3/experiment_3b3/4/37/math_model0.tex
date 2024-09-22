@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Spare Automobile Parts Production}
+
+\textbf{Variables:} \\
+Let \( x_k \) represent the quantity of spare part \( k \) produced, where \( k = 1, 2, \ldots, K \).
+
+\textbf{Objective Function:} \\
+The objective is to maximize the total profit from the production of spare parts:
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} \text{profit}_k \cdot x_k
+\]
+
+\textbf{Constraints:} \\
+The production process is constrained by the worker-hours available in each shop. For each shop \( s \), the total worker-hours used must not exceed the capacity of that shop:
+\[
+\sum_{k=1}^{K} \text{time}_{k,s} \cdot x_k \leq \text{capacity}_{s}, \quad \forall s = 1, 2, \ldots, S
+\]
+
+\textbf{Non-negativity Constraints:} \\
+The quantities produced must be non-negative:
+\[
+x_k \geq 0, \quad \forall k = 1, 2, \ldots, K
+\]
+
+\end{document}

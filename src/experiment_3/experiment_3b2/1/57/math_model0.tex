@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} Minimize the total cost over the period, which includes unloading, holding, and crane rental costs.
+
+\[
+\text{Minimize } \sum_{t=1}^{T} \left( \text{unload\_cost}_{t} \cdot x_{t} + \text{holding\_cost} \cdot s_{t} + \text{crane\_cost} \cdot y_{t} \right)
+\]
+
+\textbf{Subject to the following constraints:}
+
+1. \textit{Unloading and storage dynamics:}
+\[
+s_{t-1} + x_{t} = \text{demand}_{t} + s_{t} \quad \forall t=1,...,T
+\]
+where \( s_{0} = \text{init\_container} \) and \( s_{T} = 0 \).
+
+2. \textit{Unloading capacity:}
+\[
+x_{t} \leq \text{unload\_capacity}_{t} \quad \forall t=1,...,T
+\]
+
+3. \textit{Storage capacity:}
+\[
+s_{t} \leq \text{max\_container} \quad \forall t=1,...,T
+\]
+
+4. \textit{Crane capacity:}
+\[
+\text{demand}_{t} \leq \text{crane\_capacity} \cdot y_{t} \quad \forall t=1,...,T
+\]
+
+5. \textit{Crane rental limit:}
+\[
+y_{t} \leq \text{num\_cranes} \quad \forall t=1,...,T
+\]
+
+\textbf{Decision Variables:}
+- \( x_{t} \geq 0 \): Integer, the number of containers unloaded in month \( t \).
+- \( y_{t} \geq 0 \): Integer, the number of cranes rented in month \( t \).
+- \( s_{t} \geq 0 \): Integer, the number of containers stored in the yard at the end of month \( t \).
+
+\end{document}

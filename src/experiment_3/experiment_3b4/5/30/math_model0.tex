@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Quadratic Curve Fitting via Linear Programming}
+
+Given data points \((x_k, y_k)\) for \(k = 1, \ldots, K\), we aim to fit a quadratic curve \( y = c \cdot x^2 + b \cdot x + a \) by minimizing the sum of absolute deviations between observed and predicted values of \( y \).
+
+\subsection*{Objective}
+
+Minimize:
+\[
+\sum_{k=1}^K |y_k - (c \cdot x_k^2 + b \cdot x_k + a)|
+\]
+
+\subsection*{Linear Programming Formulation}
+
+Introduce non-negative variables \( u_k \) and \( v_k \) to represent the positive and negative deviations, respectively:
+
+For each data point \( k = 1, \ldots, K \):
+\[
+y_k - (c \cdot x_k^2 + b \cdot x_k + a) = u_k - v_k
+\]
+\[ 
+u_k, v_k \geq 0
+\]
+
+The linear programming objective is to minimize:
+\[
+\sum_{k=1}^K (u_k + v_k)
+\]
+
+Subject to the constraints:
+\[
+y_k - c \cdot x_k^2 - b \cdot x_k - a = u_k - v_k \quad \forall \, k = 1, \ldots, K
+\]
+\[
+u_k, v_k \geq 0 \quad \forall \, k = 1, \ldots, K
+\]
+
+\subsection*{Variables}
+
+- \( c \): Coefficient of the quadratic term.
+- \( b \): Coefficient of the linear term.
+- \( a \): Constant term.
+- \( u_k, v_k \): Non-negative variables representing deviations for each data point \( k \).
+
+\end{document}

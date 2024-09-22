@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Formulation for Floppy Disk Backup Problem}
+
+\textbf{Given:}
+\begin{itemize}
+    \item \(\text{capacity}\): Capacity of each floppy disk in GB.
+    \item \(\text{size}_j\): Size of file \(j\) for \(j = 1, \ldots, N\).
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \(x_{ij} \in \{0, 1\}\) is 1 if file \(j\) is placed on disk \(i\), and 0 otherwise.
+    \item \(y_i \in \{0, 1\}\) is 1 if disk \(i\) is used, and 0 otherwise.
+\end{itemize}
+
+\textbf{Objective:}
+Minimize the number of disks used:
+\[
+\text{minimize} \quad \sum_{i=1}^{M} y_i
+\]
+where \(M\) is an upper bound on the number of disks that might be needed (e.g., \(M = N\)).
+
+\textbf{Constraints:}
+\begin{enumerate}
+    \item Each file must be stored on exactly one disk:
+    \[
+    \sum_{i=1}^{M} x_{ij} = 1, \quad \forall j = 1, \ldots, N
+    \]
+    \item Disk capacity constraints for each disk:
+    \[
+    \sum_{j=1}^{N} \text{size}_j \cdot x_{ij} \leq \text{capacity} \cdot y_i, \quad \forall i = 1, \ldots, M
+    \]
+\end{enumerate}
+
+\textbf{Output:}
+\begin{itemize}
+    \item \(\text{n\_disks} = \sum_{i=1}^{M} y_i\)
+    \item \(\text{whichdisk} = [disk_j \text{ for each file } j]\) where \(disk_j\) is the index of the disk on which file \(j\) is placed.
+\end{itemize}
+
+\end{document}

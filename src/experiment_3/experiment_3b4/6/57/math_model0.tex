@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+\[
+\min \sum_{t=1}^{T} \left( \text{unload\_cost}_{t} \cdot \text{amount}_{t} + \text{holding\_cost} \cdot \text{store}_{t} + \text{crane\_cost} \cdot \text{crane}_{t} \right)
+\]
+
+\textbf{Subject to:}
+
+\begin{align*}
+\text{store}_{0} &= \text{init\_container} \\
+\text{store}_{t-1} + \text{amount}_{t} - \text{demand}_{t} &= \text{store}_{t}, & \forall t \in \{1, \ldots, T\} \\
+\text{amount}_{t} &\leq \text{unload\_capacity}_{t}, & \forall t \in \{1, \ldots, T\} \\
+\text{store}_{t} &\leq \text{max\_container}, & \forall t \in \{1, \ldots, T\} \\
+\text{crane}_{t} \cdot \text{crane\_capacity} &\geq \text{demand}_{t}, & \forall t \in \{1, \ldots, T\} \\
+\text{crane}_{t} &\leq \text{num\_cranes}, & \forall t \in \{1, \ldots, T\} \\
+\text{store}_{T} &= 0 \\
+\text{amount}_{t}, \text{store}_{t}, \text{crane}_{t} &\geq 0, & \forall t \in \{1, \ldots, T\}
+\end{align*}
+
+\end{document}

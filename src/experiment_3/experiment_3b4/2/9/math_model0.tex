@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+\[
+\min \sum_{i=1}^{N} ( \text{error}_i^+ + \text{error}_i^- )
+\]
+
+\textbf{Subject to:}
+
+\[
+\sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j - \text{error}_i^+ + \text{error}_i^- = \text{desired}_i, \quad \forall i = 1, \ldots, N
+\]
+
+\[
+\text{error}_i^+, \text{error}_i^- \geq 0, \quad \forall i = 1, \ldots, N
+\]
+
+\[
+\text{power}_j \geq 0, \quad \forall j = 1, \ldots, M
+\]
+
+Here, the constraints ensure that the illumination of each segment \(\text{ill}_i\) is equal to the desired illumination \(\text{desired}_i\) adjusted by the positive and negative errors. The non-negativity constraints on \(\text{error}_i^+\) and \(\text{error}_i^-\) ensure that they represent deviations in the positive and negative directions, respectively.
+
+\end{document}

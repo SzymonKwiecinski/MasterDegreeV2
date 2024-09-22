@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Power Generation Scheduling}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $t$: Time period (t = 1, 2, ..., T)
+    \item $k$: Type of generator (k = 1, 2, ..., K)
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $demand_t$: Electricity demand during period $t$
+    \item $num_k$: Number of $k$-th type generating units available
+    \item $minlevel_k$: Minimum output level of type $k$ generator
+    \item $maxlevel_k$: Maximum output level of type $k$ generator
+    \item $runcost_k$: Hourly cost of operating type $k$ generator at minimum level
+    \item $extracost_k$: Extra cost per megawatt above the minimum level for type $k$ generator
+    \item $startcost_k$: Startup cost for type $k$ generator
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $numon_{k,t}$: Number of type $k$ generators turned on during period $t$ ($numon_{k,t} \in \mathbb{Z}^+$)
+    \item $output_{k,t}$: Output of type $k$ generator during period $t$ ($output_{k,t} \in \mathbb{R}^+$)
+    \item $start_{k,t}$: Binary variable indicating if the type $k$ generator is started during period $t$ ($start_{k,t} \in \{0, 1\}$)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{t=1}^{T} \sum_{k=1}^{K} \left( runcost_k \cdot numon_{k,t} + startcost_k \cdot start_{k,t} + extracost_k \cdot \max(0, output_{k,t} - minlevel_k) \right)
+\]
+
+\subsection*{Constraints}
+
+1. \textbf{Power Balance Constraint}:
+\[
+\sum_{k=1}^{K} output_{k,t} = demand_t, \quad \forall t \in \{1, 2, \ldots, T\}
+\]
+
+2. \textbf{Output Level Constraints}:
+\[
+minlevel_k \cdot numon_{k,t} \leq output_{k,t} \leq maxlevel_k \cdot numon_{k,t}, \quad \forall k, \forall t
+\]
+
+3. \textbf{Generator Activation Constraint}:
+\[
+output_{k,t} \leq maxlevel_k \cdot numon_{k,t}, \quad \forall k, \forall t
+\]
+
+4. \textbf{Startup Decision}:
+\[
+output_{k,t} \geq minlevel_k \cdot start_{k,t}, \quad \forall k, \forall t
+\]
+
+5. \textbf{Non-negativity and Integer Constraints}:
+\[
+numon_{k,t} \in \mathbb{Z}^+, \quad output_{k,t} \geq 0, \quad start_{k,t} \in \{0, 1\}, \quad \forall k, \forall t
+\]
+
+\end{document}

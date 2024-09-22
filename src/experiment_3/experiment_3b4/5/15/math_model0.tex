@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} \\
+Maximize the daily profit, which is the total revenue minus total cost:
+\begin{align*}
+\text{Maximize } & \text{Profit} = \sum_{i=1}^{N} \text{price}_i \cdot \text{unitsProduced}_i - \text{TotalCost} \\
+\text{where } & \text{TotalCost} = \text{MaterialCost} + \text{OvertimeCost} \\
+\text{and } & \text{MaterialCost} = \text{TotalMaterialCost} \cdot (1 - \text{discountApplied} \cdot \frac{\text{materialDiscount}}{100}) \\
+& \text{TotalMaterialCost} = \sum_{i=1}^{N} \text{materialCost}_i \cdot \text{unitsProduced}_i \\
+& \text{OvertimeCost} = \text{overtimeAssembly} \cdot \text{overtimeAssemblyCost}
+\end{align*}
+
+\textbf{Constraints:}
+\begin{align*}
+& \sum_{i=1}^{N} \text{assemblyHour}_i \cdot \text{unitsProduced}_i \leq \text{maxAssembly} + \text{overtimeAssembly} \\
+& \sum_{i=1}^{N} \text{testingHour}_i \cdot \text{unitsProduced}_i \leq \text{maxTesting} \\
+& \text{overtimeAssembly} \leq \text{maxOvertimeAssembly} \\
+& \text{TotalMaterialCost} > \text{discountThreshold} \Rightarrow \text{discountApplied} = 1 \\
+& \text{TotalMaterialCost} \leq \text{discountThreshold} \Rightarrow \text{discountApplied} = 0 \\
+& \text{unitsProduced}_i \geq 0 \quad \text{(integer for } i = 1, \ldots, N) \\
+& \text{overtimeAssembly} \geq 0 \quad \text{(integer)} \\
+& \text{discountApplied} \in \{0, 1\}
+\end{align*}
+
+\textbf{Variables:}
+- \(\text{unitsProduced}_i\): Number of units of product \(i\) produced.
+- \(\text{overtimeAssembly}\): Number of hours of overtime assembly labor scheduled.
+- \(\text{discountApplied}\): Binary variable indicating if the material discount applies.
+
+\end{document}

@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+\[
+\text{Minimize } Z = \sum_{(i,j) \in A} \sum_{(k,l)} C_{i,j} \cdot x_{i,j}^{k,l}
+\]
+
+\textbf{Subject to:}
+
+1. \textbf{Link capacity constraints:}
+
+\[
+\sum_{(k,l)} x_{i,j}^{k,l} \leq U_{i,j}, \quad \forall (i,j) \in A
+\]
+
+2. \textbf{Flow conservation constraints:}
+
+For each node \( n \), for each data pair \( (k,l) \):
+
+- \text{If } \( n = k \):
+
+\[
+\sum_{j : (k,j) \in A} x_{k,j}^{k,l} - \sum_{i : (i,k) \in A} x_{i,k}^{k,l} = B_{k,l}
+\]
+
+- \text{If } \( n = l \):
+
+\[
+\sum_{j : (l,j) \in A} x_{l,j}^{k,l} - \sum_{i : (i,l) \in A} x_{i,l}^{k,l} = -B_{k,l}
+\]
+
+- \text{Otherwise:}
+
+\[
+\sum_{j : (n,j) \in A} x_{n,j}^{k,l} - \sum_{i : (i,n) \in A} x_{i,n}^{k,l} = 0
+\]
+
+3. \textbf{Non-negativity constraints:}
+
+\[
+x_{i,j}^{k,l} \geq 0, \quad \forall (i,j) \in A, \forall (k,l)
+\]
+
+\end{document}

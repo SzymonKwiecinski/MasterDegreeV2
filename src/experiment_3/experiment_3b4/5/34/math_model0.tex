@@ -1,0 +1,25 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} Minimize the total cost of purchasing foods:
+
+\[
+\text{Minimize} \quad Z = \sum_{k=1}^{K} \text{price}_k \cdot \text{quantity}_k
+\]
+
+\textbf{Subject to:}
+
+- Nutritional requirements for each nutrient \( m \):
+
+\[
+\sum_{k=1}^{K} \text{nutri}_{k, m} \cdot \text{quantity}_k \geq \text{demand}_m, \quad \forall m = 1, \ldots, M
+\]
+
+- Non-negativity constraint:
+
+\[
+\text{quantity}_k \geq 0, \quad \forall k = 1, \ldots, K
+\]
+
+\end{document}

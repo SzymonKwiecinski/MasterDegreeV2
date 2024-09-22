@@ -1,0 +1,81 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Seaport Container Unloading and Loading}
+
+\subsection*{Parameters:}
+
+\begin{itemize}
+    \item $T$: Total number of months.
+    \item $\text{demand}_t$: Demand for containers by ships in month $t$.
+    \item $\text{unload\_cost}_t$: Cost to unload a single container in month $t$.
+    \item $\text{unload\_capacity}_t$: Maximum number of containers that can be unloaded in month $t$.
+    \item $\text{holding\_cost}$: Cost for holding one container for a month.
+    \item $\text{max\_container}$: Maximum storage capacity of the yard.
+    \item $\text{init\_container}$: Initial number of containers in the yard.
+    \item $\text{num\_cranes}$: Maximum number of cranes that can be rented each month.
+    \item $\text{crane\_capacity}$: Number of containers a single crane can load each month.
+    \item $\text{crane\_cost}$: Cost to rent one crane.
+\end{itemize}
+
+\subsection*{Decision Variables:}
+
+\begin{itemize}
+    \item $x_t$: Number of containers unloaded in month $t$.
+    \item $y_t$: Number of cranes rented in month $t$.
+    \item $z_t$: Number of containers stored in the yard at the end of month $t$.
+\end{itemize}
+
+\subsection*{Objective Function:}
+
+Minimize the total cost, which includes cost for unloading, holding, and renting cranes:
+
+\[
+\text{Minimize} \quad \sum_{t=1}^{T} \left( \text{unload\_cost}_t \cdot x_t + \text{holding\_cost} \cdot z_t + \text{crane\_cost} \cdot y_t \right)
+\]
+
+\subsection*{Constraints:}
+
+\begin{itemize}
+    \item \textbf{Demand Fulfillment:}
+    \[
+    \text{demand}_t = x_t + z_{t-1} - z_t \quad \text{for } t = 1, \ldots, T
+    \]
+    Ensure containers loaded meet demand and adjust inventory.
+
+    \item \textbf{Unloading Capacity:}
+    \[
+    0 \leq x_t \leq \text{unload\_capacity}_t \quad \text{for } t = 1, \ldots, T
+    \]
+
+    \item \textbf{Storage Capacity:}
+    \[
+    0 \leq z_t \leq \text{max\_container} \quad \text{for } t = 1, \ldots, T
+    \]
+
+    \item \textbf{Initial Condition:}
+    \[
+    z_0 = \text{init\_container}
+    \]
+
+    \item \textbf{End Condition:}
+    \[
+    z_T = 0
+    \]
+
+    \item \textbf{Crane Usage:}
+    \[
+    \text{demand}_t \leq y_t \cdot \text{crane\_capacity} \quad \text{for } t = 1, \ldots, T
+    \]
+    \[
+    0 \leq y_t \leq \text{num\_cranes} \quad \text{for } t = 1, \ldots, T
+    \]
+
+    \item \textbf{Non-negativity:}
+    \[
+    x_t, y_t, z_t \geq 0 \quad \text{and integers for } t = 1, \ldots, T
+    \]
+\end{itemize}
+
+\end{document}

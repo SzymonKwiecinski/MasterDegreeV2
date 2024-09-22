@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Delivery Person's Optimal Path}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $N$: Total number of streets (north)
+    \item $W$: Total number of avenues (west)
+    \item $west\_time_{n,w}$: Time to move west from intersection $(n,w)$ to $(n,w+1)$
+    \item $north\_time_{n,w}$: Time to move north from intersection $(n,w)$ to $(n+1,w)$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_{n,w}$: A binary variable that indicates whether the delivery person moves north at intersection $(n,w)$ (1 if moving north, 0 otherwise)
+    \item $y_{n,w}$: A binary variable that indicates whether the delivery person moves west at intersection $(n,w)$ (1 if moving west, 0 otherwise)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total travel time:
+\[
+\text{Minimize } Z = \sum_{n=1}^{N-1} \sum_{w=1}^{W} north\_time_{n,w} \cdot x_{n,w} + \sum_{n=1}^{N} \sum_{w=1}^{W-1} west\_time_{n,w} \cdot y_{n,w}
+\]
+
+\subsection*{Constraints}
+\begin{enumerate}
+    \item The delivery person can only move north or west:
+    \[
+    x_{n,w} + y_{n,w} = 1 \quad \forall n, w \text{ (if } n < N \text{ and } w < W\text{)}
+    \]
+
+    \item The delivery person must start at $(1,1)$ and end at $(N,W)$:
+    \[
+    x_{1,1} + y_{1,1} = 1
+    \]
+    \[
+    x_{N-1,W} + y_{N,W-1} = 1
+    \]
+
+    \item The total number of north and west movements must equal $N-1$ and $W-1$, respectively:
+    \[
+    \sum_{w=1}^{W} x_{N-1,w} = N-1
+    \]
+    \[
+    \sum_{n=1}^{N} y_{n,W-1} = W-1
+    \]
+\end{enumerate}
+
+\subsection*{Output}
+\begin{itemize}
+    \item $\text{total\_time}$ represents the total time taken to travel this optimal path, given by $Z$.
+    \item $\text{paths}$ represents the flow going through the corresponding path defined by the decision variables.
+\end{itemize}
+
+\end{document}

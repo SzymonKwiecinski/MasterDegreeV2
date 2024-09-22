@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Formulation}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( N \): Number of cutting patterns.
+    \item \( M \): Number of different roll widths.
+    \item \( \text{large\_roll\_width} \): Width of the large roll.
+    \item \( \text{inch}_j \): Width of the \( j^{th} \) smaller roll.
+    \item \( \text{demand}_j \): Demand for the \( j^{th} \) roll width.
+    \item \( \text{pattern}_{i,j} \): Number of rolls of width \( j \) produced by pattern \( i \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_i \): Number of times pattern \( i \) is used (integer).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total number of large rolls used:
+\[
+\min \sum_{i=1}^{N} x_i
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    \sum_{i=1}^{N} \text{pattern}_{i,j} \cdot x_i &\geq \text{demand}_j, \quad \forall j = 1, 2, \ldots, M \quad (\text{Demand Satisfaction})\\
+    x_i &\geq 0 \quad \text{and integer,} \quad \forall i = 1, 2, \ldots, N \quad (\text{Non-Negativity and Integrality})
+\end{align}
+
+\end{document}

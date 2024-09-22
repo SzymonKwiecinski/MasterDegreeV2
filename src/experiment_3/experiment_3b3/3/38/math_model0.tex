@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Production Scheduling Problem}
+
+Let:
+\begin{itemize}
+    \item $N$ be the number of months,
+    \item $demand_n$ be the demand in month $n$,
+    \item $max\_regular\_amount$ be the maximum units produced using regular production per month,
+    \item $cost\_regular$ be the cost of regular production per unit,
+    \item $cost\_overtime$ be the cost of overtime production per unit,
+    \item $store\_cost$ be the storage cost per unit per month.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $reg\_quant_n$: quantity produced using regular production in month $n$,
+    \item $over\_quant_n$: quantity produced using overtime production in month $n$,
+    \item $inventory_n$: inventory at the end of month $n$.
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the total cost, which includes production and storage costs:
+\[
+\text{Minimize } Z = \sum_{n=1}^{N} \left( cost\_regular \cdot reg\_quant_n + cost\_overtime \cdot over\_quant_n + store\_cost \cdot inventory_n \right)
+\]
+
+\subsection*{Constraints}
+
+1. **Demand Satisfaction:**
+   For each month $n$, the sum of regular and overtime production plus the inventory from the previous month must satisfy the demand:
+   \[
+   reg\_quant_n + over\_quant_n + inventory_{n-1} - inventory_n = demand_n, \quad n = 1, 2, \ldots, N
+   \]
+   (where $inventory_0 = 0$)
+
+2. **Regular Production Limit:**
+   The quantity produced using regular production must not exceed the maximum regular amount:
+   \[
+   reg\_quant_n \leq max\_regular\_amount, \quad n = 1, 2, \ldots, N
+   \]
+
+3. **Non-negativity:**
+   All quantities must be non-negative:
+   \[
+   reg\_quant_n \geq 0, \quad over\_quant_n \geq 0, \quad inventory_n \geq 0, \quad n = 1, 2, \ldots, N
+   \]
+
+\subsection*{Output}
+\textit{The output will include the quantities produced using regular and overtime production for each month:}
+\begin{align*}
+    \text{Output:} \\
+    \{ \\
+    \quad "reg\_quant": [reg\_quant_1, reg\_quant_2, \ldots, reg\_quant_N], \\
+    \quad "over\_quant": [over\_quant_1, over\_quant_2, \ldots, over\_quant_N] \\
+    \}
+\end{align*}
+
+\end{document}

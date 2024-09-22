@@ -1,0 +1,23 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Decision Variables:}
+\begin{align*}
+x_p : & \quad \text{number of batches of part } p \text{ to produce, for } p = 1, 2, \ldots, P.
+\end{align*}
+
+\textbf{Objective Function:}
+\begin{align*}
+\text{Maximize} \quad Z = \sum_{p=1}^{P} \text{price}_p \times x_p - \sum_{m=1}^{M} \text{cost}_m \times \left(\sum_{p=1}^{P} \text{time}_{m,p} \times x_p\right)
+\end{align*}
+
+\textbf{Constraints:}
+\begin{align*}
+& \sum_{p=1}^{P} \text{time}_{m,p} \times x_p \leq \text{available}_m, \quad \text{for } m = 1, 2, \ldots, M-2 \\
+& \sum_{p=1}^{P} \text{time}_{M-1,p} \times x_p + \sum_{p=1}^{P} \text{time}_{M,p} \times x_p \leq \text{available}_{M-1} + \text{available}_M \\
+& x_p \geq \text{min\_batches}_p, \quad \text{for } p = 1, 2, \ldots, P \\
+& x_p \geq 0, \quad \text{for } p = 1, 2, \ldots, P
+\end{align*}
+
+\end{document}

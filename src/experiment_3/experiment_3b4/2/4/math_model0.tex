@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{MILP Formulation for Nurse Scheduling}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $period$: Number of consecutive days a nurse works before taking days off.
+    \item $d_j$: Demand for nurses on day $j$, for $j = 1, \ldots, 7$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $start_j$: The number of nurses starting their working period on day $j$, for $j = 1, \ldots, 7$.
+    \item $total$: Total number of nurses hired.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total number of nurses hired:
+\[
+\text{Minimize } total = \sum_{j=1}^{7} start_j
+\]
+
+\subsection*{Constraints}
+For each day $j = 1, \ldots, 7$, the constraint ensuring sufficient nurses are working is:
+\[
+\sum_{k=0}^{period-1} start_{(j-k-1) \bmod 7 + 1} \geq d_j
+\]
+where $(j-k-1) \bmod 7 + 1$ ensures cyclic counting of days from 1 to 7.
+
+\subsection*{Additional Constraints}
+All decision variables must take non-negative integer values:
+\[
+start_j \geq 0, \quad \text{integer, for } j = 1, \ldots, 7
+\]
+
+\subsection*{Solution Output}
+The solution will provide:
+\begin{itemize}
+    \item $start = [start_1, \ldots, start_7]$: Number of nurses starting on each day.
+    \item $total$: Minimum number of nurses hired.
+\end{itemize}
+
+\end{document}

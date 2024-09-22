@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+
+\begin{document}
+
+\textbf{Mixed Integer Linear Programming (MILP) Model:}
+
+\begin{align*}
+    &\text{Given:} \\
+    &\quad \text{capacity: the capacity of each floppy disk in GB}, \\
+    &\quad \text{size}_j: \text{the size of file } j \text{ in GB}, \, j = 1, \ldots, N. \\
+    \\
+    &\text{Decision Variables:} \\
+    &\quad x_{ij} \in \{0, 1\}: \, \text{binary variable that is } 1 \text{ if file } j \text{ is on disk } i, \text{ else } 0, \\
+    &\quad y_i \in \{0, 1\}: \, \text{binary variable that is } 1 \text{ if disk } i \text{ is used, \text{ else } 0.} \\
+    \\
+    &\text{Objective:} \\
+    &\quad \text{Minimize } \sum_{i} y_i \\
+    \\
+    &\text{Subject to:} \\
+    &\quad \sum_{i} x_{ij} = 1, \quad \forall j = 1, \ldots, N, \quad \text{(each file must be on one disk)} \\
+    &\quad \sum_{j} \text{size}_j \cdot x_{ij} \leq \text{capacity} \cdot y_i, \quad \forall i, \quad \text{(disk capacity constraint)} \\
+    &\quad x_{ij} \leq y_i, \quad \forall i, j, \quad \text{(disk usage constraint)} \\
+    \\
+    &\text{Output:} \\
+    &\quad \text{The total number of disks used, } n\_disks = \sum_{i} y_i, \\
+    &\quad \text{The assignment of each file to disks, } \text{whichdisk} = \{d_j: \, \text{disk assigned to file } j\}.
+\end{align*}
+
+\end{document}

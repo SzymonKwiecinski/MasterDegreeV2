@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Indices and Parameters}
+
+\begin{itemize}
+    \item $k$: Index for manpower types (e.g., unskilled, semi-skilled, skilled), where $k = 1, \dots, K$.
+    \item $i$: Index for years, where $i = 1, \dots, I$.
+    \item $\text{requirement}_{k, i}$: Estimated manpower requirements for manpower type $k$ in year $i$.
+    \item $\text{strength}_{k}$: Current number of manpower type $k$.
+    \item $\text{lessonewaste}_{k}$: Wastage rate for manpower type $k$ with less than one year's service.
+    \item $\text{moreonewaste}_{k}$: Wastage rate for manpower type $k$ with more than one year's service.
+    \item $\text{recruit}_{k}$: Maximum number that can be recruited for manpower type $k$ per year.
+    \item $\text{costredundancy}_{k}$: Redundancy payment for manpower type $k$.
+    \item $\text{num\_overman}$: Number of excess workers allowed over the company as a whole.
+    \item $\text{costoverman}_{k}$: Extra cost per excess worker for manpower type $k$ per year.
+    \item $\text{num\_shortwork}$: Number of workers in each category that can be put on short-time work.
+    \item $\text{costshort}_{k}$: Cost of short-time work per employee for manpower type $k$ per year.
+\end{itemize}
+
+\subsection*{Decision Variables}
+
+\begin{itemize}
+    \item $R_{k, i}$: Number of recruits for manpower type $k$ in year $i$.
+    \item $O_{k, i}$: Number of overmanning manpower type $k$ in year $i$.
+    \item $S_{k, i}$: Number of short-time working manpower type $k$ in year $i$.
+    \item $X_{k, i}$: Number of manpower type $k$ with less than one year's service in year $i$.
+    \item $Y_{k, i}$: Number of manpower type $k$ with more than one year's service in year $i$.
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Minimize redundancy payments:
+\[
+\min \sum_{k=1}^{K} \sum_{i=1}^{I} \text{costredundancy}_k (\text{strength}_{k} - (Y_{k, i} + O_{k, i} - S_{k, i}))
+\]
+
+\subsection*{Constraints}
+
+\begin{align}
+& \text{Strength Balance:} \nonumber \\
+& Y_{k, i+1} = (1 - \text{moreonewaste}_{k})Y_{k, i} + (1 - \text{lessonewaste}_{k})X_{k, i} + R_{k, i} \quad \forall k, \forall i \\
+& X_{k, i+1} = R_{k, i} \quad \forall k, \forall i \\
+& Y_{k, 1} = \text{strength}_{k} \quad \forall k \\
+& \text{Manpower Requirement:} \nonumber \\
+& Y_{k, i} + 0.5\,S_{k, i} + O_{k, i} \geq \text{requirement}_{k, i} \quad \forall k, \forall i \\
+& \text{Short-time Work Limit:} \nonumber \\
+& S_{k, i} \leq \text{num\_shortwork} \quad \forall k, \forall i \\
+& \text{Overmanning Limit:} \nonumber \\
+& \sum_{k=1}^{K} O_{k, i} \leq \text{num\_overman} \quad \forall i \\
+& \text{Recruitment Limit:} \nonumber \\
+& R_{k, i} \leq \text{recruit}_{k} \quad \forall k, \forall i \\
+& R_{k, i}, O_{k, i}, S_{k, i}, X_{k, i}, Y_{k, i} \geq 0 \quad \forall k, \forall i
+\end{align}
+
+\end{document}

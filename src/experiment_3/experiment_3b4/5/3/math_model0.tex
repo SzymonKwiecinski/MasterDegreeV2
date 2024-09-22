@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Capacity Expansion Problem: Linear Programming Model}
+
+\noindent \textbf{Sets and Indices:}
+\begin{align*}
+    &T: \text{ Number of years} \\
+    &t: \text{ Year index, where } t = 1, \ldots, T
+\end{align*}
+
+\noindent \textbf{Parameters:}
+\begin{align*}
+    &\text{demand}_t: \text{Electricity demand in year } t \\
+    &\text{oil}_t: \text{Existing oil-fired capacity available in year } t \\
+    &\text{coal\_cost}: \text{Capital cost per MW of coal-fired capacity} \\
+    &\text{nuke\_cost}: \text{Capital cost per MW of nuclear capacity} \\
+    &\text{max\_nuke}: \text{Maximum percentage of total capacity that can be nuclear} \\
+    &\text{coal\_life}: \text{Lifetime of coal plants in years} \\
+    &\text{nuke\_life}: \text{Lifetime of nuclear plants in years}
+\end{align*}
+
+\noindent \textbf{Decision Variables:}
+\begin{align*}
+    &x_t^{coal}: \text{Coal capacity (MW) added in year } t \\
+    &x_t^{nuke}: \text{Nuclear capacity (MW) added in year } t
+\end{align*}
+
+\noindent \textbf{Objective Function:}
+\[
+    \min \sum_{t=1}^{T} \left( \text{coal\_cost} \cdot x_t^{coal} + \text{nuke\_cost} \cdot x_t^{nuke} \right)
+\]
+
+\noindent \textbf{Constraints:}
+
+\begin{itemize}
+    \item \textbf{Demand Satisfaction:}
+    \[
+    \forall t: \quad \sum_{k=\max(1, t-\text{coal\_life}+1)}^{t} x_k^{coal} + \sum_{k=\max(1, t-\text{nuke\_life}+1)}^{t} x_k^{nuke} + \text{oil}_t \geq \text{demand}_t 
+    \]
+
+    \item \textbf{Nuclear Capacity Limit:}
+    \[
+    \forall t: \quad \frac{\sum_{k=\max(1, t-\text{nuke\_life}+1)}^{t} x_k^{nuke}}{\sum_{k=\max(1, t-\text{coal\_life}+1)}^{t} x_k^{coal} + \sum_{k=\max(1, t-\text{nuke\_life}+1)}^{t} x_k^{nuke} + \text{oil}_t} \leq \frac{\text{max\_nuke}}{100}
+    \]
+
+    \item \textbf{Non-negativity:}
+    \[
+    \forall t: \quad x_t^{coal} \geq 0, \quad x_t^{nuke} \geq 0
+    \]
+\end{itemize}
+
+\noindent The objective function minimizes the total capital costs incurred due to the addition of coal and nuclear capacity. The constraints ensure that electricity demand is met each year with the existing and new capacity while adhering to the nuclear capacity percentage limit.
+
+\end{document}

@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Parameters}
+\begin{align*}
+    & \text{I: Number of oils} \\
+    & \text{M: Number of months} \\
+    & \text{price}_{i,m}: \text{Cost per ton of oil } i \text{ in month } m \\
+    & \text{sell\_price}: \text{Selling price per ton of the final product} \\
+    & \text{is\_vegetable}_i: \begin{cases} 
+        1, & \text{if oil } i \text{ is vegetable} \\
+        0, & \text{if oil } i \text{ is non-vegetable} 
+    \end{cases} \\
+    & \text{max\_veg}: \text{Max refining capacity for vegetable oils per month} \\
+    & \text{max\_non\_veg}: \text{Max refining capacity for non-vegetable oils per month} \\
+    & \text{storage\_size}: \text{Max storage capacity per oil type} \\
+    & \text{storage\_cost}: \text{Cost of storing per ton per month} \\
+    & \text{max\_hardness}, \text{min\_hardness}: \text{Boundaries for the hardness of the final product} \\
+    & \text{hardness}_i: \text{Hardness of oil } i \\
+    & \text{init\_amount}: \text{Initial amount of each oil in storage} \\
+    & \text{min\_usage}: \text{Minimum usage if an oil is selected} \\
+    & \text{dependency}_{i,j}: \begin{cases} 
+        1, & \text{if the usage of oil } i \text{ requires oil } j \\
+        0, & \text{otherwise} 
+    \end{cases}
+\end{align*}
+
+\subsection*{Variables}
+\begin{align*}
+    & \text{buyquantity}_{i,m} \geq 0: \text{Quantity of oil } i \text{ bought in month } m \\
+    & \text{refine}_{i,m} \geq 0: \text{Quantity of oil } i \text{ refined in month } m \\
+    & \text{storage}_{i,m} \geq 0: \text{Storage of oil } i \text{ at the end of month } m \\
+    & \text{use}_i \in \{0, 1\}: \text{Binary variable indicating if oil } i \text{ is used in the blend in month } m
+\end{align*}
+
+\subsection*{Objective}
+\begin{align*}
+    \max \sum_{m=1}^{M} \left( \text{sell\_price} \times \sum_{i=1}^{I} \text{refine}_{i,m} - \sum_{i=1}^{I} \left(\text{price}_{i,m} \times \text{buyquantity}_{i,m} + \text{storage\_cost} \times \text{storage}_{i,m} \right) \right)
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align}
+    & \text{Storage balance:} \notag \\
+    & \text{storage}_{i,m} = \text{storage}_{i,m-1} + \text{buyquantity}_{i,m} - \text{refine}_{i,m} \quad \forall i, \forall m \\
+    & \text{storage}_{i,0} = \text{init\_amount} \quad \forall i \\
+    & \text{storage}_{i,M} = \text{init\_amount} \quad \forall i \\
+    & \text{Storage limits:} \notag \\
+    & \text{storage}_{i,m} \leq \text{storage\_size} \quad \forall i, \forall m \\
+    & \text{Refining capacity:} \notag \\
+    & \sum_{i: \text{is\_vegetable}_i = 1} \text{refine}_{i,m} \leq \text{max\_veg} \quad \forall m \\
+    & \sum_{i: \text{is\_vegetable}_i = 0} \text{refine}_{i,m} \leq \text{max\_non\_veg} \quad \forall m \\
+    & \text{Hardness requirement:} \notag \\
+    & \sum_{i=1}^{I} \left( \text{hardness}_i \times \frac{\text{refine}_{i,m}}{\sum_{j=1}^{I} \text{refine}_{j,m}} \right) \leq \text{max\_hardness} \quad \forall m \\
+    & \sum_{i=1}^{I} \left( \text{hardness}_i \times \frac{\text{refine}_{i,m}}{\sum_{j=1}^{I} \text{refine}_{j,m}} \right) \geq \text{min\_hardness} \quad \forall m \\
+    & \text{Oil usage:} \notag \\
+    & \sum_{i=1}^{I} \text{use}_{i,m} \leq 3 \quad \forall m \\
+    & \text{refine}_{i,m} \geq \text{min\_usage} \times \text{use}_{i,m} \quad \forall i, \forall m \\
+    & \text{use}_{i,m} \geq \text{dependency}_{i,j} \times \text{use}_{j,m} \quad \forall i, j, \forall m \\
+\end{align}
+
+\end{document}

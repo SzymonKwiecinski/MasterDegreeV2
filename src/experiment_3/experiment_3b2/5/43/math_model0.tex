@@ -1,0 +1,25 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Wild Sports}
+
+\subsection*{Objective Function}
+Maximize:
+\[
+Z = \sum_{j=1}^{M} ((\text{price}_j - \text{cost}_j) \cdot x_j)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+\text{1. Raw Material Constraints:} & \\
+\sum_{j=1}^{M} \text{req}_{i,j} \cdot x_j & \leq \text{available}_i, \quad \forall i = 1, \ldots, N \\
+
+\text{2. Demand Constraints:} & \\
+x_j & \leq \text{demand}_j, \quad \forall j = 1, \ldots, M \\
+
+\text{3. Non-negativity Constraints:} & \\
+x_j & \geq 0, \quad \forall j = 1, \ldots, M
+\end{align*}
+
+\end{document}

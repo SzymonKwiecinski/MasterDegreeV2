@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Model for Roll Cutting Optimization}
+
+\textbf{Given:}
+\begin{itemize}
+    \item Large roll width: \( W \) inches (denoted as \texttt{large\_roll\_width})
+    \item Number of roll width options: \( M \)
+    \item Roll width options: \( \{w_1, w_2, \ldots, w_M\} \)
+    \item Demand for each roll width \( j \): \( d_j \) (denoted as \texttt{demand\_j})
+    \item Number of cutting patterns: \( N \)
+    \item Cutting pattern matrix: \( P = [p_{i,j}] \) where \( i = 1, \ldots, N \) and \( j = 1, \ldots, M \)
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item \( x_i \): Integer variable representing the number of times pattern \( i \) is used.
+    \item \( z \): Integer variable representing the total number of large rolls used.
+\end{itemize}
+
+\textbf{Objective:}
+Minimize the total number of large rolls used:
+\[
+\min z
+\]
+
+\textbf{Constraints:}
+\begin{align}
+    & \sum_{i=1}^{N} p_{i,j} x_i \geq d_j, \quad \forall j = 1, \ldots, M \quad \text{(Demand fulfillment for each roll width)} \\
+    & \sum_{j=1}^{M} w_j p_{i,j} \leq W, \quad \forall i = 1, \ldots, N \quad \text{(Pattern width constraint)} \\
+    & z = \sum_{i=1}^{N} x_i \quad \text{(Define total large rolls used)} \\
+    & x_i \in \mathbb{Z}_{\geq 0}, \quad \forall i = 1, \ldots, N \quad \text{(Non-negativity and integer constraint)}
+\end{align}
+
+\textbf{Explanation:}
+\begin{itemize}
+    \item Constraint (1) ensures that for each small roll width \( j \), the total rolls produced by the selected patterns meet or exceed the demand.
+    \item Constraint (2) ensures that each pattern does not exceed the width of a large roll.
+    \item Constraint (3) defines the total number of large rolls used in terms of the selected patterns.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Custom Tees Ad Campaign}
+\author{}
+\date{}
+\maketitle
+
+\section{Problem Description}
+
+Custom Tees is planning an online advertising campaign with \( A \) different ad types across two web companies. The company has specific goals for clicks and unique clicks from users in two age categories: 18-25 and older than 25. The objective is to minimize the cost of the ad campaign while achieving these goals.
+
+\section{Mathematical Model}
+
+\subsection{Decision Variables}
+Let \( x_a \) be the number of clicks purchased for ad type \( a \), measured in thousands of clicks for \( a = 1, \ldots, A \).
+
+\subsection{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{a=1}^{A} \text{cost}_a \times x_a
+\]
+
+\subsection{Constraints}
+
+1. Achieve at least the goal number of clicks from visitors aged 18-25:
+   \[
+   \sum_{a=1}^{A} \text{young\_click}_a \times x_a \geq \text{goal\_young}
+   \]
+
+2. Achieve at least the goal number of clicks from visitors older than 25:
+   \[
+   \sum_{a=1}^{A} \text{old\_click}_a \times x_a \geq \text{goal\_old}
+   \]
+
+3. Achieve at least the goal number of unique clicks from visitors aged 18-25:
+   \[
+   \sum_{a=1}^{A} \text{unique\_click}_a \times \text{young\_click}_a \times x_a \geq \text{goal\_unique\_young}
+   \]
+
+4. Achieve at least the goal number of unique clicks from visitors older than 25:
+   \[
+   \sum_{a=1}^{A} \text{unique\_click}_a \times \text{old\_click}_a \times x_a \geq \text{goal\_unique\_old}
+   \]
+
+5. Do not exceed the maximum number of allowable clicks for each ad type:
+   \[
+   x_a \leq \text{max\_click}_a, \quad \forall a = 1, \ldots, A
+   \]
+
+6. Non-negativity constraints:
+   \[
+   x_a \geq 0, \quad \forall a = 1, \ldots, A
+   \]
+
+\section{Solution Interpretation}
+The solution will provide the optimal number of clicks \( x_a \) for each ad type \( a \), and the corresponding total cost \( Z \) of the ad campaign.
+
+\end{document}

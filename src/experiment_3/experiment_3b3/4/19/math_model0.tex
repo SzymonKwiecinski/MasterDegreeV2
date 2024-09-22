@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Oil Blending Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $I$: Number of oils
+    \item $M$: Number of months
+    \item $price_{i,m}$: Purchase price of oil $i$ in month $m$
+    \item $sell\_price$: Selling price per ton of final product
+    \item $max\_veg$: Maximum tons of vegetable oils refined per month
+    \item $max\_veg$: Maximum tons of non-vegetable oils refined per month
+    \item $storage\_size$: Maximum storage capacity per oil
+    \item $storage\_cost$: Storage cost per ton per month
+    \item $max\_hardness$: Maximum permissible hardness of the final product
+    \item $min\_hardness$: Minimum permissible hardness of the final product
+    \item $hardness_{i}$: Hardness of oil $i$
+    \item $init\_amount$: Initial amount of each type of raw oil in storage
+    \item $min\_usage$: Minimum usage of any oil if it is used in a month
+    \item $dependency_{i,j}$: Dependency relation between oils
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $buyquantity_{i,m}$: Amount of oil $i$ bought in month $m$
+    \item $refine_{i,m}$: Amount of oil $i$ refined in month $m$
+    \item $storage_{i,m}$: Amount of oil $i$ stored at the end of month $m$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize profit:
+\[
+\text{Profit} = \sum_{m=1}^{M} (sell\_price \cdot \text{Total Refined}) - \sum_{m=1}^{M} \sum_{i=1}^{I} (price_{i,m} \cdot buyquantity_{i,m} + storage\_cost \cdot storage_{i,m})
+\]
+
+Where:
+\[
+\text{Total Refined} = \sum_{i=1}^{I} refine_{i,m}
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+1. & \quad \sum_{i=1}^{I} refine_{i,m} \leq max\_veg \quad \text{for vegetable oils}\\
+2. & \quad \sum_{i=1}^{I} refine_{i,m} \leq max\_non\_veg \quad \text{for non-vegetable oils}\\
+3. & \quad storage_{i,m} \leq storage\_size \quad \forall i, m\\
+4. & \quad storage_{i,m} = storage_{i,m-1} + buyquantity_{i,m} - refine_{i,m} \quad \forall i, 1 \leq m \leq M\\
+5. & \quad storage_{i,M} = init\_amount \quad \forall i\\
+6. & \quad \sum_{i=1}^{I} refine_{i,m} \text{ for final product hardness between } min\_hardness \text{ and } max\_hardness\\
+7. & \quad \text{If } refine_{i,m} > 0 \Rightarrow refine_{i,m} \geq min\_usage\\
+8. & \quad \sum_{j=1}^{I} dependency_{i,j} \cdot refine_{j,m} > 0 \Rightarrow refine_{i,m} > 0\\
+9. & \quad \text{No more than three oils can be used in any month.}
+\end{align*}
+
+\subsection*{Output}
+\begin{itemize}
+    \item $buy$: 2D array of buying quantities $\left[ buyquantity_{i,m} \right]$
+    \item $refine$: 2D array of refined quantities $\left[ refine_{i,m} \right]$
+    \item $storage$: 2D array of storage quantities $\left[ storage_{i,m} \right]$
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\textbf{Given:}
+\begin{itemize}
+    \item Total quantity of alloy required: \( \text{alloy\_quant} \)
+    \item Target composition of each metal \( m \) in the alloy: \(\text{target}_m\), for \( m = 1, \ldots, M \)
+    \item Composition ratio of metal \( m \) in alloy \( k \): \(\text{ratio}_{k, m}\)
+    \item Cost of each available alloy \( k \): \(\text{price}_k\)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item Let \( \text{amount}_k \) be the amount of alloy \( k \) purchased, for \( k = 1, \ldots, K \).
+\end{itemize}
+
+\textbf{Objective:}
+Minimize the total cost of purchasing the alloys:
+\[
+\text{Minimize } \sum_{k=1}^{K} \text{price}_k \cdot \text{amount}_k
+\]
+
+\textbf{Subject to:}
+\begin{itemize}
+    \item Total weight constraint:
+    \[
+    \sum_{k=1}^{K} \text{amount}_k = \text{alloy\_quant}
+    \]
+    \item Composition constraints for each metal \( m \):
+    \[
+    \sum_{k=1}^{K} \text{ratio}_{k, m} \cdot \text{amount}_k = \text{target}_m \times \text{alloy\_quant}, \quad \forall m = 1, \ldots, M
+    \]
+    \item Non-negativity constraints:
+    \[
+    \text{amount}_k \geq 0, \quad \forall k = 1, \ldots, K
+    \]
+\end{itemize}
+
+This linear program can be solved using appropriate LP solvers to find the optimal amounts of each type of alloy to purchase.
+
+\end{document}

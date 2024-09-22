@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Objective:} Minimize the total cost.
+
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} \sum_{i=1}^{I} \left( 
+\text{costredundancy}_{k} \times \text{redundancy}_{k, i} + 
+\text{costoverman}_{k} \times \text{overmanning}_{k, i} +
+\text{costshort}_{k} \times \text{short}_{k, i} \right)
+\]
+
+\textbf{Subject to:}
+
+1. \textbf{Manpower Balance for each year and category:}
+
+\[
+\text{strength}_{k, i} = \text{strength}_{k, i-1} \times (1 - \text{moreonewaste}_{k}) + 
+\text{recruit}_{k, i} \times (1 - \text{lessonewaste}_{k}) - \text{redundancy}_{k, i} 
++ \text{overmanning}_{k, i} + \frac{1}{2} \times \text{short}_{k, i}, \quad \forall k, \, i
+\]
+
+\[
+\text{strength}_{k, 0} = \text{initial strength}_{k}, \quad \forall k
+\]
+
+\[
+\text{strength}_{k, i} \geq \text{requirement}_{k, i}, \quad \forall k, \, i
+\]
+
+2. \textbf{Recruitment Limits:}
+
+\[
+0 \leq \text{recruit}_{k, i} \leq \text{recruit}_{k}, \quad \forall k, \, i
+\]
+
+3. \textbf{Overmanning Limits:}
+
+\[
+0 \leq \sum_{k=1}^{K} \text{overmanning}_{k, i} \leq \text{num\_overman}, \quad \forall i
+\]
+
+4. \textbf{Short-time Working Limits:}
+
+\[
+0 \leq \text{short}_{k, i} \leq \text{num\_shortwork}, \quad \forall k, \, i
+\]
+
+\textbf{Variables:}
+
+- \(\text{recruit}_{k, i}\): Number of employees recruited in category \( k \) in year \( i \).
+- \(\text{overmanning}_{k, i}\): Number of overstaffed employees in category \( k \) in year \( i \).
+- \(\text{short}_{k, i}\): Number of employees on short-time working in category \( k \) in year \( i \).
+- \(\text{redundancy}_{k, i}\): Number of employees made redundant in category \( k \) in year \( i \).
+
+\end{document}

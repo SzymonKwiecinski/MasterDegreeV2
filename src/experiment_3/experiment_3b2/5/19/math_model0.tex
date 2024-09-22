@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Objective Function}
+\[
+\max \sum_{m=1}^{M} \left( \sum_{i=1}^{I} \text{sell\_price} \times \text{refine}_{i,m} - \sum_{i=1}^{I} \text{buy\_price}_{i,m} \times \text{buyquantity}_{i,m} - \sum_{i=1}^{I} \text{storage\_cost} \times \text{storage}_{i,m} \right)
+\]
+
+\subsection*{Constraints}
+
+\paragraph{Balance Constraints:}
+\[
+\text{storage}_{i,m} = \text{storage}_{i,m-1} + \text{buyquantity}_{i,m} - \text{refine}_{i,m}, \quad \forall i, m
+\]
+\[
+\text{storage}_{i,0} = \text{init\_amount}, \quad \forall i 
+\]
+
+\paragraph{Capacity Constraints:}
+\[
+\sum_{i \in \text{vegetable}} \text{refine}_{i,m} \leq \text{max\_veg}, \quad \forall m
+\]
+\[
+\sum_{i \in \text{non-vegetable}} \text{refine}_{i,m} \leq \text{max\_non\_veg}, \quad \forall m
+\]
+
+\paragraph{Storage Constraints:}
+\[
+\text{storage}_{i,m} \leq \text{storage\_size}, \quad \forall i, m
+\]
+
+\paragraph{Hardness Constraints:}
+\[
+\sum_{i=1}^{I} \text{hardness}_{i} \times \text{refine}_{i,m} \geq \text{min\_hardness} \times \sum_{i=1}^{I} \text{refine}_{i,m}, \quad \forall m
+\]
+\[
+\sum_{i=1}^{I} \text{hardness}_{i} \times \text{refine}_{i,m} \leq \text{max\_hardness} \times \sum_{i=1}^{I} \text{refine}_{i,m}, \quad \forall m
+\]
+
+\paragraph{Usage Constraints:}
+\[
+\sum_{i=1}^{I} \text{use}_{i,m} \leq 3, \quad \forall m
+\]
+\[
+\text{refine}_{i,m} \geq \text{min\_usage} \times \text{use}_{i,m}, \quad \forall i, m
+\]
+\[
+\sum_{j=1}^{I} \text{dependency}_{i,j} \times \text{use}_{j,m} \geq \text{use}_{i,m}, \quad \forall i, m, \text{if dependency}_{i,j} = 1
+\]
+
+\paragraph{Final Storage Constraint:}
+\[
+\text{storage}_{i,M} = \text{init\_amount}, \quad \forall i
+\]
+
+\end{document}

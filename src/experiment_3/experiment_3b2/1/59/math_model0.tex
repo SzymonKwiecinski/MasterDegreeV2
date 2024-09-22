@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Indices and Sets:}
+\begin{itemize}
+    \item Let \( N \) be the number of available translators.
+    \item Let \( M \) be the number of required languages.
+    \item \( i \) index for translators, where \( i = 1, 2, \ldots, N \).
+    \item \( j \) index for languages, where \( j = 1, 2, \ldots, M \).
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{cost}_i \): Cost of hiring translator \( i \).
+    \item \( \text{languages}_i \): Set of languages translator \( i \) can translate.
+    \item \( \text{required\_languages} \): Set of languages that must be covered.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( x_i \in \{0, 1\} \): 1 if translator \( i \) is selected, 0 otherwise.
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\min \sum_{i=1}^{N} \text{cost}_i \cdot x_i
+\]
+
+\textbf{Constraints:}
+\begin{itemize}
+    \item \text{Coverage of required languages:} \newline
+    For each language \( j \in \text{required\_languages} \),
+    \[
+    \sum_{i: j \in \text{languages}_i} x_i \geq 1
+    \]
+    This ensures that language \( j \) is covered by at least one selected translator.
+\end{itemize}
+
+\textbf{Binary Constraints:}
+\[
+x_i \in \{0, 1\} \quad \forall i \in \{1, 2, \ldots, N\}
+\]
+
+\end{document}

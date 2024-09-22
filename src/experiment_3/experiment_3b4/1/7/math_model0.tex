@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Trajectory Optimization Problem}
+
+\subsection*{Problem Formulation}
+
+Given the initial position \(x_0\), initial velocity \(v_0\), target position \(x_T\), and target velocity \(v_T\), and the total time \(T\), we want to find the optimal accelerations \(a_t\) for each time step \(t = 0, 1, \ldots, T-1\) such that the fuel consumption is minimized and the rocket reaches the target position and velocity.
+
+\subsection*{Variables}
+
+Let:
+\begin{align*}
+x_t & : \text{position of the rocket at time } t, \\
+v_t & : \text{velocity of the rocket at time } t, \\
+a_t & : \text{acceleration of the rocket at time } t.
+\end{align*}
+
+\subsection*{Model}
+
+\begin{align*}
+\text{Minimize } & z \\
+\text{subject to:} \\
+x_{t+1} &= x_t + v_t, \quad \text{for } t = 0, 1, \ldots, T-1, \\
+v_{t+1} &= v_t + a_t, \quad \text{for } t = 0, 1, \ldots, T-1, \\
+x_0 &= \text{given initial position}, \\
+v_0 &= \text{given initial velocity}, \\
+x_T &= \text{given target position}, \\
+v_T &= \text{given target velocity}, \\
+-z & \leq a_t \leq z, \quad \text{for } t = 0, 1, \ldots, T-1.
+\end{align*}
+
+\subsection*{Objective}
+
+The objective is to minimize the maximum absolute acceleration:
+\[
+\min \max_{t=0,\ldots,T-1} |a_t|
+\]
+
+\subsection*{Fuel Spend Calculation}
+
+In this context, fuel spend corresponds to the sum of the absolute values of the accelerations used:
+\[
+\text{fuel\_spend} = \sum_{t=0}^{T-1} |a_t|
+\]
+
+\end{document}

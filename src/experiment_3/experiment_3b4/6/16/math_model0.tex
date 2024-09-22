@@ -1,0 +1,22 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model:}
+
+\textbf{Objective:}
+\[
+\text{Maximize } \sum_{p=1}^{P} \left( \text{price}_p \times \left( \sum_{l=1}^{L} \text{output}_{l,p} \times x_l \right) \right) - \sum_{l=1}^{L} \left( \text{cost}_l \times \left( \sum_{p=1}^{P} \text{output}_{l,p} \times x_l \right) \right)
+\]
+
+\textbf{Subject to:}
+\[
+\sum_{l=1}^{L} \text{input}_{l,i} \times x_l \leq \text{allocated}_i \quad \text{for each } i = 1, \ldots, O
+\]
+
+\textbf{Decision Variables:}
+\[
+x_l \geq 0 \quad \text{for each } l = 1, \ldots, L
+\]
+
+\end{document}

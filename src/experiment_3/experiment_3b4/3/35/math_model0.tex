@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Warehouse Operation Linear Programming Model}
+
+\subsection*{Objective Function}
+Maximize the profit:
+\[
+\text{Maximize} \quad \sum_{n=1}^{N} \left( \text{price}_n \cdot \text{sellquantity}_n - \text{cost}_n \cdot \text{buyquantity}_n - \text{holding\_cost} \cdot \text{stock}_n \right)
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    \text{stock}_0 & = 0 \\
+    \text{stock}_N & = 0 \\
+    \text{stock}_n & = \text{stock}_{n-1} + \text{buyquantity}_n - \text{sellquantity}_n \quad \forall n = 1, \ldots, N \\
+    \text{stock}_n & \leq \text{capacity} \quad \forall n = 1, \ldots, N \\
+    \text{buyquantity}_n, \text{sellquantity}_n, \text{stock}_n & \geq 0 \quad \forall n = 1, \ldots, N
+\end{align}
+
+\subsection*{Variables}
+- \( \text{buyquantity}_n \): Amount of commodity bought in period \( n \).
+- \( \text{sellquantity}_n \): Amount of commodity sold in period \( n \).
+- \( \text{stock}_n \): Stock at the end of period \( n \).
+
+\end{document}

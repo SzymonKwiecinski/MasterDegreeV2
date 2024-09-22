@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Maximizing Profit}
+
+Let:
+\begin{align*}
+x_k & : \text{the quantity of part } k \text{ to be produced}, \\
+\text{profit}_k & : \text{the profit for each unit of part } k, \\
+\text{time}_{k,s} & : \text{the worker-hours required for part } k \text{ in shop } s, \\
+\text{capacity}_s & : \text{the capacity of shop } s \text{ in worker-hours}.
+\end{align*}
+
+Objective:
+\[
+\text{Maximize} \quad Z = \sum_{k=1}^{K} \text{profit}_k \cdot x_k
+\]
+
+Subject to:
+\[
+\sum_{k=1}^{K} \text{time}_{k,s} \cdot x_k \leq \text{capacity}_s \quad \text{for all } s = 1, \ldots, S
+\]
+
+\[
+x_k \geq 0 \quad \text{for all } k = 1, \ldots, K
+\]
+
+\end{document}

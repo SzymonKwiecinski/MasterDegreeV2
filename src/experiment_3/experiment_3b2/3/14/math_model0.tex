@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Decision Variables}
+
+Let:
+\begin{align*}
+x_i & : \text{production quantity of the } i\text{-th product} \\
+u & : \text{binary variable, 1 if the company upgrades machine capacity, 0 otherwise}
+\end{align*}
+
+\subsection*{Parameters}
+
+Given:
+\begin{align*}
+\text{cash} & : \text{available cash} \\
+\text{hour}_i & : \text{machine hours required per unit of the } i\text{-th product} \\
+\text{cost}_i & : \text{production cost per unit of the } i\text{-th product} \\
+\text{price}_i & : \text{selling price per unit of the } i\text{-th product} \\
+\text{investPercentage}_i & : \text{investment rate of sales revenue from the } i\text{-th product} \\
+\text{upgradeHours} & : \text{additional machine hours available if upgraded} \\
+\text{upgradeCost} & : \text{cost of upgrading machine capacity} \\
+\text{availableHours} & : \text{current available machine hours} \\
+P & : \text{number of products}
+\end{align*}
+
+\subsection*{Objective Function}
+
+Maximize total net income:
+\[
+\text{Net Income} = \sum_{i=1}^{P} \left( (\text{price}_i - \text{cost}_i - \text{price}_i \cdot \text{investPercentage}_i) \cdot x_i \right) - u \cdot \text{upgradeCost}
+\]
+
+\subsection*{Constraints}
+
+1. Machine capacity constraint:
+\[
+\sum_{i=1}^{P} \text{hour}_i \cdot x_i \leq \text{availableHours} + u \cdot \text{upgradeHours}
+\]
+
+2. Cash availability constraint:
+\[
+\sum_{i=1}^{P} \text{cost}_i \cdot x_i \leq \text{cash} + \sum_{i=1}^{P} \text{price}_i \cdot \text{investPercentage}_i \cdot x_i - u \cdot \text{upgradeCost}
+\]
+
+3. Non-negativity and binary constraints:
+\[
+x_i \geq 0 \quad \text{for } i = 1, 2, \ldots, P
+\]
+\[
+u \in \{0, 1\}
+\]
+
+\end{document}

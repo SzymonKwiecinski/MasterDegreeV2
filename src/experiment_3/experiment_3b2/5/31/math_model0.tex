@@ -1,0 +1,22 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} Minimize total cost
+
+\begin{align}
+    \min \sum_{t=1}^{T} \sum_{k=1}^{K} \Big( & \text{runcost}_k \cdot \text{numon}_{k,t} + \text{extracost}_k \cdot (\text{output}_{k,t} - \text{minlevel}_k \cdot \text{numon}_{k,t}) \\
+    & + \text{startcost}_k \cdot \text{startup}_{k,t} \Big)
+\end{align}
+
+\textbf{Subject to:}
+
+\begin{align}
+    & \sum_{k=1}^{K} \text{output}_{k,t} \geq \text{demand}_t, \quad \forall t \in \{1, \ldots, T\} \\
+    & \text{minlevel}_{k} \cdot \text{numon}_{k,t} \leq \text{output}_{k,t} \leq \text{maxlevel}_{k} \cdot \text{numon}_{k,t}, \quad \forall k \in \{1, \ldots, K\}, t \in \{1, \ldots, T\} \\
+    & \text{numon}_{k,t} \leq \text{num}_{k}, \quad \forall k \in \{1, \ldots, K\}, t \in \{1, \ldots, T\} \\
+    & \text{startup}_{k,t} \geq \text{numon}_{k,t} - \text{numon}_{k,t-1}, \quad \forall k \in \{1, \ldots, K\}, t \in \{2, \ldots, T\} \\
+    & \text{startup}_{k,t}, \text{numon}_{k,t} \in \{0, 1, 2, \ldots\}, \quad \forall k \in \{1, \ldots, K\}, t \in \{1, \ldots, T\}
+\end{align}
+
+\end{document}

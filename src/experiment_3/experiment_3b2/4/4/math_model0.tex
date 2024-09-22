@@ -1,0 +1,13 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Problem Formulation:}
+
+\begin{align*}
+    \text{Minimize} \quad & \sum_{j=1}^{7} x_j \\
+    \text{subject to} \quad & \sum_{k=0}^{\text{period}-1} x_{(j-k-1) \mod 7 + 1} \geq d_j, \quad \forall j = 1, \ldots, 7 \\
+    & x_j \in \mathbb{Z}_{\geq 0}, \quad \forall j = 1, \ldots, 7
+\end{align*}
+
+\end{document}

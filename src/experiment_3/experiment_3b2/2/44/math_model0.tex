@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\textbf{Sets:}
+\begin{align*}
+  & P = \text{set of parts, indexed by } p \\
+  & M = \text{set of machines, indexed by } m \\
+\end{align*}
+
+\textbf{Parameters:}
+\begin{align*}
+  & \text{time\_required}_{m,p} = \text{time required on machine } m \text{ for a batch of part } p \\
+  & \text{cost}_{m} = \text{cost per hour for using machine } m \\
+  & \text{available}_{m} = \text{hours available for machine } m \text{ per month} \\
+  & \text{price}_{p} = \text{selling price per batch of part } p \\
+  & \text{min\_batches}_{p} = \text{minimum number of batches for part } p \text{ required per month} \\
+\end{align*}
+
+\textbf{Decision Variables:}
+\begin{align*}
+  & \text{batches}_{p} = \text{number of batches of part } p \text{ produced (integer)} \\
+\end{align*}
+
+\textbf{Objective Function:}
+Maximize the profit, which is revenue minus the cost:
+\[
+\text{max} \quad \text{total\_profit} = \sum_{p \in P} (\text{price}_{p} \times \text{batches}_{p}) - \sum_{m \in M} \left( \text{cost}_{m} \times \sum_{p \in P} (\text{time\_required}_{m,p} \times \text{batches}_{p}) \right)
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+  & \sum_{p \in P} \text{time\_required}_{m,p} \times \text{batches}_{p} \leq \text{available}_{m}, \quad \forall m \in M \quad \text{(machine availability constraint)} \\
+  & \text{batches}_{p} \geq \text{min\_batches}_{p}, \quad \forall p \in P \quad \text{(minimum production requirement)} \\
+  & \text{batches}_{p} \in \mathbb{Z}^{+}, \quad \forall p \in P \quad \text{(non-negativity and integrality)}
+\end{align*}
+
+\end{document}

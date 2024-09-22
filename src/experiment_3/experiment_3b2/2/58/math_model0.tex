@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model}
+
+\textbf{Sets and Indices:}
+\begin{itemize}
+    \item $P$: Set of parts, indexed by $p = 1, \ldots, P$
+    \item $M$: Set of machines, indexed by $m = 1, \ldots, M$
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $time_{m,p}$: Hours required on machine $m$ to produce a batch of part $p$
+    \item $cost_{m}$: Cost per hour for using machine $m$
+    \item $available_{m}$: Availability of machine $m$ in hours per month
+    \item $price_{p}$: Selling price of a batch of part $p$
+    \item $setup\_time_{p}$: Setup time required on machine 1 for part $p$
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $batches_{p}$: Number of batches of part $p$ to produce (integer)
+    \item $setup\_flag_{p}$: Binary variable indicating whether part $p$ is set up on machine 1 (0 or 1)
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\max \sum_{p=1}^{P} \left( price_{p} \cdot batches_{p} \right) - \sum_{m=1}^{M} \sum_{p=1}^{P} \left( cost_{m} \cdot time_{m,p} \cdot batches_{p} \right) - \sum_{p=1}^{P} \left( cost_{1} \cdot setup\_time_{p} \cdot setup\_flag_{p} \right)
+\]
+
+\textbf{Constraints:}
+
+\begin{itemize}
+    \item \textbf{Availability constraints for each machine:}
+    \[
+    \sum_{p=1}^{P} \left( time_{m,p} \cdot batches_{p} \right) + \begin{cases} 
+    \sum_{p=1}^{P} \left( setup\_time_{p} \cdot setup\_flag_{p} \right), & \text{if } m = 1 \\
+    0, & \text{otherwise}
+    \end{cases} \leq available_{m}, \quad \forall m = 1, \ldots, M
+    \]
+
+    \item \textbf{Binary setup indicator constraint:}
+    \[
+    batches_{p} \leq \text{Large} \cdot setup\_flag_{p}, \quad \forall p = 1, \ldots, P
+    \]
+
+    \item \textbf{Non-negativity and integrality constraints:}
+    \[
+    batches_{p} \geq 0, \quad batches_{p} \in \mathbb{Z}, \quad \forall p = 1, \ldots, P
+    \]
+    \[
+    setup\_flag_{p} \in \{0, 1\}, \quad \forall p = 1, \ldots, P
+    \]
+\end{itemize}
+
+\end{document}

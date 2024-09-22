@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+Let \( x_p \) be the number of batches of part \( p \) to produce each month for \( p = 1, 2, \ldots, P \).
+
+\subsection*{Objective Function}
+The objective is to maximize the total profit. The profit for part \( p \) is given by:
+
+\[
+\text{Profit}_p = \text{price}_p \times x_p - \sum_{m=1}^{M} \text{cost}_m \times \text{time}_{m,p} \times x_p
+\]
+
+Thus, the total profit is:
+
+\[
+\text{Maximize} \quad \text{Total Profit} = \sum_{p=1}^{P} \left( \text{price}_p \times x_p - \sum_{m=1}^{M} \text{cost}_m \times \text{time}_{m,p} \times x_p \right)
+\]
+
+\subsection*{Constraints}
+
+\begin{itemize}
+    \item \textbf{Minimum Production Requirement:} Each part \( p \) must be produced in at least \( \text{min\_batches}_p \) batches:
+    \[
+    x_p \geq \text{min\_batches}_p \quad \forall p = 1, 2, \ldots, P
+    \]
+
+    \item \textbf{Machine Time Availability:} For each machine \( m \), the total time used must not exceed its available hours. However, machines \( M \) and \( M-1 \) can share availability:
+    \[
+    \sum_{p=1}^{P} \text{time}_{m,p} \times x_p \leq \text{available}_m \quad \forall m = 1, 2, \ldots, M-2
+    \]
+    \[
+    \sum_{p=1}^{P} (\text{time}_{M,p} + \text{time}_{M-1,p}) \times x_p \leq (\text{available}_M + \text{available}_{M-1})
+    \]
+\end{itemize}
+
+\subsection*{Non-negativity Constraints}
+\[
+x_p \geq 0 \quad \forall p = 1, 2, \ldots, P
+\]
+
+\end{document}

@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\textbf{Variables:} \\
+Let \( x_p \) be the number of batches of part \( p \) produced, for \( p = 1, \ldots, P \).
+
+\textbf{Objective:} \\
+Maximize the profit:
+\[
+\text{Profit} = \sum_{p=1}^{P} \text{price}_p \cdot x_p - \sum_{m=2}^{M} \left( \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \cdot \text{cost}_{m} \right) - \text{Cost}_1
+\]
+
+Where:
+\[
+\text{Cost}_1 = \begin{cases} 
+\text{standard\_cost} \cdot \text{time}_1, & \text{if } \text{time}_1 \leq \text{overtime\_hour} \\
+\text{standard\_cost} \cdot \text{overtime\_hour} + \text{overtime\_cost} \cdot (\text{time}_1 - \text{overtime\_hour}), & \text{otherwise}
+\end{cases}
+\]
+\(\text{time}_1 = \sum_{p=1}^{P} \text{time}_{1,p} \cdot x_p\)
+
+\textbf{Constraints:}
+\begin{align*}
+\sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p & \leq \text{available}_m, & \forall m = 2, \ldots, M \\
+x_p & \geq \text{min\_batches}_p, & \forall p = 1, \ldots, P \\
+x_p & \geq 0, & \forall p = 1, \ldots, P
+\end{align*}
+
+\end{document}

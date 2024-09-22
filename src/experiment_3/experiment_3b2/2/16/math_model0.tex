@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Decision Variables}
+Let \( x_l \) be the number of times process \( l \) is executed for \( l = 1, \ldots, L \).
+
+\subsection*{Objective Function}
+Maximize the revenue:
+\[
+\text{Revenue} = \sum_{p=1}^{P} \text{price}_p \left( \sum_{l=1}^{L} \text{output}_{l,p} \cdot x_l \right) - \sum_{l=1}^{L} \text{cost}_l \cdot \sum_{p=1}^{P} \text{output}_{l,p} \cdot x_l
+\]
+This can be simplified to:
+\[
+\max \sum_{l=1}^{L} \left( \sum_{p=1}^{P} (\text{price}_p \cdot \text{output}_{l,p} - \text{cost}_l \cdot \text{output}_{l,p}) \right) x_l
+\]
+
+\subsection*{Constraints}
+1. Crude Oil Availability:
+   For each crude \( i \), the consumption cannot exceed its allocation:
+   \[
+   \sum_{l=1}^{L} \text{input}_{l,i} \cdot x_l \leq \text{allocated}_i, \quad i = 1, \ldots, O
+   \]
+
+2. Non-negativity:
+   \[
+   x_l \geq 0, \quad l = 1, \ldots, L
+   \]
+
+\subsection*{Summary}
+The problem is to maximize the objective function subject to the above constraints. The decision variables \( x_l \) represent the number of times each process is executed, which are continuous and non-negative.
+
+\end{document}

@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+
+\textbf{Problem Formulation:}
+
+\begin{itemize}
+    \item Let \( batches_p \) be the number of batches of part \( p \) to produce.
+    \item Let \( setup\_flag_p \) be a binary variable, where \( setup\_flag_p = 1 \) if machine 1 is set up for part \( p \), and 0 otherwise.
+\end{itemize}
+
+\textbf{Objective:}
+
+Maximize profit:
+
+\[
+\text{Total Profit} = \sum_{p=1}^{P} \left( \text{price}_p \times batches_p \right) - \sum_{m=1}^{M} \left( \text{cost}_m \times \left( \sum_{p=1}^{P} \text{time}_{m,p} \times batches_p + \delta_{m,1} \sum_{p=1}^{P} \text{setup\_flag}_p \times \text{setup\_time}_p \right) \right)
+\]
+
+where \(\delta_{m,1}\) is the Kronecker delta function, which is 1 when \(m=1\) and 0 otherwise.
+
+\textbf{Constraints:}
+
+1. Machine availability constraint for each machine \( m \):
+
+\[
+\sum_{p=1}^{P} \text{time}_{m,p} \times batches_p + \delta_{m,1} \sum_{p=1}^{P} \text{setup\_flag}_p \times \text{setup\_time}_p \leq \text{available}_m, \quad \forall m = 1, \ldots, M
+\]
+
+2. Setup requirement for machine 1:
+
+\[
+setup\_flag_p \geq \frac{batches_p}{1 + \max(batches_p)}, \quad \forall p = 1, \ldots, P
+\]
+
+This ensures that setup must occur if any batch of part \( p \) is produced on machine 1.
+
+3. Non-negativity:
+
+\[
+batches_p \geq 0, \quad \forall p = 1, \ldots, P
+\]
+
+4. Binary setup flag:
+
+\[
+setup\_flag_p \in \{0, 1\}, \quad \forall p = 1, \ldots, P
+\]
+
+\textbf{Variables:}
+
+- \( batches_p \) are integer variables.
+- \( setup\_flag_p \) are binary variables.
+
+\end{document}

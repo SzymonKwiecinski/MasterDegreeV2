@@ -1,0 +1,25 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model:}
+
+\textit{Decision Variables:}
+\begin{itemize}
+    \item \( x_i \): Production quantity of product \( i \).
+    \item \( y \): Binary variable for machine upgrade, \( y \in \{0, 1\} \).
+\end{itemize}
+
+\textit{Objective:} 
+\[
+\text{Maximize} \quad \sum_{i=1}^{P} \left( \text{price}_i \cdot x_i - \text{cost}_i \cdot x_i - \text{investPercentage}_i \cdot \text{price}_i \cdot x_i \right) - \text{upgradeCost} \cdot y
+\]
+
+\textit{Subject to:}
+\begin{align*}
+    & \sum_{i=1}^{P} \text{hour}_i \cdot x_i \leq \text{availableHours} + \text{upgradeHours} \cdot y \\
+    & \sum_{i=1}^{P} \text{cost}_i \cdot x_i \leq \text{cash} + \sum_{i=1}^{P} \text{investPercentage}_i \cdot \text{price}_i \cdot x_i - \text{upgradeCost} \cdot y \\
+    & y \in \{0, 1\}
+\end{align*}
+
+\end{document}

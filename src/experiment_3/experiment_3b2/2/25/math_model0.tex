@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Sets and Indices}
+\begin{align*}
+K & : \text{Number of industries} \\
+T & : \text{Number of years}
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+\text{inputone}_{k,j} & : \text{Input required from industry } j \text{ by industry } k \\
+\text{manpowerone}_{k} & : \text{Manpower required by industry } k \\
+\text{inputtwo}_{k,j} & : \text{Input required from industry } j \text{ to increase capacity of industry } k \\
+\text{manpowertwo}_{k} & : \text{Manpower required to increase the capacity of industry } k \\
+\text{stock}_{k} & : \text{Initial stock of industry } k \\
+\text{capacity}_{k} & : \text{Initial productive capacity of industry } k \\
+\text{manpower\_limit} & : \text{Limited yearly manpower available} \\
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+\text{produce}_{k,t} & : \text{Units produced by industry } k \text{ in year } t \\
+\text{buildcapa}_{k,t} & : \text{Units used to build productive capacity for industry } k \text{ in year } t \\
+\text{stockhold}_{k,t} & : \text{Stock of industry } k \text{ held in year } t \\
+\end{align*}
+
+\subsection*{Objective Function}
+\begin{align*}
+\text{Maximize} \quad & \sum_{k=1}^{K} \left(\text{produce}_{k,T-1} + \text{produce}_{k,T}\right)
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+\text{Stock and Production Balance:} & \\
+\text{stockhold}_{k,t-1} + \sum_{j=1}^{K} \left(\text{inputone}_{k,j} \cdot \text{produce}_{j,t}\right) + \text{buildcapa}_{k,t} &\leq \text{capacity}_{k} + \text{buildcapa}_{k,t-2} \quad & \forall k, \, t \\
+\text{Manpower Constraint:} & \\
+\sum_{k=1}^{K} \left(\text{manpowerone}_{k} \cdot \text{produce}_{k,t} + \text{manpowertwo}_{k} \cdot \text{buildcapa}_{k,t}\right) &\leq \text{manpower\_limit} \quad & \forall t \\
+\text{Initial Stock and Capacity:} & \\
+\text{stockhold}_{k,0} &= \text{stock}_{k} \quad & \forall k \\
+\text{capacity}_{k} &= \text{capacity}_{k} \quad & \forall k \\
+\text{Non-negativity:} & \\
+\text{produce}_{k,t}, \, \text{buildcapa}_{k,t}, \, \text{stockhold}_{k,t} &\geq 0 \quad & \forall k, \, t
+\end{align*}
+
+\end{document}

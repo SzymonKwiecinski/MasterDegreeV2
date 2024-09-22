@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item Let \( x_l \) be the number of times process \( l \) is executed, for \( l = 1, \ldots, L \).
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize Revenue: } Z = \sum_{p=1}^{P} \sum_{l=1}^{L} \text{output}_{l,p} \cdot \text{price}_p \cdot x_l - \sum_{l=1}^{L} \text{cost}_l \cdot \sum_{p=1}^{P} \text{output}_{l,p} \cdot x_l
+\]
+
+\textbf{Constraints:}
+\begin{itemize}
+    \item \text{Crude Oil Allocation Constraints:}
+    \[
+    \sum_{l=1}^{L} \text{input}_{l,i} \cdot x_l \leq \text{allocated}_i, \quad \forall i = 1, \ldots, O
+    \]
+
+    \item \text{Non-negativity Constraints:}
+    \[
+    x_l \geq 0, \quad \forall l = 1, \ldots, L
+    \]
+\end{itemize}
+
+\textbf{Where:}
+\begin{itemize}
+    \item \( \text{allocated}_i \) is the available quantity of crude oil type \( i \).
+    \item \( \text{price}_p \) is the selling price per barrel of product \( p \).
+    \item \( \text{input}_{l,i} \) is the number of barrels of crude oil type \( i \) consumed by process \( l \).
+    \item \( \text{output}_{l,p} \) is the number of barrels of product \( p \) produced by process \( l \).
+    \item \( \text{cost}_l \) is the production cost per barrel of product produced by process \( l \).
+\end{itemize}
+
+\end{document}

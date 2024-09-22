@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Diet Optimization Problem}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Formulation}
+
+\textbf{Given:}
+\begin{itemize}
+    \item Let \( K \) be the number of different foods.
+    \item Let \( M \) be the number of different nutritional requirements.
+    \item \( \text{price}_k \) is the price per unit of food \( k \) for \( k = 1, 2, \ldots, K \).
+    \item \( \text{demand}_m \) is the demand of nutrient \( m \) for \( m = 1, 2, \ldots, M \).
+    \item \( \text{nutri}_{k,m} \) is the amount of nutrient \( m \) contained in one unit of food \( k \).
+\end{itemize}
+
+\textbf{Objective:}
+\[
+\text{Minimize} \quad Z = \sum_{k=1}^{K} \text{price}_k \cdot \text{quantity}_k
+\]
+
+\textbf{Subject to:}
+\[
+\sum_{k=1}^{K} \text{nutri}_{k,m} \cdot \text{quantity}_k \geq \text{demand}_m \quad \text{for each } m = 1, 2, \ldots, M
+\]
+\[
+\text{quantity}_k \geq 0 \quad \text{for each } k = 1, 2, \ldots, K
+\]
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( \text{quantity}_k \) represents the quantity of food \( k \) to purchase.
+\end{itemize}
+
+\end{document}

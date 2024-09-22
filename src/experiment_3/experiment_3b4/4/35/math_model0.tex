@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+\begin{align*}
+\text{buyquantity}_n & \quad \text{Amount of commodity bought in period } n \\
+\text{sellquantity}_n & \quad \text{Amount of commodity sold in period } n \\
+\text{stock}_n & \quad \text{Stock of the commodity held at the end of period } n
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize:
+\begin{equation*}
+\sum_{n=1}^{N} \left( \text{price}_n \cdot \text{sellquantity}_n - \text{cost}_n \cdot \text{buyquantity}_n \right) - \text{holding\_cost} \cdot \sum_{n=1}^{N} \text{stock}_n
+\end{equation*}
+
+\subsection*{Constraints}
+1. \textbf{Initial and Final Stock Constraints:}
+\begin{align*}
+\text{stock}_0 &= 0 \\
+\text{stock}_N &= 0
+\end{align*}
+
+2. \textbf{Capacity Constraint:}
+\begin{equation*}
+\text{stock}_n \leq \text{capacity} \quad \text{for all } n = 1,\ldots,N
+\end{equation*}
+
+3. \textbf{Stock Balance Constraints:}
+\begin{equation*}
+\text{stock}_{n-1} + \text{buyquantity}_n - \text{sellquantity}_n = \text{stock}_n \quad \text{for all } n = 1,\ldots,N
+\end{equation*}
+
+4. \textbf{Non-Negativity Constraints:}
+\begin{align*}
+\text{buyquantity}_n &\geq 0 \\
+\text{sellquantity}_n &\geq 0 \\
+\text{stock}_n &\geq 0 \quad \text{for all } n = 1,\ldots,N
+\end{align*}
+
+\end{document}

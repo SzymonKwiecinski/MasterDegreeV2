@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Variables:} \\
+Let \( x_k \) represent the quantity of food \( k \) to purchase for \( k = 1, \ldots, K \).
+
+\textbf{Parameters:} \\
+\begin{itemize}
+    \item \( \text{price}_k \): price per unit of food \( k \)
+    \item \( \text{demand}_m \): minimum units of nutrient \( m \) required per day for \( m = 1, \ldots, M \)
+    \item \( \text{nutri}_{k,m} \): units of nutrient \( m \) contained in one unit of food \( k \)
+\end{itemize}
+
+\textbf{Objective:} \\
+Minimize the total cost of purchasing food:
+
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} \text{price}_k \cdot x_k
+\]
+
+\textbf{Constraints:} \\
+Ensure that each nutrient \( m \) meets the daily demand:
+
+\[
+\sum_{k=1}^{K} \text{nutri}_{k,m} \cdot x_k \geq \text{demand}_m, \quad \forall m = 1, \ldots, M
+\]
+
+\textbf{Non-negativity constraints:} \\
+\[
+x_k \geq 0, \quad \forall k = 1, \ldots, K
+\]
+
+\end{document}

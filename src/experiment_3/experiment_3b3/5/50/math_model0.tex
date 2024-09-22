@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $P$: Number of different parts
+    \item $M$: Number of different machines
+    \item $time_{m,p}$: Time (in hours) required on machine $m$ to produce a batch of part $p$
+    \item $cost_{m}$: Cost (per hour) for using machine $m$
+    \item $available_{m}$: Availability (in hours) of machine $m$ per month
+    \item $price_{p}$: Selling price (per batch) of part $p$
+    \item $min\_batches_{p}$: Minimum batches of part $p$ required to fulfill the contract
+    \item $extra\_costs_{m}$: Cost (per hour) for acquiring extra time for machine $m$
+    \item $max\_extra_{m}$: Maximum extra hours that can be purchased for machine $m$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $batches_{p}$: Number of batches of part $p$ produced (for $p = 1, \ldots, P$)
+    \item $extra\_time_{m}$: Additional hours purchased for machine $m$ (for $m = 1, \ldots, M$)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} (price_p \cdot batches_p) - \sum_{m=1}^{M} (cost_m \cdot (available_m + extra\_time_m)) - \sum_{m=1}^{M} (extra\_costs_m \cdot extra\_time_m)
+\]
+
+\subsection*{Constraints}
+1. Production Constraints:
+\[
+batches_p \geq min\_batches_p \quad \forall p \in \{1, \ldots, P\}
+\]
+
+2. Machine Availability Constraints:
+\[
+\sum_{p=1}^{P} (time_{m,p} \cdot batches_p) \leq available_m + extra\_time_m \quad \forall m \in \{1, \ldots, M\}
+\]
+
+3. Extra Time Purchase Constraints:
+\[
+extra\_time_m \leq max\_extra_m \quad \forall m \in \{1, \ldots, M\}
+\]
+
+4. Non-negativity Constraints:
+\[
+batches_p \geq 0 \quad \forall p \in \{1, \ldots, P\}
+\]
+\[
+extra\_time_m \geq 0 \quad \forall m \in \{1, \ldots, M\}
+\]
+
+\subsection*{Output Variables}
+The solution will include:
+\begin{itemize}
+    \item Batches produced for each part: $batches = [batches_p \text{ for } p = 1, \ldots, P]$
+    \item Extra time purchased for each machine: $extra\_time = [extra\_time_m \text{ for } m = 1, \ldots, M]$
+    \item Total profit obtained: $total\_profit = Z$
+\end{itemize}
+
+\end{document}

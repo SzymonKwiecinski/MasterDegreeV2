@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Warehouse Operation}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \text{Capacity: } $capacity$
+    \item \text{Holding cost per unit: } $holding\_cost$
+    \item \text{Selling price in period $n$: } $price_n$
+    \item \text{Buying cost in period $n$: } $cost_n$
+    \item \text{Number of periods: } $N$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    \text{buyquantity}_n &: \text{The quantity to buy in period } n \\
+    \text{sellquantity}_n &: \text{The quantity to sell in period } n \\
+    \text{stock}_n &: \text{The stock at the end of period } n
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\max \sum_{n=1}^{N} \left( \text{price}_n \cdot \text{sellquantity}_n - \text{cost}_n \cdot \text{buyquantity}_n - holding\_cost \cdot \text{stock}_n \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+    & \text{stock}_1 = \text{buyquantity}_1 - \text{sellquantity}_1 \\
+    & \text{stock}_n = \text{stock}_{n-1} + \text{buyquantity}_n - \text{sellquantity}_n \quad \forall n \in \{2, \ldots, N\} \\
+    & \text{stock}_n \leq capacity \quad \forall n \in \{1, \ldots, N\} \\
+    & \text{buyquantity}_n, \text{sellquantity}_n, \text{stock}_n \geq 0 \quad \forall n \in \{1, \ldots, N\} \\
+    & \text{stock}_N = 0 
+\end{align*}
+
+\end{document}

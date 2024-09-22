@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item $t \in \{1, 2, \ldots, T\}$: Time periods (months)
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $\text{demand}_t$: Demand for containers in month $t$
+    \item \text{unload\_cost}_t: Cost for unloading a single container in month $t$
+    \item \text{unload\_capacity}_t: Maximum number of containers that can be unloaded in month $t$
+    \item \text{holding\_cost}: Holding cost per container per month
+    \item \text{max\_container}: Maximum containers that can be stored in the yard
+    \item \text{init\_container}: Initial containers in the yard at the start of month 1
+    \item \text{num\_cranes}: Maximum number of cranes that can be rented each month
+    \item \text{crane\_capacity}: Loading capacity of each crane (containers)
+    \item \text{crane\_cost}: Cost per crane rented
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_t$: Number of containers unloaded in month $t$
+    \item $y_t$: Number of cranes rented in month $t$
+    \item $s_t$: Number of containers stored at the end of month $t$
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\min \sum_{t=1}^{T} \left( \text{unload\_cost}_t \times x_t + \text{crane\_cost} \times y_t + \text{holding\_cost} \times s_t \right)
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    &\text{Initial storage:} && s_0 = \text{init\_container} \\
+    &\text{Balance:} && s_{t-1} + x_t - \text{demand}_t = s_t, \quad \forall t \\
+    &\text{Unloading Capacity:} && 0 \leq x_t \leq \text{unload\_capacity}_t, \quad \forall t \\
+    &\text{Storage Capacity:} && 0 \leq s_t \leq \text{max\_container}, \quad \forall t \\
+    &\text{Cranes Requirement:} && \text{demand}_t - s_{t-1} \leq y_t \times \text{crane\_capacity}, \quad \forall t \\
+    &\text{Cranes Capacity:} && 0 \leq y_t \leq \text{num\_cranes}, \quad \forall t \\
+    &\text{Final condition:} && s_T = 0
+\end{align}
+
+\subsection*{Variable Domains}
+\begin{align}
+    & x_t \geq 0, \, \text{integer} \quad \forall t \\
+    & y_t \geq 0, \, \text{integer} \quad \forall t \\
+    & s_t \geq 0, \, \text{integer} \quad \forall t
+\end{align}
+
+\end{document}

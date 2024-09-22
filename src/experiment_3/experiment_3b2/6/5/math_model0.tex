@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+We are given a communication network with \( n \) nodes and a set of directed communication links \( A \), where each link \( (i,j) \in A \) can carry up to \( U_{i,j} \) bits per second at a cost of \( C_{i,j} \) per bit. We need to determine the optimal paths for transmitting data from source nodes to destination nodes while minimizing the total transmission cost.
+
+To model the problem as a linear programming (LP) problem, we define the following decision variables:
+
+\[
+x_{k,l}^{i,j} : \text{the flow of data from source node } k \text{ to destination node } l \text{ through link } (i,j).
+\]
+
+Objective function:
+Minimize the total cost of transmitting all data, which is given by:
+
+\[
+\min \sum_{(i,j) \in A} \sum_{k,l} C_{i,j} \cdot x_{k,l}^{i,j}
+\]
+
+Subject to the constraints:
+
+1. **Flow conservation constraints:**
+
+   For each node \( m \) that is not a source or destination for any data:
+
+   \[
+   \sum_{j: (m,j) \in A} x_{k,l}^{m,j} - \sum_{i: (i,m) \in A} x_{k,l}^{i,m} = 
+   \begin{cases} 
+   B_{k,l}, & \text{if } m = k \\
+   -B_{k,l}, & \text{if } m = l \\
+   0, & \text{otherwise}
+   \end{cases}
+   \]
+
+2. **Capacity constraints:**
+
+   For each link \( (i,j) \in A \):
+
+   \[
+   \sum_{k,l} x_{k,l}^{i,j} \leq U_{i,j}
+   \]
+
+3. **Non-negativity constraints:**
+
+   \[
+   x_{k,l}^{i,j} \geq 0 \quad \forall k,l,i,j
+   \]
+
+This linear programming formulation ensures that the data is routed in such a way that the total cost is minimized, while satisfying the demands at each source node and adhering to the capacity constraints on each link.
+
+\end{document}

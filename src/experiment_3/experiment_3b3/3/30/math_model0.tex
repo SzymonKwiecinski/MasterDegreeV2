@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Quadratic Curve Fitting Problem}
+
+Let \( y_k \) represent the \( k \)-th observed value of \( y \) and \( x_k \) represent the \( k \)-th observed value of \( x \) for \( k = 1, \ldots, K \).
+
+We want to fit the quadratic curve defined by the equation:
+
+\[
+y = c \cdot x^2 + b \cdot x + a
+\]
+
+Our goal is to minimize the sum of absolute deviations between the observed values \( y_k \) and the predicted values from the quadratic equation for all data points:
+
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} |y_k - (c \cdot x_k^2 + b \cdot x_k + a)|
+\]
+
+To formulate this as a linear programming problem, we introduce auxiliary variables \( z_k \) to represent the absolute deviations for each data point:
+
+\[
+z_k \geq y_k - (c \cdot x_k^2 + b \cdot x_k + a)
+\]
+\[
+z_k \geq -(y_k - (c \cdot x_k^2 + b \cdot x_k + a))
+\]
+
+Thus, we can rewrite our objective function to minimize the sum of \( z_k \):
+
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} z_k
+\]
+
+Subject to the following constraints:
+
+\[
+z_k \geq y_k - (c \cdot x_k^2 + b \cdot x_k + a) \quad \forall k = 1, \ldots, K
+\]
+\[
+z_k \geq -(y_k - (c \cdot x_k^2 + b \cdot x_k + a)) \quad \forall k = 1, \ldots, K
+\]
+
+The solution will yield the values of \( c \), \( b \), and \( a \):
+
+\[
+\text{Output:} \quad 
+\begin{align*}
+\text{quadratic} & : c \\
+\text{linear} & : b \\
+\text{constant} & : a 
+\end{align*}
+\]
+
+\end{document}

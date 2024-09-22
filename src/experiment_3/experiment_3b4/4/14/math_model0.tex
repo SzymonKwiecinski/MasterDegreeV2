@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Production Optimization}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item \( i \) : Index for products, \( i = 1, 2, \ldots, P \)
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{cash} \) : Available cash in monetary units
+    \item \( \text{hour}_i \) : Machine hours required per unit of product \( i \)
+    \item \( \text{cost}_i \) : Production cost per unit of product \( i \)
+    \item \( \text{price}_i \) : Selling price per unit of product \( i \)
+    \item \( \text{investPercentage}_i \) : Investment percentage of sales revenue for product \( i \)
+    \item \( \text{upgradeHours} \) : Additional machine hours available if upgraded
+    \item \( \text{upgradeCost} \) : Cost to upgrade the machine capacity
+    \item \( \text{availableHours} \) : Available machine hours without upgrade
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{production}_i \) : Number of units to produce for product \( i \)
+    \item \( \text{upgrade} \) : Binary variable, 1 if upgrade is chosen, 0 otherwise
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total net income:
+\[
+\max \quad \text{net\_income} = \sum_{i=1}^{P} \left( \text{price}_i \times \text{production}_i - \left( \text{cost}_i + \text{investPercentage}_i \times \text{price}_i \right) \times \text{production}_i \right) - \text{upgradeCost} \times \text{upgrade}
+\]
+
+\subsection*{Constraints}
+
+\begin{itemize}
+    \item Cash constraint:
+    \[
+    \sum_{i=1}^{P} (\text{production}_i \times \text{cost}_i) \leq \text{cash} + \sum_{i=1}^{P} (\text{investPercentage}_i \times \text{price}_i \times \text{production}_i)
+    \]
+
+    \item Machine capacity constraint:
+    \[
+    \sum_{i=1}^{P} (\text{production}_i \times \text{hour}_i) \leq \text{availableHours} + \text{upgradeHours} \times \text{upgrade}
+    \]
+
+    \item Binary constraint for upgrade decision:
+    \[
+    \text{upgrade} \in \{0, 1\}
+    \]
+
+    \item Non-negativity constraint:
+    \[
+    \text{production}_i \geq 0 \quad \forall i
+    \]
+\end{itemize}
+
+\end{document}

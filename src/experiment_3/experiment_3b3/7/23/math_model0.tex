@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Manpower Planning Linear Program}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item \( x_{k,i} \): Number of recruits for manpower \( k \) in year \( i \)
+    \item \( y_{k,i} \): Number of overmanning for manpower \( k \) in year \( i \)
+    \item \( z_{k,i} \): Number of workers on short-time working for manpower \( k \) in year \( i \)
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( requirement_{k,i} \): Estimated manpower requirements for manpower \( k \) in year \( i \)
+    \item \( strength_k \): Current strength of manpower \( k \)
+    \item \( lessonewaste_k \): Wastage rate of manpower \( k \) with less than one year's service
+    \item \( moreonewaste_k \): Wastage rate of manpower \( k \) with more than one year's service
+    \item \( recruit_k \): Max number of recruits for manpower \( k \)
+    \item \( costredundancy_k \): Redundancy payment to manpower \( k \)
+    \item \( num\_overman \): Maximum number of overmanning workers
+    \item \( costoverman_k \): Extra cost per employee per year for manpower \( k \)
+    \item \( num\_shortwork \): Maximum number of workers on short-time working for each skill
+    \item \( costshort_k \): Cost of short-time working per employee per year for manpower \( k \)
+\end{itemize}
+
+\textbf{Objective Function:} 
+Minimize total costs
+\[
+\begin{align*}
+\min & \sum_{k=1}^{K} \sum_{i=1}^{I} \left( costredundancy_k \cdot (\text{redundancies}) + costoverman_k \cdot y_{k,i} + costshort_k \cdot z_{k,i} \right)
+\end{align*}
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+\text{1. Manpower balance:} & \quad \forall k, i \\
+& strength_k + x_{k,i} - \text{waste}(k) + y_{k,i} + z_{k,i} \geq requirement_{k,i} \\
+& \text{where waste}(k) = lessonewaste_k \cdot (x_{k,i} + strength_k) + moreonewaste_k \cdot strength_k \\
+\\
+\text{2. Recruitment limits:} & \quad \forall k, i \\
+& x_{k,i} \leq recruit_k \\
+\\
+\text{3. Overmanning limits:} & \quad \forall k, i \\
+& \sum_{k=1}^{K} y_{k,i} \leq num\_overman \\
+\\
+\text{4. Short-time working limits:} & \quad \forall k, i \\
+& z_{k,i} \leq num\_shortwork \\
+\\
+\text{5. Non-negativity:} & \quad \forall k,i \\
+& x_{k,i}, y_{k,i}, z_{k,i} \geq 0
+\end{align*}
+
+\textbf{Output Format:}
+\begin{verbatim}
+{
+    "recruit": [[recruit_{k, i} for i in 1,...,I] for k in 1,...,K],
+    "overmanning": [[overmanning_{k, i} for i in 1,...,I] for k in 1,...,K],
+    "short": [[short_{k, i} for i in 1,...,I] for k in 1,...,K]
+}
+\end{verbatim}
+
+\end{document}

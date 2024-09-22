@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+Let:
+\begin{align*}
+x_j & : \text{number of units of good } j \text{ produced, for } j = 1, \ldots, M.
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total revenue:
+\[
+\text{Maximize } Z = \sum_{j=1}^{M} \text{price}_j \cdot x_j
+\]
+
+\subsection*{Constraints}
+Subject to the raw material constraints:
+\[
+\sum_{j=1}^{M} \text{req}_{i,j} \cdot x_j \leq \text{available}_i, \quad \forall i = 1, \ldots, N
+\]
+
+\subsection*{Non-negativity Constraints}
+\[
+x_j \geq 0, \quad \forall j = 1, \ldots, M
+\]
+
+\end{document}

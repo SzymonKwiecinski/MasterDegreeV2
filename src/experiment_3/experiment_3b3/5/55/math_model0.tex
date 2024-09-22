@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Variables}
+Let \( b_p \) be the number of batches produced for part \( p \) where \( p = 1, \ldots, P \).
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} (price_p \cdot b_p) - \sum_{m=1}^{M} (cost_m \cdot \sum_{p=1}^{P} (time_{m,p} \cdot b_p))
+\]
+Additionally, considering labor costs for Machine 1:
+\[
+\text{Labor Cost for Machine 1} = 
+\begin{cases} 
+standard\_cost \cdot \text{hours} & \text{if } \text{hours} \leq overtime\_hour \\
+standard\_cost \cdot overtime\_hour + overtime\_cost \cdot (\text{hours} - overtime\_hour) & \text{if } \text{hours} > overtime\_hour 
+\end{cases}
+\]
+
+The total profit including labor costs becomes:
+\[
+Z = \sum_{p=1}^{P} (price_p \cdot b_p) - \sum_{m=1}^{M} (cost_m \cdot \sum_{p=1}^{P} (time_{m,p} \cdot b_p)) - \text{Labor Cost for Machine 1}
+\]
+
+\subsection*{Constraints}
+
+1. **Machine Availability:**
+   For each machine \( m \):
+   \[
+   \sum_{p=1}^{P} (time_{m,p} \cdot b_p) \leq available_m, \quad \forall m = 1, \ldots, M
+   \]
+
+2. **Minimum Batch Production:**
+   For each part \( p \):
+   \[
+   b_p \geq min\_batches_p, \quad \forall p = 1, \ldots, P
+   \]
+
+3. **Profit Condition:**
+   \[
+   Z \geq min\_profit
+   \]
+
+4. **Non-negativity of Batches:**
+   \[
+   b_p \geq 0, \quad \forall p = 1, \ldots, P
+   \]
+
+\subsection*{Output}
+The output will be:
+\begin{align*}
+\text{batches} & = [b_1, b_2, \ldots, b_P] \\
+\text{total\_profit} & = Z
+\end{align*}
+
+\end{document}

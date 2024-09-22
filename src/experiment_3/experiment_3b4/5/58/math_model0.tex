@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Sets and Indices}
+\begin{align*}
+    &P: \text{number of different parts} \quad (p = 1, \ldots, P),\\
+    &M: \text{number of different machines} \quad (m = 1, \ldots, M).
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+    &\text{time\_required}_{m,p}: \text{time required in hours for machine $m$ to produce a batch of part $p$},\\
+    &\text{machine\_costs}_{m}: \text{cost per hour for using machine $m$},\\
+    &\text{availability}_{m}: \text{available hours per month for machine $m$},\\
+    &\text{prices}_{p}: \text{selling price per batch of part $p$},\\
+    &\text{setup\_time}_{p}: \text{setup time for machine 1 before producing part $p$}.
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    &\text{batches}_{p} \in \mathbb{Z}_+: \text{number of batches of part $p$ to produce},\\
+    &\text{setup\_flags}_{p} \in \{0, 1\}: \text{binary variable indicating if part $p$ is set up on machine 1}.
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\begin{align*}
+    \text{total\_profit} = \sum_{p=1}^{P} \text{prices}_{p} \times \text{batches}_{p} - \sum_{m=1}^{M} \left( \sum_{p=1}^{P} \text{time\_required}_{m,p} \times \text{batches}_{p} + \delta_{m, 1} \times \sum_{p=1}^{P} \text{setup\_flags}_{p} \times \text{setup\_time}_{p} \right) \times \text{machine\_costs}_{m},
+\end{align*}
+where $\delta_{m,1}$ is the Kronecker delta function, which equals 1 if $m=1$ and 0 otherwise.
+
+\subsection*{Constraints}
+\begin{align*}
+    &\text{For each machine } m: \sum_{p=1}^{P} \text{time\_required}_{m,p} \times \text{batches}_{p} + \delta_{m,1} \times \sum_{p=1}^{P} \text{setup\_flags}_{p} \times \text{setup\_time}_{p} \leq \text{availability}_{m}, \\
+    &\text{For each part } p: \text{setup\_flags}_{p} \geq \frac{\text{batches}_{p}}{M}, \\
+    &\text{batches}_{p} \geq 0 \quad \forall p, \\
+    &\text{setup\_flags}_{p} \in \{0, 1\} \quad \forall p.
+\end{align*}
+
+\end{document}

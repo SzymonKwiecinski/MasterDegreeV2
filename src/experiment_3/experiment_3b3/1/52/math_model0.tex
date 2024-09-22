@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Power Plant Electricity Distribution}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $p$: Index for power plants, where $p = 1, \ldots, P$
+    \item $c$: Index for cities, where $c = 1, \ldots, C$
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $supply_{p}$: Capacity of power plant $p$ in million kwh
+    \item $demand_{c}$: Peak demand of city $c$ in million kwh
+    \item $transmission_{p,c}$: Transmission cost from power plant $p$ to city $c$ in $/million kwh
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $send_{p,c}$: Amount of electricity sent from power plant $p$ to city $c$ in million kwh
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total transmission cost:
+\[
+\text{Total Cost} = \sum_{p=1}^{P} \sum_{c=1}^{C} transmission_{p,c} \cdot send_{p,c}
+\]
+
+\subsection*{Constraints}
+
+\textbf{Supply Constraints:}
+\[
+\sum_{c=1}^{C} send_{p,c} \leq supply_{p}, \quad \forall p \in \{1, \ldots, P\}
+\]
+
+\textbf{Demand Constraints:}
+\[
+\sum_{p=1}^{P} send_{p,c} \geq demand_{c}, \quad \forall c \in \{1, \ldots, C\}
+\]
+
+\textbf{Non-Negativity Constraints:}
+\[
+send_{p,c} \geq 0, \quad \forall p \in \{1, \ldots, P\}, c \in \{1, \ldots, C\}
+\]
+
+\subsection*{Output}
+The output should provide:
+\begin{itemize}
+    \item $send_{p,c}$: Amount of electricity sent from power plant $p$ to city $c$.
+    \item total\_cost: The total transmission cost.
+\end{itemize}
+
+\end{document}

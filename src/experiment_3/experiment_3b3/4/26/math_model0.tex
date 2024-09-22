@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item \( k \): industry index, \( k = 1, \ldots, K \)
+    \item \( j \): industry index for inputs, \( j = 1, \ldots, K \)
+    \item \( t \): time period index, \( t = 1, \ldots, T \)
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{inputone}_{k,j} \): input from industry \( j \) required by industry \( k \)
+    \item \( \text{manpowerone}_{k} \): manpower required by industry \( k \)
+    \item \( \text{inputtwo}_{k,j} \): input from industry \( j \) required to build capacity in industry \( k \)
+    \item \( \text{manpowertwo}_{k} \): manpower required to build capacity in industry \( k \)
+    \item \( \text{stock}_{k} \): initial stock for industry \( k \)
+    \item \( \text{capacity}_{k} \): capacity of industry \( k \)
+    \item \( \text{demand}_{k} \): exogenous demand for industry \( k \)
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{produce}_{k,t} \): units produced by industry \( k \) in year \( t \)
+    \item \( \text{buildcapa}_{k,t} \): units used to build productive capacity for industry \( k \) in year \( t \)
+    \item \( \text{stockhold}_{k,t} \): stock of industry \( k \) held in year \( t \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total manpower requirement over five years:
+\[
+\text{Maximize} \quad \sum_{k=1}^{K} \sum_{t=1}^{T} (\text{manpowerone}_{k} \cdot \text{produce}_{k,t} + \text{manpowertwo}_{k} \cdot \text{buildcapa}_{k,t})
+\]
+
+\subsection*{Constraints}
+1. Production constraint for each industry in each year:
+\[
+\text{produce}_{k,t} + \text{stockhold}_{k,t-1} = \sum_{j=1}^{K} \text{inputone}_{k,j} \cdot \text{produce}_{j,t-1} + \text{stockhold}_{k,t} + \text{buildcapa}_{k,t}
+\]
+for \( t = 1, \ldots, T \) and \( k = 1, \ldots, K \)
+
+2. Capacity constraint for each industry:
+\[
+\text{stockhold}_{k,t} + \text{produce}_{k,t} \leq \text{capacity}_{k} + \sum_{t'=1}^{t-2} \text{buildcapa}_{k,t'}
+\]
+for \( t = 1, \ldots, T \) and \( k = 1, \ldots, K \)
+
+3. Demand satisfaction constraint:
+\[
+\text{produce}_{k,t} + \text{stockhold}_{k,t-1} \geq \text{demand}_{k} \quad \text{for } t = 1, \ldots, T \text{ and } k = 1, \ldots, K
+\]
+
+4. Initial conditions for stocks:
+\[
+\text{stockhold}_{k,0} = \text{stock}_{k} \quad \text{for } k = 1, \ldots, K
+\]
+
+5. Non-negativity constraints:
+\[
+\text{produce}_{k,t} \geq 0, \quad \text{buildcapa}_{k,t} \geq 0, \quad \text{stockhold}_{k,t} \geq 0 \quad \text{for } k = 1, \ldots, K \text{ and } t = 1, \ldots, T
+\]
+
+\end{document}

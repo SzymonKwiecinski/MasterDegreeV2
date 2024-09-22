@@ -1,0 +1,21 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} \text{price}_{p} \times x_p - \sum_{m=1}^{M} \text{cost}_{m} \times \sum_{p=1}^{P} \text{time}_{m,p} \times x_p
+\]
+
+\textbf{Subject to:}
+
+\[
+\begin{align*}
+\sum_{p=1}^{P} \text{time}_{m,p} \times x_p & \leq \text{available}_{m}, & \forall m = 1, 2, \ldots, M \\
+x_p & \geq \text{min\_batches}_{p}, & \forall p = 1, 2, \ldots, P \\
+x_p & \geq 0, & \forall p = 1, 2, \ldots, P
+\end{align*}
+\]
+
+\end{document}

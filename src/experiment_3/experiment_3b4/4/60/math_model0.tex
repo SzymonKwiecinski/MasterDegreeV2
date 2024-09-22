@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\textbf{Objective:} Minimize the total cost of hiring consultants and assigning projects.
+
+\section*{Sets}
+\begin{align*}
+    I & : \text{Set of projects, indexed by } i. \\
+    J & : \text{Set of consultants, indexed by } j.
+\end{align*}
+
+\section*{Parameters}
+\begin{align*}
+    f_j & : \text{Fixed cost of hiring consultant } j. \\
+    c_{i,j} & : \text{Cost of assigning project } i \text{ to consultant } j. \\
+    K & : \text{Maximum number of projects a consultant can be assigned.}
+\end{align*}
+
+\section*{Decision Variables}
+\begin{align*}
+    x_{i,j} & = 
+    \begin{cases} 
+    1, & \text{if project } i \text{ is assigned to consultant } j; \\
+    0, & \text{otherwise.}
+    \end{cases} \\
+    y_j & = 
+    \begin{cases} 
+    1, & \text{if consultant } j \text{ is hired;} \\
+    0, & \text{otherwise.}
+    \end{cases}
+\end{align*}
+
+\section*{Objective Function}
+Minimize the total cost:
+\begin{equation}
+    \text{Total Cost} = \sum_{j \in J} f_j \cdot y_j + \sum_{i \in I} \sum_{j \in J} c_{i,j} \cdot x_{i,j}
+\end{equation}
+
+\section*{Constraints}
+\begin{align*}
+    & \text{1. Each project is assigned to exactly one consultant:} \\
+    & \quad \sum_{j \in J} x_{i,j} = 1, \quad \forall i \in I. \\
+    & \text{2. A consultant is not assigned more than } K \text{ projects:} \\
+    & \quad \sum_{i \in I} x_{i,j} \leq K, \quad \forall j \in J. \\
+    & \text{3. A project is assigned to a consultant only if they are hired:} \\
+    & \quad x_{i,j} \leq y_j, \quad \forall i \in I, \forall j \in J. \\
+    & \text{4. Binary constraints on decision variables:} \\
+    & \quad x_{i,j} \in \{0, 1\}, \quad \forall i \in I, \forall j \in J. \\
+    & \quad y_j \in \{0, 1\}, \quad \forall j \in J.
+\end{align*}
+
+\end{document}

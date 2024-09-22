@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Electricity Capacity Expansion Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $T$: Total number of years for planning.
+    \item $demand_t$: Forecasted electricity demand in megawatts for year $t$.
+    \item $oil_t$: Existing oil-fired capacity available in year $t$.
+    \item $coal\_cost$: Capital cost per megawatt for coal-fired capacity.
+    \item $nuke\_cost$: Capital cost per megawatt for nuclear capacity.
+    \item $max\_nuke$: Maximum percentage of total capacity that can be nuclear.
+    \item $coal\_life$: Lifespan of coal plants in years.
+    \item $nuke\_life$: Lifespan of nuclear plants in years.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_t^{coal}$: Megawatts of coal capacity added in year $t$.
+    \item $x_t^{nuke}$: Megawatts of nuclear capacity added in year $t$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize} \quad \sum_{t=1}^{T} (coal\_cost \times x_t^{coal} + nuke\_cost \times x_t^{nuke})
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item \textbf{Demand Satisfaction:} For each year $t$, the total available capacity should meet or exceed the demand.
+    \[
+    oil_t + \sum_{j=\max(1, t-coal\_life+1)}^{t} x_j^{coal} + \sum_{k=\max(1, t-nuke\_life+1)}^{t} x_k^{nuke} \geq demand_t, \quad \forall t = 1, \ldots, T
+    \]
+
+    \item \textbf{Nuclear Capacity Limit:} The total nuclear capacity should not exceed the maximum allowed percentage of total capacity.
+    \[
+    \sum_{k=\max(1, t-nuke\_life+1)}^{t} x_k^{nuke} \leq max\_nuke \times \left( oil_t + \sum_{j=\max(1, t-coal\_life+1)}^{t} x_j^{coal} + \sum_{k=\max(1, t-nuke\_life+1)}^{t} x_k^{nuke} \right) / 100, \quad \forall t = 1, \ldots, T
+    \]
+
+    \item \textbf{Non-negativity:} The added capacities must be non-negative.
+    \[
+    x_t^{coal} \geq 0, \quad x_t^{nuke} \geq 0, \quad \forall t = 1, \ldots, T
+    \]
+\end{itemize}
+
+\end{document}

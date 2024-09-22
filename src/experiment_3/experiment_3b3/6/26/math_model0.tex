@@ -1,0 +1,79 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Economic Production}
+
+Let \( K \) be the number of industries, and \( T = 5 \) be the time horizon in years. We define:
+
+- \( \text{inputone}_{k,j} \): Input from industry \( j \) required by industry \( k \)
+- \( \text{manpowerone}_{k} \): Manpower required by industry \( k \) for production
+- \( \text{inputtwo}_{k,j} \): Input from industry \( j \) required by industry \( k \) for capacity building
+- \( \text{manpowertwo}_{k} \): Manpower required by industry \( k \) for capacity building
+- \( \text{stock}_{k} \): Initial stock of industry \( k \) at year 0
+- \( \text{capacity}_{k} \): Initial capacity of industry \( k \)
+- \( \text{demand}_{k} \): Exogenous demand for industry \( k \)
+
+Define decision variables:
+\[
+\begin{align*}
+\text{produce}_{k,t} & \quad \text{(amount produced by industry } k \text{ in year } t\text{)} \\
+\text{buildcapa}_{k,t} & \quad \text{(amount used to build capacity in industry } k \text{ in year } t\text{)} \\
+\text{stockhold}_{k,t} & \quad \text{(amount of stock held by industry } k \text{ in year } t\text{)}
+\end{align*}
+\]
+
+\subsection*{Objective Function}
+We aim to maximize the total manpower requirement over five years:
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} \sum_{t=1}^{T} \left( \text{manpowerone}_{k} \cdot \text{produce}_{k,t} + \text{manpowertwo}_{k} \cdot \text{buildcapa}_{k,t} \right)
+\]
+
+\subsection*{Constraints}
+
+1. **Production and Stock Constraints for Year \( t \)**:
+   For each industry \( k \) and year \( t \):
+   \[
+   \text{produce}_{k,t} + \text{stockhold}_{k,t-1} = \text{demand}_{k} + \text{stockhold}_{k,t} \quad (t \geq 1)
+   \]
+
+2. **Capacity Constraints**:
+   The capacity in year \( t \) is given by:
+   \[
+   \text{capacity}_{k} + \sum_{t=1}^{t-2} \text{buildcapa}_{k,t} \leq \text{produce}_{k,t} + \text{stockhold}_{k,t}
+   \]
+   (for \( t \geq 2 \))
+
+3. **Input Requirements for Production**:
+   Production in industry \( k \) requires inputs from other industries:
+   \[
+   \sum_{j=1}^{K} \text{inputone}_{k,j} \cdot \text{produce}_{j,t-1} \geq \text{produce}_{k,t} \quad (t \geq 1)
+   \]
+
+4. **Manpower Constraints**:
+   The total manpower used must not exceed the capacity:
+   \[
+   \sum_{k=1}^{K} \left( \text{manpowerone}_{k} \cdot \text{produce}_{k,t} + \text{manpowertwo}_{k} \cdot \text{buildcapa}_{k,t} \right) \leq \text{available manpower}
+   \]
+
+5. **Non-negativity Constraints**:
+   \[
+   \text{produce}_{k,t} \geq 0, \quad \text{buildcapa}_{k,t} \geq 0, \quad \text{stockhold}_{k,t} \geq 0 \quad \forall k, t
+   \]
+
+\subsection*{Output Variables}
+The output will provide:
+- The amounts produced each year: 
+\[
+\text{produce} = \left[ \text{produce}_{k,t} \right]_{k=1}^{K, t=1}^{T}
+\]
+- The amounts used for building capacity:
+\[
+\text{buildcapa} = \left[ \text{buildcapa}_{k,t} \right]_{k=1}^{K, t=1}^{T}
+\]
+- The stock held from year to year:
+\[
+\text{stockhold} = \left[ \text{stockhold}_{k,t} \right]_{k=1}^{K, t=1}^{T}
+\]
+
+\end{document}

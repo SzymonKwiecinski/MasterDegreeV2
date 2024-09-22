@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Motion Model}
+
+Let \( x_t \), \( v_t \), and \( a_t \) represent the position, velocity, and acceleration of the rocket at time \( t \), respectively. We can describe the motion of the rocket using the following discrete-time equations:
+
+\begin{align}
+    x_{t+1} &= x_t + v_t \\
+    v_{t+1} &= v_t + a_t
+\end{align}
+
+We assume that the acceleration \( a_t \) is controllable, meaning that it is determined by the rocket's thrust. The magnitude of the acceleration, \( |a_t| \), is proportional to the rate of fuel consumption at time \( t \).
+
+Given the initial conditions:
+
+\begin{align*}
+    x_0 &: \text{initial position} \\
+    v_0 &: \text{initial velocity}
+\end{align*}
+
+and the desired final conditions:
+
+\begin{align*}
+    x_T &: \text{target position} \\
+    v_T &: \text{target velocity} \\
+    T &: \text{final time}
+\end{align*}
+
+We want to minimize the total fuel consumption given by the objective function:
+
+\[
+\text{Objective: } \min \sum_{t=0}^{T-1} |a_t|
+\]
+
+subject to the constraints:
+
+\begin{align}
+    x_0 & \text{ is the initial position} \\
+    v_0 & \text{ is the initial velocity} \\
+    x_T & \text{ is the target position} \\
+    v_T & \text{ is the target velocity} \\
+    x_{t+1} &= x_t + v_t, \quad t = 0, 1, \ldots, T-1 \\
+    v_{t+1} &= v_t + a_t, \quad t = 0, 1, \ldots, T-1
+\end{align}
+
+The output of this model will contain the following:
+
+\begin{itemize}
+    \item \( x \): a list of positions at each time step from 0 to \( T \)
+    \item \( v \): a list of velocities at each time step from 0 to \( T \)
+    \item \( a \): a list of accelerations at each time step from 0 to \( T \)
+    \item \( \text{fuel\_spend} \): the total fuel spent by the rocket
+\end{itemize}
+
+The expected output format will be:
+
+\[
+\text{Output: } \{
+    "x": [x_i \text{ for } i = 1, \ldots, T],
+    "v": [v_i \text{ for } i = 1, \ldots, T],
+    "a": [a_i \text{ for } i = 1, \ldots, T],
+    "fuel\_spend": \text{fuel\_spent},
+\}
+\]
+
+\end{document}

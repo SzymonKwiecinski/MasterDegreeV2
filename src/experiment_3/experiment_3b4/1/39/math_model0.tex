@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $N$: Total number of days in the planning horizon.
+    \item $n\_working\_days$: Number of consecutive working days for each employee.
+    \item $n\_resting\_days$: Number of consecutive resting days for each employee.
+    \item $\text{num}_n$: Required number of employees on day $n$ for all $n \in \{1, \dots, N\}$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_i$: Binary variable indicating if employee $i$ is employed (1 if employed, 0 otherwise).
+    \item $y_{n, i}$: Binary variable indicating if employee $i$ is working on day $n$ (1 if working, 0 otherwise).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total number of employees hired:
+\[
+\text{Minimize} \quad \sum_{i=1}^{M} x_i
+\]
+where \( M \) is a sufficiently large number representing a potential upper bound for the number of employees.
+
+\subsection*{Constraints}
+1. Demand satisfaction:
+   \[
+   \sum_{i=1}^{M} y_{n, i} \geq \text{num}_n \quad \forall n \in \{1, \dots, N\}
+   \]
+2. Working and resting cycle:
+   \[
+   y_{n, i} \leq x_i \quad \forall n \in \{1, \dots, N\}, \forall i
+   \]
+   \[
+   \sum_{k=0}^{n\_working\_days-1} y_{n+k, i} = n\_working\_days \cdot z_{n, i} \quad \forall n, \forall i
+   \]
+   \[
+   \sum_{k=0}^{n\_resting\_days-1} (1-y_{n\_working\_days+n+k, i}) = n\_resting\_days \cdot (1-z_{n, i}) \quad \forall n, \forall i
+   \]
+   Here, $z_{n, i}$ is an auxiliary binary variable indicating the start of a new working cycle.
+
+3. Non-negativity and binary constraints:
+   \[
+   x_i \in \{0, 1\}, \quad y_{n, i} \in \{0, 1\}, \quad z_{n, i} \in \{0, 1\}
+   \]
+
+\end{document}

@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    \text{power}_j & \quad \text{for } j = 1, 2, \ldots, M \\
+    \text{error}_i^+, \text{error}_i^- & \quad \text{for } i = 1, 2, \ldots, N
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total absolute error:
+\[
+\min \sum_{i=1}^{N} (\text{error}_i^+ + \text{error}_i^-)
+\]
+
+\subsection*{Constraints}
+For each segment \( i \):
+\begin{align*}
+    \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j + \text{error}_i^+ - \text{error}_i^- &= \text{desired}_i, \quad i = 1, 2, \ldots, N \\
+    \text{power}_j &\geq 0, \quad j = 1, 2, \ldots, M \\
+    \text{error}_i^+, \text{error}_i^- &\geq 0, \quad i = 1, 2, \ldots, N
+\end{align*}
+
+\end{document}

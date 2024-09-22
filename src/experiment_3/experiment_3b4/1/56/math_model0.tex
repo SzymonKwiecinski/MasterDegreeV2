@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Optimal Path}
+
+\textbf{Objective:} Minimize the total travel time from the intersection of 1st Avenue and 1st Street to the intersection of \(W\)th Avenue and \(N\)th Street.
+
+\textbf{Let:}
+\begin{itemize}
+    \item \(x_{n,w}\) be the binary decision variable for moving west from the intersection of \(w\)th Avenue and \(n\)th Street.
+    \item \(y_{n,w}\) be the binary decision variable for moving north from the intersection of \(w\)th Avenue and \(n\)th Street.
+\end{itemize}
+
+\subsection*{Objective Function:}
+
+\[
+\text{Minimize} \quad \sum_{n=1}^{N} \sum_{w=1}^{W-1} \text{west\_time}_{n,w} \cdot x_{n,w} + \sum_{n=1}^{N-1} \sum_{w=1}^{W} \text{north\_time}_{n,w} \cdot y_{n,w}
+\]
+
+\subsection*{Constraints:}
+
+\begin{align*}
+&\text{Flow Conservation:} \\
+&x_{n,w} + y_{n,w} = 1, \quad \forall n \in \{1, \ldots, N\}, \forall w \in \{1, \ldots, W\}\\
+&\text{North Movement Constraints:} \\
+&\sum_{n=1}^{N-1} y_{n,w} = N-1, \quad \forall w \in \{1, \ldots, W\}\\
+&\text{West Movement Constraints:} \\
+&\sum_{w=1}^{W-1} x_{n,w} = W-1, \quad \forall n \in \{1, \ldots, N\}\\
+&\text{Initial and Terminal Conditions:} \\
+&x_{1,1} = 0, \quad y_{1,1} = 0\\
+&x_{N,W-1} = 1, \quad y_{N,W} = 1
+\end{align*}
+
+\subsection*{Binary Variables:}
+
+\[
+x_{n,w}, y_{n,w} \in \{0, 1\}, \quad \forall n, w
+\]
+
+\end{document}

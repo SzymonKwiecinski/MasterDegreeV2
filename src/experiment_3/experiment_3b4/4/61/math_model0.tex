@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{MILP Model for Network Intrusion Intervention}
+
+\textbf{Sets and Indices:}
+\begin{itemize}
+    \item \(i \in \{1, \ldots, N\}\): Index for clusters
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{isolate\_central}_i \): Time required to isolate cluster \(i\) centrally
+    \item \( \text{scan\_central}_i \): Time required to scan cluster \(i\) centrally
+    \item \( \text{isolate\_distributed}_i \): Time required to isolate cluster \(i\) distributedly
+    \item \( \text{scan\_distributed}_i \): Time required to scan cluster \(i\) distributedly
+    \item \( \text{central\_cost} \): Cost per hour for central processing
+    \item \( \text{distributed\_cost} \): Cost per hour for distributed processing
+    \item \( \text{max\_central} \): Maximum available hours for central processing
+    \item \( \text{max\_distributed} \): Maximum available hours for distributed processing
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( x_{i}^{c, \text{iso}}, x_{i}^{c, \text{scan}} \in \{0, 1\} \): Binary variables indicating whether to isolate or scan cluster \(i\) centrally
+    \item \( x_{i}^{d, \text{iso}}, x_{i}^{d, \text{scan}} \in \{0, 1\} \): Binary variables indicating whether to isolate or scan cluster \(i\) distributedly
+\end{itemize}
+
+\textbf{Objective:} Minimize total cost
+\[
+\text{Minimize } \sum_{i=1}^{N} \left( \text{central\_cost} \times (\text{isolate\_central}_i \times x_{i}^{c, \text{iso}} + \text{scan\_central}_i \times x_{i}^{c, \text{scan}}) + \text{distributed\_cost} \times (\text{isolate\_distributed}_i \times x_{i}^{d, \text{iso}} + \text{scan\_distributed}_i \times x_{i}^{d, \text{scan}}) \right)
+\]
+
+\textbf{Constraints:}
+\begin{align}
+    &\sum_{i=1}^{N} (\text{isolate\_central}_i \times x_{i}^{c, \text{iso}} + \text{scan\_central}_i \times x_{i}^{c, \text{scan}}) \leq \text{max\_central} \quad & \text{(Central Processing Time Constraint)} \\
+    &\sum_{i=1}^{N} (\text{isolate\_distributed}_i \times x_{i}^{d, \text{iso}} + \text{scan\_distributed}_i \times x_{i}^{d, \text{scan}}) \leq \text{max\_distributed} \quad & \text{(Distributed Processing Time Constraint)} \\
+    &x_{i}^{c, \text{iso}} + x_{i}^{c, \text{scan}} + x_{i}^{d, \text{iso}} + x_{i}^{d, \text{scan}} = 1 \quad \forall i \in \{1, \ldots, N\} & \text{(One Intervention per Cluster Constraint)}
+\end{align}
+
+\end{document}

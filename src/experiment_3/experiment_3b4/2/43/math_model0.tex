@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Wild Sports}
+\author{}
+\date{}
+\maketitle
+
+\section*{Objective}
+
+Maximize the total profit \( Z \):
+
+\[
+Z = \sum_{j=1}^{M} (\text{price}_j - \text{cost}_j) x_j
+\]
+
+\section*{Constraints}
+
+\begin{itemize}
+    \item Raw Material Constraints:
+    \[
+    \sum_{j=1}^{M} \text{req}_{i,j} x_j \leq \text{available}_i \quad \text{for } i = 1, 2, \ldots, N
+    \]
+
+    \item Demand Constraints:
+    \[
+    x_j \leq \text{demand}_j \quad \text{for } j = 1, 2, \ldots, M
+    \]
+
+    \item Non-negativity Constraints:
+    \[
+    x_j \geq 0 \quad \text{for } j = 1, 2, \ldots, M
+    \]
+\end{itemize}
+
+\section*{Decision Variables}
+
+\( x_j \) represents the number of units to produce of product \( j \), where \( j = 1, 2, \ldots, M \).
+
+\end{document}

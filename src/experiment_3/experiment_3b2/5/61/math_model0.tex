@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{MILP Model for Network Intervention:}
+
+\begin{align*}
+\text{Minimize } & \sum_{i=1}^{N} \left( x_{i}^{c,I} \cdot \text{isolate\_central}_i \cdot C_c + x_{i}^{c,S} \cdot \text{scan\_central}_i \cdot C_c \right. \\
+                & \left. + x_{i}^{d,I} \cdot \text{isolate\_distributed}_i \cdot C_d + x_{i}^{d,S} \cdot \text{scan\_distributed}_i \cdot C_d \right)
+\end{align*}
+
+\text{Subject to:}
+\begin{align*}
+& \sum_{i=1}^{N} \left( x_{i}^{c,I} \cdot \text{isolate\_central}_i + x_{i}^{c,S} \cdot \text{scan\_central}_i \right) \leq H_c, \\
+& \sum_{i=1}^{N} \left( x_{i}^{d,I} \cdot \text{isolate\_distributed}_i + x_{i}^{d,S} \cdot \text{scan\_distributed}_i \right) \leq H_d, \\
+& x_{i}^{c,I} + x_{i}^{c,S} + x_{i}^{d,I} + x_{i}^{d,S} = 1, \quad \forall i = 1, \dots, N, \\
+& x_{i}^{c,I}, x_{i}^{c,S}, x_{i}^{d,I}, x_{i}^{d,S} \in \{0, 1\}, \quad \forall i = 1, \dots, N.
+\end{align*}
+
+\text{Where:}
+\begin{itemize}
+    \item $x_{i}^{c,I}$ is 1 if cluster $i$ is isolated centrally, 0 otherwise.
+    \item $x_{i}^{c,S}$ is 1 if cluster $i$ is scanned centrally, 0 otherwise.
+    \item $x_{i}^{d,I}$ is 1 if cluster $i$ is isolated distributedly, 0 otherwise.
+    \item $x_{i}^{d,S}$ is 1 if cluster $i$ is scanned distributedly, 0 otherwise.
+    \item $\text{isolate\_central}_i$, $\text{scan\_central}_i$, $\text{isolate\_distributed}_i$, $\text{scan\_distributed}_i$ are the processing times for each intervention and method.
+    \item $C_c$ is the cost for central processing per hour.
+    \item $C_d$ is the cost for distributed processing per hour.
+    \item $H_c$ is the maximum hours available for central processing.
+    \item $H_d$ is the maximum hours available for distributed processing.
+\end{itemize}
+
+\end{document}

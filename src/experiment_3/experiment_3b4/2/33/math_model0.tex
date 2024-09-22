@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Knapsack Problem MIP Model}
+
+\subsection*{Objective}
+Maximize the total value of the items included in the knapsack:
+\[
+\text{Maximize} \quad \sum_{k=1}^{K} \text{value}_k \cdot x_k
+\]
+
+\subsection*{Constraints}
+The constraint ensures that the total size of the items does not exceed the container's capacity:
+\[
+\sum_{k=1}^{K} \text{size}_k \cdot x_k \leq C
+\]
+
+\subsection*{Decision Variables}
+\begin{align*}
+x_k & \in \{0, 1\}, \quad \text{for each } k = 1, \ldots, K 
+\end{align*}
+
+\end{document}

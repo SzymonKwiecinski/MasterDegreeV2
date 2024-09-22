@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Rocket Trajectory Optimization}
+
+\subsection*{Objective:}
+Minimize the maximum thrust required, which is \(\max_t |a_t|\).
+
+\subsection*{Decision Variables:}
+\begin{itemize}
+    \item \(x_t\) : Position of the rocket at time \(t\), for \(t = 0, 1, \ldots, T\).
+    \item \(v_t\) : Velocity of the rocket at time \(t\), for \(t = 0, 1, \ldots, T\).
+    \item \(a_t\) : Acceleration of the rocket at time \(t\), for \(t = 0, 1, \ldots, T\).
+    \item \(M\) : The maximum absolute acceleration, i.e., \(M = \max_t |a_t|\).
+\end{itemize}
+
+\subsection*{Model:}
+
+Minimize \( M \)
+
+\subsection*{Subject to constraints:}
+
+\begin{align*}
+    & x_{t+1} = x_t + v_t, & \text{for } t = 0, 1, \ldots, T-1, \\
+    & v_{t+1} = v_t + a_t, & \text{for } t = 0, 1, \ldots, T-1, \\
+    & |a_t| \leq M, & \text{for } t = 0, 1, \ldots, T, \\
+    & x_0 = x_0, \\
+    & v_0 = v_0, \\
+    & x_T = x_T, \\
+    & v_T = v_T.
+\end{align*}
+
+\subsection*{Objective:}
+Minimize the fuel spent by the rocket, which is proportional to the sum of the absolute values of accelerations over the time horizon:
+
+\[
+\text{Fuel Spent} = \sum_{t=0}^{T} |a_t|
+\]
+
+\end{document}

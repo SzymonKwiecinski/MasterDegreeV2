@@ -1,0 +1,77 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Production Scheduling}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Formulation}
+
+Given the input parameters:
+\begin{itemize}
+    \item Demand over \textit{n}-th month: \(demand_n\) for \(n = 1, \ldots, N\)
+    \item Maximum regular production capacity per month: \(max\_regular\_amount\)
+    \item Cost of regular production per unit: \(cost\_regular\)
+    \item Cost of overtime production per unit: \(cost\_overtime\)
+    \item Storage cost per unit per month: \(store\_cost\)
+\end{itemize}
+
+\subsection*{Variables}
+
+Let:
+\begin{itemize}
+    \item \(reg\_quant_n\): Quantity of products produced using regular production in month \(n\)
+    \item \(over\_quant_n\): Quantity of products produced using overtime production in month \(n\)
+    \item \(inventory_n\): Inventory at the end of month \(n\)
+\end{itemize}
+
+\subsection*{Objective Function}
+
+The objective is to minimize the total cost, which includes regular production costs, overtime production costs, and storage costs:
+
+\[
+\text{Minimize } Z = \sum_{n=1}^{N} (cost\_regular \cdot reg\_quant_n + cost\_overtime \cdot over\_quant_n + store\_cost \cdot inventory_n)
+\]
+
+\subsection*{Constraints}
+
+The constraints for the problem are:
+
+1. **Demand Satisfaction:**
+   \[
+   inventory_{n-1} + reg\_quant_n + over\_quant_n \geq demand_n \quad \forall n = 1, \ldots, N
+   \]
+
+2. **Regular Production Limit:**
+   \[
+   reg\_quant_n \leq max\_regular\_amount \quad \forall n = 1, \ldots, N
+   \]
+
+3. **Inventory Balance:**
+   \[
+   inventory_n = inventory_{n-1} + reg\_quant_n + over\_quant_n - demand_n \quad \forall n = 1, \ldots, N
+   \]
+
+4. **Non-negativity:**
+   \[
+   reg\_quant_n \geq 0, \quad over\_quant_n \geq 0, \quad inventory_n \geq 0 \quad \forall n = 1, \ldots, N
+   \]
+
+5. **Initial Inventory:**
+   \[
+   inventory_0 = 0
+\end{itemize}
+
+\subsection*{Output}
+
+The output is in the following format:
+\begin{verbatim}
+{
+    "reg_quant": [reg_quant_{n} for n in 1,...,N],
+    "over_quant": [over_quant_{n} for n in 1,...,N]
+}
+\end{verbatim}
+
+\end{document}

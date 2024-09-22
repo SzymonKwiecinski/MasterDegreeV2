@@ -1,0 +1,73 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Mining Company Operations Model}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+
+Let:
+\begin{itemize}
+    \item \( n_mines \): total number of mines
+    \item \( n_{maxwork} \): maximum number of mines that can be operated in any one year
+    \item \( royalty_k \): yearly royalties payable for mine \( k \)
+    \item \( limit_k \): upper limit of ore that can be extracted from mine \( k \) in a year
+    \item \( quality_k \): quality of ore from mine \( k \)
+    \item \( requiredquality_i \): required quality of blended ore in year \( i \)
+    \item \( price \): selling price per ton of blended ore
+    \item \( discount \): discount rate per annum
+\end{itemize}
+
+\section*{Decision Variables}
+Let:
+\begin{itemize}
+    \item \( isoperated_{k,i} \): binary variable, 1 if mine \( k \) is operated in year \( i \), 0 otherwise
+    \item \( amount_{k,i} \): amount of ore produced by mine \( k \) in year \( i \)
+\end{itemize}
+
+\section*{Objective Function}
+Maximize the profit, which can be expressed as:
+\[
+\text{Maximize } Z = \sum_{i=1}^{I} \left( \frac{price \times \sum_{k=1}^{n_{mines}} amount_{k,i}}{(1 + discount)^i} - \sum_{k=1}^{n_{mines}} royalty_k \times isoperated_{k,i} \right)
+\]
+
+\section*{Constraints}
+1. **Mine Operation Constraint:**
+   \[
+   \sum_{k=1}^{n_{mines}} isoperated_{k,i} \leq n_{maxwork}, \quad \forall i
+   \]
+
+2. **Ore Production Limits:**
+   \[
+   amount_{k,i} \leq limit_k \times isoperated_{k,i}, \quad \forall k, i
+   \]
+
+3. **Quality Constraint:**
+   The blended quality of the ore produced must match the required quality:
+   \[
+   \frac{\sum_{k=1}^{n_{mines}} quality_k \times amount_{k,i}}{\sum_{k=1}^{n_{mines}} amount_{k,i}} = requiredquality_i, \quad \forall i
+   \]
+
+4. **Non-negativity and Binary Constraints:**
+   \[
+   amount_{k,i} \geq 0, \quad \forall k, i
+   \]
+   \[
+   isoperated_{k,i} \in \{0, 1\}, \quad \forall k, i
+   \]
+
+\section*{Output Format}
+The decision variables will be represented in the following output format:
+\[
+\text{Output} = \left\{ 
+\begin{array}{ll}
+    "isoperated": & [[isoperated_{k,i} \text{ for } i = 1,...,I] \text{ for } k = 1,...,K] \\
+    "amount": & [[amount_{k,i} \text{ for } i = 1,...,I] \text{ for } k = 1,...,K]
+\end{array}
+\right\}
+\]
+
+\end{document}

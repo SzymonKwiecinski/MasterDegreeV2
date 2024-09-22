@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Decision Variables}
+\begin{align*}
+x_p & : \text{Number of batches of part } p \text{ produced per month}, \quad \forall p \in \{1, \ldots, P\}.
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\begin{align*}
+\text{Profit} = \sum_{p=1}^{P} \left(\text{price}_p \times x_p \right) - \sum_{m=1}^{M} \left(\text{cost}_m \times \sum_{p=1}^{P} \text{time}_{m,p} \times x_p \right).
+\end{align*}
+
+For Machine 1:
+\begin{align*}
+\text{Cost for Machine 1} = 
+\begin{cases} 
+\text{standard\_cost} \times \text{hours}_1, & \text{if } \text{hours}_1 \leq \text{overtime\_hour} \\
+\text{standard\_cost} \times \text{overtime\_hour} + \text{overtime\_cost} \times (\text{hours}_1 - \text{overtime\_hour}), & \text{if } \text{hours}_1 > \text{overtime\_hour}
+\end{cases}
+\end{align*}
+where $\text{hours}_1 = \sum_{p=1}^{P} \text{time}_{1,p} \times x_p$.
+
+\subsection*{Constraints}
+\begin{enumerate}
+    \item \textbf{Production Constraints:}
+    \begin{align*}
+    x_p & \geq \text{min\_batches}_p, \quad \forall p \in \{1, \ldots, P\}.
+    \end{align*}
+    
+    \item \textbf{Machine Availability Constraints:}
+    \begin{align*}
+    \sum_{p=1}^{P} \text{time}_{m,p} \times x_p & \leq \text{available}_m, \quad \forall m \in \{2, \ldots, M\}.
+    \end{align*}
+
+    \item \textbf{Profit Constraint:}
+    \begin{align*}
+    \text{Profit} & \geq \text{min\_profit}.
+    \end{align*}
+\end{enumerate}
+
+\end{document}

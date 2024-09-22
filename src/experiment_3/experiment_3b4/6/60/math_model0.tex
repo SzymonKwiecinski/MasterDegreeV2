@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+
+\section*{MILP Formulation for Project Assignment Problem}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item \( I \): Number of projects
+    \item \( J \): Number of consultants
+    \item \( i \): Index for projects, \( i = 1, \ldots, I \)
+    \item \( j \): Index for consultants, \( j = 1, \ldots, J \)
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( f_j \): Fixed cost of hiring consultant \( j \)
+    \item \( c_{i,j} \): Additional cost of assigning project \( i \) to consultant \( j \)
+    \item \( K \): Maximum number of projects a consultant can be assigned
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_{i,j} \): Binary variable, 1 if project \( i \) is assigned to consultant \( j \), 0 otherwise
+    \item \( y_j \): Binary variable, 1 if consultant \( j \) is hired, 0 otherwise
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{minimize} \quad \sum_{j=1}^{J} f_j y_j + \sum_{i=1}^{I} \sum_{j=1}^{J} c_{i,j} x_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    & \sum_{j=1}^{J} x_{i,j} = 1, \quad \forall i = 1, \ldots, I \quad &\text{(each project is assigned to exactly one consultant)} \\
+    & \sum_{i=1}^{I} x_{i,j} \leq K y_j, \quad \forall j = 1, \ldots, J \quad &\text{(consultants can handle at most } K \text{ projects)} \\
+    & x_{i,j} \leq y_j, \quad \forall i = 1, \ldots, I, \; j = 1, \ldots, J \quad &\text{(a project is assigned only if consultant is hired)} \\
+    & x_{i,j} \in \{0, 1\}, \quad \forall i = 1, \ldots, I, \; j = 1, \ldots, J \\
+    & y_j \in \{0, 1\}, \quad \forall j = 1, \ldots, J
+\end{align}
+
+\subsection*{Explanation}
+\begin{itemize}
+    \item Equation (1) ensures that each project is assigned to exactly one consultant.
+    \item Equation (2) limits the number of projects assigned to each consultant by \( K \).
+    \item Equation (3) ensures that a consultant is hired if they are assigned any project.
+\end{itemize}
+
+\end{document}

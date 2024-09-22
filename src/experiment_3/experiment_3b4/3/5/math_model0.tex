@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Network Flow with Minimum Cost}
+
+\subsection*{Sets and Indices}
+\begin{align*}
+n & : \text{Number of nodes} \\
+A & : \text{Set of all links} \\
+(i, j) & : \text{Link from node } i \text{ to node } j \\
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+U_{i,j} & : \text{Capacity of link } (i, j) \text{ in bits per second} \\
+C_{i,j} & : \text{Cost per bit on link } (i, j) \\
+B_{k,l} & : \text{Data generation rate from node } k \text{ to node } l \\
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+x_{i,j}^{k,l} & : \text{Flow from node } k \text{ to node } l \text{ through link } (i, j) 
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost of all flows:
+\begin{align*}
+\text{Minimize } \quad & \sum_{(i,j) \in A} \sum_{k,l} C_{i,j} \cdot x_{i,j}^{k,l}
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+\text{Capacity Constraints: } & \sum_{k,l} x_{i,j}^{k,l} \leq U_{i,j} \quad \forall (i,j) \in A \\
+\text{Flow Conservation: } & \sum_{j: (i,j) \in A} x_{i,j}^{k,l} - \sum_{j: (j,i) \in A} x_{j,i}^{k,l} = 
+\begin{cases} 
+B_{k,l}, & \text{if } i = k \\
+-B_{k,l}, & \text{if } i = l \\
+0, & \text{otherwise}
+\end{cases}
+\quad \forall i, \forall k, l \\
+\text{Non-negativity: } & x_{i,j}^{k,l} \geq 0 \quad \forall (i,j) \in A, \forall k, l
+\end{align*}
+
+\subsection*{Explanation}
+- The objective function minimizes the total cost of transmitting data over the network.
+- The capacity constraints ensure that the flow on any link does not exceed its capacity.
+- The flow conservation constraints ensure that, except at source and destination nodes, the amount of flow entering a node is equal to the amount of flow leaving it. At the source node, the flow is initiated by the data generation rate, and at the destination node, it is absorbed.
+- Non-negativity ensures that flow values are non-negative.
+
+\end{document}

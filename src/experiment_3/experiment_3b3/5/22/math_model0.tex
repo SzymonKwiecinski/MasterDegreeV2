@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Notation}
+\begin{itemize}
+    \item \( K \): Number of skill categories
+    \item \( I \): Number of years
+    \item \( \text{requirement}_{k,i} \): Manpower requirement for skill \( k \) in year \( i \)
+    \item \( \text{strength}_{k} \): Current manpower strength for skill \( k \)
+    \item \( \text{lessonewaste}_{k} \): Wastage rate for manpower \( k \) with less than one year's service
+    \item \( \text{moreonewaste}_{k} \): Wastage rate for manpower \( k \) with more than one year's service
+    \item \( \text{recruit}_{k} \): Maximum number of recruits for skill \( k \)
+    \item \( \text{costredundancy}_{k} \): Redundancy payment for manpower \( k \)
+    \item \( \text{num\_overman} \): Maximum overmanning allowed
+    \item \( \text{costoverman}_{k} \): Extra cost per employee for overmanning in skill \( k \)
+    \item \( \text{num\_shortwork} \): Maximum number of workers allowed on short-time working
+    \item \( \text{costshort}_{k} \): Cost per employee for short-time working in skill \( k \)
+    
+    \item \( r_{k,i} \): Number of recruits for skill \( k \) in year \( i \)
+    \item \( o_{k,i} \): Number of overmanned workers for skill \( k \) in year \( i \)
+    \item \( s_{k,i} \): Number of short-time workers for skill \( k \) in year \( i \)
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the total redundancy cost:
+\[
+\text{Minimize} \quad Z = \sum_{k=1}^{K} \sum_{i=1}^{I} \text{costredundancy}_{k} \cdot \text{redundancy}_{k,i}
+\]
+
+\subsection*{Constraints}
+1. **Manpower Demand:**
+   \[
+   \text{strength}_{k} - (1 - \text{moreonewaste}_{k}) \cdot \text{strength}_{k} - (1 - \text{lessonewaste}_{k}) \cdot r_{k,i} + o_{k,i} \geq \text{requirement}_{k,i} \quad \forall k, \forall i
+   \]
+
+2. **Recruitment Limit:**
+   \[
+   r_{k,i} \leq \text{recruit}_{k} \quad \forall k, \forall i
+   \]
+
+3. **Overmanning Limit:**
+   \[
+   o_{k,i} \leq \text{num\_overman} \quad \forall k, \forall i
+   \]
+
+4. **Short-time Working Limit:**
+   \[
+   s_{k,i} \leq \text{num\_shortwork} \quad \forall k, \forall i
+   \]
+
+5. **Short-time Worker Contribution:**
+   \[
+   s_{k,i} \text{ contributes as } 0.5 \text{ of a full-time worker for the requirement} \quad \forall k, \forall i
+   \]
+
+6. **Non-negativity:**
+   \[
+   r_{k,i}, o_{k,i}, s_{k,i} \geq 0 \quad \forall k, \forall i
+   \]
+
+\subsection*{Output Variables}
+The output variables depicting the number of recruits, overmanning, and short-time workers are defined as:
+\begin{itemize}
+    \item \text{recruit}: \( r_{k,i} \) for \( k = 1,\ldots,K \) and \( i = 1,\ldots,I \)
+    \item \text{overmanning}: \( o_{k,i} \) for \( k = 1,\ldots,K \) and \( i = 1,\ldots,I \)
+    \item \text{short}: \( s_{k,i} \) for \( k = 1,\ldots,K \) and \( i = 1,\ldots,I \)
+\end{itemize}
+
+\end{document}

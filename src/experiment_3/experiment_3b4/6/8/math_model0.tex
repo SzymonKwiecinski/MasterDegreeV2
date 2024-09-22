@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\noindent \textbf{Linear Programming Model}
+
+\bigskip
+
+\noindent \textit{Decision Variables:}\\
+Let \( x_k \) be the quantity of part \( k \) to be produced, for \( k = 1, \ldots, K \).
+
+\bigskip
+
+\noindent \textit{Objective Function:}\\
+Maximize the total profit:
+\[
+\text{Maximize} \quad Z = \sum_{k=1}^{K} \text{profit}_k \times x_k
+\]
+
+\bigskip
+
+\noindent \textit{Constraints:}
+\begin{align*}
+& \sum_{k=1}^{K} \text{time}_{k, s} \times x_k \leq \text{capacity}_s, \quad \text{for } s = 1, \ldots, S \\
+& x_k \geq 0, \quad \text{for } k = 1, \ldots, K 
+\end{align*}
+
+\end{document}

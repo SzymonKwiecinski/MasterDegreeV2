@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Mathematical Model:}
+
+\begin{align*}
+    &\text{Sets:} \\
+    &N = \text{total number of translators}, \\
+    &M = \text{total number of required languages}, \\
+    &\text{Translators} = \{1, 2, \ldots, N\}, \\
+    &\text{Languages} = \{1, 2, \ldots, M\}. \\
+
+    &\text{Parameters:} \\
+    &c_i = \text{cost of hiring translator } i, \quad \forall i \in \text{Translators}, \\
+    &a_{i,j} = 
+    \begin{cases} 
+    1, & \text{if translator } i \text{ can translate into language } j, \\
+    0, & \text{otherwise},
+    \end{cases}
+    \\
+    &b_m = 1, \quad \forall m \in \text{Languages}. \\
+
+    &\text{Decision Variables:} \\
+    &x_i \in \{0, 1\}, \quad \forall i \in \text{Translators}. \\
+
+    &\text{Objective:} \\
+    &\min \sum_{i=1}^N c_i x_i \\
+
+    &\text{Constraints:} \\
+    &\sum_{i=1}^N a_{i,m} x_i \geq b_m, \quad \forall m \in \text{Languages}.
+\end{align*}
+
+\end{document}

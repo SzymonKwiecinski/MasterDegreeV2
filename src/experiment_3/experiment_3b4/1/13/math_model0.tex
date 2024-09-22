@@ -1,0 +1,15 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Formulation:}
+
+\begin{align*}
+& \text{Maximize} && r \\
+& \text{subject to} && a_i^T y + \|a_i\| r \leq b_i, \quad \text{for } i = 1, \ldots, m, \\
+& && r \geq 0.
+\end{align*}
+
+\text{Here, \( y \in \mathbb{R}^N \) is the center of the ball and \( r \) is its radius. The term \(\|a_i\|\) represents the Euclidean norm of the vector \( a_i \).}
+
+\end{document}

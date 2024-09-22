@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective Function:}
+
+\[
+\text{Minimize } \sum_{i=1}^{T} \text{storage\_cost} \times I_i + \sum_{i=1}^{T-1} \text{switch\_cost} \times |x_{i+1} - x_i|
+\]
+
+\textbf{Subject to:}
+
+\[
+I_0 = 0
+\]
+
+\[
+I_1 = x_1 - \text{deliver}_1
+\]
+
+For \( i = 2, \ldots, T \):
+\[
+I_i = I_{i-1} + x_i - \text{deliver}_i
+\]
+
+\[
+I_i \geq 0 \quad \text{for all } i
+\]
+
+The decision variables are:
+- \( x_i \geq 0 \) for all \( i = 1, \ldots, T \).
+- \( I_i \geq 0 \) for all \( i = 1, \ldots, T \).
+
+In this model, the cost term for switching involves absolute values. In a standard linear programming formulation, we need to handle these absolute values by introducing additional variables and constraints, such as using the technique of piecewise linearization or other methods suitable for the LP solvers in use.
+
+\end{document}

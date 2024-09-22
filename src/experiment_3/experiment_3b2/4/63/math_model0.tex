@@ -1,0 +1,15 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\begin{document}
+
+\textbf{MILP Model for Paper Cutting Problem}
+
+\begin{align*}
+\text{Objective:} \quad & \text{Minimize } \sum_{i=1}^{N} x_i \\
+\text{Subject to:} \quad & \sum_{i=1}^{N} \text{pattern}_{i,j} \cdot x_i \geq \text{demand}_j, \quad \forall j = 1, 2, \ldots, M \\
+& x_i \geq 0 \quad \text{and integer}, \quad \forall i = 1, 2, \ldots, N
+\end{align*}
+
+\end{document}

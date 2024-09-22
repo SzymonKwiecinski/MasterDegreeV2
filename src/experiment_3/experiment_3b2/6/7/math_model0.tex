@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Formulation for Rocket Trajectory Optimization}
+
+\subsection*{Objective}
+Minimize the maximum absolute acceleration:
+\[
+\min M
+\]
+
+\subsection*{Subject to Constraints}
+
+\begin{align}
+& x_{t+1} = x_t + v_t, \quad t = 0, 1, \ldots, T-1, \\
+& v_{t+1} = v_t + a_t, \quad t = 0, 1, \ldots, T-1, \\
+& a_t \leq M, \quad t = 0, 1, \ldots, T-1, \\
+& -a_t \leq M, \quad t = 0, 1, \ldots, T-1, \\
+& x_0 = \text{given }, \\
+& v_0 = \text{given }, \\
+& x_T = \text{given }, \\
+& v_T = \text{given }.
+\end{align}
+
+\subsection*{Fuel Consumption}
+The total fuel spent is calculated as:
+\[
+\text{fuel\_spend} = \sum_{t=0}^{T-1} |a_t|
+\]
+
+\end{document}

@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Indices}
+Let \( i \) represent the month, where \( i = 1, 2, \ldots, T \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{deliver}_i \): units to deliver at the end of month \( i \)
+    \item \( \text{storage\_cost} \): cost of storing one unit for one month
+    \item \( \text{switch\_cost} \): cost incurred when changing production levels between two consecutive months
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item \( x_i \): units produced in month \( i \)
+    \item \( I_i \): inventory at the end of month \( i \) 
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{minimize } Z = \sum_{i=1}^{T} \left( \text{storage\_cost} \cdot I_i + \text{switch\_cost} \cdot |x_{i+1} - x_i| \right)
+\]
+
+\subsection*{Constraints}
+1. Inventory balance for each month:
+\[
+I_i = I_{i-1} + x_i - \text{deliver}_i \quad \text{for } i = 1, 2, \ldots, T
+\]
+   where \( I_0 = 0 \).
+
+2. Non-negativity:
+\[
+x_i \geq 0, \quad I_i \geq 0 \quad \text{for } i = 1, 2, \ldots, T
+\]
+
+3. Final inventory has no cost:
+\[
+I_T = 0
+\]
+
+\subsection*{Output}
+The output will consist of:
+\begin{itemize}
+    \item \( x \): A list of production amounts \( [x_1, x_2, \ldots, x_T] \)
+    \item \( \text{cost} = Z \): Total minimized cost
+\end{itemize}
+
+\end{document}

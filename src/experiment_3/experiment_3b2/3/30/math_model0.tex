@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+Given data points \((x_k, y_k)\) for \(k = 1, \ldots, K\), we want to find the coefficients \(c\), \(b\), and \(a\) of the quadratic curve \(y = c \cdot x^2 + b \cdot x + a\) that minimizes the sum of absolute deviations.
+
+\[
+\text{Minimize: } \sum_{k=1}^K v_k
+\]
+
+Subject to:
+
+\[
+v_k \geq y_k - (c \cdot x_k^2 + b \cdot x_k + a), \quad k = 1, \ldots, K
+\]
+
+\[
+v_k \geq - (y_k - (c \cdot x_k^2 + b \cdot x_k + a)), \quad k = 1, \ldots, K
+\]
+
+Where:
+- \(v_k\) is the auxiliary variable representing the absolute deviation for the \(k\)-th observation.
+
+The decision variables are \(c\), \(b\), \(a\), and \(v_k\) for \(k = 1, \ldots, K\).
+
+\end{document}

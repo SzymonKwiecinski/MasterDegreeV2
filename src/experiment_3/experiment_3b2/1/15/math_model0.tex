@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Model for Maximizing Daily Profit}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item $i \in \{1, \ldots, N\}$: Index for product types.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $assemblyHour_i$: Hours required for assembly of product $i$.
+    \item $testingHour_i$: Hours required for testing of product $i$.
+    \item $materialCost_i$: Cost of raw materials for product $i$ (in \$).
+    \item $maxAssembly$: Maximum available assembly hours per day.
+    \item $maxTesting$: Maximum available testing hours per day.
+    \item $price_i$: Selling price of product $i$ (in \$).
+    \item $maxOvertimeAssembly$: Maximum overtime assembly hours available per day.
+    \item $overtimeAssemblyCost$: Cost of each overtime assembly hour (in \$).
+    \item $materialDiscount$: Percentage discount on materials cost if above threshold.
+    \item $discountThreshold$: Material cost threshold for discount (in \$).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $unitsProduced_i$: Number of units produced of product $i$.
+    \item $overtimeAssembly$: Number of overtime assembly hours used.
+    \item $materialBought$: Total cost of raw materials bought (before discount).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the daily profit given by:
+\[
+\text{Profit} = \sum_{i=1}^{N} \left( price_i \times unitsProduced_i \right) - materialBought - overtimeAssemblyCost \times overtimeAssembly
+\]
+Where,
+\[
+materialBought = \sum_{i=1}^{N} materialCost_i \times unitsProduced_i
+\]
+If $materialBought > discountThreshold$, apply the discount:
+\[
+materialBought = materialBought \times (1 - \frac{materialDiscount}{100})
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    \sum_{i=1}^{N} assemblyHour_i \times unitsProduced_i &\leq maxAssembly + overtimeAssembly \\
+    \sum_{i=1}^{N} testingHour_i \times unitsProduced_i &\leq maxTesting \\
+    0 \leq overtimeAssembly &\leq maxOvertimeAssembly \\
+    unitsProduced_i &\geq 0 \quad \forall i \in \{1, \ldots, N\} \\
+    unitsProduced_i &\in \mathbb{Z}^+ \quad \forall i \in \{1, \ldots, N\}
+\end{align}
+
+\end{document}

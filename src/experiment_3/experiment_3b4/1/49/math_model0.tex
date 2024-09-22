@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item \( p \): Index for parts, \( p = 1, 2, \ldots, P \)
+    \item \( m \): Index for machines, \( m = 1, 2, \ldots, M \)
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{time\_required}_{m,p} \): Time required on machine \( m \) to produce a batch of part \( p \)
+    \item \( \text{cost}_{m} \): Cost per hour of using machine \( m \)
+    \item \( \text{availability}_{m} \): Hours machine \( m \) is available
+    \item \( \text{price}_{p} \): Selling price per batch of part \( p \)
+    \item \( \text{min\_batches}_{p} \): Minimum number of batches of part \( p \) required
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_p \): Number of batches of part \( p \) to be produced
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize} \quad \sum_{p=1}^{P} \left( \text{price}_{p} \cdot x_p \right) - \sum_{m=1}^{M} \left( \text{cost}_{m} \cdot \sum_{p=1}^{P} \text{time\_required}_{m,p} \cdot x_p \right)
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Time availability constraints for machines 1 to \( M-2 \):
+    \[
+    \sum_{p=1}^{P} \text{time\_required}_{m,p} \cdot x_p \leq \text{availability}_{m} \quad \forall m = 1, 2, \ldots, M-2
+    \]
+    \item Combined availability constraint for machine \( M-1 \) and machine \( M \):
+    \[
+    \sum_{p=1}^{P} \text{time\_required}_{M-1,p} \cdot x_p + \sum_{p=1}^{P} \text{time\_required}_{M,p} \cdot x_p \leq \text{availability}_{M-1} + \text{availability}_{M}
+    \]
+    \item Minimum production requirement for each part:
+    \[
+    x_p \geq \text{min\_batches}_{p} \quad \forall p = 1, 2, \ldots, P
+    \]
+    \item Non-negativity constraints:
+    \[
+    x_p \geq 0 \quad \forall p = 1, 2, \ldots, P
+    \]
+\end{itemize}
+
+\end{document}

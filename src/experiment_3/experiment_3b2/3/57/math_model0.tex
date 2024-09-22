@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Seaport Operations}
+
+We are tasked with developing a Mixed-Integer Programming (MIP) model to minimize the cost associated with unloading, holding, and loading shipping containers at a seaport. The model operates over a time horizon of \( T \) months.
+
+\subsection*{Indices}
+\begin{align*}
+t & : \text{Index for months, } t = 1, 2, \ldots, T
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+\text{demand}_t & : \text{Demand for containers by ships in month } t \\
+\text{unload\_cost}_t & : \text{Cost to unload a single container in month } t \\
+\text{unload\_capacity}_t & : \text{Maximum number of containers that can be unloaded in month } t \\
+\text{holding\_cost} & : \text{Holding cost per container per month} \\
+\text{max\_container} & : \text{Maximum containers the yard can store at the end of any month} \\
+\text{init\_container} & : \text{Initial number of containers in the yard} \\
+\text{num\_cranes} & : \text{Maximum number of cranes that can be rented each month} \\
+\text{crane\_capacity} & : \text{Capacity of a single crane in loading containers} \\
+\text{crane\_cost} & : \text{Cost to rent a single crane}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+\text{amount}_t & : \text{Number of containers unloaded in month } t \\
+\text{crane}_t & : \text{Number of cranes rented in month } t \\
+\text{yard}_t & : \text{Number of containers in the yard at the end of month } t
+\end{align*}
+
+\subsection*{Objective Function}
+
+Minimize the total cost:
+\[
+\min \sum_{t=1}^{T} \left( \text{unload\_cost}_t \times \text{amount}_t + \text{holding\_cost} \times \text{yard}_t + \text{crane\_cost} \times \text{crane}_t \right)
+\]
+
+\subsection*{Constraints}
+
+\begin{align*}
+1. & \quad \text{amount}_t \leq \text{unload\_capacity}_t, \quad \forall t \\
+2. & \quad \text{yard}_{t-1} + \text{amount}_t - \text{demand}_t = \text{yard}_t, \quad \forall t \\
+3. & \quad \text{crane}_t \times \text{crane\_capacity} \geq \text{demand}_t, \quad \forall t \\
+4. & \quad \text{yard}_t \leq \text{max\_container}, \quad \forall t \\
+5. & \quad \text{yard}_T = 0 \\
+6. & \quad \text{crane}_t \leq \text{num\_cranes}, \quad \forall t \\
+7. & \quad \text{yard}_0 = \text{init\_container}
+\end{align*}
+
+\subsection*{Variable Domains}
+
+\begin{align*}
+\text{amount}_t & \geq 0 \quad \text{and integer, } \forall t \\
+\text{crane}_t & \geq 0 \quad \text{and integer, } \forall t \\
+\text{yard}_t & \geq 0 \quad \text{and integer, } \forall t
+\end{align*}
+
+\end{document}

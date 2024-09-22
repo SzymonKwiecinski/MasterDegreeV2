@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Electricity Capacity Expansion}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( x_{c,t} \) be the coal capacity added in year \( t \).
+    \item Let \( x_{n,t} \) be the nuclear capacity added in year \( t \).
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( T \): Total number of years.
+    \item \( demand_t \): Forecasted demand for electricity in year \( t \).
+    \item \( oil_t \): Existing oil-fired capacity available in year \( t \).
+    \item \( coal\_cost \): Capital cost per megawatt of coal-fired capacity.
+    \item \( nuke\_cost \): Capital cost per megawatt of nuclear power capacity.
+    \item \( max\_nuke \): Maximum percentage of total capacity that can be nuclear.
+    \item \( coal\_life \): Lifespan of coal plants (in years).
+    \item \( nuke\_life \): Lifespan of nuclear plants (in years).
+\end{itemize}
+
+\textbf{Objective Function:}
+Minimize total cost:
+\[
+\text{Minimize} \quad Z = \sum_{t=1}^{T} (coal\_cost \cdot x_{c,t} + nuke\_cost \cdot x_{n,t})
+\]
+
+\textbf{Constraints:}
+
+1. \textbf{Capacity Constraint:}
+   The total capacity in each year \( t \) must meet demand:
+   \[
+   oil_t + \sum_{j=\max(1, t-coal\_life+1)}^{t} x_{c,j} + \sum_{j=\max(1, t-nuke\_life+1)}^{t} x_{n,j} \geq demand_t, \quad \forall t \in \{1, \ldots, T\}
+   \]
+
+2. \textbf{Nuclear Capacity Constraint:}
+   The nuclear capacity cannot exceed the maximum percentage:
+   \[
+   \sum_{j=1}^{t} x_{n,j} \leq \frac{max\_nuke}{100} \cdot \left( oil_t + \sum_{j=1}^{t} x_{c,j} + \sum_{j=1}^{t} x_{n,j} \right), \quad \forall t \in \{1, \ldots, T\}
+   \]
+
+3. \textbf{Non-negativity Constraints:}
+   \[
+   x_{c,t} \geq 0, \quad x_{n,t} \geq 0, \quad \forall t \in \{1, \ldots, T\}
+   \]
+
+\textbf{Output:}
+The output of the optimization will include:
+\begin{itemize}
+    \item \( coal\_cap\_added: [x_{c,1}, x_{c,2}, \ldots, x_{c,T}] \)
+    \item \( nuke\_cap\_added: [x_{n,1}, x_{n,2}, \ldots, x_{n,T}] \)
+    \item \( total\_cost: Z \)
+\end{itemize}
+
+\end{document}

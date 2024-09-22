@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Consultant Assignment Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( I \) be the number of projects.
+    \item Let \( J \) be the number of consultants.
+    \item Let \( K \) be the maximum number of projects that can be assigned to each consultant.
+    \item Let \( f_j \) be the fixed cost of hiring consultant \( j \), for \( j = 1, \ldots, J \).
+    \item Let \( c_{i,j} \) be the additional cost of assigning project \( i \) to consultant \( j \), for \( i = 1, \ldots, I \) and \( j = 1, \ldots, J \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( x_{j} \) be a binary decision variable, where \( x_{j} = 1 \) if consultant \( j \) is hired, and \( x_{j} = 0 \) otherwise.
+    \item Let \( y_{i,j} \) be a binary decision variable, where \( y_{i,j} = 1 \) if project \( i \) is assigned to consultant \( j \), and \( y_{i,j} = 0 \) otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{j=1}^{J} f_j x_j + \sum_{i=1}^{I} \sum_{j=1}^{J} c_{i,j} y_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Each project must be assigned to exactly one consultant:
+    \[
+    \sum_{j=1}^{J} y_{i,j} = 1, \quad \forall i = 1, \ldots, I
+    \]
+    
+    \item A consultant can be assigned to a maximum of \( K \) projects:
+    \[
+    \sum_{i=1}^{I} y_{i,j} \leq K x_j, \quad \forall j = 1, \ldots, J
+    \]
+    
+    \item Binary constraints for decision variables:
+    \[
+    x_j \in \{0, 1\}, \quad \forall j = 1, \ldots, J
+    \]
+    \[
+    y_{i,j} \in \{0, 1\}, \quad \forall i = 1, \ldots, I, \forall j = 1, \ldots, J
+    \]
+\end{itemize}
+
+\subsection*{Output Information}
+The output consists of:
+\begin{itemize}
+    \item Assignments of projects to consultants \( \text{assignments}_{j,i} \).
+    \item Total cost \( \text{total\_cost} \).
+\end{itemize}
+The format for the output is as follows:
+\[
+\text{Output} = \left\{ 
+    \text{"assignments"}: \left[ [y_{i,j} \text{ for } i=1, \ldots, I] \text{ for } j=1, \ldots, J \right], 
+    \text{"total\_cost"}: Z 
+\right\}
+\]
+
+\end{document}

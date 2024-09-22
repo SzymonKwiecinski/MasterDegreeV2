@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Best Fit Line}
+
+Let \( y_k \) be the observed value for the \( k \)-th data point and \( x_k \) be the corresponding value for the \( k \)-th data point, where \( k = 1, \ldots, K \). We aim to fit a linear equation of the form:
+
+\[
+y = bx + a
+\]
+
+where \( a \) is the intercept and \( b \) is the slope of the line. We want to minimize the sum of absolute deviations between the observed values \( y_k \) and the predicted values \( bx_k + a \).
+
+\subsection*{Objective Function}
+
+We need to minimize the total absolute deviation:
+
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} |y_k - (bx_k + a)|
+\]
+
+To handle the absolute values, we introduce auxiliary variables \( e_k \) such that:
+
+\[
+e_k \geq y_k - (bx_k + a) \quad \text{and} \quad e_k \geq -(y_k - (bx_k + a))
+\]
+
+This translates our objective into a linear programming format as follows:
+
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} e_k
+\]
+
+\subsection*{Constraints}
+
+The model includes the following constraints:
+
+\[
+e_k \geq y_k - (bx_k + a), \quad \forall k = 1, \ldots, K
+\]
+
+\[
+e_k \geq -(y_k - (bx_k + a)), \quad \forall k = 1, \ldots, K
+\]
+
+\subsection*{Variables}
+
+The decision variables are:
+
+- \( a \): intercept of the fitted line
+- \( b \): slope of the fitted line
+- \( e_k \): absolute deviations for each data point
+
+\subsection*{Output}
+
+After solving the linear programming problem, the outputs are:
+
+\begin{itemize}
+    \item "intercept": \( a \)
+    \item "slope": \( b \)
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Objective:}
+\[
+\text{Maximize } z = \sum_{i=1}^{N} x_{i,N} \cdot \text{rate}_{i,N}
+\]
+
+\textbf{Subject to:}
+
+\begin{itemize}
+
+\item \textbf{Exchange Limits:}
+\[
+\sum_{j=1}^{N} x_{i,j} \leq \text{limit}_i \quad \text{for } i = 1, \ldots, N
+\]
+
+\item \textbf{Currency Conservation:}
+\[
+\text{start}_i + \sum_{j=1}^{N} x_{j,i} \cdot \text{rate}_{j,i} - \sum_{j=1}^{N} x_{i,j} \geq 0 \quad \text{for } i = 1, \ldots, N
+\]
+
+\item \textbf{Non-negativity:}
+\[
+x_{i,j} \geq 0 \quad \text{for all } i, j
+\]
+
+\end{itemize}
+
+\end{document}

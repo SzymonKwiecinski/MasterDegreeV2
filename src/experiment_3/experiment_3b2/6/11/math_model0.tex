@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+Minimize the total cost given by:
+
+\[
+\min \sum_{i=1}^{T} \left( \text{storage\_cost} \cdot I_i + \text{switch\_cost} \cdot |x_{i+1} - x_i| \right)
+\]
+
+Subject to the constraints:
+
+1. Inventory balance constraints:
+   \[
+   I_i = I_{i-1} + x_i - \text{deliver}_i, \quad \forall i = 1, \ldots, T
+   \]
+
+2. Initial inventory:
+   \[
+   I_0 = 0
+   \]
+
+3. Non-negativity constraints:
+   \[
+   x_i \geq 0, \quad I_i \geq 0, \quad \forall i = 1, \ldots, T
+   \]
+
+In order to linearize the absolute value term, introduce auxiliary variables \( y_i \) and additional constraints:
+\[
+|x_{i+1} - x_i| \leq y_i
+\]
+\[
+y_i \geq x_{i+1} - x_i
+\]
+\[
+y_i \geq x_i - x_{i+1}
+\]
+
+Replace the absolute value with \( y_i \) in the objective function:
+\[
+\min \sum_{i=1}^{T} \left( \text{storage\_cost} \cdot I_i + \text{switch\_cost} \cdot y_i \right)
+\]
+
+These auxiliary variables and constraints ensure the linearity of the problem formulation.
+
+\end{document}

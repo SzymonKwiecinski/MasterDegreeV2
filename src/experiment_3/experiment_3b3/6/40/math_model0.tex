@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Steel Production}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+
+Let:
+\begin{itemize}
+    \item \( n \) be the required quantity of steel in tons.
+    \item \( mn \) be the minimum percentage of manganese required.
+    \item \( si_{\text{min}} \) and \( si_{\text{max}} \) be the minimum and maximum percentage of silicon allowed.
+    \item \( K \) be the number of different types of minerals available.
+    \item \( \text{contsi}_k \) be the percentage of silicon in mineral \( k \).
+    \item \( \text{contmn}_k \) be the percentage of manganese in mineral \( k \).
+    \item \( \text{mang\_price} \) be the price of manganese in million euros per ton.
+    \item \( \text{cost}_k \) be the cost of mineral \( k \) in million euros per thousand tons.
+    \item \( \text{sell\_price} \) be the selling price of steel in million euros per ton.
+    \item \( \text{melt\_price} \) be the cost of melting a ton of mineral in million euros.
+\end{itemize}
+
+\section*{Decision Variables}
+
+Let:
+\begin{itemize}
+    \item \( x_k \) be the amount of mineral \( k \) melted (in tons).
+    \item \( y \) be the amount of manganese added (in tons).
+\end{itemize}
+
+\section*{Objective Function}
+
+Maximize profit \( P \):
+
+\[
+P = n \cdot \text{sell\_price} - \sum_{k=1}^K \left( \frac{\text{cost}_k}{1000} \cdot x_k \right) - \text{melt\_price} \cdot \sum_{k=1}^K x_k - \text{mang\_price} \cdot y
+\]
+
+\section*{Constraints}
+
+1. Total weight of the steel produced:
+\[
+\sum_{k=1}^K \left( x_k \cdot \frac{\text{contsi}_k}{100} \right) + y \geq n \cdot \frac{mn}{100}
+\]
+
+2. Silicon content constraint:
+\[
+si_{\text{min}} \leq \sum_{k=1}^K \left( x_k \cdot \frac{\text{contsi}_k}{100} \right) \leq si_{\text{max}}
+\]
+
+3. Manganese content constraint:
+\[
+\sum_{k=1}^K \left( x_k \cdot \frac{\text{contmn}_k}{100} \right) + y \geq n \cdot \frac{mn}{100}
+\]
+
+4. Non-negativity constraints:
+\[
+x_k \geq 0 \quad \text{for } k = 1, \ldots, K
+\]
+\[
+y \geq 0
+\]
+
+\end{document}

@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Mathematical Model for Production Optimization}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+A company produces \( N \) kinds of products. Each product type \( i \) requires:
+\begin{itemize}
+    \item \( \text{assemblyHour}_i \) hours of assembly labor,
+    \item \( \text{testingHour}_i \) hours of testing,
+    \item \( \text{materialCost}_i \) worth of raw materials (in $).
+\end{itemize}
+Given constraints on labor hours and costs:
+\begin{itemize}
+    \item There can be at most \( \text{maxAssembly} \) hours of assembly labor per day.
+    \item There can be at most \( \text{maxTesting} \) hours of testing per day.
+    \item The company can schedule up to \( \text{maxOvertimeAssembly} \) hours of overtime assembly labor at a cost of \( \text{overtimeAssemblyCost} \) per hour.
+    \item A \( \text{materialDiscount}\% \) is applied if the daily bill exceeds \( \text{discountThreshold} \).
+\end{itemize}
+
+\section*{Input Format}
+The input is defined as follows:
+\begin{align*}
+    \text{assemblyHour} & : [\text{assemblyHour}_i \text{ for } i = 1, \ldots, N] \\
+    \text{testingHour} & : [\text{testingHour}_i \text{ for } i = 1, \ldots, N] \\
+    \text{materialCost} & : [\text{materialCost}_i \text{ for } i = 1, \ldots, N] \\
+    \text{maxAssembly} & : \text{maxAssembly} \\
+    \text{maxTesting} & : \text{maxTesting} \\
+    \text{price} & : [\text{price}_i \text{ for } i = 1, \ldots, N] \\
+    \text{maxOvertimeAssembly} & : \text{maxOvertimeAssembly} \\
+    \text{overtimeAssemblyCost} & : \text{overtimeAssemblyCost} \\
+    \text{materialDiscount} & : \text{materialDiscount} \\
+    \text{discountThreshold} & : \text{discountThreshold}
+\end{align*}
+
+\section*{Objective}
+The objective is to maximize the daily profit of the company defined as:
+\[
+\text{dailyProfit} = \sum_{i=1}^{N} (\text{price}_i \cdot x_i) - \text{totalCost}
+\]
+where \( x_i \) is the number of units of the \( i \)-th product produced.
+
+\section*{Constraints}
+The following constraints must be satisfied:
+\begin{align}
+    \sum_{i=1}^{N} \text{assemblyHour}_i x_i + \text{overtimeAssembly} & \leq \text{maxAssembly} + \text{maxOvertimeAssembly} \\
+    \sum_{i=1}^{N} \text{testingHour}_i x_i & \leq \text{maxTesting} \\
+    \text{totalMaterialCost} & = \sum_{i=1}^{N} \text{materialCost}_i x_i \\
+    \text{totalMaterialCost} & \leq \begin{cases} 
+    \text{totalMaterialCost} \cdot (1 - \frac{\text{materialDiscount}}{100}) & \text{if totalMaterialCost} > \text{discountThreshold} \\
+    \text{totalMaterialCost} & \text{otherwise}
+    \end{cases}
+\end{align}
+
+\section*{Output Format}
+The output will provide:
+\begin{align*}
+    \text{dailyProfit} & : \text{dailyProfit} \\
+    \text{unitsProduced} & : [\text{unitsProduced}_i \text{ for } i = 1, \ldots, N] \\
+    \text{overtimeAssembly} & : \text{overtimeAssembly} \\
+    \text{materialBought} & : \text{materialBought}
+\end{align*}
+
+\end{document}

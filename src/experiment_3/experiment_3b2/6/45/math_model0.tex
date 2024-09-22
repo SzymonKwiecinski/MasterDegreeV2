@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Custom Tees Advertising Campaign}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $clicks_{a}$: Number of clicks purchased for ad type $a$ in thousands, for $a = 1, \ldots, A$.
+\end{itemize}
+
+\textbf{Objective:}
+Minimize the total cost of the ad campaign:
+\[
+\text{Minimize } \sum_{a=1}^{A} cost_{a} \cdot clicks_{a}
+\]
+
+\textbf{Constraints:}
+\begin{itemize}
+    \item Total clicks from visitors aged 18-25:
+    \[
+    \sum_{a=1}^{A} young\_click_{a} \cdot clicks_{a} \geq goal\_young
+    \]
+    
+    \item Total clicks from older visitors:
+    \[
+    \sum_{a=1}^{A} old\_click_{a} \cdot clicks_{a} \geq goal\_old
+    \]
+    
+    \item Total unique clicks from visitors aged 18-25:
+    \[
+    \sum_{a=1}^{A} unique\_click_{a} \cdot young\_click_{a} \cdot clicks_{a} \geq goal\_unique\_young
+    \]
+    
+    \item Total unique clicks from older visitors:
+    \[
+    \sum_{a=1}^{A} unique\_click_{a} \cdot old\_click_{a} \cdot clicks_{a} \geq goal\_unique\_old
+    \]
+    
+    \item Maximum allowable clicks for each ad type:
+    \[
+    0 \leq clicks_{a} \leq max\_click_{a}, \quad \forall a = 1, \ldots, A
+    \]
+\end{itemize}
+
+\textbf{Output:}
+\begin{itemize}
+    \item $\{clicks_{a}\}_{a=1}^{A}$: Number of clicks purchased for each ad type.
+    \item $total\_cost$: Total cost of the ad campaign.
+\end{itemize}
+
+\end{document}

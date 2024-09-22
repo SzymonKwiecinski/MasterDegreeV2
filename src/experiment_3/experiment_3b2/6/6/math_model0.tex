@@ -1,0 +1,20 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model:}
+
+\begin{align*}
+\text{Minimize } & \sum_{t=0}^{T-1} u_t \\
+\text{subject to: } \\
+& x_0 = \text{given initial position,} \\
+& v_0 = \text{given initial velocity,} \\
+& x_{t+1} = x_t + v_t, \quad t = 0, 1, \ldots, T-1, \\
+& v_{t+1} = v_t + a_t, \quad t = 0, 1, \ldots, T-1, \\
+& u_t \geq a_t, \quad t = 0, 1, \ldots, T-1, \\
+& u_t \geq -a_t, \quad t = 0, 1, \ldots, T-1, \\
+& x_T = \text{target position,} \\
+& v_T = \text{target velocity.}
+\end{align*}
+
+\end{document}

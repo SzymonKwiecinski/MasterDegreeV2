@@ -1,0 +1,77 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Fitting a Line}
+
+Given a set of observations for quantities \( y \) and \( x \), where \( y_k \) is the corresponding value of \( y \) for \( x_k \) for \( k = 1, 2, \ldots, K \), we seek to fit a line represented by the equation:
+
+\[
+y = bx + a
+\]
+
+Our objective is to minimize the maximum deviation of the observed values from the values predicted by the linear relationship.
+
+\subsection*{Variables}
+
+Let us denote:
+\begin{itemize}
+    \item \( a \): intercept of the fitted line
+    \item \( b \): slope of the fitted line
+    \item \( d_k \): deviation for each observation, defined as \( d_k = y_k - (bx_k + a) \)
+\end{itemize}
+
+\subsection*{Objective Function}
+
+We want to minimize the maximum absolute deviation:
+
+\[
+\text{Minimize } D
+\]
+
+subject to:
+
+\[
+d_k \leq D \quad \forall k = 1, 2, \ldots, K
+\]
+\[
+-d_k \leq D \quad \forall k = 1, 2, \ldots, K
+\]
+
+where \( d_k = y_k - (bx_k + a) \).
+
+\subsection*{Constraints}
+
+The constraints can be expressed as:
+
+\[
+y_k - (bx_k + a) \leq D \quad \forall k = 1, 2, \ldots, K
+\]
+\[
+-(y_k - (bx_k + a)) \leq D \quad \forall k = 1, 2, \ldots, K
+\]
+
+This can be combined and rewritten as:
+
+\[
+y_k - bx_k - a \leq D \quad \forall k
+\]
+\[
+-bx_k - a + y_k \leq D \quad \forall k
+\]
+
+\subsection*{Final Model}
+
+The final linear programming model can thus be summarized as:
+
+\[
+\begin{aligned}
+& \text{Minimize } D \\
+& \text{subject to} \\
+& \quad y_k - bx_k - a \leq D \quad \forall k \\
+& \quad -y_k + bx_k + a \leq D \quad \forall k \\
+& \quad D \geq 0
+\end{aligned}
+\]
+
+\end{document}

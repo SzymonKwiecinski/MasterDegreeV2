@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Model for Floppy Disk Backup Problem}
+
+Given:
+\begin{itemize}
+    \item Disk capacity: \( \text{capacity} \)
+    \item File sizes: \( \text{size}_j \) for \( j = 1, 2, \ldots, N \)
+\end{itemize}
+
+Objective: Minimize the number of disks used.
+
+\subsection*{Variables}
+\begin{itemize}
+    \item \( x_{ij} \): Binary variable equal to 1 if file \( j \) is placed on disk \( i \), 0 otherwise.
+    \item \( y_i \): Binary variable equal to 1 if disk \( i \) is used, 0 otherwise.
+\end{itemize}
+
+\subsection*{Constraints}
+\begin{enumerate}
+    \item Each file must be placed exactly on one disk:
+    \begin{equation}
+        \sum_{i=1}^{M} x_{ij} = 1, \quad \forall j = 1, 2, \ldots, N
+    \end{equation}
+    \item The sum of file sizes on a disk cannot exceed its capacity:
+    \begin{equation}
+        \sum_{j=1}^{N} \text{size}_j \cdot x_{ij} \leq \text{capacity} \cdot y_i, \quad \forall i = 1, 2, \ldots, M
+    \end{equation}
+    \item A file can only be assigned to a disk if that disk is used:
+    \begin{equation}
+        x_{ij} \leq y_i, \quad \forall i = 1, 2, \ldots, M, \quad \forall j = 1, 2, \ldots, N
+    \end{equation}
+\end{enumerate}
+
+\subsection*{Objective Function}
+\begin{equation}
+    \min \sum_{i=1}^{M} y_i
+\end{equation}
+
+\subsection*{Problem Explanation}
+We are attempting to minimize the number of disks used (\( y_i \)). Each file must be assigned to exactly one disk while ensuring that disk capacities are not exceeded. The challenge is to determine which files should be grouped together on each disk.
+
+\subsection*{Output}
+\begin{itemize}
+    \item \(\text{n\_disks}\) represents the total number of floppy disks used.
+    \item \(\text{whichdisk}\) lists the disk assignment for each file.
+\end{itemize}
+
+\end{document}

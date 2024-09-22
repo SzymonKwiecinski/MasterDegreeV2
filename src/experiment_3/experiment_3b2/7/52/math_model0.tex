@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model:}
+
+\textbf{Decision Variables:}
+\[
+\text{send}_{p,c} \quad \forall \, p = 1, \ldots, P, \, c = 1, \ldots, C
+\]
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } \sum_{p=1}^{P} \sum_{c=1}^{C} \text{transmission}_{p,c} \times \text{send}_{p,c}
+\]
+
+\textbf{Subject to:}
+
+\begin{itemize}
+    \item \textbf{Supply Constraints:}
+    \[
+    \sum_{c=1}^{C} \text{send}_{p,c} \leq \text{supply}_{p}, \quad \forall \, p = 1, \ldots, P
+    \]
+
+    \item \textbf{Demand Constraints:}
+    \[
+    \sum_{p=1}^{P} \text{send}_{p,c} = \text{demand}_{c}, \quad \forall \, c = 1, \ldots, C
+    \]
+
+    \item \textbf{Non-negativity Constraints:}
+    \[
+    \text{send}_{p,c} \geq 0, \quad \forall \, p = 1, \ldots, P, \, c = 1, \ldots, C
+    \]
+\end{itemize}
+
+\end{document}

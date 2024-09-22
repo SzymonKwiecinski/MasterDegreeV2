@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+Maximize the profit:
+
+\[
+\text{Maximize} \quad Z = \sum_{p=1}^{P} \left( \text{price}_p \times x_p \right) - \sum_{m=2}^{M} \left( \text{cost}_m \times \sum_{p=1}^{P} \text{time}_{m,p} \times x_p \right) - \text{Labor Costs}
+\]
+
+where Labor Costs are defined as:
+
+\[
+\text{Labor Costs} = 
+\begin{cases} 
+\text{standard\_cost} \times T_1, & \text{if } T_1 \leq \text{overtime\_hour} \\
+\text{standard\_cost} \times \text{overtime\_hour} + \text{overtime\_cost} \times (T_1 - \text{overtime\_hour}), & \text{if } T_1 > \text{overtime\_hour}
+\end{cases}
+\]
+
+with \( T_1 = \sum_{p=1}^{P} \text{time}_{1,p} \times x_p \).
+
+\textbf{Subject to:}
+
+1. Minimum batch requirements:
+
+\[
+x_p \geq \text{min\_batches}_p \quad \forall p = 1, \ldots, P
+\]
+
+2. Machine availability constraints:
+
+\[
+\sum_{p=1}^{P} \text{time}_{m,p} \times x_p \leq \text{available}_m \quad \forall m = 2, \ldots, M
+\]
+
+3. Non-negativity constraints:
+
+\[
+x_p \geq 0 \quad \forall p = 1, \ldots, P
+\]
+
+\end{document}

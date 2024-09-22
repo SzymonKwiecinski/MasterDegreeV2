@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Auto Parts Manufacturer}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( P \): Number of different parts.
+    \item \( M \): Number of different machines.
+    \item \( \text{time}_{m,p} \): Hours required on machine \( m \) to produce a batch of part \( p \).
+    \item \( \text{cost}_{m} \): Cost per hour for using machine \( m \).
+    \item \( \text{available}_{m} \): Available hours for machine \( m \) per month.
+    \item \( \text{price}_{p} \): Selling price per batch of part \( p \).
+    \item \( \text{min\_batches}_{p} \): Minimum batches of part \( p \) to be produced each month.
+    \item \( \text{extra\_costs}_{m} \): Extra cost per hour for machine \( m \).
+    \item \( \text{max\_extra}_{m} \): Maximum extra hours that can be purchased for machine \( m \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{batches}_{p} \): Number of batches produced for part \( p \).
+    \item \( \text{extra\_time}_{m} \): Additional hours purchased for machine \( m \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Total Profit} = \sum_{p=1}^{P} \left( \text{price}_{p} \cdot \text{batches}_{p} \right) - \sum_{m=1}^{M} \left( \text{cost}_{m} \cdot \left( \sum_{p=1}^{P} \text{time}_{m,p} \cdot \text{batches}_{p} + \text{extra\_time}_{m} \right) \right) - \sum_{m=1}^{M} \left( \text{extra\_costs}_{m} \cdot \text{extra\_time}_{m} \right)
+\]
+
+\subsection*{Constraints}
+1. **Production Time for Each Machine:**
+\[
+\sum_{p=1}^{P} \text{time}_{m,p} \cdot \text{batches}_{p} + \text{extra\_time}_{m} \leq \text{available}_{m} + \text{max\_extra}_{m}, \quad \forall m = 1, \ldots, M
+\]
+
+2. **Minimum Production Requirement:**
+\[
+\text{batches}_{p} \geq \text{min\_batches}_{p}, \quad \forall p = 1, \ldots, P
+\]
+
+3. **Non-negativity Constraints:**
+\[
+\text{batches}_{p} \geq 0, \quad \forall p = 1, \ldots, P
+\]
+\[
+\text{extra\_time}_{m} \geq 0, \quad \forall m = 1, \ldots, M
+\]
+
+\end{document}

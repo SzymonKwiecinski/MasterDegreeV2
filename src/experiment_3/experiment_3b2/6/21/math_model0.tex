@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Model for Factory Production Planning}
+
+\subsection*{Objective Function}
+\[
+\max \sum_{i=1}^{I} \sum_{k=1}^{K} \left( \text{profit}_k \cdot \text{sell}_{k,i} - \text{store\_price} \cdot \text{storage}_{k,i} \right)
+\]
+
+\subsection*{Constraints}
+
+\subsubsection*{Machine Time Constraints}
+\[
+\sum_{k=1}^{K} \text{time}_{k,m} \cdot \text{manufacture}_{k,i} \leq \left( \text{num\_machines}_m - \text{maintain}_{m,i} \right) \cdot 24 \cdot 6 \cdot \text{n\_workhours}, \quad \forall i, \forall m
+\]
+
+\subsubsection*{Maintenance Requirements}
+\[
+\sum_{i=1}^{I} \text{maintain}_{m,i} = \text{down}_{m}, \quad \forall m
+\]
+
+\subsubsection*{Product Limitation Constraints}
+\[
+\text{sell}_{k,i} \leq \text{limit}_{k,i}, \quad \forall k, \forall i
+\]
+
+\subsubsection*{Storage Constraints}
+\[
+\text{storage}_{k,i} \leq 100, \quad \forall k, \forall i
+\]
+\[
+\text{storage}_{k,I} = \text{keep\_quantity}, \quad \forall k
+\]
+
+\subsubsection*{Inventory Balance}
+\[
+\text{storage}_{k,i-1} + \text{manufacture}_{k,i} = \text{sell}_{k,i} + \text{storage}_{k,i}, \quad \forall k, \forall i > 1
+\]
+\[
+\text{manufacture}_{k,1} = \text{sell}_{k,1} + \text{storage}_{k,1}, \quad \forall k
+\]
+
+\end{document}

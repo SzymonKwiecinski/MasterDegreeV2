@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Traveling Salesman Problem}
+
+\subsection*{Sets and Indices}
+\begin{align*}
+& N: \text{Number of cities} \\
+& i, j: \text{City indices where } i, j \in \{1, 2, \ldots, N\}
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+& \text{distance}_{i,j}: \text{Distance between city } i \text{ and city } j \\
+& \text{start\_city}: \text{The starting city}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+& x_{i,j} = 
+  \begin{cases} 
+  1, & \text{if the path goes directly from city } i \text{ to city } j \\
+  0, & \text{otherwise}
+  \end{cases} \\
+& u_i: \text{Auxiliary variables for subtour elimination} 
+\end{align*}
+
+\subsection*{Objective Function}
+\begin{align*}
+\min \quad & \sum_{i=1}^{N}\sum_{\substack{j=1 \\ j \neq i}}^{N} \text{distance}_{i,j} \cdot x_{i,j}
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+& \sum_{\substack{j=1 \\ j \neq i}}^{N} x_{i,j} = 1 \quad \forall i \in \{1, \ldots, N\} & \text{(Leave each city once)} \\
+& \sum_{\substack{i=1 \\ i \neq j}}^{N} x_{i,j} = 1 \quad \forall j \in \{1, \ldots, N\} & \text{(Arrive at each city once)} \\
+& u_i - u_j + N \cdot x_{i,j} \leq N - 1 \quad \forall i, j \in \{2, \ldots, N\}, i \neq j & \text{(Subtour elimination)} \\
+& 2 \leq u_i \leq N \quad \forall i \in \{2, \ldots, N\} & \text{(Order constraints)} \\
+& x_{i,j} \in \{0, 1\}, \quad \forall i, j \in \{1, \ldots, N\}, i \neq j \\
+& u_i \in \mathbb{R}, \quad \forall i \in \{1, \ldots, N\}
+\end{align*}
+
+\end{document}

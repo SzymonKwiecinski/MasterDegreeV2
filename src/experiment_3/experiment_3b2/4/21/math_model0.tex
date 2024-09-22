@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\title{MILP Model for Production Planning}
+\author{}
+\date{}
+\maketitle
+
+\section*{Indices}
+\begin{itemize}
+    \item $k$: Index for products $(k = 1, \ldots, K)$
+    \item $m$: Index for machines $(m = 1, \ldots, M)$
+    \item $i$: Index for months $(i = 1, \ldots, I)$
+\end{itemize}
+
+\section*{Parameters}
+\begin{itemize}
+    \item $num_m[m]$: Number of available machines of type $m$
+    \item $profit[k]$: Profit per unit of product $k$
+    \item $time[k][m]$: Time required on machine $m$ to produce one unit of product $k$
+    \item $down[m]$: Number of months machine $m$ needs to be down for maintenance
+    \item $limit[k][i]$: Maximum production limit for product $k$ in month $i$
+    \item $store\_price$: Cost of storing one unit per month
+    \item $keep\_quantity$: Desired stock at the end of the planning horizon
+    \item $n\_workhours$: Number of working hours per shift
+\end{itemize}
+
+\section*{Decision Variables}
+\begin{itemize}
+    \item $sell[k][i]$: Number of units of product $k$ sold in month $i$
+    \item $manufacture[k][i]$: Number of units of product $k$ manufactured in month $i$
+    \item $storage[k][i]$: Number of units of product $k$ stored in month $i$
+    \item $maintain[m][i]$: Number of machines of type $m$ under maintenance in month $i$
+\end{itemize}
+
+\section*{Objective Function}
+Maximize total profit:
+\begin{align}
+    \text{Maximize} \quad & \sum_{i=1}^{I} \sum_{k=1}^{K} \left( profit[k] \times sell[k][i] - store\_price \times storage[k][i] \right)
+\end{align}
+
+\section*{Constraints}
+\begin{align}
+    & \text{Manufacturing constraint:} \notag \\
+    & \sum_{k=1}^{K} \left( time[k][m] \times manufacture[k][i] \right) \leq 24 \times 6 \times 2 \times n\_workhours \times (num_m[m] - maintain[m][i]), \notag \\
+    & \quad \forall m, i \\
+    & \text{Maintenance constraint:} \notag \\
+    & \sum_{i=1}^{I} maintain[m][i] \geq down[m], \quad \forall m \\
+    & \text{Production limit:} \notag \\
+    & manufacture[k][i] \leq limit[k][i], \quad \forall k, i \\
+    & \text{Inventory balance:} \notag \\
+    & storage[k][i] = storage[k][i-1] + manufacture[k][i] - sell[k][i], \quad \forall k, i \\
+    & \text{Initial storage:} \notag \\
+    & storage[k][0] = 0, \quad \forall k \\
+    & \text{Desired final stock:} \notag \\
+    & storage[k][I] = keep\_quantity, \quad \forall k \\
+    & \text{Non-negativity and integer constraints:} \notag \\
+    & sell[k][i], manufacture[k][i], storage[k][i], maintain[m][i] \geq 0, \quad \forall k, m, i \\
+    & maintain[m][i] \text{ is integer, } \forall m, i
+\end{align}
+
+\end{document}

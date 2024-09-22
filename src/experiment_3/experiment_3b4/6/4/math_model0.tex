@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Mathematical Model for Nurse Scheduling Problem}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{period} \): Number of consecutive days a nurse works.
+    \item \( d_j \): Demand for nurses on day \( j \), for \( j = 1, \ldots, 7 \).
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( \text{start}_j \): Integer variable representing the number of nurses starting their shift on day \( j \), for \( j = 1, \ldots, 7 \).
+\end{itemize}
+
+\textbf{Objective:}
+\[
+\text{Minimize } \sum_{j=1}^{7} \text{start}_j
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+    \sum_{i=0}^{\text{period}-1} \text{start}_{(j-i-1) \mod 7 + 1} &\geq d_j, \quad \text{for } j = 1, \ldots, 7
+\end{align*}
+
+\textbf{Cyclicity:}
+\begin{itemize}
+    \item Use modular arithmetic to ensure week cycle: \( \text{start}_{(j-i-1) \mod 7 + 1} \).
+\end{itemize}
+
+\end{document}

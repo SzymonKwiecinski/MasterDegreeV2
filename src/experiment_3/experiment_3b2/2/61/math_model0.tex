@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+
+% Define the decision variables
+\[
+x_{i,j} = 
+\begin{cases} 
+1, & \text{if cluster $i$ uses intervention type $j$ via central processing} \\
+0, & \text{otherwise}
+\end{cases}
+\]
+
+\[
+y_{i,j} = 
+\begin{cases} 
+1, & \text{if cluster $i$ uses intervention type $j$ via distributed processing} \\
+0, & \text{otherwise}
+\end{cases}
+\]
+
+where $i \in \{1, \ldots, N\}$ and $j \in \{\text{isolate}, \text{scan}\}$.
+
+% Define the parameters
+Let:
+\begin{itemize}
+    \item $T_{i,j}^{\text{central}}$: Processing time for cluster $i$ with intervention type $j$ centrally.
+    \item $T_{i,j}^{\text{distributed}}$: Processing time for cluster $i$ with intervention type $j$ distributed.
+    \item $\text{cost}^{\text{central}}$: Cost per hour for central processing.
+    \item $\text{cost}^{\text{distributed}}$: Cost per hour for distributed processing.
+    \item $\text{max\_central}$: Maximum hours available for central processing.
+    \item $\text{max\_distributed}$: Maximum hours available for distributed processing.
+\end{itemize}
+
+% Objective Function
+The objective is to minimize the total cost:
+\[
+\text{Minimize } \sum_{i=1}^{N} \sum_{j \in \{\text{isolate, scan}\}} \left( x_{i,j} \cdot T_{i,j}^{\text{central}} \cdot \text{cost}^{\text{central}} + y_{i,j} \cdot T_{i,j}^{\text{distributed}} \cdot \text{cost}^{\text{distributed}} \right)
+\]
+
+% Constraints
+Subject to:
+\begin{align}
+& \sum_{j \in \{\text{isolate, scan}\}} (x_{i,j} + y_{i,j}) = 1, \quad \forall i \in \{1, \ldots, N\} \quad \text{(each cluster must have one intervention)} \\
+& \sum_{i=1}^{N} \sum_{j \in \{\text{isolate, scan}\}} x_{i,j} \cdot T_{i,j}^{\text{central}} \leq \text{max\_central} \quad \text{(central processing time limit)} \\
+& \sum_{i=1}^{N} \sum_{j \in \{\text{isolate, scan}\}} y_{i,j} \cdot T_{i,j}^{\text{distributed}} \leq \text{max\_distributed} \quad \text{(distributed processing time limit)} \\
+& x_{i,j}, y_{i,j} \in \{0, 1\} \quad \forall i \in \{1, \ldots, N\}, j \in \{\text{isolate, scan}\} \quad \text{(binary constraints)}
+\end{align}
+
+\end{document}

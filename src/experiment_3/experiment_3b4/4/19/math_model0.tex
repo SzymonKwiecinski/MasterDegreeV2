@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Decision Variables}
+\begin{align*}
+\text{buyquantity}_{i, m} & \quad \text{: Amount of oil } i \text{ purchased in month } m, \\
+\text{refine}_{i, m} & \quad \text{: Amount of oil } i \text{ refined in month } m, \\
+\text{storage}_{i, m} & \quad \text{: Amount of oil } i \text{ in storage at end of month } m, \\
+\text{use}_{i, m} & \quad \text{: Binary variable indicating if oil } i \text{ is used in month } m, \\
+\text{dependent\_use}_{j, m} & \quad \text{: Binary variable for dependency use of oil } j \text{ in month } m.
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize Profit:
+\begin{align*}
+\text{Profit} = & \sum_{m=1}^{M} \left( \text{sell\_price} \cdot \sum_{i} \text{refine}_{i, m} \right) \\
+& - \sum_{m=1}^{M} \sum_{i} \text{buy\_price}_{i, m} \cdot \text{buyquantity}_{i, m} \\
+& - \sum_{m=1}^{M} \sum_{i} \text{storage\_cost} \cdot \text{storage}_{i, m}
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+\text{Initial Storage:} & \quad \text{storage}_{i, 0} = \text{init\_amount}, \quad \forall i \\
+\text{Balance:} & \quad \text{storage}_{i, m-1} + \text{buyquantity}_{i, m} = \text{refine}_{i, m} + \text{storage}_{i, m}, \quad \forall i, \forall m \\
+\text{Refining Capacity:} & \quad \sum_{i \in \text{vegetable}} \text{refine}_{i, m} \leq \text{max\_veg}, \quad \forall m \\
+& \quad \sum_{i \in \text{non-vegetable}} \text{refine}_{i, m} \leq \text{max\_non\_veg}, \quad \forall m \\
+\text{Storage Capacity:} & \quad \text{storage}_{i, m} \leq \text{storage\_size}, \quad \forall i, \forall m \\
+\text{Hardness:} & \quad \sum_{i} \left( \frac{\text{refine}_{i, m}}{\sum_{j} \text{refine}_{j, m}} \cdot \text{hardness}_{i} \right) \leq \text{max\_hardness}, \quad \forall m \\
+& \quad \sum_{i} \left( \frac{\text{refine}_{i, m}}{\sum_{j} \text{refine}_{j, m}} \cdot \text{hardness}_{i} \right) \geq \text{min\_hardness}, \quad \forall m \\
+\text{Usage:} & \quad \sum_{i} \text{use}_{i, m} \leq 3, \quad \forall m \\
+& \quad \text{refine}_{i, m} \geq \text{min\_usage} \cdot \text{use}_{i, m}, \quad \forall i, \forall m \\
+\text{Dependency:} & \quad \text{dependent\_use}_{j, m} \geq \text{use}_{i, m} \cdot \text{dependency}_{i, j}, \quad \forall i, \forall j, \forall m \\
+\text{Final Storage:} & \quad \text{storage}_{i, M} = \text{init\_amount}, \quad \forall i
+\end{align*}
+
+\end{document}

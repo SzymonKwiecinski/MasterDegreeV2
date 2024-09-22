@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} Minimize the total cost of the ad campaign.
+
+Let $x_a$ be the number of clicks (in thousands) purchased for ad type $a$, where $a = 1, 2, \ldots, A$.
+
+The total cost, $C$, is given by:
+\[
+C = \sum_{a=1}^{A} \text{cost}_a \cdot x_a
+\]
+
+\textbf{Constraints:}
+
+1. Achieve the goal for young visitors (aged 18-25):
+\[
+\sum_{a=1}^{A} \text{young\_click}_a \cdot x_a \geq \text{goal\_young}
+\]
+
+2. Achieve the goal for older visitors (aged > 25):
+\[
+\sum_{a=1}^{A} \text{old\_click}_a \cdot x_a \geq \text{goal\_old}
+\]
+
+3. Achieve the goal for unique young visitors:
+\[
+\sum_{a=1}^{A} \text{unique\_click}_a \cdot x_a \geq \text{goal\_unique\_young}
+\]
+
+4. Achieve the goal for unique older visitors:
+\[
+\sum_{a=1}^{A} (1 - \text{unique\_click}_a) \cdot x_a \geq \text{goal\_unique\_old}
+\]
+
+5. Clicks for each ad type should not exceed the maximum allowable:
+\[
+0 \leq x_a \leq \text{max\_click}_a \quad \text{for all } a
+\]
+
+\textbf{Solution:}
+The solution will provide the number of clicks purchased for each ad type $a$ and the total cost:
+\[
+\text{clicks} = [x_1, x_2, \dots, x_A]
+\]
+\[
+\text{total\_cost} = C
+\]
+
+\end{document}

@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Mathematical Model:}
+
+\textbf{Indices:}
+\begin{align*}
+i & = \text{project index, } i = 1, \ldots, I \\
+j & = \text{consultant index, } j = 1, \ldots, J
+\end{align*}
+
+\textbf{Parameters:}
+\begin{align*}
+f_j & = \text{fixed cost of hiring consultant } j \\
+c_{i,j} & = \text{cost of assigning project } i \text{ to consultant } j \\
+K & = \text{maximum number of projects a consultant can handle}
+\end{align*}
+
+\textbf{Decision Variables:}
+\begin{align*}
+y_j & = 
+\begin{cases} 
+1, & \text{if consultant } j \text{ is hired} \\
+0, & \text{otherwise}
+\end{cases} \\
+x_{i,j} & = 
+\begin{cases} 
+1, & \text{if project } i \text{ is assigned to consultant } j \\
+0, & \text{otherwise}
+\end{cases}
+\end{align*}
+
+\textbf{Objective:}
+\[
+\text{Minimize } \quad \sum_{j=1}^{J} f_j y_j + \sum_{i=1}^{I} \sum_{j=1}^{J} c_{i,j} x_{i,j}
+\]
+
+\textbf{Subject to:}
+\begin{align*}
+& \sum_{j=1}^{J} x_{i,j} = 1, \quad \forall i = 1, \ldots, I \\
+& \sum_{i=1}^{I} x_{i,j} \leq K y_j, \quad \forall j = 1, \ldots, J \\
+& x_{i,j} \in \{0, 1\}, \quad \forall i = 1, \ldots, I, \, j = 1, \ldots, J \\
+& y_j \in \{0, 1\}, \quad \forall j = 1, \ldots, J
+\end{align*}
+
+\end{document}

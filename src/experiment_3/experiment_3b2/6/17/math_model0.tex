@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+Let \( x_i \) be the number of shares of stock \( i \) to sell, where \( i = 1, \ldots, N \).
+
+\subsection*{Objective Function}
+Maximize the expected future value of the portfolio:
+\[
+\text{Maximize} \quad \sum_{i=1}^{N} (bought_i - x_i) \times futurePrice_i
+\]
+
+\subsection*{Constraints}
+1. The amount raised is at least \( K \), net of transaction costs and taxes:
+\[
+\sum_{i=1}^{N} \left( (1 - \frac{\text{transactionRate}}{100}) \times currentPrice_i \times x_i - \frac{\text{taxRate}}{100} \times (currentPrice_i - buyPrice_i) \times x_i \right) \geq K
+\]
+
+2. Do not sell more shares than owned:
+\[
+0 \leq x_i \leq bought_i, \quad i = 1, \ldots, N
+\]
+
+\end{document}

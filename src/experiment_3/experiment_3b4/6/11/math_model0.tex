@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Production and Inventory Scheduling}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_i$: Number of units produced in month $i$, for $i = 1, \ldots, T$
+    \item $I_i$: Inventory at the end of month $i$, for $i = 1, \ldots, T$
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $\text{deliver}_i$: Units to be delivered at the end of the $i$-th month
+    \item $\text{storage\_cost}$: Storage cost per unit per month
+    \item $\text{switch\_cost}$: Cost of changing production levels from month $i$ to month $i+1$
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } \sum_{i=1}^{T} (\text{storage\_cost} \cdot I_i) + \sum_{i=1}^{T-1} \text{switch\_cost} \cdot |x_{i+1} - x_i|
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Inventory Balance:
+    \[
+    I_{i-1} + x_i = \text{deliver}_i + I_i, \quad \forall i = 1, \ldots, T
+    \]
+    \item Non-negativity:
+    \[
+    x_i \geq 0, \quad I_i \geq 0, \quad \forall i = 1, \ldots, T
+    \]
+\end{itemize}
+
+\end{document}

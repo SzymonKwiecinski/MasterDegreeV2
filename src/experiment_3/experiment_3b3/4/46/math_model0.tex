@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Steel Production}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( A \) be the number of different alloys.
+    \item Let \( S \) be the number of different types of steel.
+    \item \( \text{available}_a \): available tons of alloy \( a \) (for \( a = 1, \ldots, A \))
+    \item \( \text{carbon}_a \): percentage of carbon in alloy \( a \) (for \( a = 1, \ldots, A \))
+    \item \( \text{nickel}_a \): percentage of nickel in alloy \( a \) (for \( a = 1, \ldots, A \))
+    \item \( \text{alloy\_price}_a \): purchase price of alloy \( a \) per ton (for \( a = 1, \ldots, A \))
+    \item \( \text{steel\_price}_s \): selling price of steel \( s \) per ton (for \( s = 1, \ldots, S \))
+    \item \( \text{carbon\_min}_s \): minimum percentage of carbon required for steel \( s \) (for \( s = 1, \ldots, S \))
+    \item \( \text{nickel\_max}_s \): maximum percentage of nickel allowed in steel \( s \) (for \( s = 1, \ldots, S \))
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{alloy\_amount}_{a,s} \): amount of alloy \( a \) used in steel type \( s \) (for \( a = 1, \ldots, A \) and \( s = 1, \ldots, S \))
+    \item \( \text{total\_steel}_s \): total amount of steel type \( s \) produced (for \( s = 1, \ldots, S \))
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+\text{total\_profit} = \sum_{s=1}^{S} \left( \text{steel\_price}_s \cdot \text{total\_steel}_s \right) - \sum_{a=1}^{A} \left( \text{alloy\_price}_a \cdot \sum_{s=1}^{S} \text{alloy\_amount}_{a,s} \right)
+\]
+
+\subsection*{Constraints}
+1. Alloy availability:
+\[
+\sum_{s=1}^{S} \text{alloy\_amount}_{a,s} \leq \text{available}_a \quad \forall a \in \{1, \ldots, A\}
+\]
+
+2. Carbon requirement:
+\[
+\sum_{a=1}^{A} \left( \text{alloy\_amount}_{a,s} \cdot \text{carbon}_a \right) \geq \text{carbon\_min}_s \cdot \text{total\_steel}_s \quad \forall s \in \{1, \ldots, S\}
+\]
+
+3. Nickel limit:
+\[
+\sum_{a=1}^{A} \left( \text{alloy\_amount}_{a,s} \cdot \text{nickel}_a \right) \leq \text{nickel\_max}_s \cdot \text{total\_steel}_s \quad \forall s \in \{1, \ldots, S\}
+\]
+
+4. Alloy 1 restriction:
+\[
+\sum_{s=1}^{S} \text{alloy\_amount}_{1,s} \leq 0.4 \cdot \sum_{s=1}^{S} \text{total\_steel}_s
+\]
+
+5. Non-negativity:
+\[
+\text{alloy\_amount}_{a,s} \geq 0 \quad \forall a \in \{1, \ldots, A\}, s \in \{1, \ldots, S\}
+\]
+\[
+\text{total\_steel}_s \geq 0 \quad \forall s \in \{1, \ldots, S\}
+\]
+
+\end{document}

@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Model for Traveling Salesman Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( N \) be the number of towns.
+    \item Let \( c_{i,j} \) be the distance between city \( i \) and city \( j \).
+    \item Let `start\_city` be the index of the starting city.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_{i,j} \in \{0, 1\} \) for \( i, j = 1, \ldots, N \), indicating whether the tour goes directly from city \( i \) to city \( j \).
+    \item \( u_i \in \mathbb{R} \) for \( i = 1, \ldots, N \), representing the visit order for subtour elimination.
+\end{itemize}
+
+\subsection*{Objective Function}
+\[
+\text{Minimize } \sum_{i=1}^{N} \sum_{j=1}^{N} c_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+\[
+\sum_{j=1, j \neq i}^{N} x_{i,j} = 1, \quad \forall i = 1, \ldots, N \quad \text{(depart from each city once)}
+\]
+\[
+\sum_{i=1, i \neq j}^{N} x_{i,j} = 1, \quad \forall j = 1, \ldots, N \quad \text{(arrive at each city once)}
+\]
+
+\subsection*{Subtour Elimination (MTZ constraints)}
+\[
+u_{start\_city} = 1
+\]
+\[
+u_i - u_j + N \cdot x_{i,j} \leq N - 1, \quad \forall i, j = 2, \ldots, N, i \neq j
+\]
+\[
+u_i \geq 2, \quad u_i \leq N, \quad \forall i = 2, \ldots, N
+\]
+
+\end{document}

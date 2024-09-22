@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model}
+
+\textbf{Given:}
+\begin{itemize}
+    \item Large roll width: \( \text{large\_roll\_width} \).
+    \item Roll width options: \( \text{inch}_j \) for \( j = 1, \ldots, M \).
+    \item Demand: \( \text{demand}_j \) for \( j = 1, \ldots, M \).
+    \item Cutting patterns: \( \text{pattern}_{i,j} \) for \( i = 1, \ldots, N \) and \( j = 1, \ldots, M \).
+\end{itemize}
+
+\textbf{Objective:}
+\[
+\min \sum_{i=1}^{N} x_i
+\]
+
+\textbf{Subject to:}
+\begin{align*}
+    \sum_{i=1}^{N} \text{pattern}_{i,j} \cdot x_i & \geq \text{demand}_j, & \forall j = 1, \ldots, M \\
+    x_i & \geq 0 \text{ and integer}, & \forall i = 1, \ldots, N
+\end{align*}
+
+\end{document}

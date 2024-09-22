@@ -1,0 +1,23 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective Function:}
+
+\[
+\max \sum_{n=1}^{N} (\text{price}_n \times \text{sellquantity}_n - \text{cost}_n \times \text{buyquantity}_n - \text{holding\_cost} \times \text{stock}_n)
+\]
+
+\textbf{Subject to:}
+
+\[
+\begin{aligned}
+& \text{stock}_n = \text{stock}_{n-1} + \text{buyquantity}_n - \text{sellquantity}_n, \quad n = 1, \ldots, N \\
+& \text{stock}_0 = 0 \\
+& 0 \leq \text{stock}_n \leq \text{capacity}, \quad n = 1, \ldots, N \\
+& \text{buyquantity}_n \geq 0, \quad \text{sellquantity}_n \geq 0, \quad \text{stock}_n \geq 0, \quad n = 1, \ldots, N \\
+& \text{stock}_N = 0
+\end{aligned}
+\]
+
+\end{document}

@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } Z = \sum_{j=1}^{J} f_j y_j + \sum_{i=1}^{I} \sum_{j=1}^{J} c_{i,j} x_{i,j}
+\]
+
+\textbf{Subject to:}
+
+1. Each project is assigned to exactly one consultant:
+\[
+\sum_{j=1}^{J} x_{i,j} = 1, \quad \forall i = 1, \ldots, I
+\]
+
+2. A consultant can be assigned at most \( K \) projects:
+\[
+\sum_{i=1}^{I} x_{i,j} \leq K \cdot y_j, \quad \forall j = 1, \ldots, J
+\]
+
+3. If a project \( i \) is assigned to a consultant \( j \), then consultant \( j \) must be hired:
+\[
+x_{i,j} \leq y_j, \quad \forall i = 1, \ldots, I, \quad \forall j = 1, \ldots, J
+\]
+
+4. Binary constraints for decision variables:
+\[
+x_{i,j} \in \{0, 1\}, \quad \forall i = 1, \ldots, I, \quad j = 1, \ldots, J
+\]
+\[
+y_j \in \{0, 1\}, \quad \forall j = 1, \ldots, J
+\]
+
+\end{document}

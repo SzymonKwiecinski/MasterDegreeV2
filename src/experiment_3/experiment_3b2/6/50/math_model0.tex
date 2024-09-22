@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+\begin{align*}
+x_p &: \text{Number of batches of part } p \text{ produced,} \\
+e_m &: \text{Additional hours purchased for machine } m.
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the profit:
+\[
+\text{Maximize } \sum_{p=1}^{P} \text{price}_p \cdot x_p - \sum_{m=1}^{M} \left( \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \cdot \text{cost}_m + e_m \cdot \text{extra\_cost}_m \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+&\sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \leq \text{available}_m + e_m, \quad \forall m = 1, \ldots, M \\
+&x_p \geq \text{min\_batches}_p, \quad \forall p = 1, \ldots, P \\
+&0 \leq e_m \leq \text{max\_extra}_m, \quad \forall m = 1, \ldots, M \\
+&x_p \geq 0, \quad \forall p = 1, \ldots, P \\
+&e_m \geq 0, \quad \forall m = 1, \ldots, M 
+\end{align*}
+
+\end{document}

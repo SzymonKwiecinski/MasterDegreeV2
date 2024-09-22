@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Quadratic Curve Fitting}
+
+Consider a set of observations where for each \( k = 1, \ldots, K \), we have corresponding values \( y_k \) and \( x_k \). We want to fit a quadratic function \( y = c x^2 + b x + a \) to this data by minimizing the sum of absolute deviations between the observed values \( y_k \) and the predicted values given by the quadratic function.
+
+Let \( y_k \) represent the observed values and \( f_k \) represent the predicted quadratic values:
+
+\[
+f_k = c x_k^2 + b x_k + a \quad \text{for } k = 1, \ldots, K
+\]
+
+We define the absolute deviations as:
+
+\[
+d_k = |y_k - f_k| \quad \text{for } k = 1, \ldots, K
+\]
+
+Our objective is to minimize the total absolute deviation, which can be expressed as:
+
+\[
+\min \sum_{k=1}^{K} d_k
+\]
+
+To handle the absolute values in the objective function, we introduce auxiliary variables \( z_k \) such that:
+
+\[
+d_k = z_k^+ + z_k^-
+\]
+
+where \( z_k^+ \) and \( z_k^- \) are the positive and negative parts of the deviation. We can then rewrite the constraints for each data point as:
+
+\[
+y_k - f_k \leq z_k^+ \quad \text{and} \quad f_k - y_k \leq z_k^- \quad \text{for } k = 1, \ldots, K
+\]
+
+Thus, the complete linear programming model is:
+
+\begin{align*}
+\text{Minimize} & \quad \sum_{k=1}^{K} (z_k^+ + z_k^-) \\
+\text{subject to} & \\
+y_k - (c x_k^2 + b x_k + a) & \leq z_k^+ \quad \text{for } k = 1, \ldots, K \\
+-(y_k - (c x_k^2 + b x_k + a)) & \leq z_k^- \quad \text{for } k = 1, \ldots, K \\
+z_k^+, z_k^- & \geq 0 \quad \text{for } k = 1, \ldots, K
+\end{align*}
+
+The outputs we seek are the coefficients of the quadratic function:
+
+\[
+\text{Output:} \quad \{ "quadratic": c, "linear": b, "constant": a \}
+\]
+
+\end{document}

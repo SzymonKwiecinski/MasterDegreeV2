@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturing}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item $p$: Index for parts, where $p = 1, \ldots, P$
+    \item $m$: Index for machines, where $m = 1, \ldots, M$
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $time_{m,p}$: Time required on machine $m$ to produce a batch of part $p$ (in hours)
+    \item $cost_{m}$: Cost per hour of using machine $m$
+    \item $available_{m}$: Total available hours of machine $m$ per month
+    \item $price_{p}$: Selling price per batch of part $p$
+    \item $min\_batches_{p}$: Minimum required batches of part $p$ to fulfill the contract
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $batches_{p}$: Number of batches produced for part $p$ (to be determined)
+\end{itemize}
+
+\textbf{Objective Function:} \\
+Maximize the total profit:
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} (price_{p} \cdot batches_{p}) - \sum_{m=1}^{M} \left( cost_{m} \cdot \sum_{p=1}^{P} (time_{m,p} \cdot batches_{p}) \right)
+\]
+
+\textbf{Constraints:}
+\begin{itemize}
+    \item \textbf{Machine Availability Constraints:}
+    \[
+    \sum_{p=1}^{P} (time_{m,p} \cdot batches_{p}) \leq available_{m} \quad \forall m = 1, \ldots, M
+    \]
+    \item \textbf{Minimum Production Requirements:}
+    \[
+    batches_{p} \geq min\_batches_{p} \quad \forall p = 1, \ldots, P
+    \]
+    \item \textbf{Non-negativity Constraints:}
+    \[
+    batches_{p} \geq 0 \quad \forall p = 1, \ldots, P
+    \]
+\end{itemize}
+
+\textbf{Output:}
+\begin{itemize}
+    \item $batches_{p}$: Number of batches produced for each part $p$.
+    \item $total\_profit$: Total profit obtained for the month.
+\end{itemize}
+
+\end{document}

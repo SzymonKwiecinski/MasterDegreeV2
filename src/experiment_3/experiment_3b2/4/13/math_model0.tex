@@ -1,0 +1,19 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Problem for Chebyshev Center:}
+
+\begin{align*}
+    \text{maximize} \quad & r \\
+    \text{subject to} \quad & \mathbf{a}_i^T \mathbf{y} + r \|\mathbf{a}_i\| \leq b_i, \quad \forall i = 1, 2, \ldots, m 
+\end{align*}
+
+Where:
+- \( \mathbf{y} \) is the center of the ball.
+- \( r \) is the radius of the ball.
+- \( \mathbf{a}_i \in \mathbb{R}^N \) and \( b_i \in \mathbb{R} \).
+
+The Euclidean norm is defined as \( \|\mathbf{a}_i\| = \sqrt{\sum_{j=1}^{N} a_{ij}^2} \).
+
+\end{document}

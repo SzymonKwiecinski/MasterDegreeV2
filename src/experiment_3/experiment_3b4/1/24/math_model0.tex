@@ -1,0 +1,83 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Mining Operations}
+
+\subsection*{Indices and Sets}
+\begin{itemize}
+    \item $k \in \{1, 2, \dots, n\_mines\}$: Index for mines.
+    \item $i \in \{1, 2, \dots, I\}$: Index for years.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $n\_maxwork$: Maximum number of mines that can be operated in any one year.
+    \item $royalty_k$: Yearly royalties payable for keeping mine $k$ open.
+    \item $limit_k$: Upper limit of ore that can be extracted from mine $k$ in a year.
+    \item $quality_k$: Quality of ore from mine $k$.
+    \item $requiredquality_i$: Required quality of the blended ore in year $i$.
+    \item $price$: Selling price per ton of the blended ore.
+    \item $discount$: Discount rate per annum.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $isoperated_{k,i} \in \{0, 1\}$: Binary variable, 1 if mine $k$ is operated in year $i$, 0 otherwise.
+    \item $amount_{k,i} \geq 0$: Amount of ore produced by mine $k$ in year $i$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the present value of profit over the years:
+
+\[
+\text{Maximize} \quad \sum_{i=1}^{I} \frac{1}{(1 + discount)^i} \left( \text{Revenue}_i - \text{Cost}_i \right)
+\]
+
+where:
+
+\[
+\text{Revenue}_i = price \times \sum_{k=1}^{n\_mines} amount_{k,i}
+\]
+
+\[
+\text{Cost}_i = \sum_{k=1}^{n\_mines} royalty_k \times isoperated_{k,i}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Blended quality constraint for each year $i$:
+    \[
+    \sum_{k=1}^{n\_mines} quality_k \times amount_{k,i} = requiredquality_i \times \sum_{k=1}^{n\_mines} amount_{k,i}
+    \]
+
+    \item Ore production limit for each mine $k$ and year $i$:
+    \[
+    amount_{k,i} \leq limit_k \times isoperated_{k,i}
+    \]
+
+    \item Maximum number of mines operated in each year $i$:
+    \[
+    \sum_{k=1}^{n\_mines} isoperated_{k,i} \leq n\_maxwork
+    \]
+
+    \item Non-negativity constraint for ore amount:
+    \[
+    amount_{k,i} \geq 0
+    \]
+
+    \item Binary constraint for operation:
+    \[
+    isoperated_{k,i} \in \{0, 1\}
+    \]
+\end{itemize}
+
+\subsection*{Output}
+The output includes the operation status of each mine and their production levels for each year.
+
+\begin{itemize}
+    \item $isoperated = [[isoperated_{k,i} \text{ for } i \text{ in } 1,\ldots,I] \text{ for } k \text{ in } 1,\ldots,K]$
+    \item $amount = [[amount_{k,i} \text{ for } i \text{ in } 1,\ldots,I] \text{ for } k \text{ in } 1,\ldots,K]$
+\end{itemize}
+
+\end{document}

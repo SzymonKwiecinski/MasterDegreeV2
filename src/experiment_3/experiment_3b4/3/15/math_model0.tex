@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Model for Maximizing Daily Profit}
+
+\textbf{Sets and Indices:}
+\begin{itemize}
+    \item Let \( i = 1, \ldots, N \) index the types of products.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{assemblyHour}_i \): Hours of assembly required for product \( i \).
+    \item \( \text{testingHour}_i \): Hours of testing required for product \( i \).
+    \item \( \text{materialCost}_i \): Material cost for product \( i \) in dollars.
+    \item \( \text{price}_i \): Selling price for product \( i \) in dollars.
+    \item \( \text{maxAssembly} \): Maximum assembly hours available per day.
+    \item \( \text{maxTesting} \): Maximum testing hours available per day.
+    \item \( \text{maxOvertimeAssembly} \): Maximum overtime assembly hours available.
+    \item \( \text{overtimeAssemblyCost} \): Cost of overtime assembly per hour in dollars.
+    \item \( \text{materialDiscount} \): Discount percentage on materials (between 0 and 100).
+    \item \( \text{discountThreshold} \): Threshold for material discount in dollars.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( x_i \): Number of units of product \( i \) produced (integer).
+    \item \( y \): Number of overtime assembly hours used (integer).
+    \item \( z \): Binary variable indicating whether discount on materials is applied.
+\end{itemize}
+
+\textbf{Objective:}
+Maximize the daily profit:
+
+\[
+\text{Maximize} \quad \sum_{i=1}^{N} \left( \text{price}_i \cdot x_i \right) - \left( \sum_{i=1}^{N} \text{materialCost}_i \cdot x_i \cdot (1 - \text{materialDiscount} \cdot z / 100) \right) - \text{overtimeAssemblyCost} \cdot y
+\]
+
+\textbf{Constraints:}
+\begin{align}
+    &\sum_{i=1}^{N} \text{assemblyHour}_i \cdot x_i \leq \text{maxAssembly} + y \\
+    &\sum_{i=1}^{N} \text{testingHour}_i \cdot x_i \leq \text{maxTesting} \\
+    &y \leq \text{maxOvertimeAssembly} \\
+    &\sum_{i=1}^{N} \text{materialCost}_i \cdot x_i \geq \text{discountThreshold} \cdot z \\
+    &x_i \geq 0, \quad x_i \in \mathbb{Z} \quad \forall i \\
+    &y \geq 0, \quad y \in \mathbb{Z} \\
+    &z \in \{0, 1\}
+\end{align}
+
+\textbf{Output:}
+\begin{itemize}
+    \item \text{dailyProfit}: The optimal daily profit.
+    \item \text{unitsProduced}_i: The optimal number of units of product \( i \) to produce.
+    \item \text{overtimeAssembly}: The optimal number of hours of overtime assembly.
+    \item \text{materialBought}: The total cost spent on materials, considering discounts.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item Let \( n \) index the streets, \( n = 1, 2, \ldots, N \).
+    \item Let \( w \) index the avenues, \( w = 1, 2, \ldots, W \).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{west\_time}_{n,w} \): Time to move from intersection \((n, w)\) to \((n, w+1)\).
+    \item \( \text{north\_time}_{n,w} \): Time to move from intersection \((n, w)\) to \((n+1, w)\).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_{n,w}^{\text{west}} \): Binary variable, 1 if moving west from \((n, w)\) to \((n, w+1)\), 0 otherwise.
+    \item \( x_{n,w}^{\text{north}} \): Binary variable, 1 if moving north from \((n, w)\) to \((n+1, w)\), 0 otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize total travel time:
+\[
+\min \sum_{n=1}^{N} \sum_{w=1}^{W-1} \text{west\_time}_{n,w} \cdot x_{n,w}^{\text{west}} + \sum_{n=1}^{N-1} \sum_{w=1}^{W} \text{north\_time}_{n,w} \cdot x_{n,w}^{\text{north}}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Start at \((1, 1)\): 
+    \[
+    \sum_{w=2}^{W} x_{1,w-1}^{\text{west}} + \sum_{n=2}^{N} x_{n-1,1}^{\text{north}} = 1
+    \]
+
+    \item Reach \((N, W)\):
+    \[
+    \sum_{w=1}^{W-1} x_{N,w}^{\text{west}} + \sum_{n=1}^{N-1} x_{n,W}^{\text{north}} = 1
+    \]
+
+    \item Flow conservation for \( 2 \leq n \leq N-1 \) and \( 2 \leq w \leq W-1 \):
+    \[
+    \sum_{w'=1}^{w-1} x_{n,w'}^{\text{west}} + \sum_{n'=1}^{n-1} x_{n',w}^{\text{north}} = \sum_{w'=w+1}^{W} x_{n,w'}^{\text{west}} + \sum_{n'=n+1}^{N} x_{n',w}^{\text{north}}
+    \]
+
+    \item Binary constraints:
+    \[
+    x_{n,w}^{\text{west}}, x_{n,w}^{\text{north}} \in \{0, 1\}
+    \]
+\end{itemize}
+
+\end{document}

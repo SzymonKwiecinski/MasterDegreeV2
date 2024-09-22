@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective Function:}
+
+\[
+\text{Maximize} \quad Z = \sum_{i=1}^{I} \sum_{k=1}^{K} (\text{profit}_k \times \text{sell}_{k, i} - \text{store\_price} \times \text{storage}_{k, i})
+\]
+
+\textbf{Subject to:}
+
+\textit{Manufacturing Capacity Constraints:}
+
+\[
+\sum_{k=1}^{K} \text{time}_{k, m} \times \text{manufacture}_{k, i} \leq (\text{num\_machines}_m - \text{maintain}_{i, m}) \times 24 \times \text{n\_workhours}, \quad \forall m, i
+\]
+
+\textit{Marketing Limitations:}
+
+\[
+\text{sell}_{k, i} \leq \text{limit}_{k, i}, \quad \forall k, i
+\]
+
+\textit{Inventory Balance:}
+
+\[
+\text{storage}_{k, i} = \begin{cases} 
+0, & \text{if } i = 0 \\
+\text{storage}_{k, i-1} + \text{manufacture}_{k, i} - \text{sell}_{k, i}, & \text{if } i > 0
+\end{cases}
+\]
+
+\textit{Storage Constraints:}
+
+\[
+0 \leq \text{storage}_{k, i} \leq 100, \quad \forall k, i
+\]
+\[
+\text{storage}_{k, I} = \text{keep\_quantity}, \quad \forall k
+\]
+
+\end{document}

@@ -1,0 +1,20 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Best Fit Line}
+
+\begin{align*}
+\text{Objective:} \quad & \min D \\
+\text{Subject to:} \quad & -(b x_k + a - y_k) \leq D, \quad k = 1, \ldots, K \\
+                        & b x_k + a - y_k \leq D, \quad k = 1, \ldots, K \\
+\end{align*}
+
+Where:
+\begin{itemize}
+    \item \( a \) is the intercept of the line,
+    \item \( b \) is the slope of the line,
+    \item \( D \) is the maximum deviation to be minimized.
+\end{itemize}
+
+\end{document}

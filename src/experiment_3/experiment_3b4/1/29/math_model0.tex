@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+Objective:
+\[
+\min t
+\]
+
+Subject to the constraints:
+\[
+y_k - (bx_k + a) \leq t, \quad \forall k 
+\]
+\[
+(bx_k + a) - y_k \leq t, \quad \forall k
+\]
+
+where:
+\begin{itemize}
+    \item \( y_k \) are the observed values of \( y \).
+    \item \( x_k \) are the observed values of \( x \).
+    \item \( a \) is the intercept of the fitted line.
+    \item \( b \) is the slope of the fitted line.
+    \item \( t \) is the auxiliary variable representing the maximum deviation.
+\end{itemize}
+
+\end{document}

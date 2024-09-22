@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Model for Minimizing Large Rolls Used}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $W$: Width of the large roll (in inches).
+    \item $M$: Number of different types of smaller rolls.
+    \item $w_j$: Width of roll type $j$ (in inches), for $j = 1, \ldots, M$.
+    \item $d_j$: Demand for roll type $j$, for $j = 1, \ldots, M$.
+    \item $N$: Number of available cutting patterns.
+    \item $p_{i,j}$: Number of rolls of width $w_j$ produced by cutting pattern $i$, for $i = 1, \ldots, N$ and $j = 1, \ldots, M$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_i$: Number of times cutting pattern $i$ is used, for $i = 1, \ldots, N$. (Integer variable)
+\end{itemize}
+
+\subsection*{Objective}
+Minimize the total number of large rolls used:
+\[
+\text{Minimize } \sum_{i=1}^{N} x_i
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Demand fulfillment constraint for each type of roll:
+    \[
+    \sum_{i=1}^{N} p_{i,j} \cdot x_i \geq d_j, \quad \forall j = 1, \ldots, M
+    \]
+    \item Non-negativity and integrality of decision variables:
+    \[
+    x_i \geq 0 \quad \text{and integer}, \quad \forall i = 1, \ldots, N
+    \]
+\end{itemize}
+
+\end{document}

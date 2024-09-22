@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+
+\section*{Mathematical Model for the Travelling Salesman Problem}
+
+\subsection*{Sets and Parameters}
+
+\begin{itemize}
+    \item Let \( N \) be the number of towns.
+    \item Let \( V = \{0, 1, 2, \ldots, N\} \) represent the set of cities, where city 0 is the \texttt{start\_city}.
+    \item \( \text{distance}_{i,j} \) for \( i, j \in V \) is the distance between city \( i \) and city \( j \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+
+\begin{align*}
+    x_{i,j} &=
+    \begin{cases} 
+      1, & \text{if the route goes directly from city } i \text{ to city } j, \\
+      0, & \text{otherwise.}
+    \end{cases} \quad \forall i, j \in V, i \neq j \\
+    u_i & \text{ is a continuous variable representing the order in which city } i \text{ is visited}, \quad \forall i \in V
+\end{align*}
+
+\subsection*{Objective Function}
+
+\[
+\min \sum_{i \in V} \sum_{j \in V, j \neq i} \text{distance}_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+
+\begin{align}
+    &\sum_{j \in V, j \neq i} x_{i,j} = 1, \quad \forall i \in V \quad (\text{Leave each city exactly once}) \\
+    &\sum_{i \in V, i \neq j} x_{i,j} = 1, \quad \forall j \in V \quad (\text{Enter each city exactly once}) \\
+    &u_0 = 0 \quad (\text{Starting city}) \\
+    &u_i - u_j + N \cdot x_{i,j} \leq N - 1, \quad \forall i, j \in V, i \neq j \quad (\text{Subtour elimination}) \\
+    &x_{i,j} \in \{0, 1\}, \quad \forall i, j \in V, i \neq j \\
+    &u_i \geq 0, \quad \forall i \in V
+\end{align}
+
+\subsection*{Solution Output}
+
+The solution to this MILP provides:
+\begin{itemize}
+    \item \texttt{visit\_order}: The sequence of cities visited starting and ending at \texttt{start\_city}.
+    \item \texttt{total\_distance}: The total distance traveled along the optimal route.
+\end{itemize}
+
+\end{document}

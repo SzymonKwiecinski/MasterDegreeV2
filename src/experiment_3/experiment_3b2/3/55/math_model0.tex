@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+Maximize \( \text{Profit} = \sum_{p=1}^{P} \text{price}_p \cdot x_p - \sum_{m=1}^{M} \sum_{p=1}^{P} \text{cost}_m \cdot \text{time}_{m,p} \cdot x_p - \text{LaborCost} \)
+
+Where:
+\[
+\text{LaborCost} = 
+\begin{cases} 
+\text{standard\_cost} \cdot \sum_{p=1}^{P} \text{time}_{1,p} \cdot x_p, & \text{if } \sum_{p=1}^{P} \text{time}_{1,p} \cdot x_p \leq \text{overtime\_hour}\\
+\text{standard\_cost} \cdot \text{overtime\_hour} + \text{overtime\_cost} \cdot \left( \sum_{p=1}^{P} \text{time}_{1,p} \cdot x_p - \text{overtime\_hour} \right), & \text{otherwise}
+\end{cases}
+\]
+
+\textbf{Subject to:}
+
+1. Minimum production requirement for each part:
+   \[
+   x_p \geq \text{min\_batches}_p, \quad \forall p = 1, \ldots, P
+   \]
+
+2. Machine availability constraints (excluding machine 1):
+   \[
+   \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \leq \text{available}_m, \quad \forall m = 2, \ldots, M
+   \]
+
+3. Profit constraint:
+   \[
+   \text{Profit} \geq \text{min\_profit}
+   \]
+
+4. Non-negativity constraints:
+   \[
+   x_p \geq 0, \quad \forall p = 1, \ldots, P
+   \]
+
+\end{document}

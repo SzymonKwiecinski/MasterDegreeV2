@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Electricity Transmission}
+
+\textbf{Objective:}
+
+Minimize the total transmission cost
+\[
+\text{Minimize} \quad Z = \sum_{p=1}^{P} \sum_{c=1}^{C} \text{transmission}_{p,c} \times \text{send}_{p,c}
+\]
+
+\textbf{Subject to:}
+
+1. Demand satisfaction for each city:
+\[
+\sum_{p=1}^{P} \text{send}_{p,c} \geq \text{demand}_c \quad \forall c = 1, \ldots, C
+\]
+
+2. Supply capacity constraint for each power plant:
+\[
+\sum_{c=1}^{C} \text{send}_{p,c} \leq \text{supply}_p \quad \forall p = 1, \ldots, P
+\]
+
+3. Non-negativity constraint:
+\[
+\text{send}_{p,c} \geq 0 \quad \forall p = 1, \ldots, P, \, c = 1, \ldots, C
+\]
+
+\end{document}

@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Auto Parts Manufacturer}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item $batches_{p} \geq 0$: Number of batches produced for part $p$, for $p = 1, \ldots, P$.
+    \item $setup\_flag_{p} \in \{0, 1\}$: Indicates whether part $p$ is set up ($1$) or not ($0$), for $p = 1, \ldots, P$.
+    \item $total\_profit$: Total profit obtained for the month.
+\end{itemize}
+
+\subsection*{Parameters}
+Given the following parameters:
+\begin{itemize}
+    \item $time_{m,p}$: Hours required on machine $m$ to produce a batch of part $p$, where $m = 1, \ldots, M$ and $p = 1, \ldots, P$.
+    \item $cost_{m}$: Cost per hour for using machine $m$, for $m = 1, \ldots, M$.
+    \item $available_{m}$: Available hours per month for machine $m$, for $m = 1, \ldots, M$.
+    \item $price_{p}$: Selling price per batch of part $p$, for $p = 1, \ldots, P$.
+    \item $setup\_time_{p}$: Setup time required for part $p$ on machine 1, for $p = 1, \ldots, P$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+total\_profit = \sum_{p=1}^{P} (price_{p} \cdot batches_{p}) - \sum_{m=1}^{M} (cost_{m} \cdot \sum_{p=1}^{P} (time_{m,p} \cdot batches_{p}) + setup\_time_{p} \cdot setup\_flag_{p}))
+\]
+
+\subsection*{Constraints}
+1. Machine time availability:
+\[
+\sum_{p=1}^{P} (time_{m,p} \cdot batches_{p}) + \sum_{p=1}^{P} (setup\_time_{p} \cdot setup\_flag_{p}) \leq available_{m}, \quad \forall m \in \{1, \ldots, M\}
+\]
+
+2. Non-negativity of batches:
+\[
+batches_{p} \geq 0, \quad \forall p \in \{1, \ldots, P\}
+\]
+
+3. Setup flags binary constraint:
+\[
+setup\_flag_{p} \in \{0, 1\}, \quad \forall p \in \{1, \ldots, P\}
+\]
+
+\subsection*{Output}
+The output will provide:
+\begin{itemize}
+    \item $batches$: Number of batches produced for each part, $[batches_{1}, batches_{2}, \ldots, batches_{P}]$.
+    \item $setup\_flags$: Indicates if each part is set up, $[setup\_flag_{1}, setup\_flag_{2}, \ldots, setup\_flag_{P}]$.
+    \item $total\_profit$: Total profit for the month.
+\end{itemize}
+
+\end{document}

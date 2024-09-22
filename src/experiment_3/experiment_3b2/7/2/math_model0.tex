@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for DEC's Production Plan}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item Let \( i \in \{1, 2, \ldots, N\} \) index the different computer systems.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{is\_workstation}[i] \): Boolean indicating if system \( i \) is a workstation.
+    \item \( \text{price}[i] \): Price per unit of system \( i \).
+    \item \( \text{disk\_drives}[i] \): Disk drives required per unit of system \( i \).
+    \item \( \text{256K\_boards}[i] \): 256K memory boards required per unit of system \( i \).
+    \item \( \text{max\_cpu} \): Maximum supply of CPUs.
+    \item \( \text{min\_disk} \), \( \text{max\_disk} \): Minimum and maximum supply of disk drives.
+    \item \( \text{min\_mem} \), \( \text{max\_mem} \): Minimum and maximum supply of 256K boards.
+    \item \( \text{demand}[i] \): Maximum demand for system \( i \).
+    \item \( \text{demand\_GP} \): Maximum demand for GP systems.
+    \item \( \text{demand\_WS} \): Maximum demand for WS systems.
+    \item \( \text{preorder}[i] \): Preorders for system \( i \).
+    \item \( \text{alt\_mem} \): Units of alternative memory available.
+    \item \( \text{alt\_compatible}[i] \): Boolean indicating if system \( i \) can use alternative memory.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( x_i \): Number of systems \( i \) to produce (continuous).
+    \item \( \text{mem\_used\_alt}[i] \): Alternative memory boards used for system \( i \).
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{equation}
+    \max \sum_{i=1}^{N} \text{price}[i] \cdot x_i
+\end{equation}
+
+\textbf{Constraints:}
+\begin{align}
+    \sum_{i=1}^{N} x_i & \leq \text{max\_cpu} \quad \text{(CPU constraint)} \\
+    \sum_{i=1}^{N} \text{disk\_drives}[i] \cdot x_i & \leq \text{max\_disk} \quad \text{(Max disk drives constraint)} \\
+    \sum_{i=1}^{N} \text{disk\_drives}[i] \cdot x_i & \geq \text{min\_disk} \quad \text{(Min disk drives constraint)} \\
+    \sum_{i=1}^{N} \text{256K\_boards}[i] \cdot x_i - \sum_{i=1}^{N} \text{mem\_used\_alt}[i] & \leq \text{max\_mem} \quad \text{(256K memory max constraint)} \\
+    \sum_{i=1}^{N} \text{256K\_boards}[i] \cdot x_i - \sum_{i=1}^{N} \text{mem\_used\_alt}[i] & \geq \text{min\_mem} \quad \text{(256K memory min constraint)} \\
+    \sum_{i=1, \text{is\_workstation}[i] = \text{false}}^{N} x_i & \leq \text{demand\_GP} \quad \text{(GP demand constraint)} \\
+    \sum_{i=1, \text{is\_workstation}[i] = \text{true}}^{N} x_i & \leq \text{demand\_WS} \quad \text{(WS demand constraint)} \\
+    x_i & \geq \text{preorder}[i] \quad \forall i \quad \text{(Fulfill preorders)} \\
+    x_i & \leq \text{demand}[i] \quad \forall i \quad \text{(Individual demand constraints)} \\
+    \text{mem\_used\_alt}[i] & \leq \text{256K\_boards}[i] \cdot x_i \quad \forall i \quad \text{(Alternative memory non-excess constraint)} \\
+    \text{mem\_used\_alt}[i] & = 0 \quad \forall i \, \text{where} \, \text{alt\_compatible}[i] = \text{false} \quad \text{(Compatibility constraint)} \\
+    \sum_{i=1}^{N} \text{mem\_used\_alt}[i] & \leq \text{alt\_mem} \quad \text{(Alternative memory supply constraint)}
+\end{align}
+
+\end{document}

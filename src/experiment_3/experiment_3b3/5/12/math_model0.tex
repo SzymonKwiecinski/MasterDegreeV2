@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+Given the problem, we can formulate the linear programming model as follows:
+
+\subsection*{Variables}
+Let \( x_{i,j} \) be the amount of currency \( i \) exchanged for currency \( j \). 
+
+\subsection*{Objective Function}
+The objective is to maximize the total amount of currency \( N \) at the end of the day. Thus, we need to maximize:
+\[
+Z = x_{N, N} + \sum_{j=1}^{N} x_{N,j}
+\]
+
+Where \( x_{N,N} \) represents the currency \( N \) we end with and \(\sum_{j=1}^{N} x_{N,j}\) represents the total units of currency \( N \).
+
+\subsection*{Constraints}
+1. **Exchange Limits:** Each currency \( i \) must not exceed its limit:
+\[
+\sum_{j=1}^{N} x_{i,j} \leq \text{limit}_i \quad \forall i
+\]
+
+2. **Initial Currency Availability:** For each currency \( i \), the total exchanged currency cannot exceed what we start with:
+\[
+x_{i,j} \leq \text{start}_i \quad \forall i,j
+\]
+
+3. **Non-negativity Constraints:** All transactions must be non-negative:
+\[
+x_{i,j} \geq 0 \quad \forall i,j
+\]
+
+4. **Exchange Rates Compliance:** The amounts exchanged must respect the exchange rates:
+\[
+x_{i,j} \cdot \text{rate}_{i,j} \leq x_{j,k} \quad \text{for suitable } k \text{ where the sequence is valid}
+\]
+
+5. **Wealth Preservation Across Cycles:** 
+\[
+\text{rate}_{i_1,i_2} \cdot \text{rate}_{i_2,i_3} \cdots \text{rate}_{i_k,i_1} \leq 1 \quad \text{for any cycle } i_1, \ldots, i_k
+\]
+
+\subsection*{Summary}
+The model thus consists of the objective function to maximize the end amount of currency \( N \) subject to the limits imposed by starting amounts, exchange limits, non-negativity, exchange rates, and wealth preservation constraints.
+
+\end{document}

@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Electricity Load Demand}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $T$: Total number of periods in a day.
+    \item $K$: Total number of generator types.
+    \item $demand_t$: Electricity demand for period $t$, where $t \in \{1, \ldots, T\}$.
+    \item $num_k$: Number of generators of type $k$, where $k \in \{1, \ldots, K\}$.
+    \item $minlevel_k$: Minimum operational level of generator type $k$.
+    \item $maxlevel_k$: Maximum operational level of generator type $k$.
+    \item $runcost_k$: Hourly cost of running generator type $k$ at minimum level.
+    \item $extracost_k$: Extra hourly cost per MW for operating generator type $k$ above minimum level.
+    \item $startcost_k$: Starting cost for generator type $k$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $numon_{k,t}$: Number of generators of type $k$ that are on in period $t$.
+    \item $level_{k,t}$: Level at which generator type $k$ is operating in period $t$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{t=1}^{T} \sum_{k=1}^{K} \left( startcost_k \cdot y_{k,t} + runcost_k \cdot numon_{k,t} + extracost_k \cdot (level_{k,t} - minlevel_k) \cdot numon_{k,t} \right)
+\]
+where \(y_{k,t}\) is a binary variable indicating whether generator type \(k\) is started in period \(t\).
+
+\subsection*{Constraints}
+1. Demand satisfaction:
+\[
+\sum_{k=1}^{K} level_{k,t} \geq demand_t \quad \forall t \in \{1, \ldots, T\}
+\]
+
+2. Operational bounds:
+\[
+minlevel_k \cdot numon_{k,t} \leq level_{k,t} \leq maxlevel_k \cdot numon_{k,t} \quad \forall k \in \{1, \ldots, K\}, \forall t \in \{1, \ldots, T\}
+\]
+
+3. Number of generators on:
+\[
+numon_{k,t} \leq num_k \quad \forall k \in \{1, \ldots, K\}, \forall t \in \{1, \ldots, T\}
+\]
+
+4. Binary startup decision:
+\[
+y_{k,t} = 
+\begin{cases} 
+1 & \text{if } numon_{k,t} > 0 \\
+0 & \text{otherwise}
+\end{cases} \quad \forall k \in \{1, \ldots, K\}, \forall t \in \{1, \ldots, T\}
+\]
+
+5. Level definition:
+\[
+level_{k,t} = minlevel_k \cdot numon_{k,t} + extra_{k,t} \quad \forall k \in \{1, \ldots, K\}, \forall t \in \{1, \ldots, T\}
+\]
+where \(extra_{k,t}\) is the extra capacity operated above the minimum level.
+
+\end{document}

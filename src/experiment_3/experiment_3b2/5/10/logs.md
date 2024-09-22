@@ -1,0 +1,188 @@
+# START: OR_C 
+## START ROLE MESSAGE | Role.SYSTEM 
+Background: You are a expert at Operations Research and Linear Programming and Latex. You create mathematical model of given problem in LATEX format. Latex code place between ```latex and ``` Remember to add 'documentclass{article},usepackage{amsmath},begin{document}, end{document} in latex file. 
+## START MESSAGE 0 
+### ROLE: Role.USER
+<DESCRIPTION>
+PROBLEM TYPE: LP
+
+PROBLEM INFO: 
+
+- Consider a school district with \var{N} neighborhoods, \var{S} schools, and \var{G} grades at each school.
+- Each school \var{s} has a capacity of \var{capacity_{s,g}} for grade \var{g}. 
+- In each neighborhood \var{n}, the student population of grade \var{g} is \var{population_{n,g}}. 
+- Finally, the distance of school \var{s} from neighborhood \var{n} is \var{d_{i,j}}.
+
+INPUT FORMAT: 
+
+{
+    "capacity": [[capacity_{s,g} for g in 1, ..., G] for s in 1, ..., S],
+    "population": [[population_{n,g} for g in 1, ..., G] for n in 1, ..., N],
+    "distance": [[d_{n,s} for s in 1, ..., S] for n in 1, ..., N]
+}
+
+OBJECTIVE: We want to assign all students to schools, while minimizing the total distance traveled by all students. We may ignore the fact that numbers of students must be integers.
+
+OUTPUT INFO:
+- the output should show optimal \var{x_{n,s,g}} for all \var{n}, \var{s}, \var{g} (i.e., the number of students of grade \var{g} in neighborhood \var{n} assigned to school \var{s}).
+- the output should also include \var{total_distance}, the total distance traveled by all students.
+
+OUTPUT FORMAT:
+
+{
+    "assignment": [[[x_{n,s,g} for g in 1, ..., G] for s in 1, ..., S] for n in 1, ..., N],
+    "total_distance": total_distance
+}
+
+</DESCRIPTION>
+
+
+## START MESSAGE 1 
+### ROLE: Role.ASSISTANT
+To model this problem using linear programming, we'll define decision variables, constraints, and an objective function. The goal is to minimize the total distance traveled by all students while ensuring each student is assigned to a school, and school capacities for each grade are respected.
+
+######### Variables
+Let \( x_{n,s,g} \) be the number of students of grade \( g \) from neighborhood \( n \) assigned to school \( s \).
+
+######### Objective Function
+The objective is to minimize the total distance traveled by all students:
+
+\[
+\text{Minimize } \sum_{n=1}^{N} \sum_{s=1}^{S} \sum_{g=1}^{G} d_{n,s} \cdot x_{n,s,g}
+\]
+
+######### Constraints
+1. **School Capacity Constraints**: For each school \( s \) and grade \( g \), the total number of students assigned should not exceed the school's capacity:
+   \[
+   \sum_{n=1}^{N} x_{n,s,g} \leq \text{capacity}_{s,g} \quad \forall s, g
+   \]
+
+2. **Population Constraints**: For each neighborhood \( n \) and grade \( g \), all students should be assigned:
+   \[
+   \sum_{s=1}^{S} x_{n,s,g} = \text{population}_{n,g} \quad \forall n, g
+   \]
+
+######### Complete Mathematical Model in LaTeX
+
+```latex
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Decision Variables:}
+\begin{align*}
+x_{n,s,g} & : \text{Number of students of grade } g \text{ from neighborhood } n \text{ assigned to school } s
+\end{align*}
+
+\textbf{Objective:}
+\[
+\text{Minimize } \sum_{n=1}^{N} \sum_{s=1}^{S} \sum_{g=1}^{G} d_{n,s} \cdot x_{n,s,g}
+\]
+
+\textbf{Subject to:}
+
+\textbf{School Capacity Constraints}
+\[
+\sum_{n=1}^{N} x_{n,s,g} \leq \text{capacity}_{s,g} \quad \forall s, g
+\]
+
+\textbf{Population Constraints}
+\[
+\sum_{s=1}^{S} x_{n,s,g} = \text{population}_{n,g} \quad \forall n, g
+\]
+
+\textbf{Non-negativity Constraints}
+\[
+x_{n,s,g} \geq 0 \quad \forall n, s, g
+\]
+
+\end{document}
+```
+
+This linear programming model will allow us to optimize the assignment of students to schools while minimizing the total travel distance and respecting all constraints.
+
+# START: PY_C 
+## START ROLE MESSAGE | Role.SYSTEM 
+Background: You are a python programmer in deep knowledge at Pulp python library and Linear Programming. Python code place between ```python and ```. Based on mathematical model provided in Latex format you are creating a python script in Pulp library. You get also data in json format between: <DATA></DATA> Do not include 'pip install' in script. Assume every python package is installed. Do not use `while` loop in python code! Print at the end the objective between <OBJ></OBJ> `print(f' (Objective Value): <OBJ>{pulp.value(problem.objective)}</OBJ>')` 
+## START MESSAGE 0 
+### ROLE: Role.USER
+<MATH_MODEL>
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Decision Variables:}
+\begin{align*}
+x_{n,s,g} & : \text{Number of students of grade } g \text{ from neighborhood } n \text{ assigned to school } s
+\end{align*}
+
+\textbf{Objective:}
+\[
+\text{Minimize } \sum_{n=1}^{N} \sum_{s=1}^{S} \sum_{g=1}^{G} d_{n,s} \cdot x_{n,s,g}
+\]
+
+\textbf{Subject to:}
+
+\textbf{School Capacity Constraints}
+\[
+\sum_{n=1}^{N} x_{n,s,g} \leq \text{capacity}_{s,g} \quad \forall s, g
+\]
+
+\textbf{Population Constraints}
+\[
+\sum_{s=1}^{S} x_{n,s,g} = \text{population}_{n,g} \quad \forall n, g
+\]
+
+\textbf{Non-negativity Constraints}
+\[
+x_{n,s,g} \geq 0 \quad \forall n, s, g
+\]
+
+\end{document}</MATH_MODEL>
+<DATA>
+{'S': 3, 'G': 2, 'N': 4, 'Capacity': [[15, 20], [20, 15], [5, 17]], 'Population': [[7, 19], [4, 12], [9, 2], [6, 8]], 'Distance': [[5.2, 4.0, 3.1], [3.8, 5.5, 6.1], [4.2, 3.5, 5.0], [5.0, 4.1, 3.2]]}</DATA>
+
+
+## START MESSAGE 1 
+### ROLE: Role.ASSISTANT
+```python
+import pulp
+import json
+
+#### Data input
+data = json.loads('{"S": 3, "G": 2, "N": 4, "Capacity": [[15, 20], [20, 15], [5, 17]], "Population": [[7, 19], [4, 12], [9, 2], [6, 8]], "Distance": [[5.2, 4.0, 3.1], [3.8, 5.5, 6.1], [4.2, 3.5, 5.0], [5.0, 4.1, 3.2]]}')
+
+#### Parameter extraction
+S = data['S']
+G = data['G']
+N = data['N']
+capacity = data['Capacity']
+population = data['Population']
+distance = data['Distance']
+
+#### Define the problem
+problem = pulp.LpProblem("Minimize_Student_Assignment_Cost", pulp.LpMinimize)
+
+#### Decision Variables
+x = pulp.LpVariable.dicts("x", (range(N), range(S), range(G)), lowBound=0, cat='Continuous')
+
+#### Objective Function
+problem += pulp.lpSum(distance[n][s] * x[n][s][g] for n in range(N) for s in range(S) for g in range(G))
+
+#### School Capacity Constraints
+for s in range(S):
+    for g in range(G):
+        problem += pulp.lpSum(x[n][s][g] for n in range(N)) <= capacity[s][g]
+
+#### Population Constraints
+for n in range(N):
+    for g in range(G):
+        problem += pulp.lpSum(x[n][s][g] for s in range(S)) == population[n][g]
+
+#### Solve the problem
+problem.solve()
+
+#### Print the objective value
+print(f' (Objective Value): <OBJ>{pulp.value(problem.objective)}</OBJ>')
+```
+

@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\textbf{Mathematical Formulation}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item \( p = 1, 2, \ldots, P \) : Parts
+    \item \( m = 1, 2, \ldots, M \) : Machines
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{time\_required}_{m,p} \): Time required by machine \( m \) to produce 100 units of part \( p \) (in hours)
+    \item \( \text{cost}_{m} \): Cost per hour for using machine \( m \)
+    \item \( \text{available}_{m} \): Available hours for machine \( m \) per month
+    \item \( \text{price}_{p} \): Selling price per batch (100 units) of part \( p \)
+    \item \( \text{min\_batches}_{p} \): Minimum batches of part \( p \) required per month
+    \item \( \text{extra\_cost}_{m} \): Extra cost for purchasing additional hours for machine \( m \)
+    \item \( \text{max\_extra}_{m} \): Maximum extra hours that can be purchased for machine \( m \)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{align*}
+    x_p & : \text{Number of batches of part } p \text{ produced (integer)} \\
+    e_m & : \text{Extra hours purchased for machine } m \text{ (continuous)}
+\end{align*}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} \text{price}_{p} \cdot x_p - \sum_{m=1}^{M} \left( \sum_{p=1}^{P} \text{time\_required}_{m,p} \cdot x_p \cdot \text{cost}_{m} + e_m \cdot \text{extra\_cost}_{m} \right)
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+    & x_p \geq \text{min\_batches}_{p}, && \forall p = 1, 2, \ldots, P \\
+    & \sum_{p=1}^{P} \text{time\_required}_{m,p} \cdot x_p \leq \text{available}_{m} + e_m, && \forall m = 1, 2, \ldots, M \\
+    & 0 \leq e_m \leq \text{max\_extra}_{m}, && \forall m = 1, 2, \ldots, M \\
+    & x_p \geq 0 \text{ and integer}, && \forall p = 1, 2, \ldots, P \\
+    & e_m \geq 0, && \forall m = 1, 2, \ldots, M
+\end{align*}
+
+\end{document}

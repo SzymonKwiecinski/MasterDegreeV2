@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Decision Variables}
+\begin{align*}
+x_i & : \text{Binary variable indicating if employee } i \text{ is hired}, \quad \forall i = 1, \ldots, I\\
+y_{n,i} & : \text{Binary variable indicating if employee } i \text{ works on day } n, \quad \forall n, \forall i
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total number of employees:
+\[
+\text{minimize} \quad \sum_{i=1}^{I} x_i
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+& \text{1. Employee requirement per day:}\\
+& \sum_{i=1}^{I} y_{n,i} \geq \text{num}_n, \quad \forall n\\
+& \text{2. Employee working days:}\\
+& y_{n,i} \leq x_i, \quad \forall n, \forall i\\
+\end{align*}
+
+\subsection*{Additional Notes}
+- Each employee works for \text{n\_working\_days} followed by \text{n\_resting\_days}.
+- The planning must ensure that these cycles are respected.
+- The decision variables \( x_i \) and \( y_{n,i} \) are binary.
+
+\end{document}

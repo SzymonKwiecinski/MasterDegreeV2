@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $price_{i,m}$: Price of oil $i$ in month $m$.
+    \item $sell\_price$: Selling price of the final product per ton.
+    \item $is\_vegetable_{i}$: Indicator variable for oil $i$, where 1 indicates vegetable oil and 0 indicates non-vegetable oil.
+    \item $max\_veg$: Maximum tons of vegetable oils that can be refined per month.
+    \item $max\_veg$: Maximum tons of non-vegetable oils that can be refined per month.
+    \item $storage\_size$: Maximum storage capacity for each raw oil.
+    \item $storage\_cost$: Cost of storage per ton per month.
+    \item $max\_hardness$: Maximum allowable hardness of the final product.
+    \item $min\_hardness$: Minimum allowable hardness of the final product.
+    \item $hardness_{i}$: Hardness value of oil $i$.
+    \item $init\_amount$: Initial amount of each type of raw oil in storage.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $buyquantity_{i,m}$: Amount of oil $i$ bought in month $m$.
+    \item $refine_{i,m}$: Amount of oil $i$ refined in month $m$.
+    \item $storage_{i,m}$: Amount of oil $i$ stored at the end of month $m$.
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+\text{Maximize } Z = \sum_{m=1}^{M} \left( sell\_price \cdot \sum_{i=1}^{I} refine_{i,m} - \sum_{i=1}^{I} price_{i,m} \cdot buyquantity_{i,m} - storage\_cost \cdot \sum_{i=1}^{I} storage_{i,m} \right)
+\end{align*}
+
+\textbf{Subject to:}
+
+\underline{Production Constraints:}
+\begin{align*}
+\sum_{i \,|\, is\_vegetable_i = 1} refine_{i,m} & \leq max\_veg & \forall m \\
+\sum_{i \,|\, is\_vegetable_i = 0} refine_{i,m} & \leq max\_veg & \forall m 
+\end{align*}
+
+\underline{Storage Constraints:}
+\begin{align*}
+storage_{i,m} & \leq storage\_size & \forall i, m \\
+storage_{i,m} & = storage_{i,m-1} + buyquantity_{i,m} - refine_{i,m} & \forall i, m \\
+storage_{i,m} & = init\_amount & \forall i, m = M
+\end{align*}
+
+\underline{Hardness Constraints:}
+\begin{align*}
+\frac{\sum_{i=1}^{I} hardness_{i} \cdot refine_{i,m}}{\sum_{i=1}^{I} refine_{i,m}} & \leq max\_hardness & \forall m \\
+\frac{\sum_{i=1}^{I} hardness_{i} \cdot refine_{i,m}}{\sum_{i=1}^{I} refine_{i,m}} & \geq min\_hardness & \forall m
+\end{align*}
+
+\underline{Non-negativity Constraints:}
+\begin{align*}
+buyquantity_{i,m} & \geq 0 & \forall i, m \\
+refine_{i,m} & \geq 0 & \forall i, m \\
+storage_{i,m} & \geq 0 & \forall i, m
+\end{align*}
+
+\end{document}

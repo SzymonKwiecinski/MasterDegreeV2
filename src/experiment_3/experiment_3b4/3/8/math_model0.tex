@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Spare Parts Production}
+
+\textbf{Decision Variables:} \\
+Let \( \text{quantity}_k \) be the number of units of part \( k \) to be produced, for \( k = 1, \ldots, K \).
+
+\textbf{Objective Function:} \\
+Maximize the total profit:
+\[
+\text{maximize} \quad \sum_{k=1}^{K} \text{profit}_k \cdot \text{quantity}_k
+\]
+
+\textbf{Constraints:} \\
+For each shop \( s = 1, \ldots, S \), the total worker-hours required should not exceed the capacity:
+\[
+\sum_{k=1}^{K} \text{time}_{k, s} \cdot \text{quantity}_k \leq \text{capacity}_s, \quad \forall s = 1, \ldots, S
+\]
+
+\textbf{Non-negativity Constraints:}
+\[
+\text{quantity}_k \geq 0, \quad \forall k = 1, \ldots, K
+\]
+
+\end{document}

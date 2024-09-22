@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Decision Variables:}
+\begin{align*}
+x_{n,s,g} & : \text{Number of students of grade } g \text{ from neighborhood } n \text{ assigned to school } s
+\end{align*}
+
+\textbf{Objective:}
+\[
+\text{Minimize } \sum_{n=1}^{N} \sum_{s=1}^{S} \sum_{g=1}^{G} d_{n,s} \cdot x_{n,s,g}
+\]
+
+\textbf{Subject to:}
+
+\textbf{School Capacity Constraints}
+\[
+\sum_{n=1}^{N} x_{n,s,g} \leq \text{capacity}_{s,g} \quad \forall s, g
+\]
+
+\textbf{Population Constraints}
+\[
+\sum_{s=1}^{S} x_{n,s,g} = \text{population}_{n,g} \quad \forall n, g
+\]
+
+\textbf{Non-negativity Constraints}
+\[
+x_{n,s,g} \geq 0 \quad \forall n, s, g
+\]
+
+\end{document}

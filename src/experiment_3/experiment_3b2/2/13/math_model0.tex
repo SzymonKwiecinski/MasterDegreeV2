@@ -1,0 +1,25 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Chebyshev Center of a Polyhedral Set}
+
+We aim to find the Chebyshev center of the set \( P = \{ x \in \mathbb{R}^N \mid a_i^T x \leq b_i, \, i = 1, \ldots, m \} \).
+
+\subsection*{Linear Programming Formulation}
+
+The problem is to maximize the radius \( r \) of a ball centered at \( y \) such that the ball is entirely contained within \( P \).
+
+This leads to the following optimization problem:
+
+\[
+\begin{align*}
+\text{maximize} \quad & r \\
+\text{subject to} \quad & a_i^T y + r \|a_i\|_2 \leq b_i, \quad i = 1, \ldots, m \\
+& y \in \mathbb{R}^N, \, r \geq 0
+\end{align*}
+\]
+
+Where \( \|a_i\|_2 \) denotes the Euclidean norm of the vector \( a_i \).
+
+\end{document}

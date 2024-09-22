@@ -1,0 +1,69 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Fitting a Line}
+
+Given a set of corresponding values \( (x_k, y_k) \) for \( k = 1, 2, \ldots, K \), we aim to fit the best straight line of the form \( y = bx + a \) by minimizing the maximum deviation of the observed \( y \) values from the predicted values of the linear relationship.
+
+We define the deviation for each observed value as follows:
+
+\[
+d_k = y_k - (bx_k + a)
+\]
+
+The objective is to minimize the maximum absolute deviation across all observations:
+
+\[
+\text{Minimize } D = \max_{k=1,\ldots,K} |d_k| = \max_{k=1,\ldots,K} |y_k - (bx_k + a)|
+\]
+
+To express this as a linear programming problem, we introduce auxiliary variables \( D^+ \) and \( D^- \) to represent the positive and negative deviations, respectively:
+
+\[
+d_k \leq D^+ \quad \forall k
+\]
+\[
+-d_k \leq D^- \quad \forall k
+\]
+
+Thus, our problem can be reformulated as:
+
+\[
+\text{Minimize } D^+ + D^-
+\]
+
+Subject to the following constraints:
+
+\[
+y_k - (bx_k + a) \leq D^+ \quad \forall k
+\]
+\[
+-(y_k - (bx_k + a)) \leq D^- \quad \forall k
+\]
+
+In addition, we can consider the relationships of the deviations explicitly:
+
+\[
+D^+ \geq 0, \quad D^- \geq 0
+\]
+
+The final model can be summarized as:
+
+\[
+\begin{aligned}
+& \text{Minimize}\quad D^+ + D^- \\
+& \text{subject to} \\
+& y_k - (bx_k + a) \leq D^+ \quad \forall k \\
+& -(y_k - (bx_k + a)) \leq D^- \quad \forall k \\
+& D^+ \geq 0, \quad D^- \geq 0 \\
+\end{aligned}
+\]
+
+The output of the model will be as follows:
+
+\[
+\{ \text{intercept}: a, \text{slope}: b \}
+\]
+
+\end{document}

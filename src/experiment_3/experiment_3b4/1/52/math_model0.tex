@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item $\text{send}_{p,c}$: The amount of electricity sent from power plant $p$ to city $c$ (million kWh).
+\end{itemize}
+
+\textbf{Objective:} Minimize the total transmission cost.
+\[
+\text{Minimize} \quad \sum_{p=1}^{P} \sum_{c=1}^{C} \text{transmission}_{p,c} \cdot \text{send}_{p,c}
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+    & \sum_{c=1}^{C} \text{send}_{p,c} \leq \text{supply}_{p}, & \forall p = 1, \ldots, P \quad &\text{(Supply constraints)} \\
+    & \sum_{p=1}^{P} \text{send}_{p,c} = \text{demand}_{c}, & \forall c = 1, \ldots, C \quad &\text{(Demand constraints)} \\
+    & \text{send}_{p,c} \geq 0, & \forall p = 1, \ldots, P, \, c = 1, \ldots, C \quad &\text{(Non-negativity constraints)}
+\end{align*}
+
+\end{document}

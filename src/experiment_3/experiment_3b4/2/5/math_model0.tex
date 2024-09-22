@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Communication Network}
+
+\subsection*{Objective Function}
+Minimize the total cost of transmitting data:
+\[
+\text{Minimize} \quad \sum_{(i,j) \in A} \sum_{(k,l)} C_{i,j} \times x_{i,j}^{k,l}
+\]
+
+\subsection*{Constraints}
+
+\subsubsection*{Capacity Constraints}
+\[
+\sum_{(k,l)} x_{i,j}^{k,l} \leq U_{i,j}, \quad \forall (i,j) \in A
+\]
+
+\subsubsection*{Flow Conservation Constraints}
+\[
+\sum_{j: (j,i) \in A} x_{j,i}^{k,l} + B_{k,l} \times \delta_{ik} = \sum_{j: (i,j) \in A} x_{i,j}^{k,l} + B_{k,l} \times \delta_{il}, \quad \forall i \neq k \neq l
+\]
+
+\subsubsection*{Non-negativity Constraints}
+\[
+x_{i,j}^{k,l} \geq 0, \quad \forall (i,j) \in A, \forall (k,l)
+\]
+
+\end{document}

@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mixed Integer Linear Programming (MILP) Model for Nurse Scheduling}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item $J = \{1, 2, \ldots, 7\}$: set of days in the week.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $d_j$: Demand for nurses on day $j$, for $j \in J$.
+    \item $p$: Period of consecutive working days for each nurse.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_j$: Number of nurses that start their period on day $j$, for $j \in J$.
+    \item $N$: Total number of nurses hired.
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{equation}
+\text{minimize } N = \sum_{j=1}^{7} x_j
+\end{equation}
+
+\textbf{Constraints:}
+\begin{equation}
+\sum_{j=1}^{7} x_j \cdot \text{IsWorking}(j, i) \geq d_i \quad \forall i \in J
+\end{equation}
+where $\text{IsWorking}(j, i)$ is defined as follows:
+\[
+\text{IsWorking}(j, i) =
+\begin{cases}
+1 & \text{if nurse starting on day } j \text{ is working on day } i \\
+0 & \text{otherwise}
+\end{cases}
+\]
+
+\textbf{Working condition:}
+A nurse that starts on day $j$ will work for $p$ consecutive days, which affects the scheduling of the following days. The condition can be represented as:
+\[
+\text{IsWorking}(j, i) = 
+\begin{cases}
+1 & \text{if } i \in \{j, j+1, \ldots, j+p-1\} \mod 7\\
+0 & \text{otherwise}
+\end{cases}
+\]
+
+\textbf{Non-negativity constraints:}
+\begin{equation}
+x_j \geq 0 \quad \forall j \in J
+\end{equation}
+
+\textbf{Integrality constraints:}
+\begin{equation}
+x_j \in \mathbb{Z} \quad \forall j \in J
+\end{equation}
+
+\end{document}

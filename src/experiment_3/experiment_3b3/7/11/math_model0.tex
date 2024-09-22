@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Variables}
+\begin{align*}
+x_i & : \text{Units produced in month } i \quad (i = 1, \ldots, T) \\
+I_i & : \text{Inventory at the end of month } i \quad (i = 1, \ldots, T)
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+\text{deliver}_i & : \text{Units to be delivered at the end of month } i \\
+\text{storage\_cost} & : \text{Cost of storing one unit for one month} \\
+\text{switch\_cost} & : \text{Cost of switching production levels}
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Cost} = \sum_{i=1}^{T} \text{storage\_cost} \cdot I_i + \sum_{i=1}^{T-1} \text{switch\_cost} \cdot |x_{i+1} - x_i|
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+I_0 & = 0 \quad \text{(initial inventory)} \\
+I_i & = I_{i-1} + x_i - \text{deliver}_i \quad (i = 1, \ldots, T) \\
+I_i & \geq 0 \quad (i = 1, \ldots, T) \\
+x_i & \geq 0 \quad (i = 1, \ldots, T) \\
+\end{align*}
+
+\subsection*{Complete Formulation}
+\begin{align*}
+\text{Minimize} & \quad \sum_{i=1}^{T} \text{storage\_cost} \cdot I_i + \sum_{i=1}^{T-1} \text{switch\_cost} \cdot |x_{i+1} - x_i| \\
+\text{subject to} & \\
+I_0 & = 0 \\
+I_i & = I_{i-1} + x_i - \text{deliver}_i, \quad i = 1, \ldots, T \\
+I_i & \geq 0, \quad i = 1, \ldots, T \\
+x_i & \geq 0, \quad i = 1, \ldots, T \\
+\end{align*}
+
+\end{document}

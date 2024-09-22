@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for MILP Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $M$: Number of machines, $num_m$
+    \item $K$: Number of products
+    \item $I$: Number of months
+    \item $profit_k$: Profit from product $k$
+    \item $time_{k,m}$: Time (in hours) required to produce product $k$ on machine $m$
+    \item $down_m$: Months machine $m$ is down for maintenance
+    \item $limit_{k,i}$: Marketing limitations for product $k$ in month $i$
+    \item $store\_price$: Cost of storing one unit of product per month
+    \item $keep\_quantity$: Desired stock of each product at the end of the month
+    \item $n\_workhours$: Total working hours in a month
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $sell_{k,i}$: Amount sold of product $k$ in month $i$
+    \item $manufacture_{k,i}$: Amount manufactured of product $k$ in month $i$
+    \item $storage_{k,i}$: Amount stored of product $k$ in month $i$
+    \item $maintain_{m,i}$: Number of machines under maintenance in month $i$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+\text{Maximize } Z = \sum_{i=1}^{I} \sum_{k=1}^{K} profit_k \cdot sell_{k,i} - \sum_{i=1}^{I} \sum_{k=1}^{K} store\_price \cdot storage_{k,i}
+\]
+
+\subsection*{Constraints}
+
+\begin{enumerate}
+    \item \textbf{Production Time Constraint:}
+    \[
+    \sum_{k=1}^{K} time_{k,m} \cdot manufacture_{k,i} \leq \text{Available Time}_m \quad \forall m, \, i
+    \]
+    where Available Time for machine $m$ in month $i$ is calculated based on maintenance:
+    \[
+    \text{Available Time}_m = n\_workhours \cdot 24 - \text{hours\_down\_m}
+    \]
+
+    \item \textbf{Marketing Limitation Constraint:}
+    \[
+    sell_{k,i} \leq limit_{k,i} \quad \forall k, \, i
+    \]
+
+    \item \textbf{Storage Balance Constraint:}
+    \[
+    storage_{k,i} = storage_{k,i-1} + manufacture_{k,i} - sell_{k,i} \quad \forall k, \, i
+    \]
+
+    \item \textbf{Final Stock Requirement:}
+    \[
+    storage_{k,I} \geq keep\_quantity \quad \forall k
+    \]
+
+    \item \textbf{Maintenance Limits:}
+    \[
+    \sum_{m=1}^{M} maintain_{m,i} \leq num_m \quad \forall i
+    \]
+\end{enumerate}
+
+\end{document}

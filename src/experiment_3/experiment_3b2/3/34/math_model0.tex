@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Problem Formulation}
+
+\subsection*{Decision Variables}
+Let \( \text{quantity}_k \) be the quantity of food \( k \) to purchase (for \( k = 1, \ldots, K \)).
+
+\subsection*{Objective Function}
+Minimize the total cost of purchasing foods:
+
+\[
+\text{Minimize} \quad Z = \sum_{k=1}^{K} \text{price}_k \cdot \text{quantity}_k
+\]
+
+\subsection*{Constraints}
+To satisfy the nutritional requirements, the following constraints must hold for each nutrient \( m \) (for \( m = 1, \ldots, M \)):
+
+\[
+\sum_{k=1}^{K} \text{nutri}_{k,m} \cdot \text{quantity}_k \geq \text{demand}_m
+\]
+
+\subsection*{Non-negativity Constraints}
+
+\[
+\text{quantity}_k \geq 0 \quad \text{for all } k = 1, \ldots, K
+\]
+
+\end{document}

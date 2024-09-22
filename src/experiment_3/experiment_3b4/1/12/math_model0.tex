@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\subsection*{Objective Function}
+Maximize:
+\[
+Z = \sum_{i=1}^{N-1} x_{i,N} \cdot \text{rate}_{i,N} + \text{start}_N - \sum_{j=1}^{N-1} x_{N,j}
+\]
+
+\subsection*{Constraints}
+
+1. Currency Balance Constraints:
+   \[
+   \sum_{j=1}^{N} x_{i,j} \leq \text{start}_i + \sum_{k=1}^{N} x_{k,i} \cdot \text{rate}_{k,i} \quad \text{for } i = 1, 2, \ldots, N
+   \]
+
+2. Limit Constraints:
+   \[
+   \sum_{j=1}^{N} x_{i,j} \leq \text{limit}_i \quad \text{for } i = 1, 2, \ldots, N
+   \]
+
+3. Non-Negativity Constraints:
+   \[
+   x_{i,j} \geq 0 \quad \text{for all } i, j
+   \]
+
+\subsection*{Decision Variables}
+\( x_{i,j} \): Amount of currency \( i \) exchanged for currency \( j \).
+
+\end{document}

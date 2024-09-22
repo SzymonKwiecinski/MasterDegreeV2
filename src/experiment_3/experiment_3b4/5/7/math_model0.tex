@@ -1,0 +1,73 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Rocket Optimization}
+
+\subsection*{Parameters and Variables}
+
+We are given:
+\begin{itemize}
+    \item Initial position, $x_0$
+    \item Initial velocity, $v_0$
+    \item Target position at time $T$, $x_T$
+    \item Target velocity at time $T$, $v_T$
+    \item Time period $T$
+\end{itemize}
+
+Define variables:
+\begin{align*}
+    x_t &: \text{Position of the rocket at time } t, \, t = 0, 1, \ldots, T \\
+    v_t &: \text{Velocity of the rocket at time } t, \, t = 0, 1, \ldots, T \\
+    a_t &: \text{Acceleration (thrust) of the rocket at time } t, \, t = 1, 2, \ldots, T \\
+    M &: \text{Maximum thrust } = \max_t |a_t|, \, t = 1, 2, \ldots, T
+\end{align*}
+
+\subsection*{Objective}
+
+Minimize the maximum thrust:
+\[
+\min M
+\]
+
+\subsection*{Constraints}
+
+The system dynamics are modeled by the following constraints:
+\begin{align}
+    x_{t+1} &= x_t + v_t, \quad t = 0, 1, \ldots, T-1 \label{eq:position_update} \\
+    v_{t+1} &= v_t + a_t, \quad t = 0, 1, \ldots, T-1 \label{eq:velocity_update}
+\end{align}
+
+Initial conditions:
+\begin{align}
+    x_0 &= \text{given initial position} \\
+    v_0 &= \text{given initial velocity}
+\end{align}
+
+Target conditions at time $T$:
+\begin{align}
+    x_T &= \text{target position} \\
+    v_T &= \text{target velocity}
+\end{align}
+
+Thrust constraints:
+\begin{align}
+    -M &\leq a_t \leq M, \quad t = 1, 2, \ldots, T
+\end{align}
+
+Fuel consumption:
+\[
+\text{Fuel spent} = \sum_{t=1}^{T} |a_t|
+\]
+
+\subsection*{Summary}
+
+The goal is to determine:
+\begin{itemize}
+    \item $x_t$ for all $t = 1, \ldots, T$
+    \item $v_t$ for all $t = 1, \ldots, T$
+    \item $a_t$ for all $t = 1, \ldots, T$
+    \item Total fuel spent
+\end{itemize}
+
+\end{document}

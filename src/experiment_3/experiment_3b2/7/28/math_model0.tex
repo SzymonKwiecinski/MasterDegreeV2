@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model:}
+
+\text{Let:}
+\begin{itemize}
+    \item \( a \) be the intercept of the line.
+    \item \( b \) be the slope of the line.
+    \item \( e_k \) be the absolute deviation for each data point \( k \).
+\end{itemize}
+
+\text{Objective:}
+\[
+\min \sum_{k=1}^{K} e_k
+\]
+
+\text{Subject to:}
+\[
+e_k \geq y_k - (bx_k + a), \quad \forall k = 1, \ldots, K
+\]
+\[
+e_k \geq -(y_k - (bx_k + a)), \quad \forall k = 1, \ldots, K
+\]
+\[
+e_k \geq 0, \quad \forall k = 1, \ldots, K
+\]
+
+\end{document}

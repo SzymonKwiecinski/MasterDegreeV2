@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Mathematical Formulation}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $P$: Number of different parts
+    \item $M$: Number of machines
+    \item $\text{time}_{m,p}$: Time required on machine $m$ for part $p$ (in hours)
+    \item $\text{cost}_{m}$: Cost per hour for using machine $m$
+    \item $\text{available}_{m}$: Available hours per month for machine $m$
+    \item $\text{price}_{p}$: Price per batch of part $p$
+    \item $\text{setup\_time}_{p}$: Setup time required for part $p$ on machine 1
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_p$: Number of batches of part $p$ produced each month
+    \item $y_p$: Binary variable indicating setup for part $p$ on machine 1 (1 if used, 0 otherwise)
+\end{itemize}
+
+\textbf{Objective:} Maximize the profit
+\[
+\text{Profit} = \sum_{p=1}^{P} \left( \text{price}_p \cdot x_p \right) - \sum_{m=1}^{M} \left( \sum_{p=1}^{P} \left(\text{time}_{m,p} \cdot x_p\right) \cdot \text{cost}_m \right) - \sum_{p=1}^{P} \left( \text{setup\_time}_p \cdot y_p \cdot \text{cost}_1 \right)
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+\sum_{p=1}^{P} \left(\text{time}_{m,p} \cdot x_p\right) + \delta_{m1} \sum_{p=1}^{P} \left(\text{setup\_time}_p \cdot y_p\right) &\leq \text{available}_m & \forall m \in [1, M]\\
+y_p &\geq \frac{x_p}{U} & \forall p \in [1, P]\\
+x_p &\geq 0, \quad y_p \in \{0, 1\} & \forall p \in [1, P]
+\end{align*}
+
+\end{document}

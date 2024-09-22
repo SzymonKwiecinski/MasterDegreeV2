@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Model for File Distribution on Floppy Disks}
+
+\textbf{Sets and Indices:}
+\begin{itemize}
+    \item \( N \): Number of files
+    \item \( M \): Maximum number of disks, can be assumed as \( N \)
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \(\text{capacity}\): Capacity of each floppy disk
+    \item \(\text{size}_j\): Size of file \( j \), \( j = 1, \ldots, N \)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( y_i \in \{0,1\} \): 1 if disk \( i \) is used, 0 otherwise
+    \item \( x_{ij} \in \{0,1\} \): 1 if file \( j \) is assigned to disk \( i \), 0 otherwise
+\end{itemize}
+
+\textbf{Objective:}
+\[
+\min \sum_{i=1}^{M} y_i
+\]
+
+\textbf{Constraints:}
+\begin{align}
+    & \sum_{i=1}^{M} x_{ij} = 1, \quad \forall j = 1, \ldots, N \quad &\text{(Each file on one disk)} \\
+    & \sum_{j=1}^{N} \text{size}_j \times x_{ij} \leq \text{capacity} \times y_i, \quad \forall i = 1, \ldots, M \quad &\text{(Capacity constraint)} \\
+    & x_{ij} \leq y_i, \quad \forall i = 1, \ldots, M, \, \forall j = 1, \ldots, N \quad &\text{(Linking constraint)}
+\end{align}
+
+\end{document}

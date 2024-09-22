@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item Let $x_p$ be the number of batches of part $p$ produced.
+    \item Let $h_1$ be the standard hours used on Machine 1.
+    \item Let $h_1^{\text{overtime}}$ be the overtime hours used on Machine 1.
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize} \quad Z = \sum_{p=1}^{P} \text{price}_p \cdot x_p - \sum_{m=2}^{M} \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \cdot \text{cost}_m - \text{standard_cost} \cdot h_1 - \text{overtime_cost} \cdot h_1^{\text{overtime}}
+\]
+
+\textbf{Subject to:}
+\begin{align*}
+    &\sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \leq \text{available}_{m} \quad \text{for} \; m = 2, \ldots, M \quad &\text{(Machine availability)}\\
+    &\sum_{p=1}^{P} \text{time}_{1,p} \cdot x_p = h_1 + h_1^{\text{overtime}} \quad &\text{(Machine 1 time allocation)}\\
+    &h_1 \leq \text{overtime_hour} \quad &\text{(Standard time limit for Machine 1)}\\
+    &x_p \geq \text{min_batches}_{p} \quad \text{for} \; p = 1, \ldots, P \quad &\text{(Minimum batch requirement)}
+\end{align*}
+
+\textbf{Variables:}
+\begin{align*}
+    &x_p \geq 0 \quad &\text{(Non-negative batch production)}\\
+    &h_1 \geq 0, \quad h_1^{\text{overtime}} \geq 0 \quad &\text{(Non-negative time usage for Machine 1)}
+\end{align*}
+
+\end{document}

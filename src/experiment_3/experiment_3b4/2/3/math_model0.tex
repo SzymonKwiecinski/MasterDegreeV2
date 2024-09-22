@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Formulation}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( x_t \): Additional coal capacity (in MW) built in year \( t \).
+    \item \( y_t \): Additional nuclear capacity (in MW) built in year \( t \).
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize} \quad Z = \sum_{t=1}^{T} (\text{coal\_cost} \cdot x_t + \text{nuke\_cost} \cdot y_t)
+\]
+
+\textbf{Constraints:}
+\begin{enumerate}
+    \item Demand Satisfaction:
+    \[
+    \text{For each } t: \quad \text{oil}_t + \sum_{j=\max(1, t-\text{coal\_life}+1)}^{t} x_j + \sum_{j=\max(1, t-\text{nuke\_life}+1)}^{t} y_j \geq \text{demand}_t
+    \]
+    \item Nuclear Capacity Limit:
+    \[
+    \text{For each } t: \quad \frac{\sum_{j=\max(1, t-\text{nuke\_life}+1)}^{t} y_j}{\text{oil}_t + \sum_{j=\max(1, t-\text{coal\_life}+1)}^{t} x_j + \sum_{j=\max(1, t-\text{nuke\_life}+1)}^{t} y_j} \leq \frac{\text{max\_nuke}}{100}
+    \]
+    \item Non-negativity:
+    \[
+    \text{For each } t: \quad x_t \geq 0, \quad y_t \geq 0
+    \]
+\end{enumerate}
+
+\end{document}

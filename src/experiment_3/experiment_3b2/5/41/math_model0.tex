@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mixed Integer Linear Programming Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $N$: Number of files.
+    \item $M$: A large number representing an upper bound on the number of floppy disks required (e.g., $M = N$).
+    \item $capacity$: Capacity of each floppy disk (in GB).
+    \item $size_j$: Size of file $j$, for $j = 1, \ldots, N$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_{ij} = 
+    \begin{cases} 
+    1, & \text{if file } j \text{ is placed on disk } i \\ 
+    0, & \text{otherwise} 
+    \end{cases}$, for $i = 1, \ldots, M$ and $j = 1, \ldots, N$.
+    \item $y_i = 
+    \begin{cases} 
+    1, & \text{if disk } i \text{ is used} \\ 
+    0, & \text{otherwise} 
+    \end{cases}$, for $i = 1, \ldots, M$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the number of disks used:
+\[
+\min \sum_{i=1}^{M} y_i
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    &\sum_{i=1}^{M} x_{ij} = 1, \quad \forall j = 1, \ldots, N \quad &\text{(Each file is placed on exactly one disk)} \\
+    &\sum_{j=1}^{N} size_j \cdot x_{ij} \leq capacity \cdot y_i, \quad \forall i = 1, \ldots, M \quad &\text{(Respect disk capacity)} \\
+    &x_{ij} \in \{0, 1\}, \quad \forall i = 1, \ldots, M, \forall j = 1, \ldots, N \quad &\text{(Binary variable for file placement)} \\
+    &y_i \in \{0, 1\}, \quad \forall i = 1, \ldots, M \quad &\text{(Binary variable for disk usage)}
+\end{align}
+
+\subsection*{Model Explanation}
+- The objective function minimizes the total number of disks used.
+- Equation (1) ensures each file is assigned to exactly one disk.
+- Equation (2) ensures that the total size of files on any disk does not exceed its capacity, and a disk is marked as used only if it holds at least one file.
+- Constraints (3) and (4) enforce the binary nature of the decision variables.
+
+\end{document}

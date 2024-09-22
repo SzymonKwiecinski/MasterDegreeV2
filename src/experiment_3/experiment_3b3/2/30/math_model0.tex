@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Quadratic Curve Fitting Problem}
+
+Given a set of observed values \( y_k \) and corresponding values \( x_k \) for \( k = 1, \ldots, K \), where:
+
+\[
+y = [y_1, y_2, \ldots, y_K]
+\]
+\[
+x = [x_1, x_2, \ldots, x_K]
+\]
+
+We aim to fit the best quadratic curve of the form:
+
+\[
+y = c \cdot x^2 + b \cdot x + a
+\]
+
+The objective is to minimize the sum of absolute deviations of each observed value of \( y \) from the value predicted by the quadratic relationship, which can be formulated as:
+
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} |y_k - (c \cdot x_k^2 + b \cdot x_k + a)|
+\]
+
+To accomplish our goal, we define the decision variables:
+
+- \( c \): coefficient of the quadratic term
+- \( b \): coefficient of the linear term
+- \( a \): coefficient of the constant term
+
+Thus, our optimization problem can be summarized as follows:
+
+\[
+\begin{align*}
+\text{Minimize} & \quad \sum_{k=1}^{K} d_k \\
+\text{subject to} & \\
+d_k & \geq y_k - (c \cdot x_k^2 + b \cdot x_k + a), \quad k = 1, \ldots, K \\
+d_k & \geq -(y_k - (c \cdot x_k^2 + b \cdot x_k + a)), \quad k = 1, \ldots, K \\
+& \text{where } d_k \geq 0 \text{ for all } k
+\end{align*}
+\]
+
+The final output will include the coefficients:
+
+\[
+\text{Output:} \quad \{ \text{"quadratic"}: c, \text{"linear"}: b, \text{"constant"}: a \}
+\]
+
+\end{document}

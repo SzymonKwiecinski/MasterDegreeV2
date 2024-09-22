@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Indices}
+\begin{align*}
+& k = 1, \ldots, K \quad \text{(Industries)} \\
+& t = 1, \ldots, 5 \quad \text{(Years)}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+& \text{produce}_{k,t} \quad \text{(Units produced by industry $k$ in year $t$)} \\
+& \text{buildcapa}_{k,t} \quad \text{(Units used to build productive capacity for industry $k$ in year $t$)} \\
+& \text{stockhold}_{k,t} \quad \text{(Stock of industry $k$ held in year $t$)}
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total manpower requirement:
+\[
+\max \sum_{t=1}^{5} \sum_{k=1}^{K} \left( \text{manpowerone}_{k} \cdot \text{produce}_{k,t} + \text{manpowertwo}_{k} \cdot \text{buildcapa}_{k,t} \right)
+\]
+
+\subsection*{Constraints}
+
+\paragraph{Production Constraints:}
+\[
+\text{produce}_{k,t} + \text{stockhold}_{k,t-1} = \sum_{j=1}^{K} \text{inputone}_{k,j} \cdot \text{produce}_{j,t} + \text{demand}_{k} + \text{stockhold}_{k,t} \quad \forall k, \forall t \geq 1
+\]
+
+\paragraph{Capacity Constraints:}
+\[
+\text{produce}_{k,t} \leq \text{capacity}_{k} + \sum_{j=1}^{K} \text{inputtwo}_{k,j} \cdot \text{buildcapa}_{j,t-2} \quad \forall k, \forall t \geq 3
+\]
+
+\paragraph{Stock Constraints:}
+\[
+\text{stockhold}_{k,0} = \text{stock}_{k} \quad \forall k
+\]
+
+\paragraph{Demand Fulfillment Constraints:}
+\[
+\text{produce}_{k,t} \geq \text{demand}_{k} \quad \forall k, \forall t
+\]
+
+\paragraph{Non-Negativity Constraints:}
+\[
+\text{produce}_{k,t}, \text{buildcapa}_{k,t}, \text{stockhold}_{k,t} \geq 0 \quad \forall k, \forall t
+\]
+
+\end{document}

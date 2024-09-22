@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+\begin{align*}
+x_k &: \text{Amount of mineral } k \text{ used (in thousands of tons), for } k = 1, \ldots, K \\
+y &: \text{Amount of manganese directly added (in tons)}
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the profit:
+\begin{align*}
+\text{Profit} = n_{\text{steel\_quant}} \times \text{sell\_price} - \sum_{k=1}^{K} \left( x_k \times \text{cost}_k \right) - y \times \text{mang\_price} - \sum_{k=1}^{K} \left( x_k \times \text{melt\_price} \right)
+\end{align*}
+
+\subsection*{Constraints}
+1. Total steel production:
+\begin{align*}
+\sum_{k=1}^{K} x_k + y = n_{\text{steel\_quant}}
+\end{align*}
+
+2. Manganese content:
+\begin{align*}
+\sum_{k=1}^{K} \left( x_k \times \frac{\text{contmn}_k}{1000} \right) + y \geq \frac{\text{mn\_percent}}{100} \times n_{\text{steel\_quant}}
+\end{align*}
+
+3. Silicon content:
+\begin{align*}
+\frac{\text{si\_min}}{100} \times n_{\text{steel\_quant}} \leq \sum_{k=1}^{K} \left( x_k \times \frac{\text{contsi}_k}{1000} \right) \leq \frac{\text{si\_max}}{100} \times n_{\text{steel\_quant}}
+\end{align*}
+
+4. Non-negativity:
+\begin{align*}
+x_k \geq 0 \quad \forall k = 1, \ldots, K \\
+y \geq 0
+\end{align*}
+
+\end{document}

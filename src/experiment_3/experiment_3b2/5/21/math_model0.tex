@@ -1,0 +1,82 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Model for Profit Maximization}
+
+\subsection*{Given Data}
+\begin{itemize}
+    \item Number of machines: $M$
+    \item Number of products: $K$
+    \item Number of months considered: $I$
+    \item Profit per unit of product $k$: $\text{profit}_k$
+    \item Unit production time (hours) for product $k$ on machine $m$: $\text{time}_{k,m}$
+    \item Maintenance down period for each machine $m$ (months): $\text{down}_m$
+    \item Marketing limitation for product $k$ in month $i$: $\text{limit}_{k,i}$
+    \item Storage cost per unit per month: $\text{store\_price}$
+    \item Desired stock at end: $\text{keep\_quantity}$
+    \item Working hours per shift per day: $\text{n\_workhours}$
+    \item Days the factory works per month: 24
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    \text{sell}_{k,i} & : \text{Units of product $k$ sold in month $i$} \\
+    \text{manufacture}_{k,i} & : \text{Units of product $k$ manufactured in month $i$} \\
+    \text{storage}_{k,i} & : \text{Units of product $k$ stored at the end of month $i$} \\
+    \text{maintain}_{m,i} & : \text{0-1 variable indicating if machine $m$ is under maintenance in month $i$}
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total profit, considering the production, sales, and storage costs:
+\[
+\text{Maximize} \quad \sum_{i=1}^{I} \sum_{k=1}^{K} \left( \text{profit}_k \cdot \text{sell}_{k,i} - \text{store\_price} \cdot \text{storage}_{k,i} \right)
+\]
+
+\subsection*{Constraints}
+
+\subsubsection*{Production Constraints}
+For each product $k$ and month $i$:
+\[
+\sum_{m=1}^{M} \left( \text{time}_{k,m} \cdot \text{manufacture}_{k,i} \right) \leq \left( \text{num\_machines}_m - \text{maintain}_{m,i} \right) \cdot 24 \cdot \text{n\_workhours}, \quad \forall m, \forall i
+\]
+
+\subsubsection*{Maintenance Constraints}
+Each machine $m$ must be down for the specified months:
+\[
+\sum_{i=1}^{I} \text{maintain}_{m,i} = \text{down}_m, \quad \forall m
+\]
+
+\subsubsection*{Storage and Balance Constraints}
+For each product $k$ and month $i$:
+\[
+\text{storage}_{k,i} = \text{storage}_{k,i-1} + \text{manufacture}_{k,i} - \text{sell}_{k,i}, \quad \forall k, \forall i
+\]
+Initial storage should be zero:
+\[
+\text{storage}_{k,0} = 0, \quad \forall k
+\]
+Final desired stock constraint:
+\[
+\text{storage}_{k,I} = \text{keep\_quantity}, \quad \forall k
+\]
+
+\subsubsection*{Market Limitation Constraints}
+For each product $k$ and month $i$:
+\[
+\text{sell}_{k,i} \leq \text{limit}_{k,i}, \quad \forall k, \forall i
+\]
+
+\subsubsection*{Storage Capacity Constraints}
+Storage cannot exceed 100 units for each product:
+\[
+\text{storage}_{k,i} \leq 100, \quad \forall k, \forall i
+\]
+
+\subsection*{Variable Types}
+\begin{itemize}
+    \item $\text{sell}_{k,i}$, $\text{manufacture}_{k,i}$, $\text{storage}_{k,i}$: Continuous (integer) variables
+    \item $\text{maintain}_{m,i}$: Binary variables
+\end{itemize}
+
+\end{document}

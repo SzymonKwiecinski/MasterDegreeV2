@@ -1,0 +1,17 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model for Alloy Production:}
+
+\begin{align*}
+\text{Let } & x_k \text{ be the amount of alloy } k \text{ used, for } k = 1, \ldots, K. \\
+\\
+\text{Objective:} \quad & \text{Minimize} \quad \sum_{k=1}^{K} \text{price}_k \cdot x_k \\
+\\
+\text{Subject to:} \quad & \sum_{k=1}^{K} x_k = \text{alloy\_quant} \\
+& \sum_{k=1}^{K} \text{ratio}_{k, m} \cdot x_k = \text{target}_m \quad \text{for each } m = 1, \ldots, M \\
+& x_k \geq 0 \quad \text{for each } k = 1, \ldots, K
+\end{align*}
+
+\end{document}

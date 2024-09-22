@@ -1,0 +1,23 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Manpower Planning}
+
+\subsection*{Objective Function}
+\begin{align*}
+\text{Minimize} \quad & \sum_{i=1}^{I} \sum_{k=1}^{K} \left( \text{costredundancy}_{k} \cdot \text{redundant}_{k,i} + \text{costoverman}_{k} \cdot \text{overmanning}_{k,i} + \text{costshort}_{k} \cdot \text{short}_{k,i} \right)
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+\text{Manpower Balance:} \quad & \text{employed}_{k,i} = \text{employed}_{k,i-1} \cdot (1 - \text{moreonewaste}_{k}) + \text{recruit}_{k,i} - \text{redundant}_{k,i} & \forall k, \forall i\\
+& \text{employed}_{k,1} = \text{strength}_{k} \cdot (1 - \text{moreonewaste}_{k}) + \text{recruit}_{k,1} - \text{redundant}_{k,1} & \forall k \\
+\text{Satisfy Requirement:} \quad & \text{employed}_{k,i} + \text{overmanning}_{k,i} \geq \text{requirement}_{k,i} - 0.5 \cdot \text{short}_{k,i} & \forall k, \forall i \\
+\text{Recruitment Limits:} \quad & 0 \leq \text{recruit}_{k,i} \leq \text{recruit}_{k} & \forall k, \forall i \\
+\text{Redundancy Limits:} \quad & \text{redundant}_{k,i} \geq 0 & \forall k, \forall i \\
+\text{Overmanning Limits:} \quad & \sum_{k=1}^{K} \text{overmanning}_{k,i} \leq \text{num\_overman} & \forall i \\
+\text{Short-time Limits:} \quad & 0 \leq \text{short}_{k,i} \leq \text{num\_shortwork} & \forall k, \forall i \\
+\end{align*}
+
+\end{document}

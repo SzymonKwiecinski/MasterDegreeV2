@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Indices:}
+\begin{align*}
+s & : \text{Index for shifts, } s = 1, 2, \ldots, S
+\end{align*}
+
+\subsection*{Parameters:}
+\begin{align*}
+\text{officers\_needed}_s & : \text{Number of officers needed for shift } s \\
+\text{shift\_cost}_s & : \text{Cost of starting a shift at } s
+\end{align*}
+
+\subsection*{Decision Variables:}
+\begin{align*}
+x_s & : \text{Number of officers starting at shift } s \quad (x_s \geq 0 \text{ and integer})
+\end{align*}
+
+\subsection*{Objective:}
+Minimize the total cost:
+\begin{align*}
+\text{Minimize } & \sum_{s=1}^{S} \text{shift\_cost}_s \cdot x_s
+\end{align*}
+
+\subsection*{Constraints:}
+Each shift has to be covered by the required number of officers:
+\begin{align*}
+x_s + x_{s-1} & \geq \text{officers\_needed}_s, \quad \forall s = 1, 2, \ldots, S
+\end{align*}
+
+Note: The indices are cyclic, meaning:
+\begin{align*}
+x_{0} & \equiv x_S \quad (\text{Officer on last shift rolls over to first shift})
+\end{align*}
+
+\end{document}

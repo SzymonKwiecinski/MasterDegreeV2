@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( n_mines \): Total number of mines
+    \item \( n_{maxwork} \): Maximum number of mines that can operate in any one year
+    \item \( \text{royalty}_{k} \): Yearly royalties payable on mine \( k \)
+    \item \( \text{limit}_{k} \): Upper limit of ore that can be extracted from mine \( k \) in a year
+    \item \( \text{quality}_{k} \): Quality of ore from mine \( k \)
+    \item \( \text{requiredquality}_{i} \): Required quality of blended ore in year \( i \)
+    \item \( \text{price} \): Selling price per ton of the blended ore
+    \item \( \text{discount} \): Discount rate per annum
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{isoperated}_{k,i} \): Binary variable indicating if mine \( k \) is operated in year \( i \) (1 if operated, 0 otherwise)
+    \item \( \text{amount}_{k,i} \): Amount of ore produced by mine \( k \) in year \( i \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+\text{Maximize} \quad Z = \sum_{i=1}^{I} \left( \text{price} \cdot \sum_{k=1}^{n_{mines}} \text{amount}_{k,i} - \sum_{k=1}^{n_{mines}} \text{royalty}_{k} \cdot \text{isoperated}_{k,i} \right) (1+\text{discount})^{-i}
+\]
+
+\subsection*{Constraints}
+\begin{enumerate}
+    \item \textbf{Maximum mines operated per year:}
+    \[
+    \sum_{k=1}^{n_{mines}} \text{isoperated}_{k,i} \leq n_{maxwork} \quad \forall i
+    \]
+    
+    \item \textbf{Quality constraint for blended ore:}
+    \[
+    \frac{\sum_{k=1}^{n_{mines}} \text{quality}_{k} \cdot \text{amount}_{k,i}}{\sum_{k=1}^{n_{mines}} \text{amount}_{k,i}} = \text{requiredquality}_{i} \quad \forall i
+    \]
+    
+    \item \textbf{Production limit per mine:}
+    \[
+    \text{amount}_{k,i} \leq \text{limit}_{k} \cdot \text{isoperated}_{k,i} \quad \forall k, i
+    \]
+    
+    \item \textbf{Non-negativity:}
+    \[
+    \text{amount}_{k,i} \geq 0 \quad \forall k, i
+    \]
+    
+    \item \textbf{Binary constraint on operation:}
+    \[
+    \text{isoperated}_{k,i} \in \{0, 1\} \quad \forall k, i
+    \]
+\end{enumerate}
+
+\end{document}

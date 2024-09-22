@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Engineering Factory Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $M$: Total number of machines
+    \item $K$: Total number of products
+    \item $I$: Total number of months
+    \item $profit_k$: Profit per unit of product $k$
+    \item $time_{k,m}$: Time required to produce product $k$ on machine $m$
+    \item $down_m$: Duration machine $m$ is down for maintenance (in months)
+    \item $limit_{k,i}$: Maximum marketing limit for product $k$ in month $i$
+    \item $store\_price$: Cost of storing one unit of product per month
+    \item $keep\_quantity$: Desired stock level of each product at the end of the planning horizon
+    \item $n\_workhours$: Total work hours available per month (calculated as $6 \text{ days/week} \times 2 \text{ shifts/day} \times n\_workhours$)
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item $sell_{k,i}$: Amount sold of product $k$ in month $i$
+    \item $manufacture_{k,i}$: Amount produced of product $k$ in month $i$
+    \item $storage_{k,i}$: Amount stored of product $k$ at the end of month $i$
+    \item $maintain_{m,i}$: Number of machines of type $m$ under maintenance in month $i$
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to maximize the total profit, given by:
+
+\[
+\text{Maximize } Z = \sum_{i=1}^I \sum_{k=1}^K (profit_k \cdot sell_{k,i} - store\_price \cdot storage_{k,i})
+\]
+
+\subsection*{Constraints}
+
+1. **Production Time Constraint**:
+   \[
+   \sum_{k=1}^K time_{k,m} \cdot manufacture_{k,i} \leq n\_workhours \cdot (1 - down_m) \quad \forall m, \forall i
+   \]
+
+2. **Marketing Limit Constraint**:
+   \[
+   sell_{k,i} \leq limit_{k,i} \quad \forall k, \forall i
+   \]
+
+3. **Storage Balance Equation**:
+   \[
+   storage_{k,i} = storage_{k,i-1} + manufacture_{k,i} - sell_{k,i} \quad \forall k, \forall i \text{ with } i > 1
+   \]
+
+4. **Stock Level Requirement**:
+   \[
+   storage_{k,I} \geq keep\_quantity \quad \forall k
+   \]
+
+5. **Non-negativity Constraints**:
+   \[
+   sell_{k,i}, manufacture_{k,i}, storage_{k,i} \geq 0 \quad \forall k, \forall i
+   \]
+
+6. **Maintenance Constraints**:
+   \[
+   maintain_{m,i} \in \{0, 1\}, \quad \text{and} \quad \sum_{m=1}^M maintain_{m,i} \leq down_m \quad \forall i
+   \]
+
+\end{document}

@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{period} \): Number of consecutive days a nurse works.
+    \item \( d_j \): Demand for nurses on day \( j \), \( j = 1, \dots, 7 \).
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item \( \text{start}_j \): Number of nurses starting their shift on day \( j \), \( j = 1, \dots, 7 \).
+\end{itemize}
+
+\subsection*{Objective}
+Minimize the total number of nurses hired:
+\[
+\text{Minimize} \quad \sum_{j=1}^{7} \text{start}_j
+\]
+
+\subsection*{Constraints}
+For each day \( j \), ensure the demand is met:
+\[
+\begin{aligned}
+    n_j \geq d_j \quad & \forall j = 1, \dots, 7
+\end{aligned}
+\]
+
+Where \( n_j \) is calculated as:
+\[
+n_j = \sum_{i=0}^{\text{period}-1} \text{start}_{((j-i-1) \mod 7) + 1}
+\]
+
+This expression accounts for the cyclic nature of the week, ensuring that for day \( j \), we consider nurses starting from the previous \text{period} days.
+
+\subsection*{Integer Constraint}
+\[
+\text{start}_j \in \mathbb{Z}^+, \quad \forall j = 1, \dots, 7
+\]
+
+\end{document}

@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Warehouse Management}
+
+\textbf{Objective:} Maximize the total profit over $N$ periods.
+
+Let:
+\begin{align*}
+  \text{capacity} &= \text{Warehouse capacity} \\
+  \text{holding\_cost} &= \text{Cost per unit for holding stock for one period} \\
+  \text{price}_n &= \text{Selling price of commodity in period } n \\
+  \text{cost}_n &= \text{Purchase cost of commodity in period } n \\
+  \text{buyquantity}_n &= \text{Quantity bought in period } n \\
+  \text{sellquantity}_n &= \text{Quantity sold in period } n \\
+  \text{stock}_n &= \text{Stock level at the end of period } n
+\end{align*}
+
+\textbf{Decision Variables:}
+\[
+  \begin{aligned}
+    & \text{Maximize } \sum_{n=1}^{N} \left( \text{price}_n \cdot \text{sellquantity}_n - \text{cost}_n \cdot \text{buyquantity}_n - \text{holding\_cost} \cdot \text{stock}_n \right)
+  \end{aligned}
+\]
+
+\textbf{Subject to:}
+\begin{align*}
+  \text{stock}_1 &= \text{buyquantity}_1 - \text{sellquantity}_1 \\
+  \text{stock}_n &= \text{stock}_{n-1} + \text{buyquantity}_n - \text{sellquantity}_n, \quad n = 2, \ldots, N \\
+  \text{stock}_n &\leq \text{capacity}, \quad n = 1, \ldots, N \\
+  \text{stock}_N &= 0 \\
+  \text{buyquantity}_n &\geq 0, \quad n = 1, \ldots, N \\
+  \text{sellquantity}_n &\geq 0, \quad n = 1, \ldots, N
+\end{align*}
+
+\textbf{Explanation:}
+- The objective function maximizes the profit by considering the sales revenue, purchase cost, and holding cost.
+- The first constraint calculates the stock level at the end of the first period.
+- The second constraint maintains the stock balance for each subsequent period.
+- The third constraint ensures that the stock level does not exceed the warehouse capacity.
+- The fourth constraint specifies that the stock must be zero at the end of the last period.
+- Non-negativity constraints ensure that buying and selling quantities are non-negative.
+
+\end{document}

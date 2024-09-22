@@ -1,0 +1,26 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Decision Variables}
+\begin{align*}
+\text{power}_j & \quad \text{for } j = 1, \dots, M \\
+\text{error}_i^{+}, \text{error}_i^{-} & \quad \text{for } i = 1, \dots, N
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total absolute error:
+\[
+\min \sum_{i=1}^{N} (\text{error}_i^{+} + \text{error}_i^{-})
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+& \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j = \text{ill}_i, & \quad \text{for } i = 1, \dots, N \\
+& \text{ill}_i - \text{desired}_i = \text{error}_i^{+} - \text{error}_i^{-}, & \quad \text{for } i = 1, \dots, N \\
+& \text{error}_i^{+} \geq 0, \quad \text{error}_i^{-} \geq 0, & \quad \text{for } i = 1, \dots, N
+\end{align*}
+
+\end{document}

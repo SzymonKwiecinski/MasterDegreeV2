@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Formulation for File Backup on Floppy Disks}
+
+\subsection*{Sets and Parameters:}
+\begin{align*}
+  & N: \text{Number of files} \\
+  & \text{size}_j: \text{Size of file } j, \quad j = 1, \ldots, N \\
+  & \text{capacity}: \text{Capacity of each floppy disk} 
+\end{align*}
+
+\subsection*{Decision Variables:}
+\begin{align*}
+  & x_{ij} = 
+  \begin{cases} 
+  1, & \text{if file } j \text{ is placed on disk } i \\
+  0, & \text{otherwise}
+  \end{cases} \\
+  & y_i = 
+  \begin{cases} 
+  1, & \text{if disk } i \text{ is used} \\
+  0, & \text{otherwise}
+  \end{cases}
+\end{align*}
+
+\subsection*{Objective:}
+\[
+\text{Minimize} \quad \sum_{i=1}^{N} y_i
+\]
+
+\subsection*{Constraints:}
+1. Each file must be placed on exactly one disk:
+\[
+\sum_{i=1}^{N} x_{ij} = 1, \quad \forall j = 1, \ldots, N
+\]
+2. The total size of the files on each disk should not exceed the disk's capacity:
+\[
+\sum_{j=1}^{N} \text{size}_j \times x_{ij} \leq \text{capacity} \times y_i, \quad \forall i = 1, \ldots, N
+\]
+3. Ensure files are only placed on used disks:
+\[
+x_{ij} \leq y_i, \quad \forall i = 1, \ldots, N, \quad \forall j = 1, \ldots, N
+\]
+
+\end{document}

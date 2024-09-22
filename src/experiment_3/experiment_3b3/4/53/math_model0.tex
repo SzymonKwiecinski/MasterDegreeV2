@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Soybean Transportation}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item Let \( x_{i,j} \) be the amount of soybeans shipped from city \( i \) to city \( j \).
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } Z = \sum_{(i,j) \in A} C_{i,j} \cdot x_{i,j}
+\]
+where \( C_{i,j} \) is the transportation cost per metric ton along route from \( i \) to \( j \).
+
+\textbf{Constraints:}
+
+\begin{itemize}
+    \item Supply Constraints:
+    \[
+    \sum_{j} x_{k,j} \leq supply_{k}, \quad \forall k \text{ (terminal cities)}
+    \]
+    
+    \item Demand Constraints:
+    \[
+    \sum_{i} x_{i,l} = demand_{l}, \quad \forall l \text{ (destination cities)}
+    \]
+    
+    \item Non-negativity Constraints:
+    \[
+    x_{i,j} \geq 0, \quad \forall (i,j) \in A
+    \]
+\end{itemize}
+
+\textbf{Input Format:}
+\begin{verbatim}
+{
+    "routes": [
+       {
+        "start": i,
+        "end": j,
+        "C": C_{i,j},
+       }
+    ],
+    "demand": [
+        {
+            "destination": l,
+            "D": demand_{l}
+        }
+    ],
+    "supply": [
+        {
+            "terminal": k,
+            "S": supply_{k}
+        }
+    ]
+}
+\end{verbatim}
+
+\textbf{Output Format:}
+\begin{verbatim}
+{
+    "distribution": [
+        {"from": i,
+         "to": j,
+         "amount": amount_{i,j}
+        }
+        for id in 1, ..., m
+    ],
+    "total_cost": total_cost
+}
+\end{verbatim}
+
+\end{document}

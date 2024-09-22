@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\subsection*{Variables}
+Let \( b_p \) be the number of batches produced of part \( p \) for \( p = 1, \ldots, P \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( time_{m,p} \): time required (in hours) on machine \( m \) for one batch of part \( p \)
+    \item \( cost_{m} \): cost per hour for using machine \( m \)
+    \item \( available_{m} \): available hours per month for machine \( m \)
+    \item \( price_{p} \): selling price per batch of part \( p \)
+    \item \( min\_batches_{p} \): minimum batches of part \( p \) required to fulfill contracts
+    \item \( standard\_cost \): standard labor cost per hour
+    \item \( overtime\_cost \): overtime labor cost per hour
+    \item \( overtime\_hour \): number of hours after which overtime costs apply
+    \item \( min\_profit \): minimum profit required
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+
+\[
+\text{Total Profit} = \sum_{p=1}^{P} (price_{p} \cdot b_{p}) - \sum_{m=1}^{M} (cost_{m} \cdot \sum_{p=1}^{P} (time_{m,p} \cdot b_{p}))
+\]
+
+with consideration of labor costs for machine \( 1 \):
+
+\[
+\text{Labor Cost} = 
+\begin{cases}
+standard\_cost \cdot \sum_{p=1}^{P} (time_{1,p} \cdot b_{p}), & \text{if } \sum_{p=1}^{P} (time_{1,p} \cdot b_{p}) \leq overtime\_hour \\
+standard\_cost \cdot overtime\_hour + overtime\_cost \cdot \left( \sum_{p=1}^{P} (time_{1,p} \cdot b_{p}) - overtime\_hour \right), & \text{otherwise}
+\end{cases}
+\]
+
+The objective function can be reformulated as follows:
+\[
+\text{Maximize} \quad Z = \sum_{p=1}^{P} (price_{p} \cdot b_{p}) - \sum_{m=1}^{M} cost_{m} \cdot \sum_{p=1}^{P} (time_{m,p} \cdot b_{p}) - \text{Labor Cost}
+\]
+
+\subsection*{Constraints}
+1. Machine availability constraints:
+\[
+\sum_{p=1}^{P} (time_{m,p} \cdot b_{p}) \leq available_{m}, \quad \forall m = 1, \ldots, M
+\]
+2. Minimum batches requirements:
+\[
+b_{p} \geq min\_batches_{p}, \quad \forall p = 1, \ldots, P
+\]
+3. Minimum profit requirement:
+\[
+Z \geq min\_profit
+\]
+
+4. Non-negativity constraints:
+\[
+b_{p} \geq 0, \quad \forall p = 1, \ldots, P
+\]
+
+\end{document}

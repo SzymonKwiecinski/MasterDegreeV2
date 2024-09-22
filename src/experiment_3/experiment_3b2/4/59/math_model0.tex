@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+\[
+\text{minimize} \quad \sum_{i=1}^{N} \text{cost}_i \cdot x_i
+\]
+
+\textbf{Subject to:}
+\[
+\sum_{i=1}^{N} a_{im} \cdot x_i \geq 1 \quad \forall m \in \text{required languages}
+\]
+\[
+x_i \in \{0, 1\} \quad \forall i = 1, \ldots, N
+\]
+
+\textbf{Where:}
+\begin{itemize}
+    \item \( x_i \) is 1 if translator \( i \) is selected, 0 otherwise.
+    \item \( \text{cost}_i \) is the cost of hiring translator \( i \).
+    \item \( a_{im} \) is 1 if translator \( i \) can translate into language \( m \), 0 otherwise.
+    \item \( N \) is the number of available translators.
+    \item The set of required languages is given by the problem input.
+\end{itemize}
+
+\end{document}

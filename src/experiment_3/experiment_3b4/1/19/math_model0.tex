@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\begin{document}
+
+\textbf{Mathematical Model}
+
+\text{Maximize } \quad \sum_{m=1}^{M} \left( \text{sell\_price} \times \sum_{i=1}^{I} \text{refine}_{i,m} - \sum_{i=1}^{I} \text{buy\_price}_{i,m} \times \text{buyquantity}_{i,m} - \text{storage\_cost} \times \sum_{i=1}^{I} \text{storage}_{i,m} \right)
+
+\textbf{Subject to:}
+
+1. \quad \text{Balance Constraints}:
+\[
+\text{storage}_{i,m} = \text{storage}_{i,m-1} + \text{buyquantity}_{i,m} - \text{refine}_{i,m}, \quad \forall i, \forall m
+\]
+
+2. \quad \text{Initial and Final Storage Constraints}:
+\[
+\text{storage}_{i,0} = \text{init\_amount}, \quad \text{storage}_{i,M} = \text{init\_amount}, \quad \forall i
+\]
+
+3. \quad \text{Refining Capacity}:
+\[
+\sum_{i \text{ is vegetable}} \text{refine}_{i,m} \leq \text{max\_veg}, \quad 
+\sum_{i \text{ is non-vegetable}} \text{refine}_{i,m} \leq \text{max\_non\_veg}, \quad \forall m
+\]
+
+4. \quad \text{Storage Capacity}:
+\[
+0 \leq \text{storage}_{i,m} \leq \text{storage\_size}, \quad \forall i, \forall m
+\]
+
+5. \quad \text{Hardness Constraints}:
+\[
+\text{min\_hardness} \leq \frac{\sum_{i=1}^{I} \text{hardness}_{i} \times \text{refine}_{i,m}}{\sum_{i=1}^{I} \text{refine}_{i,m}} \leq \text{max\_hardness}, \quad \forall m
+\]
+
+6. \quad \text{Limited Oils in Blend}:
+\[
+\sum_{i=1}^{I} y_{i,m} \leq 3, \quad \forall m
+\]
+
+7. \quad \text{Minimum Usage}:
+\[
+\text{refine}_{i,m} \geq \text{min\_usage} \times y_{i,m}, \quad \forall i, \forall m
+\]
+
+8. \quad \text{Dependencies}:
+\[
+y_{i,m} \leq y_{j,m}, \quad \text{if } \text{dependency}_{i,j} = 1, \quad \forall m
+\]
+
+\end{document}

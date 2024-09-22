@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Container Transport}
+
+\subsection*{Sets}
+\begin{align*}
+    & I: \text{Set of depots, indexed by } i = 1, \ldots, I \\
+    & J: \text{Set of ports, indexed by } j = 1, \ldots, J \\
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+    & \text{numdepot}_i: \text{Number of containers available at depot } i, \quad i \in I \\
+    & \text{numport}_j: \text{Number of containers required at port } j, \quad j \in J \\
+    & \text{price}: \text{Cost per kilometer per barge (containing two containers)} \\
+    & \text{distance}_{i,j}: \text{Distance from depot } i \text{ to port } j, \quad i \in I, j \in J \\
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    & \text{number}_{i,j}: \text{Number of containers sent from depot } i \text{ to port } j \\
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total transportation cost:
+\begin{align*}
+    \min \sum_{i=1}^{I} \sum_{j=1}^{J} \left( \frac{\text{number}_{i,j}}{2} \right) \cdot \text{price} \cdot \text{distance}_{i,j}
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+    & \sum_{j=1}^{J} \text{number}_{i,j} \leq \text{numdepot}_i, \quad \forall i \in I, \quad \text{(Supply constraints)} \\
+    & \sum_{i=1}^{I} \text{number}_{i,j} = \text{numport}_j, \quad \forall j \in J, \quad \text{(Demand constraints)} \\
+    & \text{number}_{i,j} \geq 0, \quad \forall i \in I, \, \forall j \in J \\
+    & \text{number}_{i,j} \text{ is an even integer}, \quad \forall i \in I, \, \forall j \in J
+\end{align*}
+
+\end{document}

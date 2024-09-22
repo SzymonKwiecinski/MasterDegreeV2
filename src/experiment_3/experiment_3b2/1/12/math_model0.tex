@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Currency Exchange}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( N \): Number of available currencies.
+    \item \( \text{start}_i \): Initial amount of currency \( i \).
+    \item \( \text{limit}_i \): Maximum amount of currency \( i \) that can be exchanged.
+    \item \( \text{rate}_{i,j} \): Exchange rate from currency \( i \) to currency \( j \).
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( x_{i,j} \geq 0 \): Amount of currency \( i \) to be exchanged for currency \( j \).
+\end{itemize}
+
+\textbf{Objective:}
+\[
+\text{Maximize } \sum_{i=1}^{N-1} x_{i,N} \cdot \text{rate}_{i,N} + \text{start}_N - \sum_{j=1}^{N-1} x_{N,j}
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+    & x_{i,j} \leq \text{limit}_i, & \forall i, j = 1, \ldots, N \text{ and } i \neq j \\
+    & \sum_{j=1, j \neq i}^{N} x_{i,j} \leq \text{start}_i + \sum_{k=1, k \neq i}^{N} x_{k,i} \cdot \text{rate}_{k,i}, & \forall i = 1, \ldots, N \\
+\end{align*}
+
+\textbf{Explanation:}
+\begin{itemize}
+    \item The objective function maximizes the amount of currency \( N \) we end up with by considering the total incoming exchanged amount adjusted for the exchange rate, adding the starting currency \( N \), and subtracting the amount exchanged away from currency \( N \).
+    \item The first set of constraints ensures that the transaction amount between any two currencies does not exceed the regulatory limits.
+    \item The second set of constraints ensures that for any currency \( i \), the total exchanged amount does not exceed the initial amount plus any incoming exchanged currency adjusted by the respective exchange rate.
+\end{itemize}
+
+\end{document}

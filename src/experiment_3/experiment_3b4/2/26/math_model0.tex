@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Sets}
+\begin{align*}
+K & = \text{Number of industries} \\
+T & = \text{Number of years (5)}
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+\text{inputone}_{k,j} & = \text{Input needed from industry } j \text{ by industry } k \text{ for production (\(\forall k, j\))} \\
+\text{manpowerone}_{k} & = \text{Manpower units needed by industry } k \text{ for production} \\
+\text{inputtwo}_{k,j} & = \text{Input needed from industry } j \text{ by industry } k \text{ for capacity building (\(\forall k, j\))} \\
+\text{manpowertwo}_{k} & = \text{Manpower units needed by industry } k \text{ for capacity building} \\
+\text{stock}_{k} & = \text{Initial stock of industry } k \\
+\text{capacity}_{k} & = \text{Initial capacity of industry } k \\
+\text{demand}_{k} & = \text{Exogenous consumption demand from industry } k \text{ (for \(t = 1, \ldots, T\))}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+\text{produce}_{k,t} & = \text{Units produced by industry } k \text{ in year } t \\
+\text{buildcapa}_{k,t} & = \text{Units used for building capacity of industry } k \text{ in year } t \\
+\text{stockhold}_{k,t} & = \text{Stock of industry } k \text{ held at the end of year } t
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total manpower usage over five years:
+\[
+\max \sum_{t=1}^{T} \sum_{k=1}^{K} (\text{manpowerone}_{k} \cdot \text{produce}_{k,t} + \text{manpowertwo}_{k} \cdot \text{buildcapa}_{k,t})
+\]
+
+\subsection*{Constraints}
+
+\paragraph{Production Capacity Constraints:}
+For each industry \(k\) and year \(t\):
+\[
+\text{produce}_{k,t} + \text{buildcapa}_{k,t} \leq \text{capacity}_{k} + \sum_{\tau=1}^{t-2} \text{buildcapa}_{k,\tau}, \quad t \geq 1
+\]
+
+\paragraph{Stock Balance Constraints:}
+For each industry \(k\) and year \(t\):
+\[
+\text{stockhold}_{k,t} = \text{stockhold}_{k,t-1} + \text{produce}_{k,t} - \sum_{j=1}^{K} \text{inputone}_{j,k} \cdot \text{produce}_{j,t} - \text{demand}_{k}, \quad t \geq 1
+\]
+\[
+\text{stockhold}_{k,0} = \text{stock}_{k}
+\]
+
+\paragraph{Non-negativity Constraints:}
+\[
+\text{produce}_{k,t} \geq 0, \quad \text{buildcapa}_{k,t} \geq 0, \quad \text{stockhold}_{k,t} \geq 0, \quad \forall k, \forall t
+\]
+
+\end{document}

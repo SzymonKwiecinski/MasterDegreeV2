@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+\[
+\min \delta
+\]
+
+\textbf{Subject to constraints:}
+
+For each data point \( k = 1, 2, \ldots, K \):
+
+\[
+y_k - (bx_k + a) \leq \delta
+\]
+
+\[
+(bx_k + a) - y_k \leq \delta
+\]
+
+These constraints represent that the absolute deviation between the observed value \( y_k \) and the predicted value \( bx_k + a \) is less than or equal to \( \delta \).
+
+This is a linear programming problem with the decision variables:
+- \( a \): Intercept of the fitted line.
+- \( b \): Slope of the fitted line.
+- \( \delta \): Maximum deviation.
+
+\textbf{Solution:}
+
+By solving this linear programming problem, we will obtain the values for \( a \) (intercept) and \( b \) (slope), which will be used to define the best-fit line. The objective value will give the minimized maximum deviation.
+
+\end{document}

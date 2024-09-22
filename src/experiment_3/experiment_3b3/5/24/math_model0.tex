@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Mining Company Operations}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $k \in \{1, 2, \ldots, n_{\text{mines}}\}$: index for mines
+    \item $i \in \{1, 2, \ldots, n_{\text{years}}\}$: index for years
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $n_{\text{mines}}$: total number of mines
+    \item $n_{\text{maxwork}}$: maximum number of mines that can operate in any year
+    \item $royalty_k$: yearly royalty for mine $k$
+    \item $limit_k$: upper limit of ore that can be extracted from mine $k$
+    \item $quality_k$: quality of ore from mine $k$
+    \item $requiredquality_i$: required quality of the blended ore in year $i$
+    \item $price$: selling price per ton of blended ore
+    \item $discount$: discount rate per annum
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $isoperated_{k,i} \in \{0, 1\}$: binary variable indicating if mine $k$ is operated in year $i$
+    \item $amount_{k,i} \geq 0$: amount of ore produced by mine $k$ in year $i$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total discounted profit:
+\[
+\text{Maximize } Z = \sum_{i=1}^{n_{\text{years}}} \left( \sum_{k=1}^{n_{\text{mines}}} (price \cdot \sum_{k=1}^{n_{\text{mines}}} amount_{k,i}) - \sum_{k=1}^{n_{\text{mines}}} royalty_k \cdot isoperated_{k,i} \right) \cdot (1 + discount)^{-i}
+\]
+
+\subsection*{Constraints}
+1. **Operating Limits**:
+\[
+\sum_{k=1}^{n_{\text{mines}}} isoperated_{k,i} \leq n_{\text{maxwork}}, \quad \forall i
+\]
+
+2. **Extraction Limits**:
+\[
+amount_{k,i} \leq limit_k \cdot isoperated_{k,i}, \quad \forall k, \forall i
+\]
+
+3. **Quality Constraint**:
+\[
+\sum_{k=1}^{n_{\text{mines}}} \frac{quality_k \cdot amount_{k,i}}{\sum_{k=1}^{n_{\text{mines}}} amount_{k,i}} = requiredquality_i, \quad \forall i
+\]
+
+4. **Non-negativity and Binary Constraints**:
+\[
+amount_{k,i} \geq 0, \quad \forall k, \forall i
+\]
+\[
+isoperated_{k,i} \in \{0, 1\}, \quad \forall k, \forall i
+\]
+
+\end{document}

@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} \\
+Maximize profit, \( Z \):
+\[
+Z = \text{sell\_price} \times \text{n\_steel\_quant} - \sum_{k=1}^{K} \text{cost}_k \times x_k - \text{mang\_price} \times y - \text{melt\_price} \times \sum_{k=1}^{K} x_k 
+\]
+
+\textbf{Subject to constraints:}
+
+1. Total steel quantity:
+\[
+\sum_{k=1}^{K} x_k + y = \text{n\_steel\_quant}
+\]
+
+2. Manganese content:
+\[
+\sum_{k=1}^{K} \text{contmn}_k \times x_k + y \geq \frac{\text{mn\_percent}}{100} \times \text{n\_steel\_quant}
+\]
+
+3. Silicon content:
+\[
+\frac{\text{si\_min}}{100} \times \text{n\_steel\_quant} \leq \sum_{k=1}^{K} \text{contsi}_k \times x_k \leq \frac{\text{si\_max}}{100} \times \text{n\_steel\_quant}
+\]
+
+4. Non-negativity:
+\[
+x_k \geq 0 \quad \text{for all} \quad k = 1, \ldots, K
+\]
+\[
+y \geq 0
+\]
+
+\end{document}

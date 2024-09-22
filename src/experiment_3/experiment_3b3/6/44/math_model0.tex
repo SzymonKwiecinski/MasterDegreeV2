@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+% Let \( P \) be the number of different parts and \( M \) be the number of different machines.
+
+% Define the variables
+Let:
+\begin{itemize}
+    \item \( b_p \): Number of batches produced for part \( p \) (for \( p = 1, \ldots, P \))
+    \item \( time_{m,p} \): Hours required on machine \( m \) to produce one batch of part \( p \)
+    \item \( cost_m \): Cost per hour for using machine \( m \)
+    \item \( available_m \): Available hours per month for machine \( m \)
+    \item \( price_p \): Selling price per batch of part \( p \)
+    \item \( min\_batches_p \): Minimum batches required for part \( p \) to fulfill a contract
+\end{itemize}
+
+% Objective Function
+Maximize the total profit:
+
+\[
+\text{Total Profit} = \sum_{p=1}^{P} (price_p \cdot b_p) - \sum_{m=1}^{M} \left( cost_m \cdot \sum_{p=1}^{P} (time_{m,p} \cdot b_p) \right)
+\]
+
+% Subject to Constraints
+Subject to the constraints:
+
+1. Machine availability constraints:
+\[
+\sum_{p=1}^{P} (time_{m,p} \cdot b_p) \leq available_m \quad \forall m = 1, \ldots, M
+\]
+
+2. Minimum production requirements:
+\[
+b_p \geq min\_batches_p \quad \forall p = 1, \ldots, P
+\]
+
+3. Non-negativity constraints:
+\[
+b_p \geq 0 \quad \forall p = 1, \ldots, P
+\]
+
+\end{document}

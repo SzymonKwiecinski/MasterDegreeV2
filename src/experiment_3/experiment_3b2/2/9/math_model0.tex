@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+Minimize the absolute error between the actual and desired illumination of each road segment.
+
+\textbf{Given:}
+\begin{itemize}
+    \item \(\text{coeff}_{i,j}\): Coefficient matrix where \(i = 1, \ldots, N\) and \(j = 1, \ldots, M\).
+    \item \(\text{desired}_i\): Desired illumination for the \(i\)-th segment.
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item \(\text{power}_j\): Power of the \(j\)-th lamp, for \(j = 1, \ldots, M\).
+    \item \(e_i\), \(e_i^+\), \(e_i^-\): Auxiliary variables for absolute error, such that \(e_i = e_i^+ - e_i^-\) and \(e_i^+, e_i^- \geq 0\).
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\min \sum_{i=1}^{N} e_i^+ + e_i^-
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+\sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j + e_i^- - e_i^+ &= \text{desired}_i, \quad \text{for } i = 1, \ldots, N \\
+e_i^+, e_i^- &\geq 0, \quad \text{for } i = 1, \ldots, N \\
+\text{power}_j &\geq 0, \quad \text{for } j = 1, \ldots, M
+\end{align*}
+
+\textbf{Explanation:}
+The above linear programming model minimizes the sum of absolute errors \(e_i^+ + e_i^-\) for each segment \(i\). The equation \(\sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j + e_i^- - e_i^+ = \text{desired}_i\) adjusts the power of the lamps to achieve the desired illumination level with minimum error.
+
+\end{document}

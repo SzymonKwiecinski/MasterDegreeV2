@@ -1,0 +1,18 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Mathematical Model:}
+
+\begin{align*}
+& \text{Maximize } \sum_{i=1}^{I} \frac{\text{price} \cdot \sum_{k=1}^{n_{\text{mines}}} \text{amount}_{k,i} - \sum_{k=1}^{n_{\text{mines}}} \text{royalty}_k \cdot \text{isoperated}_{k,i}}{(1 + \text{discount})^i} \\
+\text{subject to:} \\
+& \sum_{k=1}^{n_{\text{mines}}} \text{quality}_k \cdot \text{amount}_{k,i} = \text{requiredquality}_i \cdot \sum_{k=1}^{n_{\text{mines}}} \text{amount}_{k,i}, \quad \forall i, \\
+& \text{amount}_{k,i} \leq \text{limit}_k \cdot \text{isoperated}_{k,i}, \quad \forall k, i, \\
+& \sum_{k=1}^{n_{\text{mines}}} \text{isoperated}_{k,i} \leq n_{\text{maxwork}}, \quad \forall i, \\
+& \text{amount}_{k,i} = 0, \quad \text{if } \text{isoperated}_{k,i} = 0, \quad \forall k, i, \\
+& \text{isoperated}_{k,i} \in \{0, 1\}, \quad \forall k, i, \\
+& \text{amount}_{k,i} \geq 0, \quad \forall k, i.
+\end{align*}
+
+\end{document}

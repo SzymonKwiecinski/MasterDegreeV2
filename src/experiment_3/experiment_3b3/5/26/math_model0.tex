@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+Let $K$ be the number of industries, and $T$ be the number of years (in this case, $T = 5$). 
+
+Define the variables:
+\begin{align*}
+\text{produce}_{k, t} & : \text{Amount produced by industry } k \text{ in year } t \\
+\text{buildcapa}_{k, t} & : \text{Amount used to build productive capacity for industry } k \text{ in year } t \\
+\text{stockhold}_{k, t} & : \text{Amount of stock of industry } k \text{ held in year } t \\
+\end{align*}
+
+### Objective Function
+
+Maximize the total manpower requirement over five years:
+\[
+\text{Maximize} \quad \sum_{t=1}^{T} \sum_{k=1}^{K} \text{manpowerone}_{k} \cdot \text{produce}_{k, t} + \sum_{k=1}^{K} \text{manpowertwo}_{k} \cdot \text{buildcapa}_{k, t}
+\]
+
+### Constraints
+
+1. **Production Constraints**:
+   The production in each industry must satisfy:
+   \[
+   \text{produce}_{k, t} + \text{stockhold}_{k, t-1} - \text{stockhold}_{k, t} = \sum_{j=1}^{K} \text{inputone}_{k, j} \cdot \text{produce}_{j, t-1} + \sum_{j=1}^{K} \text{inputtwo}_{k, j} \cdot \text{buildcapa}_{j, t-2} + \text{stock}_{k}
+   \]
+
+2. **Demand Satisfaction**:
+   Each industry must meet its demand:
+   \[
+   \text{produce}_{k, t} + \text{stockhold}_{k, t-1} - \text{stockhold}_{k, t} \geq \text{demand}_{k}, \quad \forall k, \, t \neq 0
+   \]
+
+3. **Capacity Constraints**:
+   The total production and build capacity must not exceed the capacity of the industry:
+   \[
+   \text{produce}_{k, t} + \text{buildcapa}_{k, t} \leq \text{capacity}_{k}, \quad \forall k, \, t
+   \]
+
+4. **Non-negativity Constraints**:
+   All variables must be non-negative:
+   \[
+   \text{produce}_{k, t} \geq 0, \quad \text{buildcapa}_{k, t} \geq 0, \quad \text{stockhold}_{k, t} \geq 0, \quad \forall k, \, t
+   \]
+
+### Variables
+The variables to be determined are as follows:
+\[
+\begin{align*}
+\text{produce} & : \left[\text{produce}_{k, t} \right]_{k=1, \ldots, K}^{t=1, \ldots, T} \\
+\text{buildcapa} & : \left[\text{buildcapa}_{k, t} \right]_{k=1, \ldots, K}^{t=1, \ldots, T} \\
+\text{stockhold} & : \left[\text{stockhold}_{k, t} \right]_{k=1, \ldots, K}^{t=1, \ldots, T}
+\end{align*}
+\]
+
+\end{document}

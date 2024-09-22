@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Steel Production}
+
+\textbf{Variables:} \\
+Let \( x_k \) be the amount of mineral \( k \) (in tons) melted, where \( k = 1, 2, \ldots, K \). \\
+Let \( y \) be the amount of Manganese (Mn) directly added (in tons).
+
+\textbf{Objective Function:} \\
+Maximize profit:
+\[
+Z = n_{\text{steel\_quant}} \cdot \text{sell\_price} - \sum_{k=1}^{K} \left( \frac{cost_k}{1000} \cdot x_k \right) - (melt\_price \cdot (x_1 + x_2 + \ldots + x_K)) - (mang\_price \cdot y)
+\]
+
+\textbf{Subject to:}
+
+1. Steel Composition Constraints: \\
+   - Manganese content:
+   \[
+   \frac{\sum_{k=1}^{K} (x_k \cdot contmn_k)}{n_{\text{steel\_quant}}} \geq \frac{mn_{\text{percent}}}{100}
+   \]
+   - Silicon content:
+   \[
+   \frac{\sum_{k=1}^{K} (x_k \cdot contsi_k)}{n_{\text{steel\_quant}}} \geq si_{\text{min}} \quad \text{and} \quad \frac{\sum_{k=1}^{K} (x_k \cdot contsi_k)}{n_{\text{steel\_quant}}} \leq si_{\text{max}}
+   \]
+
+2. Total Production Requirement:
+\[
+\sum_{k=1}^{K} x_k + y = n_{\text{steel\_quant}}
+\]
+
+3. Non-negativity:
+\[
+x_k \geq 0 \quad \forall k \quad \text{and} \quad y \geq 0
+\]
+
+\end{document}

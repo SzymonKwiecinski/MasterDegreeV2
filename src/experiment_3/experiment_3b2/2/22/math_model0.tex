@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Problem Formulation}
+
+\subsection*{Parameters}
+\begin{align*}
+    & \text{Let } K \text{ be the set of manpower categories (e.g., skilled, semi-skilled, unskilled)}. \\
+    & \text{Let } I \text{ be the set of planning years (e.g., 1 to } I \text{)}. \\
+    & \text{requirement}_{k, i} \text{ be the manpower requirement for category } k \text{ in year } i. \\
+    & \text{strength}_{k} \text{ be the current number of employees in category } k. \\
+    & \text{lessonewaste}_{k} \text{ be the wastage rate for category } k \text{ with less than one year service}. \\
+    & \text{moreonewaste}_{k} \text{ be the wastage rate for category } k \text{ with more than one year service}. \\
+    & \text{recruit}_{k} \text{ be the maximum number of recruits for category } k. \\
+    & \text{costredundancy}_{k} \text{ be the redundancy cost per worker for category } k. \\
+    & \text{num\_overman} \text{ be the maximum number of overmanning workers allowed company-wide}. \\
+    & \text{costoverman}_{k} \text{ be the cost for overmanning per worker for category } k. \\
+    & \text{num\_shortwork} \text{ be the maximum number of short-time workers for each category}. \\
+    & \text{costshort}_{k} \text{ be the short-time working cost per worker for category } k. \\
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    & \text{let } \text{recruit}_{k, i} \text{ be the number of recruits for category } k \text{ in year } i, \\
+    & \text{let } \text{overmanning}_{k, i} \text{ be the number of overmanning workers for category } k \text{ in year } i, \\
+    & \text{let } \text{short}_{k, i} \text{ be the number of short-time workers for category } k \text{ in year } i.
+\end{align*}
+
+\subsection*{Objective}
+Minimize the total redundancy cost over all manpower categories and years:
+\[
+\min \sum_{k \in K} \sum_{i \in I} \text{costredundancy}_{k} \cdot (\text{strength}_{k} - \text{requirement}_{k, i} + \text{recruit}_{k, i} + \text{overmanning}_{k, i} + 0.5 \times \text{short}_{k, i})
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+    & \text{For each category } k \text{ and year } i: \\
+    & \quad \text{strength}_{k} = \text{strength}_{k} \cdot (1 - \text{moreonewaste}_{k}) + \text{recruit}_{k, i-1} \cdot (1 - \text{lessonewaste}_{k}) + \text{recruit}_{k, i} \\
+    & \quad \text{recruit}_{k, i} \leq \text{recruit}_{k}, \\
+    & \quad \text{overmanning}_{k, i} \leq \text{num\_overman}, \\
+    & \quad \text{short}_{k, i} \leq \text{num\_shortwork}, \\
+    & \quad \text{strength}_{k} + \text{recruit}_{k, i} + \text{overmanning}_{k, i} + 0.5 \cdot \text{short}_{k, i} \geq \text{requirement}_{k, i}, \\
+    & \quad \text{All decision variables } \geq 0.
+\end{align*}
+
+\end{document}

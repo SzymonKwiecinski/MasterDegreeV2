@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Communication Network}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item Let \( N \) be the set of nodes, where \( i, j, k, l \in N \).
+    \item Let \( A \) be the set of ordered pairs representing communication links, where \( (i, j) \in A \).
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( U_{i,j} \): Maximum capacity (bits/second) of link \( (i,j) \).
+    \item \( C_{i,j} \): Cost per bit transmitted along link \( (i,j) \).
+    \item \( B_{k,l} \): Data generation rate (bits/second) from source node \( k \) to destination node \( l \).
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( x_{i,j} \): Flow of data (bits/second) transmitted along link \( (i,j) \).
+\end{itemize}
+
+\textbf{Objective Function:}
+Minimize the total cost:
+\[
+\text{Minimize} \quad Z = \sum_{(i,j) \in A} C_{i,j} \cdot x_{i,j}
+\]
+
+\textbf{Constraints:}
+\begin{itemize}
+    \item Capacity constraints:
+    \[
+    x_{i,j} \leq U_{i,j} \quad \forall (i,j) \in A
+    \]
+    
+    \item Flow conservation for each node:
+    \[
+    \sum_{j: (i,j) \in A} x_{i,j} - \sum_{j: (j,i) \in A} x_{j,i} = 
+    \begin{cases} 
+    B_{k,l} & \text{if } i = k \\
+    -B_{k,l} & \text{if } i = l \\
+    0 & \text{otherwise}
+    \end{cases} 
+    \quad \forall i \in N
+    \]
+    
+    \item Non-negativity constraints:
+    \[
+    x_{i,j} \geq 0 \quad \forall (i,j) \in A
+    \]
+\end{itemize}
+
+\textbf{Output Specification:}
+The output should include:
+\begin{itemize}
+    \item Optimized paths from each source \( k \) to its destination \( l \).
+    \item The corresponding path flows and path costs.
+    \item The total cost of all paths.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Soybean Transportation}
+
+\textbf{Sets and Indices:}
+\begin{itemize}
+    \item Let \( A \) be the set of all routes, where each route is represented by a tuple \((i, j)\) indicating a route from city \(i\) to city \(j\).
+    \item Let \( k \) be the index for terminal cities.
+    \item Let \( l \) be the index for destination cities.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( C_{i,j} \): Cost of transporting one metric ton of soybeans from city \(i\) to city \(j\).
+    \item \( \text{supply}_k \): Supply of soybeans available at terminal city \(k\).
+    \item \( \text{demand}_l \): Demand for soybeans at destination city \(l\).
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( \text{amount}_{i,j} \): The quantity of soybeans transported from city \(i\) to city \(j\).
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize} \quad \sum_{(i,j) \in A} C_{i,j} \cdot \text{amount}_{i,j}
+\]
+
+\textbf{Constraints:}
+\begin{align}
+    \sum_{j \mid (k, j) \in A} \text{amount}_{k,j} &\leq \text{supply}_k, \quad \forall \text{ terminal city } k \\
+    \sum_{i \mid (i, l) \in A} \text{amount}_{i,l} &= \text{demand}_l, \quad \forall \text{ destination city } l \\
+    \text{amount}_{i,j} &\geq 0, \quad \forall (i, j) \in A
+\end{align}
+
+\end{document}

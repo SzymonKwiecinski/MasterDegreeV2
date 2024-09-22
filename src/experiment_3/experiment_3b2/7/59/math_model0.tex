@@ -1,0 +1,23 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+\[
+\text{Minimize} \quad \sum_{i=1}^{N} \text{cost}_i \cdot x_i
+\]
+
+\textbf{Subject to:}
+
+\[
+\forall m \in \text{required\_languages}, \quad \sum_{i \mid m \in \text{languages}_i} x_i \geq 1
+\]
+
+\textbf{Variables:}
+
+\[
+x_i \in \{0, 1\} \quad \text{for} \quad i = 1, \ldots, N
+\]
+
+\end{document}

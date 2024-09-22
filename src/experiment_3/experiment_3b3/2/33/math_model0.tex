@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Mathematical Model for the Knapsack Problem}
+\author{}
+\date{}
+\maketitle
+
+\section{Problem Definition}
+We are given a set of items, each with a respective value and size, and a container with a maximum capacity. The goal is to select a subset of items that maximizes the total value while ensuring that the total size does not exceed the capacity of the container.
+
+\section{Parameters}
+\begin{itemize}
+    \item \( C \): Maximum capacity of the container.
+    \item \( K \): Total number of items available.
+    \item \( \text{value}_k \): Value of item \( k \) for \( k = 1, \ldots, K \).
+    \item \( \text{size}_k \): Size of item \( k \) for \( k = 1, \ldots, K \).
+\end{itemize}
+
+\section{Variables}
+\begin{itemize}
+    \item \( \text{isincluded}_k \): Binary variable indicating whether item \( k \) is included in the knapsack (1 if included, 0 otherwise) for \( k = 1, \ldots, K \).
+\end{itemize}
+
+\section{Objective Function}
+The objective is to maximize the total value of the items included in the knapsack:
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} \text{value}_k \cdot \text{isincluded}_k
+\]
+
+\section{Constraints}
+The total size of the selected items must not exceed the maximum capacity of the knapsack:
+\[
+\sum_{k=1}^{K} \text{size}_k \cdot \text{isincluded}_k \leq C
+\]
+
+\section{Model Formulation}
+The complete model can be formulated as follows:
+
+\begin{align*}
+\text{Maximize } & Z = \sum_{k=1}^{K} \text{value}_k \cdot \text{isincluded}_k \\
+\text{subject to } & \sum_{k=1}^{K} \text{size}_k \cdot \text{isincluded}_k \leq C \\
+& \text{isincluded}_k \in \{0, 1\} \quad \text{for } k = 1, \ldots, K
+\end{align*}
+
+\end{document}

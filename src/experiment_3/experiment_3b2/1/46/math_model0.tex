@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Variables}
+- \( \text{alloy\_amount}_{a,s} \): Amount of alloy \( a \) used to produce steel \( s \).
+- \( \text{total\_steel}_s \): Total amount of steel type \( s \) produced.
+
+\subsection*{Objective Function}
+The objective is to maximize the total profit, which is the total revenue from selling the steel minus the cost of purchasing the alloys:
+
+\[
+\text{Maximize: } \text{total\_profit} = \sum_{s=1}^{S} \left( \text{steel\_price}_s \times \text{total\_steel}_s \right) - \sum_{a=1}^{A} \sum_{s=1}^{S} \left( \text{alloy\_price}_a \times \text{alloy\_amount}_{a,s} \right)
+\]
+
+\subsection*{Constraints}
+
+1. **Alloy Availability:**
+   For each alloy \( a \):
+   \[
+   \sum_{s=1}^{S} \text{alloy\_amount}_{a,s} \leq \text{available}_a
+   \]
+
+2. **Steel Production:**
+   For each steel \( s \):
+   \[
+   \text{total\_steel}_s = \sum_{a=1}^{A} \text{alloy\_amount}_{a,s}
+   \]
+
+3. **Carbon Content:**
+   For each steel \( s \):
+   \[
+   \sum_{a=1}^{A} (\text{carbon}_a \times \text{alloy\_amount}_{a,s}) \geq \text{carbon\_min}_s \times \text{total\_steel}_s
+   \]
+
+4. **Nickel Content:**
+   For each steel \( s \):
+   \[
+   \sum_{a=1}^{A} (\text{nickel}_a \times \text{alloy\_amount}_{a,s}) \leq \text{nickel\_max}_s \times \text{total\_steel}_s
+   \]
+
+5. **Alloy 1 Usage:**
+   For each steel \( s \):
+   \[
+   \text{alloy\_amount}_{1,s} \leq 0.4 \times \text{total\_steel}_s
+   \]
+
+\subsection*{Non-negativity Constraints}
+- \( \text{alloy\_amount}_{a,s} \geq 0 \) for all \( a, s \).
+- \( \text{total\_steel}_s \geq 0 \) for all \( s \).
+
+\end{document}

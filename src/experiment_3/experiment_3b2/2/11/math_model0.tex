@@ -1,0 +1,21 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model:}
+
+\textbf{Objective:}
+\begin{align*}
+\text{Minimize} \quad & \sum_{i=1}^{T} \left( \text{storage\_cost} \cdot I_i \right) + \sum_{i=1}^{T-1} \left( \text{switch\_cost} \cdot |x_{i+1} - x_i| \right)
+\end{align*}
+
+\textbf{Subject to:}
+\begin{align*}
+& x_i + I_{i-1} - I_i = \text{deliver}_i, \quad i = 1, \ldots, T \\
+& I_0 = 0 \\
+& x_i, I_i \geq 0, \quad i = 1, \ldots, T
+\end{align*}
+
+Note that the absolute value term in the objective function for switching costs can be handled in a linear programming formulation using auxiliary variables or by splitting it into two constraints for each pair of consecutive months.
+
+\end{document}

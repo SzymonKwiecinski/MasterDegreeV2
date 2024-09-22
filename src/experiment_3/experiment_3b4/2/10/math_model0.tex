@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item \( N \): Set of neighborhoods, indexed by \( n \).
+    \item \( S \): Set of schools, indexed by \( s \).
+    \item \( G \): Set of grades, indexed by \( g \).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{capacity}_{s,g} \): Capacity of school \( s \) for grade \( g \).
+    \item \( \text{population}_{n,g} \): Student population of grade \( g \) in neighborhood \( n \).
+    \item \( d_{n,s} \): Distance from neighborhood \( n \) to school \( s \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_{n,s,g} \): Number of students of grade \( g \) in neighborhood \( n \) assigned to school \( s \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total distance traveled by all students:
+\[
+\text{Minimize} \quad \sum_{n \in N} \sum_{s \in S} \sum_{g \in G} d_{n,s} \cdot x_{n,s,g}
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+    & \sum_{s \in S} x_{n,s,g} = \text{population}_{n,g}, \quad \forall n \in N, \, g \in G && \text{(All students are assigned)} \\
+    & \sum_{n \in N} x_{n,s,g} \leq \text{capacity}_{s,g}, \quad \forall s \in S, \, g \in G && \text{(Respect school capacities)} \\
+    & x_{n,s,g} \geq 0, \quad \forall n \in N, \, s \in S, \, g \in G && \text{(Non-negativity)}
+\end{align*}
+
+\end{document}

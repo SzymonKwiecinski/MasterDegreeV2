@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Manpower Planning}
+
+\textbf{Given Data:}
+
+- \( \text{requirement}_{k,i} \): Manpower requirement for category \( k \) in year \( i \).
+- \( \text{strength}_k \): Current strength of manpower category \( k \).
+- \( \text{lessonewaste}_k \): Wastage rate for category \( k \) with less than one year's service.
+- \( \text{moreonewaste}_k \): Wastage rate for category \( k \) with more than one year's service.
+- \( \text{recruit}_k \): Maximum number of recruits for category \( k \) per year.
+- \( \text{costredundancy}_k \): Redundancy payment for category \( k \).
+- \( \text{num\_overman} \): Maximum overmanning allowed across the company.
+- \( \text{costoverman}_k \): Extra cost for overmanning in category \( k \).
+- \( \text{num\_shortwork} \): Maximum short-time working allowed per category.
+- \( \text{costshort}_k \): Cost for short-time working in category \( k \).
+
+\textbf{Decision Variables:}
+
+- \( \text{recruit}_{k,i} \): Number of recruits for category \( k \) in year \( i \).
+- \( \text{overmanning}_{k,i} \): Number of overmanning for category \( k \) in year \( i \).
+- \( \text{short}_{k,i} \): Number of short-time workers for category \( k \) in year \( i \).
+
+\textbf{Objective:}
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} \sum_{i=1}^{I} \left( \text{costredundancy}_k \cdot \text{redundancy}_{k,i} + \text{costoverman}_k \cdot \text{overmanning}_{k,i} + \text{costshort}_k \cdot \text{short}_{k,i} \right)
+\]
+
+\textbf{Constraints:}
+
+1. \textbf{Manpower Balance:}
+   \[
+   \text{strength}_{k} + \sum_{j=1}^{i} \left( \text{recruit}_{k,j} \cdot (1 - \text{lessonewaste}_k)^{j-1} \right) - \text{redundancy}_{k,i} \geq \text{requirement}_{k,i} - \text{short}_{k,i} \times 0.5 + \text{overmanning}_{k,i}
+   \]
+
+2. \textbf{Recruitment Limit:}
+   \[
+   \text{recruit}_{k,i} \leq \text{recruit}_k
+   \]
+
+3. \textbf{Overmanning Limit:}
+   \[
+   \sum_{k=1}^{K} \text{overmanning}_{k,i} \leq \text{num\_overman}
+   \]
+
+4. \textbf{Short-Time Working Limit:}
+   \[
+   \text{short}_{k,i} \leq \text{num\_shortwork}
+   \]
+
+\textbf{Non-Negativity:}
+\[
+\text{recruit}_{k,i}, \text{overmanning}_{k,i}, \text{short}_{k,i}, \text{redundancy}_{k,i} \geq 0
+\]
+
+The model should be solved for each year \( i=1, \ldots, I \) and for each manpower category \( k=1, \ldots, K \).
+
+\end{document}

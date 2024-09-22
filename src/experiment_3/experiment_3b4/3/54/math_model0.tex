@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturing}
+
+\textbf{Decision Variables:}
+\[
+x_p \quad \text{(number of batches of part } p \text{ produced per month)}
+\]
+
+\textbf{Objective Function:}
+Maximize the total profit, 
+\[
+\text{Profit} = \sum_{p=1}^{P} \text{price}_{p} \times x_p - \sum_{m=2}^{M} \left(\sum_{p=1}^{P} \text{cost}_{m} \times \text{time}_{m,p} \times x_p \right) - \text{Labor cost for machine 1}
+\]
+
+\textbf{Labor Cost for Machine 1:}
+\[
+\text{Labor cost} = 
+\begin{cases} 
+\text{standard\_cost} \times \text{usage} & \text{if } \text{usage} \leq \text{overtime\_hour}\\
+\text{standard\_cost} \times \text{overtime\_hour} + \text{overtime\_cost} \times (\text{usage} - \text{overtime\_hour}) & \text{if } \text{usage} > \text{overtime\_hour}
+\end{cases}
+\]
+where \(\text{usage} = \sum_{p=1}^{P} \text{time}_{1,p} \times x_p\)
+
+\textbf{Constraints:}
+\begin{align*}
+& x_p \geq \text{min\_batches}_{p}, \quad \forall p \\
+& \sum_{p=1}^{P} \text{time}_{m,p} \times x_p \leq \text{available}_{m}, \quad \forall m = 2, \ldots, M
+\end{align*}
+
+\end{document}

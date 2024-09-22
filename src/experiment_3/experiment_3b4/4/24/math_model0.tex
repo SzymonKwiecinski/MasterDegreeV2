@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+\[
+\max \sum_{i=1}^{I} \frac{\left(\text{price} \cdot \sum_{k=1}^{n_{\text{mines}}} \text{amount}_{k, i} - \sum_{k=1}^{n_{\text{mines}}} \text{royalty}_{k} \cdot \text{isoperated}_{k, i}\right)}{(1 + \text{discount})^i}
+\]
+
+\textbf{Subject to:}
+
+\[
+\sum_{k=1}^{n_{\text{mines}}} \text{isoperated}_{k, i} \leq n_{\text{maxwork}}, \quad \forall i
+\]
+
+\[
+\text{amount}_{k, i} \leq \text{limit}_{k} \cdot \text{isoperated}_{k, i}, \quad \forall k, i
+\]
+
+\[
+\frac{\sum_{k=1}^{n_{\text{mines}}} \text{quality}_{k} \cdot \text{amount}_{k, i}}{\sum_{k=1}^{n_{\text{mines}}} \text{amount}_{k, i}} = \text{requiredquality}_{i}, \quad \forall i
+\]
+
+\[
+\text{isoperated}_{k, i} \in \{0, 1\}, \quad \text{amount}_{k, i} \geq 0, \quad \forall k, i
+\]
+
+\end{document}

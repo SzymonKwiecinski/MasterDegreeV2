@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Decision Variables:}
+\begin{align*}
+x_a & : \text{Number of clicks purchased for ad type } a \text{ (in thousands).}
+\end{align*}
+
+\textbf{Objective:}
+\begin{align*}
+\text{Minimize } & \sum_{a=1}^{A} \text{cost}_a \cdot x_a
+\end{align*}
+
+\textbf{Subject to:}
+\begin{align*}
+\sum_{a=1}^{A} \text{young\_click}_a \cdot x_a & \geq \text{goal\_young}, \\
+\sum_{a=1}^{A} \text{old\_click}_a \cdot x_a & \geq \text{goal\_old}, \\
+\sum_{a=1}^{A} \text{unique\_click}_a \cdot \text{young\_click}_a \cdot x_a & \geq \text{goal\_unique\_young}, \\
+\sum_{a=1}^{A} \text{unique\_click}_a \cdot \text{old\_click}_a \cdot x_a & \geq \text{goal\_unique\_old}, \\
+0 \leq x_a & \leq \text{max\_click}_a, \quad \forall a \in \{1, \ldots, A\}.
+\end{align*}
+
+\end{document}

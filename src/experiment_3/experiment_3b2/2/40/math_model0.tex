@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+% Define variables
+\begin{align*}
+\text{Let } & x_k \text{ be the amount of mineral } k \text{ melted (in thousand tons) for } k = 1, \ldots, K. \\
+& y \text{ be the amount of manganese directly added (in tons).}
+\end{align*}
+
+% Objective function
+\text{Maximize profit:}
+\begin{align*}
+\text{Profit} = \ & \text{sell price per ton} \times n_{\text{steel quant}} \\
+& - \sum_{k=1}^{K} \left( \text{cost}_k \times x_k \right) \\
+& - \text{mang price} \times y \\
+& - \text{melt price} \times \left( \sum_{k=1}^{K} x_k \right)
+\end{align*}
+
+% Subject to constraints
+\text{Subject to:}
+\begin{align*}
+& \sum_{k=1}^{K} (\text{contmn}_k \times x_k) + y \geq \text{mn percent} \times n_{\text{steel quant}} \quad & \text{(Minimum Mn requirement)} \\
+& \text{si min} \times n_{\text{steel quant}} \leq \sum_{k=1}^{K} (\text{contsi}_k \times x_k) \leq \text{si max} \times n_{\text{steel quant}} \quad & \text{(Si range requirement)} \\
+& \sum_{k=1}^{K} x_k + y = n_{\text{steel quant}} \quad & \text{(Total steel quantity)} \\
+& x_k \geq 0 \quad & \text{for all } k = 1, \ldots, K \\
+& y \geq 0 & 
+\end{align*}
+
+\end{document}

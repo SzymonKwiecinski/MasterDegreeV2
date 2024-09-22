@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\textbf{Sets and Indices:}
+\begin{itemize}
+    \item Let \( i, j \) be indices for the currencies, where \( i, j \in \{1, 2, \ldots, N\} \).
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{start}_i \): Initial amount of currency \( i \).
+    \item \( \text{limit}_i \): Maximum limit on exchanging currency \( i \).
+    \item \( \text{rate}_{i,j} \): Exchange rate from currency \( i \) to currency \( j \).
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item \( x_{i,j} \): Amount of currency \( i \) exchanged to currency \( j \).
+    \item \( y_i \): Final amount of currency \( i \) at the end of the day.
+\end{itemize}
+
+\textbf{Objective:}
+\[
+\text{Maximize } y_N
+\]
+
+\textbf{Constraints:}
+\begin{align}
+    & y_i = \text{start}_i + \sum_{j=1}^{N} \text{rate}_{j,i} \cdot x_{j,i} - \sum_{j=1}^{N} x_{i,j}, \quad \forall i = 1, 2, \ldots, N \\
+    & \sum_{j=1}^{N} (x_{i,j} + x_{j,i}) \leq \text{limit}_i, \quad \forall i = 1, 2, \ldots, N \\
+    & x_{i,j} \geq 0, \quad \forall i, j = 1, 2, \ldots, N
+\end{align}
+
+\end{document}

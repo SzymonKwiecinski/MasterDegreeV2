@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the MILP Problem}
+
+\subsection*{Sets and Parameters}
+\begin{itemize}
+    \item Let \( N \) be the number of clusters.
+    \item \( \text{isolate\_central}_i \): processing time for isolation using central processing for cluster \( i \).
+    \item \( \text{scan\_central}_i \): processing time for scanning using central processing for cluster \( i \).
+    \item \( \text{isolate\_distributed}_i \): processing time for isolation using distributed processing for cluster \( i \).
+    \item \( \text{scan\_distributed}_i \): processing time for scanning using distributed processing for cluster \( i \).
+    \item \( c_{central} \): cost per hour for central processing.
+    \item \( c_{distributed} \): cost per hour for distributed processing.
+    \item \( T_{central} \): maximum hours allowed for central processing.
+    \item \( T_{distributed} \): maximum hours allowed for distributed processing.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_{i,j,k} \): binary variable that is 1 if intervention type \( j \) (isolation or scanning) is processed using method \( k \) (central or distributed) for cluster \( i \); 0 otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Total Cost} = \sum_{i=1}^{N} \left( c_{central} \cdot (x_{i,1,1} \cdot \text{isolate\_central}_i + x_{i,2,1} \cdot \text{scan\_central}_i) + c_{distributed} \cdot (x_{i,1,2} \cdot \text{isolate\_distributed}_i + x_{i,2,2} \cdot \text{scan\_distributed}_i) \right)
+\]
+
+\subsection*{Constraints}
+
+1. Each intervention must use only one type consistently for each cluster:
+\[
+\sum_{j=1}^{2} \sum_{k=1}^{2} x_{i,j,k} = 1, \quad \forall i \in \{1, \ldots, N\}
+\]
+
+2. Central processing time constraint:
+\[
+\sum_{i=1}^{N} \left( \text{isolate\_central}_i \cdot x_{i,1,1} + \text{scan\_central}_i \cdot x_{i,2,1} \right) \leq T_{central}
+\]
+
+3. Distributed processing time constraint:
+\[
+\sum_{i=1}^{N} \left( \text{isolate\_distributed}_i \cdot x_{i,1,2} + \text{scan\_distributed}_i \cdot x_{i,2,2} \right) \leq T_{distributed}
+\]
+
+4. Binary constraints:
+\[
+x_{i,j,k} \in \{0, 1\}, \quad \forall i \in \{1, \ldots, N\}, \, j \in \{1, 2\}, \, k \in \{1, 2\}
+\]
+
+\end{document}

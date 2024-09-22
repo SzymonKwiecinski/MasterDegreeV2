@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Custom Tees Online Advertising Campaign}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( x_a \) be the number of clicks purchased for ad type \( a \) (in thousands) for \( a = 1, 2, \ldots, A \).
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } Z = \sum_{a=1}^{A} \text{cost}_a \cdot x_a
+\]
+
+\textbf{Subject to Constraints:}
+
+\begin{itemize}
+    \item Young clicks constraint:
+    \[
+    \sum_{a=1}^{A} \text{young\_click}_{a} \cdot x_a \geq \text{goal\_young}
+    \]
+    
+    \item Old clicks constraint:
+    \[
+    \sum_{a=1}^{A} \text{old\_click}_{a} \cdot x_a \geq \text{goal\_old}
+    \]
+
+    \item Unique young clicks constraint:
+    \[
+    \sum_{a=1}^{A} \text{unique\_click}_{a} \cdot x_a \geq \text{goal\_unique\_young}
+    \]
+
+    \item Unique old clicks constraint:
+    \[
+    \sum_{a=1}^{A} \text{unique\_click}_{a} \cdot x_a \geq \text{goal\_unique\_old}
+    \]
+
+    \item Maximum allowable clicks constraint:
+    \[
+    x_a \leq \text{max\_click}_{a} \quad \text{for } a = 1, 2, \ldots, A
+    \]
+
+    \item Non-negativity constraint:
+    \[
+    x_a \geq 0 \quad \text{for } a = 1, 2, \ldots, A
+    \]
+\end{itemize}
+
+\textbf{Output:}
+\begin{itemize}
+    \item The number of clicks purchased for each ad type is represented as \( x_a \) in thousands.
+    \item The total cost of the ad campaign is given by \( Z \).
+\end{itemize}
+
+\end{document}

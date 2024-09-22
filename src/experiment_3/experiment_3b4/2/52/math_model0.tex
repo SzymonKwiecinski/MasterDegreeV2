@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} Minimize the total transmission cost
+
+\[
+\min \sum_{p=1}^{P} \sum_{c=1}^{C} \text{transmission}_{p,c} \times \text{send}_{p,c}
+\]
+
+\textbf{Subject to:}
+
+1. \textbf{Supply Constraints:}
+\[
+\sum_{c=1}^{C} \text{send}_{p,c} \leq \text{supply}_{p}, \quad \forall p = 1, \ldots, P
+\]
+
+2. \textbf{Demand Constraints:}
+\[
+\sum_{p=1}^{P} \text{send}_{p,c} = \text{demand}_{c}, \quad \forall c = 1, \ldots, C
+\]
+
+3. \textbf{Non-negativity Constraints:}
+\[
+\text{send}_{p,c} \geq 0, \quad \forall p, c
+\]
+
+\end{document}

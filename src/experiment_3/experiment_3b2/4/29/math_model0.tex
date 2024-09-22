@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+Minimize:
+\[
+z
+\]
+
+Subject to:
+\[
+bx_k + a - z \leq y_k, \quad \forall k = 1, \ldots, K
+\]
+\[
+y_k \leq bx_k + a + z, \quad \forall k = 1, \ldots, K
+\]
+
+Where:
+\begin{align*}
+y_k & \text{ is the } k\text{-th observed value of } y, \\
+x_k & \text{ is the } k\text{-th observed value of } x, \\
+a & \text{ is the intercept of the fitted line,} \\
+b & \text{ is the slope of the fitted line,} \\
+z & \text{ is the maximum deviation to be minimized.}
+\end{align*}
+
+The decision variables are \( a \), \( b \), and \( z \).
+
+\end{document}
+{
+    "intercept": a,
+    "slope": b
+}

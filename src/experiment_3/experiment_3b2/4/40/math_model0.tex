@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Steel Manufacturing Linear Programming Model}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Formulation}
+
+\subsection*{Decision Variables}
+Let \( x_k \) be the amount of mineral \( k \) melted (in thousand tons), for \( k = 1, 2, \ldots, K \).
+
+Let \( m \) be the amount of Manganese directly added (in tons).
+
+\subsection*{Objective Function}
+Maximize the profit \( Z \):
+\[
+Z = \text{sell\_price} \times \text{n\_steel\_quant} - \left( \sum_{k=1}^{K} \text{cost}_k \times x_k + \text{mang\_price} \times m + \text{melt\_price} \times \text{n\_steel\_quant} \right)
+\]
+
+\subsection*{Constraints}
+
+1. Steel quantity constraint:
+\[
+\sum_{k=1}^{K} x_k + m = \text{n\_steel\_quant}
+\]
+
+2. Manganese percentage constraint:
+\[
+\frac{\sum_{k=1}^{K} \text{contmn}_{k} \times x_k + 100 \times m}{\text{n\_steel\_quant}} \geq \text{mn\_percent}
+\]
+
+3. Silicon percentage constraints:
+\[
+\text{si\_min} \leq \frac{\sum_{k=1}^{K} \text{contsi}_{k} \times x_k}{\text{n\_steel\_quant}} \leq \text{si\_max}
+\]
+
+4. Non-negativity constraints:
+\[
+x_k \geq 0 \quad \text{for } k = 1, 2, \ldots, K
+\]
+\[
+m \geq 0
+\]
+
+\subsection*{Output}
+The optimal solution will provide:
+
+- \( \text{amount} = [x_1, x_2, \ldots, x_K] \), the optimal amount of each mineral melted.
+- \( \text{num\_mang} = m \), the optimal amount of Manganese directly added.
+
+\end{document}

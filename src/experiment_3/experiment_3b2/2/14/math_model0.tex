@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables:}
+
+\begin{align*}
+x_i &: \text{Production quantity of product } i, \quad i = 1, 2, \ldots, P \\
+u &: \text{Binary variable indicating whether to upgrade machine capacity (1 if upgrade, 0 otherwise)}
+\end{align*}
+
+\subsection*{Objective Function:}
+
+Maximize the total net income:
+\[
+\text{Net Income} = \sum_{i=1}^{P} \left( ( \text{price}_i - \text{cost}_i ) \cdot x_i - \text{investPercentage}_i \cdot \text{price}_i \cdot x_i \right) - u \cdot \text{upgradeCost}
+\]
+
+\subsection*{Constraints:}
+
+\begin{align*}
+\text{Machine Capacity:} & \quad \sum_{i=1}^{P} \text{hour}_i \cdot x_i \leq \text{availableHours} + u \cdot \text{upgradeHours} \\
+\text{Cash Availability:} & \quad \sum_{i=1}^{P} \text{cost}_i \cdot x_i \leq \text{cash} + \sum_{i=1}^{P} \text{investPercentage}_i \cdot \text{price}_i \cdot x_i \\
+\text{Upgrade Decision:} & \quad u \in \{0, 1\} \\
+\text{Non-negativity:} & \quad x_i \geq 0 \quad \text{for all } i = 1, 2, \ldots, P
+\end{align*}
+
+\subsection*{Model Explanation:}
+
+- The objective function aims to maximize net income, which is calculated as the revenue from sales minus production costs and investment percentages, adjusted by any upgrade costs.
+- The first constraint ensures the total machine hours used do not exceed the available machine hours, including potential additional hours from an upgrade.
+- The second constraint ensures that the total cash spent on production does not exceed the available cash plus any cash made available through sales revenue with an investment rate.
+- The third constraint is a binary decision for upgrading the machine.
+- The non-negativity constraint ensures that production quantities cannot be negative.
+
+\end{document}

@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Model for Maximizing Daily Profit of a Company}
+
+\subsection*{Indices:}
+\begin{itemize}
+    \item \(i = 1, 2, \ldots, N\) : Index for product types.
+\end{itemize}
+
+\subsection*{Parameters:}
+\begin{itemize}
+    \item \(\text{assemblyHour}_i\): Assembly hours required per unit of product \(i\).
+    \item \(\text{testingHour}_i\): Testing hours required per unit of product \(i\).
+    \item \(\text{materialCost}_i\): Raw material cost per unit of product \(i\) (in dollars).
+    \item \(\text{maxAssembly}\): Maximum assembly hours available per day.
+    \item \(\text{maxTesting}\): Maximum testing hours available per day.
+    \item \(\text{price}_i\): Price per unit of product \(i\) (in dollars).
+    \item \(\text{maxOvertimeAssembly}\): Maximum overtime assembly hours available.
+    \item \(\text{overtimeAssemblyCost}\): Cost per hour of overtime assembly labor.
+    \item \(\text{materialDiscount}\): Discount percentage on material costs for bills above a certain threshold.
+    \item \(\text{discountThreshold}\): Threshold for receiving material cost discount (in dollars).
+\end{itemize}
+
+\subsection*{Decision Variables:}
+\begin{itemize}
+    \item \(x_i \geq 0\): Number of units produced of product \(i\).
+    \item \(o \geq 0\): Overtime assembly hours used.
+\end{itemize}
+
+\subsection*{Objective:}
+Maximize the daily profit, defined as total revenue minus total costs:
+\[
+\max \sum_{i=1}^{N} \text{price}_i \cdot x_i - \text{overtimeAssemblyCost} \cdot o - \text{MaterialCost}
+\]
+
+\subsection*{Constraints:}
+\begin{align}
+    & \sum_{i=1}^{N} \text{assemblyHour}_i \cdot x_i \leq \text{maxAssembly} + o && \text{(Assembly hours, including overtime)} \\
+    & \sum_{i=1}^{N} \text{testingHour}_i \cdot x_i \leq \text{maxTesting} && \text{(Testing hours)} \\
+    & o \leq \text{maxOvertimeAssembly} && \text{(Overtime limit)} \\
+    & \text{MaterialCost} = 
+    \begin{cases} 
+        \sum_{i=1}^{N} \text{materialCost}_i \cdot x_i & \text{if } \sum_{i=1}^{N} \text{materialCost}_i \cdot x_i \leq \text{discountThreshold} \\
+        \left(1 - \frac{\text{materialDiscount}}{100}\right) \sum_{i=1}^{N} \text{materialCost}_i \cdot x_i & \text{if } \sum_{i=1}^{N} \text{materialCost}_i \cdot x_i > \text{discountThreshold}
+    \end{cases}
+\end{align}
+
+\subsection*{Outputs:}
+\begin{itemize}
+    \item \text{dailyProfit}: The optimal value of the objective function.
+    \item \text{unitsProduced}: Number of units produced for each product type.
+    \item \text{overtimeAssembly}: Amount of overtime assembly scheduled.
+    \item \text{materialBought}: Amount of material purchased (after discounts, if applicable).
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Parameters}
+\begin{align*}
+O & : \text{Number of crude oil types} \\
+P & : \text{Number of product types} \\
+L & : \text{Number of production processes} \\
+\text{allocated}_i & : \text{Barrels of crude oil type } i \text{ allocated} \quad (i = 1, \ldots, O) \\
+\text{price}_p & : \text{Selling price per barrel of product } p \quad (p = 1, \ldots, P) \\
+\text{input}_{l,i} & : \text{Barrels of crude type } i \text{ used in process } l \quad (l = 1, \ldots, L) \\
+\text{output}_{l,p} & : \text{Barrels of product } p \text{ produced by process } l \quad (l = 1, \ldots, L) \\
+\text{cost}_l & : \text{Cost per barrel of product produced by process } l \\
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+\text{execute}_l & : \text{Number of times process } l \text{ is executed} \quad (l = 1, \ldots, L)
+\end{align*}
+
+\subsection*{Objective Function}
+
+Maximize the total revenue:
+\[
+\text{revenue} = \sum_{p=1}^{P} \left( \text{price}_p \cdot \sum_{l=1}^{L} \text{output}_{l,p} \cdot \text{execute}_l \right) - \sum_{l=1}^{L} \text{cost}_l \cdot \sum_{p=1}^{P} \text{output}_{l,p} \cdot \text{execute}_l
+\]
+
+\subsection*{Constraints}
+
+1. \textit{Crude Oil Availability:}
+   For each crude oil type \( i \):
+   \[
+   \sum_{l=1}^{L} \text{input}_{l,i} \cdot \text{execute}_l \leq \text{allocated}_i
+   \]
+
+2. \textit{Non-negativity:}
+   \[
+   \text{execute}_l \geq 0 \quad \forall l = 1, \ldots, L
+   \]
+
+\end{document}

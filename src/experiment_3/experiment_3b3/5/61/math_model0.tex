@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for MILP Problem}
+
+\subsection*{Sets and Parameters}
+Let \( N \) be the number of clusters.
+
+Define the following parameters:
+\begin{itemize}
+  \item \( \text{isolate\_central}_i \) = processing time for isolating cluster \( i \) using central processing
+  \item \( \text{scan\_central}_i \) = processing time for scanning cluster \( i \) using central processing
+  \item \( \text{isolate\_distributed}_i \) = processing time for isolating cluster \( i \) using distributed processing
+  \item \( \text{scan\_distributed}_i \) = processing time for scanning cluster \( i \) using distributed processing
+  \item \( \text{central\_cost} \) = opportunity cost for central processing per hour
+  \item \( \text{distributed\_cost} \) = opportunity cost for distributed processing per hour
+  \item \( \text{max\_central} \) = maximum hours available for central processing
+  \item \( \text{max\_distributed} \) = maximum hours available for distributed processing
+\end{itemize}
+
+\subsection*{Decision Variables}
+Define the following binary decision variables:
+\begin{itemize}
+  \item \( x_{i,j} \) = 1 if intervention type \( j \) is applied to cluster \( i \), where \( j \in \{ \text{isolate\_central}, \text{scan\_central}, \text{isolate\_distributed}, \text{scan\_distributed} \} \)
+  \item \( y_{central} \) = total hours used for central processing
+  \item \( y_{distributed} \) = total hours used for distributed processing
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{i=1}^N \left( x_{i,\text{isolate\_central}} \cdot \text{central\_cost} \cdot \text{isolate\_central}_i + x_{i,\text{scan\_central}} \cdot \text{central\_cost} \cdot \text{scan\_central}_i + x_{i,\text{isolate\_distributed}} \cdot \text{distributed\_cost} \cdot \text{isolate\_distributed}_i + x_{i,\text{scan\_distributed}} \cdot \text{distributed\_cost} \cdot \text{scan\_distributed}_i \right)
+\]
+
+\subsection*{Constraints}
+\begin{align}
+\sum_{j \in \{ \text{isolate\_central}, \text{scan\_central} \}} x_{i,j} & = 1 \quad \forall i \in \{ 1, \ldots, N \} \quad \text{(Central intervention consistency)} \\
+\sum_{j \in \{ \text{isolate\_distributed}, \text{scan\_distributed} \}} x_{i,j} & = 1 \quad \forall i \in \{ 1, \ldots, N \} \quad \text{(Distributed intervention consistency)} \\
+y_{central} & = \sum_{i=1}^N \left( x_{i,\text{isolate\_central}} \cdot \text{isolate\_central}_i + x_{i,\text{scan\_central}} \cdot \text{scan\_central}_i \right) \\
+y_{distributed} & = \sum_{i=1}^N \left( x_{i,\text{isolate\_distributed}} \cdot \text{isolate\_distributed}_i + x_{i,\text{scan\_distributed}} \cdot \text{scan\_distributed}_i \right) \\
+y_{central} & \leq \text{max\_central} \quad \text{(Central processing time limit)} \\
+y_{distributed} & \leq \text{max\_distributed} \quad \text{(Distributed processing time limit)} \\
+x_{i,j} & \in \{0, 1\} \quad \forall i \in \{1, \ldots, N\}, j \in \{ \text{isolate\_central}, \text{scan\_central}, \text{isolate\_distributed}, \text{scan\_distributed} \}
+\end{align}
+
+\end{document}

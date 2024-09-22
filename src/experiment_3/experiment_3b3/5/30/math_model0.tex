@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Quadratic Curve Fitting Problem}
+
+Given a set of observed data points \( (x_k, y_k) \) for \( k = 1, \ldots, K \), we aim to fit the best quadratic curve of the form:
+
+\[
+y = c \cdot x^2 + b \cdot x + a
+\]
+
+The goal is to minimize the sum of absolute deviations of each observed value of \( y \) from the predicted value:
+
+\[
+\text{Objective:} \quad \min \sum_{k=1}^{K} |y_k - (c \cdot x_k^2 + b \cdot x_k + a)|
+\]
+
+We introduce auxiliary variables to handle the absolute values:
+
+\[
+d_k = y_k - (c \cdot x_k^2 + b \cdot x_k + a), \quad \text{for} \quad k = 1, \ldots, K
+\]
+
+Thus, we transform the absolute deviation into:
+
+\[
+\min \sum_{k=1}^{K} (u_k + v_k)
+\]
+
+subject to:
+
+\[
+d_k = u_k - v_k, \quad u_k \geq 0, \quad v_k \geq 0 \quad \text{for} \quad k = 1, \ldots, K
+\]
+
+The optimization problem can then be formulated as:
+
+\[
+\begin{aligned}
+\text{Minimize} \quad & \sum_{k=1}^{K} (u_k + v_k) \\
+\text{Subject to} \quad & u_k - v_k = y_k - (c \cdot x_k^2 + b \cdot x_k + a), \quad \forall k = 1, \ldots, K \\
+& u_k \geq 0, \quad v_k \geq 0, \quad \forall k = 1, \ldots, K
+\end{aligned}
+\]
+
+\textbf{Output:}
+After solving this linear programming problem, we will obtain the coefficients:
+
+\[
+\text{Output Format:} \quad \{ "quadratic": c, "linear": b, "constant": a \}
+\]
+
+\end{document}

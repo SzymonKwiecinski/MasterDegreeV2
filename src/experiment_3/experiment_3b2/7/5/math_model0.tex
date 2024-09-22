@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model for Communication Network}
+
+\textbf{Objective:}
+\[
+\text{Minimize} \quad \sum_{(i,j) \in A} \sum_{(k,l)} C_{ij} \cdot x_{ij}^{kl}
+\]
+
+\textbf{Subject to:}
+
+1. \textbf{Flow Conservation Constraints:}
+\begin{align*}
+\sum_{j: (k, j) \in A} x_{kj}^{kl} - \sum_{i: (i, k) \in A} x_{ik}^{kl} &= B_{kl} \quad &\forall \, (k,l) \text{ at } k \\
+\sum_{j: (m, j) \in A} x_{mj}^{kl} - \sum_{i: (i, m) \in A} x_{im}^{kl} &= 0 \quad &\forall \, m \neq k, l \\
+\sum_{i: (i, l) \in A} x_{il}^{kl} - \sum_{j: (l, j) \in A} x_{lj}^{kl} &= B_{kl} \quad &\forall \, (k,l) \text{ at } l
+\end{align*}
+
+2. \textbf{Capacity Constraints:}
+\[
+\sum_{(k,l)} x_{ij}^{kl} \leq U_{ij} \quad \forall (i, j) \in A
+\]
+
+3. \textbf{Non-negativity Constraints:}
+\[
+x_{ij}^{kl} \geq 0 \quad \forall (i, j) \in A, \forall (k, l)
+\]
+
+\end{document}

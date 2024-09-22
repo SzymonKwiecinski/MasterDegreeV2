@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\subsection*{Variables}
+Let \( b_p \) be the number of batches produced of part \( p \) (for \( p = 1, \ldots, P \)).\\
+Let \( x_m \) be the total machine hours used on machine \( m \) (for \( m = 1, \ldots, M \)).\\
+Let \( y \) be the total hours of overtime used on machine 1.
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{time}_{m,p} \): time required (in hours) on machine \( m \) for producing one batch of part \( p \) 
+    \item \( \text{cost}_m \): cost per hour for using machine \( m \)
+    \item \( \text{available}_m \): available hours per month for machine \( m \)
+    \item \( \text{price}_p \): price per batch of part \( p \)
+    \item \( \text{min\_batches}_p \): minimum number of batches required for part \( p \)
+    \item \( \text{standard\_cost} \): standard cost per hour for labor on machine 1
+    \item \( \text{overtime\_cost} \): overtime cost per hour for labor on machine 1
+    \item \( \text{overtime\_hour} \): threshold hours after which overtime costs apply
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to maximize the total profit:
+
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} \left( \text{price}_p \cdot b_p \right) - \sum_{m=1}^{M} \left( \text{cost}_m \cdot x_m \right) - \left( \text{standard\_cost} \cdot \min(y, \text{overtime\_hour}) + \text{overtime\_cost} \cdot \max(0, y - \text{overtime\_hour}) \right)
+\]
+
+\subsection*{Constraints}
+
+1. Machine hours constraint:
+\[
+\sum_{p=1}^{P} \text{time}_{m,p} \cdot b_p \leq \text{available}_m \quad \text{for } m = 1, \ldots, M
+\]
+
+2. Minimum batch production requirement:
+\[
+b_p \geq \text{min\_batches}_p \quad \text{for } p = 1, \ldots, P
+\]
+
+3. Total hours used on machine 1:
+\[
+x_1 = \sum_{p=1}^{P} \text{time}_{1,p} \cdot b_p + y
+\]
+
+4. Overtime condition:
+\[
+y \geq 0
+\]
+
+5. Non-negativity of batches:
+\[
+b_p \geq 0 \quad \text{for } p = 1, \ldots, P
+\]
+
+\subsection*{Output}
+The solution will provide:
+\begin{itemize}
+    \item Number of batches produced of each part: \( [b_1, b_2, \ldots, b_P] \)
+    \item Total profit: \( Z \)
+\end{itemize}
+
+\end{document}

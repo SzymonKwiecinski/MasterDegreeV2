@@ -1,0 +1,44 @@
+\documentclass{article} 
+\usepackage{amsmath} 
+\begin{document}
+
+\section*{Mathematical Model}
+
+\textbf{Indices:}
+\begin{align*}
+&t \quad \text{Period index,} \quad t = 1, \ldots, T \\
+&k \quad \text{Type index for generators,} \quad k = 1, \ldots, K
+\end{align*}
+
+\textbf{Parameters:}
+\begin{align*}
+&\text{demand}_t \quad \text{Demand in period } t \\
+&\text{num}_k \quad \text{Number of generators of type } k \\
+&\text{minlevel}_k \quad \text{Minimum operating level of type } k \text{ generator} \\
+&\text{maxlevel}_k \quad \text{Maximum operating level of type } k \text{ generator} \\
+&\text{runcost}_k \quad \text{Hourly cost at minimum level for type } k \text{ generator} \\
+&\text{extracost}_k \quad \text{Cost per megawatt above minimum level for type } k \text{ generator} \\
+&\text{startcost}_k \quad \text{Cost to start a generator of type } k
+\end{align*}
+
+\textbf{Decision Variables:}
+\begin{align*}
+&\text{numon}_{k,t} \in \{0, 1, 2, \ldots, \text{num}_k\} \quad \text{Number of generators of type } k \text{ on in period } t \\
+&\text{extra}_{k,t} \geq 0 \quad \text{Additional MW above minimum level by generators of type } k \text{ in period } t
+\end{align*}
+
+\textbf{Objective Function:}
+\begin{align*}
+&\min \sum_{t=1}^{T} \sum_{k=1}^{K} \left( \text{runcost}_k \cdot \text{numon}_{k,t} + \text{extracost}_k \cdot \text{extra}_{k,t} + \text{startcost}_k \cdot \delta_{k,t} \right)
+\end{align*}
+
+where \( \delta_{k,t} \) is 1 if any generator of type \( k \) starts in period \( t \), and 0 otherwise.
+
+\textbf{Constraints:}
+\begin{align*}
+&\sum_{k=1}^{K} \left( \text{numon}_{k,t} \cdot \text{minlevel}_k + \text{extra}_{k,t} \right) \geq \text{demand}_t, \quad \forall t = 1, \ldots, T \quad \text{(Demand constraint)}\\
+&\text{extra}_{k,t} \leq \text{numon}_{k,t} \cdot (\text{maxlevel}_k - \text{minlevel}_k), \quad \forall k = 1, \ldots, K, \quad \forall t = 1, \ldots, T \quad \text{(Bounds on extra production)} \\
+&\text{numon}_{k,t} \leq \text{num}_k, \quad \forall k = 1, \ldots, K, \quad \forall t = 1, \ldots, T \quad \text{(Generator capacity constraint)}
+\end{align*}
+
+\end{document}

@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Objective}
+Maximize the total production in the last two years:
+\[
+\text{Objective: } \max \sum_{k=1}^{K} \left( \text{produce}_{k, T-1} + \text{produce}_{k, T} \right)
+\]
+
+\subsection*{Constraints}
+
+1. **Production Constraints**:
+   \[
+   \text{produce}_{k, t} \leq \text{capacity}_{k, t}, \quad \forall k \in \{1, \ldots, K\}, \forall t \in \{1, \ldots, T\}
+   \]
+
+2. **Manpower Constraints**:
+   \[
+   \sum_{k=1}^{K} \left( \text{manpowerone}_{k} \cdot \text{produce}_{k, t} + \text{manpowertwo}_{k} \cdot \text{buildcapa}_{k, t} \right) \leq \text{manpower\_limit}, \quad \forall t \in \{1, \ldots, T\}
+   \]
+
+3. **Input Constraints**:
+   \[
+   \sum_{j=1}^{K} \text{inputone}_{k, j} \cdot \text{produce}_{j, t-1} + \sum_{j=1}^{K} \text{inputtwo}_{k, j} \cdot \text{buildcapa}_{j, t-2} \leq \text{stockhold}_{k, t-1} + \text{produce}_{k, t}, \quad \forall k \in \{1, \ldots, K\}, \forall t \in \{2, \ldots, T\}
+   \]
+
+4. **Stock Constraints**:
+   \[
+   \text{stockhold}_{k, t} = \text{stockhold}_{k, t-1} + \text{produce}_{k, t} - \sum_{j=1}^{K} \text{inputone}_{j, k} \cdot \text{produce}_{j, t}, \quad \forall k \in \{1, \ldots, K\}, \forall t \in \{1, \ldots, T\}
+   \]
+
+5. **Capacity Update**:
+   \[
+   \text{capacity}_{k, t+2} = \text{capacity}_{k, t+1} + \text{buildcapa}_{k, t}, \quad \forall k \in \{1, \ldots, K\}, \forall t \in \{1, \ldots, T-2\}
+   \]
+
+6. **Non-Negativity Constraints**:
+   \[
+   \text{produce}_{k, t}, \, \text{buildcapa}_{k, t}, \, \text{stockhold}_{k, t} \geq 0, \quad \forall k \in \{1, \ldots, K\}, \forall t \in \{1, \ldots, T\}
+   \]
+
+\subsection*{Initial Conditions}
+   \[
+   \text{stockhold}_{k, 0} = \text{stock}_{k}, \quad \text{capacity}_{k, 0} = \text{capacity}_{k}, \quad \forall k \in \{1, \ldots, K\}
+   \]
+
+\end{document}

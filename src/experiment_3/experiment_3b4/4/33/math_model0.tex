@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Knapsack Problem Formulation}
+
+Given:
+\begin{itemize}
+    \item \( C \): Capacity of the container
+    \item \( \text{value}_k \): Value of item \( k \)
+    \item \( \text{size}_k \): Size of item \( k \)
+\end{itemize}
+
+Objective: Maximize the total value of the items included in the knapsack.
+
+\begin{align*}
+\max\ & \sum_{k=1}^{K} \text{value}_k \cdot x_k \\
+\text{subject to} \quad & \sum_{k=1}^{K} \text{size}_k \cdot x_k \leq C, \\
+& x_k \in \{0, 1\} \quad \forall k = 1, \ldots, K.
+\end{align*}
+
+Where:
+\begin{itemize}
+    \item \( x_k \) is a binary variable: 
+    \[
+    x_k = 
+    \begin{cases} 
+    1, & \text{if item } k \text{ is included in the knapsack} \\ 
+    0, & \text{otherwise.}
+    \end{cases}
+    \]
+\end{itemize}
+
+The solution of this optimization problem will provide the binary vector \(\mathbf{x}\), indicating whether each item is included in the knapsack or not.
+
+\end{document}

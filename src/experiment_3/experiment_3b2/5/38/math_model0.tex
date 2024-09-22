@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+Minimize the total cost:
+\[
+\min \sum_{n=1}^{N} \left( \text{cost\_regular} \times \text{reg\_quant}_n + \text{cost\_overtime} \times \text{over\_quant}_n + \text{store\_cost} \times \text{inv}_n \right)
+\]
+
+\textbf{Subject to:}
+
+Demand satisfaction constraints:
+\[
+\text{reg\_quant}_n + \text{over\_quant}_n + \text{inv}_{n-1} = \text{demand}_n + \text{inv}_n, \quad \forall n = 1, \ldots, N
+\]
+
+Regular production limit:
+\[
+\text{reg\_quant}_n \leq \text{max\_regular\_amount}, \quad \forall n = 1, \ldots, N
+\]
+
+Non-negativity constraints:
+\[
+\text{reg\_quant}_n \geq 0, \quad \text{over\_quant}_n \geq 0, \quad \text{inv}_n \geq 0, \quad \forall n = 1, \ldots, N
+\]
+
+Initial inventory:
+\[
+\text{inv}_0 = 0 \quad \text{(or given)}
+\]
+
+\end{document}

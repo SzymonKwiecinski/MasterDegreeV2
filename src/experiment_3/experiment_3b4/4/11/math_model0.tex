@@ -1,0 +1,26 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model:}
+
+\textbf{Decision Variables:}
+\begin{align*}
+x_i &: \text{Number of units produced in month } i, \quad i = 1, \ldots, T \\
+I_i &: \text{Inventory at the end of month } i, \quad i = 1, \ldots, T
+\end{align*}
+
+\textbf{Objective:}
+\begin{align*}
+\text{Minimize } & \sum_{i=1}^{T} \text{storage\_cost} \times I_i + \sum_{i=1}^{T-1} \text{switch\_cost} \times |x_{i+1} - x_i|
+\end{align*}
+
+\textbf{Constraints:}
+\begin{align*}
+I_{i-1} + x_i &= \text{deliver}_i + I_i, & i = 1, \ldots, T \\
+I_0 &= 0 & \\
+x_i &\geq 0, & i = 1, \ldots, T \\
+I_i &\geq 0, & i = 1, \ldots, T
+\end{align*}
+
+\end{document}

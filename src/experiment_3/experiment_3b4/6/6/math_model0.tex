@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Rocket Trajectory Optimization}
+
+\textbf{Decision Variables:}
+\begin{align*}
+a_t &: \text{Acceleration at time } t, \quad t = 0, 1, \ldots, T-1 \\
+x_t &: \text{Position at time } t, \quad t = 0, 1, \ldots, T \\
+v_t &: \text{Velocity at time } t, \quad t = 0, 1, \ldots, T \\
+u_t &: \text{Auxiliary variable for fuel consumption at time } t, \quad t = 0, 1, \ldots, T-1
+\end{align*}
+
+\textbf{Objective Function:}
+\[
+\min \sum_{t=0}^{T-1} u_t
+\]
+
+\textbf{Constraints:}
+
+- \text{Initial Conditions:}
+\[
+x_0 = \text{given } x_0, \quad v_0 = \text{given } v_0
+\]
+
+- \text{Final Conditions:}
+\[
+x_T = \text{desired } x_T, \quad v_T = \text{desired } v_T
+\]
+
+- \text{System Dynamics:}
+\begin{align*}
+x_{t+1} &= x_t + v_t, \quad t = 0, 1, \ldots, T-1 \\
+v_{t+1} &= v_t + a_t, \quad t = 0, 1, \ldots, T-1
+\end{align*}
+
+- \text{Fuel Consumption Constraints:}
+\begin{align*}
+a_t &\leq u_t, \quad t = 0, 1, \ldots, T-1 \\
+-a_t &\leq u_t, \quad t = 0, 1, \ldots, T-1
+\end{align*}
+
+\end{document}

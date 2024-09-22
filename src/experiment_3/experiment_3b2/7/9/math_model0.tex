@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+Minimize the sum of absolute errors between the actual illumination and desired illumination for all road segments.
+
+\[
+\text{Minimize} \quad \sum_{i=1}^{N} \text{error}_i 
+\]
+
+\textbf{Subject to:}
+
+1. The illumination constraint for each segment:
+\[
+\text{ill}_i = \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j, \quad \forall i = 1, \ldots, N
+\]
+
+2. Absolute error constraints:
+\[
+\begin{align*}
+\text{ill}_i - \text{desired}_i \leq \text{error}_i, \quad & \forall i = 1, \ldots, N \\
+\text{desired}_i - \text{ill}_i \leq \text{error}_i, \quad & \forall i = 1, \ldots, N 
+\end{align*}
+\]
+
+3. Non-negativity constraints on power:
+\[
+\text{power}_j \geq 0, \quad \forall j = 1, \ldots, M
+\]
+
+\end{document}

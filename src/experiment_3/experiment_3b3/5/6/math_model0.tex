@@ -1,0 +1,78 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Motion Optimization Problem}
+
+Let \( x_t \), \( v_t \), and \( a_t \) represent the position, velocity, and acceleration of the rocket at time \( t \), respectively. The discrete-time model is given by:
+
+\[
+x_{t+1} = x_t + v_t
+\]
+\[
+v_{t+1} = v_t + a_t
+\]
+
+We assume that the acceleration \( a_t \) is under our control and is proportional to the rate of fuel consumption at time \( t \). We aim to reach a target position \( x_T \) with a target velocity \( v_T \) at time \( T \), starting from initial conditions \( x_0 \) and \( v_0 \).
+
+\subsection*{Input Parameters}
+
+The input to the problem consists of the following parameters:
+
+\begin{itemize}
+    \item \( x_0 \): Initial position of the rocket
+    \item \( v_0 \): Initial velocity of the rocket
+    \item \( x_T \): Target position at time \( T \)
+    \item \( v_T \): Target velocity at time \( T \)
+    \item \( T \): Total time steps
+\end{itemize}
+
+\subsection*{Objective Function}
+
+The objective is to minimize the total fuel spent, represented as:
+
+\[
+\text{Minimize } F = \sum_{t=0}^{T-1} |a_t|
+\]
+
+\subsection*{Constraints}
+
+We must satisfy the following constraints:
+
+1. Position constraint:
+   \[
+   \begin{aligned}
+   x_1 & = x_0 + v_0 \\
+   x_2 & = x_1 + v_1 \\
+   & \vdots \\
+   x_T & = x_{T-1} + v_{T-1} 
+   \end{aligned}
+   \]
+   
+2. Velocity constraint:
+   \[
+   \begin{aligned}
+   v_1 & = v_0 + a_0 \\
+   v_2 & = v_1 + a_1 \\
+   & \vdots \\
+   v_T & = v_{T-1} + a_{T-1}
+   \end{aligned}
+   \]
+   
+3. Final conditions:
+   \[
+   x_T = x_T \quad \text{and} \quad v_T = v_T
+   \]
+
+\subsection*{Output Format}
+
+The output should include:
+
+\begin{itemize}
+    \item \( \mathbf{x} = [x_i \text{ for } i = 1, \ldots, T] \)
+    \item \( \mathbf{v} = [v_i \text{ for } i = 1, \ldots, T] \)
+    \item \( \mathbf{a} = [a_i \text{ for } i = 1, \ldots, T] \)
+    \item \( \text{fuel\_spend} = F \)
+\end{itemize}
+
+\end{document}

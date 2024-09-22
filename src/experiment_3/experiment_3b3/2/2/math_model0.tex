@@ -1,0 +1,78 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for DEC Production Optimization}
+
+\subsection*{Variables}
+Let \( x_i \) be the number of systems produced of type \( i \) where \( i = 1, \ldots, N \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{is\_workstation}_i \): boolean indicating if system \( i \) is a workstation.
+    \item \( \text{price}_i \): price of system \( i \).
+    \item \( \text{disk}_i \): average disk drives requested for system \( i \).
+    \item \( \text{mem}_i \): average 256K memory boards used for system \( i \).
+    \item \( \text{max\_cpu} \): maximum number of CPUs available.
+    \item \( \text{min\_disk}, \text{max\_disk} \): range of disk drives available.
+    \item \( \text{min\_mem}, \text{max\_mem} \): range of 256K memory boards available.
+    \item \( \text{demand}_i \): maximum demand for system \( i \).
+    \item \( \text{demand\_GP} \): maximum demand for the GP family.
+    \item \( \text{demand\_WS} \): maximum demand for the WS family.
+    \item \( \text{preorder}_i \): preorder quantity for system \( i \).
+    \item \( \text{alt\_mem} \): alternative memory boards available.
+    \item \( \text{alt\_compatible}_i \): boolean indicating if system \( i \) is compatible with alternative memory boards.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the profit:
+\[
+\text{Profit} = \sum_{i=1}^{N} (\text{price}_i \cdot x_i) - \text{Cost}
+\]
+
+\subsection*{Constraints}
+1. CPU constraints:
+\[
+\sum_{i=1}^{N} x_i \leq \text{max\_cpu}
+\]
+
+2. Disk drive constraints:
+\[
+\sum_{i=1}^{N} \text{disk}_i \cdot x_i \geq \text{min\_disk} \quad \text{and} \quad \sum_{i=1}^{N} \text{disk}_i \cdot x_i \leq \text{max\_disk}
+\]
+
+3. Memory board constraints:
+\[
+\sum_{i=1}^{N} \text{mem}_i \cdot x_i \geq \text{min\_mem} \quad \text{and} \quad \sum_{i=1}^{N} \text{mem}_i \cdot x_i \leq \text{max\_mem}
+\]
+
+4. Demand constraints for each system \( i \):
+\[
+x_i \leq \text{demand}_i \quad \forall i
+\]
+
+5. Demand constraints for GP and WS families:
+\[
+\sum_{i: \text{is\_workstation}_i} x_i \leq \text{demand\_WS}
+\]
+\[
+\sum_{i: \neg \text{is\_workstation}_i} x_i \leq \text{demand\_GP}
+\]
+
+6. Preorder fulfillment:
+\[
+x_i \geq \text{preorder}_i \quad \forall i
+\]
+
+7. Alternative memory boards usage:
+\[
+\sum_{i} \text{alt\_compatible}_i \cdot x_i \leq \text{alt\_mem}
+\]
+
+\subsection*{Output Information}
+\begin{itemize}
+    \item "system\_output": List of systems produced along with their respective quantities and board usage.
+    \item "profit": Total profit generated from the production.
+\end{itemize}
+
+\end{document}

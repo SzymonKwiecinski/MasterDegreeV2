@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item \( x_p \): Number of batches produced for part \( p \).
+\end{itemize}
+
+\subsection*{Objective}
+Maximize profit:
+\[
+\text{Profit} = \sum_{p=1}^{P} (\text{price}_p \cdot x_p) - \sum_{m=1}^{M} \left(\text{cost}_m \cdot \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \right) - \text{Labor Cost}
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    & x_p \geq \text{min_batches}_p, \quad \forall p \\
+    & \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \leq \text{available}_m, \quad \forall m \neq 1 \\
+    & \sum_{p=1}^{P} \text{time}_{1,p} \cdot x_p \leq \text{overtime_hour} \\
+    & \sum_{p=1}^{P} (\text{price}_p \cdot x_p) - \sum_{m=1}^{M} \left(\text{cost}_m \cdot \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \right) - \text{Labor Cost} \geq \text{min_profit} \\
+    & x_p \geq 0, \quad \forall p
+\end{align}
+
+\subsection*{Labor Cost for Machine 1}
+\[
+\text{Labor Cost} = 
+\begin{cases} 
+\text{standard\_cost} \cdot \sum_{p=1}^{P} \text{time}_{1,p} \cdot x_p, & \text{if } \sum_{p=1}^{P} \text{time}_{1,p} \cdot x_p \leq \text{overtime_hour} \\
+\text{standard\_cost} \cdot \text{overtime_hour} + \text{overtime_cost} \cdot \left(\sum_{p=1}^{P} \text{time}_{1,p} \cdot x_p - \text{overtime_hour}\right), & \text{otherwise}
+\end{cases}
+\]
+
+\end{document}

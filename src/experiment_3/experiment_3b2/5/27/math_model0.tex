@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model for Relocation Problem}
+
+We have the following problem parameters:
+\begin{itemize}
+    \item Let \( K \) be the number of departments.
+    \item Let \( L \) be the number of cities including London.
+    \item \( \text{benefit}_{k, l} \) is the benefit derived from relocating department \( k \) to city \( l \) (in thousands of pounds).
+    \item \( \text{communication}_{k, j} \) is the quantity of communication between department \( k \) and department \( j \).
+    \item \( \text{cost}_{l, m} \) is the unit cost of communication between city \( l \) and city \( m \).
+\end{itemize}
+
+We define the decision variable:
+\[
+\begin{align*}
+\text{islocated}_{k, l} = 
+\begin{cases} 
+1, & \text{if department } k \text{ is relocated to city } l, \\
+0, & \text{otherwise}.
+\end{cases}
+\end{align*}
+\]
+
+The objective is to minimize the overall yearly cost, expressed by:
+\[
+\min \left( \sum_{k=1}^{K} \sum_{l=1}^{L} \text{islocated}_{k, l} \cdot \text{benefit}_{k, l} - \sum_{k=1}^{K} \sum_{j=1}^{K} \sum_{l=1}^{L} \sum_{m=1}^{L} \text{islocated}_{k, l} \cdot \text{islocated}_{j, m} \cdot \text{communication}_{k, j} \cdot \text{cost}_{l, m} \right)
+\]
+
+Subject to the following constraints:
+\begin{align}
+\sum_{l=1}^{L} \text{islocated}_{k, l} &= 1, \quad \forall k \in \{1, \ldots, K\} \quad \text{(each department is located in exactly one city)} \\
+\sum_{k=1}^{K} \text{islocated}_{k, l} &\leq 3, \quad \forall l \in \{1, \ldots, L\} \quad \text{(no city can have more than three departments)}
+\end{align}
+
+\end{document}

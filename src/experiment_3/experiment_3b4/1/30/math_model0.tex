@@ -1,0 +1,26 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+\[
+\text{Minimize } \sum_{k=1}^{K} z_k
+\]
+
+\textbf{Subject to:}
+\[
+y_k - (c x_k^2 + b x_k + a) \leq z_k \quad \text{for all } k
+\]
+\[
+(c x_k^2 + b x_k + a) - y_k \leq z_k \quad \text{for all } k
+\]
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( c \): coefficient of the quadratic term
+    \item \( b \): coefficient of the linear term
+    \item \( a \): constant coefficient
+    \item \( z_k \): auxiliary variable representing the absolute deviation for each data point
+\end{itemize}
+
+\end{document}

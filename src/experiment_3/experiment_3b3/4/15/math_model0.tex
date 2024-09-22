@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{MILP Model for Daily Profit Maximization}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+
+Let:
+\begin{itemize}
+    \item \( N \) = number of product types
+    \item \( \text{assemblyHour}_i \) = hours of assembly labor required for product \( i \)
+    \item \( \text{testingHour}_i \) = hours of testing required for product \( i \)
+    \item \( \text{materialCost}_i \) = cost of raw materials for product \( i \) (in dollars)
+    \item \( \text{maxAssembly} \) = maximum hours of assembly labor available per day
+    \item \( \text{maxTesting} \) = maximum hours of testing available per day
+    \item \( \text{price}_i \) = selling price of product \( i \) (in dollars)
+    \item \( \text{maxOvertimeAssembly} \) = maximum hours of overtime assembly labor allowed
+    \item \( \text{overtimeAssemblyCost} \) = cost per hour of overtime assembly labor
+    \item \( \text{materialDiscount} \) = discount percentage on raw materials if daily bill exceeds a threshold
+    \item \( \text{discountThreshold} \) = minimum daily bill to qualify for material discount
+\end{itemize}
+
+\section*{Decision Variables}
+\begin{itemize}
+    \item \( x_i \) = number of units produced of product \( i \) (for \( i = 1, \ldots, N \))
+    \item \( o \) = hours of overtime assembly labor scheduled
+\end{itemize}
+
+\section*{Objective Function}
+Maximize the daily profit defined as:
+\[
+\text{dailyProfit} = \sum_{i=1}^{N} \text{price}_i x_i - \left( \sum_{i=1}^{N} \text{materialCost}_i x_i + \text{overtimeAssemblyCost} \cdot o \cdot \mathbb{1}_{o > 0} \right) \cdot \left(1 - \frac{\text{materialDiscount}}{100} \cdot \mathbb{1}_{\sum_{i=1}^{N} \text{materialCost}_i x_i > \text{discountThreshold}} \right)
+\]
+
+where \( \mathbb{1}_{condition} \) is an indicator function that equals 1 when the condition is true and 0 otherwise.
+
+\section*{Constraints}
+\begin{align}
+    \sum_{i=1}^{N} \text{assemblyHour}_i x_i + o & \leq \text{maxAssembly} + \text{maxOvertimeAssembly} \\
+    \sum_{i=1}^{N} \text{testingHour}_i x_i & \leq \text{maxTesting} \\
+    x_i & \geq 0 \quad \text{(for } i = 1, 2, \ldots, N \text{)} \\
+    o & \geq 0
+\end{align}
+
+\section*{Output}
+The output will include:
+\begin{itemize}
+    \item \text{dailyProfit}: total daily profit of the company
+    \item \text{unitsProduced}: \( [x_1, x_2, \ldots, x_N] \) - number of units of each product produced
+    \item \text{overtimeAssembly}: \( o \) - number of hours of overtime assembly labor scheduled
+    \item \text{materialBought}: \( \sum_{i=1}^{N} \text{materialCost}_i x_i \) - total cost of raw materials purchased
+\end{itemize}
+
+\end{document}

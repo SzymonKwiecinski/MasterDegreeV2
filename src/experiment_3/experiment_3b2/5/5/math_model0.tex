@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Network Flow Optimization}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item Let \( N \) denote the set of nodes.
+    \item Let \( A \) denote the set of links, where each link is represented as a pair \((i, j)\).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( U_{i,j} \): Capacity of link \((i, j)\), i.e., maximum number of bits per second it can carry.
+    \item \( C_{i,j} \): Cost per bit transmitted along link \((i, j)\).
+    \item \( B_{k,l} \): Data generation rate from node \(k\) to node \(l\), in bits per second.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_{i,j}^{k,l} \): Flow of data from node \(k\) to node \(l\) through link \((i, j)\).
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the total transmission cost:
+\[
+\min \sum_{(i,j) \in A} \sum_{(k,l) \in N \times N} C_{i,j} \cdot x_{i,j}^{k,l}
+\]
+
+\subsection*{Constraints}
+\begin{enumerate}
+    \item \textbf{Flow Conservation:} For each node \(m\) and data pair \((k, l)\):
+    \[
+    \sum_{j : (m, j) \in A} x_{m,j}^{k,l} - \sum_{i : (i, m) \in A} x_{i,m}^{k,l} =
+    \begin{cases} 
+    B_{k,l}, & \text{if } m = k \\
+    -B_{k,l}, & \text{if } m = l \\
+    0, & \text{otherwise}
+    \end{cases}
+    \]
+    
+    \item \textbf{Capacity Constraints:} For each link \((i, j)\):
+    \[
+    \sum_{(k,l) \in N \times N} x_{i,j}^{k,l} \leq U_{i,j}
+    \]
+    
+    \item \textbf{Non-Negativity:} 
+    \[
+    x_{i,j}^{k,l} \geq 0, \quad \forall (i,j) \in A, \forall (k,l) \in N \times N
+    \]
+\end{enumerate}
+
+\end{document}

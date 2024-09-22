@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+Minimize:
+\[
+\sum_{i=1}^{I} \sum_{j=1}^{J} \left( \frac{1}{2} \times \text{price} \times \text{distance}_{i,j} \times x_{i,j} \right)
+\]
+
+\textbf{Subject to:}
+
+1. Supply Constraints:
+\[
+\sum_{j=1}^{J} x_{i,j} \leq \text{numdepot}_i \quad \forall i
+\]
+
+2. Demand Constraints:
+\[
+\sum_{i=1}^{I} x_{i,j} = \text{numport}_j \quad \forall j
+\]
+
+3. Non-Negativity Constraints:
+\[
+x_{i,j} \geq 0 \quad \forall i, j
+\]
+
+\end{document}

@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model for Custom Tees Advertising}
+
+\subsection*{Decision Variables}
+Let \( x_a \) represent the number of clicks (in thousands) purchased for ad type \( a \) where \( a = 1, 2, \ldots, A \).
+
+\subsection*{Objective Function}
+We aim to maximize the total number of unique clicks:
+
+\[
+\max \sum_{a=1}^{A} \text{unique\_click}_{a} \times x_{a}
+\]
+
+\subsection*{Constraints}
+
+1. Budget Constraint:
+   \[
+   \sum_{a=1}^{A} \text{cost}_{a} \times x_{a} \leq \text{budget}
+   \]
+
+2. Young Visitors Clicks Goal:
+   \[
+   \sum_{a=1}^{A} \text{young\_click}_{a} \times x_{a} \geq \text{goal\_young}
+   \]
+
+3. Older Visitors Clicks Goal:
+   \[
+   \sum_{a=1}^{A} \text{old\_click}_{a} \times x_{a} \geq \text{goal\_old}
+   \]
+
+4. Young Unique Visitors Clicks Goal:
+   \[
+   \sum_{a=1}^{A} \text{unique\_click}_{a} \times \text{young\_click}_{a} \times x_{a} \geq \text{goal\_unique\_young}
+   \]
+
+5. Older Unique Visitors Clicks Goal:
+   \[
+   \sum_{a=1}^{A} \text{unique\_click}_{a} \times \text{old\_click}_{a} \times x_{a} \geq \text{goal\_unique\_old}
+   \]
+
+6. Maximum Clicks Constraint for each ad type:
+   \[
+   0 \leq x_{a} \leq \text{max\_click}_{a} \quad \text{for all } a = 1, 2, \ldots, A
+   \]
+
+\subsection*{Summary}
+The solution to this linear programming problem provides the number of clicks \( x_a \) to purchase for each ad type in order to maximize unique clicks, while satisfying the budget and demographic goals.
+
+\end{document}

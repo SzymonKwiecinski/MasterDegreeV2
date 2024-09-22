@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\textbf{Objective:} Minimize the total cost over \(I\) years.
+
+\[
+\text{Minimize } \sum_{i=1}^{I} \sum_{k=1}^{K} \left(
+\text{costredundancy}_k \cdot \text{redundancy}_{k,i}
++ \text{costoverman}_k \cdot \text{overmanning}_{k,i}
++ \text{costshort}_k \cdot \text{short}_{k,i}
+\right)
+\]
+
+\textbf{Subject to the following constraints for each year \(i\) and manpower category \(k\):}
+
+\begin{align*}
+\text{Available manpower}_{k,i} = & \ \text{strength}_k + \text{recruitment}_{k,i} + \text{moreonewaste}_k \left(\text{strength}_k + \sum_{j=1}^{i-1} ( \text{recruitment}_{k,j} \cdot (1-\text{lessonewaste}_k) )\right) \\
+& - \text{redundancy}_{k,i} + \text{overmanning}_{k,i} + 0.5 \cdot \text{short}_{k,i} \quad \forall k, \forall i
+\end{align*}
+
+\begin{align*}
+\text{Available manpower}_{k,i} \geq & \ \text{requirement}_{k,i} \quad \forall k, \forall i\\
+\text{redundancy}_{k,i} \geq & \ 0 \quad \forall k, \forall i\\
+\text{recruitment}_{k,i} \leq & \ \text{recruit}_k \quad \forall k, \forall i\\
+\text{overmanning}_{k,i} \leq & \ \text{num\_overman} \quad \forall k, \forall i\\
+\text{short}_{k,i} \leq & \ \text{num\_shortwork} \quad \forall k, \forall i
+\end{align*}
+
+\textbf{Variables:}
+- \(\text{recruitment}_{k,i}\): Number of recruits for manpower \(k\) in year \(i\).
+- \(\text{overmanning}_{k,i}\): Number of overmanned manpower \(k\) in year \(i\).
+- \(\text{short}_{k,i}\): Number of short-time manpower \(k\) in year \(i\).
+- \(\text{redundancy}_{k,i}\): Number of redundancies for manpower \(k\) in year \(i\).
+
+This setup models the constraints and objective for the cost minimization problem given the manpower requirements, recruitment limits, and wastage rates.
+
+\end{document}

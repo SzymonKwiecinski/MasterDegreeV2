@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model for Network Intrusion Intervention}
+
+\subsection*{Indices and Sets}
+\begin{align*}
+    & i \in \{1, \ldots, N\}: \text{ Index for clusters of nodes.}
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+    & \text{processing\_times.central.isolate[i]}: \text{ Central processing time to isolate cluster } i. \\
+    & \text{processing\_times.central.scan[i]}: \text{ Central processing time to scan cluster } i. \\
+    & \text{processing\_times.distributed.isolate[i]}: \text{ Distributed processing time to isolate cluster } i. \\
+    & \text{processing\_times.distributed.scan[i]}: \text{ Distributed processing time to scan cluster } i. \\
+    & \text{costs.central}: \text{ Opportunity cost per hour for central processing.} \\
+    & \text{costs.distributed}: \text{ Opportunity cost per hour for distributed processing.} \\
+    & \text{max\_hours.central\_max\_hours}: \text{ Maximum hours available for central processing.} \\
+    & \text{max\_hours.distributed\_max\_hours}: \text{ Maximum hours available for distributed processing.} 
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    & x^{\text{central}}_{\text{isolate}, i} \in \{0, 1\}: \text{ Binary variable, 1 if cluster } i \text{ is isolated centrally, else 0.}\\
+    & x^{\text{central}}_{\text{scan}, i} \in \{0, 1\}: \text{ Binary variable, 1 if cluster } i \text{ is scanned centrally, else 0.}\\
+    & x^{\text{distributed}}_{\text{isolate}, i} \in \{0, 1\}: \text{ Binary variable, 1 if cluster } i \text{ is isolated distributedly, else 0.}\\
+    & x^{\text{distributed}}_{\text{scan}, i} \in \{0, 1\}: \text{ Binary variable, 1 if cluster } i \text{ is scanned distributedly, else 0.}
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\begin{align*}
+    \min \quad & \sum_{i=1}^{N} \left( \text{costs.central} \times \left( x^{\text{central}}_{\text{isolate}, i} \times \text{processing\_times.central.isolate[i]} + x^{\text{central}}_{\text{scan}, i} \times \text{processing\_times.central.scan[i]} \right) \right. \\
+    & \left. + \text{costs.distributed} \times \left( x^{\text{distributed}}_{\text{isolate}, i} \times \text{processing\_times.distributed.isolate[i]} + x^{\text{distributed}}_{\text{scan}, i} \times \text{processing\_times.distributed.scan[i]} \right) \right) 
+\end{align*}
+
+\subsection*{Constraints}
+Each cluster must have one intervention type:
+\begin{align*}
+    & x^{\text{central}}_{\text{isolate}, i} + x^{\text{central}}_{\text{scan}, i} + x^{\text{distributed}}_{\text{isolate}, i} + x^{\text{distributed}}_{\text{scan}, i} = 1, \quad \forall i.
+\end{align*}
+
+Limit on total central processing hours:
+\begin{align*}
+    & \sum_{i=1}^{N} \left( x^{\text{central}}_{\text{isolate}, i} \times \text{processing\_times.central.isolate[i]} + x^{\text{central}}_{\text{scan}, i} \times \text{processing\_times.central.scan[i]} \right) \leq \text{max\_hours.central\_max\_hours}
+\end{align*}
+
+Limit on total distributed processing hours:
+\begin{align*}
+    & \sum_{i=1}^{N} \left( x^{\text{distributed}}_{\text{isolate}, i} \times \text{processing\_times.distributed.isolate[i]} + x^{\text{distributed}}_{\text{scan}, i} \times \text{processing\_times.distributed.scan[i]} \right) \leq \text{max\_hours.distributed\_max\_hours}
+\end{align*}
+
+\end{document}

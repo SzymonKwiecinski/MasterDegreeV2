@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+Maximize the total profit, which is given by the revenue from selling the parts minus the costs of operating the machines, including any additional time purchased.
+
+Let \( \text{batches}_p \) be the number of batches of part \( p \) produced, and \( \text{extra\_time}_m \) be the additional hours purchased for machine \( m \).
+
+\[
+\text{Maximize} \quad Z = \sum_{p=1}^{P} \text{price}_p \times \text{batches}_p - \sum_{m=1}^{M} \left( \text{cost}_m \times \left( \sum_{p=1}^{P} \text{time}_{m,p} \times \text{batches}_p \right) + \text{extra\_cost}_m \times \text{extra\_time}_m \right)
+\]
+
+\textbf{Subject to:}
+
+1. Machine time constraints: For each machine \( m \),
+\[
+\sum_{p=1}^{P} \text{time}_{m,p} \times \text{batches}_p \leq \text{available}_m + \text{extra\_time}_m
+\]
+
+2. Minimum batch requirement: For each part \( p \),
+\[
+\text{batches}_p \geq \text{min\_batches}_p
+\]
+
+3. Extra time constraints: For each machine \( m \),
+\[
+0 \leq \text{extra\_time}_m \leq \text{max\_extra}_m
+\]
+
+4. Non-negativity constraints:
+\[
+\text{batches}_p \geq 0 \quad \forall p = 1, \ldots, P
+\]
+\[
+\text{extra\_time}_m \geq 0 \quad \forall m = 1, \ldots, M
+\]
+
+\end{document}

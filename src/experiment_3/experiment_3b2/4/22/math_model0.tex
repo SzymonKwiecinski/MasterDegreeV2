@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Objective Function:}
+
+\[
+\text{Minimize } \sum_{k=1}^{K} \sum_{i=1}^{I} \text{costredundancy}_{k} \cdot r_{k,i}
+\]
+
+\textbf{Subject to the constraints:}
+
+\begin{align*}
+& \text{For } i = 1, \ldots, I-1 \text{ and } k = 1, \ldots, K:\\
+& \text{strength}_{k, i+1} = (\text{strength}_{k, i} - r_{k,i} - \text{lessonewaste}_{k} \cdot x_{k,i} - \text{moreonewaste}_{k} \cdot (\text{strength}_{k,i} - x_{k,i})) + x_{k,i} + y_{k,i} - z_{k,i}\\
+& x_{k,i} \leq \text{recruit}_{k} \quad \forall k, i\\
+& \sum_{k=1}^{K} y_{k,i} \leq \text{num\_overman} \quad \forall i\\
+& z_{k,i} \leq \text{num\_shortwork} \quad \forall k, i\\
+& \text{strength}_{k,i} + y_{k,i} - z_{k,i}/2 \geq \text{requirement}_{k,i} \quad \forall k, i
+\end{align*}
+
+\end{document}

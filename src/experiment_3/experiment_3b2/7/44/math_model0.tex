@@ -1,0 +1,26 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+Let \( x_p \) be the number of batches of part \( p \) produced for each month, where \( p = 1, 2, \ldots, P \).
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+Z = \sum_{p=1}^{P} \left( \text{price}_p \cdot x_p \right) - \sum_{m=1}^{M} \left( \text{cost}_m \cdot \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+& \text{Machine Availability:} \\
+& \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \leq \text{available}_m, \quad \forall m = 1, 2, \ldots, M \\
+& \text{Minimum Production Requirements:} \\
+& x_p \geq \text{min\_batches}_p, \quad \forall p = 1, 2, \ldots, P \\
+& \text{Non-negativity:} \\
+& x_p \geq 0, \quad \forall p = 1, 2, \ldots, P
+\end{align*}
+
+\end{document}

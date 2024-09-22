@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Container Transportation}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $I$: Number of depots
+    \item $J$: Number of ports
+    \item $numdepot_i$: Number of containers available in depot $i$, for $i = 1,...,I$
+    \item $numport_j$: Number of containers required at port $j$, for $j = 1,...,J$
+    \item $price$: Cost per kilometer for transportation
+    \item $distance_{i,j}$: Distance from depot $i$ to port $j$
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $number_{i,j}$: Number of containers sent from depot $i$ to port $j$, for $i = 1,...,I$ and $j = 1,...,J$
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+\text{Minimize} \quad Z = \sum_{i=1}^{I} \sum_{j=1}^{J} \left( \frac{number_{i,j}}{2} \cdot price \cdot distance_{i,j} \right)
+\end{align*}
+
+\textbf{Subject to:}
+\begin{align*}
+\sum_{j=1}^{J} number_{i,j} & \leq numdepot_i \quad \forall i = 1,\ldots,I \quad \text{(Depot capacity constraint)} \\
+\sum_{i=1}^{I} number_{i,j} & = numport_j \quad \forall j = 1,\ldots,J \quad \text{(Port demand constraint)} \\
+number_{i,j} & \geq 0 \quad \forall i = 1,\ldots,I \quad \text{and}\quad j = 1,\ldots,J \quad \text{(Non-negativity constraint)} 
+\end{align*}
+
+\textbf{Output:}
+\begin{itemize}
+    \item $number_{i,j}$: Number of containers sent from each depot $i$ to port $j$
+\end{itemize}
+
+\end{document}

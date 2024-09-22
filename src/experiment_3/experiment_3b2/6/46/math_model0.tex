@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Steel Production}
+
+We are tasked with determining the optimal allocation of alloys across different types of steel to maximize the company's profit. The given constraints and objective are modeled in a Linear Programming (LP) framework.
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item Let \( A \) be the set of alloys, indexed by \( a \).
+    \item Let \( S \) be the set of steel types, indexed by \( s \).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{available}_a \): Available tons of alloy \( a \).
+    \item \( \text{carbon}_a \): Percentage of carbon in alloy \( a \).
+    \item \( \text{nickel}_a \): Percentage of nickel in alloy \( a \).
+    \item \( \text{alloy\_price}_a \): Purchase price per ton of alloy \( a \).
+    \item \( \text{steel\_price}_s \): Selling price per ton of steel type \( s \).
+    \item \( \text{carbon\_min}_s \): Minimum required percentage of carbon in steel type \( s \).
+    \item \( \text{nickel\_max}_s \): Maximum allowable percentage of nickel in steel type \( s \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{alloy\_amount}_{a,s} \): Amount of alloy \( a \) used in steel type \( s \).
+    \item \( \text{total\_steel}_s \): Total amount of steel type \( s \) produced.
+    \item \( \text{total\_profit} \): Total profit.
+\end{itemize}
+
+\subsection*{Objective Function}
+To maximize profit, we need to maximize the difference between the revenue from selling the steel and the cost of the alloys:
+\[
+\text{Maximize } \text{total\_profit} = \sum_{s \in S} \text{steel\_price}_s \cdot \text{total\_steel}_s - \sum_{a \in A} \sum_{s \in S} \text{alloy\_price}_a \cdot \text{alloy\_amount}_{a,s}
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    & \text{Material Balance for Each Steel:}\\
+    & \quad \sum_{a \in A} \text{alloy\_amount}_{a,s} = \text{total\_steel}_s, \quad \forall s \in S \\
+    & \text{Carbon Requirement:} \\
+    & \quad \frac{\sum_{a \in A} \text{carbon}_a \cdot \text{alloy\_amount}_{a,s}}{\text{total\_steel}_s} \geq \text{carbon\_min}_s, \quad \forall s \in S \\
+    & \text{Nickel Constraint:} \\
+    & \quad \frac{\sum_{a \in A} \text{nickel}_a \cdot \text{alloy\_amount}_{a,s}}{\text{total\_steel}_s} \leq \text{nickel\_max}_s, \quad \forall s \in S \\
+    & \text{Alloy Availability:} \\
+    & \quad \sum_{s \in S} \text{alloy\_amount}_{a,s} \leq \text{available}_a, \quad \forall a \in A \\
+    & \text{Maximum Alloy 1 Usage:} \\
+    & \quad \text{alloy\_amount}_{1,s} \leq 0.4 \cdot \text{total\_steel}_s, \quad \forall s \in S \\
+    & \text{Non-negativity:} \\
+    & \quad \text{alloy\_amount}_{a,s} \geq 0, \quad \forall a \in A, s \in S \\
+    & \quad \text{total\_steel}_s \geq 0, \quad \forall s \in S
+\end{align}
+
+This LP model will help determine the optimal production quantities and alloy mixes to maximize profit under the provided constraints.
+
+\end{document}

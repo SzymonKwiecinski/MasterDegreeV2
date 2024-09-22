@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Traveling Salesman Problem}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item Let \( \mathcal{C} = \{0, 1, \ldots, N\} \) be the set of cities, where 0 represents the \textit{start\_city}.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{distance}_{i,j} \): Distance between city \( i \) and city \( j \), for all \( i, j \in \mathcal{C} \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_{i,j} \) = 
+    \begin{cases} 
+    1, & \text{if the path from city } i \text{ to city } j \text{ is included in the tour} \\
+    0, & \text{otherwise}
+    \end{cases} \quad \forall i, j \in \mathcal{C}, i \neq j
+    \item \( u_i \): Auxiliary variable for subtour elimination, \( \forall i \in \mathcal{C}, i \neq 0 \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total travel distance:
+\[
+\min \sum_{i \in \mathcal{C}} \sum_{j \in \mathcal{C}, j \neq i} \text{distance}_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{align}
+\sum_{j \in \mathcal{C}, j \neq i} x_{i,j} &= 1, \quad \forall i \in \mathcal{C} \label{eq:flow_out} \\
+\sum_{i \in \mathcal{C}, i \neq j} x_{i,j} &= 1, \quad \forall j \in \mathcal{C} \label{eq:flow_in}
+\end{align}
+
+Subtour Elimination Constraints:
+\begin{align}
+u_i - u_j + N \cdot x_{i,j} &\leq N-1, \quad \forall i,j \in \mathcal{C}, i \neq j, i,j \neq 0 \label{eq:subtour}
+\end{align}
+
+Variable Domains:
+\begin{align}
+x_{i,j} &\in \{0, 1\}, \quad \forall i, j \in \mathcal{C}, i \neq j \\
+1 \leq u_i &\leq N, \quad \forall i \in \mathcal{C}, i \neq 0
+\end{align}
+
+\subsection*{Explanation}
+\begin{itemize}
+    \item The objective function minimizes the total travel distance.
+    \item Constraints \eqref{eq:flow_out} and \eqref{eq:flow_in} ensure that each city is visited exactly once (one incoming and one outgoing path).
+    \item Constraint \eqref{eq:subtour} is used to eliminate subtours, using the Miller-Tucker-Zemlin (MTZ) formulation for TSP.
+\end{itemize}
+
+\end{document}

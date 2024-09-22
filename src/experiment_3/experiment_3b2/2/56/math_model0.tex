@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+
+Let:
+\[
+x_{n,w}^N = \left\{
+\begin{array}{ll}
+1 & \text{if moving north from intersection at } (n, w) \\
+0 & \text{otherwise}
+\end{array}
+\right.
+\]
+\[
+x_{n,w}^W = \left\{
+\begin{array}{ll}
+1 & \text{if moving west from intersection at } (n, w) \\
+0 & \text{otherwise}
+\end{array}
+\right.
+\]
+
+\subsection*{Objective Function}
+
+Minimize the total travel time:
+\[
+\text{Minimize } \sum_{n=1}^{N} \sum_{w=1}^{W-1} west\_time_{n,w} \cdot x_{n,w}^W + \sum_{n=1}^{N-1} \sum_{w=1}^{W} north\_time_{n,w} \cdot x_{n,w}^N
+\]
+
+\subsection*{Constraints}
+
+1. Flow conservation:
+   - Starting point constraint: The delivery person must start at (1,1):
+   \[
+   x_{1,1}^N + x_{1,1}^W = 1
+   \]
+   - Intermediate grid points:
+   For \(n = 1, \ldots, N\) and \(w = 1, \ldots, W\):
+   \[
+   (x_{n,w}^N + x_{n,w}^W) - (x_{n-1,w}^N + x_{n,w-1}^W) = 0 \quad \text{for } n \neq 1 \text{ and } w \neq 1
+   \]
+   - Destination point constraint: The delivery person must end at (N,W):
+   \[
+   x_{N,W-1}^W + x_{N-1,W}^N = 1
+   \]
+
+2. Directional constraints:
+   - Can only move north or west:
+   \[
+   x_{n,w}^N, x_{n,w}^W \in \{0, 1\}
+   \]
+
+This LP model ensures the delivery person takes the path with the least amount of time to deliver the package, respecting the constraints of moving only north or west on the grid.
+
+\end{document}

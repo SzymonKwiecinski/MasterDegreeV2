@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Decision Variables:}
+
+\[
+\text{islocated}_{k, l} =
+\begin{cases} 
+1 & \text{if department } k \text{ is located at city } l \\
+0 & \text{otherwise}
+\end{cases}
+\]
+
+\textbf{Parameters:}
+\begin{align*}
+& \text{benefit}_{k, l} & & \text{Benefit (in thousands of pounds) of relocating department } k \text{ to city } l. \\
+& \text{communication}_{k, j} & & \text{Communication quantity between departments } k \text{ and } j. \\
+& \text{cost}_{l, m} & & \text{Communication unit cost between city } l \text{ and city } m.
+\end{align*}
+
+\textbf{Objective Function:}
+
+Minimize the overall cost:
+\[
+\text{Minimize } \sum_{k=1}^{K} \sum_{l=1}^{L} \left( \text{islocated}_{k, l} \cdot \text{benefit}_{k, l} \right) - \sum_{k=1}^{K} \sum_{j=1}^{K} \sum_{l=1}^{L} \sum_{m=1}^{L} \left( \text{islocated}_{k, l} \cdot \text{islocated}_{j, m} \cdot \text{communication}_{k, j} \cdot \text{cost}_{l, m} \right)
+\]
+
+\textbf{Constraints:}
+
+1. Each department must be located in exactly one city:
+   \[
+   \sum_{l=1}^{L} \text{islocated}_{k, l} = 1, \quad \forall k = 1, \ldots, K
+   \]
+
+2. No more than three departments can be located in any city:
+   \[
+   \sum_{k=1}^{K} \text{islocated}_{k, l} \leq 3, \quad \forall l = 1, \ldots, L
+   \]
+
+\textbf{Binary Constraints:}
+\[
+\text{islocated}_{k, l} \in \{0, 1\}, \quad \forall k = 1, \ldots, K, \quad \forall l = 1, \ldots, L
+\]
+
+\end{document}

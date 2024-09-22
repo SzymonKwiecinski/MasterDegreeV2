@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Daily Profit Maximization}
+
+\subsection*{Variables}
+Define the following variables:
+\begin{align*}
+x_i & : \text{number of units produced of product } i, \quad i = 1, \ldots, N \\
+h_{\text{overtime}} & : \text{overtime assembly hours scheduled} \\
+\text{materialBought} & : \text{amount of raw materials bought}
+\end{align*}
+
+\subsection*{Parameters}
+Let the following parameters be given:
+\begin{align*}
+\text{assemblyHour}_i & : \text{hours of assembly labor required for product } i \\
+\text{testingHour}_i & : \text{hours of testing required for product } i \\
+\text{materialCost}_i & : \text{cost of raw materials for product } i \\
+\text{maxAssembly} & : \text{maximum available assembly hours per day} \\
+\text{maxTesting} & : \text{maximum available testing hours per day} \\
+\text{price}_i & : \text{selling price of product } i \\
+\text{maxOvertimeAssembly} & : \text{maximum overtime assembly hours allowed} \\
+\text{overtimeAssemblyCost} & : \text{cost per hour of overtime assembly labor} \\
+\text{materialDiscount} & : \text{percentage discount on raw materials} \\
+\text{discountThreshold} & : \text{threshold for material discount in dollars}
+\end{align*}
+
+\subsection*{Objective Function}
+The objective is to maximize the daily profit:
+\[
+\text{maximize } Z = \sum_{i=1}^{N} \text{price}_i \cdot x_i - \left( \sum_{i=1}^{N} \text{materialCost}_i \cdot x_i - \frac{\text{materialDiscount}}{100} \cdot \max(0, \sum_{i=1}^{N} \text{materialCost}_i \cdot x_i - \text{discountThreshold}) \right) - \text{overtimeAssemblyCost} \cdot h_{\text{overtime}}
+\]
+
+\subsection*{Constraints}
+1. Assembly hours constraint:
+\[
+\sum_{i=1}^{N} \text{assemblyHour}_i \cdot x_i + h_{\text{overtime}} \leq \text{maxAssembly} + \text{maxOvertimeAssembly}
+\]
+
+2. Testing hours constraint:
+\[
+\sum_{i=1}^{N} \text{testingHour}_i \cdot x_i \leq \text{maxTesting}
+\]
+
+3. Non-negativity constraints:
+\[
+x_i \geq 0 \quad \text{for } i = 1, \ldots, N
+\]
+\[
+h_{\text{overtime}} \geq 0
+\]
+
+\subsection*{Output Variables}
+The output of the model will include:
+\begin{align*}
+\text{dailyProfit} & : Z \\
+\text{unitsProduced}_i & : x_i \quad \text{for } i = 1, \ldots, N \\
+\text{overtimeAssembly} & : h_{\text{overtime}} \\
+\text{materialBought} & : \sum_{i=1}^{N} \text{materialCost}_i \cdot x_i
+\end{align*}
+
+\end{document}

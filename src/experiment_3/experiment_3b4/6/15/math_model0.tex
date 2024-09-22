@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Formulation for Maximizing Daily Profit}
+
+\subsection*{Decision Variables}
+\begin{align*}
+x_i & : \text{Number of units of product } i \text{ produced} \\
+y & : \text{Overtime assembly labor hours scheduled}
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+\text{assemblyHour}_i & : \text{Hours of assembly required for one unit of product } i \\
+\text{testingHour}_i & : \text{Hours of testing required for one unit of product } i \\
+\text{materialCost}_i & : \text{Cost of materials for one unit of product } i \\
+\text{price}_i & : \text{Selling price for one unit of product } i \\
+\text{maxAssembly} & : \text{Maximum regular assembly labor hours available} \\
+\text{maxTesting} & : \text{Maximum testing labor hours available} \\
+\text{maxOvertimeAssembly} & : \text{Maximum overtime assembly labor hours} \\
+\text{overtimeAssemblyCost} & : \text{Cost per hour for overtime assembly labor} \\
+\text{materialDiscount} & : \text{Discount percentage on raw materials if eligible} \\
+\text{discountThreshold} & : \text{Threshold for material cost to get a discount} \\
+N & : \text{Number of product types}
+\end{align*}
+
+\subsection*{Objective}
+Maximize the daily profit:
+\begin{align*}
+\text{Profit} = \sum_{i=1}^{N} \left( \text{price}_i \cdot x_i \right) - \left( \text{overtimeAssemblyCost} \cdot y \right) - \text{Material Cost}
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align}
+\sum_{i=1}^{N} \left(\text{assemblyHour}_i \cdot x_i\right) & \leq \text{maxAssembly} + y, \label{assembly} \\
+\sum_{i=1}^{N} \left(\text{testingHour}_i \cdot x_i\right) & \leq \text{maxTesting}, \label{testing} \\
+0 \leq y & \leq \text{maxOvertimeAssembly}, \label{overtime} \\
+\text{Material Cost} = 
+\begin{cases} 
+\sum_{i=1}^{N} \left(\text{materialCost}_i \cdot x_i\right), & \text{if } \sum_{i=1}^{N} \left(\text{materialCost}_i \cdot x_i\right) \leq \text{discountThreshold} \\
+(1 - \frac{\text{materialDiscount}}{100}) \cdot \sum_{i=1}^{N} \left(\text{materialCost}_i \cdot x_i\right), & \text{otherwise}
+\end{cases} \label{material_cost}
+\end{align}
+
+\end{document}

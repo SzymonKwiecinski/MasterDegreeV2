@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Formulation for Translator Selection}
+
+\subsection*{Sets and Indices}
+\begin{align*}
+    & N: \text{Set of available translators, indexed by } i = 1, \ldots, N. \\
+    & M: \text{Set of required languages, indexed by } j = 1, \ldots, M.
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+    & \text{cost}_i: \text{Cost of hiring translator } i. \\
+    & \text{languages}_i: \text{Set of languages translator } i \text{ can translate into}.
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    & x_i = \begin{cases} 
+    1, & \text{if translator } i \text{ is selected} \\
+    0, & \text{otherwise}
+    \end{cases} \quad \forall i \in N.
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost of hiring translators:
+\[
+\text{Minimize } \sum_{i=1}^{N} \text{cost}_i \cdot x_i
+\]
+
+\subsection*{Constraints}
+Each required language must be covered by at least one selected translator:
+\[
+\sum_{i=1}^{N} a_{ij} \cdot x_i \geq 1, \quad \forall j \in M
+\]
+where \( a_{ij} = 1 \) if language \( j \) is in \text{languages}_i and 0 otherwise.
+
+\subsection*{Model Summary}
+\begin{align*}
+    & \text{Minimize } \sum_{i=1}^{N} \text{cost}_i \cdot x_i \\
+    & \text{Subject to: } \\
+    & \quad \sum_{i=1}^{N} a_{ij} \cdot x_i \geq 1, \quad \forall j \in M \\
+    & \quad x_i \in \{0, 1\}, \quad \forall i \in N
+\end{align*}
+
+This MILP model ensures that all required languages are covered with the minimum possible hiring cost. The binary variable \( x_i \) indicates whether a translator is selected, and the constraints ensure language coverage.
+
+\end{document}

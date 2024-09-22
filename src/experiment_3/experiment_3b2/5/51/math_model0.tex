@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model for Custom Tees Advertising Campaign}
+
+\subsection*{Decision Variables}
+
+Let \( x_a \) be the number of clicks (in thousands) purchased from ad type \( a \), where \( a = 1, \ldots, A \).
+
+\subsection*{Objective Function}
+
+Maximize the total number of unique clicks:
+\[
+\text{Maximize } Z = \sum_{a=1}^{A} \text{unique\_click}_a \cdot x_a
+\]
+
+\subsection*{Constraints}
+
+1. Budget Constraint:
+\[
+\sum_{a=1}^{A} \text{cost}_a \cdot x_a \leq \text{budget}
+\]
+
+2. Age Group Click Constraints:
+\begin{align*}
+\sum_{a=1}^{A} \text{young\_click}_a \cdot x_a &\geq \text{goal\_young} \\
+\sum_{a=1}^{A} \text{old\_click}_a \cdot x_a &\geq \text{goal\_old}
+\end{align*}
+
+3. Unique Click Constraints for Age Groups:
+\begin{align*}
+\sum_{a=1}^{A} \text{young\_click}_a \cdot \text{unique\_click}_a \cdot x_a &\geq \text{goal\_unique\_young} \\
+\sum_{a=1}^{A} \text{old\_click}_a \cdot \text{unique\_click}_a \cdot x_a &\geq \text{goal\_unique\_old}
+\end{align*}
+
+4. Maximum Clicks Constraint for each ad type:
+\[
+0 \leq x_a \leq \text{max\_click}_a, \quad \text{for } a = 1, \ldots, A
+\]
+
+\subsection*{Output}
+
+The optimal number of clicks to purchase for each ad type \( x_a \) will give the total unique clicks as:
+\[
+\text{total\_unique\_clicks} = \sum_{a=1}^{A} \text{unique\_click}_a \cdot x_a
+\]
+
+\end{document}

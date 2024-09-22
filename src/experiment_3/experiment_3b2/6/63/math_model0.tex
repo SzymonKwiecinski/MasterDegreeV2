@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Paper Cutting Problem}
+
+We aim to minimize the number of large paper rolls required to meet customer demand for smaller rolls. Let's define the following:
+
+\subsection*{Given Data}
+\begin{itemize}
+    \item \( \text{large\_roll\_width} \): Width of the large roll in inches.
+    \item \( M \): Number of different types of smaller rolls.
+    \item \( \text{roll\_width\_options} = [\text{inch}_1, \text{inch}_2, \ldots, \text{inch}_M] \): Available widths of smaller rolls.
+    \item \( \text{demands} = [\text{demand}_1, \text{demand}_2, \ldots, \text{demand}_M] \): Demand for each type of roll.
+    \item \( N \): Number of different cutting patterns.
+    \item \( \text{patterns} = \left[ \begin{array}{ccc}
+    \text{pattern}_{1,1} & \ldots & \text{pattern}_{1,M} \\
+    \vdots & & \vdots \\
+    \text{pattern}_{N,1} & \ldots & \text{pattern}_{N,M} \\
+    \end{array} \right] \): Matrix representing the number of smaller rolls obtained from each pattern.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_i \): Number of large rolls cut using pattern \( i \), for \( i = 1, \ldots, N \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total number of large rolls used:
+\[
+\min \sum_{i=1}^{N} x_i
+\]
+
+\subsection*{Constraints}
+To meet the demand for each type of smaller roll:
+\[
+\sum_{i=1}^{N} \text{pattern}_{i,j} \cdot x_i \geq \text{demand}_j, \quad \text{for } j = 1, \ldots, M
+\]
+
+\subsection*{Integer Constraints}
+\[
+x_i \geq 0 \quad \text{and integer for } i = 1, \ldots, N
+\]
+
+\end{document}

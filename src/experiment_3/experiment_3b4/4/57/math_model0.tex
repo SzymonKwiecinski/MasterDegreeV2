@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $\text{demand}_{t}$: Demand for containers in month $t$.
+    \item $\text{unload\_cost}_{t}$: Unloading cost per container in month $t$.
+    \item $\text{unload\_capacity}_{t}$: Maximum number of containers to unload in month $t$.
+    \item $\text{holding\_cost}$: Cost of holding a container for a month.
+    \item $\text{max\_container}$: Maximum number of containers that can be held in the yard.
+    \item $\text{init\_container}$: Initial number of containers in the yard.
+    \item $\text{num\_cranes}$: Maximum number of cranes available for rent.
+    \item $\text{crane\_capacity}$: Capacity of each crane.
+    \item $\text{crane\_cost}$: Cost of renting each crane.
+    \item $T$: Number of months in the planning horizon.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    & \text{amount}_{t}: \text{Number of containers unloaded in month } t. \\
+    & \text{hold}_{t}: \text{Number of containers held in the yard at the end of month } t. \\
+    & \text{crane}_{t}: \text{Number of cranes rented in month } t.
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\min \sum_{t=1}^{T} \left( \text{unload\_cost}_{t} \times \text{amount}_{t} + \text{holding\_cost} \times \text{hold}_{t} + \text{crane\_cost} \times \text{crane}_{t} \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+    & \text{amount}_t + \text{hold}_{t-1} - \text{hold}_{t} \geq \text{demand}_{t}, \quad \forall t \\
+    & 0 \leq \text{amount}_{t} \leq \text{unload\_capacity}_{t}, \quad \forall t \\
+    & 0 \leq \text{hold}_{t} \leq \text{max\_container}, \quad \forall t \\
+    & \text{hold}_0 = \text{init\_container} \\
+    & \text{hold}_{T} = 0 \\
+    & \text{crane}_t \times \text{crane\_capacity} \geq \text{demand}_{t}, \quad \forall t \\
+    & 0 \leq \text{crane}_{t} \leq \text{num\_cranes}, \quad \forall t
+\end{align*}
+
+\end{document}

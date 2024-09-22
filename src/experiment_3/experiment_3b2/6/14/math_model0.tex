@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+\begin{align*}
+x_i & : \text{Number of units of product } i \text{ to be produced} \\
+u & : \text{Binary variable indicating whether to upgrade machine capacity}
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total net income:
+\begin{equation*}
+\text{Maximize } \sum_{i=1}^{P} \left( \text{price}_i \times x_i - \text{cost}_i \times x_i - \text{investPercentage}_i \times \text{price}_i \times x_i \right) - \text{upgradeCost} \times u
+\end{equation*}
+
+\subsection*{Constraints}
+\begin{align*}
+\text{Machine Capacity: } & \sum_{i=1}^{P} \text{hour}_i \times x_i \leq \text{availableHours} + u \times \text{upgradeHours} \\
+\text{Cash Constraint: } & \sum_{i=1}^{P} \text{cost}_i \times x_i \leq \text{cash} + \sum_{i=1}^{P} \text{investPercentage}_i \times \text{price}_i \times x_i \\
+\text{Non-negativity: } & x_i \geq 0 \quad \text{for all } i \\
+\text{Binary Constraint: } & u \in \{0, 1\}
+\end{align*}
+
+\end{document}

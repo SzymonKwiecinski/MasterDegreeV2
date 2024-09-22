@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Shift Scheduling}
+
+\subsection*{Decision Variables}
+Let \( x_s \) be the number of officers starting at shift \( s \).
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize} \quad Z = \sum_{s=1}^{S} \text{shift\_cost}_{s} \times x_s
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+x_s + x_{s-1} &\geq \text{officers\_needed}_s, \quad &\forall s = 1, \ldots, S \\
+x_{s} &\geq 0, \quad &\forall s = 1, \ldots, S
+\end{align*}
+
+\noindent Note: For the cyclic coverage, \( x_0 = x_S \).
+
+\subsection*{Assumptions}
+- Each officer works for exactly two consecutive shifts.
+- The shifts are cyclical, meaning the shift after the last one is the first shift again.
+
+\end{document}

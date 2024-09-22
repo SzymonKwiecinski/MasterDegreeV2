@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Workforce Management}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item \( r_{k,i} \): Number of recruits for manpower type \( k \) in year \( i \)
+    \item \( o_{k,i} \): Number of overmanned employees for manpower type \( k \) in year \( i \)
+    \item \( s_{k,i} \): Number of employees on short-time working for manpower type \( k \) in year \( i \)
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( requirement_{k,i} \): Manpower requirement for type \( k \) in year \( i \)
+    \item \( strength_k \): Current strength of manpower type \( k \)
+    \item \( lessonewaste_k \): Wastage rate of manpower type \( k \) with less than one year of service
+    \item \( moreonewaste_k \): Wastage rate of manpower type \( k \) with more than one year of service
+    \item \( recruit_k \): Maximum number of recruits for manpower type \( k \)
+    \item \( costredundancy_k \): Redundancy payment for manpower type \( k \)
+    \item \( num\_overman \): Maximum number of overmanned employees allowed
+    \item \( costoverman_k \): Cost per overmanned employee for manpower type \( k \)
+    \item \( num\_shortwork \): Maximum number of short-time workers allowed for each manpower type
+    \item \( costshort_k \): Cost per short-time worker for manpower type \( k \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize total cost:
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} \sum_{i=1}^{I} \left( costredundancy_k \cdot (strength_k - requirement_{k,i})^+ + costoverman_k \cdot o_{k,i} + costshort_k \cdot s_{k,i} \right)
+\]
+
+Where \( (x)^+ = \max(0, x) \) represents the positive part of \( x \).
+
+\subsection*{Constraints}
+\begin{align*}
+1. & \quad \sum_{k=1}^{K} (strength_k - lessonewaste_k \cdot r_{k,i} - moreonewaste_k \cdot (strength_k - r_{k,i})) + o_{k,i} - s_{k,i} = requirement_{k,i} \quad \forall k, i \\
+2. & \quad r_{k,i} \leq recruit_k \quad \forall k, i \\
+3. & \quad \sum_{k=1}^{K} o_{k,i} \leq num\_overman \quad \forall i \\
+4. & \quad s_{k,i} \leq num\_shortwork \quad \forall k, i \\
+5. & \quad r_{k,i}, o_{k,i}, s_{k,i} \geq 0 \quad \forall k, i
+\end{align*}
+
+\subsection*{Output}
+The output will include:
+\begin{itemize}
+    \item \( r \): Number of recruits for each manpower type in each year
+    \item \( o \): Number of overmanned employees for each manpower type in each year
+    \item \( s \): Number of employees on short-time working for each manpower type in each year
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Sets and Indices}
+\begin{align*}
+& K: \text{Set of mines, indexed by } k, \, k = 1, \ldots, n\_mines \\
+& I: \text{Set of years, indexed by } i
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+& n\_maxwork \in \mathbb{Z}_+: \text{Maximum number of mines that can be operated in any year} \\
+& \text{royalty}_{k} \in \mathbb{R}_+: \text{Yearly royalty for mine } k \\
+& \text{limit}_{k} \in \mathbb{R}_+: \text{Production limit of mine } k \text{ per year} \\
+& \text{quality}_{k} \in \mathbb{R}_+: \text{Quality of ore from mine } k \\
+& \text{requiredquality}_{i} \in \mathbb{R}_+: \text{Required ore quality in year } i \\
+& \text{price} \in \mathbb{R}_+: \text{Revenue per ton of ore sold} \\
+& \text{discount} \in [0, 1]: \text{Discount rate per annum}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+& \text{isoperated}_{k,i} \in \{0, 1\}: \text{1 if mine } k \text{ is operated in year } i, \text{0 otherwise} \\
+& \text{amount}_{k,i} \in \mathbb{R}_+: \text{Amount of ore produced by mine } k \text{ in year } i
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the net present value (NPV) of profit:
+\begin{align*}
+\max \sum_{i \in I} \frac{1}{(1 + \text{discount})^i} \left( \text{price} \times \sum_{k=1}^{n\_mines} \text{amount}_{k,i} - \sum_{k=1}^{n\_mines} \text{royalty}_{k} \times \text{isoperated}_{k,i} \right)
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+& \sum_{k=1}^{n\_mines} \text{isoperated}_{k,i} \leq n\_maxwork, \quad \forall i \in I \quad \text{(maximum mines per year)} \\
+& \text{amount}_{k,i} \leq \text{limit}_{k} \times \text{isoperated}_{k,i}, \quad \forall k \in K, \, \forall i \in I \quad \text{(production limit)} \\
+& \sum_{k=1}^{n\_mines} \text{quality}_{k} \times \text{amount}_{k,i} = \text{requiredquality}_{i} \times \sum_{k=1}^{n\_mines} \text{amount}_{k,i}, \quad \forall i \in I \quad \text{(quality requirement)} \\
+& \text{isoperated}_{k,i} = 1 \quad \text{implies} \quad \text{isoperated}_{k,i-1} = 1, \, \forall k \in K, \, \forall i \in I, \, i > 1 \quad \text{(opening requirement)}
+\end{align*}
+
+\end{document}

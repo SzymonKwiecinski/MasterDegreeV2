@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Chebyshev Approximation Linear Programming Formulation}
+
+We want to find the line \( y = bx + a \) that minimizes the maximum deviation from the observed data points \((x_k, y_k)\).
+
+\subsection*{Objective Function}
+\[
+\min_{a, b, e} \quad e
+\]
+
+\subsection*{Constraints}
+For each data point \( (x_k, y_k) \), we have the following constraints:
+\[
+y_k - bx_k - a \leq e, \quad \text{for } k = 1, 2, \ldots, K
+\]
+\[
+bx_k + a - y_k \leq e, \quad \text{for } k = 1, 2, \ldots, K
+\]
+
+Here:
+- \( a \) is the intercept of the line,
+- \( b \) is the slope of the line,
+- \( e \) is the maximum absolute deviation that we want to minimize.
+
+\end{document}
+{
+    "intercept": intercept,
+    "slope": slope
+}

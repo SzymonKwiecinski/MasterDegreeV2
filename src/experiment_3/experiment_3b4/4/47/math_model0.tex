@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Objective}
+
+Minimize the total cost associated with assigning officers:
+\[
+\text{Minimize} \quad \sum_{s=1}^{S} \text{shift\_cost}_s \cdot x_s
+\]
+
+\subsection*{Constraints}
+
+For each shift \( s \), ensure that the number of assigned officers meets the required demand:
+\[
+x_s + x_{s-1} \geq \text{officers\_needed}_s \quad \forall s \in \{1, 2, \ldots, S\}
+\]
+
+\subsection*{Boundary Conditions}
+The decision variables must be non-negative integers:
+\[
+x_s \geq 0 \quad \text{and integer} \quad \forall s \in \{1, 2, \ldots, S\}
+\]
+
+\end{document}

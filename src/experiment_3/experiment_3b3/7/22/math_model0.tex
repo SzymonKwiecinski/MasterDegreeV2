@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item \( r_{k,i} \) be the number of recruits in manpower \( k \) for year \( i \).
+    \item \( o_{k,i} \) be the number of overmanning in manpower \( k \) for year \( i \).
+    \item \( s_{k,i} \) be the number of workers on short-time in manpower \( k \) for year \( i \).
+    \item \( d_{k,i} \) be the number of redundancies in manpower \( k \) for year \( i \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total redundancy cost over all categories of manpower and years:
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} \sum_{i=1}^{I} c_{\text{redundancy},k} \cdot d_{k,i}
+\]
+
+\subsection*{Constraints}
+
+\textbf{Manpower Requirements:}
+For each manpower \( k \) in each year \( i \):
+\[
+\text{strength}_{k} - (1 - \text{lessonewaste}_{k}) \cdot s_{k,i-1} - \text{moreonewaste}_{k} \cdot \text{strength}_{k} + r_{k,i} - d_{k,i} + o_{k,i} \geq \text{requirement}_{k,i}
+\]
+
+\textbf{Recruitment Limits:}
+For each manpower \( k \):
+\[
+r_{k,i} \leq \text{recruit}_{k} \quad \forall i
+\]
+
+\textbf{Redundancy:}
+\[
+d_{k,i} \geq 0 \quad \forall k, i
+\]
+
+\textbf{Overmanning Limits:}
+The total overmanning across all categories must not exceed the allowable limit:
+\[
+\sum_{k=1}^{K} o_{k,i} \leq \text{num\_overman} \quad \forall i
+\]
+
+\textbf{Short-time Working Limit:}
+For each manpower \( k \):
+\[
+s_{k,i} \leq \text{num\_shortwork} \quad \forall k, i
+\]
+
+\subsection*{Final Model}
+The complete linear programming model can thus be summarized as follows:
+
+\[
+\begin{align*}
+\text{Minimize } Z &= \sum_{k=1}^{K} \sum_{i=1}^{I} c_{\text{redundancy},k} \cdot d_{k,i} \\
+\text{subject to: } &
+\sum_{k=1}^{K} \left( \text{strength}_{k} - (1 - \text{lessonewaste}_{k}) \cdot s_{k,i-1} - \text{moreonewaste}_{k} \cdot \text{strength}_{k} + r_{k,i} - d_{k,i} + o_{k,i} \right) \geq \sum_{i=1}^{I} \text{requirement}_{k,i}, \\
+&r_{k,i} \leq \text{recruit}_{k}, \quad \forall k,i\\
+&d_{k,i} \geq 0, \quad \forall k,i\\
+&\sum_{k=1}^{K} o_{k,i} \leq \text{num\_overman}, \quad \forall i\\
+&s_{k,i} \leq \text{num\_shortwork}, \quad \forall k,i.
+\end{align*}
+\]
+
+\end{document}

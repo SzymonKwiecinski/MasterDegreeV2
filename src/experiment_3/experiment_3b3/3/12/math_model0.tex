@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+Let \( N \) be the number of available currencies. Define the following variables:
+
+\begin{itemize}
+    \item \( x_{i,j} \): the amount of currency \( i \) exchanged for currency \( j \) on a given day.
+    \item \( start_i \): the starting amount of currency \( i \).
+    \item \( limit_i \): the limit on the total amount of currency \( i \) that can be exchanged.
+    \item \( rate_{i,j} \): the exchange rate from currency \( i \) to currency \( j \).
+    \item \( final_N \): the final amount of currency \( N \) at the end of the day.
+\end{itemize}
+
+\subsection*{Objective Function}
+
+The objective is to maximize the final amount of currency \( N \):
+
+\[
+\text{Maximize} \quad final_N
+\]
+
+\subsection*{Constraints}
+
+1. **Balance Constraints**: For each currency \( i \):
+
+\[
+start_i + \sum_{j=1}^{N} x_{i,j} - \sum_{k=1}^{N} x_{k,i} \leq limit_i \quad \forall i=1,\ldots,N
+\]
+
+2. **Non-negativity Constraints**: The amounts exchanged must be non-negative:
+
+\[
+x_{i,j} \geq 0 \quad \forall i,j=1,\ldots,N
+\]
+
+3. **Currency Conversion Constraints**: The final amount of currency \( N \) should take into account all exchanges:
+
+\[
+final_N = start_N + \sum_{i=1}^{N} x_{i,N} - \sum_{j=1}^{N} x_{N,j}
+\]
+
+4. **Cycle Wealth Constraints**: To ensure wealth cannot be multiplied through cycles, we need to restrict the exchange rates: 
+
+\[
+rate_{i_1,i_2} \cdot rate_{i_2,i_3} \cdots rate_{i_k,i_1} \leq 1 \quad \text{for all cycles } (i_1, i_2, \ldots, i_k)
+\]
+
+\subsection*{Summary}
+
+The linear programming model is formulated as follows:
+
+\begin{align*}
+\text{Maximize} & \quad final_N \\
+\text{subject to} & \\
+& start_i + \sum_{j=1}^{N} x_{i,j} - \sum_{k=1}^{N} x_{k,i} \leq limit_i, \quad \forall i=1,\ldots,N \\
+& x_{i,j} \geq 0, \quad \forall i,j=1,\ldots,N \\
+& final_N = start_N + \sum_{i=1}^{N} x_{i,N} - \sum_{j=1}^{N} x_{N,j} \\
+& rate_{i_1,i_2} \cdots rate_{i_k,i_1} \leq 1, \; \text{for all cycles } (i_1, i_2, \ldots, i_k)
+\end{align*}
+
+\end{document}

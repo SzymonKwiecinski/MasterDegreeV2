@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+\[
+\min \sum_{i=1}^{I} \sum_{j=1}^{J} b_{i,j} \times \text{price} \times \text{distance}_{i,j}
+\]
+
+\textbf{Subject to:}
+
+Supply constraints:
+\[
+\sum_{j=1}^{J} x_{i,j} \leq \text{numdepot}_i, \quad \forall i
+\]
+
+Demand constraints:
+\[
+\sum_{i=1}^{I} x_{i,j} \geq \text{numport}_j, \quad \forall j
+\]
+
+Barge constraints:
+\[
+b_{i,j} \geq \frac{x_{i,j}}{2}, \quad \forall i, j
+\]
+
+Non-negativity constraints:
+\[
+x_{i,j} \geq 0, \quad \forall i, j
+\]
+
+\end{document}

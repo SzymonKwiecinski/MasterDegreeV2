@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+
+\textbf{MILP Model for Minimum Employees in Cafeteria:}
+
+\begin{align*}
+    & \text{Indices:} \\
+    & n = \text{days } (1, \ldots, N) \\
+    & i = \text{employees } (1, \ldots, M) \\
+    \\
+    & \text{Parameters:} \\
+    & \text{num}_n = \text{required employees on day } n \\
+    & \text{n\_working\_days} = \text{number of consecutive working days} \\
+    & \text{n\_resting\_days} = \text{number of consecutive resting days} \\
+    \\
+    & \text{Decision Variables:} \\
+    & x_i = 
+    \begin{cases} 
+    1, & \text{if employee } i \text{ is hired} \\ 
+    0, & \text{otherwise}
+    \end{cases} \\
+    & y_{n,i} = 
+    \begin{cases} 
+    1, & \text{if employee } i \text{ works on day } n \\ 
+    0, & \text{otherwise}
+    \end{cases} \\
+    \\
+    & \text{Objective:} \\
+    & \min \sum_{i=1}^{M} x_i \\
+    \\
+    & \text{Subject to:} \\
+    & \sum_{i=1}^{M} y_{n,i} \geq \text{num}_n, \quad \forall n \\
+    & y_{n,i} \leq x_i, \quad \forall n, i \\
+    & \text{(Implement cyclic constraints to respect working-resting patterns)} \\
+    & x_i \in \{0, 1\}, \quad y_{n,i} \in \{0, 1\}, \quad \forall n, i \\
+\end{align*}
+
+\end{document}

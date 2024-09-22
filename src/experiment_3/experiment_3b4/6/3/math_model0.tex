@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Capacity Expansion Planning Using Linear Programming}
+
+Let \( T \) be the total number of years.
+
+Decision Variables:
+\begin{align*}
+c_t & : \text{coal capacity added in year } t \text{ (in megawatts)}, \quad t = 1, \ldots, T, \\
+n_t & : \text{nuclear capacity added in year } t \text{ (in megawatts)}, \quad t = 1, \ldots, T.
+\end{align*}
+
+Objective Function:
+Minimize the total cost of capacity expansion over \( T \) years:
+\[
+\text{Minimize } Z = \sum_{t=1}^{T} \left( \text{coal\_cost} \times c_t + \text{nuke\_cost} \times n_t \right)
+\]
+
+Constraints:
+\begin{enumerate}
+    \item Demand satisfaction constraint for each year \( t \):
+    \[
+    \text{oil}_t + \sum_{j=\max(1, t-\text{coal\_life}+1)}^{t} c_j + \sum_{j=\max(1, t-\text{nuke\_life}+1)}^{t} n_j \geq \text{demand}_t, \quad t = 1, \ldots, T
+    \]
+
+    \item Nuclear capacity limitation constraint:
+    \[
+    \frac{\sum_{j=\max(1, t-\text{nuke\_life}+1)}^{t} n_j}{\text{oil}_t + \sum_{j=\max(1, t-\text{coal\_life}+1)}^{t} c_j + \sum_{j=\max(1, t-\text{nuke\_life}+1)}^{t} n_j} \leq \frac{\text{max\_nuke}}{100}, \quad t = 1, \ldots, T
+    \]
+
+    \item Non-negativity constraints:
+    \[
+    c_t \geq 0, \quad n_t \geq 0, \quad t = 1, \ldots, T
+    \]
+\end{enumerate}
+
+\end{document}

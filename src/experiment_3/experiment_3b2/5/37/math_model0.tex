@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\subsection*{Decision Variables}
+Let \( x_k \) be the quantity of part \( k \) to produce for \( k = 1, 2, \ldots, K \).
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize} \quad Z = \sum_{k=1}^{K} \text{profit}_{k} \times x_k
+\]
+
+\subsection*{Constraints}
+\begin{enumerate}
+    \item Capacity constraints for each shop \( s \):
+    \[
+    \sum_{k=1}^{K} \text{time}_{k, s} \times x_k \leq \text{capacity}_{s} \quad \text{for each } s = 1, 2, \ldots, S
+    \]
+    \item Non-negativity constraint:
+    \[
+    x_k \geq 0 \quad \text{for each } k = 1, 2, \ldots, K
+    \]
+\end{enumerate}
+
+\end{document}

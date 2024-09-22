@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+Let \( x_p \) be the number of batches of part \( p \) produced, for \( p = 1, \ldots, P \).
+
+\subsection*{Objective Function}
+Maximize the total profit:
+
+\[
+\max \sum_{p=1}^{P} \text{price}_p \times x_p 
+- \sum_{m=2}^{M} \sum_{p=1}^{P} \text{time}_{m,p} \times x_p \times \text{cost}_m 
+- \left( \sum_{p=1}^{P} \text{time}_{1,p} \times x_p \right) \times \text{LaborCost}
+\]
+
+where
+
+\[
+\text{LaborCost} = 
+\begin{cases} 
+\text{standard\_cost}, & \text{if } \sum_{p=1}^{P} \text{time}_{1,p} \times x_p \leq \text{overtime\_hour} \\
+\text{overtime\_cost}, & \text{if } \sum_{p=1}^{P} \text{time}_{1,p} \times x_p > \text{overtime\_hour} 
+\end{cases}
+\]
+
+\subsection*{Constraints}
+
+1. Production requirements:
+
+\[
+x_p \geq \text{min\_batches}_p, \quad \forall p = 1, \ldots, P
+\]
+
+2. Machine availability (except for machine 1):
+
+\[
+\sum_{p=1}^{P} \text{time}_{m,p} \times x_p \leq \text{available}_m, \quad \forall m = 2, \ldots, M
+\]
+
+\end{document}

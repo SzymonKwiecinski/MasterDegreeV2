@@ -1,0 +1,25 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Problem:}
+
+Maximize:
+\[
+r
+\]
+
+Subject to:
+\[
+a_i^T y + r \| a_i \|_2 \leq b_i, \quad \forall i = 1, \ldots, m
+\]
+
+Where:
+\begin{itemize}
+    \item \( y \in \mathbb{R}^N \) is the center of the ball.
+    \item \( r \) is the radius of the ball to be maximized.
+    \item \( a_i \in \mathbb{R}^N \) and \( b_i \in \mathbb{R} \) are given.
+    \item \( \| a_i \|_2 \) denotes the Euclidean norm of the vector \( a_i \).
+\end{itemize}
+
+\end{document}

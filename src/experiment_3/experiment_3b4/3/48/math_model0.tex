@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Gift Basket Production}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item \( W \) : Number of weeks in the season.
+    \item \( w \) : Index for weeks, \( w = 1, 2, \ldots, W \).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{regular\_cost} \) : Cost per hour of regular labor.
+    \item \( \text{overtime\_cost} \) : Cost per hour of overtime labor.
+    \item \( \text{assembly\_time} \) : Hours of labor required to assemble one basket.
+    \item \( \text{material\_cost} \) : Cost of materials for one basket.
+    \item \( \text{selling\_price} \) : Selling price of one basket.
+    \item \( \text{holding\_cost} \) : Holding cost per unsold basket per week.
+    \item \( \text{salvage\_value} \) : Salvage value per unsold basket at the end of the season.
+    \item \( \text{demand}_w \) : Demand for baskets in week \( w \).
+    \item \( \text{regular\_labor}_w \) : Regular labor hours available in week \( w \).
+    \item \( \text{overtime\_labor}_w \) : Overtime labor hours available in week \( w \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{regular\_used}_w \) : Hours of regular labor used in week \( w \).
+    \item \( \text{overtime\_used}_w \) : Hours of overtime labor used in week \( w \).
+    \item \( \text{regular\_basket}_w \) : Baskets assembled using regular labor in week \( w \).
+    \item \( \text{overtime\_basket}_w \) : Baskets assembled using overtime labor in week \( w \).
+    \item \( \text{inventory}_w \) : Number of baskets on hand at the end of week \( w \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit over the season:
+\[
+\text{Profit} = \sum_{w=1}^{W} \left[\text{selling\_price} \cdot (\text{regular\_basket}_w + \text{overtime\_basket}_w) 
+- \text{regular\_cost} \cdot \text{regular\_used}_w 
+- \text{overtime\_cost} \cdot \text{overtime\_used}_w 
+- \text{material\_cost} \cdot (\text{regular\_basket}_w + \text{overtime\_basket}_w)
+- \text{holding\_cost} \cdot \text{inventory}_{w-1} \right] 
++ \text{salvage\_value} \cdot \text{inventory}_W
+\]
+
+\subsection*{Constraints}
+\begin{align}
+\text{regular\_used}_w & \leq \text{regular\_labor}_w, \quad \forall w \\
+\text{overtime\_used}_w & \leq \text{overtime\_labor}_w, \quad \forall w \\
+\text{regular\_basket}_w & = \frac{\text{regular\_used}_w}{\text{assembly\_time}}, \quad \forall w \\
+\text{overtime\_basket}_w & = \frac{\text{overtime\_used}_w}{\text{assembly\_time}}, \quad \forall w \\
+\text{inventory}_w & = \text{inventory}_{w-1} + \text{regular\_basket}_w + \text{overtime\_basket}_w - \text{demand}_w, \quad \forall w \\
+\text{inventory}_0 & = 0 \\
+\text{inventory}_w & \geq 0, \quad \forall w
+\end{align}
+
+\end{document}

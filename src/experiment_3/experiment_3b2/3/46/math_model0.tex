@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item Let \( A \) be the set of alloys, indexed by \( a \).
+    \item Let \( S \) be the set of steel types, indexed by \( s \).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{available}_a \): Availability of alloy \( a \) in tons.
+    \item \( \text{carbon}_a \): Percentage of carbon in alloy \( a \).
+    \item \( \text{nickel}_a \): Percentage of nickel in alloy \( a \).
+    \item \( \text{alloy\_price}_a \): Purchase price per ton of alloy \( a \).
+    \item \( \text{steel\_price}_s \): Selling price per ton of steel \( s \).
+    \item \( \text{carbon\_min}_s \): Minimum required percentage of carbon in steel \( s \).
+    \item \( \text{nickel\_max}_s \): Maximum allowable percentage of nickel in steel \( s \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{alloy\_amount}_{a,s} \): Amount of alloy \( a \) used in steel \( s \) in tons.
+    \item \( \text{total\_steel}_s \): Total production of steel type \( s \) in tons.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\max \sum_{s \in S} \left( \text{steel\_price}_s \cdot \text{total\_steel}_s \right) - \sum_{a \in A} \sum_{s \in S} \left( \text{alloy\_price}_a \cdot \text{alloy\_amount}_{a,s} \right)
+\]
+
+\subsection*{Constraints}
+\begin{align}
+& \text{Material balance for steel production:} \notag \\
+& \text{total\_steel}_s = \sum_{a \in A} \text{alloy\_amount}_{a,s}, \quad \forall s \in S \\
+& \text{Availability of alloy:} \notag \\
+& \sum_{s \in S} \text{alloy\_amount}_{a,s} \leq \text{available}_a, \quad \forall a \in A \\
+& \text{Carbon content constraint:} \notag \\
+& \sum_{a \in A} \frac{\text{carbon}_a}{100} \times \text{alloy\_amount}_{a,s} \geq \frac{\text{carbon\_min}_s}{100} \times \text{total\_steel}_s, \quad \forall s \in S \\
+& \text{Nickel content constraint:} \notag \\
+& \sum_{a \in A} \frac{\text{nickel}_a}{100} \times \text{alloy\_amount}_{a,s} \leq \frac{\text{nickel\_max}_s}{100} \times \text{total\_steel}_s, \quad \forall s \in S \\
+& \text{Maximum 40\% of alloy 1 in any steel:} \notag \\
+& \text{alloy\_amount}_{1,s} \leq 0.4 \times \text{total\_steel}_s, \quad \forall s \in S \\
+& \text{Non-negativity:} \notag \\
+& \text{alloy\_amount}_{a,s} \geq 0, \quad \forall a \in A, s \in S \\
+& \text{total\_steel}_s \geq 0, \quad \forall s \in S
+\end{align}
+
+\end{document}

@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $N$: Number of different stocks
+    \item $bought_i$: Number of shares bought of stock $i$, for $i = 1, \ldots, N$
+    \item $buyPrice_i$: Purchase price of stock $i$, for $i = 1, \ldots, N$
+    \item $currentPrice_i$: Current price of stock $i$, for $i = 1, \ldots, N$
+    \item $futurePrice_i$: Expected future price of stock $i$, for $i = 1, \ldots, N$
+    \item $transactionRate$: Transaction costs as a percentage (0 to 100)
+    \item $taxRate$: Tax rate on capital gains as a percentage (0 to 100)
+    \item $K$: Required amount of money to raise net of capital gains and transaction costs
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $sell_i$: Number of shares of stock $i$ to sell, for $i = 1, \ldots, N$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the expected value of the portfolio next year, represented as:
+
+\[
+\text{Maximize } Z = \sum_{i=1}^{N} futurePrice_i \cdot (bought_i - sell_i)
+\]
+
+\subsection*{Constraints}
+1. The amount raised from selling shares must be greater than or equal to the required amount $K$, net of transaction costs and taxes on capital gains:
+
+\[
+\sum_{i=1}^{N} (currentPrice_i \cdot sell_i) - \sum_{i=1}^{N} \left( transactionRate \cdot currentPrice_i \cdot sell_i \right) - \sum_{i=1}^{N} \left( taxRate \cdot \left( (currentPrice_i - buyPrice_i) \cdot sell_i \right) \right) \geq K
+\]
+
+2. The number of shares sold must not exceed the number of shares owned:
+
+\[
+0 \leq sell_i \leq bought_i, \quad \text{for } i = 1, \ldots, N
+\]
+
+\subsection*{Output}
+The solution will provide the optimal number of shares to sell for each stock:
+
+\[
+\text{Output: } \{ "sell": [sell_i, \text{ for } i = 1, \ldots, N] \}
+\]
+
+\end{document}

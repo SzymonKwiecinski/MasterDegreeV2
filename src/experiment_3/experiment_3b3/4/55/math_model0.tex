@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\textbf{Parameters:}
+
+\begin{itemize}
+    \item Let \( P \) be the number of different parts.
+    \item Let \( M \) be the number of different machines.
+    \item Let \( \text{time}_{m,p} \) be the hours required on machine \( m \) to produce a batch of 100 part \( p \) (for \( m = 1, \ldots, M \) and \( p = 1, \ldots, P \)).
+    \item Let \( \text{cost}_{m} \) be the hourly cost of using machine \( m \).
+    \item Let \( \text{available}_{m} \) be the available hours per month for machine \( m \).
+    \item Let \( \text{price}_{p} \) be the selling price per batch of part \( p \).
+    \item Let \( \text{min\_batches}_{p} \) be the minimum batches of part \( p \) that must be produced to fulfill a contract.
+    \item Let \( \text{standard\_cost} \) be the standard labor cost per hour for outsourcing machine 1.
+    \item Let \( \text{overtime\_cost} \) be the labor cost per hour after standard hours for outsourcing machine 1.
+    \item Let \( \text{overtime\_hour} \) be the number of hours before the overtime cost applies.
+    \item Let \( \text{min\_profit} \) be the minimum desired profit.
+\end{itemize}
+
+\textbf{Decision Variables:}
+
+Let \( \text{batches}_{p} \) represent the number of batches produced for part \( p \) (for \( p = 1, \ldots, P \)).
+
+\textbf{Objective Function:}
+Maximize the total profit, which can be formulated as:
+\[
+\text{total\_profit} = \sum_{p=1}^{P} \text{price}_{p} \cdot \text{batches}_{p} - \sum_{m=1}^{M} \text{cost}_{m} \cdot \left( \sum_{p=1}^{P} \text{time}_{m,p} \cdot \text{batches}_{p} \right) - \text{labor\_cost}
+\]
+
+Where the labor cost for machine 1 can be calculated based on the use of standard and overtime costs.
+
+\textbf{Constraints:}
+
+1. **Production Constraints:**
+   \[
+   \text{batches}_{p} \geq \text{min\_batches}_{p}, \quad \forall p
+   \]
+
+2. **Machine Availability Constraints:**
+   For all machines \( m \):
+   \[
+   \sum_{p=1}^{P} \text{time}_{m,p} \cdot \text{batches}_{p} \leq \text{available}_{m}, \quad \forall m
+   \]
+
+3. **Profit Constraint:**
+   \[
+   \text{total\_profit} \geq \text{min\_profit}
+   \]
+
+4. **Labor Cost Computation for Machine 1:**
+   Let \( H \) be the total hours needed for machine 1:
+   \[
+   H = \sum_{p=1}^{P} \text{time}_{1,p} \cdot \text{batches}_{p}
+   \]
+   Then the labor cost can be expressed as:
+   \[
+   \text{labor\_cost} = 
+   \begin{cases} 
+   \text{standard\_cost} \cdot H & \text{if } H \leq \text{overtime\_hour} \\ 
+   \text{standard\_cost} \cdot \text{overtime\_hour} + \text{overtime\_cost} \cdot (H - \text{overtime\_hour}) & \text{if } H > \text{overtime\_hour} 
+   \end{cases}
+   \]
+
+\textbf{Output:}  
+The solution will provide the number of batches of each part produced \( \text{batches}_{p} \) and the total profit \( \text{total\_profit} \).
+
+\end{document}

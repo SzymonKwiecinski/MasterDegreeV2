@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Investor's Portfolio Optimization}
+
+We define the following parameters and decision variables:
+
+\begin{itemize}
+    \item $N$: Number of different stocks.
+    \item $bought_i$: Number of shares initially bought for stock $i$, for $i = 1, \ldots, N$.
+    \item $buyPrice_i$: Initial buying price per share for stock $i$, for $i = 1, \ldots, N$.
+    \item $currentPrice_i$: Current price per share for stock $i$, for $i = 1, \ldots, N$.
+    \item $futurePrice_i$: Expected price per share for stock $i$ in one year, for $i = 1, \ldots, N$.
+    \item $transactionRate$: Transaction cost rate as a percentage.
+    \item $taxRate$: Tax rate on capital gains as a percentage.
+    \item $K$: The amount of money the investor wants to raise.
+    \item $sell_i$: Number of shares to sell for stock $i$, for $i = 1, \ldots, N$ (decision variables).
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Maximize the expected value of the portfolio next year:
+
+\[
+\text{Maximize} \quad \sum_{i=1}^{N} (bought_i - sell_i) \cdot futurePrice_i
+\]
+
+\subsection*{Constraints}
+
+1. Non-negativity and selling constraints:
+   \[
+   0 \leq sell_i \leq bought_i, \quad \forall i = 1, \ldots, N
+   \]
+
+2. Raise the required money $K$:
+   \[
+   \sum_{i=1}^{N} \left( (1 - \frac{\text{transactionRate}}{100}) \cdot currentPrice_i \cdot sell_i - \frac{\text{taxRate}}{100} \cdot \max(0, (currentPrice_i - buyPrice_i) \cdot sell_i) \right) \geq K
+   \]
+
+Here, the term $\max(0, (currentPrice_i - buyPrice_i) \cdot sell_i)$ ensures that we only tax positive capital gains.
+
+\end{document}

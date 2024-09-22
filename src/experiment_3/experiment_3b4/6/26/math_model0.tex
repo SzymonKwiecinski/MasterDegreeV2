@@ -1,0 +1,18 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\begin{align*}
+\text{Maximize} \quad & \sum_{t=1}^{5} \sum_{k=1}^{K} \left( \text{manpowerone}_k \cdot \text{produce}_{k,t} + \text{manpowertwo}_k \cdot \text{buildcapa}_{k,t} \right) \\
+\text{Subject to:} \quad & \\
+& \text{produce}_{k,t} + \text{stockhold}_{k,t-1} \geq \text{demand}_k + \sum_{j=1}^{K} \text{inputone}_{k,j} \cdot \text{produce}_{j,t} + \sum_{j=1}^{K} \text{inputtwo}_{k,j} \cdot \text{buildcapa}_{j,t}, & \forall k, \forall t \\
+& \text{produce}_{k,t} \leq \text{capacity}_{k,t}, & \forall k, \forall t \\
+& \text{capacity}_{k,t} = \text{capacity}_{k,t-1} + \text{buildcapa}_{k,t-2}, & t \geq 2, \forall k \\
+& \text{stockhold}_{k,t} = \text{produce}_{k,t} + \text{stockhold}_{k,t-1} - \left( \text{demand}_k + \sum_{j=1}^{K} \text{inputone}_{k,j} \cdot \text{produce}_{j,t} + \sum_{j=1}^{K} \text{inputtwo}_{k,j} \cdot \text{buildcapa}_{j,t} \right), & \forall k, \forall t \\
+& \text{produce}_{k,0} = 0, & \forall k \\
+& \text{stockhold}_{k,0} = \text{stock}_{k}, & \forall k \\
+& \text{capacity}_{k,0} = \text{capacity}_{k}, & \forall k \\
+& \text{produce}_{k,t}, \text{buildcapa}_{k,t}, \text{stockhold}_{k,t} \geq 0, & \forall k, \forall t
+\end{align*}
+
+\end{document}

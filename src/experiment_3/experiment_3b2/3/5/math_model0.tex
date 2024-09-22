@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Formulation}
+
+Given a communication network with nodes and directed links, our objective is to find the paths along which data reaches its destination while minimizing the total cost.
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $N$: Set of nodes in the network.
+    \item $A$: Set of directed links $(i,j)$ where $i, j \in N$.
+    \item $U_{i,j}$: Capacity of link $(i,j)$ in bits per second.
+    \item $C_{i,j}$: Cost per bit for transmission along link $(i,j)$.
+    \item $B_{k,l}$: Rate in bits per second that must be transmitted from source node $k$ to destination node $l$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $f_{i,j}^{k,l}$: Flow of data from source $k$ to destination $l$ on link $(i,j)$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost of transmitting the data:
+
+\[
+\text{Minimize} \quad \sum_{(i,j) \in A} \sum_{(k,l)} C_{i,j} f_{i,j}^{k,l}
+\]
+
+\subsection*{Constraints}
+1. Capacity constraints for each link:
+   \[
+   \sum_{(k,l)} f_{i,j}^{k,l} \leq U_{i,j} \quad \forall (i,j) \in A
+   \]
+
+2. Flow conservation at each node for each source-destination pair:
+   \[
+   \sum_{j:(i,j) \in A} f_{i,j}^{k,l} - \sum_{j:(j,i) \in A} f_{j,i}^{k,l} = 
+   \begin{cases} 
+   B_{k,l}, & \text{if } i = k\\
+   -B_{k,l}, & \text{if } i = l\\
+   0, & \text{otherwise}
+   \end{cases}
+   \quad \forall i \in N, \forall (k,l)
+   \]
+
+3. Non-negativity constraints:
+   \[
+   f_{i,j}^{k,l} \geq 0 \quad \forall (i,j) \in A, \forall (k,l)
+   \]
+
+\end{document}

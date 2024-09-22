@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Parameters}
+
+\begin{itemize}
+    \item $N$: Number of raw materials
+    \item $M$: Number of products
+    \item $available_i$: Amount of raw material $i$ available, $i \in \{1, 2, \ldots, N\}$
+    \item $req_{i,j}$: Units of raw material $i$ required per unit of product $j$, $i \in \{1, 2, \ldots, N\}$ and $j \in \{1, 2, \ldots, M\}$
+    \item $price_j$: Selling price per unit of product $j$, $j \in \{1, 2, \ldots, M\}$
+    \item $cost_j$: Production cost per unit of product $j$, $j \in \{1, 2, \ldots, M\}$
+    \item $demand_j$: Maximum forecasted demand for product $j$, $j \in \{1, 2, \ldots, M\}$
+\end{itemize}
+
+\subsection*{Decision Variables}
+
+\begin{itemize}
+    \item $amount_j$: Number of units of product $j$ to produce, $j \in \{1, 2, \ldots, M\}$
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Maximize the total profit:
+
+\[
+\max \sum_{j=1}^{M} \left((price_j - cost_j) \cdot amount_j \right)
+\]
+
+\subsection*{Constraints}
+
+1. Raw material constraints for each raw material $i$:
+   \[
+   \sum_{j=1}^{M} req_{i,j} \cdot amount_j \leq available_i \quad \forall i \in \{1, 2, \ldots, N\}
+   \]
+
+2. Demand constraints for each product $j$:
+   \[
+   amount_j \leq demand_j \quad \forall j \in \{1, 2, \ldots, M\}
+   \]
+
+3. Non-negativity constraints:
+   \[
+   amount_j \geq 0 \quad \forall j \in \{1, 2, \ldots, M\}
+   \]
+
+\end{document}

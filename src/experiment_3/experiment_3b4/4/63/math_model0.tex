@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{MILP Model for Cutting Stock Problem}
+
+\subsection*{Parameters}
+
+\begin{itemize}
+    \item $W$: Width of the large roll of paper (inches)
+    \item $M$: Number of different types of smaller rolls
+    \item $N$: Number of different cutting patterns available
+    \item $w_j$: Width of the roll type $j$, for $j = 1, \ldots, M$
+    \item $d_j$: Demand for roll type $j$, for $j = 1, \ldots, M$
+    \item $a_{i,j}$: Number of rolls of width $w_j$ produced in pattern $i$, for $i = 1, \ldots, N$ and $j = 1, \ldots, M$
+\end{itemize}
+
+\subsection*{Decision Variables}
+
+\begin{itemize}
+    \item $x_i$: Number of times cutting pattern $i$ is used (integer), for $i = 1, \ldots, N$
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Minimize the total number of large rolls used:
+\[
+\min \sum_{i=1}^{N} x_i
+\]
+
+\subsection*{Constraints}
+
+\begin{itemize}
+    \item Demand constraints: Ensure that the demand for each roll type is met:
+    \[
+    \sum_{i=1}^{N} a_{i,j} x_i \geq d_j, \quad \forall j = 1, \ldots, M
+    \]
+    \item Non-negativity and integer constraints: 
+    \[
+    x_i \geq 0 \quad \text{and} \quad x_i \in \mathbb{Z}, \quad \forall i = 1, \ldots, N
+    \]
+\end{itemize}
+
+\end{document}

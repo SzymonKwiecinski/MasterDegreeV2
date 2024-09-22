@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} Maximize profit \(\mathcal{P}\) \\
+\[
+\mathcal{P} = \sum_{s=1}^{S} \text{steel\_price}_s \cdot y_s - \sum_{s=1}^{S} \sum_{a=1}^{A} \text{alloy\_price}_a \cdot x_{a,s}
+\]
+
+\textbf{Subject to:}
+
+1. Alloy availability:
+\[
+\sum_{s=1}^{S} x_{a,s} \leq \text{available}_a \quad \forall a = 1, \ldots, A
+\]
+
+2. Carbon content requirement:
+\[
+\sum_{a=1}^{A} \text{carbon}_a \cdot x_{a,s} \geq \text{carbon\_min}_s \cdot y_s \quad \forall s = 1, \ldots, S
+\]
+
+3. Nickel content restriction:
+\[
+\sum_{a=1}^{A} \text{nickel}_a \cdot x_{a,s} \leq \text{nickel\_max}_s \cdot y_s \quad \forall s = 1, \ldots, S
+\]
+
+4. Alloy 1 usage restriction:
+\[
+x_{1,s} \leq 0.4 \cdot y_s \quad \forall s = 1, \ldots, S
+\]
+
+5. Definition of total steel produced:
+\[
+y_s = \sum_{a=1}^{A} x_{a,s} \quad \forall s = 1, \ldots, S
+\]
+
+6. Non-negativity constraints:
+\[
+x_{a,s} \geq 0 \quad \forall a = 1, \ldots, A, \quad \forall s = 1, \ldots, S
+\]
+\[
+y_s \geq 0 \quad \forall s = 1, \ldots, S
+\]
+
+\end{document}

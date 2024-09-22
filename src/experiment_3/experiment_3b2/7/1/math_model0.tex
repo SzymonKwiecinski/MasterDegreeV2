@@ -1,0 +1,25 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model:}
+
+Decision Variables:
+\[
+x_j: \text{Amount of good } j \text{ produced, for } j = 1, 2, \ldots, M.
+\]
+
+Objective Function:
+\[
+\max \sum_{j=1}^{M} \text{price}_j \cdot x_j
+\]
+
+Subject to:
+\[
+\sum_{j=1}^{M} \text{req}_{i,j} \cdot x_j \leq \text{available}_i, \quad \forall i = 1, 2, \ldots, N
+\]
+\[
+x_j \geq 0, \quad \forall j = 1, 2, \ldots, M
+\]
+
+\end{document}

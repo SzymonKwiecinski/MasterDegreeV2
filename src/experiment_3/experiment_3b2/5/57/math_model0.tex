@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Seaport Container Management Problem}
+
+\subsection*{Parameters}
+\begin{align*}
+    T & : \text{Total number of months} \\
+    \text{demand}_t & : \text{The demand for containers in month } t, \quad t = 1, \ldots, T \\
+    \text{unload\_cost}_t & : \text{The cost to unload a container in month } t, \quad t = 1, \ldots, T \\
+    \text{unload\_capacity}_t & : \text{Maximum unloading capacity in month } t, \quad t = 1, \ldots, T \\
+    \text{holding\_cost} & : \text{Cost of holding a container in the yard for an additional month} \\
+    \text{max\_container} & : \text{Maximum number of containers that can be stored in the yard} \\
+    \text{init\_container} & : \text{Initial number of containers in the yard at the start of month 1} \\
+    \text{num\_cranes} & : \text{Maximum number of cranes that can be rented each month} \\
+    \text{crane\_capacity} & : \text{Number of containers a rented crane can load onto ships} \\
+    \text{crane\_cost} & : \text{Cost of renting a single crane per month}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    \text{amount}_t & : \text{Number of containers unloaded in month } t \quad t = 1, \ldots, T \\
+    \text{hold}_t & : \text{Number of containers held in the yard at the end of month } t \quad t = 1, \ldots, T \\
+    \text{crane}_t & : \text{Number of cranes rented in month } t \quad t = 1, \ldots, T
+\end{align*}
+
+\subsection*{Objective}
+Minimize the total cost over the period:
+\begin{align*}
+    \text{Minimize} \quad & \sum_{t=1}^{T} \left( \text{unload\_cost}_t \times \text{amount}_t + \text{holding\_cost} \times \text{hold}_t + \text{crane\_cost} \times \text{crane}_t \right)
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+    & \text{hold}_0 = \text{init\_container} \\
+    & \text{hold}_T = 0 \quad \text{(No containers should remain after the last month)} \\
+    & \text{amount}_t \leq \text{unload\_capacity}_t, \quad t = 1, \ldots, T \\
+    & \text{crane}_t \leq \text{num\_cranes}, \quad t = 1, \ldots, T \\
+    & \text{crane}_t \times \text{crane\_capacity} \geq \text{demand}_t, \quad t = 1, \ldots, T \\
+    & \text{hold}_t \leq \text{max\_container}, \quad t = 1, \ldots, T \\
+    & \text{hold}_t = \text{hold}_{t-1} + \text{amount}_t - \text{demand}_t, \quad t = 1, \ldots, T \\
+    & \text{amount}_t, \text{hold}_t \in \mathbb{Z}^+, \quad \text{crane}_t \in \{0, 1, \ldots, \text{num\_cranes}\}, \quad t = 1, \ldots, T
+\end{align*}
+
+\end{document}

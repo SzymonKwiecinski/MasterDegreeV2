@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Seaport Container Management}
+
+\subsection*{Sets}
+Let \( T \) be the total number of months.
+
+\subsection*{Parameters}
+\begin{align*}
+& \text{demands} = [demand_{t} \text{ for } t \in \{1, \dots, T\}] \\
+& \text{unload\_costs} = [unload\_cost_{t} \text{ for } t \in \{1, \dots, T\}] \\
+& \text{unload\_capacity} = [unload\_capacity_{t} \text{ for } t \in \{1, \dots, T\}] \\
+& holding\_cost \\
+& max\_container \\
+& init\_container \\
+& num\_cranes \\
+& crane\_capacity \\
+& crane\_cost
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+& amount_{t} \quad \text{(number of containers unloaded in month } t\text{)} \\
+& crane_{t} \quad \text{(number of cranes rented in month } t\text{)} \\
+& inventory_{t} \quad \text{(number of containers in the yard at the end of month } t\text{)}
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Total Cost} = \sum_{t=1}^{T} \left( unload\_cost_{t} \cdot amount_{t} + holding\_cost \cdot inventory_{t} + crane\_cost \cdot crane_{t} \right)
+\]
+
+\subsection*{Constraints}
+1. Demand Fulfillment:
+\[
+amount_{t} - crane_{t} \cdot crane\_capacity + inventory_{t-1} = demand_{t} + inventory_{t} \quad \forall t \in \{1, \dots, T\}
+\]
+2. Unloading Capacity:
+\[
+amount_{t} \leq unload\_capacity_{t} \quad \forall t \in \{1, \dots, T\}
+\]
+3. Crane Limit:
+\[
+crane_{t} \leq num\_cranes \quad \forall t \in \{1, \dots, T\}
+\]
+4. Inventory Capacity:
+\[
+inventory_{t} \leq max\_container \quad \forall t \in \{1, \dots, T\}
+\]
+5. Initial Inventory:
+\[
+inventory_{1} = init\_container
+\]
+6. Final Inventory:
+\[
+inventory_{T} = 0
+\]
+7. Non-negativity:
+\[
+amount_{t} \geq 0, \quad crane_{t} \geq 0, \quad inventory_{t} \geq 0 \quad \forall t \in \{1, \dots, T\}
+\]
+
+\end{document}

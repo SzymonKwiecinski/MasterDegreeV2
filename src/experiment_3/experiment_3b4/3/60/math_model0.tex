@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Model for Consultant Project Assignment}
+
+\subsection*{Decision Variables}
+\begin{align*}
+y_j & : \text{Binary variable, } y_j = 
+\begin{cases} 
+1, & \text{if consultant } j \text{ is hired} \\ 
+0, & \text{otherwise} 
+\end{cases} \\
+x_{i,j} & : \text{Binary variable, } x_{i,j} = 
+\begin{cases} 
+1, & \text{if project } i \text{ is assigned to consultant } j \\ 
+0, & \text{otherwise} 
+\end{cases}
+\end{align*}
+
+\subsection*{Objective Function}
+\[
+\text{Minimize} \quad Z = \sum_{j=1}^{J} f_j y_j + \sum_{i=1}^{I} \sum_{j=1}^{J} c_{i,j} x_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+\sum_{j=1}^{J} x_{i,j} &= 1 \quad \forall i = 1, \ldots, I \\
+\sum_{i=1}^{I} x_{i,j} &\leq K y_j \quad \forall j = 1, \ldots, J \\
+x_{i,j} &\leq y_j \quad \forall i = 1, \ldots, I, \, j = 1, \ldots, J \\
+x_{i,j}, y_j &\in \{0, 1\} \quad \forall i = 1, \ldots, I, \, j = 1, \ldots, J
+\end{align*}
+
+\end{document}

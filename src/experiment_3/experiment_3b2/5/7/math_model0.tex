@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} 
+
+Minimize the maximum thrust required, which is \(\max_t |a_t|\). 
+
+\textbf{Constraints:}
+\begin{align*}
+& x_{t+1} = x_t + v_t, \quad t = 0, 1, 2, \ldots, T-1, \\
+& v_{t+1} = v_t + a_t, \quad t = 0, 1, 2, \ldots, T-1, \\
+& x_0 \text{ given}, \\
+& v_0 \text{ given}, \\
+& x_T \text{ target position}, \\
+& v_T \text{ target velocity}.
+\end{align*}
+
+\textbf{Decision Variables:}
+\begin{align*}
+& a_t \text{ for } t = 0, 1, 2, \ldots, T-1, \\
+& x_t \text{ for } t = 0, 1, 2, \ldots, T, \\
+& v_t \text{ for } t = 0, 1, 2, \ldots, T.
+\end{align*}
+
+\textbf{Optimization Problem:}
+\begin{align*}
+\text{Minimize} \quad & \max_{t=0, 1, \ldots, T-1} |a_t| \\
+\text{subject to:} \quad & x_{t+1} = x_t + v_t, \quad t = 0, 1, 2, \ldots, T-1, \\
+& v_{t+1} = v_t + a_t, \quad t = 0, 1, 2, \ldots, T-1, \\
+& x_0 \text{ is given}, \\
+& v_0 \text{ is given}, \\
+& x_T \text{ is the target position}, \\
+& v_T \text{ is the target velocity}.
+\end{align*}
+
+\textbf{Fuel Consumption:}
+The total fuel spent can be assumed to be proportional to the sum of absolute accelerations, i.e.,
+\[
+\text{fuel\_spend} = \sum_{t=0}^{T-1} |a_t|
+\]
+
+\end{document}

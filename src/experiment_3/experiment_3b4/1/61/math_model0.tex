@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Model for Network Intrusion Intervention}
+
+\subsection*{Parameters}
+\begin{align*}
+    &N: \text{Number of clusters} \\
+    &\text{processing\_times:}\\
+    &\quad \text{central\_isolate}_i: \text{Processing time for 'isolate' centrally in cluster } i, \; \forall i \in \{1, ..., N\} \\
+    &\quad \text{central\_scan}_i: \text{Processing time for 'scan' centrally in cluster } i, \; \forall i \in \{1, ..., N\} \\
+    &\quad \text{distributed\_isolate}_i: \text{Processing time for 'isolate' distributed in cluster } i, \; \forall i \in \{1, ..., N\} \\
+    &\quad \text{distributed\_scan}_i: \text{Processing time for 'scan' distributed in cluster } i, \; \forall i \in \{1, ..., N\} \\
+    &\text{costs:}\\
+    &\quad \text{central\_cost}: \text{Cost per hour for central processing} \\
+    &\quad \text{distributed\_cost}: \text{Cost per hour for distributed processing} \\
+    &\text{max\_hours:}\\
+    &\quad \text{max\_central}: \text{Maximum hours available for central processing} \\
+    &\quad \text{max\_distributed}: \text{Maximum hours available for distributed processing} \\
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    &x_{i,j,k} \in \{0, 1\}: \text{Binary variable indicating if cluster } i \text{ uses intervention } j \text{ with method } k \\
+    &\quad \text{where } i \in \{1, ..., N\}, \; j \in \{\text{'isolate', 'scan'}\}, \; k \in \{\text{'central', 'distributed'}\} \\
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\begin{align*}
+    \text{Minimize } &\sum_{i=1}^{N} \Bigg( \text{central\_cost} \cdot \big( \text{central\_isolate}_i \cdot x_{i,\text{'isolate'},\text{'central'}} + \text{central\_scan}_i \cdot x_{i,\text{'scan'},\text{'central'}} \big) \\
+    &\quad + \text{distributed\_cost} \cdot \big( \text{distributed\_isolate}_i \cdot x_{i,\text{'isolate'},\text{'distributed'}} + \text{distributed\_scan}_i \cdot x_{i,\text{'scan'},\text{'distributed'}} \big) \Bigg)
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+    &\text{Each cluster must have one and only one intervention type:} \\
+    &\quad \sum_{j \in \{\text{'isolate', 'scan'}\}} \sum_{k \in \{\text{'central', 'distributed'}\}} x_{i,j,k} = 1, \; \forall i \in \{1, ..., N\} \\
+    &\text{Central processing time constraint:} \\
+    &\quad \sum_{i=1}^{N} \big( \text{central\_isolate}_i \cdot x_{i,\text{'isolate'},\text{'central'}} + \text{central\_scan}_i \cdot x_{i,\text{'scan'},\text{'central'}} \big) \leq \text{max\_central} \\
+    &\text{Distributed processing time constraint:} \\
+    &\quad \sum_{i=1}^{N} \big( \text{distributed\_isolate}_i \cdot x_{i,\text{'isolate'},\text{'distributed'}} + \text{distributed\_scan}_i \cdot x_{i,\text{'scan'},\text{'distributed'}} \big) \leq \text{max\_distributed} \\
+\end{align*}
+
+\end{document}

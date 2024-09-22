@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Formulation for Currency Exchange}
+\author{}
+\date{}
+\maketitle
+
+\section*{Introduction}
+We aim to formulate a linear programming model to maximize the total amount of currency \(N\) at the end of the day through a series of transactions, adhering to specified exchange rates and limits on currency exchange.
+
+\section*{Variables}
+Let \(x_{i,j}\) represent the amount of currency \(i\) exchanged for currency \(j\) during the day.
+
+\section*{Parameters}
+\begin{itemize}
+    \item \(N\): Total number of available currencies.
+    \item \(start_i\): Initial amount of currency \(i\) at the beginning of the day.
+    \item \(limit_i\): Maximum amount of currency \(i\) that can be exchanged.
+    \item \(rate_{i,j}\): Exchange rate from currency \(i\) to currency \(j\) (where \(rate_{i,j} > 0\)).
+\end{itemize}
+
+\section*{Objective Function}
+The objective is to maximize the total amount of currency \(N\) we end up with at the end of the day:
+
+\[
+\text{Maximize } z = \text{final amount of currency } N
+\]
+
+\section*{Constraints}
+1. **Limit Constraints**: For each currency \(i\),
+   \[
+   \sum_{j=1}^{N} x_{i,j} \leq limit_i \quad \forall i = 1, \ldots, N
+   \]
+
+2. **Initial Amount Constraints**: The amount of currency \(i\) available for exchange must satisfy:
+   \[
+   start_i - \sum_{j=1}^{N} x_{i,j} + \sum_{j=1}^{N} x_{j,i} = \text{final amount of currency } i \quad \forall i = 1, \ldots, N
+   \]
+
+3. **Non-Negativity Constraints**: The amounts exchanged must be non-negative:
+   \[
+   x_{i,j} \geq 0 \quad \forall i,j = 1, \ldots, N
+   \]
+
+4. **Wealth Preservation Constraints**: Ensuring that wealth cannot be multiplied through cycles:
+   \[
+   rate_{i_1,i_2} \cdot rate_{i_2,i_3} \cdots rate_{i_k,i_1} \leq 1 \quad \text{for any cycle } (i_1, i_2, \ldots, i_k)
+   \]
+
+\section*{Conclusion}
+With this formulation, we can apply linear programming techniques to derive the optimal transactions among the currencies that will yield the highest amount of currency \(N\) at the end of the day while respecting the given constraints.
+
+\end{document}

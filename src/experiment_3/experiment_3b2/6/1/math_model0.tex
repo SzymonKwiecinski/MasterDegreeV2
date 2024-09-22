@@ -1,0 +1,20 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+Maximize the total revenue:
+
+\[
+\text{Maximize} \quad Z = \sum_{j=1}^{M} \text{price}_j \cdot x_j
+\]
+
+\textbf{Subject to:}
+
+\begin{align*}
+\sum_{j=1}^{M} \text{req}_{i,j} \cdot x_j & \leq \text{available}_i, \quad \forall i = 1, 2, \ldots, N \\
+x_j & \geq 0, \quad \forall j = 1, 2, \ldots, M
+\end{align*}
+
+\end{document}

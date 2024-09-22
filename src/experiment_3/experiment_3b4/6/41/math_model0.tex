@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mixed Integer Linear Programming Model for Floppy Disk Backup}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $N$: number of files
+    \item $capacity$: capacity of each floppy disk in GB
+    \item $size_j$: size of file $j$ for $j = 1, \ldots, N$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_{ij} \in \{0,1\}$: binary variable indicating if file $j$ is stored on disk $i$
+    \item $y_i \in \{0,1\}$: binary variable indicating if disk $i$ is used
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the number of disks used:
+\[
+\min \sum_{i=1}^{N} y_i
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Each file must be placed on exactly one disk:
+    \[
+    \sum_{i=1}^{N} x_{ij} = 1, \quad \forall j = 1, \ldots, N
+    \]
+
+    \item Total size of files on each disk cannot exceed the disk capacity:
+    \[
+    \sum_{j=1}^{N} size_j \cdot x_{ij} \leq capacity \cdot y_i, \quad \forall i = 1, \ldots, N
+    \]
+
+    \item $x_{ij}$ can only be 1 if $y_i$ is 1:
+    \[
+    x_{ij} \leq y_i, \quad \forall i = 1, \ldots, N, \quad \forall j = 1, \ldots, N
+    \]
+\end{itemize}
+
+\subsection*{Output}
+\begin{itemize}
+    \item $n\_disks$: Total number of floppy disks used, which is $\sum_{i=1}^{N} y_i$
+    \item $whichdisk$: List where the $j$-th entry indicates which disk file $j$ is assigned to, derived from the $x_{ij}$ variables.
+\end{itemize}
+
+\end{document}

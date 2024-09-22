@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $i$: Index for systems, where $i = 1, \ldots, N$
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $is\_workstation_i$: Boolean indicating if system $i$ is a workstation
+    \item $price_i$: Price of system $i$
+    \item $disk_i$: Average number of disk drives requested for system $i$
+    \item $mem_i$: Average 256K memory boards per system $i$
+    \item $max\_cpu$: Maximum number of CPUs that can be supplied
+    \item $min\_disk$: Minimum number of disk drives available
+    \item $max\_disk$: Maximum number of disk drives available
+    \item $min\_mem$: Minimum number of memory boards available
+    \item $max\_mem$: Maximum number of memory boards available
+    \item $demand_i$: Maximum demand for system $i$
+    \item $demand\_GP$: Maximum demand for the GP family
+    \item $demand\_WS$: Maximum demand for the WS family
+    \item $preorder_i$: Preorders for system $i$
+    \item $alt\_mem$: Alternative memory boards available
+    \item $alt\_compatible_i$: Boolean indicating if alternative memory can be used for system $i$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_i$: Number of systems $i$ to produce
+    \item $mem\_used_i$: Number of 256K memory boards used for system $i$ 
+    \item $alt\_used_i$: Number of alternative memory boards used for system $i$
+    \item $disk\_used_i$: Number of disk drives used for system $i$
+\end{itemize}
+
+\subsection*{Objective Function}
+\begin{align}
+    \text{Maximize } Z = \sum_{i=1}^{N} (price_i \cdot x_i)
+\end{align}
+
+\subsection*{Constraints}
+\begin{align}
+    & \sum_{i=1}^{N} x_i \leq max\_cpu \quad \text{(CPU constraint)} \\
+    & \sum_{i=1}^{N} disk_i \cdot x_i \leq max\_disk \quad \text{(Disk supply constraint)} \\
+    & \sum_{i=1}^{N} mem_i \cdot x_i \leq max\_mem \quad \text{(Memory supply constraint)} \\
+    & x_i \geq preorder_i \quad \forall i \quad \text{(Preorder constraint)} \\
+    & \sum_{i \in GP} x_i \leq demand\_GP \quad \text{(GP demand constraint)} \\
+    & \sum_{i \in WS} x_i \leq demand\_WS \quad \text{(WS demand constraint)} \\
+    & mem\_used_i \leq mem_i \cdot x_i \quad \forall i \quad \text{(Memory usage constraint)} \\
+    & alt\_used_i \leq alt\_mem \quad \forall i \text{ where } alt\_compatible_i \quad \text{(Alternative memory usage)} \\
+\end{align}
+
+\subsection*{Output Format}
+\begin{align*}
+output & = \{ \\
+& "system\_output": [\\
+& \quad \{ \\
+& \quad \quad "num\_produced": x_i, \\
+& \quad \quad "total\_256K\_boards\_used": mem\_used_i, \\
+& \quad \quad "total\_alt\_boards\_used": alt\_used_i, \\
+& \quad \quad "total\_disk\_drives\_used": disk\_used_i \\
+& \quad \} \text{ for } i = 1, \ldots, T\\
+& ], \\
+& "profit": Z \\
+& \}
+\end{align*}
+
+\end{document}

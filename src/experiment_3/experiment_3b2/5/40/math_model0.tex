@@ -1,0 +1,23 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\textbf{Objective:} Maximize profit.
+
+\begin{align*}
+\text{Maximize:} \quad & P = \text{sell\_price} \times \text{n\_steel\_quant} - \sum_{k=1}^{K} (\text{cost}_k \times x_k) - \text{mang\_price} \times m - \text{melt\_price} \times \left( \sum_{k=1}^{K} x_k + m \right)
+\end{align*}
+
+\textbf{Subject to:}
+
+\begin{align*}
+& \sum_{k=1}^{K} x_k + m = \text{n\_steel\_quant} & \text{(Total amount of steel)}\\
+& \sum_{k=1}^{K} \left(\text{contsi}_{k} \times x_k\right) \geq \text{si\_min} \times \text{n\_steel\_quant} & \text{(Minimum silicon requirement)}\\
+& \sum_{k=1}^{K} \left(\text{contsi}_{k} \times x_k\right) \leq \text{si\_max} \times \text{n\_steel\_quant} & \text{(Maximum silicon requirement)}\\
+& \sum_{k=1}^{K} \left(\text{contmn}_{k} \times x_k\right) + m \geq \frac{\text{mn\_percent}}{100} \times \text{n\_steel\_quant} & \text{(Minimum manganese requirement)}\\
+& x_k \geq 0 \quad \forall k & \text{(Non-negativity)}\\
+& m \geq 0 & \text{(Non-negativity)}
+\end{align*}
+
+\end{document}

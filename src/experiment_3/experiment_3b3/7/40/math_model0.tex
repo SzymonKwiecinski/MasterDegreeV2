@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Steel Production}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( x_k \) be the amount of mineral \( k \) melted (in tons).
+    \item Let \( y \) be the amount of Manganese added (in tons).
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( n_{\text{steel\_quant}} \): total tons of steel to be produced
+    \item \( mn_{\text{percent}} \): minimum percentage of Manganese in the steel
+    \item \( si_{\text{min}}, si_{\text{max}} \): bounds on the percentage of Silicon in the steel
+    \item \( contsi_k \): percentage of Silicon in mineral \( k \)
+    \item \( contmn_k \): percentage of Manganese in mineral \( k \)
+    \item \( mang_{\text{price}} \): price of Manganese (in million euros per ton)
+    \item \( cost_k \): cost of mineral \( k \) (in million euros per thousand tons)
+    \item \( sell_{\text{price}} \): selling price of steel (in million euros per ton)
+    \item \( melt_{\text{price}} \): cost of melting a ton of mineral (in million euros)
+\end{itemize}
+
+\textbf{Objective Function:}
+Maximize profit:
+\[
+\text{Maximize } Z = n_{\text{steel\_quant}} \cdot sell_{\text{price}} - \sum_{k=1}^{K} \left( \left(\frac{cost_k}{1000} + melt_{\text{price}}\right) x_k \right) - mang_{\text{price}} \cdot y
+\]
+
+\textbf{Constraints:}
+\begin{itemize}
+    \item Total steel production:
+    \[
+    \sum_{k=1}^{K} \left( x_k \cdot \frac{contsi_k}{100} \right) + y \geq n_{\text{steel\_quant}} \cdot \frac{si_{\text{min}}}{100}
+    \]
+    \item Silicon content must be within bounds:
+    \[
+    \sum_{k=1}^{K} \left( x_k \cdot \frac{contsi_k}{100} \right) + y \leq n_{\text{steel\_quant}} \cdot \frac{si_{\text{max}}}{100}
+    \]
+    \item Manganese content:
+    \[
+    \sum_{k=1}^{K} \left( x_k \cdot \frac{contmn_k}{100} \right) + y \geq n_{\text{steel\_quant}} \cdot \frac{mn_{\text{percent}}}{100}
+    \]
+    \item Non-negativity:
+    \[
+    x_k \geq 0 \quad \text{for } k = 1,\ldots,K
+    \]
+    \[
+    y \geq 0
+    \]
+\end{itemize}
+
+\end{document}

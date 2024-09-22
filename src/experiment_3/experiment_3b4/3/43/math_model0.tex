@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Objective}
+Maximize the total profit:
+\[
+\text{Maximize } Z = \sum_{j=1}^{M} (\text{price}_j - \text{cost}_j) \times x_j
+\]
+
+\subsection*{Constraints}
+1. Raw Material Constraints:
+\[
+\sum_{j=1}^{M} \text{req}_{i,j} \times x_j \leq \text{available}_i, \quad \text{for } i = 1, \ldots, N
+\]
+
+2. Demand Constraints:
+\[
+x_j \leq \text{demand}_j, \quad \text{for } j = 1, \ldots, M
+\]
+
+3. Non-negativity Constraints:
+\[
+x_j \geq 0, \quad \text{for } j = 1, \ldots, M
+\]
+
+\end{document}

@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Indices}
+\begin{align*}
+t & : \text{Index for time periods, } t = 1, \ldots, T \\
+k & : \text{Index for generator types, } k = 1, \ldots, K \\
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+demand_t & : \text{Electricity demand in period } t \\
+num_k & : \text{Number of available units of type } k \\
+minlevel_k & : \text{Minimum operational level for generator type } k \\
+maxlevel_k & : \text{Maximum operational level for generator type } k \\
+runcost_k & : \text{Hourly cost of running a generator type } k \text{ at minimum level} \\
+extracost_k & : \text{Extra hourly cost per MW above the minimum level for type } k \\
+startcost_k & : \text{Startup cost for generator type } k \\
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+numon_{k,t} & : \text{Number of generators of type } k \text{ on in period } t \\
+output_{k,t} & : \text{Power output above minimum level for type } k \text{ in period } t \\
+startup_{k,t} & : \begin{cases} 
+1, & \text{if a generator of type } k \text{ is started up in period } t \\
+0, & \text{otherwise} 
+\end{cases} \\
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\begin{align*}
+\min \sum_{t=1}^{T} \sum_{k=1}^{K} \left( numon_{k,t} \cdot runcost_k + output_{k,t} \cdot extracost_k + startup_{k,t} \cdot startcost_k \right)
+\end{align*}
+
+\subsection*{Constraints}
+\text{Demand satisfaction:}
+\begin{align*}
+\sum_{k=1}^{K} \left( numon_{k,t} \cdot minlevel_k + output_{k,t} \right) \geq demand_t, & \quad \forall t = 1, \ldots, T
+\end{align*}
+
+\text{Output limits:}
+\begin{align*}
+0 \leq output_{k,t} \leq numon_{k,t} \cdot (maxlevel_k - minlevel_k), & \quad \forall k = 1, \ldots, K, \forall t = 1, \ldots, T
+\end{align*}
+
+\text{Generator availability:}
+\begin{align*}
+0 \leq numon_{k,t} \leq num_k, & \quad \forall k = 1, \ldots, K, \forall t = 1, \ldots, T
+\end{align*}
+
+\text{Startup constraints:}
+\begin{align*}
+startup_{k,t} \geq numon_{k,t} - numon_{k,t-1}, & \quad \forall k = 1, \ldots, K, \forall t = 2, \ldots, T \\
+startup_{k,1} \geq numon_{k,1}, & \quad \forall k = 1, \ldots, K
+\end{align*}
+
+\end{document}

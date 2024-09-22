@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Rocket Control Problem}
+
+\subsection*{Variables}
+\begin{align*}
+x_t &: \text{Position of the rocket at time } t, \quad t = 0, 1, \ldots, T \\
+v_t &: \text{Velocity of the rocket at time } t, \quad t = 0, 1, \ldots, T \\
+a_t &: \text{Acceleration of the rocket at time } t, \quad t = 0, 1, \ldots, T-1 \\
+u_t &: \text{Auxiliary variable representing } |a_t|, \quad t = 0, 1, \ldots, T-1
+\end{align*}
+
+\subsection*{Objective}
+Minimize the total fuel consumption:
+\[
+\min \sum_{t=0}^{T-1} u_t
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+\text{Initial Conditions:} \quad & x_0 = \text{given}, \quad v_0 = \text{given} \\
+\text{Final Conditions:} \quad & x_T = \text{given}, \quad v_T = \text{given} \\
+\text{Motion Equations:} \quad & x_{t+1} = x_t + v_t, \quad t = 0, 1, \ldots, T-1 \\
+& v_{t+1} = v_t + a_t, \quad t = 0, 1, \ldots, T-1 \\
+\text{Absolute Value Constraints:} \quad & u_t \geq a_t, \quad t = 0, 1, \ldots, T-1 \\
+& u_t \geq -a_t, \quad t = 0, 1, \ldots, T-1
+\end{align*}
+
+\end{document}

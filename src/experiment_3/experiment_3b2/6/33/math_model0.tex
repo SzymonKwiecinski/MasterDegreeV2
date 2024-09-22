@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Knapsack Problem Formulation:}
+
+\textbf{Objective:}
+\begin{equation}
+\max \sum_{k=1}^{K} \text{value}_{k} \cdot x_{k}
+\end{equation}
+
+\textbf{Subject to:}
+\begin{equation}
+\sum_{k=1}^{K} \text{size}_{k} \cdot x_{k} \leq C 
+\end{equation}
+
+\textbf{Binary Constraints:}
+\begin{equation}
+x_{k} \in \{0, 1\}, \quad \forall k = 1, \ldots, K
+\end{equation}
+
+\textbf{Where:}
+\begin{itemize}
+    \item $x_{k}$ is a binary decision variable indicating whether item $k$ is included in the knapsack.
+    \item $\text{value}_{k}$ is the value of item $k$.
+    \item $\text{size}_{k}$ is the size of item $k$.
+    \item $C$ is the maximum capacity of the knapsack.
+    \item $K$ is the total number of items.
+\end{itemize}
+
+\end{document}

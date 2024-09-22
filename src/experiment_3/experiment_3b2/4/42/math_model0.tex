@@ -1,0 +1,25 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\[
+\text{Minimize} \quad \sum_{i=1}^I \sum_{j=1}^J \frac{x_{i, j}}{2} \times \text{price} \times \text{distance}_{i, j}
+\]
+
+subject to:
+
+\[
+\sum_{j=1}^J x_{i, j} \leq \text{numdepot}_i, \quad \forall i = 1, \ldots, I
+\]
+
+\[
+\sum_{i=1}^I x_{i, j} \geq \text{numport}_j, \quad \forall j = 1, \ldots, J
+\]
+
+\[
+x_{i, j} \geq 0, \quad \forall i = 1, \ldots, I, \forall j = 1, \ldots, J
+\]
+
+\end{document}

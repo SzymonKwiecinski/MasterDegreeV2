@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Chebyshev Center}
+
+Consider a set \( P \) defined by the constraints:
+\[
+P = \{ \mathbf{x} \in \mathbb{R}^N \mid \mathbf{a_i}^T \mathbf{x} \leq b_i, \; i = 1, \ldots, m \}
+\]
+where \( \mathbf{a_i} \in \mathbb{R}^N \) and \( b_i \in \mathbb{R} \).
+
+The goal is to find a ball with the largest possible radius \( r \) centered at \( \mathbf{y} \in \mathbb{R}^N \) such that:
+\[
+\|\mathbf{x} - \mathbf{y}\| \leq r \quad \forall \mathbf{x} \in P
+\]
+
+This can be formulated as a linear programming problem with the following constraints:
+\[
+\mathbf{a_i}^T \mathbf{y} + r \|\mathbf{a_i}\| \leq b_i \quad \forall i = 1, \ldots, m
+\]
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \mathbf{y} \) - the center of the ball in \( \mathbb{R}^N \)
+    \item \( r \) - the radius of the ball
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the radius \( r \):
+\[
+\text{maximize} \quad r
+\]
+
+\subsection*{Subject to}
+\[
+\mathbf{a_i}^T \mathbf{y} + r \|\mathbf{a_i}\| \leq b_i, \quad i = 1, 2, \ldots, m
+\]
+\[
+r \geq 0
+\]
+
+The output of the model should include:
+\begin{itemize}
+    \item \textbf{center} (list): the center of the ball as a list of floats of length \( N \)
+    \item \textbf{radius} (float): the radius of the ball as a float
+\end{itemize}
+
+The resulting format will be:
+\[
+\{ 
+    \text{center}: [y_j \text{ for } j = 1, \ldots, N], 
+    \text{radius}: r 
+\}
+\]
+
+\end{document}

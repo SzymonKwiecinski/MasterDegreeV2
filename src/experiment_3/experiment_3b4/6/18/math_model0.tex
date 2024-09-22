@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Oil Refining and Blending}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $I$: Number of different oils
+    \item $M$: Number of months
+    \item $price_{i,m}$: Purchase price of oil $i$ in month $m$
+    \item $sell\_price$: Selling price of the final product per ton
+    \item $is\_vegetable_i$: Indicator if oil $i$ is a vegetable oil
+    \item $max\_veg$: Maximum tons of vegetable oils that can be refined per month
+    \item $max\_non\_veg$: Maximum tons of non-vegetable oils that can be refined per month
+    \item $storage\_size$: Maximum storage capacity for each oil
+    \item $storage\_cost$: Storage cost per ton per month
+    \item $max\_hardness$: Maximum hardness limit of the final product
+    \item $min\_hardness$: Minimum hardness limit of the final product
+    \item $hardness_{i}$: Hardness of oil $i$
+    \item $init\_amount$: Initial amount of each oil in storage
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    &buyquantity_{i,m}: \text{Amount of oil $i$ purchased in month $m$} \\
+    &refine_{i,m}: \text{Amount of oil $i$ refined in month $m$} \\
+    &storage_{i,m}: \text{Amount of oil $i$ in storage at the end of month $m$}
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the profit:
+\[
+\max \sum_{m=1}^{M} \left( sell\_price \cdot \left( \sum_{i=1}^{I} refine_{i,m} \right) - \sum_{i=1}^{I} (price_{i,m} \cdot buyquantity_{i,m} + storage\_cost \cdot storage_{i,m}) \right)
+\]
+
+\subsection*{Constraints}
+
+\begin{itemize}
+    \item \textbf{Refining Capacity Constraints:}
+    \begin{align*}
+        &\sum_{i=1}^{I} refine_{i,m} \cdot is\_vegetable_i \leq max\_veg, \quad \forall m \\
+        &\sum_{i=1}^{I} refine_{i,m} \cdot (1 - is\_vegetable_i) \leq max\_non\_veg, \quad \forall m 
+    \end{align*}
+
+    \item \textbf{Storage Constraints:}
+    \begin{align*}
+        &storage_{i,m} \leq storage\_size, \quad \forall i, m \\
+        &storage_{i,M} = init\_amount, \quad \forall i
+    \end{align*}
+
+    \item \textbf{Hardness Constraints:}
+    \[
+    \min\_hardness \leq \frac{\sum_{i=1}^{I} hardness_i \cdot refine_{i,m}}{\sum_{i=1}^{I} refine_{i,m}} \leq max\_hardness, \quad \forall m
+    \]
+
+    \item \textbf{Balance Constraints:} (for each month $m$ starting from month 1)
+    \begin{align*}
+        &storage_{i,m-1} + buyquantity_{i,m} = refine_{i,m} + storage_{i,m}, \quad \forall i, m
+    \end{align*}
+    \item \textbf{Initial Storage Constraints:}
+    \[
+    storage_{i,0} = init\_amount, \quad \forall i
+    \]
+\end{itemize}
+
+\end{document}

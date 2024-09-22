@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Network Flow Optimization}
+
+Consider a communication network defined by a set of nodes and links. We aim to optimize the flow of data while minimizing costs. Below is the formulation of the problem as a linear programming model.
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item \( N \): Set of nodes
+    \item \( A \): Set of directed links \((i, j)\)
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( U_{i,j} \): Capacity of link \((i, j) \in A\) in bits per second
+    \item \( C_{i,j} \): Cost per bit on link \((i, j) \in A\)
+    \item \( B_{k,l} \): Data rate from node \( k \) to node \( l \) in bits per second
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( f_{i,j}^{k,l} \): Flow from node \( k \) to node \( l \) on link \((i, j)\)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost of data transmission:
+\[
+\text{Minimize} \quad Z = \sum_{(i,j) \in A} \sum_{(k,l) \in N \times N} C_{i,j} \cdot f_{i,j}^{k,l}
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+\text{Capacity Constraints:} \quad & \sum_{(k,l) \in N \times N} f_{i,j}^{k,l} \leq U_{i,j}, \quad \forall (i,j) \in A \\
+\text{Flow Conservation:} \quad & \sum_{j : (i,j) \in A} f_{i,j}^{k,l} - \sum_{j : (j,i) \in A} f_{j,i}^{k,l} = 
+\begin{cases} 
+B_{k,l}, & \text{if } i = k \\ 
+-B_{k,l}, & \text{if } i = l \\ 
+0, & \text{otherwise} 
+\end{cases} \quad \forall i \in N, \forall (k,l) \in N \times N
+\end{align*}
+
+The above model will yield the optimal flow distribution that minimizes the total transmission cost while ensuring data reaches from sources to destinations under given constraints.
+
+\end{document}

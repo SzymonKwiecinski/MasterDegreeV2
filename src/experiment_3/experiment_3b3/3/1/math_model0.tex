@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Variables:} \\
+Let \( x_j \) be the amount of good \( j \) produced, where \( j = 1, 2, \ldots, M \).
+
+\textbf{Parameters:} \\
+Let \( \text{available}_i \) be the amount of raw material \( i \) available, where \( i = 1, 2, \ldots, N \). \\
+Let \( \text{req}_{i,j} \) be the units of material \( i \) required to produce one unit of good \( j \). \\
+Let \( \text{price}_j \) be the revenue generated from producing one unit of good \( j \).
+
+\textbf{Objective:} \\
+Maximize total revenue:
+\[
+\text{Maximize } Z = \sum_{j=1}^{M} \text{price}_j \cdot x_j
+\]
+
+\textbf{Constraints:} \\
+For each raw material \( i \):
+\[
+\sum_{j=1}^{M} \text{req}_{i,j} \cdot x_j \leq \text{available}_i, \quad \forall i = 1, 2, \ldots, N
+\]
+
+\textbf{Non-negativity:} \\
+\[
+x_j \geq 0, \quad \forall j = 1, 2, \ldots, M
+\]
+
+The final output should provide the optimal amounts of each good to be produced:
+\[
+\text{Output: } \{ \text{amount} : [x_j \text{ for } j = 1, \ldots, M] \}
+\]
+
+\end{document}

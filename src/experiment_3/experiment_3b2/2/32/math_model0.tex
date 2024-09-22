@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Maximizing Profit}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Formulation}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_k \) : production quantity of product \( k \), for \( k = 1, \ldots, K \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+Z = \sum_{k=1}^{K} \left( \text{profit}_{k} \times x_k \right)
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Time constraints for each stage \( s \):
+    \[
+    \sum_{k=1}^{K} \left( \text{produce\_time}_{k,s} \times x_k \right) \leq \text{time}_{s}, \quad \forall s = 1, \ldots, S
+    \]
+    \item Non-negativity constraints:
+    \[
+    x_k \geq 0, \quad \forall k = 1, \ldots, K
+    \]
+\end{itemize}
+
+\end{document}

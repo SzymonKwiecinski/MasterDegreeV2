@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Employee Scheduling in a Cafeteria}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item Let $N$ be the total number of days.
+    \item Let $num_n$ be the number of desired employees on day $n$, for $n = 1, 2, \ldots, N$.
+    \item Let $n_{working\_days}$ be the number of consecutive days an employee works.
+    \item Let $n_{resting\_days}$ be the number of consecutive days an employee rests.
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let $total\_number$ be the total number of employees to hire.
+    \item Let $is\_work_{n,i}$ be a binary variable indicating whether employee $i$ works on day $n$ (1 if working, 0 if resting), for $i = 1, 2, \ldots, total\_number$ and $n = 1, 2, \ldots, N$.
+\end{itemize}
+
+\textbf{Objective:}
+\[
+\text{Minimize } total\_number
+\]
+
+\textbf{Constraints:}
+\begin{itemize}
+    \item For each day $n$, the total number of employees working must meet the required number:
+    \[
+    \sum_{i=1}^{total\_number} is\_work_{n,i} \geq num_n, \quad \forall n = 1, 2, \ldots, N
+    \]
+
+    \item Each employee works for $n_{working\_days}$ and then rests for $n_{resting\_days}$:
+    \[
+    is\_work_{k,i} + is\_work_{k+1,i} + \ldots + is\_work_{k+n_{working\_days}-1,i} = n_{working\_days}, \quad \forall i = 1, 2, \ldots, total\_number, \quad \forall k \text{ such that } k + n_{working\_days} - 1 \leq N
+    \]
+    and
+    \[
+    is\_work_{k+n_{working\_days},i} + is\_work_{k+n_{working\_days}+1,i} + \ldots + is\_work_{k+n_{working\_days}+n_{resting\_days}-1,i} = 0, \quad \forall i = 1, 2, \ldots, total\_number, \quad \forall k \text{ such that } k + n_{working\_days} + n_{resting\_days} - 1 \leq N
+    \]
+\end{itemize}
+
+\textbf{Output:}
+\begin{itemize}
+    \item $total\_number$ represents the total number of employees to employ.
+    \item $is\_work_{n,i}$ represents a matrix indicating the working status of each employee for each day.
+\end{itemize}
+
+\end{document}

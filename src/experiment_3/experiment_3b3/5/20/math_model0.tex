@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Maximizing Profit}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( num_m \) be the number of machines.
+    \item Let \( profit_k \) be the profit of product \( k \).
+    \item Let \( time_{k,m} \) be the production time of product \( k \) on machine \( m \).
+    \item Let \( maintain_{i,m} \) be the number of machines down for maintenance in month \( i \).
+    \item Let \( limit_{k,i} \) be the marketing limitation of product \( k \) in month \( i \).
+    \item Let \( store\_price \) be the cost of storing each product per unit per month.
+    \item Let \( keep\_quantity \) be the quantity of each product to keep at the end of each month.
+    \item Let \( n\_workhours \) be the number of hours the factory works each day.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( sell_{k,i} \): Quantity of product \( k \) sold in month \( i \).
+    \item \( manufacture_{k,i} \): Quantity of product \( k \) manufactured in month \( i \).
+    \item \( storage_{k,i} \): Quantity of product \( k \) stored at the end of month \( i \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+\text{Maximize } Z = \sum_{i=1}^{I} \left( \sum_{k=1}^{K} (profit_k \cdot sell_{k,i}) - \sum_{k=1}^{K} (store\_price \cdot storage_{k,i}) \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+\text{1. Machine Time Constraint:} & \\
+\sum_{k=1}^{K} \sum_{m=1}^{M} (time_{k,m} \cdot manufacture_{k,i}) \leq (n\_workhours \cdot 6 \cdot (24 - \sum_{m=1}^{M} maintain_{i,m})) & \quad \forall i \\
+\\
+\text{2. Selling Limits:} & \\
+sell_{k,i} \leq limit_{k,i} & \quad \forall k, i \\
+\\
+\text{3. Storage Constraints:} & \\
+storage_{k,i} = storage_{k,i-1} + manufacture_{k,i} - sell_{k,i} & \quad \forall k, i \\
+0 \leq storage_{k,i} \leq 100 & \quad \forall k, i \\
+\\
+\text{4. End-of-Month Stock Requirements:} & \\
+storage_{k,I} \geq keep\_quantity & \quad \forall k \\
+\end{align*}
+
+\subsection*{Non-negativity Constraints}
+\[
+sell_{k,i} \geq 0, \quad manufacture_{k,i} \geq 0, \quad storage_{k,i} \geq 0 \quad \forall k, i
+\]
+
+\end{document}

@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+Maximize the profit: 
+\[
+Z = \sum_{k=1}^{K} \text{profit}_k \cdot \text{quantity}_k
+\]
+
+\textbf{Subject to:}
+
+For each shop \( s = 1, \ldots, S \):
+\[
+\sum_{k=1}^{K} \text{time}_{k,s} \cdot \text{quantity}_k \leq \text{capacity}_s
+\]
+
+Non-negativity constraints for all parts \( k = 1, \ldots, K \):
+\[
+\text{quantity}_k \geq 0
+\]
+
+\end{document}

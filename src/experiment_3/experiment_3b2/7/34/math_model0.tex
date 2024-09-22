@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model for Nutrition Optimization}
+
+\subsection*{Decision Variables}
+Let \( x_k \) be the amount of food \( k \) to purchase, for \( k = 1, \ldots, K \).
+
+\subsection*{Objective Function}
+Minimize the total cost of purchasing foods:
+\[
+\min \sum_{k=1}^{K} \text{price}_k \cdot x_k
+\]
+
+\subsection*{Constraints}
+Ensure that the nutritional requirements are met for each nutrient \( m \), for \( m = 1, \ldots, M \):
+\[
+\sum_{k=1}^{K} \text{nutri}_{k, m} \cdot x_k \geq \text{demand}_m, \quad \forall m = 1, \ldots, M
+\]
+
+\subsection*{Non-negativity Constraints}
+\[
+x_k \geq 0, \quad \forall k = 1, \ldots, K
+\]
+
+\end{document}

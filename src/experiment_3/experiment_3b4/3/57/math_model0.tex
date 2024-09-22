@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mixed Integer Programming (MIP) Model for Seaport Operations}
+
+\subsection*{Parameters}
+\begin{align*}
+    T & : \text{Number of months} \\
+    \text{demand}_t & : \text{Demand for containers by ships in month } t \\
+    \text{unload\_cost}_t & : \text{Unloading cost per container in month } t \\
+    \text{unload\_capacity}_t & : \text{Maximum unloading capacity in month } t \\
+    \text{holding\_cost} & : \text{Cost per container held in yard} \\
+    \text{max\_container} & : \text{Maximum storage capacity of the yard} \\
+    \text{init\_container} & : \text{Initial number of containers in the yard} \\
+    \text{num\_cranes} & : \text{Maximum number of cranes available for rent} \\
+    \text{crane\_capacity} & : \text{Capacity of each crane in terms of number of containers} \\
+    \text{crane\_cost} & : \text{Cost per crane rented} \\
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    \text{amount}_t & : \text{Number of containers unloaded in month } t \\
+    \text{crane}_t & : \text{Number of cranes rented in month } t \\
+    \text{hold}_t & : \text{Number of containers held in the yard at the end of month } t \\
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\min \sum_{t=1}^{T} \left(\text{unload\_cost}_t \cdot \text{amount}_t + \text{holding\_cost} \cdot \text{hold}_t + \text{crane\_cost} \cdot \text{crane}_t \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+    & \text{(1) Unloading capacity constraint:} \\
+    & \quad 0 \leq \text{amount}_t \leq \text{unload\_capacity}_t, \quad t = 1, \ldots, T \\
+    & \text{(2) Holding capacity constraint:} \\
+    & \quad 0 \leq \text{hold}_t \leq \text{max\_container}, \quad t = 1, \ldots, T \\
+    & \text{(3) Demand fulfillment constraint:} \\
+    & \quad \text{amount}_t + \text{hold}_{t-1} = \text{demand}_t + \text{hold}_t, \quad t = 1, \ldots, T \\
+    & \text{(4) Initial condition:} \\
+    & \quad \text{hold}_0 = \text{init\_container} \\
+    & \text{(5) Ending condition (no containers left):} \\
+    & \quad \text{hold}_T = 0 \\
+    & \text{(6) Crane usage constraint:} \\
+    & \quad \text{demand}_t \leq \text{crane}_t \cdot \text{crane\_capacity}, \quad t = 1, \ldots, T \\
+    & \quad 0 \leq \text{crane}_t \leq \text{num\_cranes}, \quad t = 1, \ldots, T \\
+\end{align*}
+
+\end{document}

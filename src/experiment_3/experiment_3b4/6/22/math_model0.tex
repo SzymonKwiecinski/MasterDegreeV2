@@ -1,0 +1,80 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Manpower Planning}
+
+We are given a situation where a company needs to plan its manpower requirements over multiple years, taking into consideration recruitment, retraining, redundancy, and short-time working. To address this problem, we will formulate a Linear Programming (LP) model.
+
+\subsection*{Indices and Parameters}
+
+\begin{align*}
+    & k \quad \text{index for manpower categories (e.g., unskilled, semi-skilled, skilled)}, \\
+    & i \quad \text{index for years (e.g., 1, 2, \ldots, I)}, \\
+    & \text{requirement}_{k, i} \quad \text{manpower requirement of category } k \text{ in year } i, \\
+    & \text{strength}_{k} \quad \text{current manpower strength in category } k, \\
+    & \text{lessonewaste}_{k} \quad \text{wastage rate for category } k \text{ with less than one year of service}, \\
+    & \text{moreonewaste}_{k} \quad \text{wastage rate for category } k \text{ with more than one year of service}, \\
+    & \text{recruit}_{k} \quad \text{maximum number of recruits allowed for category } k \text{ per year}, \\
+    & \text{costredundancy}_{k} \quad \text{redundancy cost for category } k, \\
+    & \text{num\_overman} \quad \text{maximum allowable overmanning across all categories}, \\
+    & \text{costoverman}_{k} \quad \text{cost of overmanning for category } k, \\
+    & \text{num\_shortwork} \quad \text{maximum number of short-time workers allowed per category per year}, \\
+    & \text{costshort}_{k} \quad \text{cost for short-time working for category } k.
+\end{align*}
+
+\subsection*{Decision Variables}
+
+\begin{align*}
+    & \text{recruit}_{k, i} \quad \text{number of recruits in category } k \text{ in year } i, \\
+    & \text{overmanning}_{k, i} \quad \text{number of overmanning workers in category } k \text{ in year } i, \\
+    & \text{short}_{k, i} \quad \text{number of short-time working employees in category } k \text{ in year } i.
+\end{align*}
+
+\subsection*{Objective Function}
+
+The objective is to minimize redundancy throughout the planning period:
+
+\[
+\text{Minimize} \quad \sum_{k} \sum_{i} \text{redundancy}_{k, i}
+\]
+
+where
+
+\[
+\text{redundancy}_{k, i} = \max\left(0, \text{strength}_{k} - \text{requirement}_{k, i} + \text{overmanning}_{k, i} - \text{short}_{k, i} \right)
+\]
+
+\subsection*{Constraints}
+
+1. **Workforce Balance:**
+   \[
+   \text{strength}_{k, i+1} = \underbrace{\text{strength}_{k, i} \times (1 - \text{moreonewaste}_{k})}_{\text{existing\ workforce}} + \text{recruit}_{k, i} \times (1 - \text{lessonewaste}_{k}) - \text{redundancy}_{k, i} 
+   \]
+
+2. **Recruitment Limits:**
+   \[
+   0 \leq \text{recruit}_{k, i} \leq \text{recruit}_{k}
+   \]
+
+3. **Overmanning Limits:**
+   \[
+   0 \leq \sum_{k} \text{overmanning}_{k, i} \leq \text{num\_overman}
+   \]
+
+4. **Short-time Work Limit:**
+   \[
+   0 \leq \text{short}_{k, i} \leq \text{num\_shortwork}
+   \]
+
+5. **Production Requirement:**
+   \[
+   \text{requirement}_{k, i} \leq \text{strength}_{k, i} + \text{overmanning}_{k, i} - 0.5 \times \text{short}_{k, i}
+   \]
+
+6. **Non-negativity:**
+   \[
+   \text{recruit}_{k, i}, \text{overmanning}_{k, i}, \text{short}_{k, i}, \text{redundancy}_{k, i} \geq 0
+   \]
+
+\end{document}

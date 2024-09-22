@@ -1,0 +1,26 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Objective:}
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} d_k
+\]
+
+\textbf{Subject to:}
+\begin{align*}
+y_k - (c \cdot x_k^2 + b \cdot x_k + a) &\leq d_k, \quad \forall k = 1, \ldots, K \\
+(c \cdot x_k^2 + b \cdot x_k + a) - y_k &\leq d_k, \quad \forall k = 1, \ldots, K
+\end{align*}
+
+\textbf{Decision Variables:}
+\begin{align*}
+c &: \text{Coefficient of } x^2 \\
+b &: \text{Coefficient of } x \\
+a &: \text{Constant coefficient} \\
+d_k &: \text{Absolute deviation for each } k
+\end{align*}
+
+\end{document}

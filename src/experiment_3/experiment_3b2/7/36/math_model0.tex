@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\subsection*{Objective:}
+Minimize the total cost of alloys:
+
+\begin{equation}
+\text{Minimize} \quad \sum_{k=1}^{K} price_k \times x_k
+\end{equation}
+
+\subsection*{Subject to:}
+
+\subsubsection*{Metal Composition Constraints:}
+For each metal \( m \),
+
+\begin{equation}
+\sum_{k=1}^{K} ratio_{k, m} \times x_k = target_m \times alloy\_quant \quad \text{for } m = 1, \ldots, M
+\end{equation}
+
+\subsubsection*{Total Alloy Quantity Constraint:}
+\begin{equation}
+\sum_{k=1}^{K} x_k = alloy\_quant
+\end{equation}
+
+\subsubsection*{Non-negativity Constraints:}
+\begin{equation}
+x_k \geq 0 \quad \text{for all } k
+\end{equation}
+
+\end{document}

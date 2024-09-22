@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Diet Optimization Problem}
+
+\subsection*{Objective Function}
+We aim to minimize the total cost of purchasing the foods. The objective function can be formulated as:
+
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} \text{price}_k \cdot \text{quantity}_k
+\]
+
+where \(\text{price}_k\) is the price per unit of food \(k\) and \(\text{quantity}_k\) is the quantity of food \(k\) to purchase.
+
+\subsection*{Constraints}
+The dietary constraints ensure that each nutritional requirement is met:
+
+\[
+\sum_{k=1}^{K} \text{nutri}_{k, m} \cdot \text{quantity}_k \geq \text{demand}_m, \quad \forall m = 1, \ldots, M
+\]
+
+where \(\text{nutri}_{k, m}\) is the amount of nutrient \(m\) in food \(k\) and \(\text{demand}_m\) is the required amount of nutrient \(m\).
+
+\subsection*{Non-Negativity Constraints}
+All food quantities must be non-negative:
+
+\[
+\text{quantity}_k \geq 0, \quad \forall k = 1, \ldots, K
+\]
+
+\subsection*{Solution Representation}
+The solution will provide the optimal quantity of each food to purchase in order to minimize cost while meeting all nutritional requirements:
+
+\[
+\text{Output: } \text{quantity} = [\text{quantity}_1, \ldots, \text{quantity}_K]
+\]
+
+\end{document}

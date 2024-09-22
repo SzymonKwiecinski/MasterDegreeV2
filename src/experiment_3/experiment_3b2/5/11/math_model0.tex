@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\textbf{Objective:}
+Minimize the total cost composed of inventory storage and switching costs:
+
+\[
+\min \sum_{i=1}^{T} \text{storage\_cost} \times I_i + \sum_{i=1}^{T-1} \text{switch\_cost} \times |x_{i+1} - x_i|
+\]
+
+\textbf{Constraints:}
+
+\begin{align*}
+& I_0 = 0 \quad \text{(initial inventory)} \\
+& I_i = I_{i-1} + x_i - \text{deliver}_i, \quad i = 1, \ldots, T \\
+& x_i \geq 0, \quad \forall i \\
+& I_i \geq 0, \quad \forall i
+\end{align*}
+
+\textbf{Variables:}
+
+- \( x_i \): Number of units produced in month \( i \).
+- \( I_i \): Inventory at the end of month \( i \).
+
+\end{document}

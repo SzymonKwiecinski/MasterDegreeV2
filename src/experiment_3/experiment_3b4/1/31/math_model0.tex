@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model: Generator Scheduling Problem}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item $T$: Set of time periods, indexed by $t$.
+    \item $K$: Set of generator types, indexed by $k$.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $\text{demand}_t$: Electricity demand at period $t$.
+    \item $\text{num}_k$: Number of generators of type $k$ available.
+    \item $\text{minlevel}_k$: Minimum output level of a generator of type $k$.
+    \item $\text{maxlevel}_k$: Maximum output level of a generator of type $k$.
+    \item $\text{runcost}_k$: Running cost per hour of a generator of type $k$ at minimum level.
+    \item $\text{extracost}_k$: Extra cost per megawatt over the minimum level of a generator of type $k$.
+    \item $\text{startcost}_k$: Startup cost for a generator of type $k$.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_{k,t}$: Integer variable representing the number of generators of type $k$ on at time $t$.
+    \item $y_{k,t}$: Integer variable representing the number of generators of type $k$ started at time $t$.
+    \item $p_{k,t}$: Continuous variable representing the total output of generators of type $k$ above minimum level at time $t$.
+\end{itemize}
+
+\textbf{Objective:}
+\[
+\text{Minimize } \sum_{t \in T} \sum_{k \in K} \left( \text{runcost}_k \cdot x_{k,t} + \text{extracost}_k \cdot p_{k,t} + \text{startcost}_k \cdot y_{k,t} \right)
+\]
+
+\textbf{Constraints:}
+\begin{align}
+    & \sum_{k \in K} \left( \text{minlevel}_k \cdot x_{k,t} + p_{k,t} \right) \geq \text{demand}_t, & \forall t \in T \\
+    & 0 \leq p_{k,t} \leq (\text{maxlevel}_k - \text{minlevel}_k) \cdot x_{k,t}, & \forall k \in K, t \in T \\
+    & x_{k,t} - x_{k,t-1} \leq y_{k,t}, & \forall k \in K, t \in T, t > 1 \\
+    & x_{k,t} \leq \text{num}_k, & \forall k \in K, t \in T \\
+    & x_{k,t}, y_{k,t} \in \mathbb{Z}^+, & \forall k \in K, t \in T \\
+    & p_{k,t} \geq 0, & \forall k \in K, t \in T
+\end{align}
+
+\end{document}

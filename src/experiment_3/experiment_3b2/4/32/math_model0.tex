@@ -1,0 +1,21 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\textbf{Linear Programming Model:}
+
+\textbf{Objective:}
+\[
+\max \sum_{k=1}^{K} \text{profit}_k \cdot x_k
+\]
+
+\textbf{Subject to:}
+\[
+\sum_{k=1}^{K} \text{produce\_time}_{k, s} \cdot x_k \leq \text{time}_s, \quad \forall s = 1, 2, \ldots, S
+\]
+\[
+x_k \geq 0, \quad \forall k = 1, 2, \ldots, K
+\]
+
+\end{document}

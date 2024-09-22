@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Parameters}
+\begin{align*}
+&\text{Let } I \text{ be the number of different oils.} \\
+&\text{Let } M \text{ be the number of months.} \\
+&\text{Let } \text{buy\_price}_{i,m} \text{ be the purchase price of oil } i \text{ in month } m. \\
+&\text{Let } \text{sell\_price} \text{ be the selling price per ton of the final product.} \\
+&\text{Let } \text{is\_vegetable}_{i} \text{ be 1 if oil } i \text{ is vegetable, 0 otherwise.} \\
+&\text{Let } \text{max\_veg} \text{ be the maximum tons of vegetable oils refined per month.} \\
+&\text{Let } \text{max\_non\_veg} \text{ be the maximum tons of non-vegetable oils refined per month.} \\
+&\text{Let } \text{storage\_size} \text{ be the maximum storage capacity for each oil.} \\
+&\text{Let } \text{storage\_cost} \text{ be the storage cost per ton per month.} \\
+&\text{Let } \text{max\_hardness} \text{ and } \text{min\_hardness} \text{ be the hardness bounds.} \\
+&\text{Let } \text{hardness}_{i} \text{ be the hardness of oil } i. \\
+&\text{Let } \text{init\_amount} \text{ be the initial tons of each oil in storage.}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+&\text{Let } \text{buyquantity}_{i, m} \text{ be the amount of oil } i \text{ bought in month } m. \\
+&\text{Let } \text{refine}_{i, m} \text{ be the amount of oil } i \text{ refined in month } m. \\
+&\text{Let } \text{storage}_{i, m} \text{ be the storage of oil } i \text{ at the end of month } m. \\
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the profit:
+\[
+\sum_{m=1}^{M} \left( \text{sell\_price} \cdot \sum_{i=1}^{I} \text{refine}_{i, m} - \sum_{i=1}^{I} \left( \text{buy\_price}_{i, m} \cdot \text{buyquantity}_{i, m} + \text{storage\_cost} \cdot \text{storage}_{i, m} \right) \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+&\text{Storage balance:}\\
+&\ \ \text{storage}_{i, m-1} + \text{buyquantity}_{i, m} = \text{refine}_{i, m} + \text{storage}_{i, m} \quad \forall i, \, \forall m \\
+&\text{Initial storage:}\\
+&\ \ \text{storage}_{i, 0} = \text{init\_amount} \quad \forall i \\
+&\text{Final storage:}\\
+&\ \ \text{storage}_{i, M} = \text{init\_amount} \quad \forall i \\
+&\text{Refining capacity (vegetable oils):}\\
+&\ \ \sum_{i: \text{is\_vegetable}_{i} = 1} \text{refine}_{i, m} \leq \text{max\_veg} \quad \forall m \\
+&\text{Refining capacity (non-vegetable oils):}\\
+&\ \ \sum_{i: \text{is\_vegetable}_{i} = 0} \text{refine}_{i, m} \leq \text{max\_non\_veg} \quad \forall m \\
+&\text{Storage capacity:}\\
+&\ \ \text{storage}_{i, m} \leq \text{storage\_size} \quad \forall i, \, \forall m \\
+&\text{Hardness constraint:}\\
+&\ \ \sum_{i=1}^{I} \text{hardness}_{i} \cdot \text{refine}_{i, m} \leq \text{max\_hardness} \cdot \sum_{i=1}^{I} \text{refine}_{i, m} \quad \forall m \\
+&\ \ \sum_{i=1}^{I} \text{hardness}_{i} \cdot \text{refine}_{i, m} \geq \text{min\_hardness} \cdot \sum_{i=1}^{I} \text{refine}_{i, m} \quad \forall m \\
+&\text{Non-negativity:}\\
+&\ \ \text{buyquantity}_{i, m}, \text{refine}_{i, m}, \text{storage}_{i, m} \geq 0 \quad \forall i, \, \forall m \\
+\end{align*}
+
+\end{document}

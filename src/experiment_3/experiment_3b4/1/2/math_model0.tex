@@ -1,0 +1,115 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MIP Formulation for DEC's Production Problem}
+
+\subsection*{Parameters:}
+
+\begin{itemize}
+    \item $N$: Number of computer systems.
+    \item $price_i$: Price of system $i$.
+    \item $disk_i$: Average disk drives requested for system $i$.
+    \item $mem_i$: Average 256K memory boards used for system $i$.
+    \item $max\_cpu$: Maximum units of CPUs available.
+    \item $min\_disk$, $max\_disk$: Supply range of disk drives.
+    \item $min\_mem$, $max\_mem$: Supply range of 256K memory boards.
+    \item $demand_i$: Maximum demand for system $i$.
+    \item $demand\_GP$: Maximum demand for GP family.
+    \item $demand\_WS$: Maximum demand for WS family.
+    \item $preorder_i$: Pre-orders for system $i$.
+    \item $alt\_mem$: Units of alternative memory boards available.
+    \item $is\_workstation_i$: Boolean indicating if system $i$ is a workstation.
+    \item $alt\_compatible_i$: Boolean indicating if system $i$ can use alternative memory.
+\end{itemize}
+
+\subsection*{Decision Variables:}
+
+\begin{itemize}
+    \item $x_i$: Number of system $i$ produced (continuous).
+    \item $y_{alt,i}$: Alternative memory boards used in system $i$.
+    \item $y_{256K,i}$: 256K memory boards used in system $i$.
+    \item $d_{disk,i}$: Disk drives used in system $i$.
+\end{itemize}
+
+\subsection*{Objective Function:}
+
+Maximize the profit,
+
+\[
+\text{Maximize} \quad Z = \sum_{i=1}^{N} price_i \times x_i
+\]
+
+\subsection*{Constraints:}
+
+1. CPU constraint:
+
+\[
+\sum_{i=1}^{N} x_i \leq max\_cpu
+\]
+
+2. Disk drive supply constraints:
+
+\[
+\sum_{i=1}^{N} d_{disk,i} \geq min\_disk
+\]
+\[
+\sum_{i=1}^{N} d_{disk,i} \leq max\_disk
+\]
+
+3. Memory board supply constraints:
+
+\[
+\sum_{i=1}^{N} y_{256K,i} \geq min\_mem
+\]
+\[
+\sum_{i=1}^{N} y_{256K,i} \leq max\_mem
+\]
+
+4. Demand fulfillment for each system:
+
+\[
+x_i \leq demand_i \quad \forall i
+\]
+
+5. Pre-order fulfillment:
+
+\[
+x_i \geq preorder_i \quad \forall i
+\]
+
+6. Demand for GP and WS families:
+
+\[
+\sum_{\substack{i=1 \\ \text{is\_workstation}_i = \text{false}}}^{N} x_i \leq demand\_GP
+\]
+\[
+\sum_{\substack{i=1 \\ \text{is\_workstation}_i = \text{true}}}^{N} x_i \leq demand\_WS
+\]
+
+7. Memory boards usage:
+
+\[
+y_{256K,i} = mem_i \times x_i \quad \forall i
+\]
+
+8. Alternative memory boards usage:
+
+\[
+y_{alt,i} \leq alt\_compatible_i \times alt\_mem \quad \forall i
+\]
+\[
+\sum_{i=1}^{N} y_{alt,i} \leq alt\_mem
+\]
+
+9. Disk drive usage:
+
+\[
+d_{disk,i} = disk_i \times x_i \quad \forall i
+\]
+
+\subsection*{Solution:}
+
+The solution will include the number of each system produced, the total memory boards used, and the total disk drives used, along with the maximized profit.
+
+\end{document}

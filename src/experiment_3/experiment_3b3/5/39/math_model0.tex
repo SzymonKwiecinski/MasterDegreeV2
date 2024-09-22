@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Cafeteria Staffing}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( x \) denote the total number of employees hired.
+    \item Let \( is\_work_{n,i} \) be a binary variable that equals 1 if employee \( i \) is working on day \( n \) and 0 otherwise.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( num_n \): number of employees needed on day \( n \) for \( n = 1, \ldots, N \)
+    \item \( n\_working\_days \): number of consecutive working days for each employee.
+    \item \( n\_resting\_days \): number of resting days for each employee.
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } x
+\]
+
+\textbf{Constraints:}
+For each day \( n \) (where \( n = 1, \ldots, N \)):
+\[
+\sum_{i=1}^{x} is\_work_{n,i} \geq num_n \quad \forall n
+\]
+
+Each employee works \( n\_working\_days \) followed by \( n\_resting\_days \). Thus, for any employee \( i \),
+the following periodic constraints must hold:
+\[
+is\_work_{n,i} + is\_work_{n+1,i} + \ldots + is\_work_{n+n\_working\_days-1,i} \leq n\_working\_days \quad \forall n \quad \text{where} \ n+n\_working\_days-1 \leq N 
+\]
+
+\[
+is\_work_{n+n\_working\_days,i} + is\_work_{n+n\_working\_days+1,i} + \ldots + is\_work_{n+n\_working\_days+n\_resting\_days-1,i} = 0 \quad \forall n \quad \text{where} \ n+n\_working\_days+n\_resting\_days-1 \leq N 
+\]
+
+\textbf{Output:}
+\begin{itemize}
+    \item \( total\_number = x \)
+    \item \( is\_work \) matrix where \( is\_work_{n,i} \) gives the working status of each employee on each day.
+\end{itemize}
+
+\end{document}

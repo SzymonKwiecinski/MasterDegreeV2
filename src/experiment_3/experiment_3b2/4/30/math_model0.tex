@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+Given a set of data points \((x_k, y_k)\) for \(k = 1, \ldots, K\), we aim to fit a quadratic curve \( y = cx^2 + bx + a \) by minimizing the sum of absolute deviations of each observed value \( y_k \) from the value predicted by the quadratic relationship.
+
+\subsection*{Objective Function}
+Minimize:
+\[
+Z = \sum_{k=1}^{K} |y_k - (c x_k^2 + b x_k + a)|
+\]
+
+Since the sum of absolute deviations is not directly linear, we introduce auxiliary variables \( z_k \) to convert this into a linear programming model:
+\[
+Z = \sum_{k=1}^{K} z_k
+\]
+
+\subsection*{Constraints}
+For each data point \((x_k, y_k)\), introduce the following constraints to handle the absolute value:
+\[
+z_k \geq y_k - (c x_k^2 + b x_k + a)
+\]
+\[
+z_k \geq -(y_k - (c x_k^2 + b x_k + a))
+\]
+
+\subsection*{Variables}
+The decision variables in this problem are:
+- \( c \): quadratic coefficient
+- \( b \): linear coefficient
+- \( a \): constant term
+- \( z_k \): auxiliary variables for absolute deviations, for \( k = 1, \ldots, K \)
+
+\subsection*{LP Model}
+Formulate the LP problem as:
+\[
+\begin{align*}
+\text{Minimize } & \sum_{k=1}^{K} z_k \\
+\text{subject to } & z_k \geq y_k - (c x_k^2 + b x_k + a), \quad k = 1, \ldots, K \\
+& z_k \geq -(y_k - (c x_k^2 + b x_k + a)), \quad k = 1, \ldots, K \\
+\end{align*}
+\]
+
+\end{document}

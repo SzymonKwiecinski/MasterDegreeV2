@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+Minimize the total cost:
+
+\[
+\text{Minimize } Z = \sum_{n=1}^{N} \left( \text{cost\_regular} \cdot \text{reg\_quant}_{n} + \text{cost\_overtime} \cdot \text{over\_quant}_{n} + \text{store\_cost} \cdot \text{store\_quant}_{n} \right)
+\]
+
+\textbf{Subject to:}
+
+1. \text{Regular Production Constraint:}
+\[
+0 \leq \text{reg\_quant}_{n} \leq \text{max\_regular\_amount} \quad \forall n = 1, \ldots, N
+\]
+
+2. \text{Demand Satisfaction Constraint:}
+\[
+\text{reg\_quant}_{n} + \text{over\_quant}_{n} + \text{store\_quant}_{n-1} = \text{demand}_{n} + \text{store\_quant}_{n} \quad \forall n = 1, \ldots, N
+\]
+\text{Note: Assume } \text{store\_quant}_{0} = 0 \text{ (no initial inventory)}
+
+3. \text{Non-negativity Constraints:}
+\[
+\text{reg\_quant}_{n} \geq 0, \quad \text{over\_quant}_{n} \geq 0, \quad \text{store\_quant}_{n} \geq 0 \quad \forall n = 1, \ldots, N
+\]
+
+\end{document}

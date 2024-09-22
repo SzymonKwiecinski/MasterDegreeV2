@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Indices:}
+\begin{align*}
+t & \in \{1, 2, \ldots, T\} \quad \text{(months)}
+\end{align*}
+
+\textbf{Parameters:}
+\begin{align*}
+\text{demand}_{t} & : \text{demand for containers by ships in month } t \\
+\text{unload\_cost}_{t} & : \text{cost to unload a single container in month } t \\
+\text{unload\_capacity}_{t} & : \text{maximum number of containers that can be unloaded in month } t \\
+\text{holding\_cost} & : \text{holding cost for a container per month} \\
+\text{max\_container} & : \text{maximum containers that can be stored at the end of a month} \\
+\text{init\_container} & : \text{initial number of containers in the yard at the start of month 1} \\
+\text{num\_cranes} & : \text{maximum number of cranes that can be rented each month} \\
+\text{crane\_capacity} & : \text{capacity of each crane in number of containers} \\
+\text{crane\_cost} & : \text{cost for renting one crane}
+\end{align*}
+
+\textbf{Decision Variables:}
+\begin{align*}
+\text{amount}_{t} & : \text{number of containers unloaded in month } t \\
+\text{crane}_{t} & : \text{number of cranes rented in month } t \\
+\text{store}_{t} & : \text{number of containers stored at the end of month } t
+\end{align*}
+
+\textbf{Objective Function:}
+
+Minimize the total cost, which is the sum of unloading costs, holding costs, and crane rental costs:
+
+\[
+\min \sum_{t=1}^{T} \left( \text{unload\_cost}_{t} \cdot \text{amount}_{t} + \text{holding\_cost} \cdot \text{store}_{t} + \text{crane\_cost} \cdot \text{crane}_{t} \right)
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+& \text{Initial constraint:} & \\
+& \text{store}_{0} = \text{init\_container} \\
+& \text{Flow balance constraints:} & \\
+& \text{store}_{t-1} + \text{amount}_{t} = \text{demand}_{t} + \text{store}_{t}, \quad \forall t \in \{1, \ldots, T\} \\
+& \text{Capacity and storage constraints:} & \\
+& \text{amount}_{t} \leq \text{unload\_capacity}_{t}, \quad \forall t \in \{1, \ldots, T\} \\
+& \text{store}_{t} \leq \text{max\_container}, \quad \forall t \in \{1, \ldots, T\} \\
+& \text{Loading constraints:} & \\
+& \text{crane}_{t} \cdot \text{crane\_capacity} \geq \text{demand}_{t}, \quad \forall t \in \{1, \ldots, T\} \\
+& \text{crane}_{t} \leq \text{num\_cranes}, \quad \forall t \in \{1, \ldots, T\} \\
+& \text{End constraint:} & \\
+& \text{store}_{T} = 0 \\
+& \text{Non-negativity and integrality:} & \\
+& \text{amount}_{t} \geq 0, \quad \text{crane}_{t} \in \mathbb{Z}_{+}, \quad \text{store}_{t} \geq 0, \quad \forall t \in \{1, \ldots, T\}
+\end{align*}
+
+\end{document}

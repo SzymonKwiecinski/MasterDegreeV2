@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Fitting a Line}
+
+Let \( y_k \) be the \( k \)-th observed value of \( y \) and \( x_k \) be the \( k \)-th observed value of \( x \) where \( k = 1, 2, \ldots, K \).
+
+The relationship to fit is given by the straight line equation:
+\[
+y = bx + a
+\]
+where \( b \) is the slope and \( a \) is the intercept. 
+
+We aim to minimize the sum of absolute deviations of the observed values from the predicted values. The objective function can be expressed as:
+\[
+\text{Minimize } \sum_{k=1}^{K} |y_k - (bx_k + a)|
+\]
+
+To reformulate this objective function into a linear programming model, we introduce auxiliary variables \( d_k \) to represent the absolute deviations:
+\[
+d_k \geq y_k - (bx_k + a) \quad \forall k = 1, 2, \ldots, K
+\]
+\[
+d_k \geq -(y_k - (bx_k + a)) \quad \forall k = 1, 2, \ldots, K
+\]
+
+Thus, we can rewrite the objective function as:
+\[
+\text{Minimize } \sum_{k=1}^{K} d_k
+\]
+
+Subject to the constraints:
+\[
+d_k \geq y_k - (bx_k + a) \quad \forall k
+\]
+\[
+d_k \geq -(y_k - (bx_k + a)) \quad \forall k
+\]
+
+The complete linear programming model is as follows:
+
+\textbf{Objective:}
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} d_k
+\]
+
+\textbf{Subject to:}
+\[
+d_k \geq y_k - (bx_k + a) \quad \forall k
+\]
+\[
+d_k \geq -(y_k - (bx_k + a)) \quad \forall k
+\]
+
+\textbf{Variables:}
+\[
+b \text{ (slope)}, \quad a \text{ (intercept)}, \quad d_k \text{ (absolute deviations)}, \quad k = 1, 2, \ldots, K
+\]
+
+The output will provide the values of:
+\begin{itemize}
+    \item \textit{intercept}: \( a \)
+    \item \textit{slope}: \( b \)
+\end{itemize}
+
+\end{document}

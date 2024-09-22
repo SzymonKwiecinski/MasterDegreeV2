@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $T$: Number of months.
+    \item $d_i$: Demand in units at the end of month $i$, for $i = 1, 2, \ldots, T$.
+    \item $c_s$: Storage cost per unit per month.
+    \item $c_{sw}$: Switching cost per unit change in production level.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_i$: Number of units produced in month $i$, for $i = 1, 2, \ldots, T$.
+    \item $I_i$: Inventory at the end of month $i$, for $i = 1, 2, \ldots, T$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost, which is the sum of storage costs and switching costs:
+\[
+\text{Minimize } Z = c_s \sum_{i=1}^{T} I_i + c_{sw} \sum_{i=1}^{T-1} |x_{i+1} - x_i|
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    & I_0 = 0 \quad \text{(Starting inventory)} \\
+    & x_i + I_{i-1} = d_i + I_i, \quad i = 1, 2, \ldots, T \quad \text{(Flow balance constraint)} \\
+    & I_i \geq 0, \quad i = 1, 2, \ldots, T \quad \text{(Non-negativity of inventory)} \\
+    & x_i \geq 0, \quad i = 1, 2, \ldots, T \quad \text{(Non-negativity of production)}
+\end{align}
+
+Note: The absolute value constraint can be linearized using the following method:
+Introduce auxiliary variables $y_i^{+}$ and $y_i^{-}$ for $i=1,2,\ldots,T-1$. Then add the constraints:
+\begin{align}
+    & x_{i+1} - x_i = y_i^{+} - y_i^{-}, \quad i = 1, 2, \ldots, T-1 \\
+    & y_i^{+}, y_i^{-} \geq 0, \quad i = 1, 2, \ldots, T-1
+\end{align}
+
+Replace the switching cost term in the objective function by:
+\[
+c_{sw} \sum_{i=1}^{T-1} (y_i^{+} + y_i^{-})
+\]
+
+\end{document}

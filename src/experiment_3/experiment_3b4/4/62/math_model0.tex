@@ -1,0 +1,19 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+
+\begin{align*}
+\text{Minimize } & \sum_{i=1}^{N} \sum_{j=1}^{N} distance_{i,j} \cdot x_{i,j} \\
+\text{Subject to: } 
+& \\
+& \sum_{j=1, j \neq i}^{N} x_{i,j} = 1, \quad \forall i=1,\ldots,N \quad (\text{leave each city exactly once}) \\
+& \sum_{i=1, i \neq j}^{N} x_{i,j} = 1, \quad \forall j=1,\ldots,N \quad (\text{enter each city exactly once}) \\
+& u_1 = 1, \\
+& u_i - u_j + N \cdot x_{i,j} \leq N-1, \quad \forall i \neq j, \, i,j=2,\ldots,N \quad (\text{eliminate subtours}) \\
+& x_{i,j} \in \{0, 1\}, \quad \forall i,j = 1,\ldots,N \\
+& u_i \geq 2, \quad \forall i=2,\ldots,N 
+\end{align*}
+
+\end{document}

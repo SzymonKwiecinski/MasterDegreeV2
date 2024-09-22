@@ -1,0 +1,16 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+\begin{align*}
+& \text{Minimize } \sum_{j=1}^7 x_j
+\end{align*}
+
+\textbf{Subject to:}
+\begin{align*}
+& \sum_{i=0}^{\text{period}-1} x_{(j-i-1) \mod 7 + 1} \geq d_j \quad \forall j = 1, \ldots, 7 \\
+& x_j \geq 0 \quad \text{and integer} \quad \forall j = 1, \ldots, 7
+\end{align*}
+
+\end{document}

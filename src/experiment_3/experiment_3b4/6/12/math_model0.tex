@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\subsection*{Decision Variables}
+Let \( x_{i,j} \) be the amount of currency \( i \) to be exchanged for currency \( j \) for all \( i, j \in \{1, 2, \ldots, N\} \).
+
+\subsection*{Objective Function}
+Maximize the total amount of currency \( N \) at the end of the day:
+\[
+\text{Maximize } Z = \sum_{i=1}^{N} x_{i,N} \times \text{rate}_{i,N}
+\]
+
+\subsection*{Constraints}
+\begin{enumerate}
+    \item Currency Exchange Limit Constraints:
+    \[
+    \sum_{j=1}^{N} x_{i,j} \leq \text{limit}_i, \quad \forall i \in \{1, 2, \ldots, N\}
+    \]
+
+    \item Starting Currency Constraints:
+    \[
+    \sum_{j=1}^{N} x_{j,i} \leq \text{start}_i, \quad \forall i \in \{1, 2, \ldots, N\}
+    \]
+
+    \item Non-negativity Constraints:
+    \[
+    x_{i,j} \geq 0, \quad \forall i, j \in \{1, 2, \ldots, N\}
+    \]
+
+    \item Constraint on exchange rate cycle (implicit constraint stating that wealth cannot multiply through cycles)
+    \[
+    \prod_{k=1}^{K} \text{rate}_{i_k, i_{k+1}} \leq 1, \quad \text{for any cycle } i_1 \rightarrow i_2 \rightarrow \cdots \rightarrow i_K \rightarrow i_1
+    \]
+\end{enumerate}
+
+\end{document}

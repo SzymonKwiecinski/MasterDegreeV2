@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+
+\begin{document}
+\title{Mixed-Integer Programming Model for Power Station Operation}
+\date{}
+\maketitle
+
+\section*{Sets and Indices}
+\begin{align*}
+& T = \text{Number of periods in the day} \\
+& K = \text{Number of generator types} \\
+& i = 1, \ldots, \text{num}_k \quad \text{(for each $k$)}\\
+& t = 1, \ldots, T \\
+& k = 1, \ldots, K
+\end{align*}
+
+\section*{Parameters}
+\begin{align*}
+& \text{demand}_t = \text{Demand in period } t \\
+& \text{num}_k = \text{Number of type } k \text{ generators} \\
+& \text{minlevel}_k = \text{Minimum level for type } k \text{ generator} \\
+& \text{maxlevel}_k = \text{Maximum level for type } k \text{ generator} \\
+& \text{runcost}_k = \text{Running cost at minimum level for type } k\\
+& \text{extracost}_k = \text{Extra cost per MW above minimum level for type } k \\
+& \text{startcost}_k = \text{Startup cost for type } k \text{ generator}
+\end{align*}
+
+\section*{Decision Variables}
+\begin{align*}
+& \text{numon}_{k,t} \geq 0 = \text{Number of type } k \text{ generators on in period } t \\
+& \text{pwr}_{k,t,i} \geq 0 = \text{Power output of } i\text{-th type } k\text{ generator in period } t \\
+& \text{startup}_{k,t} \in \{0, 1\} = \text{1 if generator of type } k \text{ starts up in period } t
+\end{align*}
+
+\section*{Objective Function}
+Minimize the total cost:
+\begin{align*}
+\min & \sum_{k=1}^K \sum_{t=1}^T \left( \text{runcost}_k \cdot \text{numon}_{k,t} + \sum_{i=1}^{\text{num}_k} \left( \text{extracost}_k \cdot (\text{pwr}_{k,t,i} - \text{minlevel}_k) \right) + \text{startcost}_k \cdot \text{startup}_{k,t} \right)
+\end{align*}
+
+\section*{Constraints}
+1. Demand Satisfaction:
+\begin{align*}
+& \sum_{k=1}^K \sum_{i=1}^{\text{num}_k} \text{pwr}_{k,t,i} \geq \text{demand}_t, \quad \forall t
+\end{align*}
+
+2. Generator Limits:
+\begin{align*}
+& \text{minlevel}_k \cdot \text{numon}_{k,t} \leq \text{pwr}_{k,t,i} \leq \text{maxlevel}_k \cdot \text{numon}_{k,t}, \quad \forall k, t, i
+\end{align*}
+
+3. Unit Commitment:
+\begin{align*}
+& \text{numon}_{k,t} \leq \text{num}_k, \quad \forall k, t
+\end{align*}
+
+4. Startup Calculation (if needed):
+\begin{align*}
+& \text{startup}_{k,t} \geq \text{numon}_{k,t} - \text{numon}_{k,t-1}, \quad \forall k, t
+\end{align*}
+
+\end{document}

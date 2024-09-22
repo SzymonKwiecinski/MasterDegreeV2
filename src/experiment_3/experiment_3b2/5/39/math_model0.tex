@@ -1,0 +1,16 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\begin{document}
+
+\begin{align*}
+\text{minimize} \quad & \sum_{i=1}^{I} x_i \\
+\text{subject to} \quad & \sum_{i=1}^{I} y_{i, n} \geq \text{num}[n], \quad \forall n = 1, \ldots, N \\
+& y_{i, n} \leq x_i, \quad \forall i = 1, \ldots, I, \forall n = 1, \ldots, N \\
+& y_{i, n} = y_{i, n+\text{n\_working\_days} + \text{n\_resting\_days}}, \quad \forall i = 1, \ldots, I, \forall n = 1, \ldots, N - (\text{n\_working\_days} + \text{n\_resting\_days}) \\
+& y_{i, n} \in \{0, 1\}, \quad x_i \in \{0, 1\}, \quad \forall i = 1, \ldots, I, \forall n = 1, \ldots, N
+\end{align*}
+
+\end{document}

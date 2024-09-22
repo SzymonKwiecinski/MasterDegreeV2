@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Stock Selling}
+
+Given an investor's portfolio of \( N \) different stocks, the objective is to determine the number of shares of each stock to sell in order to raise a net amount \( K \) while maximizing the expected value of the portfolio for the next year.
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( bought_i \): Number of shares bought of stock \( i \), for \( i = 1, \ldots, N \)
+    \item \( buyPrice_i \): Price at which stock \( i \) was bought
+    \item \( currentPrice_i \): Current price of stock \( i \)
+    \item \( futurePrice_i \): Expected future price of stock \( i \) in one year
+    \item \( transactionRate \): Transaction cost rate (in percent) when selling shares
+    \item \( taxRate \): Tax rate on capital gains (in percent)
+    \item \( K \): Desired net amount to raise
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( sell_i \): Number of shares of stock \( i \) to sell, for \( i = 1, \ldots, N \)
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective function is to maximize the expected value of the portfolio in one year after selling shares. This can be expressed as:
+\[
+\text{Maximize } Z = \sum_{i=1}^{N} \left( futurePrice_i \cdot bought_i - currentPrice_i \cdot sell_i \cdot (1 + \frac{transactionRate}{100}) - \left( sell_i \cdot (currentPrice_i - buyPrice_i) \cdot \frac{taxRate}{100} \right) \right)
+\]
+
+\subsection*{Constraints}
+The investor must raise at least \( K \) net of transaction costs and taxes. This can be modeled by the following constraint:
+\[
+\sum_{i=1}^{N} \left( sell_i \cdot currentPrice_i \cdot (1 - \frac{transactionRate}{100}) - sell_i \cdot (currentPrice_i - buyPrice_i) \cdot \frac{taxRate}{100} \right) \geq K
+\]
+
+Additionally, the number of shares sold for each stock cannot exceed the shares owned:
+\[
+0 \leq sell_i \leq bought_i \quad \forall i = 1, \ldots, N
+\]
+
+\subsection*{Formulation}
+The complete model can thus be expressed as follows:
+
+\[
+\begin{align*}
+\text{Maximize } & Z \\
+\text{Subject to:} \\
+& \sum_{i=1}^{N} \left( sell_i \cdot currentPrice_i \cdot (1 - \frac{transactionRate}{100}) - sell_i \cdot (currentPrice_i - buyPrice_i) \cdot \frac{taxRate}{100} \right) \geq K \\
+& 0 \leq sell_i \leq bought_i \quad \forall i = 1, \ldots, N \\
+\end{align*}
+\]
+
+\end{document}

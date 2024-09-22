@@ -1,0 +1,75 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation for Production and Storage Optimization}
+
+\textbf{Indices:}
+\begin{align*}
+k & \quad \text{Index for products, } k = 1, \dots, K \\
+m & \quad \text{Index for machines, } m = 1, \dots, M \\
+i & \quad \text{Index for months, } i = 1, \dots, I \\
+\end{align*}
+
+\textbf{Parameters:}
+\begin{align*}
+\text{num\_machines}_m & \quad \text{Number of machine $m$ available initially} \\
+\text{profit}_k & \quad \text{Profit per unit sale of product $k$} \\
+\text{time}_{k,m} & \quad \text{Time required by product $k$ on machine $m$ (in hours)} \\
+\text{maintain}_{i,m} & \quad \text{Number of machine $m$ down for maintenance in month $i$} \\
+\text{limit}_{k,i} & \quad \text{Maximum marketable quantity of product $k$ in month $i$} \\
+\text{store\_price} & \quad \text{Cost per unit per month for storing product} \\
+\text{keep\_quantity} & \quad \text{Required stock of each product by the end of the time horizon} \\
+\text{n\_workhours} & \quad \text{Work hours per day} \\
+\end{align*}
+
+\textbf{Decision Variables:}
+\begin{align*}
+\text{sell}_{k,i} & \quad \text{Units of product $k$ sold in month $i$} \\
+\text{manufacture}_{k,i} & \quad \text{Units of product $k$ manufactured in month $i$} \\
+\text{storage}_{k,i} & \quad \text{Units of product $k$ stored at the end of month $i$} \\
+\end{align*}
+
+\textbf{Objective Function:}
+
+Maximize total profit:
+\[
+\text{Maximize } \sum_{i=1}^{I} \sum_{k=1}^{K} \left( \text{profit}_k \cdot \text{sell}_{k,i} - \text{store\_price} \cdot \text{storage}_{k,i} \right)
+\]
+
+\textbf{Constraints:}
+
+1. **Market Limitations:**
+\[
+\text{sell}_{k,i} \leq \text{limit}_{k,i}, \quad \forall k, i
+\]
+
+2. **Stock Balance:**
+\[
+\text{storage}_{k,i-1} + \text{manufacture}_{k,i} = \text{sell}_{k,i} + \text{storage}_{k,i}, \quad \forall k, i
+\]
+Where \(\text{storage}_{k,0} = 0\) for all \(k\).
+
+3. **End of Period Stock Requirement:**
+\[
+\text{storage}_{k,I} \geq \text{keep\_quantity}, \quad \forall k
+\]
+
+4. **Machine Time Availability:**
+\[
+\sum_{k=1}^{K} \text{time}_{k,m} \cdot \text{manufacture}_{k,i} \leq (\text{num\_machines}_m - \text{maintain}_{i,m}) \cdot 24 \cdot \text{n\_workhours}, \quad \forall m, i
+\]
+
+5. **Storage Capacity:**
+\[
+\text{storage}_{k,i} \leq 100, \quad \forall k, i
+\]
+
+6. **Non-negativity:**
+\[
+\text{sell}_{k,i}, \text{manufacture}_{k,i}, \text{storage}_{k,i} \geq 0, \quad \forall k, i
+\]
+
+This formulation aims to determine the optimal manufacturing, selling, and storing strategy to maximize the factory's profit over multiple months, taking into account machine maintenance, market limitations, and storage costs.
+
+\end{document}

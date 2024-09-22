@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+Maximize:
+\[
+\sum_{p=1}^{P} (\text{price}_p \cdot x_p) - \sum_{m=1}^{M} \left(\sum_{p=1}^{P} (\text{time}_{m,p} \cdot x_p)\right) \cdot \text{cost}_m
+\]
+
+\textbf{Subject to:}
+
+Machine availability constraints:
+\[
+\sum_{p=1}^{P} (\text{time}_{m,p} \cdot x_p) \leq \text{available}_m \quad \forall m = 1, 2, \ldots, M
+\]
+
+Minimum production constraints:
+\[
+x_p \geq \text{min\_batches}_p \quad \forall p = 1, 2, \ldots, P
+\]
+
+Non-negativity constraints:
+\[
+x_p \geq 0 \quad \forall p = 1, 2, \ldots, P
+\]
+
+\end{document}

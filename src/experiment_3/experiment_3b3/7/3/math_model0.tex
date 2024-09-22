@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Electricity Capacity Expansion}
+
+\subsection*{Parameters}
+\begin{align*}
+T & \quad \text{(number of years)} \\
+demand_t & \quad \text{(demand for electricity in year } t \text{)} \\
+oil_t & \quad \text{(existing oil-fired capacity in year } t \text{)} \\
+coal\_cost & \quad \text{(cost per megawatt of coal-fired capacity)} \\
+nuke\_cost & \quad \text{(cost per megawatt of nuclear capacity)} \\
+max\_nuke & \quad \text{(maximum percentage of total capacity that can be nuclear)} \\
+coal\_life & \quad \text{(lifetime of coal plants in years)} \\
+nuke\_life & \quad \text{(lifetime of nuclear plants in years)} \\
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+\text{coal\_added}_t & \quad \text{(coal capacity added in year } t\text{)} \\
+\text{nuke\_added}_t & \quad \text{(nuclear capacity added in year } t\text{)} \\
+\end{align*}
+
+\subsection*{Objective Function}
+\begin{align*}
+\text{Minimize } Z & = \sum_{t=1}^{T} (coal\_cost \cdot coal\_added_t + nuke\_cost \cdot nuke\_added_t)
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+\sum_{t'=t}^{\min(t + coal\_life - 1, T)} coal\_added_{t'} & \quad \text{(total coal capacity)} \\
+\sum_{t'=t}^{\min(t + nuke\_life - 1, T)} nuke\_added_{t'} & \quad \text{(total nuclear capacity)} \\
+oil_t + \sum_{t'=1}^{t} coal\_added_{t'} + \sum_{t'=1}^{t} nuke\_added_{t'} & \geq demand_t \quad \forall t \\
+\sum_{t'=1}^{T} nuke\_added_{t'} & \leq \frac{max\_nuke}{100} \cdot \left( \sum_{t'=1}^{T} oil_t + \sum_{t'=1}^{T} coal\_added_{t'} + \sum_{t'=1}^{T} nuke\_added_{t'} \right) \\
+\end{align*}
+
+\subsection*{Output}
+The solution will provide:
+\begin{align*}
+\text{coal\_cap\_added} & \quad \text{(list of coal capacity added each year)} \\
+\text{nuke\_cap\_added} & \quad \text{(list of nuclear capacity added each year)} \\
+\text{total\_cost} & \quad \text{(total cost of the system)}
+\end{align*}
+
+\end{document}

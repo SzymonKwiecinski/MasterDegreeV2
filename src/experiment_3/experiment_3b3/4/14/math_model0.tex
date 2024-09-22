@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Production and Investment Optimization}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let $x_i$ be the production quantity of the $i$-th product, where $i = 1, 2, \ldots, P$.
+    \item Let $y$ be a binary variable where $y = 1$ if the company upgrades its machine capacity and $y = 0$ otherwise.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $hour_i$: machine hours required for the $i$-th product.
+    \item $cost_i$: production cost for the $i$-th product.
+    \item $price_i$: selling price of the $i$-th product.
+    \item $investPercentage_i$: percentage of the sales revenue made available for financing operations for the $i$-th product.
+    \item $upgradeHours$: additional machine hours available after upgrade.
+    \item $upgradeCost$: cost of upgrading the machine.
+    \item $availableHours$: total machine hours available in the current production period.
+    \item $cash$: total available cash for production.
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to maximize the total net income:
+\[
+\text{Maximize } Z = \sum_{i=1}^{P} \left( (price_i - cost_i) x_i - investPercentage_i \cdot price_i \cdot x_i \right) - upgradeCost \cdot y
+\]
+
+\subsection*{Constraints}
+1. **Machine Hours Constraint**:
+\[
+\sum_{i=1}^{P} hour_i \cdot x_i \leq availableHours + upgradeHours \cdot y
+\]
+2. **Cash Constraint**:
+\[
+\sum_{i=1}^{P} cost_i \cdot x_i \leq cash
+\]
+3. **Non-negativity Constraint**:
+\[
+x_i \geq 0 \quad \text{for } i = 1, 2, \ldots, P
+\]
+4. **Binary Variable**:
+\[
+y \in \{0, 1\}
+\]
+
+\subsection*{Output Variables}
+- The net income:
+\[
+\text{net\_income} = Z
+\]
+- The production quantities:
+\[
+\text{production} = [x_1, x_2, \ldots, x_P]
+\]
+- The upgrade decision:
+\[
+\text{upgrade} = y
+\]
+
+\end{document}

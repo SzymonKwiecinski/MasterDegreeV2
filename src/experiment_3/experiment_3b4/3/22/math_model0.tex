@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} Minimize redundancy:
+
+\[
+\min \sum_{k=1}^{K} \sum_{i=1}^{I} \left( \text{costoverman}_{k} \cdot \text{overmanning}_{k,i} + \text{costshort}_{k} \cdot \text{short}_{k,i} \right)
+\]
+
+\textbf{Subject to:}
+
+\[
+\text{strength}_{k} + \sum_{j=1}^{i-1} \left( \text{recruit}_{k,j} \cdot (1 - \text{lessonewaste}_{k}) + \text{existing}_{k,j} \cdot (1 - \text{moreonewaste}_{k}) \right) + \text{recruit}_{k,i} \geq \text{requirement}_{k,i} + \text{overmanning}_{k,i} + 0.5 \cdot \text{short}_{k,i}, \forall k, \forall i
+\]
+
+\[
+0 \leq \text{recruit}_{k,i} \leq \text{recruit}_{k}, \forall k, \forall i
+\]
+
+\[
+0 \leq \sum_{k=1}^{K} \text{overmanning}_{k,i} \leq \text{num\_overman}, \forall i
+\]
+
+\[
+0 \leq \text{short}_{k,i} \leq \text{num\_shortwork}, \forall k, \forall i
+\]
+
+\end{document}

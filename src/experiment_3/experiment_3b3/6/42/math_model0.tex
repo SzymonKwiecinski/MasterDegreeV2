@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\textbf{Indices:} \\
+Let \( i \) denote the index for depots (\( i = 1, \ldots, I \)) \\
+Let \( j \) denote the index for ports (\( j = 1, \ldots, J \))
+
+\textbf{Parameters:} \\
+\( \text{numdepot}_i \): Number of containers available at depot \( i \) \\
+\( \text{numport}_j \): Number of containers required at port \( j \) \\
+\( \text{price} \): Cost of transportation per kilometer (Euros/km) \\
+\( \text{distance}_{i,j} \): Distance from depot \( i \) to port \( j \) (km)
+
+\textbf{Decision Variables:} \\
+Let \( x_{i,j} \): Number of containers sent from depot \( i \) to port \( j \)
+
+\textbf{Objective:} \\
+Minimize the total transportation cost:
+\[
+\text{Minimize} \quad Z = \sum_{i=1}^{I} \sum_{j=1}^{J} \left( \frac{x_{i,j}}{2} \cdot \text{distance}_{i,j} \cdot \text{price} \right)
+\]
+
+\textbf{Subject to:} \\
+1. Supply constraints for each depot:
+\[
+\sum_{j=1}^{J} x_{i,j} \leq \text{numdepot}_i, \quad \forall i = 1, \ldots, I
+\]
+
+2. Demand constraints for each port:
+\[
+\sum_{i=1}^{I} x_{i,j} \geq \text{numport}_j, \quad \forall j = 1, \ldots, J
+\]
+
+3. Non-negativity constraints:
+\[
+x_{i,j} \geq 0, \quad \forall i = 1, \ldots, I, \; j = 1, \ldots, J
+\]
+
+\end{document}

@@ -1,0 +1,25 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\title{Linear Programming Model for Oil Refinery}
+\author{}
+\date{}
+\maketitle
+
+\section*{Mathematical Model}
+
+\subsection*{Objective Function}
+Maximize the revenue:
+\begin{equation}
+\text{Maximize} \quad \sum_{l=1}^{L} \left( \sum_{p=1}^{P} \text{price}_p \times \text{output}_{l,p} - \text{cost}_l \right) \times x_l
+\end{equation}
+
+\subsection*{Constraints}
+\begin{align}
+\sum_{l=1}^{L} \text{input}_{l,i} \times x_l & \leq \text{allocated}_i, \quad \text{for each } i = 1, 2, ..., O \\
+x_l & \geq 0, \quad \text{for each } l = 1, 2, ..., L
+\end{align}
+
+\end{document}

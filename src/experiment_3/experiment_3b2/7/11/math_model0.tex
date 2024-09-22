@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model:}
+
+\textbf{Objective:}
+\[
+\text{Minimize } \sum_{i=1}^{T-1} \text{storage\_cost} \cdot I_i + \sum_{i=1}^{T-1} \text{switch\_cost} \cdot y_i
+\]
+
+\textbf{Subject to:}
+\[
+x_i + I_{i-1} = \text{deliver}_i + I_i \quad \forall i = 1, \ldots, T
+\]
+
+\[
+I_0 = 0
+\]
+
+\[
+y_i \geq x_{i+1} - x_i \quad \forall i = 1, \ldots, T-1
+\]
+
+\[
+y_i \geq x_i - x_{i+1} \quad \forall i = 1, \ldots, T-1
+\]
+
+\[
+x_i \geq 0 \quad \forall i = 1, \ldots, T
+\]
+
+\[
+I_i \geq 0 \quad \forall i = 1, \ldots, T
+\]
+
+\end{document}

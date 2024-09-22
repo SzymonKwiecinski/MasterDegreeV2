@@ -1,0 +1,88 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Intrusion Intervention}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( N \) be the number of clusters.
+    \item Let \( \text{isolate\_central}_{i} \) be the processing time for isolating cluster \( i \) using central processing.
+    \item Let \( \text{scan\_central}_{i} \) be the processing time for scanning cluster \( i \) using central processing.
+    \item Let \( \text{isolate\_distributed}_{i} \) be the processing time for isolating cluster \( i \) using distributed processing.
+    \item Let \( \text{scan\_distributed}_{i} \) be the processing time for scanning cluster \( i \) using distributed processing.
+    \item Let \( \text{central\_cost} \) be the cost per hour for central processing.
+    \item Let \( \text{distributed\_cost} \) be the cost per hour for distributed processing.
+    \item Let \( \text{max\_central} \) be the maximum hours allotted for central processing.
+    \item Let \( \text{max\_distributed} \) be the maximum hours allotted for distributed processing.
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let 
+\[
+x_{i,j,k} = 
+\begin{cases} 
+1 & \text{if intervention } j \text{ (isolate or scan) is applied to cluster } i \text{ using method } k \text{ (central or distributed)} \\ 
+0 & \text{otherwise}
+\end{cases}
+\]
+where \( j \in \{ \text{isolate, scan} \} \) and \( k \in \{ \text{central, distributed} \} \).
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Total Cost} = \sum_{i=1}^{N} \sum_{j} \sum_{k} c_{j,k} \cdot p_{j,k,i} \cdot x_{i,j,k}
+\]
+where
+\[
+c_{j,k} = 
+\begin{cases} 
+\text{central\_cost} & \text{if } k = \text{central} \\ 
+\text{distributed\_cost} & \text{if } k = \text{distributed}
+\end{cases}
+\]
+and
+\[
+p_{j,k,i} = 
+\begin{cases} 
+\text{isolate\_central}_{i} & \text{if } j = \text{isolate} \text{ and } k = \text{central} \\ 
+\text{scan\_central}_{i} & \text{if } j = \text{scan} \text{ and } k = \text{central} \\ 
+\text{isolate\_distributed}_{i} & \text{if } j = \text{isolate} \text{ and } k = \text{distributed} \\ 
+\text{scan\_distributed}_{i} & \text{if } j = \text{scan} \text{ and } k = \text{distributed}
+\end{cases}
+\]
+
+\subsection*{Constraints}
+1. Each cluster must have exactly one intervention type:
+\[
+\sum_{j} \sum_{k} x_{i,j,k} = 1 \quad \forall i \in \{1, \dots, N\}
+\]
+
+2. Central processing time constraint:
+\[
+\sum_{i=1}^{N} \sum_{j} \text{max\_central} \cdot x_{i,j,\text{central}} \leq \text{max\_central}
+\]
+
+3. Distributed processing time constraint:
+\[
+\sum_{i=1}^{N} \sum_{j} \text{max\_distributed} \cdot x_{i,j,\text{distributed}} \leq \text{max\_distributed}
+\]
+
+\subsection*{Output}
+The output will provide details of the interventions:
+\begin{verbatim}
+{
+    "interventions": [
+        {
+            "cluster_id": i,
+            "type": j,
+            "method": k,
+            "amount": x_{i,j,k}
+        },
+        for i in 1, ..., N
+    ]
+    "total_cost": Total Cost
+}
+\end{verbatim}
+
+\end{document}

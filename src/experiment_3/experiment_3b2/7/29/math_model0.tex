@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Line Fitting}
+
+\subsection*{Problem Description}
+Given a set of data points \((x_k, y_k)\) for \(k = 1, \ldots, K\), the objective is to fit a line \(y = bx + a\) such that the maximum deviation of observed values \(y_k\) from their predicted values on the line is minimized.
+
+\subsection*{Mathematical Formulation}
+
+\textbf{Variables:}
+\begin{align*}
+a & \text{ - Intercept of the line} \\
+b & \text{ - Slope of the line} \\
+d & \text{ - Maximum deviation}
+\end{align*}
+
+\textbf{Objective Function:}
+\[ 
+\text{Minimize } d 
+\]
+
+\textbf{Subject to Constraints:}
+\begin{align*}
+y_k - (bx_k + a) & \leq d, \quad \forall k = 1, \ldots, K \\
+(bx_k + a) - y_k & \leq d, \quad \forall k = 1, \ldots, K
+\end{align*}
+
+This formulation ensures that the maximum deviation \(d\) is minimized for all data points, effectively reducing the maximum error of the observed values from the fitted line.
+
+\end{document}

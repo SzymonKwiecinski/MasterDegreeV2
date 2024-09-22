@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item \( p \): Index for parts, where \( p = 1, 2, \ldots, P \)
+    \item \( m \): Index for machines, where \( m = 1, 2, \ldots, M \)
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( time_{m,p} \): Time required (in hours) on machine \( m \) to produce a batch of part \( p \)
+    \item \( cost_{m} \): Cost per hour for using machine \( m \)
+    \item \( available_{m} \): Availability (in hours) of machine \( m \) per month
+    \item \( price_{p} \): Selling price per batch of part \( p \)
+    \item \( min\_batches_{p} \): Minimum number of batches of part \( p \) required per month
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( batches_{p} \): Number of batches of part \( p \) to produce
+\end{itemize}
+
+\subsection*{Objective Function}
+\begin{align*}
+    \text{Maximize } Z = \sum_{p=1}^{P} (price_{p} \cdot batches_{p}) - \sum_{m=1}^{M} (cost_{m} \cdot \sum_{p=1}^{P} (time_{m,p} \cdot batches_{p}))
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+    \sum_{p=1}^{P} (time_{m,p} \cdot batches_{p}) & \leq available_{m} & \text{for } m = 1, 2, \ldots, M \\
+    \sum_{p=1}^{P} (time_{M,p} \cdot batches_{p}) + \sum_{p=1}^{P} (time_{M-1,p} \cdot batches_{p}) & \leq available_{M} + available_{M-1} & \text{for sharing machines M and M-1} \\
+    batches_{p} & \geq min\_batches_{p} & \text{for } p = 1, 2, \ldots, P \\
+    batches_{p} & \geq 0 & \text{for } p = 1, 2, \ldots, P \\
+\end{align*}
+
+\end{document}

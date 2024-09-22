@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Fine Foods Company}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $W$: Number of weeks in the season
+    \item $demand_w$: Demand for week $w$, for $w = 1, \ldots, W$
+    \item $regular\_labor_w$: Available regular labor hours for week $w$, for $w = 1, \ldots, W$
+    \item $overtime\_labor_w$: Available overtime labor hours for week $w$, for $w = 1, \ldots, W$
+    \item $assembly\_time$: Hours required to assemble one basket
+    \item $regular\_cost$: Cost of regular labor per hour
+    \item $overtime\_cost$: Cost of overtime labor per hour
+    \item $material\_cost$: Cost of materials for one basket
+    \item $selling\_price$: Selling price of one basket
+    \item $holding\_cost$: Holding cost per unsold basket
+    \item $salvage\_value$: Salvage value of unsold baskets at the end of week $W$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $regular\_used_w$: Hours of regular labor used in week $w$, for $w = 1, \ldots, W$
+    \item $overtime\_used_w$: Hours of overtime labor used in week $w$, for $w = 1, \ldots, W$
+    \item $regular\_basket_w$: Number of baskets assembled using regular labor in week $w$, for $w = 1, \ldots, W$
+    \item $overtime\_basket_w$: Number of baskets assembled using overtime labor in week $w$, for $w = 1, \ldots, W$
+    \item $inventory_w$: Number of baskets on hand at the end of week $w$, for $w = 1, \ldots, W$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize } Z = \sum_{w=1}^{W} \left( \left( selling\_price - material\_cost - holding\_cost \right) \cdot (regular\_basket_w + overtime\_basket_w) - regular\_cost \cdot regular\_used_w - overtime\_cost \cdot overtime\_used_w \right) + salvage\_value \cdot inventory_W
+\]
+
+\subsection*{Constraints}
+1. Demand Satisfaction:
+\[
+regular\_basket_w + overtime\_basket_w + inventory_{w-1} = demand_w + inventory_w \quad \forall w \in \{1, \ldots, W\}
+\]
+
+2. Labor Hour Constraints:
+\[
+\begin{align*}
+regular\_used_w \leq regular\_labor_w \\
+overtime\_used_w \leq overtime\_labor_w \\
+regular\_used_w + overtime\_used_w \geq assembly\_time \cdot (regular\_basket_w + overtime\_basket_w) \quad \forall w \in \{1, \ldots, W\}
+\end{align*}
+\]
+
+3. Non-negativity Constraints:
+\[
+regular\_used_w \geq 0, \quad overtime\_used_w \geq 0, \quad regular\_basket_w \geq 0, \quad overtime\_basket_w \geq 0, \quad inventory_w \geq 0 \quad \forall w \in \{1, \ldots, W\}
+\]
+
+4. Initial Inventory:
+\[
+inventory_1 = 0
+\]
+
+5. Salvage Value Constraint:
+\[
+inventory_W \text{ at week } W
+\]
+
+\end{document}

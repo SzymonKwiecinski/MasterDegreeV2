@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model for Network Flow Optimization}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } Z = \sum_{(i,j) \in A} \sum_{(k,l)} C_{i,j} \cdot x_{i,j}^{k,l}
+\]
+
+\textbf{Subject to:}
+
+1. \textbf{Flow Conservation Constraints:}
+\[
+\sum_{j \, \mid \, (m, j) \in A} x_{m,j}^{k,l} - \sum_{i \, \mid \, (i, m) \in A} x_{i,m}^{k,l} = \begin{cases} 
+B_{k,l}, & \text{if } m = k, \\
+-B_{k,l}, & \text{if } m = l, \\
+0, & \text{otherwise}.
+\end{cases}
+\]
+
+2. \textbf{Capacity Constraints:}
+\[
+\sum_{(k,l)} x_{i,j}^{k,l} \leq U_{i,j} \quad \forall (i,j) \in A
+\]
+
+3. \textbf{Non-negativity Constraints:}
+\[
+x_{i,j}^{k,l} \geq 0 \quad \forall (i,j) \in A, \, \forall (k,l)
+\]
+
+\end{document}

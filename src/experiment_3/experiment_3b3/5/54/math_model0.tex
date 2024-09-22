@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\subsection*{Decision Variables}
+Let \( b_p \) be the number of batches produced of part \( p \) for \( p = 1, \ldots, P \).
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} \left( \text{price}_p \cdot b_p - \sum_{m=1}^{M} \text{cost}_m \cdot \frac{\text{time}_{m,p}}{100} \cdot b_p \right)
+\]
+
+\subsection*{Constraints}
+
+\textbf{Machine Availability Constraints:}
+For each machine \( m \):
+\[
+\sum_{p=1}^{P} \text{time}_{m,p} \cdot b_p \leq \text{available}_m \quad \text{for } m = 1, \ldots, M
+\]
+
+\textbf{Minimum Production Requirements:}
+\[
+b_p \geq \text{min\_batches}_p \quad \text{for } p = 1, \ldots, P
+\]
+
+\textbf{Labor Cost for Machine 1:}
+Let \( h_{1} \) be the total hours used on machine 1:
+\[
+h_1 = \sum_{p=1}^{P} \text{time}_{1,p} \cdot b_p
+\]
+The total labor cost for machine 1 can be expressed as:
+\[
+\text{Labor Cost} = 
+\begin{cases} 
+\text{standard\_cost} \cdot h_1 & \text{if } h_1 \leq \text{overtime\_hour} \\
+\text{standard\_cost} \cdot \text{overtime\_hour} + \text{overtime\_cost} \cdot (h_1 - \text{overtime\_hour}) & \text{if } h_1 > \text{overtime\_hour}
+\end{cases}
+\]
+This cost needs to be included in the objective function.
+
+\subsection*{Non-negativity Constraints}
+\[
+b_p \geq 0 \quad \text{for } p = 1, \ldots, P
+\]
+
+\end{document}

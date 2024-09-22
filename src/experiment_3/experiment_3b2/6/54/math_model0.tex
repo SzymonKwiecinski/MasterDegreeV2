@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Maximizing Profit}
+
+Let \( P \) be the number of different parts, and \( M \) be the number of different machines. The decision variables are:
+\[
+x_p \quad \text{for } p = 1, 2, \ldots, P
+\]
+where \( x_p \) represents the number of batches of part \( p \) produced each month.
+
+The objective is to maximize the total profit, which can be expressed as:
+\[
+\text{Maximize} \quad Z = \sum_{p=1}^{P} \left( \text{price}_p \cdot x_p \right) - \sum_{m=1}^{M} \sum_{p=1}^{P} \left( \text{cost}_m \cdot \text{time}_{m,p} \cdot x_p \right)
+\]
+
+Subject to the following constraints:
+
+1. **Minimum Production Requirement:**
+   \[
+   x_p \geq \text{min\_batches}_p \quad \text{for } p = 1, 2, \ldots, P
+   \]
+
+2. **Machine Availability (for \( m = 2, \ldots, M \)):**
+   \[
+   \sum_{p=1}^{P} \left( \text{time}_{m,p} \cdot x_p \right) \leq \text{available}_m \quad \text{for } m = 2, \ldots, M
+   \]
+
+3. **Outsourced Machine 1 Costs:**
+   \[
+   \sum_{p=1}^{P} \left( \text{time}_{1,p} \cdot x_p \right) \leq \text{overtime\_hour} + \frac{\text{(Available Time for Machine 1)}}{\text{Standard Work Hour}}
+   \]
+
+   The cost for Machine 1 is calculated separately:
+   - If used hours \( \leq \text{overtime\_hour} \), cost is \(\text{standard\_cost} \cdot \sum_{p=1}^{P} \left( \text{time}_{1,p} \cdot x_p \right)\).
+   - If used hours \( > \text{overtime\_hour} \), additional cost is \(\text{overtime\_cost} \cdot \left( \sum_{p=1}^{P} \left( \text{time}_{1,p} \cdot x_p \right) - \text{overtime\_hour} \right)\).
+
+4. **Non-negativity Constraints:**
+   \[
+   x_p \geq 0 \quad \text{for } p = 1, 2, \ldots, P
+   \]
+
+This model determines the optimal number of batches \( x_p \) of each part \( p \) that should be manufactured to maximize the profit.
+
+\end{document}

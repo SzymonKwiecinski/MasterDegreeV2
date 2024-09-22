@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+Let \( K \) be the number of industries and \( T = 5 \) be the number of years.
+
+\subsection*{Decision Variables}
+
+\begin{align*}
+\text{Let } &\text{produce}_{k,t} \text{ be the amount of production by industry } k \text{ in year } t, \\
+&\text{buildcapa}_{k,t} \text{ be the amount used to build productive capacity for industry } k \text{ in year } t, \\
+&\text{stockhold}_{k,t} \text{ be the stock held by industry } k \text{ in year } t.
+\end{align*}
+
+\subsection*{Objective Function}
+
+Maximize the total manpower over the five years:
+
+\[
+\max \sum_{t=1}^{T} \sum_{k=1}^{K} \left( \text{manpowerone}_{k} \cdot \text{produce}_{k,t} + \text{manpowertwo}_{k} \cdot \text{buildcapa}_{k,t} \right)
+\]
+
+\subsection*{Constraints}
+
+1. **Production Capacity Constraints**:
+
+For each industry \( k \) and year \( t \):
+\[
+\text{produce}_{k,t} + \text{buildcapa}_{k,t} \leq \text{capacity}_{k,t}
+\]
+where
+\[
+\text{capacity}_{k,t} = 
+\begin{cases} 
+\text{capacity}_{k} & \text{if } t = 1 \\ 
+\text{capacity}_{k,t-1} + \text{buildcapa}_{k,t-2} & \text{if } t > 1 
+\end{cases}
+\]
+
+2. **Resource Balance Constraints**:
+
+For each industry \( k \) and year \( t \):
+\[
+\sum_{j=1}^{K} \text{inputone}_{k,j} \cdot \text{produce}_{j,t} + \sum_{j=1}^{K} \text{inputtwo}_{k,j} \cdot \text{buildcapa}_{j,t} + \text{stockhold}_{k,t-1} \geq \text{produce}_{k,t} + \text{buildcapa}_{k,t} + \text{stockhold}_{k,t}
+\]
+(for \( t \geq 1 \), \(\text{stockhold}_{k,0} = \text{stock}_{k}\))
+
+3. **Demand Satisfaction Constraints**:
+
+For each industry \( k \) and year \( t \geq 2 \):
+\[
+\text{produce}_{k,t} \geq \text{demand}_{k}
+\]
+
+4. **Non-negativity Constraints**:
+
+\[
+\text{produce}_{k,t} \geq 0, \quad \text{buildcapa}_{k,t} \geq 0, \quad \text{stockhold}_{k,t} \geq 0 \quad \forall k, t
+\]
+
+\end{document}

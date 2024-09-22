@@ -1,0 +1,17 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\begin{align*}
+\text{Maximize} \quad & \sum_{k=1}^{K} (\text{produce}_{k,T-1} + \text{produce}_{k,T}) \\
+
+\text{Subject to} \quad 
+& \text{produce}_{k,t} + \text{buildcapa}_{k,t} \leq \text{capacity}_{k,t}, \quad \forall k, \forall t \\
+& \sum_{k=1}^{K} (\text{manpowerone}_{k} \cdot \text{produce}_{k,t} + \text{manpowertwo}_{k} \cdot \text{buildcapa}_{k,t}) \leq \text{manpower\_limit}, \quad \forall t \\
+& \sum_{j=1}^{K} \text{inputone}_{k,j} \cdot \text{produce}_{j,t} + \text{inputtwo}_{k,j} \cdot \text{buildcapa}_{j,t} \leq \text{stockhold}_{k,t} + \text{produce}_{k,t}, \quad \forall k, \forall t \\
+& \text{stockhold}_{k,t+1} = \text{stockhold}_{k,t} - \sum_{j=1}^{K} \text{inputone}_{j,k} \cdot \text{produce}_{k,t} + \sum_{j=1}^{K} \text{inputtwo}_{j,k} \cdot \text{buildcapa}_{k,t}, \quad \forall k, \forall t \\
+& \text{stockhold}_{k,0} = \text{stock}_{k}, \quad \text{capacity}_{k,0} = \text{capacity}_{k}, \quad \forall k \\
+& \text{produce}_{k,t}, \text{buildcapa}_{k,t}, \text{stockhold}_{k,t} \geq 0, \quad \forall k, \forall t
+\end{align*}
+
+\end{document}

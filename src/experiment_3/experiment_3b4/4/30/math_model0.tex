@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+\[
+\min \sum_{k=1}^{K} (e_k^+ + e_k^-)
+\]
+
+\textbf{Subject to:}
+
+\[
+y_k = c \cdot x_k^2 + b \cdot x_k + a + e_k^+ - e_k^-, \quad \forall k = 1, \ldots, K
+\]
+
+\[
+e_k^+ \geq 0, \quad e_k^- \geq 0, \quad \forall k = 1, \ldots, K
+\]
+
+\textbf{Variables:}
+
+\[
+a, b, c, e_k^+, e_k^- \quad \text{(for } k = 1, \ldots, K\text{)}
+\]
+
+\end{document}

@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Rocket Control}
+
+\subsection*{Objective:}
+
+Minimize the total fuel consumption:
+\[
+\min \quad \sum_{t=0}^{T-1} u_t
+\]
+
+\subsection*{Subject to:}
+
+\begin{align*}
+& \text{Initial conditions:} \\
+& x_0 = x_0 \quad \text{(given initial position)} \\
+& v_0 = v_0 \quad \text{(given initial velocity)} \\
+
+& \text{Dynamics equations for } t = 0, \ldots, T-1: \\
+& x_{t+1} = x_t + v_t \\
+& v_{t+1} = v_t + a_t \\
+
+& \text{Final conditions:} \\
+& x_T = x_T \quad \text{(given target position)} \\
+& v_T = v_T \quad \text{(given target velocity)} \\
+
+& \text{Absolute value constraints:} \\
+& u_t \geq a_t, \quad u_t \geq -a_t \quad \text{for } t = 0, \ldots, T-1.
+\end{align*}
+
+\end{document}

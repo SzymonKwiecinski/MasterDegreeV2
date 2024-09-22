@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model to Minimize Absolute Deviations:}
+
+\[
+\begin{aligned}
+    & \text{Minimize:} && \sum_{k=1}^{K} z_k \\
+    & \text{Subject to:} \\
+    & \quad z_k \geq y_k - (bx_k + a), \quad \forall k = 1, \ldots, K \\
+    & \quad z_k \geq -(y_k - (bx_k + a)), \quad \forall k = 1, \ldots, K \\
+    & \quad z_k \geq 0, \quad \forall k = 1, \ldots, K \\
+\end{aligned}
+\]
+
+Where:
+\begin{itemize}
+    \item \( y_k \) are the observed values of \( y \)
+    \item \( x_k \) are the observed values of \( x \)
+    \item \( a \) is the intercept of the fitted line
+    \item \( b \) is the slope of the fitted line
+    \item \( z_k \) are auxiliary variables for the absolute deviations
+\end{itemize}
+
+\end{document}
+{
+    "intercept": intercept,
+    "slope": slope
+}

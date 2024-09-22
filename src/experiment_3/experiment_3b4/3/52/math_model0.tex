@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item Let \( P \) be the set of power plants, indexed by \( p \).
+    \item Let \( C \) be the set of cities, indexed by \( c \).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{supply}_p \): The supply capacity of power plant \( p \) (in million kWh).
+    \item \( \text{demand}_c \): The peak demand of city \( c \) (in million kWh).
+    \item \( \text{transmission}_{p,c} \): The transmission cost from power plant \( p \) to city \( c \) (in dollars per million kWh).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{send}_{p,c} \): The amount of electricity sent from power plant \( p \) to city \( c \) (in million kWh).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total transmission cost:
+\[
+\text{Minimize} \quad \text{total\_cost} = \sum_{p \in P} \sum_{c \in C} \text{transmission}_{p,c} \times \text{send}_{p,c}
+\]
+
+\subsection*{Constraints}
+\begin{enumerate}
+    \item \textbf{Supply Constraint for each power plant:}
+    \[
+    \sum_{c \in C} \text{send}_{p,c} \leq \text{supply}_p, \quad \forall p \in P
+    \]
+    This ensures that no power plant sends more electricity than its capacity.
+
+    \item \textbf{Demand Constraint for each city:}
+    \[
+    \sum_{p \in P} \text{send}_{p,c} = \text{demand}_c, \quad \forall c \in C
+    \]
+    This ensures that each city's demand is fully met.
+
+    \item \textbf{Non-negativity Constraint:}
+    \[
+    \text{send}_{p,c} \geq 0, \quad \forall p \in P, \forall c \in C
+    \]
+    This ensures that negative electricity amounts are not possible.
+\end{enumerate}
+
+\end{document}

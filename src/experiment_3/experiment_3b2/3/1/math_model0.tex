@@ -1,0 +1,14 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\begin{align*}
+\text{Maximize } & Z = \sum_{j=1}^{M} \text{price}_j \cdot x_j \\
+\text{subject to } & \\
+& \sum_{j=1}^{M} \text{req}_{i,j} \cdot x_j \leq \text{available}_i, \quad i = 1, 2, \ldots, N \\
+& x_j \geq 0, \quad j = 1, 2, \ldots, M
+\end{align*}
+
+\end{document}

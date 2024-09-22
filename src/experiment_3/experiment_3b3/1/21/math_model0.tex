@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Engineering Factory Problem}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item $M$: Set of machines, indexed by $m = 1, \ldots, num_m$.
+    \item $K$: Set of products, indexed by $k = 1, \ldots, K$.
+    \item $I$: Set of months, indexed by $i = 1, \ldots, I$.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $profit_k$: Profit earned per unit of product $k$.
+    \item $time_{k,m}$: Time (in hours) required to produce one unit of product $k$ on machine $m$.
+    \item $down_m$: Number of months that machine $m$ is down for maintenance.
+    \item $limit_{k,i}$: Marketing limitation for product $k$ in month $i$.
+    \item $store\_price$: Cost of storing one unit of any product per month.
+    \item $keep\_quantity$: Desired stock level for each product at the end of each month.
+    \item $n\_workhours$: Total working hours available in one month.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $sell_{k,i}$: Quantity of product $k$ sold in month $i$.
+    \item $manufacture_{k,i}$: Quantity of product $k$ manufactured in month $i$.
+    \item $storage_{k,i}$: Quantity of product $k$ stored at the end of month $i$.
+    \item $maintain_{m,i}$: A binary variable indicating whether machine $m$ is under maintenance in month $i$.
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{i=1}^{I} \sum_{k=1}^{K} profit_k \cdot sell_{k,i} - \sum_{i=1}^{I} \sum_{k=1}^{K} store\_price \cdot storage_{k,i}
+\]
+
+\textbf{Subject to:}
+
+1. \textbf{Production Capacity:}
+\[
+\sum_{k=1}^{K} time_{k,m} \cdot manufacture_{k,i} \leq n\_workhours \cdot (6 \cdot 2 - \sum_{m=1}^{M} maintain_{m,i}) \quad \forall m \in M, \forall i \in I
+\]
+
+2. \textbf{Sales Limitations:}
+\[
+sell_{k,i} \leq limit_{k,i} \quad \forall k \in K, \forall i \in I
+\]
+
+3. \textbf{Storage Balance:}
+\[
+storage_{k,i} = storage_{k,i-1} + manufacture_{k,i} - sell_{k,i} \quad \forall k \in K, \forall i \in \{2,\ldots,I\}
+\]
+\[
+storage_{k,1} = 0 \quad \forall k \in K
+\]
+
+4. \textbf{End of Month Stock:}
+\[
+storage_{k,I} \geq keep\_quantity \quad \forall k \in K
+\]
+
+5. \textbf{Machine Maintenance:}
+\[
+\sum_{i=1}^{I} maintain_{m,i} = down_m \quad \forall m \in M
+\]
+\[
+maintain_{m,i} \in \{0, 1\} \quad \forall m \in M, \forall i \in I
+\]
+
+\textbf{Non-negativity Constraints:}
+\[
+sell_{k,i} \geq 0, \quad manufacture_{k,i} \geq 0, \quad storage_{k,i} \geq 0 \quad \forall k \in K, \forall i \in I
+\]
+
+\end{document}

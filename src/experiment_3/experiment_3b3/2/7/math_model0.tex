@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Trajectory Optimization Model}
+
+We define the variables involved in the problem:
+
+\begin{itemize}
+    \item Let \( x_t \) be the position of the rocket at time \( t \).
+    \item Let \( v_t \) be the velocity of the rocket at time \( t \).
+    \item Let \( a_t \) be the acceleration of the rocket at time \( t \).
+    \item The initial position and velocity are given as \( x_0 \) and \( v_0 \).
+    \item The target position and velocity at time \( T \) are given as \( x_T \) and \( v_T \).
+\end{itemize}
+
+The dynamical equations governing the motion of the rocket are given by:
+
+\[
+\begin{aligned}
+    x_{t+1} &= x_t + v_t, \\
+    v_{t+1} &= v_t + a_t.
+\end{aligned}
+\]
+
+The objective is to minimize the maximum thrust required, which is represented as:
+
+\[
+\text{minimize} \quad \max_{t} |a_t|.
+\]
+
+Subject to the following constraints for \( t = 0, 1, 2, \ldots, T-1 \):
+
+\[
+\begin{aligned}
+    x_0 &= x_0, \\
+    v_0 &= v_0, \\
+    x_T &= x_T, \\
+    v_T &= v_T, \\
+    x_{t+1} &= x_t + v_t, \\
+    v_{t+1} &= v_t + a_t.
+\end{aligned}
+\]
+
+The total fuel spent, denoted as \( \text{fuel\_spent} \), is proportional to the total acceleration applied, which can be represented as:
+
+\[
+\text{fuel\_spent} = \sum_{t=0}^{T-1} |a_t|.
+\]
+
+The expected output format after solving the optimization problem will be:
+
+\[
+\{
+    x: [x_i \text{ for } i = 0, 1, \ldots, T],
+    v: [v_i \text{ for } i = 0, 1, \ldots, T],
+    a: [a_i \text{ for } i = 0, 1, \ldots, T],
+    fuel\_spend: \text{fuel\_spent},
+\}
+\]
+
+\end{document}

@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Wild Sports}
+
+\subsection*{Objective}
+Maximize the total profit:
+\[
+Z = \sum_{j=1}^{M} (price_j - cost_j) \cdot x_j
+\]
+
+\subsection*{Subject to Constraints}
+
+\textbf{Material Constraints:}
+\[
+\sum_{j=1}^{M} req_{i,j} \cdot x_j \leq available_i \quad \text{for } i=1, \ldots, N
+\]
+
+\textbf{Demand Constraints:}
+\[
+x_j \leq demand_j \quad \text{for } j=1, \ldots, M
+\]
+
+\textbf{Non-negativity Constraints:}
+\[
+x_j \geq 0 \quad \text{for } j=1, \ldots, M
+\]
+
+\end{document}

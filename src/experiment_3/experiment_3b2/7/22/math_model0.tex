@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item \( k \): Index for manpower category, \( k = 1, \ldots, K \).
+    \item \( i \): Index for years, \( i = 1, \ldots, I \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    \text{recruit}_{k,i} & : \text{Number of recruits for manpower \( k \) in year \( i \)} \\
+    \text{overmanning}_{k,i} & : \text{Number of overmanned employees for manpower \( k \) in year \( i \)} \\
+    \text{short}_{k,i} & : \text{Number of short-time employees for manpower \( k \) in year \( i \)} \\
+    \text{redundancy}_{k,i} & : \text{Number of redundancies for manpower \( k \) in year \( i \)}
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total redundancy cost:
+\[
+\min \sum_{k=1}^{K} \sum_{i=1}^{I} \text{redundancy}_{k,i} \times \text{costredundancy}_{k}
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+    & \text{Manpower Balance:} \\
+    & \quad \text{strength}_{k,i-1} + \text{recruit}_{k,i} - \text{redundancy}_{k,i} \times(1 - \text{moreonewaste}_{k}) + \text{overmanning}_{k,i} + 0.5 \times \text{short}_{k,i} \\
+    & \quad \geq \text{requirement}_{k,i} \\
+    & \text{Recruitment Limit:} \\
+    & \quad \text{recruit}_{k,i} \leq \text{recruit}_{k} \\
+    & \text{Overmanning Limit:} \\
+    & \quad \text{overmanning}_{k,i} \leq \text{num\_overman} \\
+    & \text{Short-time Working Limit:} \\
+    & \quad \text{short}_{k,i} \leq \text{num\_shortwork} \\
+    & \text{Non-negativity:} \\
+    & \quad \text{recruit}_{k,i}, \text{overmanning}_{k,i}, \text{short}_{k,i}, \text{redundancy}_{k,i} \geq 0
+\end{align*}
+
+\end{document}

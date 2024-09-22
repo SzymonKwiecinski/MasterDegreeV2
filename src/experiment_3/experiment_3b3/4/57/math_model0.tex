@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Seaport Container Management}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item \( t \): month index, \( t = 1, 2, \ldots, T \)
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{demand}_{t} \): demand for containers by ships in month \( t \) 
+    \item \( \text{unload\_cost}_{t} \): unloading cost per container in month \( t \)
+    \item \( \text{unload\_capacity}_{t} \): maximum number of containers that can be unloaded in month \( t \)
+    \item \( \text{holding\_cost} \): holding cost for each container in the yard
+    \item \( \text{max\_container} \): maximum storage capacity of the yard
+    \item \( \text{init\_container} \): initial number of containers in the yard at month 1
+    \item \( \text{num\_cranes} \): maximum number of cranes that can be rented each month
+    \item \( \text{crane\_capacity} \): capacity of each crane
+    \item \( \text{crane\_cost} \): rental cost of each crane
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item \( \text{amount}_{t} \): number of containers unloaded in month \( t \)
+    \item \( \text{crane}_{t} \): number of cranes rented in month \( t \)
+    \item \( \text{total\_cost} \): total cost incurred over the period
+    \item \( \text{hold}_{t} \): number of containers held in the yard at the end of month \( t \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{total\_cost} = \sum_{t=1}^{T} \left( \text{unload\_cost}_{t} \cdot \text{amount}_{t} + \text{holding\_cost} \cdot \text{hold}_{t} + \text{crane\_cost} \cdot \text{crane}_{t} \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+1. & \quad \text{amount}_{t} \leq \text{unload\_capacity}_{t}, \quad \forall t \\
+2. & \quad \text{hold}_{t-1} + \text{amount}_{t} - \text{demand}_{t} = \text{hold}_{t}, \quad \forall t \\
+3. & \quad 0 \leq \text{hold}_{t} \leq \text{max\_container}, \quad \forall t \\
+4. & \quad \text{hold}_{T} = 0 \\
+5. & \quad \text{crane}_{t} \cdot \text{crane\_capacity} \geq \text{amount}_{t}, \quad \forall t \\
+6. & \quad 0 \leq \text{crane}_{t} \leq \text{num\_cranes}, \quad \forall t \\
+7. & \quad \text{amount}_{1} = \text{init\_container} - \text{hold}_{1} \\
+\end{align*}
+
+\end{document}

@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Indices}
+\begin{align*}
+    k & \quad \text{Index for products, } k = 1, \ldots, K \\
+    m & \quad \text{Index for machines, } m = 1, \ldots, M \\
+    i & \quad \text{Index for months, } i = 1, \ldots, I
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+    \text{num\_machines}_m & \quad \text{Number of machine } m \text{ available}\\
+    \text{profit}_k & \quad \text{Profit per unit of product } k\\
+    \text{time}_{k,m} & \quad \text{Time required on machine } m \text{ to produce one unit of product } k\\
+    \text{maintain}_{i,m} & \quad \text{Number of machine } m \text{ under maintenance in month } i\\
+    \text{limit}_{k,i} & \quad \text{Max number of product } k \text{ that can be sold in month } i\\
+    \text{store\_price} & \quad \text{Storage cost per unit per month}\\
+    \text{keep\_quantity} & \quad \text{Minimum stock required at end of the period}\\
+    \text{n\_workhours} & \quad \text{Number of working hours per day}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    \text{sell}_{k,i} & \quad \text{Units of product } k \text{ sold in month } i\\
+    \text{manufacture}_{k,i} & \quad \text{Units of product } k \text{ manufactured in month } i\\
+    \text{storage}_{k,i} & \quad \text{Units of product } k \text{ in storage at the end of month } i
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total profit over all months:
+\begin{align*}
+    \max \sum_{i=1}^{I} \sum_{k=1}^{K} \left( \text{profit}_k \times \text{sell}_{k,i} - \text{store\_price} \times \text{storage}_{k,i} \right)
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+    \text{sell}_{k,i} & \leq \text{limit}_{k,i}, \quad \forall k, \forall i \\
+    \text{manufacture}_{k,i} & = \text{sell}_{k,i} + \text{storage}_{k,i} - \text{storage}_{k,i-1}, \quad \forall k, \forall i \\
+    \text{storage}_{k,0} & = 0, \quad \forall k \\
+    \text{storage}_{k,I} & \geq \text{keep\_quantity}, \quad \forall k \\
+    \sum_{k=1}^{K} \text{time}_{k,m} \times \text{manufacture}_{k,i} & \leq \left( \text{num\_machines}_m - \text{maintain}_{i,m} \right) \times 24 \times \text{n\_workhours}, \quad \forall m, \forall i \\
+    0 & \leq \text{storage}_{k,i} \leq 100, \quad \forall k, \forall i
+\end{align*}
+
+\end{document}

@@ -1,0 +1,14 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model:}
+
+\begin{align*}
+\text{maximize} \quad & \sum_{i=1}^{N} (bought_i - \text{sell}_i) \times \text{futurePrice}_i \\
+\text{subject to} \quad 
+& \sum_{i=1}^{N} \left(\text{sell}_i \times \text{currentPrice}_i \times (1 - \text{transactionRate}) - \left(\left(\text{sell}_i \times \text{currentPrice}_i - \text{sell}_i \times \text{buyPrice}_i\right) \times \text{taxRate}\right)\right) \geq K, \\
+& 0 \leq \text{sell}_i \leq \text{bought}_i \quad \text{for all } i.
+\end{align*}
+
+\end{document}

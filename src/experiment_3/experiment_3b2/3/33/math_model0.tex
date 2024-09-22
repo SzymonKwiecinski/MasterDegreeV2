@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Knapsack Problem Formulation:}
+
+\textbf{Given:}
+\begin{itemize}
+    \item Maximum Capacity: \( C \)
+    \item Values of items: \( \mathbf{value} = [\text{value}_1, \text{value}_2, \ldots, \text{value}_K] \)
+    \item Sizes of items: \( \mathbf{size} = [\text{size}_1, \text{size}_2, \ldots, \text{size}_K] \)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\[
+x_k =
+\begin{cases} 
+1, & \text{if item } k \text{ is included in the knapsack} \\
+0, & \text{otherwise}
+\end{cases}
+\]
+for \( k = 1, 2, \ldots, K \).
+
+\textbf{Objective:}
+Maximize the total value of the included items:
+\[
+\max \sum_{k=1}^{K} \text{value}_k \cdot x_k
+\]
+
+\textbf{Constraints:}
+\begin{align}
+\sum_{k=1}^{K} \text{size}_k \cdot x_k & \leq C \quad \text{(Capacity constraint)}
+\end{align}
+
+\textbf{Binary Constraints:}
+\[
+x_k \in \{0, 1\} \quad \text{for } k = 1, 2, \ldots, K
+\]
+
+\end{document}

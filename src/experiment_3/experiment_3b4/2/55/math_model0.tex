@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $P$: Number of different parts.
+    \item $M$: Number of different machines.
+    \item $\text{time}_{m,p}$: Time required on machine $m$ for part $p$ (hours per batch of 100).
+    \item $\text{cost}_m$: Cost per hour for using machine $m$.
+    \item $\text{available}_m$: Availability of machine $m$ (hours per month).
+    \item $\text{price}_p$: Selling price per batch of part $p$.
+    \item $\text{min\_batches}_p$: Minimum required batches of part $p$.
+    \item $\text{standard\_cost}$: Standard labor cost per hour for machine 1.
+    \item $\text{overtime\_cost}$: Overtime labor cost per hour for machine 1.
+    \item $\text{overtime\_hour}$: Maximum hours before overtime rates apply for machine 1.
+    \item $\text{min\_profit}$: Minimum desired profit.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_p$: Number of batches of part $p$ produced for $p = 1, \dots, P$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\begin{equation*}
+\text{Profit} = \sum_{p=1}^{P} \text{price}_p \cdot x_p - \sum_{m=2}^{M} \text{cost}_m \cdot \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p - \text{Labor Cost}
+\end{equation*}
+
+Where "Labor Cost" is defined as:
+\begin{equation*}
+\text{Labor Cost} = 
+\begin{cases} 
+\text{standard\_cost} \cdot h_1, & \text{if } h_1 \leq \text{overtime\_hour} \\
+\text{standard\_cost} \cdot \text{overtime\_hour} + \text{overtime\_cost} \cdot (h_1 - \text{overtime\_hour}), & \text{if } h_1 > \text{overtime\_hour}
+\end{cases}
+\end{equation*}
+
+\subsection*{Constraints}
+1. Demand constraints:
+   \begin{equation*}
+   x_p \geq \text{min\_batches}_p \quad \forall p = 1, \dots, P
+   \end{equation*}
+
+2. Machine availability (Machine 1 excluded):
+   \begin{equation*}
+   \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \leq \text{available}_m \quad \forall m = 2, \dots, M
+   \end{equation*}
+
+3. Profit constraint:
+   \begin{equation*}
+   \text{Profit} \geq \text{min\_profit}
+   \end{equation*}
+
+4. Non-negativity constraint:
+   \begin{equation*}
+   x_p \geq 0 \quad \forall p = 1, \dots, P
+   \end{equation*}
+
+\end{document}

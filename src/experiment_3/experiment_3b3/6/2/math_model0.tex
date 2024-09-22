@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the DEC System Production Problem}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $N$ : Number of different computer systems
+    \item $is\_workstation_i$ : Boolean indicating if system $i$ is a workstation
+    \item $price_i$ : Price of system $i$ in dollars
+    \item $disk_i$ : Average disk drives requested by customers for system $i$
+    \item $mem_i$ : Average number of 256K memory boards used per system $i$
+    \item $max\_cpu$ : Maximum number of CPUs available
+    \item $min\_disk$ : Minimum available disk drives
+    \item $max\_disk$ : Maximum available disk drives
+    \item $min\_mem$ : Minimum available 256K memory boards
+    \item $max\_mem$ : Maximum available 256K memory boards
+    \item $demand_i$ : Maximum demand for system $i$
+    \item $demand\_GP$ : Maximum demand for the whole GP family
+    \item $demand\_WS$ : Maximum demand for the whole WS family
+    \item $preorder_i$ : Preorders received for system $i$
+    \item $alt\_mem$ : Amount of alternative memory boards available
+    \item $alt\_compatible_i$ : Boolean indicating if system $i$ is compatible with alternative memory
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_i$ : Number of systems $i$ to produce
+    \item $mem\_used_i$ : Total 256K memory boards used for system $i$
+    \item $alt\_used_i$ : Total alternative memory boards used for system $i$
+    \item $disk\_used_i$ : Total disk drives used for system $i$
+\end{itemize}
+
+\textbf{Objective Function:}
+
+Maximize profit:
+\[
+\max Z = \sum_{i=1}^{N} (price_i \cdot x_i) - \text{costs}
+\]
+
+where costs may include the cost of memory boards and disk drives.
+
+\textbf{Constraints:}
+\begin{align*}
+1. & \quad \sum_{i=1}^{N} x_i \leq max\_cpu \tag{CPU constraint}\\
+2. & \quad \sum_{i=1}^{N} disk\_used_i = \sum_{i=1}^{N} (disk_i \cdot x_i) \quad \text{and}\quad min\_disk \leq \sum_{i=1}^{N} disk\_used_i \leq max\_disk \tag{Disk constraint}\\
+3. & \quad \sum_{i=1}^{N} mem\_used_i = \sum_{i=1}^{N} (mem_i \cdot x_i) + \sum_{i=1}^{N} (alt\_compatible_i \cdot alt\_used_i) \\ 
+   & \quad \text{and} \quad min\_mem \leq \sum_{i=1}^{N} mem\_used_i \leq max\_mem \tag{Memory constraint}\\
+4. & \quad x_i \geq preorder_i \quad \forall i \in [1, N] \tag{Preorder constraint}\\
+5. & \quad x_i \leq demand_i \quad \forall i \in [1, N] \tag{Demand constraint}\\
+6. & \quad \sum_{i \in GP} x_i \leq demand\_GP \tag{GP demand constraint}\\
+7. & \quad \sum_{i \in WS} x_i \leq demand\_WS \tag{WS demand constraint}
+\end{align*}
+
+\textbf{Output:}
+The output should be a JSON file containing:
+\begin{itemize}
+    \item \texttt{"system\_output"}: List of systems produced with details
+    \item \texttt{"profit"}: Total profit for the next quarter
+\end{itemize}
+
+\end{document}

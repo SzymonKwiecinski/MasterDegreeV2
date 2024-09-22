@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Economic Production and Capacity Building}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item \( produce_{k, t} \): Amount of units produced by industry \( k \) in year \( t \)
+    \item \( buildcapa_{k, t} \): Amount of units used to build productive capacity for industry \( k \) in year \( t \)
+    \item \( stock_{k, t} \): Amount of stock of industry \( k \) held in year \( t \)
+\end{itemize}
+
+\subsection*{Parameters}
+Given:
+\begin{itemize}
+    \item \( inputone_{k, j} \): Input from industry \( j \) required by industry \( k \)
+    \item \( manpowerone_{k} \): Manpower requirement for producing one unit in industry \( k \)
+    \item \( inputtwo_{k, j} \): Input from industry \( j \) required to build productive capacity for industry \( k \)
+    \item \( manpowertwo_{k} \): Manpower requirement for building one unit of productive capacity in industry \( k \)
+    \item \( stock_{k} \): Initial stock of industry \( k \) in year 0
+    \item \( capacity_{k} \): Initial capacity of industry \( k \)
+    \item \( demand_{k} \): Exogenous consumption requirement from industry \( k \) in years 1 to 5
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total manpower requirement over the five years:
+\[
+\text{Maximize } Z = \sum_{t=1}^{5} \sum_{k=1}^{K} (manpowerone_{k} \cdot produce_{k, t} + manpowertwo_{k} \cdot buildcapa_{k,t})
+\]
+
+\subsection*{Constraints}
+1. Production and demand constraints for year \( t \):
+\[
+produce_{k, t} + stock_{k, t-1} = demand_{k} + stock_{k, t} \quad \forall k, \, t = 1, \ldots, 5
+\]
+
+2. Input requirements for production in year \( t \):
+\[
+\sum_{j=1}^{K} inputone_{k, j} \cdot produce_{j, t-1} + stock_{k, t-1} \geq produce_{k, t} \quad \forall k, \, t = 1, \ldots, 5
+\]
+
+3. Building capacity constraints:
+\[
+\sum_{j=1}^{K} inputtwo_{k, j} \cdot buildcapa_{j, t} \leq capacity_{k} \quad \forall k, \, t = 1, \ldots, 5
+\]
+
+4. Manpower availability constraints:
+\[
+\sum_{k=1}^{K} manpowerone_{k} \cdot produce_{k, t} + manpowertwo_{k} \cdot buildcapa_{k, t} \leq \text{Total manpower available} \quad \forall t = 1, \ldots, 5
+\]
+
+5. Capacity increment constraints (output from year \( t \) increases capacity in year \( t+2 \)):
+\[
+capacity_{k, t+2} = capacity_{k} + \sum_{t=1}^{T} buildcapa_{k, t} \quad \forall k
+\]
+
+6. Non-negativity constraints:
+\[
+produce_{k, t} \geq 0, \quad buildcapa_{k, t} \geq 0, \quad stock_{k, t} \geq 0 \quad \forall k, \, t
+\]
+
+\end{document}

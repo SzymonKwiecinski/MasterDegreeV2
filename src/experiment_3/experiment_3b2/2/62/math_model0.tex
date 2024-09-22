@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+
+\begin{document}
+
+\section*{MILP Model for the Traveling Salesman Problem}
+
+\textbf{Sets and Indices:}
+\begin{itemize}
+    \item $N$ - Total number of towns to visit.
+    \item $i, j \in \{1, \ldots, N\}$ - Indices representing the towns.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $d_{i,j}$ - Distance between town $i$ and town $j$, for all $i \neq j$.
+    \item $start\_city$ - The starting city.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_{i,j}$ - Binary variable, equals 1 if the path travels directly from town $i$ to town $j$, 0 otherwise.
+    \item $u_i$ - Auxiliary continuous variable for subtour elimination, for $i \in \{1, \ldots, N\}$.
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{equation}
+\begin{aligned}
+    \min \sum_{i=1}^{N} \sum_{j=1}^{N} d_{i,j} \cdot x_{i,j}
+\end{aligned}
+\end{equation}
+
+\textbf{Constraints:}
+\begin{align}
+    & \sum_{j=1}^{N} x_{i,j} = 1, \quad \forall i \in \{1, \ldots, N\} \quad (i \neq j) && \text{(leave each city once)} \\
+    & \sum_{i=1}^{N} x_{i,j} = 1, \quad \forall j \in \{1, \ldots, N\} \quad (i \neq j) && \text{(enter each city once)} \\
+    & u_i - u_j + N \cdot x_{i,j} \leq N - 1, \quad \forall i, j \in \{1, \ldots, N\}, i \neq j && \text{(subtour elimination)} \\
+    & u_i \geq 1, \quad \forall i \in \{2, \ldots, N\} \\
+    & u_i \leq N, \quad \forall i \in \{2, \ldots, N\} \\
+    & x_{i,j} \in \{0, 1\}, \quad \forall i, j \in \{1, \ldots, N\}, \, i \neq j
+\end{align}
+
+\textbf{Model Explanation:}
+\begin{itemize}
+    \item The objective function minimizes the total travel distance.
+    \item Constraints (2) and (3) ensure that each city is visited exactly once and left exactly once.
+    \item Constraints (4), (5), and (6) are used for subtour elimination, ensuring that the tour is a single cycle.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Formulation for Consultant Assignment Problem}
+
+\subsection*{Indices and Sets}
+\begin{itemize}
+    \item $I$: Set of projects, indexed by $i$.
+    \item $J$: Set of consultants, indexed by $j$.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $f_j$: Fixed cost of hiring consultant $j$, for each $j \in J$.
+    \item $c_{i,j}$: Additional cost of assigning project $i$ to consultant $j$, for each $i \in I$, $j \in J$.
+    \item $K$: Maximum number of projects a consultant can be assigned.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    x_{i,j} &= 
+    \begin{cases} 
+    1, & \text{if project $i$ is assigned to consultant $j$} \\ 
+    0, & \text{otherwise}
+    \end{cases} \quad \forall i \in I, \forall j \in J \\
+    y_j &= 
+    \begin{cases} 
+    1, & \text{if consultant $j$ is hired} \\ 
+    0, & \text{otherwise}
+    \end{cases} \quad \forall j \in J
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize} \quad \sum_{j \in J} f_j y_j + \sum_{i \in I} \sum_{j \in J} c_{i,j} x_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    &\sum_{j \in J} x_{i,j} = 1, &\forall i \in I \quad &\text{(Each project is assigned to one consultant)} \\
+    &\sum_{i \in I} x_{i,j} \leq K y_j, &\forall j \in J \quad &\text{(Each consultant is assigned up to $K$ projects)} \\
+    &x_{i,j} \leq y_j, &\forall i \in I, \forall j \in J \quad &\text{(Projects assigned only if consultant is hired)} \\
+    &x_{i,j}, y_j \in \{0, 1\}, &\forall i \in I, \forall j \in J &\text{(Binary decision variables)}
+\end{align}
+
+\end{document}

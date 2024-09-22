@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Formulation for Traveling Salesman Problem}
+
+\subsection*{Sets:}
+\begin{itemize}
+    \item Let \( \mathcal{C} = \{1, 2, \ldots, N\} \) be the set of towns, where each town represents a city.
+\end{itemize}
+
+\subsection*{Parameters:}
+\begin{itemize}
+    \item \( \text{distance}_{i,j} \) is the distance between city \( i \) and city \( j \), \( \forall i, j \in \mathcal{C} \).
+    \item \( \text{start\_city} \) is the city where the traveler starts and ends their journey.
+\end{itemize}
+
+\subsection*{Decision Variables:}
+\begin{itemize}
+    \item \( x_{i,j} \) is a binary variable that equals \( 1 \) if the traveler goes directly from city \( i \) to city \( j \), and \( 0 \) otherwise.
+    \item \( u_i \) is a continuous variable to help eliminate subtours for city \( i \).
+\end{itemize}
+
+\subsection*{Objective Function:}
+Minimize the total travel distance:
+\[
+\text{Minimize} \quad \sum_{i \in \mathcal{C}} \sum_{j \in \mathcal{C}} \text{distance}_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints:}
+\begin{itemize}
+    \item Each city must be departed exactly once:
+    \[
+    \sum_{j \in \mathcal{C}} x_{i,j} = 1, \quad \forall i \in \mathcal{C}
+    \]
+
+    \item Each city must be entered exactly once:
+    \[
+    \sum_{i \in \mathcal{C}} x_{i,j} = 1, \quad \forall j \in \mathcal{C}
+    \]
+
+    \item Subtour elimination constraints:
+    \[
+    u_i - u_j + N \cdot x_{i,j} \leq N - 1, \quad \forall i, j \in \mathcal{C}, \, i \neq j
+    \]
+    \[
+    1 \leq u_i \leq N, \quad \forall i \in \mathcal{C}
+    \]
+
+    \item Binary constraint on decision variables:
+    \[
+    x_{i,j} \in \{0, 1\}, \quad \forall i, j \in \mathcal{C}
+    \]
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Rocket Trajectory Optimization}
+
+Let \( x_t \), \( v_t \), and \( a_t \) represent the position, velocity, and acceleration of the rocket at time \( t \), respectively. The dynamics of the system can be described by the following discrete-time equations:
+
+\[
+x_{t+1} = x_t + v_t
+\]
+
+\[
+v_{t+1} = v_t + a_t
+\]
+
+The objective is to minimize the maximum thrust required, which can be expressed as:
+
+\[
+\text{minimize } \max_{t} |a_t|
+\]
+
+We are subject to the following constraints:
+
+\begin{align*}
+x_0 & = \text{initial position} \\
+v_0 & = \text{initial velocity} \\
+x_T & = \text{target position at time } T \\
+v_T & = \text{target velocity at time } T \\
+T   & = \text{total time}
+\end{align*}
+
+The optimization problem can be formulated as follows:
+
+\begin{align*}
+\text{Minimize} & \quad M \\
+\text{Subject to:} & \\
+x_{t+1} & = x_t + v_t \quad \forall t \in \{0, 1, \ldots, T-1\} \\
+v_{t+1} & = v_t + a_t \quad \forall t \in \{0, 1, \ldots, T-1\} \\
+|a_t| & \leq M \quad \forall t \in \{0, 1, \ldots, T-1\} \\
+x_0 & = x_0 \\
+v_0 & = v_0 \\
+x_T & = x_T \\
+v_T & = v_T
+\end{align*}
+
+The output of the model consists of:
+
+\begin{itemize}
+    \item A list of positions:
+    \[
+    x = [x_i \text{ for } i = 0, 1, \ldots, T]
+    \]
+    \item A list of velocities:
+    \[
+    v = [v_i \text{ for } i = 0, 1, \ldots, T]
+    \]
+    \item A list of accelerations:
+    \[
+    a = [a_i \text{ for } i = 0, 1, \ldots, T]
+    \]
+    \item Total fuel spent:
+    \[
+    \text{fuel\_spend} = \text{total fuel consumed}
+    \]
+\end{itemize}
+
+\end{document}

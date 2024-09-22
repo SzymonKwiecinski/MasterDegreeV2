@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+To solve the given linear programming problem, we need to model the communication network and the data transmission constraints. We define variables and constraints to minimize the total cost of data transmission while ensuring all data reaches their intended destinations.
+
+\section*{Variables}
+
+Define \( f_{i,j}^{(k,l)} \) as the flow of data from node \( k \) to node \( l \) through link \( (i, j) \).
+
+\section*{Objective Function}
+
+The objective is to minimize the total cost of data transmission over all links:
+
+\[
+\text{Minimize } \sum_{(i,j) \in A} \sum_{(k,l)} C_{i,j} \cdot f_{i,j}^{(k,l)}
+\]
+
+\section*{Constraints}
+
+1. **Capacity Constraints:**
+
+   For each link \( (i, j) \):
+
+   \[
+   \sum_{(k,l)} f_{i,j}^{(k,l)} \leq U_{i,j}
+   \]
+
+2. **Flow Conservation Constraints:**
+
+   For each node \( n \), and for each data source-destination pair \( (k, l) \):
+
+   \[
+   \begin{cases} 
+   \sum_{j: (n,j) \in A} f_{n,j}^{(k,l)} - \sum_{i: (i,n) \in A} f_{i,n}^{(k,l)} = \begin{cases} 
+   B_{k,l}, & \text{if } n = k \\
+   -B_{k,l}, & \text{if } n = l \\
+   0, & \text{otherwise}
+   \end{cases}
+   \end{cases}
+   \]
+
+3. **Non-negativity Constraints:**
+
+   \[
+   f_{i,j}^{(k,l)} \geq 0, \quad \forall (i,j) \in A, \forall (k,l)
+   \]
+
+\section*{Conclusion}
+
+This linear program will provide the optimized paths with minimized transmission costs, ensuring that all data reach their intended destinations without exceeding the capacity of any communication link.
+
+\end{document}

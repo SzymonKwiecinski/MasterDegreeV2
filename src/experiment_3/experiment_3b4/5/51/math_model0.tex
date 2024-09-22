@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Problem Formulation}
+
+Custom Tees is planning an online advertising campaign with \( A \) different ad types. The goal is to maximize the number of unique clicks within a given budget while satisfying certain constraints related to age demographics and unique clicks.
+
+\subsection*{Parameters}
+\begin{align*}
+    \text{Let } A & \text{ be the number of ad types.} \\
+    \text{Let } \text{goal\_young} & \text{ be the goal of thousand clicks from visitors aged 18-25.} \\
+    \text{Let } \text{goal\_old} & \text{ be the goal of thousand clicks from visitors older than 25.} \\
+    \text{Let } \text{goal\_unique\_young} & \text{ be the goal of thousand unique clicks from visitors aged 18-25.} \\
+    \text{Let } \text{goal\_unique\_old} & \text{ be the goal of thousand unique clicks from visitors older than 25.} \\
+    \text{Let } \text{young\_clicks}_{a} & \text{ be the estimated percentage of clicks from the 18-25 age range for ad type } a. \\
+    \text{Let } \text{old\_clicks}_{a} & \text{ be the estimated percentage of clicks from older visitors for ad type } a. \\
+    \text{Let } \text{cost}_{a} & \text{ be the cost of ad type } a \text{ per 1000 clicks.} \\
+    \text{Let } \text{max\_clicks}_{a} & \text{ be the maximum allowable clicks for ad type } a \text{ in thousands.} \\
+    \text{Let } \text{unique\_clicks}_{a} & \text{ be the estimated percentage of unique visitors for ad type } a. \\
+    \text{Let } \text{budget} & \text{ be the total advertising budget.}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    \text{Let } x_{a} & \text{ be the number of clicks purchased for each ad type } a \text{ in thousands.}
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total number of unique clicks:
+\[
+\max \sum_{a=1}^{A} \text{unique\_clicks}_{a} \times x_{a}
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+    & \sum_{a=1}^{A} \text{cost}_{a} \times x_{a} \leq \text{budget} & \text{(Budget constraint)} \\
+    & \sum_{a=1}^{A} \text{young\_clicks}_{a} \times x_{a} \geq \text{goal\_young} & \text{(Young clicks constraint)} \\
+    & \sum_{a=1}^{A} \text{old\_clicks}_{a} \times x_{a} \geq \text{goal\_old} & \text{(Old clicks constraint)} \\
+    & \sum_{a=1}^{A} \text{unique\_clicks}_{a} \times x_{a} \geq \text{goal\_unique\_young} & \text{(Unique young clicks constraint)} \\
+    & \sum_{a=1}^{A} \text{unique\_clicks}_{a} \times x_{a} \geq \text{goal\_unique\_old} & \text{(Unique old clicks constraint)} \\
+    & 0 \leq x_{a} \leq \text{max\_clicks}_{a} & \text{for all } a = 1, \ldots, A.
+\end{align*}
+
+\end{document}

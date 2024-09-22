@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Maximizing Profit}
+
+\subsection*{Decision Variables:}
+\[
+x_p \text{ : Number of batches of part } p \text{ produced, for } p = 1, 2, \ldots, P
+\]
+
+\subsection*{Objective Function:}
+\[
+\text{Maximize } \sum_{p=1}^{P} (\text{price}_{p} \cdot x_p) - \sum_{m=1}^{M} \left( \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \cdot \text{cost}_{m} \right)
+\]
+
+\subsection*{Constraints:}
+
+\begin{itemize}
+    \item \textbf{Machine Time Constraints:}
+    \[
+    \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \leq \text{available}_{m}, \quad m = 1, 2, \ldots, M-2
+    \]
+
+    \item \textbf{Shared Availability for Last Two Machines:}
+    \[
+    \sum_{p=1}^{P} \text{time}_{M-1,p} \cdot x_p + \sum_{p=1}^{P} \text{time}_{M,p} \cdot x_p \leq \text{available}_{M-1} + \text{available}_{M}
+    \]
+
+    \item \textbf{Minimum Production Requirements:}
+    \[
+    x_p \geq \text{min_batches}_{p}, \quad p = 1, 2, \ldots, P
+    \]
+
+    \item \textbf{Non-negativity Constraints:}
+    \[
+    x_p \geq 0, \quad p = 1, 2, \ldots, P
+    \]
+\end{itemize}
+
+\end{document}

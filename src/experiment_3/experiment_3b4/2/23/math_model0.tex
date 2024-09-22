@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Objective}
+
+Minimize the total cost:
+\[
+\begin{aligned}
+    & \min \sum_{i=1}^{I} \sum_{k=1}^{K} \Big( \text{costredundancy}_k \times R_{k,i} + \text{costoverman}_k \times O_{k,i} + \text{costshort}_k \times S_{k,i} \Big)
+\end{aligned}
+\]
+
+\subsection*{Constraints}
+
+1. Manpower Balance Constraints:
+\[
+\begin{aligned}
+    & \text{strength}_k (1 - \text{moreonewaste}_k) - \text{(previous year wastage for recruited)} + R_{k,i} - O_{k,i} - 0.5 \times S_{k,i} = \text{requirement}_{k,i}, \\
+    & \quad \forall k = 1, \ldots, K,\; i = 1, \ldots, I
+\end{aligned}
+\]
+
+2. Recruitment Limits:
+\[
+0 \leq R_{k,i} \leq \text{recruit}_k, \quad \forall k, i
+\]
+
+3. Overmanning Limits:
+\[
+\sum_{k=1}^{K} O_{k,i} \leq \text{num\_overman}, \quad \forall i
+\]
+
+4. Short-time Work Limits:
+\[
+0 \leq S_{k,i} \leq \text{num\_shortwork}, \quad \forall k, i
+\]
+
+5. Non-negativity:
+\[
+R_{k,i}, O_{k,i}, S_{k,i} \geq 0, \quad \forall k, i
+\]
+
+\end{document}

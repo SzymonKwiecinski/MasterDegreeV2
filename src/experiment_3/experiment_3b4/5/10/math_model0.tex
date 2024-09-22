@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Student Assignment Problem}
+
+\subsection*{Objective Function}
+Minimize the total distance traveled by all students:
+\[
+\text{Minimize } \sum_{n=1}^{N} \sum_{s=1}^{S} \sum_{g=1}^{G} d_{n,s} \cdot x_{n,s,g}
+\]
+
+\subsection*{Constraints}
+
+1. \textbf{Neighborhood Student Population Constraint:}
+\[
+\sum_{s=1}^{S} x_{n,s,g} = \text{population}_{n,g}, \quad \forall n = 1, \ldots, N \text{ and } \forall g = 1, \ldots, G
+\]
+
+2. \textbf{School Capacity Constraint:}
+\[
+\sum_{n=1}^{N} x_{n,s,g} \leq \text{capacity}_{s,g}, \quad \forall s = 1, \ldots, S \text{ and } \forall g = 1, \ldots, G
+\]
+
+3. \textbf{Non-negativity Constraint:}
+\[
+x_{n,s,g} \geq 0, \quad \forall n = 1, \ldots, N, \forall s = 1, \ldots, S, \forall g = 1, \ldots, G
+\]
+
+\end{document}

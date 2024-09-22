@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Investment Portfolio}
+\date{}
+\maketitle
+
+\section*{Decision Variables}
+Let \( \text{sell}_i \) be the number of shares of stock \( i \) to sell.
+
+\section*{Parameters}
+\begin{itemize}
+    \item \( \text{bought}_i \): Number of shares bought of stock \( i \).
+    \item \( \text{buyPrice}_i \): Purchase price per share of stock \( i \).
+    \item \( \text{currentPrice}_i \): Current price per share of stock \( i \).
+    \item \( \text{futurePrice}_i \): Expected future price per share of stock \( i \).
+    \item \( \text{transactionRate} \): Transaction cost rate (\%).
+    \item \( \text{taxRate} \): Tax rate on capital gains (\%).
+    \item \( K \): Required net amount to be raised.
+\end{itemize}
+
+\section*{Objective Function}
+\[
+\text{Maximize } Z = \sum_{i=1}^{N} ( \text{bought}_i - \text{sell}_i ) \times \text{futurePrice}_i
+\]
+
+\section*{Constraints}
+\begin{enumerate}
+    \item Net Amount Raised Constraint:
+    \[
+    \sum_{i=1}^{N} \left( (1 - \frac{\text{transactionRate}}{100}) \times \text{sell}_i \times \text{currentPrice}_i - (1 - \frac{\text{transactionRate}}{100}) \times \text{sell}_i \times \text{buyPrice}_i \times \frac{\text{taxRate}}{100} \right) \geq K
+    \]
+    \item Sell Constraint:
+    \[
+    0 \leq \text{sell}_i \leq \text{bought}_i, \quad \forall i = 1, \ldots, N
+    \]
+\end{enumerate}
+
+\end{document}

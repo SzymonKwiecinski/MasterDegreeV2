@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Model for Intrusion Mitigation in Network Clusters}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    &x_{i}^{c,I} = 
+    \begin{cases} 
+    1, & \text{if cluster } i \text{ is isolated using central processing} \\ 
+    0, & \text{otherwise}
+    \end{cases}\\
+    &x_{i}^{d,I} = 
+    \begin{cases} 
+    1, & \text{if cluster } i \text{ is isolated using distributed processing} \\ 
+    0, & \text{otherwise}
+    \end{cases}\\
+    &x_{i}^{c,S} = 
+    \begin{cases} 
+    1, & \text{if cluster } i \text{ is scanned using central processing} \\ 
+    0, & \text{otherwise}
+    \end{cases}\\
+    &x_{i}^{d,S} = 
+    \begin{cases} 
+    1, & \text{if cluster } i \text{ is scanned using distributed processing} \\ 
+    0, & \text{otherwise}
+    \end{cases}
+\end{align*}
+
+\subsection*{Objective Function}
+\begin{align*}
+    \text{Minimize:} \quad & \sum_{i=1}^{N} \left( \text{central\_cost} \cdot (x_{i}^{c,I} \cdot \text{isolate\_central}_i + x_{i}^{c,S} \cdot \text{scan\_central}_i) \right. \\
+    & \left. + \text{distributed\_cost} \cdot (x_{i}^{d,I} \cdot \text{isolate\_distributed}_i + x_{i}^{d,S} \cdot \text{scan\_distributed}_i) \right)
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+    &x_{i}^{c,I} + x_{i}^{d,I} + x_{i}^{c,S} + x_{i}^{d,S} = 1, \quad \forall i \in \{1, \ldots, N\} \\
+    &\sum_{i=1}^{N} (x_{i}^{c,I} \cdot \text{isolate\_central}_i + x_{i}^{c,S} \cdot \text{scan\_central}_i) \leq \text{max\_central} \\
+    &\sum_{i=1}^{N} (x_{i}^{d,I} \cdot \text{isolate\_distributed}_i + x_{i}^{d,S} \cdot \text{scan\_distributed}_i) \leq \text{max\_distributed}
+\end{align*}
+
+\end{document}

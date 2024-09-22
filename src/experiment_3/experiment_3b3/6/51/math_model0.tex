@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Advertising Campaign}
+
+\textbf{Definitions:}
+\begin{itemize}
+    \item Let \( A \) be the number of different ad types.
+    \item Let \( goal\_young \) be the goal of clicks from visitors aged 18-25 (in thousands).
+    \item Let \( goal\_old \) be the goal of clicks from visitors older than 25 (in thousands).
+    \item Let \( goal\_unique\_young \) be the goal of unique clicks from visitors aged 18-25 (in thousands).
+    \item Let \( goal\_unique\_old \) be the goal of unique clicks from visitors older than 25 (in thousands).
+    \item Let \( young\_click_a \) be the percentage of clicks from the 18-25 age range for ad type \( a \).
+    \item Let \( old\_click_a \) be the percentage of clicks from older visitors for ad type \( a \).
+    \item Let \( cost_a \) be the cost per 1000 clicks for ad type \( a \).
+    \item Let \( max\_click_a \) be the maximum allowable clicks (in thousands) for ad type \( a \).
+    \item Let \( unique\_click_a \) be the estimated percentage of unique visitors for ad type \( a \).
+    \item Let \( budget \) be the total advertising budget.
+    \item Let \( clicks_a \) be the number of clicks purchased for ad type \( a \) (in thousands).
+    \item Let \( total\_unique\_clicks \) be the total number of unique clicks.
+\end{itemize}
+
+\textbf{Objective:}
+\[
+\text{Maximize } total\_unique\_clicks = \sum_{a=1}^{A} unique\_click_a \cdot clicks_a
+\]
+
+\textbf{Subject to:}
+\[
+\sum_{a=1}^{A} young\_click_a \cdot clicks_a \geq goal\_young
+\]
+\[
+\sum_{a=1}^{A} old\_click_a \cdot clicks_a \geq goal\_old
+\]
+\[
+\sum_{a=1}^{A} unique\_click_a \cdot clicks_a \geq goal\_unique\_young + goal\_unique\_old
+\]
+\[
+\sum_{a=1}^{A} cost_a \cdot clicks_a \leq budget
+\]
+\[
+clicks_a \leq max\_click_a \quad \forall a = 1, \ldots, A
+\]
+\[
+clicks_a \geq 0 \quad \forall a = 1, \ldots, A
+\]
+
+\textbf{Output:}
+\begin{itemize}
+    \item The number of clicks purchased for each ad type: \( clicks = [clicks_a \text{ for } a \text{ in } 1, \ldots, A] \)
+    \item Total unique clicks: \( total\_unique\_clicks \)
+\end{itemize}
+
+\end{document}

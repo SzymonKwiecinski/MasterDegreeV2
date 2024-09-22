@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+Minimize the objective function:
+
+\[
+\min \sum_{k=1}^{K} d_k
+\]
+
+Subject to the constraints:
+
+\[
+d_k \geq y_k - (bx_k + a), \quad \forall\, k = 1, \ldots, K
+\]
+
+\[
+d_k \geq -(y_k - (bx_k + a)), \quad \forall\, k = 1, \ldots, K
+\]
+
+Variables:
+\begin{itemize}
+    \item \( a \): Intercept of the fitted line
+    \item \( b \): Slope of the fitted line
+    \item \( d_k \): Deviation for each data point (auxiliary variable), \( d_k \geq 0 \)
+\end{itemize}
+
+This model finds the intercept (\( a \)) and the slope (\( b \)) that minimize the sum of absolute deviations between the observed \( y \) values and the values predicted by the linear equation \( y = bx + a \).
+
+\end{document}

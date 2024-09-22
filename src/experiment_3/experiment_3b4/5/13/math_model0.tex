@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Chebyshev Center Linear Programming Formulation}
+
+Given the constraints defining set \( P \):
+\[ 
+P = \{ \mathbf{x} \in \mathbb{R}^N \mid \mathbf{a_i}^T \mathbf{x} \leq b_i, \, i = 1, \ldots, m \}
+\]
+
+we need to find the center \(\mathbf{y} \in \mathbb{R}^N\) and the maximum radius \(r\) of a ball centered at \(\mathbf{y}\) such that:
+\[ 
+\mathbf{a_i}^T \mathbf{y} + ||\mathbf{a_i}||_2 \cdot r \leq b_i, \quad i = 1, \ldots, m.
+\]
+
+The optimization problem can be written as:
+\[
+\begin{align*}
+\text{maximize} \quad & r \\
+\text{subject to} \quad & \mathbf{a_i}^T \mathbf{y} + ||\mathbf{a_i}||_2 \cdot r \leq b_i, \quad i = 1, \ldots, m.
+\end{align*}
+\]
+
+\noindent where \(||\mathbf{a_i}||_2\) is the Euclidean norm of the vector \(\mathbf{a_i}\).
+
+\end{document}

@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item Let \( x_i \) be the production quantity of the \( i \)-th product for \( i = 1, \ldots, P \).
+    \item Let \( u \) be a binary variable that indicates whether the machine capacity should be upgraded (1 if upgrade, 0 otherwise).
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{cash} \): Available cash.
+    \item \( \text{hour}_i \): Machine hours required for each unit of product \( i \).
+    \item \( \text{cost}_i \): Production cost per unit of product \( i \).
+    \item \( \text{price}_i \): Selling price per unit of product \( i \).
+    \item \( \text{investPercentage}_i \): Investment percentage for product \( i \).
+    \item \( \text{upgradeHours} \): Additional machine hours available if upgraded.
+    \item \( \text{upgradeCost} \): Cost of upgrading the machine.
+    \item \( \text{availableHours} \): Current available machine hours.
+\end{itemize}
+
+\textbf{Objective Function:}
+Maximize total net income:
+\[
+\text{Maximize } Z = \sum_{i=1}^{P} \left( (\text{price}_i - \text{cost}_i) x_i - \text{investPercentage}_i \cdot \text{price}_i \cdot x_i \right) - u \cdot \text{upgradeCost}
+\]
+
+\textbf{Subject to:}
+
+1. Cash Availability Constraint:
+\[
+\sum_{i=1}^{P} \text{cost}_i \cdot x_i \leq \text{cash} - \sum_{i=1}^{P} \text{investPercentage}_i \cdot \text{price}_i \cdot x_i \quad \text{(for operating costs)}
+\]
+
+2. Machine Capacity Constraint:
+\[
+\sum_{i=1}^{P} \text{hour}_i \cdot x_i \leq \text{availableHours} + u \cdot \text{upgradeHours}
+\]
+
+3. Non-negativity Constraints:
+\[
+x_i \geq 0 \quad \text{for } i = 1, \ldots, P
+\]
+
+4. Binary Upgrade Decision:
+\[
+u \in \{0, 1\}
+\]
+
+\textbf{Output Variables:}
+\begin{itemize}
+    \item \( \text{net\_income} = Z \)
+    \item \( \text{production}_i = x_i \quad \text{for } i = 1, \ldots, P \)
+    \item \( \text{upgrade} = u \)
+\end{itemize}
+
+\end{document}

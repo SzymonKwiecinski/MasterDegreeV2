@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+\[
+\text{Maximize} \quad Z = \left( \sum_{i=1}^{N} P_i \times x_i \right) - \left( C_m + \text{overtimeAssemblyCost} \times o \right)
+\]
+Where:
+\[
+C_m = \begin{cases} 
+\sum_{i=1}^{N} M_i \times x_i \cdot \text{discountFactor}, & \text{if } \sum_{i=1}^{N} M_i \times x_i \geq \text{discountThreshold} \\
+\sum_{i=1}^{N} M_i \times x_i, & \text{otherwise}
+\end{cases}
+\]
+
+\textbf{Subject to:}
+\[
+\sum_{i=1}^{N} A_i \times x_i \leq \text{maxAssembly} + o
+\]
+\[
+\sum_{i=1}^{N} T_i \times x_i \leq \text{maxTesting}
+\]
+\[
+0 \leq o \leq \text{maxOvertimeAssembly}
+\]
+\[
+x_i \in \mathbb{Z}^+, \quad \text{for } i = 1, \ldots, N
+\]
+
+\textbf{Variables:}
+\begin{align*}
+x_i &: \text{units produced of product } i \\
+o &: \text{overtime assembly hours used}
+\end{align*}
+
+\end{document}

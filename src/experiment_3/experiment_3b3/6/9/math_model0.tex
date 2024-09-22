@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item $i$: index for road segments, where $i = 1, 2, \ldots, N$
+    \item $j$: index for lamps, where $j = 1, 2, \ldots, M$
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $coeff_{i,j}$: coefficient representing the influence of lamp $j$ on segment $i$
+    \item $desired_i$: desired illumination level for segment $i$
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item $power_j$: power of lamp $j$
+    \item $ill_i$: illumination of segment $i$, defined as:
+    \[
+    ill_i = \sum_{j=1}^{M} coeff_{i,j} \cdot power_j
+    \]
+    \item $error_i$: absolute error for segment $i$, defined as:
+    \[
+    error_i = |ill_i - desired_i|
+    \end{itemize}
+\end{itemize}
+
+\textbf{Objective:} 
+Minimize the total absolute error:
+\[
+\text{Minimize } \sum_{i=1}^{N} error_i
+\]
+
+\textbf{Constraints:}
+\begin{itemize}
+    \item $error_i = |ill_i - desired_i|$ for all $i = 1, \ldots, N$
+\end{itemize}
+
+\textbf{Output:}
+\begin{itemize}
+    \item $power_j$ for $j = 1, \ldots, M$ (optimal powers of the lamps)
+    \item $error = \sum_{i=1}^{N} error_i$ (total illumination error)
+\end{itemize}
+
+\end{document}

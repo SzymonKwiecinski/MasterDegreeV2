@@ -1,0 +1,23 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Objective:}
+\[
+\text{Maximize } \sum_{i=1}^{N} \left( (bought_i - sell_i) \times futurePrice_i \right)
+\]
+
+\textbf{Subject to:}
+\begin{align*}
+& 0 \leq sell_i \leq bought_i, && \text{for } i = 1, \ldots, N, \\
+& \sum_{i=1}^{N} \left( sell_i \times currentPrice_i \times \left(1 - \frac{transactionRate}{100}\right) - \left( sell_i \times (currentPrice_i - buyPrice_i) \times \frac{taxRate}{100} \right) \right) \geq K.
+\end{align*}
+
+\textbf{Variables:}
+\[
+sell_i \geq 0, \quad \text{for } i = 1, \ldots, N.
+\]
+
+\end{document}

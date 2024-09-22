@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective: Minimize Total Cost}
+
+\begin{align*}
+\text{Minimize} \quad & \sum_{t=1}^{T} \left( \text{coal\_cost} \times x_t^{coal} + \text{nuke\_cost} \times x_t^{nuke} \right)
+\end{align*}
+
+\textbf{Subject to:}
+
+1. \textbf{Capacity Constraints:}
+\begin{align*}
+& \text{For each } t \in \{1, \ldots, T\}, \\
+& \sum_{j=\max(1, t-\text{coal\_life}+1)}^{t} x_j^{coal} + \sum_{j=\max(1, t-\text{nuke\_life}+1)}^{t} x_j^{nuke} + \text{oil\_cap}[t-1] \geq \text{demand}[t-1]
+\end{align*}
+
+2. \textbf{Nuclear Capacity Constraint:}
+\begin{align*}
+& \text{For each } t \in \{1, \ldots, T\}, \\
+& \sum_{j=\max(1, t-\text{nuke\_life}+1)}^{t} x_j^{nuke} \leq \frac{\text{max\_nuke}}{100} \times \left( \sum_{j=\max(1, t-\text{coal\_life}+1)}^{t} x_j^{coal} + \sum_{j=\max(1, t-\text{nuke\_life}+1)}^{t} x_j^{nuke} + \text{oil\_cap}[t-1] \right)
+\end{align*}
+
+3. \textbf{Non-negativity Constraints:}
+\begin{align*}
+& x_t^{coal} \geq 0 \quad \text{and} \quad x_t^{nuke} \geq 0 \quad \text{for all } t.
+\end{align*}
+
+\end{document}

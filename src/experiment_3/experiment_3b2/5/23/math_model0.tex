@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Objective Function}
+\begin{align*}
+\min & \sum_{k=1}^{K} \sum_{i=1}^{I} \left( \text{costredundancy}_k \times \text{redundancy}_{k, i} + \text{costoverman}_k \times \text{overmanning}_{k, i} + \text{costshort}_k \times \text{short}_{k, i} \right)
+\end{align*}
+
+\subsection*{Constraints}
+1. \textbf{Manpower Balance Constraints:}
+\begin{align*}
+\text{For } i = 1: \quad & \text{strength}_k + \text{recruit}_{k, 1} - \text{redundancy}_{k, 1} \geq \text{requirement}_{k, 1} - \text{short}_{k, 1} \\
+\text{For } i > 1: \quad & \text{recruit}_{k, i-1} \times (1 - \text{lessonewaste}_k) + (\text{strength}_k + \sum_{m=1}^{i-1} \text{recruit}_{k, m} \times (1 - \text{moreonewaste}_k)) \\
+& - \text{redundancy}_{k, i} \geq \text{requirement}_{k, i} - \text{short}_{k, i}
+\end{align*}
+
+2. \textbf{Recruitment Limits:}
+\begin{align*}
+\text{recruit}_{k, i} & \leq \text{recruit}_k
+\end{align*}
+
+3. \textbf{Overmanning Constraints:}
+\begin{align*}
+\sum_{k=1}^{K} \text{overmanning}_{k, i} & \leq \text{num\_overman}
+\end{align*}
+
+4. \textbf{Short-time Constraints:}
+\begin{align*}
+\text{short}_{k, i} & \leq \text{num\_shortwork}
+\end{align*}
+
+\subsection*{Non-negativity Constraints}
+\begin{align*}
+\text{recruit}_{k, i}, \text{overmanning}_{k, i}, \text{short}_{k, i}, \text{redundancy}_{k, i} & \geq 0
+\end{align*}
+
+\end{document}

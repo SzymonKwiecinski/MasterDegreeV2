@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Variables}
+\begin{align*}
+\text{reg\_quant}_n &: \text{Quantity produced using regular production in month } n, \\
+\text{over\_quant}_n &: \text{Quantity produced using overtime production in month } n, \\
+\text{inv}_n &: \text{Inventory at the end of month } n.
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\sum_{n=1}^{N} \left( \text{cost\_regular} \times \text{reg\_quant}_n + \text{cost\_overtime} \times \text{over\_quant}_n + \text{store\_cost} \times \text{inv}_n \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+\text{Balance Equation:} & \\
+\text{inv}_0 &= 0 \quad \text{(Assume initial inventory is zero)} \\
+\text{reg\_quant}_n + \text{over\_quant}_n + \text{inv}_{n-1} &= \text{demand}_{n} + \text{inv}_n, \quad n = 1, \ldots, N \\
+
+\text{Regular Production Limit:} & \\
+0 \leq \text{reg\_quant}_n &\leq \text{max\_regular\_amount}, \quad n = 1, \ldots, N \\
+
+\text{Non-negativity:} & \\
+\text{over\_quant}_n &\geq 0, \quad n = 1, \ldots, N \\
+\text{inv}_n &\geq 0, \quad n = 1, \ldots, N
+\end{align*}
+
+\end{document}

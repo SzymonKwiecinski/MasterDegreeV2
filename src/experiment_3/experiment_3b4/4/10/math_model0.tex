@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\title{School Assignment Problem via Linear Programming}
+\author{}
+\date{}
+\maketitle
+
+\section*{Mathematical Formulation}
+
+\subsection*{Decision Variables}
+Let \( x_{n,s,g} \) be the number of students of grade \( g \) in neighborhood \( n \) assigned to school \( s \).
+
+\subsection*{Objective Function}
+Minimize the total distance traveled by all students:
+\[
+\text{Minimize } Z = \sum_{n=1}^{N} \sum_{s=1}^{S} \sum_{g=1}^{G} d_{n,s} \cdot x_{n,s,g}
+\]
+
+\subsection*{Constraints}
+
+\paragraph{Capacity Constraints}
+\[
+\sum_{n=1}^{N} x_{n,s,g} \leq \text{capacity}_{s,g}, \quad \forall s = 1, \ldots, S, \, \forall g = 1, \ldots, G
+\]
+
+\paragraph{Population Constraints}
+\[
+\sum_{s=1}^{S} x_{n,s,g} = \text{population}_{n,g}, \quad \forall n = 1, \ldots, N, \, \forall g = 1, \ldots, G
+\]
+
+\paragraph{Non-negativity Constraints}
+\[
+x_{n,s,g} \geq 0, \quad \forall n = 1, \ldots, N, \, \forall s = 1, \ldots, S, \, \forall g = 1, \ldots, G
+\]
+
+\end{document}

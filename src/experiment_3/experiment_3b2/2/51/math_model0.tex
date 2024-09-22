@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+Maximize the total number of unique clicks across all ad types.
+
+\begin{align*}
+\text{Maximize } & \sum_{a=1}^{A} \text{unique\_click}_{a} \times \text{click}_{a}
+\end{align*}
+
+\textbf{Subject to:}
+\begin{align*}
+& \sum_{a=1}^{A} \text{young\_click}_{a} \times \text{click}_{a} \geq \text{goal\_young} \quad (\text{young clicks constraint})\\
+& \sum_{a=1}^{A} \text{old\_click}_{a} \times \text{click}_{a} \geq \text{goal\_old} \quad (\text{old clicks constraint})\\
+& \sum_{a=1}^{A} \text{unique\_click}_{a} \times \text{click}_{a} \geq \text{goal\_unique\_young} \quad (\text{unique young clicks constraint})\\
+& \sum_{a=1}^{A} \text{unique\_click}_{a} \times \text{click}_{a} \geq \text{goal\_unique\_old} \quad (\text{unique old clicks constraint})\\
+& \sum_{a=1}^{A} \text{cost}_{a} \times \text{click}_{a} \leq \text{budget} \quad (\text{budget constraint})\\
+& 0 \leq \text{click}_{a} \leq \text{max\_click}_{a} \quad \forall a \in \{1, \ldots, A\} \quad (\text{maximum clicks constraint})
+\end{align*}
+
+\textbf{Variables:}
+- \(\text{click}_{a}\): Number of thousand clicks purchased from ad type \(a\).
+
+\textbf{Parameters:}
+- \(\text{young\_click}_{a}\): Estimated percentage of clicks from age 18-25 for ad type \(a\).
+- \(\text{old\_click}_{a}\): Estimated percentage of clicks from older visitors for ad type \(a\).
+- \(\text{cost}_{a}\): Cost per 1000 clicks for ad type \(a\).
+- \(\text{max\_click}_{a}\): Maximum allowable clicks in thousands for ad type \(a\).
+- \(\text{unique\_click}_{a}\): Estimated percentage of unique visitors for ad type \(a\).
+- \(\text{budget}\): Advertising budget in monetary units.
+
+The output will provide the number of clicks for each ad type that'll give us the maximum number of unique clicks within the given constraints.
+
+\end{document}

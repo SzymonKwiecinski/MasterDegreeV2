@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Department Relocation}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item \( K \): Set of departments, indexed by \( k \).
+    \item \( L \): Set of cities for relocation, indexed by \( l \).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{benefit}_{k, l} \): Benefit for department \( k \) from relocation to city \( l \) (in thousands of pounds).
+    \item \( \text{communication}_{k, j} \): Quantity of communication between department \( k \) and department \( j \).
+    \item \( \text{cost}_{l, m} \): Unit cost of communication between city \( l \) and city \( m \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{islocated}_{k, l} \): 1 if department \( k \) is relocated to city \( l \); 0 otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the overall yearly cost:
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} \sum_{l=1}^{L} \left( \sum_{j=1}^{K} \text{communication}_{k, j} \cdot \text{cost}_{l, m} \cdot \text{islocated}_{k, l} \right) - \sum_{k=1}^{K} \sum_{l=1}^{L} \text{benefit}_{k, l} \cdot \text{islocated}_{k, l}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Each department must be located in one city:
+    \[
+    \sum_{l=1}^{L} \text{islocated}_{k, l} = 1, \quad \forall k = 1, \ldots, K
+    \]
+    
+    \item A city can host at most three departments:
+    \[
+    \sum_{k=1}^{K} \text{islocated}_{k, l} \leq 3, \quad \forall l = 1, \ldots, L
+    \]
+
+    \item Each department can either be located in a city or remain in London (if London is considered as a city):
+    \[
+    \text{islocated}_{k, l} \in \{0, 1\}, \quad \forall k = 1, \ldots, K, \, \forall l = 1, \ldots, L
+    \end{itemize}
+\end{document}

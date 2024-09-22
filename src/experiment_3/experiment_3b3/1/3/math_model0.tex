@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Electricity Capacity Expansion Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $T$: Number of years
+    \item $demand_t$: Demand for electricity during year $t$ (in megawatts)
+    \item $oil_t$: Existing oil-fired capacity available during year $t$ (in megawatts)
+    \item $coal\_cost$: Capital cost per megawatt of coal-fired capacity
+    \item $nuke\_cost$: Capital cost per megawatt of nuclear power capacity
+    \item $max\_nuke$: Maximum percentage of total capacity that can be nuclear
+    \item $coal\_life$: Lifespan of coal plants (in years)
+    \item $nuke\_life$: Lifespan of nuclear plants (in years)
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let:
+\begin{itemize}
+    \item $coal_t$: Capacity added for coal (in megawatts) during year $t$
+    \item $nuke_t$: Capacity added for nuclear (in megawatts) during year $t$
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{t=1}^T (coal\_cost \cdot coal_t + nuke\_cost \cdot nuke_t)
+\]
+
+\subsection*{Constraints}
+
+1. **Demand Constraint**:
+   The total capacity in each year must meet the demand:
+   \[
+   oil_t + \sum_{j=\max(1, t - coal\_life + 1)}^t coal_j + \sum_{j=\max(1, t - nuke\_life + 1)}^t nuke_j \geq demand_t \quad \forall t \in \{1, \ldots, T\}
+   \]
+
+2. **Nuclear Capacity Constraint**:
+   The nuclear capacity must not exceed the maximum allowed percentage:
+   \[
+   \sum_{j=1}^t nuke_j \leq \frac{max\_nuke}{100} \left( oil_t + \sum_{j=1}^t coal_j + \sum_{j=1}^t nuke_j \right) \quad \forall t \in \{1, \ldots, T\}
+   \]
+
+3. **Non-negativity Constraints**:
+   \[
+   coal_t \geq 0 \quad \forall t \in \{1, \ldots, T\}
+   \]
+   \[
+   nuke_t \geq 0 \quad \forall t \in \{1, \ldots, T\}
+   \]
+
+\subsection*{Output}
+The output will consist of:
+\begin{itemize}
+    \item $\text{"coal\_cap\_added"}$: A list of coal capacity added in each year
+    \item $\text{"nuke\_cap\_added"}$: A list of nuclear capacity added in each year
+    \item $\text{"total\_cost"}$: Total cost of the expansion plan
+\end{itemize}
+
+The final output format will be:
+\[
+\{
+    "coal\_cap\_added": [coal_1, coal_2, \ldots, coal_T],
+    "nuke\_cap\_added": [nuke_1, nuke_2, \ldots, nuke_T],
+    "total\_cost": total\_cost
+\}
+\]
+
+\end{document}

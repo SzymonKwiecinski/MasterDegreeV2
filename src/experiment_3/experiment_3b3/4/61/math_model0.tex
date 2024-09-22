@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for MILP Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( N \) be the number of clusters.
+    \item Let \( \text{isolate\_central}_{i} \) be the processing time for isolation intervention at cluster \( i \) using central processing.
+    \item Let \( \text{scan\_central}_{i} \) be the processing time for scanning intervention at cluster \( i \) using central processing.
+    \item Let \( \text{isolate\_distributed}_{i} \) be the processing time for isolation intervention at cluster \( i \) using distributed processing.
+    \item Let \( \text{scan\_distributed}_{i} \) be the processing time for scanning intervention at cluster \( i \) using distributed processing.
+    \item Let \( C_c \) be the central processing cost per hour.
+    \item Let \( C_d \) be the distributed processing cost per hour.
+    \item Let \( \text{max\_central} \) be the maximum hours allowed for central processing.
+    \item Let \( \text{max\_distributed} \) be the maximum hours allowed for distributed processing.
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let \( x_{i,j,k} \) be a binary variable where:
+\begin{itemize}
+    \item \( i \in \{1, \ldots, N\} \) represents cluster index.
+    \item \( j \in \{1, 2\} \) where \( j=1 \) for "isolate" and \( j=2 \) for "scan".
+    \item \( k \in \{1, 2\} \) where \( k=1 \) for "central" and \( k=2 \) for "distributed".
+\end{itemize}
+
+Then, \( x_{i,j,k} = 1 \) if intervention \( j \) is applied to cluster \( i \) using method \( k \), and \( 0 \) otherwise.
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Total Cost} = \sum_{i=1}^{N} \left( \sum_{j=1}^{2} \sum_{k=1}^{2} C_k \cdot t_{i,j,k} \cdot x_{i,j,k} \right)
+\] 
+where \( t_{i,j,k} \) is the processing time for intervention \( j \) at cluster \( i \) using method \( k \).
+
+\subsection*{Constraints}
+1. Each cluster must have exactly one intervention type:
+\[
+\sum_{j=1}^{2} \sum_{k=1}^{2} x_{i,j,k} = 1, \quad \forall i \in \{1, \ldots, N\}
+\]
+2. Central processing time constraint:
+\[
+\sum_{i=1}^{N} \sum_{j=1}^{2} \text{time}_{c,j,i} \cdot x_{i,j,1} \leq \text{max\_central}
+\]
+3. Distributed processing time constraint:
+\[
+\sum_{i=1}^{N} \sum_{j=1}^{2} \text{time}_{d,j,i} \cdot x_{i,j,2} \leq \text{max\_distributed}
+\]
+where \( \text{time}_{c,j,i} \) and \( \text{time}_{d,j,i} \) represent the processing times for central and distributed methods respectively.
+
+\subsection*{Output}
+The output will consist of:
+\begin{itemize}
+    \item A list of interventions detailing the type, method, and respective amounts for each cluster.
+    \item The total cost incurred based on the selected interventions.
+\end{itemize}
+
+\end{document}

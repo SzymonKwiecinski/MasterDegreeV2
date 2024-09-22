@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Economic Planning}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Description}
+
+We are tasked to develop a linear programming model for an economic system consisting of multiple industries. Each industry's production involves inputs from itself or other industries, and there's a time lag in output. The goal is to maximize the manpower requirement over five years. 
+
+\section*{Parameters and Variables}
+
+Let:
+\begin{itemize}
+    \item $K$ be the number of industries.
+    \item $T = 5$ be the number of years (t=1,2,...,T).
+    \item $inputone_{k,j}$ be the input required from industry $j$ to produce one unit in industry $k$.
+    \item $manpowerone_{k}$ be the manpower needed per produced unit in industry $k$.
+    \item $inputtwo_{k,j}$ be the input required from industry $j$ to increase productive capacity in industry $k$.
+    \item $manpowertwo_{k}$ be the manpower needed to increase capacity in industry $k$.
+    \item $stock_{k}$ be the initial stock available in industry $k$ at year 0.
+    \item $capacity_{k}$ be the initial production capacity of industry $k$ at year 0.
+    \item $demand_{k}$ be the consumption requirement from industry $k$.
+\end{itemize}
+
+Decision Variables:
+\begin{itemize}
+    \item $produce_{k,t}$: units produced by industry $k$ in year $t$.
+    \item $buildcapa_{k,t}$: units used to build productive capacity for industry $k$ in year $t$.
+    \item $stockhold_{k,t}$: stock of industry $k$ held at the end of year $t$.
+\end{itemize}
+
+\section*{Objective Function}
+
+Maximize the total manpower requirement over five years:
+\[
+\max \sum_{k=1}^{K} \sum_{t=1}^{T} (manpowerone_{k} \times produce_{k,t} + manpowertwo_{k} \times buildcapa_{k,t})
+\]
+
+\section*{Constraints}
+
+1. **Production and Capacity Constraints:**
+   \[
+   produce_{k,t} \leq capacity_{k} + \sum_{\tau=1}^{t-2} buildcapa_{k,\tau} \quad \forall k, \, t
+   \]
+
+2. **Input Constraints for Production:**
+   \[
+   \sum_{j=1}^{K} inputone_{k,j} \times produce_{j,t} \leq \sum_{\tau=0}^{t-1} stockhold_{j,\tau} \quad \forall k, \, t
+   \]
+
+3. **Input Constraints for Capacity Building:**
+   \[
+   \sum_{j=1}^{K} inputtwo_{k,j} \times buildcapa_{j,t} \leq \sum_{\tau=0}^{t-1} stockhold_{j,\tau} \quad \forall k, \, t
+   \]
+
+4. **Stock Flow Constraints:**
+   \[
+   stockhold_{k,t} = stock_{k} + \sum_{\tau=1}^{t} (produce_{k,\tau} - buildcapa_{k,\tau} - demand_{k}) \quad \forall k, \, t
+   \]
+
+5. **Non-negativity Constraints:**
+   \[
+   produce_{k,t}, \, buildcapa_{k,t}, \, stockhold_{k,t} \geq 0 \quad \forall k, \, t
+   \]
+
+\end{document}

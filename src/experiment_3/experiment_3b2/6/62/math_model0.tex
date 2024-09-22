@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+
+\begin{document}
+
+\title{MILP Formulation for Traveling Salesman Problem}
+\author{}
+\date{}
+\maketitle
+
+\section*{Model}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item $i, j \in \{1, 2, \ldots, N\}$: Indices representing the cities.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $d_{i,j}$: Distance between city $i$ and city $j$, where $d_{i,j} = d_{j,i}$ for $i \neq j$.
+    \item $s$: Index of the start city.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_{i,j} \in \{0, 1\}$: Binary variable equal to 1 if the path from city $i$ to city $j$ is traveled, and 0 otherwise.
+    \item $u_i \in \mathbb{R}$: Auxiliary variables for MTZ subtour elimination constraints, representing the position of city $i$ in the tour.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total traveled distance:
+\[
+\min \sum_{i=1}^{N} \sum_{j=1}^{N} d_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    & \sum_{j=1}^{N} x_{i,j} = 1, \quad \forall i \in \{1, 2, \ldots, N\}, \quad (i \neq s) \quad &\text{(leave each city)} \\
+    & \sum_{i=1}^{N} x_{i,j} = 1, \quad \forall j \in \{1, 2, \ldots, N\}, \quad (j \neq s) \quad &\text{(enter each city)} \\
+    & \sum_{j=1}^{N} x_{s,j} = 1 \quad &\text{(leave start city)} \\
+    & \sum_{i=1}^{N} x_{i,s} = 1 \quad &\text{(enter start city)} \\
+    & u_i - u_j + N \cdot x_{i,j} \leq N-1, \quad \forall i, j \in \{1, 2, \ldots, N\}, \quad (i \neq j) \quad &\text{(MTZ subtour elimination)} \\
+    & u_s = 1 \quad &\text{(start city's position in tour)}
+\end{align}
+
+\subsection*{Binary and Non-negative Constraints}
+\begin{align}
+    & x_{i,j} \in \{0, 1\}, \quad \forall i, j \in \{1, 2, \ldots, N\} \\
+    & u_i \geq 0, \quad \forall i \in \{1, 2, \ldots, N\}
+\end{align}
+
+\end{document}

@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model for Economic Planning}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $k$: Index for industries, where $k = 1, \ldots, K$.
+    \item $t$: Index for years, where $t = 1, \ldots, T$.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $\text{inputone}_{k, j}$: Inputs required from industry $j$ for production in industry $k$.
+    \item $\text{manpowerone}_{k}$: Manpower required for production in industry $k$.
+    \item $\text{inputtwo}_{k, j}$: Inputs required from industry $j$ to increase capacity in industry $k$.
+    \item $\text{manpowertwo}_{k}$: Manpower required to increase capacity in industry $k$.
+    \item $\text{stock}_{k}$: Initial stock of industry $k$.
+    \item $\text{capacity}_{k}$: Initial production capacity of industry $k$.
+    \item $\text{manpower\_limit}$: Total available manpower.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $\text{produce}_{k, t}$: Amount produced by industry $k$ in year $t$.
+    \item $\text{buildcapa}_{k, t}$: Amount used to build capacity for industry $k$ in year $t$.
+    \item $\text{stockhold}_{k, t}$: Stock held by industry $k$ in year $t$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total production in the last two years:
+\[
+\max \sum_{k=1}^{K} \left( \text{produce}_{k, T-1} + \text{produce}_{k, T} \right)
+\]
+
+\subsection*{Constraints}
+
+\subsubsection*{Production and Stock Constraints}
+For each industry $k$ and year $t$:
+\[
+\text{produce}_{k, t} + \text{buildcapa}_{k, t} + \text{stockhold}_{k, t} = \text{capacity}_{k, t} + \text{stockhold}_{k, t-1}, \quad t \geq 1
+\]
+\[
+\text{stockhold}_{k, 0} = \text{stock}_{k}
+\]
+
+\subsubsection*{Input Constraints}
+For each industry $k$ and year $t$:
+\[
+\sum_{j=1}^{K} \left( \text{inputone}_{k, j} \cdot \text{produce}_{j, t-1} + \text{inputtwo}_{k, j} \cdot \text{buildcapa}_{j, t-2} \right) \leq \text{capacity}_{k, t}, \quad t \geq 1
+\]
+
+\subsubsection*{Manpower Constraints}
+For each year $t$:
+\[
+\sum_{k=1}^{K} \left( \text{manpowerone}_{k} \cdot \text{produce}_{k, t} + \text{manpowertwo}_{k} \cdot \text{buildcapa}_{k, t} \right) \leq \text{manpower\_limit}
+\]
+
+\subsubsection*{Capacity Evolution}
+For each industry $k$ and year $t$:
+\[
+\text{capacity}_{k, t+2} = \text{capacity}_{k, t+1} + \text{buildcapa}_{k, t}
+\]
+
+\subsection*{Non-negativity Constraints}
+\[
+\text{produce}_{k, t} \geq 0, \quad \text{buildcapa}_{k, t} \geq 0, \quad \text{stockhold}_{k, t} \geq 0
+\]
+
+\end{document}

@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+Let \( x_{p,c} \) be the amount of electricity that power plant \( p \) sends to city \( c \).
+
+\subsection*{Objective Function}
+Minimize the total transmission cost:
+\[
+\text{minimize} \quad \sum_{p=1}^{P} \sum_{c=1}^{C} \text{transmission}_{p,c} \cdot x_{p,c}
+\]
+
+\subsection*{Constraints}
+1. Supply Constraints for Power Plants:
+   \[
+   \sum_{c=1}^{C} x_{p,c} \leq \text{supply}_{p}, \quad \forall p \in \{1, \ldots, P\}
+   \]
+
+2. Demand Constraints for Cities:
+   \[
+   \sum_{p=1}^{P} x_{p,c} \geq \text{demand}_{c}, \quad \forall c \in \{1, \ldots, C\}
+   \]
+
+3. Non-negativity Constraints:
+   \[
+   x_{p,c} \geq 0, \quad \forall p \in \{1, \ldots, P\}, \ \forall c \in \{1, \ldots, C\}
+   \]
+
+\end{document}

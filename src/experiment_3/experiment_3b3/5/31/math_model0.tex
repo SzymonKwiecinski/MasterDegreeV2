@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Power Generation Scheduling}
+
+\subsection*{Sets and Parameters}
+Let:
+\begin{itemize}
+    \item \( T \): Total number of periods in a day
+    \item \( K \): Total number of types of generators
+    \item \( demand_{t} \): Electricity demand during period \( t \) for \( t = 1, \ldots, T \)
+    \item \( num_{k} \): Number of available generators of type \( k \) for \( k = 1, \ldots, K \)
+    \item \( minlevel_{k} \): Minimum level of generation for type \( k \)
+    \item \( maxlevel_{k} \): Maximum level of generation for type \( k \)
+    \item \( runcost_{k} \): Cost of running type \( k \) generators at minimum level
+    \item \( extracost_{k} \): Extra cost per MW for generating above minimum level for type \( k \)
+    \item \( startcost_{k} \): Startup cost for a type \( k \) generator
+\end{itemize}
+
+\subsection*{Decision Variables}
+Define the following decision variables:
+\begin{itemize}
+    \item \( numon_{k,t} \): Number of type \( k \) generators that are on during period \( t \)
+    \item \( level_{k,t} \): Generation level of type \( k \) generators during period \( t \)
+    \item \( startup_{k,t} \): Binary variable that is 1 if generator \( k \) is started during period \( t \), 0 otherwise
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the total cost, which consists of running costs, extra costs, and startup costs, expressed as:
+
+\[
+\text{Minimize } Z = \sum_{t=1}^{T} \sum_{k=1}^{K} \left( runcost_k \cdot numon_{k,t} + extracost_k \cdot (level_{k,t} - minlevel_k) \cdot numon_{k,t} + startcost_k \cdot startup_{k,t} \right)
+\]
+
+\subsection*{Constraints}
+The model must satisfy the following constraints:
+
+1. **Demand Satisfaction**:
+\[
+\sum_{k=1}^{K} level_{k,t} \geq demand_t, \quad \forall t = 1, \ldots, T
+\]
+
+2. **Generation Levels**:
+\[
+minlevel_k \cdot numon_{k,t} \leq level_{k,t} \leq maxlevel_k \cdot numon_{k,t}, \quad \forall k = 1, \ldots, K, \quad \forall t = 1, \ldots, T
+\]
+
+3. **Startup Cost Activation**:
+\[
+level_{k,t} \geq minlevel_k \cdot startup_{k,t}, \quad \forall k = 1, \ldots, K, \quad \forall t = 1, \ldots, T
+\]
+
+4. **Operational Limits**:
+\[
+numon_{k,t} \leq num_k, \quad \forall k = 1, \ldots, K, \quad \forall t = 1, \ldots, T
+\]
+
+5. **Binary Definition**:
+\[
+startup_{k,t} \in \{0, 1\}, \quad \forall k = 1, \ldots, K, \quad \forall t = 1, \ldots, T
+\]
+
+\subsection*{Output}
+The output will consist of the number of generators that are on during each period:
+\[
+\text{Output: } \{ numon \} = \{ numon_{k,t} \mid t = 1, \ldots, T, k = 1, \ldots, K \}
+\]
+
+\end{document}

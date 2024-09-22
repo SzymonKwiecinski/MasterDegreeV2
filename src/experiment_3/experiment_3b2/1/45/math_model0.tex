@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+\[
+\min \sum_{a=1}^{A} \text{cost}_a \cdot x_a 
+\]
+
+\textbf{Subject to:}
+\[
+\sum_{a=1}^{A} \text{young\_click}_a \cdot x_a \geq \text{goal\_young}
+\]
+\[
+\sum_{a=1}^{A} \text{old\_click}_a \cdot x_a \geq \text{goal\_old}
+\]
+\[
+\sum_{a=1}^{A} \text{young\_click}_a \cdot \text{unique\_click}_a \cdot x_a \geq \text{goal\_unique\_young}
+\]
+\[
+\sum_{a=1}^{A} \text{old\_click}_a \cdot \text{unique\_click}_a \cdot x_a \geq \text{goal\_unique\_old}
+\]
+\[
+0 \leq x_a \leq \text{max\_click}_a \quad \forall a = 1, \ldots, A
+\]
+
+\textbf{Where:}
+\begin{itemize}
+    \item \( x_a \): Number of clicks purchased for ad type \( a \) in thousands.
+    \item \(\text{young\_click}_a\): Estimated percentage of clicks from the 18-25 age range for ad type \( a \).
+    \item \(\text{old\_click}_a\): Estimated percentage of clicks from older visitors for ad type \( a \).
+    \item \(\text{unique\_click}_a\): Estimated percentage of unique visitors for ad type \( a \).
+    \item \(\text{cost}_a\): Cost per 1000 clicks for ad type \( a \).
+    \item \(\text{max\_click}_a\): Maximum allowable clicks in thousands for ad type \( a \).
+\end{itemize}
+
+\end{document}

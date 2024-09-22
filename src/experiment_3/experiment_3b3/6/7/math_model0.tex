@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Rocket Motion}
+
+Consider a rocket that travels along a straight path with the following variables:
+
+\begin{itemize}
+    \item $x_t$: Position of the rocket at time $t$.
+    \item $v_t$: Velocity of the rocket at time $t$.
+    \item $a_t$: Acceleration of the rocket at time $t$.
+\end{itemize}
+
+The discretized equations of motion for the rocket can be expressed as:
+
+\begin{align}
+    x_{t+1} &= x_t + v_t \tag{1} \\
+    v_{t+1} &= v_t + a_t \tag{2}
+\end{align}
+
+The acceleration $a_t$ is under our control, determined by the thrust of the rocket. We assume:
+
+\[
+|a_t| \propto \text{fuel consumption at time } t \tag{3}
+\]
+
+Given the initial conditions:
+
+\begin{align*}
+    x_0 & : \text{Initial position} \\
+    v_0 & : \text{Initial velocity}
+\end{align*}
+
+The goal is to reach a target position $x_T$ with speed $v_T$ at time $T$, while minimizing the maximum thrust required:
+
+\[
+\text{Minimize } \max_{t} |a_t| \tag{4}
+\]
+
+The output required includes:
+
+\begin{itemize}
+    \item Key "x": A list of positions $[x_0, x_1, \ldots, x_T]$.
+    \item Key "v": A list of velocities $[v_0, v_1, \ldots, v_T]$.
+    \item Key "a": A list of accelerations $[a_0, a_1, \ldots, a_T]$.
+    \item Key "fuel\_spend": Total fuel spent by the rocket.
+\end{itemize}
+
+The mathematical description of the output format is:
+
+\[
+\begin{aligned}
+    \text{Output} &: \{ \\
+    &\quad "x": [x_i \text{ for } i = 0, \ldots, T], \\
+    &\quad "v": [v_i \text{ for } i = 0, \ldots, T], \\
+    &\quad "a": [a_i \text{ for } i = 0, \ldots, T], \\
+    &\quad "fuel\_spend": \text{total fuel spent} \\
+    &\}
+\end{aligned}
+\]
+
+\end{document}

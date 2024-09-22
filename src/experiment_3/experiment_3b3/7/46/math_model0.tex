@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Steel Production}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( S \) be the number of different types of steel.
+    \item Let \( A \) be the number of different alloys.
+    \item Let \( \text{available}_{a} \) be the tons of alloy \( a \) available for \( a = 1, \ldots, A \).
+    \item Let \( \text{carbon}_{a} \) be the percentage of carbon in alloy \( a \).
+    \item Let \( \text{nickel}_{a} \) be the percentage of nickel in alloy \( a \).
+    \item Let \( \text{alloy\_price}_{a} \) be the purchase price of alloy \( a \) per ton.
+    \item Let \( \text{steel\_price}_{s} \) be the selling price of steel type \( s \) per ton.
+    \item Let \( \text{carbon\_min}_{s} \) represent the minimum carbon percentage required for steel type \( s \).
+    \item Let \( \text{nickel\_max}_{s} \) represent the maximum allowable nickel percentage for steel type \( s \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( \text{alloy\_amount}_{a,s} \) be the amount of alloy \( a \) used in steel type \( s \).
+    \item Let \( \text{total\_steel}_{s} \) be the total amount of steel type \( s \) produced.
+    \item Let \( \text{total\_profit} \) be the total profit from selling all types of steel.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+\text{total\_profit} = \sum_{s=1}^{S} \text{steel\_price}_{s} \cdot \text{total\_steel}_{s} - \sum_{a=1}^{A} \text{alloy\_price}_{a} \cdot \sum_{s=1}^{S} \text{alloy\_amount}_{a,s}
+\]
+
+\subsection*{Constraints}
+1. **Alloy availability constraint:**
+\[
+\sum_{s=1}^{S} \text{alloy\_amount}_{a,s} \leq \text{available}_{a}, \quad \forall a = 1, \ldots, A
+\]
+   
+2. **Carbon content constraint for each steel type:**
+\[
+\frac{\sum_{a=1}^{A} \text{carbon}_{a} \cdot \text{alloy\_amount}_{a,s}}{\text{total\_steel}_{s}} \geq \text{carbon\_min}_{s}, \quad \forall s = 1, \ldots, S
+\]
+
+3. **Nickel content constraint for each steel type:**
+\[
+\frac{\sum_{a=1}^{A} \text{nickel}_{a} \cdot \text{alloy\_amount}_{a,s}}{\text{total\_steel}_{s}} \leq \text{nickel\_max}_{s}, \quad \forall s = 1, \ldots, S
+\]
+
+4. **Maximum allowable percentage of alloy 1:**
+\[
+\sum_{s=1}^{S} \text{alloy\_amount}_{1,s} \leq 0.4 \cdot \sum_{s=1}^{S} \text{total\_steel}_{s}
+\]
+
+5. **Non-negativity constraints:**
+\[
+\text{alloy\_amount}_{a,s} \geq 0, \quad \forall a = 1, \ldots, A \text{ and } s = 1, \ldots, S
+\]
+\[
+\text{total\_steel}_{s} \geq 0, \quad \forall s = 1, \ldots, S
+\]
+
+\end{document}

@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Decision Variables}
+
+Let \( x_p \) be the number of batches of part \( p \) produced each month for \( p = 1, \ldots, P \).
+
+\subsection*{Objective Function}
+
+The goal is to maximize profit, which is calculated as total revenue minus total cost. The profit function is given by:
+
+\[
+\text{Profit} = \sum_{p=1}^{P} \text{price}_p \cdot x_p - \sum_{m=1}^{M} \left( \text{cost}_m \cdot \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \right)
+\]
+
+For machine 1, labor cost must include overtime if applicable. Define \( h_1 \) as the total hours used on machine 1:
+
+\[
+h_1 = \sum_{p=1}^{P} \text{time}_{1,p} \cdot x_p
+\]
+
+The cost for machine 1 can be expressed as:
+
+\[
+\text{Cost}_1 = \begin{cases} 
+    \text{standard\_cost} \cdot h_1, & \text{if } h_1 \leq \text{overtime\_hour} \\
+    \text{standard\_cost} \cdot \text{overtime\_hour} + \text{overtime\_cost} \cdot (h_1 - \text{overtime\_hour}), & \text{if } h_1 > \text{overtime\_hour}
+\end{cases}
+\]
+
+Thus, the revised profit is:
+
+\[
+\text{Maximize} \quad \text{Profit} = \sum_{p=1}^{P} \text{price}_p \cdot x_p - \sum_{m=2}^{M} \left( \text{cost}_m \cdot \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \right) - \text{Cost}_1
+\]
+
+\subsection*{Constraints}
+
+1. \textbf{Minimum Production Requirement:}
+
+\[
+x_p \geq \text{min\_batches}_p, \quad \forall p = 1, \ldots, P
+\]
+
+2. \textbf{Machine Availability (except Machine 1):}
+
+\[
+\sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \leq \text{available}_m, \quad \forall m = 2, \ldots, M
+\]
+
+\subsection*{Non-negativity:}
+
+\[
+x_p \geq 0, \quad \forall p = 1, \ldots, P
+\]
+
+\end{document}

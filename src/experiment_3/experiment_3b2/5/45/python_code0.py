@@ -1,0 +1,42 @@
+import pulp
+
+# Data from the JSON format
+data = {
+    'goal_young': 500,
+    'goal_old': 600,
+    'goal_unique_young': 250,
+    'goal_unique_old': 300,
+    'young_clicks': [40, 30, 70],
+    'old_clicks': [60, 70, 30],
+    'costs': [75, 100, 120],
+    'max_clicks': [600, 300, 300],
+    'unique_clicks': [40, 75, 90]
+}
+
+# Number of ad types
+A = len(data['costs'])
+
+# Create a linear programming problem
+problem = pulp.LpProblem("Minimize_Ad_Campaign_Cost", pulp.LpMinimize)
+
+# Decision variables
+x = pulp.LpVariable.dicts("Clicks", range(A), lowBound=0, upBound=None, cat='Continuous')
+
+# Objective function
+problem += pulp.lpSum(data['costs'][a] * x[a] for a in range(A)), "Total_Cost"
+
+# Constraints
+problem += pulp.lpSum(data['young_clicks'][a] * x[a] for a in range(A)) >= data['goal_young'], "Young_Clicks_Goal"
+problem += pulp.lpSum(data['old_clicks'][a] * x[a] for a in range(A)) >= data['goal_old'], "Old_Clicks_Goal"
+problem += pulp.lpSum(data['unique_clicks'][a] * data['young_clicks'][a] * x[a] for a in range(A)) >= data['goal_unique_young'], "Young_Unique_Clicks_Goal"
+problem += pulp.lpSum(data['unique_clicks'][a] * data['old_clicks'][a] * x[a] for a in range(A)) >= data['goal_unique_old'], "Old_Unique_Clicks_Goal"
+
+# Maximum allowable clicks for each ad type
+for a in range(A):
+    problem += x[a] <= data['max_clicks'][a], f"Max_Clicks_{a}"
+
+# Solve the problem
+problem.solve()
+
+# Print the objective value
+print(f' (Objective Value): <OBJ>{pulp.value(problem.objective)}</OBJ>')

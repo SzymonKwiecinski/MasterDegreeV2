@@ -1,0 +1,23 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model for Nutritional Diet Problem}
+
+\subsection*{Decision Variables}
+Let \( x_k \) be the quantity of food \( k \) to purchase for \( k = 1, \ldots, K \).
+
+\subsection*{Objective}
+Minimize the total cost of purchasing foods:
+\[
+\text{Minimize} \quad Z = \sum_{k=1}^{K} \text{price}_k \times x_k
+\]
+
+\subsection*{Subject to Constraints}
+\begin{align*}
+\sum_{k=1}^{K} \text{nutri}_{k,m} \times x_k & \geq \text{demand}_m, \quad \text{for each } m = 1, \ldots, M \\
+x_k & \geq 0, \quad \text{for each } k = 1, \ldots, K
+\end{align*}
+
+\end{document}

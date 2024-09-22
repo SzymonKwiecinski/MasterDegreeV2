@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Economic Production}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( K \) be the number of industries.
+    \item \( inputone_{k, j} \): Input required from industry \( j \) to produce one unit in industry \( k \).
+    \item \( manpowerone_{k} \): Manpower required for one unit in industry \( k \).
+    \item \( inputtwo_{k, j} \): Input required from industry \( j \) to build one unit of productive capacity in industry \( k \).
+    \item \( manpowertwo_{k} \): Manpower required to build one unit of productive capacity in industry \( k \).
+    \item \( stock_{k} \): Initial stock of industry \( k \).
+    \item \( capacity_{k} \): Initial productive capacity of industry \( k \).
+    \item \( manpower\_limit \): Maximum manpower available per year.
+    \item \( T \): Total number of years considered.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( produce_{k, t} \): Amount produced by industry \( k \) in year \( t \).
+    \item \( buildcapa_{k, t} \): Amount of resources used to build productive capacity for industry \( k \) in year \( t \).
+    \item \( stockhold_{k, t} \): Amount of stock held by industry \( k \) in year \( t \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total production in the last two years:
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} (produce_{k, T} + produce_{k, T-1})
+\]
+
+\subsection*{Constraints}
+\begin{enumerate}
+    \item Production constraints for each industry:
+    \[
+    produce_{k, t} \leq capacity_{k} + stock_{k, t-1} \quad \forall k, t
+    \]
+
+    \item Manpower constraints:
+    \[
+    \sum_{k=1}^{K} manpowerone_{k} \cdot produce_{k, t} + \sum_{k=1}^{K} manpowertwo_{k} \cdot buildcapa_{k, t} \leq manpower\_limit \quad \forall t
+    \]
+
+    \item Input constraints for production:
+    \[
+    \sum_{j=1}^{K} inputone_{k, j} \cdot produce_{j, t-1} + stock_{k, t-1} \geq produce_{k, t} \quad \forall k, t
+    \]
+
+    \item Capacity building constraints affecting future production:
+    \[
+    capacity_{k} + \sum_{t=1}^{T-1} buildcapa_{k, t} \text{ (inputs providing capacity in future)}
+    \]
+
+    \item Stock constraints:
+    \[
+    stock_{k, t} = stock_{k, t-1} + produce_{k, t-1} - produce_{k, t} \quad \forall k, t
+    \]
+
+    \item Non-negativity constraints:
+    \[
+    produce_{k, t} \geq 0, \quad buildcapa_{k, t} \geq 0, \quad stockhold_{k, t} \geq 0 \quad \forall k, t
+    \]
+\end{enumerate}
+
+\end{document}

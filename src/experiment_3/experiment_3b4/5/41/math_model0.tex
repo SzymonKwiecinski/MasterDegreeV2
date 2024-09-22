@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\textbf{MILP Formulation for Minimize Floppy Disks Usage}
+
+\textbf{Given:}
+\begin{itemize}
+    \item $N$: Number of files.
+    \item $M$: An upper bound on the number of floppy disks (e.g., $M = N$).
+    \item $\text{capacity}$: Capacity of each floppy disk.
+    \item $\text{size}_j$: Size of file $j$, for $j = 1, \ldots, N$.
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item $y_i \in \{0, 1\}$, for $i = 1, \ldots, M$. $y_i = 1$ if disk $i$ is used.
+    \item $x_{ij} \in \{0, 1\}$, for $i = 1, \ldots, M$ and $j = 1, \ldots, N$. $x_{ij} = 1$ if file $j$ is placed on disk $i$.
+\end{itemize}
+
+\textbf{Objective:}
+\[
+\min \sum_{i=1}^{M} y_i
+\]
+
+\textbf{Constraints:}
+\begin{align}
+    & \sum_{i=1}^{M} x_{ij} = 1, \quad \forall j = 1, \ldots, N \\
+    & \sum_{j=1}^{N} \text{size}_j \cdot x_{ij} \leq \text{capacity} \cdot y_i, \quad \forall i = 1, \ldots, M \\
+    & x_{ij} \leq y_i, \quad \forall i = 1, \ldots, M, \, \forall j = 1, \ldots, N
+\end{align}
+
+\end{document}

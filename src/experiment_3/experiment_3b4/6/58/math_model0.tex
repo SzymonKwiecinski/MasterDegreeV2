@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Sets and Indices}
+\begin{align*}
+P & : \text{set of parts}, \quad p \in \{1, 2, \ldots, P\} \\
+M & : \text{set of machines}, \quad m \in \{1, 2, \ldots, M\}
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+\text{time\_required}_{m,p} & : \text{time required by machine } m \text{ to produce a batch of part } p \\
+\text{cost}_m & : \text{cost per hour for using machine } m \\
+\text{available}_m & : \text{available hours per month for machine } m \\
+\text{price}_p & : \text{selling price per batch of part } p \\
+\text{setup\_time}_p & : \text{setup time required for machine 1 to start producing part } p
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+batches_p & : \text{number of batches of part } p \text{ to produce} \\
+\text{setup\_flag}_p & : \begin{cases} 
+1, & \text{if part } p \text{ is set up on machine 1} \\
+0, & \text{otherwise}
+\end{cases}
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\begin{equation}
+\text{Maximize: } \sum_{p=1}^{P} (\text{price}_p \cdot \text{batches}_p) - \sum_{m=1}^{M} \left( \sum_{p=1}^{P} (\text{time\_required}_{m,p} \cdot \text{batches}_p + \delta_{m,1} \cdot \text{setup\_time}_p \cdot \text{setup\_flag}_p) \cdot \text{cost}_m \right)
+\end{equation}
+where $\delta_{m,1}$ is the Kronecker delta function, which is 1 if $m=1$ and 0 otherwise.
+
+\subsection*{Constraints}
+\begin{align}
+& \sum_{p=1}^{P} (\text{time\_required}_{m,p} \cdot \text{batches}_p) + \delta_{m,1} \sum_{p=1}^{P} (\text{setup\_time}_p \cdot \text{setup\_flag}_p) \leq \text{available}_m, & \forall m \in M \\
+& \text{setup\_flag}_p \leq batches_p, & \forall p \in P \\
+& \text{batches}_p \geq 0, & \forall p \in P \\
+& \text{setup\_flag}_p \in \{0, 1\}, & \forall p \in P 
+\end{align}
+
+\subsection*{Description}
+
+- The objective function calculates the total profit by subtracting the total cost from the total revenue.
+- Constraint (1) ensures that the usage of each machine does not exceed its availability.
+- Constraint (2) enforces that the setup flag for a part can only be active if there's at least one batch produced.
+- Constraint (3) ensures non-negativity of the batches produced.
+- Constraint (4) specifies the binary nature of the setup flags.
+
+\end{document}

@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Soybean Transportation Problem}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item Let $A$ be the set of all routes from terminal city $k$ to port city $p$ and from port city $p$ to destination city $l$.
+    \item Let $i, j \in A$ denote the routes between cities.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $C_{i,j}$: cost per metric ton of transporting soybeans along route $(i, j)$.
+    \item $supply_k$: supply of soybeans at terminal city $k$.
+    \item $demand_l$: demand for soybeans at destination city $l$.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $amount_{i,j}$: amount of soybeans shipped from city $i$ to city $j$.
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+\text{Minimize } & \quad \text{total\_cost} = \sum_{(i,j) \in A} C_{i,j} \cdot amount_{i,j}
+\end{align*}
+
+\textbf{Subject to Constraints:}
+\begin{align*}
+\sum_{j} amount_{k,j} & \leq supply_k, \quad \forall k \text{ (Supply constraints)} \\
+\sum_{i} amount_{i,l} & \geq demand_l, \quad \forall l \text{ (Demand constraints)} \\
+amount_{i,j} & \geq 0, \quad \forall (i,j) \in A \text{ (Non-negativity constraints)}
+\end{align*}
+
+\textbf{Output:} 
+
+The output distribution of soybeans should be structured as follows:
+\begin{verbatim}
+{
+    "distribution": [
+        {"from": i,
+         "to": j,
+         "amount": amount_{i,j}
+        }
+        \text{ for each route } (i,j) \text{ in } A
+    ],
+    "total_cost": total_cost
+}
+\end{verbatim}
+
+\end{document}

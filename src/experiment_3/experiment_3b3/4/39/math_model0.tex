@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Cafeteria Staffing Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( N \) be the total number of days.
+    \item Let \( num_n \) be the desired number of employees on day \( n \) where \( n \in \{1, 2, \ldots, N\} \).
+    \item \( n_{working\_days} \) is the number of consecutive working days for each employee.
+    \item \( n_{resting\_days} \) is the number of consecutive resting days for each employee.
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item Let \( total\_number \) be the total number of employees to hire.
+    \item Define the binary variable \( is\_work_{n,i} \) where:
+    \[
+    is\_work_{n,i} =
+    \begin{cases}
+    1 & \text{if employee } i \text{ is working on day } n \\
+    0 & \text{otherwise}
+    \end{cases}
+    \]
+    for \( i \in \{1, 2, \ldots, total\_number\} \) and \( n \in \{1, 2, \ldots, N\} \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total number of employees:
+\[
+\text{Minimize } total\_number
+\]
+
+\subsection*{Constraints}
+1. Ensure that the number of employees working on each day meets the required staff:
+\[
+\sum_{i=1}^{total\_number} is\_work_{n,i} \geq num_n \quad \forall n \in \{1, 2, \ldots, N\}
+\]
+
+2. Define the working and resting days for each employee:
+   Each employee works for \( n_{working\_days} \) days and then rests for \( n_{resting\_days} \) days. Thus, for each employee \( i \):
+
+\[
+is\_work_{n,i} = 
+\begin{cases}
+1 & \text{if } n \mod (n_{working\_days} + n_{resting\_days}) \in \{1, 2, \ldots, n_{working\_days}\} \\
+0 & \text{otherwise}
+\end{cases}
+\]
+
+for \( n \in \{1, 2, \ldots, N\} \).
+
+\subsection*{Output}
+The output of the problem is given by:
+\[
+\{ 
+    "total\_number": total\_number, 
+    "is\_work": [[is\_work_{n,i} \text{ for } n \in \{1,\ldots,N\}] \text{ for } i \in \{1,\ldots,total\_number\}]
+\}
+\]
+
+\end{document}

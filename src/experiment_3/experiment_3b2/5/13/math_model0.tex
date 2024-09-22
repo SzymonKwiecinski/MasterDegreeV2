@@ -1,0 +1,22 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model:}
+
+\begin{align*}
+\text{maximize} \quad & r \\
+\text{subject to} \quad & a_i^T y + \|a_i\|_2 r \leq b_i, \quad i = 1, \ldots, m, \\
+& y \in \mathbb{R}^N, \\
+& r \geq 0,
+\end{align*}
+
+where:
+- \( a_i \in \mathbb{R}^N \) is the \( i \)-th row of matrix \( A \),
+- \( b_i \in \mathbb{R} \) is the \( i \)-th component of vector \( b \),
+- \( y \in \mathbb{R}^N \) is the center of the ball,
+- \( r \) is the radius of the ball.
+
+Note that \(\|a_i\|_2\) is the Euclidean norm of the vector \( a_i \).
+
+\end{document}

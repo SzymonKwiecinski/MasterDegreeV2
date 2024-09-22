@@ -1,0 +1,25 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model:}
+
+\begin{align*}
+\text{Minimize } & D \\
+\text{Subject to } & d_k = |y_k - (bx_k + a)|, \quad \forall k = 1, \ldots, K \\
+& d_k \leq D, \quad \forall k = 1, \ldots, K \\
+& d_k \geq 0, \quad \forall k = 1, \ldots, K \\
+& D \geq 0
+\end{align*}
+
+The inequality constraints can be split into two linear constraints for each data point:
+
+\begin{align*}
+\text{Subject to } & y_k - (bx_k + a) \leq d_k, \quad \forall k = 1, \ldots, K \\
+& -(y_k - (bx_k + a)) \leq d_k, \quad \forall k = 1, \ldots, K \\
+& d_k \leq D, \quad \forall k = 1, \ldots, K \\
+& d_k \geq 0, \quad \forall k = 1, \ldots, K \\
+& D \geq 0
+\end{align*}
+
+\end{document}

@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Profit Maximization}
+
+\subsection*{Parameters}
+
+\begin{align*}
+  & W: \text{Number of weeks in the season} \\
+  & \text{demand}_w: \text{Demand in week } w \\
+  & \text{regular\_labor}_w: \text{Regular labor available in week } w \text{ (hours)} \\
+  & \text{overtime\_labor}_w: \text{Overtime labor available in week } w \text{ (hours)} \\
+  & \text{regular\_cost}: \text{Cost per hour of regular labor} \\
+  & \text{overtime\_cost}: \text{Cost per hour of overtime labor} \\
+  & \text{assembly\_time}: \text{Labor hours required to assemble one basket} \\
+  & \text{material\_cost}: \text{Material cost per basket} \\
+  & \text{selling\_price}: \text{Selling price per basket} \\
+  & \text{holding\_cost}: \text{Holding cost per unsold basket} \\
+  & \text{salvage\_value}: \text{Salvage value per basket at the end of week } W
+\end{align*}
+
+\subsection*{Decision Variables}
+
+\begin{align*}
+  & \text{regular\_used}_w: \text{Regular labor hours used in week } w \\
+  & \text{overtime\_used}_w: \text{Overtime labor hours used in week } w \\
+  & \text{regular\_basket}_w: \text{Number of baskets assembled using regular labor in week } w \\
+  & \text{overtime\_basket}_w: \text{Number of baskets assembled using overtime labor in week } w \\
+  & \text{inventory}_w: \text{Number of baskets on hand at the end of week } w
+\end{align*}
+
+\subsection*{Objective Function}
+
+Maximize total profit:
+
+\begin{align*}
+  \text{Total Profit} = & \sum_{w=1}^{W} (\text{selling\_price} \times (\text{regular\_basket}_w + \text{overtime\_basket}_w) \\
+  & - \text{regular\_cost} \times \text{regular\_used}_w - \text{overtime\_cost} \times \text{overtime\_used}_w \\
+  & - \text{material\_cost} \times (\text{regular\_basket}_w + \text{overtime\_basket}_w) \\
+  & - \text{holding\_cost} \times \text{inventory}_w) \\
+  & + \text{salvage\_value} \times \text{inventory}_W
+\end{align*}
+
+\subsection*{Constraints}
+
+\begin{align*}
+  & \text{regular\_used}_w \leq \text{regular\_labor}_w, & \forall w \\
+  & \text{overtime\_used}_w \leq \text{overtime\_labor}_w, & \forall w \\
+  & \text{regular\_basket}_w = \frac{\text{regular\_used}_w}{\text{assembly\_time}}, & \forall w \\
+  & \text{overtime\_basket}_w = \frac{\text{overtime\_used}_w}{\text{assembly\_time}}, & \forall w \\
+  & \text{demand}_w + \text{inventory}_{w-1} = \text{regular\_basket}_w + \text{overtime\_basket}_w + \text{inventory}_w, & \forall w \\
+  & \text{inventory}_0 = 0
+\end{align*}
+
+\end{document}

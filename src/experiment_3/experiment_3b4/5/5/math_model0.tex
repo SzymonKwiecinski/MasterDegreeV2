@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+In this problem, we need to model a communication network in terms of a linear programming (LP) problem to find the optimal routes for data transmission while minimizing the total transmission cost. Here is how we can set up the LP:
+
+\section*{Variables}
+- Let $f_{i,j,k,l}$ be the flow of data from node $k$ to node $l$ on link $(i, j)$.
+- Let $C_{i,j}$ be the cost per bit on link $(i, j)$.
+- Let $U_{i,j}$ be the capacity in bits per second on link $(i, j)$.
+- Let $B_{k,l}$ be the rate of data generated at node $k$ that needs to be transmitted to node $l$.
+
+\section*{Objective Function}
+The objective is to minimize the total cost of transmitting the data across the network. This can be expressed by the following objective function:
+
+\[
+\text{Minimize } \sum_{(i,j) \in A} \sum_{(k,l)} C_{i,j} \cdot f_{i,j,k,l}
+\]
+
+\section*{Constraints}
+1. **Flow Conservation Constraints:**
+
+   For each node $v \in \{1, \ldots, n\}$, for each pair $(k, l)$ where node $k$ generates data to be sent to node $l$:
+
+   \[
+   \sum_{j: (v,j) \in A} f_{v,j,k,l} - \sum_{i: (i,v) \in A} f_{i,v,k,l} =
+   \begin{cases} 
+   B_{k,l}, & \text{if } v = k, \\
+   -B_{k,l}, & \text{if } v = l, \\
+   0, & \text{otherwise.}
+   \end{cases}
+   \]
+
+2. **Capacity Constraints:**
+
+   For each link $(i,j) \in A$:
+
+   \[
+   \sum_{(k,l)} f_{i,j,k,l} \leq U_{i,j}
+   \]
+
+3. **Non-Negativity Constraints:**
+
+   \[
+   f_{i,j,k,l} \geq 0 \quad \forall (i,j) \in A, \forall (k,l)
+   \]
+
+By solving this linear programming model, we can find the optimal paths and the corresponding flow values such that the total cost of data transmission is minimized, while respecting the capacity and demand constraints.
+
+\end{document}

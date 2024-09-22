@@ -1,0 +1,102 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model}
+
+\textbf{Sets and Indices:}
+\begin{itemize}
+    \item $i \in \{1, \ldots, I\}$: Oils
+    \item $m \in \{1, \ldots, M\}$: Months
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $price_{i,m}$: Purchase price of oil $i$ in month $m$
+    \item $sell\_price$: Selling price of the final product per ton
+    \item $is\_vegetable_i$: Indicator (1 if oil $i$ is vegetable, else 0)
+    \item $max\_veg$: Max refining capacity for vegetable oils per month
+    \item $max\_non\_veg$: Max refining capacity for non-vegetable oils per month
+    \item $storage\_size$: Maximum storage capacity for each oil
+    \item $storage\_cost$: Storage cost per ton per month
+    \item $max\_hardness$: Maximum allowable hardness of the final product
+    \item $min\_hardness$: Minimum allowable hardness of the final product
+    \item $hardness_i$: Hardness of oil $i$
+    \item $init\_amount$: Initial amount of each oil in storage
+    \item $min\_usage$: Minimum usage if oil is used
+    \item $dependency_{i,j}$: Dependency matrix (1 if use of oil $i$ requires use of oil $j$)
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item $buy_{i,m}$: Quantity of oil $i$ bought in month $m$
+    \item $refine_{i,m}$: Quantity of oil $i$ refined in month $m$
+    \item $storage_{i,m}$: Quantity of oil $i$ in storage at the end of month $m$
+    \item $use_{i,m}$: Binary variable indicating if oil $i$ is used in month $m$
+\end{itemize}
+
+\textbf{Objective:} Maximize Profit:
+\[
+\max \sum_{m=1}^{M} \left( sell\_price \sum_{i=1}^{I} refine_{i,m} - \sum_{i=1}^{I} (price_{i,m} \cdot buy_{i,m} + storage\_cost \cdot storage_{i,m}) \right)
+\]
+
+\textbf{Constraints:}
+
+\begin{itemize}
+    \item \textbf{Flow Balance:}
+    \[
+    storage_{i,m} = storage_{i,m-1} + buy_{i,m} - refine_{i,m}, \quad \forall i, \forall m \geq 1
+    \]
+    \[
+    storage_{i,0} = init\_amount, \quad \forall i
+    \]
+
+    \item \textbf{Storage Capacity:}
+    \[
+    0 \leq storage_{i,m} \leq storage\_size, \quad \forall i, \forall m
+    \]
+    
+    \item \textbf{Refining Capacity:}
+    \[
+    \sum_{i \in V} refine_{i,m} \leq max\_veg, \quad \forall m
+    \]
+    \[
+    \sum_{i \in NV} refine_{i,m} \leq max\_non\_veg, \quad \forall m
+    \]
+    Where $V$ is the set of vegetable oils and $NV$ is the set of non-vegetable oils.
+    
+    \item \textbf{Hardness Constraints:}
+    \[
+    min\_hardness \leq \frac{\sum_{i=1}^{I} hardness_i \cdot refine_{i,m}}{\sum_{i=1}^{I} refine_{i,m}} \leq max\_hardness, \quad \forall m
+    \]
+    
+    \item \textbf{Usage Limitations:}
+    \[
+    \sum_{i=1}^{I} use_{i,m} \leq 3, \quad \forall m
+    \]
+
+    \item \textbf{Minimum Usage:}
+    \[
+    refine_{i,m} \geq min\_usage \cdot use_{i,m}, \quad \forall i, \forall m
+    \]
+    
+    \item \textbf{Dependency Constraints:}
+    \[
+    use_{i,m} \leq use_{j,m} + (1 - dependency_{i,j}), \quad \forall i, \forall j, \forall m
+    \]
+    
+    \item \textbf{Binary Variables:}
+    \[
+    use_{i,m} \in \{0, 1\}, \quad \forall i, \forall m
+    \]
+
+    \item \textbf{Final Storage Requirement:}
+    \[
+    storage_{i,M} = init\_amount, \quad \forall i
+    \]
+\end{itemize}
+
+This MILP model will help determine the optimal strategy to maximize profits while satisfying all production and storage constraints.
+
+\end{document}

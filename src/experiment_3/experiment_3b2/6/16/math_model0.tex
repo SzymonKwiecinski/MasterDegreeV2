@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item $O$: Set of crude oil types indexed by $i$.
+    \item $P$: Set of products indexed by $p$.
+    \item $L$: Set of production processes indexed by $l$.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $\text{allocated}_i$: The amount of crude oil type $i$ allocated in million barrels.
+    \item $\text{price}_p$: The selling price per barrel of product $p$.
+    \item $\text{input}_{l,i}$: Barrels of crude oil type $i$ used per execution of process $l$.
+    \item $\text{output}_{l,p}$: Barrels of product $p$ produced per execution of process $l$.
+    \item $\text{cost}_l$: Cost per barrel of product produced by process $l$.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $execute_l$: Number of times production process $l$ is executed.
+\end{itemize}
+
+\textbf{Objective Function:}
+
+Maximize the revenue:
+\[
+\text{revenue} = \sum_{p \in P} \left( \text{price}_p \times \sum_{l \in L} \text{output}_{l,p} \times execute_l \right) - \sum_{l \in L} \left( \text{cost}_l \times \sum_{p \in P} \text{output}_{l,p} \times execute_l \right)
+\]
+
+\textbf{Constraints:}
+
+1. Crude oil resource constraints:
+\[
+\sum_{l \in L} \text{input}_{l,i} \times execute_l \leq \text{allocated}_i, \quad \forall i \in O
+\]
+
+2. Non-negativity constraints:
+\[
+execute_l \geq 0, \quad \forall l \in L
+\]
+
+\end{document}

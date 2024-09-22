@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\textbf{Decision Variables:}
+
+\begin{align*}
+x_t & : \text{Number of containers unloaded in month } t, \\
+y_t & : \text{Number of cranes rented in month } t, \\
+h_t & : \text{Number of containers held at the end of month } t.
+\end{align*}
+
+\textbf{Objective Function:}
+
+Minimize the total cost:
+\[
+\min \sum_{t=1}^{T} \left( \text{unload\_cost}_{t} \cdot x_t + \text{crane\_cost} \cdot y_t + \text{holding\_cost} \cdot h_t \right)
+\]
+
+\textbf{Constraints:}
+
+\begin{align*}
+\text{1. Unloading Capacity:} & \quad x_t \leq \text{unload\_capacity}_{t}, \quad \forall t = 1, \ldots, T \\
+\text{2. Crane Capacity:} & \quad \text{crane\_capacity} \cdot y_t \geq \text{demand}_{t}, \quad \forall t = 1, \ldots, T \\
+\text{3. Crane Rental Limit:} & \quad y_t \leq \text{num\_cranes}, \quad \forall t = 1, \ldots, T \\
+\text{4. Inventory Balance:} & \quad h_t = h_{t-1} + x_t - \text{demand}_{t}, \quad \forall t = 1, \ldots, T \\
+\text{5. Initial Inventory:} & \quad h_0 = \text{init\_container} \\
+\text{6. Inventory Limit:} & \quad h_t \leq \text{max\_container}, \quad \forall t = 1, \ldots, T \\
+\text{7. Final Inventory:} & \quad h_T = 0 \\
+\text{8. Non-negativity:} & \quad x_t, y_t, h_t \geq 0, \quad \forall t = 1, \ldots, T \\
+\text{9. Integer Constraints:} & \quad x_t, y_t \text{ are integers}, \quad \forall t = 1, \ldots, T
+\end{align*}
+
+\end{document}

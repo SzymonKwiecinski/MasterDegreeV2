@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Warehouse Operations}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $C$: Capacity of the warehouse
+    \item $h$: Holding cost per unit for one period
+    \item $p_n$: Selling price of the commodity in period $n$, for $n = 1, \ldots, N$
+    \item $c_n$: Cost of purchasing the commodity in period $n$, for $n = 1, \ldots, N$
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $b_n$: Buy quantity in period $n$, for $n = 1, \ldots, N$
+    \item $s_n$: Sell quantity in period $n$, for $n = 1, \ldots, N$
+    \item $x_n$: Stock at the end of period $n$, for $n = 1, \ldots, N$
+\end{itemize}
+
+\textbf{Objective Function:}
+Maximize total profit over $N$ periods:
+\[
+\text{Maximize } Z = \sum_{n=1}^{N} (p_n s_n - c_n b_n - h x_n)
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+    & \text{Stock balance:} \\
+    & x_n = x_{n-1} + b_n - s_n, \quad \text{for } n = 1, \ldots, N \\
+    & x_n \leq C, \quad \text{for } n = 1, \ldots, N \\
+    & x_n \geq 0, \quad \text{for } n = 1, \ldots, N \\
+    & s_n \leq x_{n-1} + b_n, \quad \text{availability of stock in period } n \\
+    & b_n \geq 0, \quad s_n \geq 0, \quad \text{for } n = 1, \ldots, N \\
+    & x_N = 0. \quad \text{Final stock must be zero}
+\end{align*}
+
+\textbf{Output:}
+\begin{itemize}
+    \item Buy quantities: $b_n$ for $n = 1, \ldots, N$
+    \item Sell quantities: $s_n$ for $n = 1, \ldots, N$
+    \item Stock levels: $x_n$ for $n = 1, \ldots, N$
+\end{itemize}
+
+\end{document}

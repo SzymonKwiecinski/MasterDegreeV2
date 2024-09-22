@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+
+\section*{MILP Formulation for Consultant Assignment Problem}
+
+\subsection*{Sets and Indices}
+\begin{align*}
+&I \quad \text{Set of projects, indexed by } i \in \{1, 2, \ldots, I\} \\
+&J \quad \text{Set of consultants, indexed by } j \in \{1, 2, \ldots, J\} \\
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+&f_j \quad \text{Fixed cost for hiring consultant } j \\
+&c_{i,j} \quad \text{Additional cost for assigning project } i \text{ to consultant } j \\
+&K \quad \text{Maximum number of projects that a consultant can be assigned} \\
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+&x_{i,j} = 
+\begin{cases} 
+1, & \text{if project } i \text{ is assigned to consultant } j \\
+0, & \text{otherwise} 
+\end{cases} \\
+&y_j = 
+\begin{cases} 
+1, & \text{if consultant } j \text{ is hired} \\
+0, & \text{otherwise} 
+\end{cases}
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\begin{align*}
+\text{Minimize } & \sum_{j=1}^{J} f_j y_j + \sum_{i=1}^{I} \sum_{j=1}^{J} c_{i,j} x_{i,j}
+\end{align*}
+
+\subsection*{Constraints}
+Each project must be assigned to exactly one consultant:
+\begin{align*}
+&\sum_{j=1}^{J} x_{i,j} = 1, \quad \forall i \in I
+\end{align*}
+
+A project can only be assigned to a hired consultant:
+\begin{align*}
+&x_{i,j} \leq y_j, \quad \forall i \in I, \forall j \in J
+\end{align*}
+
+A consultant can be assigned up to a maximum number of projects:
+\begin{align*}
+&\sum_{i=1}^{I} x_{i,j} \leq K y_j, \quad \forall j \in J
+\end{align*}
+
+Binary conditions on decision variables:
+\begin{align*}
+&x_{i,j} \in \{0, 1\}, \quad \forall i \in I, \forall j \in J \\
+&y_j \in \{0, 1\}, \quad \forall j \in J
+\end{align*}
+
+\end{document}

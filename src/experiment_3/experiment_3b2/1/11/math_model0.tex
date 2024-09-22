@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_i$: Number of units produced in month $i$.
+    \item $I_i$: Inventory at the end of month $i$.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $d_i$: Demand at the end of month $i$, given by \texttt{deliver[i-1]}.
+    \item $c_{\text{storage}}$: Storage cost per unit per month, given by \texttt{storage\_cost}.
+    \item $c_{\text{switch}}$: Switching cost per unit difference in production, given by \texttt{switch\_cost}.
+    \item $T$: Number of months.
+\end{itemize}
+
+\textbf{Objective:}
+Minimize the total cost, which includes storage costs and switching costs:
+\[
+\min \sum_{i=1}^{T} c_{\text{storage}} \cdot I_i + \sum_{i=1}^{T-1} c_{\text{switch}} \cdot |x_{i+1} - x_i|
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+    & I_0 = 0 \quad \text{(Starting Inventory)} \\
+    & x_i + I_{i-1} = d_i + I_i, \quad i = 1, 2, \ldots, T \quad \text{(Flow balance each month)} \\
+    & I_T = 0 \quad \text{(No end-of-year inventory)} \\
+    & x_i \geq 0, \quad I_i \geq 0, \quad i = 1, 2, \ldots, T \quad \text{(Non-negativity)}
+\end{align*}
+
+\textbf{Note:}
+The absolute value constraint for the switching cost can be linearized using additional variables and constraints if required by the solver.
+
+\end{document}

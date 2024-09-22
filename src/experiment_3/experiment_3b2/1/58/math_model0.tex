@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_p \): Number of batches of part \( p \) to produce, \( p = 1, \ldots, P \).
+    \item \( y_p \): Binary variable indicating setup of part \( p \) (1 if set up, 0 otherwise), \( p = 1, \ldots, P \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the profit:
+\[
+\text{Maximize} \quad \sum_{p=1}^{P} \left( \text{price}_p \times x_p \right) - \sum_{m=1}^{M} \sum_{p=1}^{P} \left( \text{time}_{m,p} \times x_p + \text{setup\_time}_p \times y_p \delta_{m1} \right) \times \text{cost}_m
+\]
+
+\subsection*{Constraints}
+\begin{enumerate}
+    \item \textbf{Machine Time Availability:}
+    \[
+    \sum_{p=1}^{P} \left( \text{time}_{m,p} \times x_p + \text{setup\_time}_p \times y_p \delta_{m1} \right) \leq \text{available}_m \quad \forall m = 1, \ldots, M
+    \]
+    \item \textbf{Setup Constraint for Machine 1:}
+    \[
+    x_p \leq B \times y_p \quad \forall p = 1, \ldots, P
+    \]
+\end{enumerate}
+
+\end{document}

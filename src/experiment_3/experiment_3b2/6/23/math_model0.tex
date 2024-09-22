@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\text{Minimize: }
+\sum_{k=1}^{K} \sum_{i=1}^{I} \left( \text{costrecruit}_{k} \cdot x_{k, i} + \text{costoverman}_{k} \cdot y_{k, i} + \text{costshort}_{k} \cdot z_{k, i} + \text{costredundancy}_{k} \cdot r_{k, i} \right)
+
+\text{Subject to:}
+
+\begin{align*}
+& \text{Current workforce balance:} \\
+& \quad \sum_{k=1}^{K} \left( \text{strength}_{k} + x_{k, 1} - r_{k, 1} - \text{lessonewaste}_{k} \cdot x_{k, 1} \right) = \text{requirement}_{k, 1} + y_{k, 1} - z_{k, 1} / 2 \\
+& \quad \forall k = 1, \dots, K
+
+& \text{Workforce balance for subsequent years:} \\
+& \quad \sum_{k=1}^{K} \left( \text{strength}_{k} + x_{k, i} - r_{k, i} - \text{moreonewaste}_{k} \cdot (\text{strength}_{k} + x_{k, i-1} - \text{lessonewaste}_{k} \cdot x_{k, i-1}) \right) \\
+& \quad = \text{requirement}_{k, i} + y_{k, i} - z_{k, i} / 2 \\
+& \quad \forall k = 1, \dots, K, \forall i = 2, \dots, I
+
+& \text{Recruitment limits:} \\
+& \quad x_{k, i} \leq \text{recruit}_{k} \quad \forall k = 1, \dots, K, \forall i = 1, \dots, I
+
+& \text{Overmanning limit:} \\
+& \quad \sum_{k=1}^{K} y_{k, i} \leq \text{num\_overman} \quad \forall i = 1, \dots, I
+
+& \text{Short-time working limits:} \\
+& \quad z_{k, i} \leq \text{num\_shortwork} \quad \forall k = 1, \dots, K, \forall i = 1, \dots, I
+
+& \text{Non-negativity constraints:} \\
+& \quad x_{k, i}, y_{k, i}, z_{k, i}, r_{k, i} \geq 0 \quad \forall k = 1, \dots, K, \forall i = 1, \dots, I
+\end{align*}
+
+\end{document}

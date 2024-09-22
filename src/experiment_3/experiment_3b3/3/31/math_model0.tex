@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Power Generation Optimization}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item \( T \): Set of time periods \{1, 2, \ldots, T\}
+    \item \( K \): Set of generator types \{1, 2, \ldots, K\}
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( demand_{t} \): Electricity demand in period \( t \)
+    \item \( num_{k} \): Number of generators of type \( k \)
+    \item \( minlevel_{k} \): Minimum power level of generator type \( k \)
+    \item \( maxlevel_{k} \): Maximum power level of generator type \( k \)
+    \item \( runcost_{k} \): Running cost of generator type \( k \) at minimum level
+    \item \( extracost_{k} \): Extra cost per megawatt above minimum level for generator type \( k \)
+    \item \( startcost_{k} \): Startup cost for generator type \( k \)
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( numon_{k, t} \): Number of generators of type \( k \) that are on in period \( t \)
+    \item \( level_{k, t} \): Power level of generator type \( k \) in period \( t \) (continuous variable)
+    \item \( startup_{k, t} \): Binary variable indicating if generator type \( k \) is started in period \( t \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\min \sum_{t=1}^{T} \sum_{k=1}^{K} \left( startcost_{k} \cdot startup_{k, t} + runcost_{k} \cdot numon_{k, t} + extracost_{k} \cdot \max(0, level_{k, t} - minlevel_{k}) \cdot numon_{k, t} \right)
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item \textbf{Demand Satisfaction:} 
+    \[
+    \sum_{k=1}^{K} level_{k, t} = demand_{t}, \quad \forall t \in T
+    \]
+    
+    \item \textbf{Generator Capacity:}
+    \[
+    minlevel_{k} \cdot numon_{k, t} \leq level_{k, t} \leq maxlevel_{k} \cdot numon_{k, t}, \quad \forall k \in K, \forall t \in T
+    \]
+
+    \item \textbf{Generator Number:}
+    \[
+    numon_{k, t} \leq num_{k}, \quad \forall k \in K, \forall t \in T
+    \]
+
+    \item \textbf{Startup Constraint:}
+    \[
+    startup_{k, t} \in \{0, 1\}, \quad \forall k \in K, \forall t \in T
+    \]
+
+    \item \textbf{Power Level and Startup Relationship:}
+    \[
+    level_{k, t} \leq maxlevel_{k} \cdot startup_{k, t}, \quad \forall k \in K, \forall t \in T
+    \]
+\end{itemize}
+
+\subsection*{Output Format}
+The output will contain:
+\[
+\{ "numon": [[numon_{k, t} \text{ for } t \in T] \text{ for } k \in K] \} 
+\]
+
+\end{document}

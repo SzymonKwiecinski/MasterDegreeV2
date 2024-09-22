@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model for Manpower Planning}
+
+Let:
+\begin{align*}
+    & K = \text{Number of skill categories (manpower types)} \\
+    & I = \text{Number of years considered} \\
+    & \text{requirement}_{k,i} = \text{required manpower of type } k \text{ in year } i \\
+    & \text{strength}_{k} = \text{current manpower of type } k \\
+    & \text{lessonewaste}_{k} = \text{wastage rate of type } k \text{ with less than one year of service} \\
+    & \text{moreonewaste}_{k} = \text{wastage rate of type } k \text{ with more than one year of service} \\
+    & \text{recruit}_{k} = \text{maximum recruits in manpower type } k \text{ per year} \\
+    & \text{costredundancy}_{k} = \text{redundancy cost for manpower type } k \\
+    & \text{num\_overman} = \text{maximum overmanning across the company} \\
+    & \text{costoverman}_{k} = \text{extra cost per overmanned employee of type } k \\
+    & \text{num\_shortwork} = \text{maximum short-time working employees per skill category} \\
+    & \text{costshort}_{k} = \text{cost per short-time working employee of type } k \\
+\end{align*}
+
+Decision Variables:
+\begin{align*}
+    & \text{recruit}_{k,i} = \text{number of recruits of type } k \text{ in year } i \\
+    & \text{overmanning}_{k,i} = \text{number of overmanned employees of type } k \text{ in year } i \\
+    & \text{short}_{k,i} = \text{number of short-time working employees of type } k \text{ in year } i \\
+\end{align*}
+
+Objective Function:
+
+Minimize the total redundancy costs:
+\[
+\min \sum_{k=1}^{K} \sum_{i=1}^{I} \text{redundancy}_{k,i} \cdot \text{costredundancy}_{k}
+\]
+
+Subject to the following constraints:
+
+1. Manpower balance constraint for each type $k$ and year $i$:
+\begin{align*}
+    & \text{strength}_{k,i} = (1 - \text{moreonewaste}_{k}) \cdot (\text{strength}_{k,i-1} + \text{recruit}_{k,i-1}) + \text{overmanning}_{k,i} + 0.5 \cdot \text{short}_{k,i} \\
+    & \text{for } k = 1,\ldots,K, \ i = 1,\ldots,I
+\end{align*}
+
+2. Requirement satisfaction:
+\begin{align*}
+    & \text{strength}_{k,i} \geq \text{requirement}_{k,i} \quad \text{for } k = 1,\ldots,K, \ i = 1,\ldots,I
+\end{align*}
+
+3. Recruitment limit:
+\begin{align*}
+    & \text{recruit}_{k,i} \leq \text{recruit}_{k} \quad \text{for } k = 1,\ldots,K, \ i = 1,\ldots,I
+\end{align*}
+
+4. Overmanning constraint:
+\begin{align*}
+    & \sum_{k=1}^{K} \text{overmanning}_{k,i} \leq \text{num\_overman} \quad \text{for } i = 1,\ldots,I
+\end{align*}
+
+5. Short-time working constraint:
+\begin{align*}
+    & \text{short}_{k,i} \leq \text{num\_shortwork} \quad \text{for } k = 1,\ldots,K, \ i = 1,\ldots,I
+\end{align*}
+
+6. Non-negativity constraints:
+\begin{align*}
+    & \text{recruit}_{k,i}, \ \text{overmanning}_{k,i}, \ \text{short}_{k,i} \geq 0 \quad \text{for } k = 1,\ldots,K, \ i = 1,\ldots,I
+\end{align*}
+
+\end{document}

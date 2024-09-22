@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for the Chebyshev Center}
+
+Given a set \( P \) defined by the linear inequality constraints:
+\[
+P = \{ x \in \mathbb{R}^N \mid a_i^T x \leq b_i, \, i = 1, \ldots, m \}
+\]
+where \( a_i \in \mathbb{R}^N \) and \( b_i \in \mathbb{R} \), we aim to find a ball (or sphere) centered at \( y \in \mathbb{R}^N \) with radius \( r \) such that the ball is entirely contained within the set \( P \).
+
+The ball is defined as:
+\[
+B(y, r) = \{ x \in \mathbb{R}^N \mid \| x - y \| \leq r \}
+\]
+
+To formulate the problem, we need to maximize the radius \( r \) under the constraints imposed by the set \( P \). The Chebyshev center of \( P \) is the center of the largest ball that fits within \( P \).
+
+### Optimization Problem:
+
+The optimization problem can be formulated as follows:
+
+\[
+\begin{align*}
+\text{Maximize} \quad & r \\
+\text{subject to} \quad & \| a_i^T y - b_i \| \leq r, \quad \forall i = 1, \ldots, m \\
+& \text{for the Euclidean distance constraint: } \\
+& \sqrt{(y_j - \frac{b_i - a_i^T y}{\|a_i\|_2^2} a_{ij})^2} \leq r, \quad \forall j = 1, \ldots, N, \, i = 1, \ldots, m
+\end{align*}
+\]
+
+This can be rewritten in a more explicit form suitable for linear programming by introducing auxiliary variables as needed, and the constraints would ensure that the distance from the center \( y \) to the boundary defined by the inequalities does not exceed the radius \( r \).
+
+### Output Format:
+
+The output of this optimization problem will yield:
+\[
+\text{Output} =
+\begin{cases}
+\text{center: } [y_1, y_2, \ldots, y_N] \\
+\text{radius: } r
+\end{cases}
+\]
+
+where \( y_j \) are the coordinates of the center of the ball in \( \mathbb{R}^N \) and \( r \) is the maximum radius of the ball.
+
+\end{document}

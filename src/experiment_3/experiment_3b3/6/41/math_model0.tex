@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Floppy Disk Backup Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $C$: Capacity of each floppy disk (in GB).
+    \item $N$: Number of files to be backed up.
+    \item $size_j$: Size of file $j$, for $j = 1, \ldots, N$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_{ij}$: Binary variable equal to 1 if file $j$ is placed on disk $i$, 0 otherwise.
+    \item $y_i$: Binary variable equal to 1 if disk $i$ is used, 0 otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total number of floppy disks used:
+\[
+\text{Minimize } \sum_{i=1}^{M} y_i
+\]
+where $M$ is the maximum number of disks that could potentially be used.
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Each file must be assigned to exactly one disk:
+    \[
+    \sum_{i=1}^{M} x_{ij} = 1, \quad \forall j = 1, \ldots, N
+    \]
+
+    \item The total size of files assigned to each disk cannot exceed its capacity:
+    \[
+    \sum_{j=1}^{N} size_j \cdot x_{ij} \leq C \cdot y_i, \quad \forall i = 1, \ldots, M
+    \]
+    
+    \item Ensure that a disk can only be used if at least one file is assigned to it:
+    \[
+    x_{ij} \leq y_i, \quad \forall i = 1, \ldots, M, \quad \forall j = 1, \ldots, N
+    \]
+\end{itemize}
+
+\subsection*{Output Variables}
+\begin{itemize}
+    \item $n_{disks} = \sum_{i=1}^{M} y_i$: Total number of floppy disks used.
+    \item $whichdisk_j$: The index of the disk where file $j$ is placed, such that $x_{ij} = 1$.
+\end{itemize}
+
+\end{document}

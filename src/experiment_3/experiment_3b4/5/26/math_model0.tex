@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Economic Planning}
+
+\subsection*{Objective}
+Maximize total manpower requirement over five years.
+\begin{align*}
+\text{Maximize} \quad & \sum_{t=1}^{5} \sum_{k=1}^{K} \left( \text{manpowerone}_{k} \cdot \text{produce}_{k, t} + \text{manpowertwo}_{k} \cdot \text{buildcapa}_{k, t} \right)
+\end{align*}
+
+\subsection*{Constraints}
+1. Production and Capacity Constraints:
+\[
+\text{produce}_{k, t} + \text{buildcapa}_{k, t} \leq \text{capacity}_{k, t}, \quad \forall k, t
+\]
+
+2. Capacity Update:
+\[
+\text{capacity}_{k, t} = \text{capacity}_{k, t-1} + \text{buildcapa}_{k, t-2}, \quad \forall k, t > 2
+\]
+
+3. Stock Balance:
+\[
+\text{stockhold}_{k, t} = \text{stockhold}_{k, t-1} + \text{produce}_{k, t} - \sum_{j=1}^{K} \text{inputone}_{j, k} \cdot \text{produce}_{j, t} - \text{demand}_{k}, \quad \forall k, t > 0
+\]
+
+4. Initial Conditions:
+\[
+\text{stockhold}_{k, 0} = \text{stock}_{k}, \quad \forall k
+\]
+\[
+\text{capacity}_{k, 0} = \text{capacity}_{k}, \quad \forall k
+\]
+
+5. Non-negativity:
+\[
+\text{produce}_{k, t}, \text{buildcapa}_{k, t}, \text{stockhold}_{k, t} \geq 0, \quad \forall k, t
+\]
+
+\end{document}

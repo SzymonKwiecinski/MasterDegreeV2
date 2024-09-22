@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Economic Production}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( produce_{k, t} \) be the quantity produced by industry \( k \) in year \( t \).
+    \item Let \( buildcapa_{k, t} \) be the quantity used to build productive capacity by industry \( k \) in year \( t \).
+    \item Let \( stock_{k, t} \) be the quantity of stock held by industry \( k \) in year \( t \).
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( inputone_{k, j} \): Input required from industry \( j \) for the production of industry \( k \).
+    \item \( manpowerone_{k} \): Manpower required for the production of industry \( k \).
+    \item \( inputtwo_{k, j} \): Input required from industry \( j \) to build productive capacity for industry \( k \).
+    \item \( manpowertwo_{k} \): Manpower required to build productive capacity for industry \( k \).
+    \item \( stock_{k} \): Initial stock of industry \( k \) at year 0.
+    \item \( capacity_{k} \): Initial capacity of industry \( k \).
+    \item \( manpower\_limit \): Total available manpower limit.
+    \item \( T \): Total number of years.
+    \item \( K \): Total number of industries.
+\end{itemize}
+
+\textbf{Objective Function:}
+Maximize total production in the last two years:
+\[
+\text{Maximize } \sum_{k=1}^{K} (produce_{k, T-1} + produce_{k, T})
+\]
+
+\textbf{Constraints:}
+
+1. Production Constraints:
+\[
+produce_{k, t} \leq stock_{k, t-1} + capacity_{k} \quad \forall k, t
+\]
+
+2. Input and Production Requirements:
+\[
+produce_{k, t} = \sum_{j=1}^{K} inputone_{k,j} \cdot produce_{j, t-1} + stock_{k, t-1} \quad \forall k, t
+\]
+
+3. Capacity Building Requirements:
+\[
+buildcapa_{k, t} \leq \sum_{j=1}^{K} inputtwo_{k,j} \cdot buildcapa_{j, t} + stock_{k, t-1} \quad \forall k, t
+\]
+
+4. Manpower Constraints:
+\[
+\sum_{k=1}^{K} manpowerone_{k} \cdot produce_{k, t} + \sum_{k=1}^{K} manpowertwo_{k} \cdot buildcapa_{k, t} \leq manpower\_limit \quad \forall t
+\]
+
+5. Stock Update Rule:
+\[
+stock_{k, t} = stock_{k, t-1} + produce_{k, t-1} - \sum_{j=1}^{K} inputone_{k,j} \cdot produce_{j, t-1} - buildcapa_{k, t-1} \quad \forall k, t
+\]
+
+6. Capacity Increase After Two Years:
+\[
+capacity_{k} = capacity_{k} + \sum_{j=1}^{K} buildcapa_{j, t-1} \quad \forall k, t
+\]
+
+\textbf{Output Variables:}
+\begin{itemize}
+    \item \( produce_{k, t} \): Amount produced by industry \( k \) in year \( t \).
+    \item \( buildcapa_{k, t} \): Amount of units used to build productive capacity for industry \( k \) in year \( t \).
+    \item \( stock_{k, t} \): Amount of stock of industry \( k \) held in year \( t \).
+\end{itemize}
+
+\end{document}

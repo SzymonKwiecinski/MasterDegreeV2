@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Police Officer Scheduling}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $S$: Total number of shifts
+    \item $officers\_needed_{s}$: Number of officers needed for shift $s$, for $s = 1, \ldots, S$
+    \item $shift\_cost_{s}$: Cost incurred when starting a shift $s$, for $s = 1, \ldots, S$
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $officers\_assigned_{s}$: Number of officers assigned to shift $s$, for $s = 1, \ldots, S$
+\end{itemize}
+
+\textbf{Objective Function:}
+Minimize the total cost:
+\[
+\text{Total Cost} = \sum_{s=1}^{S} shift\_cost_{s} \cdot \left\lceil \frac{officers\_needed_{s}}{2} \right\rceil
+\]
+
+\textbf{Constraints:}
+\begin{itemize}
+    \item Each police officer works for two consecutive shifts. Therefore, for each shift $s$:
+    \[
+    officers\_assigned_{s} + officers\_assigned_{s-1} \geq officers\_needed_{s}
+    \]
+    where $officers\_assigned_{0} = 0$ for the first shift, and $officers\_assigned_{S+1} = 0$ for the last shift.
+\end{itemize}
+
+\textbf{Output:}
+\begin{itemize}
+    \item $officers\_assigned$: Vector containing the number of officers assigned to each shift
+    \item $total\_cost$: Total cost incurred by the town
+\end{itemize}
+
+\end{document}

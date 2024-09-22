@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Decision Variables:}
+\begin{align*}
+batches_p & \quad \text{Number of batches produced for part } p, \quad p = 1, 2, \ldots, P.
+\end{align*}
+
+\textbf{Objective Function:}
+Maximize the total profit:
+\begin{align*}
+\text{Profit} = \sum_{p=1}^{P} \left( \text{price}_p \cdot \text{batches}_p \right) - \sum_{m=1}^{M} \left( \text{cost}_m \cdot \sum_{p=1}^{P} \text{time}_{m,p} \cdot \text{batches}_p \right)
+\end{align*}
+
+\textbf{Constraints:}
+\begin{align*}
+& \text{(1) Machine availability constraints for } m = 1, 2, \ldots, M-2: \\
+& \quad \sum_{p=1}^{P} \text{time}_{m,p} \cdot \text{batches}_p \leq \text{available}_m \\
+\\
+& \text{(2) Combined availability for Machine M and M-1:} \\
+& \quad \sum_{p=1}^{P} \left( \text{time}_{M,p} + \text{time}_{M-1,p} \right) \cdot \text{batches}_p \leq \text{available}_M + \text{available}_{M-1} \\
+\\
+& \text{(3) Minimum production constraints for each part:} \\
+& \quad \text{batches}_p \geq \text{min\_batches}_p, \quad p = 1, 2, \ldots, P \\
+\\
+& \text{(4) Non-negativity constraints:} \\
+& \quad \text{batches}_p \geq 0, \quad p = 1, 2, \ldots, P
+\end{align*}
+
+\end{document}

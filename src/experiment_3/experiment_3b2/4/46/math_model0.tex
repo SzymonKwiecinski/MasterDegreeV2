@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Objective Function}
+Maximize the profit:
+\begin{equation}
+Z = \sum_{s=1}^{S} \left( \text{steel\_price}_s \cdot y_s \right) - \sum_{a=1}^{A} \sum_{s=1}^{S} \left( \text{alloy\_price}_a \cdot x_{a,s} \right)
+\end{equation}
+
+\subsection*{Constraints}
+
+1. Alloy Availability:
+\begin{equation}
+\sum_{s=1}^{S} x_{a,s} \leq \text{available}_a, \quad \forall a = 1, \ldots, A
+\end{equation}
+
+2. Carbon Percentage:
+\begin{equation}
+\frac{\sum_{a=1}^{A} \text{carbon}_a \cdot x_{a,s}}{y_s} \geq \text{carbon\_min}_s, \quad \forall s = 1, \ldots, S
+\end{equation}
+
+3. Nickel Percentage:
+\begin{equation}
+\frac{\sum_{a=1}^{A} \text{nickel}_a \cdot x_{a,s}}{y_s} \leq \text{nickel\_max}_s, \quad \forall s = 1, \ldots, S
+\end{equation}
+
+4. Proportion of Alloy 1:
+\begin{equation}
+x_{1,s} \leq 0.4 \cdot y_s, \quad \forall s = 1, \ldots, S
+\end{equation}
+
+5. Non-negativity:
+\begin{equation}
+x_{a,s} \geq 0, \quad y_s \geq 0, \quad \forall a = 1, \ldots, A, \; \forall s = 1, \ldots, S
+\end{equation}
+
+\end{document}

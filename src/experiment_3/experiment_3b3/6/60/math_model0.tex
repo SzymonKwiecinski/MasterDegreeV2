@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Consultant Assignment Problem}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item \(i \in \{1, 2, \ldots, I\}\): Index for projects
+    \item \(j \in \{1, 2, \ldots, J\}\): Index for consultants
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \(f_j\): Fixed cost of hiring consultant \(j\)
+    \item \(c_{i,j}\): Additional cost of assigning project \(i\) to consultant \(j\)
+    \item \(K\): Maximum number of projects that can be assigned to any consultant
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \(x_{j}\): Binary variable, where \(x_{j} = 1\) if consultant \(j\) is hired, and \(0\) otherwise
+    \item \(y_{i,j}\): Binary variable, where \(y_{i,j} = 1\) if project \(i\) is assigned to consultant \(j\), and \(0\) otherwise
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{j=1}^{J} f_j x_j + \sum_{i=1}^{I} \sum_{j=1}^{J} c_{i,j} y_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Each project must be assigned to exactly one consultant:
+    \[
+    \sum_{j=1}^{J} y_{i,j} = 1, \quad \forall i \in \{1, 2, \ldots, I\}
+    \]
+    
+    \item A consultant can be assigned to a project only if they are hired:
+    \[
+    y_{i,j} \leq x_j, \quad \forall i \in \{1, 2, \ldots, I\}, \forall j \in \{1, 2, \ldots, J\}
+    \]
+    
+    \item A consultant can be assigned a maximum of \(K\) projects:
+    \[
+    \sum_{i=1}^{I} y_{i,j} \leq K x_j, \quad \forall j \in \{1, 2, \ldots, J\}
+    \]
+    
+    \item Binary constraints:
+    \[
+    x_j \in \{0, 1\}, \quad \forall j \in \{1, 2, \ldots, J\}
+    \]
+    \[
+    y_{i,j} \in \{0, 1\}, \quad \forall i \in \{1, 2, \ldots, I\}, \forall j \in \{1, 2, \ldots, J\}
+    \]
+\end{itemize}
+
+\subsection*{Output}
+The output should provide the assignments of projects to consultants and the total cost:
+\begin{itemize}
+    \item Assignments: \(assignment_{j,i}\)
+    \item Total Cost: \(total\_cost\)
+\end{itemize}
+
+\end{document}

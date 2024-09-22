@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Warehouse Operation LP Model}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $\text{buyquantity}_n$: Quantity to buy in period \( n \).
+    \item $\text{sellquantity}_n$: Quantity to sell in period \( n \).
+    \item $\text{stock}_n$: Stock remaining at the end of period \( n \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize:
+\[
+\sum_{n=1}^{N} \left( \text{price}_n \times \text{sellquantity}_n \right) - \sum_{n=1}^{N} \left( \text{cost}_n \times \text{buyquantity}_n \right) - \sum_{n=1}^{N} \left( \text{holding\_cost} \times \text{stock}_n \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+& \text{Stock balance per period:} \\
+& \quad \text{stock}_n = \text{stock}_{n-1} + \text{buyquantity}_n - \text{sellquantity}_n \quad \text{for } n=1,...,N, \\
+& \quad \text{where } \text{stock}_0 = 0. \\
+
+& \text{Stock capacity:} \\
+& \quad \text{stock}_n \leq \text{capacity} \quad \text{for } n=1,...,N. \\
+
+& \text{Ending stock:} \\
+& \quad \text{stock}_N = 0. \\
+
+& \text{Non-negativity constraints:} \\
+& \quad \text{buyquantity}_n \geq 0, \quad \text{sellquantity}_n \geq 0, \quad \text{stock}_n \geq 0 \quad \text{for } n=1,...,N.
+\end{align*}
+
+\end{document}

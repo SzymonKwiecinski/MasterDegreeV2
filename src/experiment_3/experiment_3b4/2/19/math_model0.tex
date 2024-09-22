@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\begin{align*}
+    \text{Maximize} \quad & \sum_{m=1}^{M} \left[ \text{sellprice} \left( \sum_{i=1}^{I} \text{refine}_{i,m} \right) - \sum_{i=1}^{I} \left( \text{buyprice}_{i,m} \cdot \text{buyquantity}_{i,m} + \text{storagecost} \cdot \text{storage}_{i,m} \right) \right]
+\end{align*}
+
+\text{Subject to:}
+
+\begin{align*}
+    & \text{storage}_{i,0} = \text{initamount}, \quad \forall i \\
+    & \text{storage}_{i,m} = \text{storage}_{i,m-1} + \text{buyquantity}_{i,m} - \text{refine}_{i,m}, \quad \forall i, m \\
+    & \text{storage}_{i,m} \leq \text{storagecapacity}, \quad \forall i, m \\
+    & \sum_{i=1}^{I} \text{refine}_{i,m} \cdot \text{hardness}_{i} \leq \text{maxhardness} \cdot \sum_{i=1}^{I} \text{refine}_{i,m}, \quad \forall m \\
+    & \sum_{i=1}^{I} \text{refine}_{i,m} \cdot \text{hardness}_{i} \geq \text{minhardness} \cdot \sum_{i=1}^{I} \text{refine}_{i,m}, \quad \forall m \\
+    & \sum_{i: \text{isvegetable}_{i} = 1} \text{refine}_{i,m} \leq \text{maxveg}, \quad \forall m \\
+    & \sum_{i: \text{isvegetable}_{i} = 0} \text{refine}_{i,m} \leq \text{maxnonveg}, \quad \forall m \\
+    & \sum_{i=1}^{I} \text{use}_{i,m} \leq 3, \quad \forall m \\
+    & \text{refine}_{i,m} \geq \text{minusage} \cdot \text{use}_{i,m}, \quad \forall i, m \\
+    & \text{use}_{i,m} \geq \text{use}_{j,m} \cdot \text{dependency}_{i,j}, \quad \forall i, j, m \\
+    & \text{storage}_{i,M} = \text{initamount}, \quad \forall i \\
+    & \text{buyquantity}_{i,m}, \text{refine}_{i,m}, \text{storage}_{i,m} \geq 0, \quad \forall i, m \\
+    & \text{use}_{i,m} \in \{0,1\}, \quad \forall i, m
+\end{align*}
+
+\end{document}

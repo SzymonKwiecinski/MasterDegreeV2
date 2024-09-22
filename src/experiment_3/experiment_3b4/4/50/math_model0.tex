@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Auto Parts Manufacturer}
+\author{}
+\date{}
+\maketitle
+
+\section*{Model Description}
+
+We are tasked with determining the optimal number of batches of each part to be produced each month in order to maximize profit while considering machine constraints and contractual obligations.
+
+\subsection*{Decision Variables}
+
+Let:
+\begin{itemize}
+    \item \(x_p\) be the number of batches of part \(p\) produced, where \(p = 1, \ldots, P\).
+    \item \(e_m\) be the extra hours purchased for machine \(m\), where \(m = 1, \ldots, M\).
+\end{itemize}
+
+\subsection*{Objective Function}
+
+The objective is to maximize the total profit, calculated as the revenue from selling the parts minus the machine operation costs and the costs for extra machine hours.
+
+\begin{align*}
+\text{Maximize } & \sum_{p=1}^{P} \text{price}_p \cdot x_p - \sum_{m=1}^{M} \text{cost}_m \cdot \left( \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \right) - \sum_{m=1}^{M} \text{extra\_cost}_m \cdot e_m
+\end{align*}
+
+\subsection*{Constraints}
+
+The model is subject to the following constraints:
+
+\begin{enumerate}
+    \item \textbf{Demand Constraints:}
+    \begin{align*}
+    x_p &\geq \text{min\_batches}_p \quad \forall p = 1, \ldots, P
+    \end{align*}
+    
+    \item \textbf{Machine Time Constraints:}
+    \begin{align*}
+    \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p &\leq \text{available}_m + e_m \quad \forall m = 1, \ldots, M
+    \end{align*}
+    
+    \item \textbf{Extra Time Constraints:}
+    \begin{align*}
+    0 \leq e_m &\leq \text{max\_extra}_m \quad \forall m = 1, \ldots, M
+    \end{align*}
+    
+    \item \textbf{Non-negativity Constraints:}
+    \begin{align*}
+    x_p &\geq 0 \quad \forall p = 1, \ldots, P \\
+    e_m &\geq 0 \quad \forall m = 1, \ldots, M
+    \end{align*}
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,25 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Mathematical Model:}
+
+\begin{itemize}
+    \item \textbf{Variables:}
+    \begin{align*}
+        x_k & : \text{Binary variable indicating if item $k$ is included in the container.}
+    \end{align*}
+    
+    \item \textbf{Objective: Maximize the total value of the packed items.}
+    \begin{align*}
+        \text{Maximize} \quad & \sum_{k=1}^{K} \text{value}_{k} \cdot x_k
+    \end{align*}
+    
+    \item \textbf{Constraints:}
+    \begin{align*}
+        \text{subject to} \quad & \sum_{k=1}^{K} \text{size}_{k} \cdot x_k \leq C, \\
+        & x_k \in \{0, 1\} \quad \text{for all } k = 1, \ldots, K
+    \end{align*}
+\end{itemize}
+
+\end{document}

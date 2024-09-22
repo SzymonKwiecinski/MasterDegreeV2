@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} Minimize the total fuel consumption:
+
+\[
+\min \sum_{t=0}^{T-1} |a_t|
+\]
+
+\textbf{Subject to:}
+
+1. Discretized motion equations:
+   \[
+   x_{t+1} = x_t + v_t \quad \text{for } t = 0, 1, \ldots, T-1
+   \]
+   \[
+   v_{t+1} = v_t + a_t \quad \text{for } t = 0, 1, \ldots, T-1
+   \]
+
+2. Initial conditions:
+   \[
+   x_0 = \text{given}
+   \]
+   \[
+   v_0 = \text{given}
+   \]
+
+3. Target conditions:
+   \[
+   x_T = \text{given}
+   \]
+   \[
+   v_T = \text{given}
+   \]
+
+4. Absolute value of acceleration:
+   To handle the absolute value, introduce auxiliary variables \( u_t \) such that:
+   \[
+   -u_t \leq a_t \leq u_t \quad \text{for } t = 0, 1, \ldots, T-1
+   \]
+   which ensures \( |a_t| \leq u_t \).
+
+5. Rewrite the objective function using auxiliary variables:
+   \[
+   \min \sum_{t=0}^{T-1} u_t
+   \]
+
+\textbf{Decision Variables:} 
+- \( x_t \) for position at each time step \( t \),
+- \( v_t \) for velocity at each time step \( t \),
+- \( a_t \) for acceleration at each time step \( t \),
+- \( u_t \) for auxiliary variables representing \( |a_t| \).
+
+\end{document}

@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{MILP Formulation for Manufacturing Problem}
+
+\subsection*{Sets and Indices:}
+\begin{align*}
+    M & : \text{Set of machines, indexed by } m \\
+    K & : \text{Set of products, indexed by } k \\
+    I & : \text{Set of months, indexed by } i
+\end{align*}
+
+\subsection*{Parameters:}
+\begin{align*}
+    \text{num\_machines}_m & : \text{Number of machine type } m \\
+    \text{profit}_k & : \text{Profit per unit for product } k \\
+    \text{time}_{k, m} & : \text{Time required for product } k \text{ on machine } m \\
+    \text{down}_m & : \text{Months machine } m \text{ is down for maintenance} \\
+    \text{limit}_{k, i} & : \text{Market limitation for product } k \text{ in month } i \\
+    \text{store\_price} & : \text{Storage cost per unit per month} \\
+    \text{keep\_quantity} & : \text{Desired stock level for each product at the end} \\
+    \text{n\_workhours} & : \text{Working hours per shift}
+\end{align*}
+
+\subsection*{Decision Variables:}
+\begin{align*}
+    \text{sell}_{k, i} & : \text{Units of product } k \text{ sold in month } i \\
+    \text{manufacture}_{k, i} & : \text{Units of product } k \text{ manufactured in month } i \\
+    \text{storage}_{k, i} & : \text{Units of product } k \text{ stored at the end of month } i \\
+    \text{maintain}_{m, i} & : \text{Number of type } m \text{ machines under maintenance in month } i
+\end{align*}
+
+\subsection*{Objective Function:}
+Maximize Total Profit:
+\begin{align*}
+    \max \sum_{i=1}^{I} \sum_{k=1}^{K} \left( \text{profit}_k \cdot \text{sell}_{k, i} - \text{store\_price} \cdot \text{storage}_{k, i} \right)
+\end{align*}
+
+\subsection*{Constraints:}
+\begin{align*}
+    \text{sell}_{k, i} & \leq \text{limit}_{k, i} && \forall k, \forall i \\
+    \text{manufacture}_{k, i} & = \text{sell}_{k, i} + \text{storage}_{k, i} - \text{storage}_{k, i-1} && \forall k, \forall i \\
+    \text{storage}_{k, 0} & = 0 && \forall k \\
+    \text{storage}_{k, I} & = \text{keep\_quantity} && \forall k \\
+    \sum_{k=1}^{K} \text{time}_{k, m} \cdot \text{manufacture}_{k, i} & \leq \left( \text{num\_machines}_m - \text{maintain}_{m, i} \right) \cdot 24 \cdot 6 \cdot \text{n\_workhours} && \forall m, \forall i \\
+    \sum_{i=1}^{I} \text{maintain}_{m, i} & = \text{down}_m && \forall m \\
+    0 \leq \text{storage}_{k, i} & \leq 100 && \forall k, \forall i
+\end{align*}
+
+\end{document}

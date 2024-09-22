@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables:}
+\begin{align*}
+x_p & : \text{Number of batches of part } p \text{ produced}, \quad \forall p = 1, \ldots, P. \\
+e_m & : \text{Additional hours purchased for machine } m, \quad \forall m = 1, \ldots, M.
+\end{align*}
+
+\subsection*{Objective:}
+Maximize the profit:
+\begin{align*}
+\text{Maximize} \quad \sum_{p=1}^{P} (\text{price}_p \times x_p) - \sum_{m=1}^{M} \left(\text{cost}_m \sum_{p=1}^{P} (\text{time}_{m,p} \times x_p) + \text{extra\_cost}_m \times e_m \right)
+\end{align*}
+
+\subsection*{Constraints:}
+1. Demand fulfillment:
+\begin{align*}
+x_p \geq \text{min\_batches}_p \quad \forall p = 1, \ldots, P
+\end{align*}
+
+2. Machine availability:
+\begin{align*}
+\sum_{p=1}^{P} (\text{time}_{m,p} \times x_p) \leq \text{available}_m + e_m \quad \forall m = 1, \ldots, M
+\end{align*}
+
+3. Additional hours constraints:
+\begin{align*}
+0 \leq e_m \leq \text{max\_extra}_m \quad \forall m = 1, \ldots, M
+\end{align*}
+
+4. Non-negativity:
+\begin{align*}
+x_p & \geq 0 \quad \forall p = 1, \ldots, P \\
+e_m & \geq 0 \quad \forall m = 1, \ldots, M
+\end{align*}
+
+\end{document}

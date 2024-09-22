@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Trajectory Optimization Problem}
+
+\subsection*{Variables}
+Let:
+\begin{align*}
+    x_t & \text{ : Position of the rocket at time } t \\
+    v_t & \text{ : Velocity of the rocket at time } t \\
+    a_t & \text{ : Acceleration of the rocket at time } t
+\end{align*}
+
+\subsection*{Initial Conditions}
+Given:
+\begin{align*}
+    x_0 & \text{ : Initial position} \\
+    v_0 & \text{ : Initial velocity} \\
+    x_T & \text{ : Target position} \\
+    v_T & \text{ : Target velocity} \\
+    T & \text{ : Final time}
+\end{align*}
+
+\subsection*{Dynamic Model}
+The dynamics of the rocket can be described by the following discrete-time equations:
+\begin{align}
+    x_{t+1} &= x_t + v_t \quad \text{for } t = 0, 1, \ldots, T-1 \\
+    v_{t+1} &= v_t + a_t \quad \text{for } t = 0, 1, \ldots, T-1
+\end{align}
+
+\subsection*{Fuel Consumption}
+The magnitude of the acceleration is proportional to the fuel consumption:
+\[
+|a_t| \text{ is proportional to the fuel used at time } t
+\]
+
+\subsection*{Objective Function}
+The objective is to minimize the total fuel spent:
+\[
+\min \sum_{t=0}^{T-1} |a_t|
+\]
+
+\subsection*{Constraints}
+The optimization problem must satisfy the following constraints:
+\begin{align}
+    x_0 & = x_0 \\
+    v_0 & = v_0 \\
+    x_T & = x_T \\
+    v_T & = v_T
+\end{align}
+Where \(T\) is the predefined time horizon.
+
+\subsection*{Output}
+The solution will provide:
+\begin{align*}
+    x & : \text{List of positions of the rocket at each time step from } 0 \text{ to } T \\
+    v & : \text{List of velocities of the rocket at each time step from } 0 \text{ to } T \\
+    a & : \text{List of accelerations of the rocket at each time step from } 0 \text{ to } T \\
+    \text{fuel\_spend} & : \text{Total fuel spent by the rocket}
+\end{align*}
+
+\end{document}

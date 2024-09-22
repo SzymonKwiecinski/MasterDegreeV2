@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Transportation Problem Model}
+
+Given a transportation network with the following parameters:
+
+\begin{itemize}
+    \item \( n \) cities
+    \item A set of routes \( A \) that connect different cities
+    \item Transportation cost \( C_{i,j} \) per metric ton along the route from city \( i \) to city \( j \)
+    \item Supply \( supply_k \) at terminal city \( k \)
+    \item Demand \( demand_l \) at destination city \( l \)
+\end{itemize}
+
+Define the variables:
+\begin{itemize}
+    \item \( amount_{i,j} \): the amount of soybeans shipped from city \( i \) to city \( j \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total transportation cost:
+\[
+\text{Minimize} \quad Z = \sum_{(i,j) \in A} C_{i,j} \cdot amount_{i,j}
+\]
+
+\subsection*{Constraints}
+
+1. Supply constraints for each terminal city \( k \):
+\[
+\sum_{j} amount_{k,j} \leq supply_k, \quad \forall k
+\]
+
+2. Demand constraints for each destination city \( l \):
+\[
+\sum_{i} amount_{i,l} \geq demand_l, \quad \forall l
+\]
+
+3. Non-negativity constraints:
+\[
+amount_{i,j} \geq 0, \quad \forall (i,j) \in A
+\]
+
+\subsection*{Output}
+The solution will provide:
+\begin{itemize}
+    \item The quantity of soybeans shipped from each source to destination: \( amount_{i,j} \)
+    \item The total transportation cost: \( total\_cost \)
+\end{itemize}
+
+The output format will be:
+\begin{verbatim}
+{
+    "distribution": [
+        {"from": i,
+         "to": j,
+         "amount": amount_{i,j}
+        }
+        for id in 1, ..., m
+    ],
+    "total_cost": total_cost
+}
+\end{verbatim}
+
+\end{document}

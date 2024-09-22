@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+Given a set \(\mathcal{P}\) defined by the linear inequality constraints:
+\[
+\mathcal{P} = \{ \mathbf{x} \in \mathbb{R}^N \mid \mathbf{a}_i^T \mathbf{x} \leq b_i, \, i = 1, \ldots, m \}
+\]
+where \(\mathbf{a}_i \in \mathbb{R}^N\) and \(b_i \in \mathbb{R}\), we aim to find a ball centered at \(\mathbf{y} \in \mathbb{R}^N\) with radius \(r\) that is entirely contained within the set \(\mathcal{P}\). 
+
+The ball can be defined mathematically as:
+\[
+B(\mathbf{y}, r) = \{ \mathbf{x} \in \mathbb{R}^N \mid \|\mathbf{x} - \mathbf{y}\|_2 \leq r \}
+\]
+
+The problem can be reformulated to maximize the radius \(r\) such that:
+\[
+\|\mathbf{x} - \mathbf{y}\|_2 \leq r, \quad \forall \mathbf{x} \in \mathcal{P}
+\]
+
+This leads to solving the following optimization problem:
+
+\[
+\begin{aligned}
+\text{maximize} & \quad r \\
+\text{subject to} & \quad \mathbf{a}_i^T (\mathbf{y} + r \mathbf{u}) \leq b_i, \quad \forall i = 1, \ldots, m \\
+& \quad \|\mathbf{u}\|_2 \leq 1
+\end{aligned}
+\]
+where \(\mathbf{u}\) is a direction vector that indicates the position of \(\mathbf{x}\) relative to \(\mathbf{y}\).
+
+The optimal solution yields:
+\[
+\text{center} = \mathbf{y} = [y_1, y_2, \ldots, y_N]
+\]
+\[
+\text{radius} = r
+\]
+
+The output format is thus:
+\[
+\{
+    \text{"center"}: [y_j \text{ for } j = 1, \ldots, N],
+    \text{"radius"}: r
+\}
+\]
+
+\end{document}

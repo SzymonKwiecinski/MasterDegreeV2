@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+Maximize the total manpower requirement over five years:
+
+\[
+\text{Maximize } \sum_{t=1}^{5} \sum_{k=1}^{K} \left( \text{manpowerone}_k \cdot \text{produce}_{k,t} + \text{manpowertwo}_k \cdot \text{buildcapa}_{k,t} \right)
+\]
+
+\textbf{Constraints:}
+
+1. Capacity Constraints:
+   \[
+   \text{produce}_{k,t} \leq \text{capacity}_{k,t}, \quad \forall k, \forall t
+   \]
+   where,
+   \[
+   \text{capacity}_{k,t} = \text{capacity}_k + \sum_{\tau=0}^{t-2} \text{buildcapa}_{k,\tau}, \quad \forall k, \forall t
+   \]
+
+2. Demand Satisfaction:
+   \[
+   \text{produce}_{k,t} + \text{stockhold}_{k,t-1} \geq \text{demand}_{k} + \sum_{j=1}^{K} \text{inputone}_{k,j} \cdot \text{produce}_{j,t} + \sum_{j=1}^{K} \text{inputtwo}_{k,j} \cdot \text{buildcapa}_{j,t} + \text{stockhold}_{k,t}, \quad \forall k, \forall t
+   \]
+   Initial stock:
+   \[
+   \text{stockhold}_{k,0} = \text{stock}_k, \quad \forall k
+   \]
+
+3. Non-negativity Constraints:
+   \[
+   \text{produce}_{k,t}, \text{buildcapa}_{k,t}, \text{stockhold}_{k,t} \geq 0, \quad \forall k, \forall t
+   \]
+
+\end{document}

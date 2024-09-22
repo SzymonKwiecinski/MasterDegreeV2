@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Quadratic Curve Fitting via Linear Programming}
+
+Given a set of observed values $y_k$ and corresponding values $x_k$ for $k = 1, \ldots, K$, we aim to fit a quadratic curve of the form:
+
+\[
+y = c x^2 + b x + a
+\]
+
+to minimize the sum of absolute deviations defined as:
+
+\[
+\text{minimize} \quad \sum_{k=1}^{K} |y_k - (c x_k^2 + b x_k + a)|
+\]
+
+To model this as a linear programming problem, we introduce auxiliary variables for the absolute deviations:
+
+\[
+d_k = |y_k - (c x_k^2 + b x_k + a)| \quad \text{for } k = 1, \ldots, K
+\]
+
+The objective can then be rewritten as minimizing the sum of these deviations:
+
+\[
+\text{minimize} \quad \sum_{k=1}^{K} d_k
+\]
+
+Subject to the constraints:
+
+\[
+y_k - (c x_k^2 + b x_k + a) \leq d_k \quad \text{for } k = 1, \ldots, K
+\]
+\[
+-(y_k - (c x_k^2 + b x_k + a)) \leq d_k \quad \text{for } k = 1, \ldots, K
+\]
+
+Thus, the linear programming formulation consists of:
+
+\begin{align*}
+\text{Variables:} & \quad c, b, a, d_k \quad \text{for } k = 1, \ldots, K \\
+\text{Objective:} & \quad \text{minimize } \sum_{k=1}^{K} d_k \\
+\text{Subject to:} & \quad y_k - (c x_k^2 + b x_k + a) \leq d_k \quad \forall k \\
+& \quad -(y_k - (c x_k^2 + b x_k + a)) \leq d_k \quad \forall k \\
+\end{align*}
+
+The optimal solution will yield the coefficients:
+
+\begin{align*}
+\text{quadratic} & = c \\
+\text{linear} & = b \\
+\text{constant} & = a \\
+\end{align*}
+
+\end{document}

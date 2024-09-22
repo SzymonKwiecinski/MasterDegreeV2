@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Diet Problem}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item $k = 1, \ldots, K$: Index for foods available at the market.
+    \item $m = 1, \ldots, M$: Index for nutritional ingredients.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $\text{price}_{k}$: Price per unit of food $k$.
+    \item $\text{demand}_{m}$: Minimum required units of nutrient $m$ per day.
+    \item $\text{nutri}_{k,m}$: Units of nutrient $m$ contained in one unit of food $k$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $\text{quantity}_{k}$: Quantity of food $k$ to purchase.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost of purchasing foods:
+\[
+\min \sum_{k=1}^{K} \text{price}_{k} \cdot \text{quantity}_{k}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Nutritional requirements:
+    \[
+    \sum_{k=1}^{K} \text{nutri}_{k,m} \cdot \text{quantity}_{k} \geq \text{demand}_{m}, \quad \forall m = 1, \ldots, M
+    \]
+    \item Non-negativity:
+    \[
+    \text{quantity}_{k} \geq 0, \quad \forall k = 1, \ldots, K
+    \]
+\end{itemize}
+
+\end{document}

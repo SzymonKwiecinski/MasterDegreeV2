@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+We are tasked with determining the Chebyshev center of the polyhedral set \( P \) defined by linear inequalities. Specifically, we have:
+
+\[
+P = \{ \mathbf{x} \in \mathbb{R}^N \mid \mathbf{a}_i^T \mathbf{x} \leq b_i, \, i = 1, \ldots, m \}
+\]
+
+where \( \mathbf{a}_i \in \mathbb{R}^N \) and \( b_i \in \mathbb{R} \). The goal is to find a ball centered at \( \mathbf{y} \in \mathbb{R}^N \) with radius \( r \) such that this ball is entirely contained within the set \( P \). The condition for the ball can be expressed as:
+
+\[
+\|\mathbf{x} - \mathbf{y}\|_2 \leq r \quad \forall \mathbf{x} \in P
+\]
+
+This leads us to the optimization problem, where we want to maximize the radius \( r \), subject to the constraints imposed by the inequalities defining \( P \). The mathematical formulation of the problem is as follows:
+
+\[
+\begin{align*}
+\text{maximize} & \quad r \\
+\text{subject to} & \quad \|\mathbf{a}_i^T \mathbf{y} - b_i\|_2 \leq r, \quad i = 1, \ldots, m \\
+& \quad \mathbf{y} \in \mathbb{R}^N
+\end{align*}
+\]
+
+In terms of input, we define:
+
+\[
+\text{Input Format:} \quad
+\begin{cases}
+\mathbf{A} = 
+  \begin{bmatrix}
+  a_{1,1} & \cdots & a_{1,N} \\
+  \vdots & \ddots & \vdots \\
+  a_{m,1} & \cdots & a_{m,N}
+  \end{bmatrix} \\
+\mathbf{b} = [b_1, b_2, \ldots, b_m]
+\end{cases}
+\]
+
+The output consists of the center of the ball and its radius:
+
+\[
+\text{Output Format:} \quad
+\begin{cases}
+\text{center} = [y_1, y_2, \ldots, y_N] \\
+\text{radius} = r
+\end{cases}
+\]
+
+Thus, the Chebyshev center \( \mathbf{y} \) and the radius \( r \) can be computed based on the input data representing the linear inequalities constraining the set \( P \).
+
+\end{document}

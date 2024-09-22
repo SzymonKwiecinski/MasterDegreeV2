@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturing}
+
+\subsection*{Decision Variables}
+Let \( x_p \) be the number of batches of part \( p \) produced each month, for \( p = 1, \ldots, P \).
+
+\subsection*{Objective Function}
+Maximize the total profit:
+
+\[
+\text{Profit} = \sum_{p=1}^P \left( \text{price}_p \cdot x_p \right) - \sum_{m=2}^M \left( \text{cost}_m \sum_{p=1}^P \text{time}_{m,p} \cdot x_p \right) - \left[ \begin{aligned}
+    & \text{standard\_cost} \cdot \min\left(\text{overtime\_hour}, \sum_{p=1}^P \text{time}_{1,p} \cdot x_p \right) \\
+    & + \text{overtime\_cost} \cdot \max\left(0, \sum_{p=1}^P \text{time}_{1,p} \cdot x_p - \text{overtime\_hour} \right)
+\end{aligned} \right]
+\]
+
+\subsection*{Constraints}
+1. Machine availability constraints for \( m = 2, \ldots, M \):
+
+\[
+\sum_{p=1}^P \text{time}_{m,p} \cdot x_p \leq \text{available}_m, \quad \forall m \in \{2, \ldots, M\}
+\]
+
+2. Minimum production requirement for each part \( p \):
+
+\[
+x_p \geq \text{min\_batches}_p, \quad \forall p \in \{1, \ldots, P\}
+\]
+
+3. Profit constraint:
+
+\[
+\text{Profit} \geq \text{min\_profit}
+\]
+
+4. Non-negativity constraint:
+
+\[
+x_p \geq 0, \quad \forall p \in \{1, \ldots, P\}
+\]
+
+\end{document}

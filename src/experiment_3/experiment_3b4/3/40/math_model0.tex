@@ -1,0 +1,26 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} \\
+Maximize \(\text{Profit} = \text{n\_steel\_quant} \times \text{sell\_price} - \left(\sum_{k} \text{cost}_{k} \times x_k + \left(\sum_{k} x_k\right) \times \text{melt\_price} + y \times \text{mang\_price}\right)\)
+
+\textbf{Subject to:}
+
+\begin{align*}
+\text{Total Steel Production:} & \\
+\sum_{k} x_k + y &= \text{n\_steel\_quant} \\
+
+\text{Manganese Content:} & \\
+\frac{\sum_{k} \text{contmn}_{k} \times x_k + y}{\sum_{k} x_k + y} &\geq \frac{\text{mn\_percent}}{100} \\
+
+\text{Silicon Content:} & \\
+\frac{\sum_{k} \text{contsi}_{k} \times x_k}{\sum_{k} x_k + y} &\geq \frac{\text{si\_min}}{100} \\
+\frac{\sum_{k} \text{contsi}_{k} \times x_k}{\sum_{k} x_k + y} &\leq \frac{\text{si\_max}}{100} \\
+
+\text{Non-negativity:} & \\
+x_k &\geq 0 \quad \text{for all } k \\
+y &\geq 0
+\end{align*}
+
+\end{document}

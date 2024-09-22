@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model:}
+
+\textbf{Given:}
+\begin{itemize}
+    \item Desired total alloy quantity: \( \text{alloy\_quant} \)
+    \item Target ratios for metals: \( \text{target}_m \) for each metal \( m \)
+    \item Composition ratio of each metal in each alloy: \( \text{ratio}_{k,m} \)
+    \item Price of each alloy: \( \text{price}_k \)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\[
+x_k \geq 0 \quad \text{for } k = 1, \ldots, K
+\]
+where \( x_k \) is the quantity of alloy \( k \) to be purchased.
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } \sum_{k=1}^{K} \text{price}_k \cdot x_k
+\]
+
+\textbf{Constraints:}
+1. Total alloy weight constraint:
+\[
+\sum_{k=1}^{K} x_k = \text{alloy\_quant}
+\]
+
+2. Metal composition constraints:
+\[
+\sum_{k=1}^{K} \text{ratio}_{k,m} \cdot x_k = \text{alloy\_quant} \cdot \text{target}_m \quad \text{for } m = 1, \ldots, M
+\]
+
+\end{document}

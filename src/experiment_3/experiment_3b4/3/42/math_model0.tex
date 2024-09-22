@@ -1,0 +1,17 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+\begin{align*}
+& \text{Minimize } \sum_{i=1}^{I} \sum_{j=1}^{J} \left(\frac{x_{i,j}}{2}\right) \times \text{price} \times \text{distance}_{i,j}
+\end{align*}
+
+\textbf{Subject to:}
+\begin{align*}
+& \sum_{j=1}^{J} x_{i,j} \leq \text{numdepot}_{i}, \quad i = 1, 2, \ldots, I \\
+& \sum_{i=1}^{I} x_{i,j} \geq \text{numport}_{j}, \quad j = 1, 2, \ldots, J \\
+& x_{i,j} \geq 0 \quad \text{and integer}, \quad \forall i, j
+\end{align*}
+
+\end{document}

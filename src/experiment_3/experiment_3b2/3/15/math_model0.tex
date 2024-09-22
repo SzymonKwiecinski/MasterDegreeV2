@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model}
+
+\textbf{Decision Variables:}
+\begin{align*}
+x_i & : \text{Number of units of product } i \text{ produced, for } i = 1, 2, \ldots, N. \\
+y & : \text{Number of hours of overtime assembly labor scheduled.}
+\end{align*}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } \text{Profit} = \sum_{i=1}^{N} \text{price}_i \cdot x_i - \text{MaterialCost} - \text{OvertimeCost}
+\]
+
+Where:
+\[
+\text{MaterialCost} = \begin{cases} 
+(1 - \frac{\text{materialDiscount}}{100}) \cdot \sum_{i=1}^{N} \text{materialCost}_i \cdot x_i, & \text{if } \sum_{i=1}^{N} \text{materialCost}_i \cdot x_i > \text{discountThreshold} \\
+\sum_{i=1}^{N} \text{materialCost}_i \cdot x_i, & \text{otherwise}
+\end{cases}
+\]
+
+\[
+\text{OvertimeCost} = \text{overtimeAssemblyCost} \cdot y
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+\sum_{i=1}^{N} \text{assemblyHour}_i \cdot x_i + y & \leq \text{maxAssembly} + \text{maxOvertimeAssembly} \quad & \text{(Assembly Labor Constraint)} \\
+\sum_{i=1}^{N} \text{testingHour}_i \cdot x_i & \leq \text{maxTesting} \quad & \text{(Testing Labor Constraint)} \\
+0 \leq y & \leq \text{maxOvertimeAssembly} \quad & \text{(Overtime Constraint)} \\
+x_i & \geq 0 \quad & \text{for } i = 1, 2, \ldots, N \quad \text{(Non-negativity)}
+\end{align*}
+
+\end{document}

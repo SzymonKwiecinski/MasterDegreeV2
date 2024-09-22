@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Formulation of the Problem}
+
+Let \( N \) be the number of road segments, and \( M \) be the number of lamps.
+
+\subsection*{Decision Variables}
+\begin{align*}
+power_j & \quad \text{Power of the } j\text{-th lamp, for } j = 1, 2, \ldots, M.
+\end{align*}
+
+\subsection*{Auxiliary Variables}
+\begin{align*}
+error_i^+ & \quad \text{Positive deviation for segment } i, \text{ for } i = 1, 2, \ldots, N. \\
+error_i^- & \quad \text{Negative deviation for segment } i, \text{ for } i = 1, 2, \ldots, N.
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total absolute error:
+\[
+\text{Minimize} \quad \sum_{i=1}^{N} (error_i^+ + error_i^-)
+\]
+
+\subsection*{Constraints}
+For each road segment \( i \):
+\begin{align*}
+\sum_{j=1}^{M} \var{coeff_{i,j}} \cdot power_j &= \var{desired_i} + error_i^+ - error_i^- \quad \forall i = 1, 2, \ldots, N 
+\end{align*}
+
+\subsubsection*{Non-negativity Constraints}
+\begin{align*}
+power_j & \geq 0 \quad \forall j = 1, 2, \ldots, M \\
+error_i^+ & \geq 0 \quad \forall i = 1, 2, \ldots, N \\
+error_i^- & \geq 0 \quad \forall i = 1, 2, \ldots, N 
+\end{align*}
+
+\end{document}

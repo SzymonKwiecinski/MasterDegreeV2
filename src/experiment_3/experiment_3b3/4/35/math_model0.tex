@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Warehouse Operations Optimization Model}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $C$: Capacity of the warehouse
+    \item $H$: Holding cost per unit for holding stock for one period
+    \item $P_n$: Selling price of the commodity at period $n$ for $n = 1, \ldots, N$
+    \item $C_n$: Cost of purchasing the commodity at period $n$ for $n = 1, \ldots, N$
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item $b_n$: Amount of buying in period $n$ for $n = 1, \ldots, N$
+    \item $s_n$: Amount of selling in period $n$ for $n = 1, \ldots, N$
+    \item $x_n$: Stock in the warehouse at the end of period $n$ for $n = 1, \ldots, N$
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+    \text{Maximize} \quad Z = \sum_{n=1}^{N} (P_n s_n - C_n b_n - H x_n)
+\end{align*}
+
+\textbf{Constraints:}
+\begin{align*}
+    1. & \quad x_n = x_{n-1} + b_n - s_n, \quad n = 1, \ldots, N \\
+    2. & \quad x_n \leq C, \quad n = 1, \ldots, N \\
+    3. & \quad b_n \geq 0, \quad n = 1, \ldots, N \\
+    4. & \quad s_n \geq 0, \quad n = 1, \ldots, N \\
+    5. & \quad x_N = 0 \\
+\end{align*}
+
+\textbf{Output Variables:}
+\begin{itemize}
+    \item $b_n$: Amount of buying in each period $n$
+    \item $s_n$: Amount of selling in each period $n$
+    \item $x_n$: Stock in each period $n$
+\end{itemize}
+
+\end{document}

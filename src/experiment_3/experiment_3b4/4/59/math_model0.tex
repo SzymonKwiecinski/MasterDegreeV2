@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\textbf{Sets:}
+\begin{align*}
+  & T = \{1, 2, \ldots, N\} \quad \text{(set of translators)} \\
+  & L = \{1, 2, \ldots, M\} \quad \text{(set of required languages)}
+\end{align*}
+
+\textbf{Parameters:}
+\begin{align*}
+  & \text{cost}_i \quad \text{Cost of hiring translator } i, \quad \forall i \in T \\
+  & A_{ij} = 
+  \begin{cases} 
+    1, & \text{if translator } i \text{ can translate language } j \\ 
+    0, & \text{otherwise}
+  \end{cases}, \quad \forall i \in T, j \in L
+\end{align*}
+
+\textbf{Decision Variables:}
+\begin{align*}
+  & x_i \in \{0, 1\}, \quad \text{Binary variable indicating whether translator } i \text{ is selected}, \quad \forall i \in T
+\end{align*}
+
+\textbf{Objective Function:}
+\begin{align*}
+  & \min \sum_{i \in T} \text{cost}_i \cdot x_i
+\end{align*}
+
+\textbf{Constraints:}
+\begin{align*}
+  & \sum_{i \in T} A_{ij} \cdot x_i \geq 1, \quad \forall j \in L \quad \text{(ensure each required language is covered)}
+\end{align*}
+
+The above formulation ensures that we pick the minimum cost set of translators such that all required languages are covered.
+
+\end{document}

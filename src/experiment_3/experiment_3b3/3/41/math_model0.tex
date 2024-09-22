@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Floppy Disk Backup Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $C$: Capacity of each floppy disk (in GB)
+    \item $N$: Number of files to be backed up
+    \item $size_j$: Size of file $j$ (for $j = 1, \ldots, N$)
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item $n_{disks}$: Total number of floppy disks used
+    \item $x_{ij}$: Binary variable which is 1 if file $j$ is placed on disk $i$, and 0 otherwise (for $i = 1, \ldots, n_{disks}$ and $j = 1, \ldots, N$)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total number of floppy disks used:
+\[
+\text{Minimize } n_{disks}
+\]
+
+\subsection*{Constraints}
+1. Each file must be allocated to exactly one disk:
+\[
+\sum_{i=1}^{n_{disks}} x_{ij} = 1 \quad \forall j = 1, \ldots, N
+\]
+
+2. The total size of files on each disk cannot exceed its capacity:
+\[
+\sum_{j=1}^{N} size_j \cdot x_{ij} \leq C \quad \forall i = 1, \ldots, n_{disks}
+\]
+
+3. The number of disks used should not exceed the defined limit on disks:
+\[
+n_{disks} \geq 1
+\]
+
+4. Binary constraint on decision variables:
+\[
+x_{ij} \in \{0, 1\} \quad \forall i, j
+\]
+
+\subsection*{Output}
+The output should include:
+\begin{itemize}
+    \item $n_{disks}$: Total number of floppy disks used
+    \item $whichdisk$: Array indicating the disk number on which each file is distributed (length determined by $n_{disks}$)
+\end{itemize}
+
+\end{document}

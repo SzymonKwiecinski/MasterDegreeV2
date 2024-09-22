@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Variables}
+Let \( \text{power}_j \) be the power of the \( j \)-th lamp, where \( j = 1, 2, \ldots, M \).
+
+\subsection*{Objective Function}
+Minimize the total absolute error across all segments:
+
+\[
+\text{Minimize} \quad \text{error} = \sum_{i=1}^{N} | \text{ill}_i - \text{desired}_i |
+\]
+
+where
+\[
+\text{ill}_i = \sum_{j=1}^{M} \text{coeff}_{i,j} \times \text{power}_j
+\]
+
+\subsection*{Constraints}
+For each segment \( i = 1, 2, \ldots, N \), we introduce auxiliary variables \( e_i^+ \) and \( e_i^- \) representing the positive and negative deviations respectively:
+
+\[
+\text{ill}_i - \text{desired}_i = e_i^+ - e_i^-
+\]
+
+Add non-negativity constraints for the auxiliary variables:
+
+\[
+e_i^+, e_i^- \geq 0
+\]
+
+Rewriting the objective function using auxiliary variables:
+
+\[
+\text{Minimize} \quad \text{error} = \sum_{i=1}^{N} (e_i^+ + e_i^-)
+\]
+
+\subsection*{Complete Linear Program}
+\[
+\begin{aligned}
+    & \text{Minimize} & & \sum_{i=1}^{N} (e_i^+ + e_i^-) \\
+    & \text{subject to} & & \sum_{j=1}^{M} \text{coeff}_{i,j} \times \text{power}_j - \text{desired}_i = e_i^+ - e_i^-, \quad i = 1, \ldots, N \\
+    & & & e_i^+, e_i^- \geq 0, \quad i = 1, \ldots, N \\
+    & & & \text{power}_j \geq 0, \quad j = 1, \ldots, M
+\end{aligned}
+\]
+
+\end{document}

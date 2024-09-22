@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item $buyquantity_{i,m}$: the amount of raw oil $i$ bought in month $m$.
+    \item $refine_{i,m}$: the amount of raw oil $i$ refined in month $m$.
+    \item $storage_{i,m}$: the amount of raw oil $i$ stored at the end of month $m$.
+\end{itemize}
+
+\subsection*{Parameters}
+Let:
+\begin{itemize}
+    \item $price_{i,m}$: the buying price of oil $i$ in month $m$.
+    \item $sell\_price$: the selling price of the final product per ton.
+    \item $is\_vegetable_{i}$: a binary indicator for whether oil $i$ is vegetable.
+    \item $max\_veg$: maximum tons of vegetable oils refined per month.
+    \item $max\_non\_veg$: maximum tons of non-vegetable oils refined per month.
+    \item $storage\_size$: the storage capacity for each raw oil.
+    \item $storage\_cost$: the storage cost per ton per month.
+    \item $max\_hardness$: the maximum allowable hardness of the final product.
+    \item $min\_hardness$: the minimum allowable hardness of the final product.
+    \item $hardness_{i}$: the hardness of oil $i$.
+    \item $init\_amount$: initial amount of each type of raw oil in storage.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize profit:
+\[
+Z = \sum_{m=1}^{M} \left( sell\_price \cdot \sum_{i=1}^{I} refine_{i,m} - \sum_{i=1}^{I} price_{i,m} \cdot buyquantity_{i,m} - storage\_cost \cdot \sum_{i=1}^{I} storage_{i,m} \right)
+\]
+
+\subsection*{Constraints}
+1. **Storage constraints**:
+\[
+storage_{i,m} = storage_{i,m-1} + buyquantity_{i,m} - refine_{i,m} \quad \forall i, m
+\]
+\[
+0 \leq storage_{i,m} \leq storage\_size \quad \forall i, m
+\]
+
+2. **Refining constraints**:
+\[
+\sum_{i \in vegetable} refine_{i,m} \leq max\_veg \quad \forall m
+\]
+\[
+\sum_{i \in non\_vegetable} refine_{i,m} \leq max\_non\_veg \quad \forall m
+\]
+
+3. **Hardness constraints**:
+\[
+min\_hardness \leq \frac{\sum_{i=1}^{I} hardness_{i} \cdot refine_{i,m}}{\sum_{i=1}^{I} refine_{i,m}} \leq max\_hardness \quad \forall m
+\]
+
+4. **Initial and final storage condition**:
+\[
+storage_{i,0} = init\_amount \quad \forall i
+\]
+\[
+storage_{i,M} = init\_amount \quad \forall i
+\]
+
+5. **Non-negativity constraints**:
+\[
+buyquantity_{i,m} \geq 0, \quad refine_{i,m} \geq 0, \quad storage_{i,m} \geq 0 \quad \forall i, m
+\]
+
+\end{document}

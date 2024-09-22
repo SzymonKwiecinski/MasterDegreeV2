@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Decision Variables}
+\begin{align*}
+x_{k,l} &= 
+\begin{cases} 
+1, & \text{if department } k \text{ is located in city } l \\
+0, & \text{otherwise}
+\end{cases}
+\end{align*}
+
+\subsection*{Objective Function}
+\begin{align*}
+\min \sum_{k=1}^{K} \sum_{l=1}^{L} \left( -\text{benefit}_{k,l} \cdot x_{k,l} \right) + \sum_{k=1}^{K} \sum_{l=1}^{L} \sum_{j=1}^{K} \sum_{m=1}^{L} \text{communication}_{k,j} \cdot \text{cost}_{l,m} \cdot x_{k,l} \cdot x_{j,m}
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+&\text{1. Each department must be located in exactly one city:} \\
+&\sum_{l=1}^{L} x_{k,l} = 1, \quad \forall k = 1, \ldots, K \\
+
+&\text{2. No city can have more than three departments:} \\
+&\sum_{k=1}^{K} x_{k,l} \leq 3, \quad \forall l = 1, \ldots, L \\
+
+&\text{3. Binary constraints for decision variables:} \\
+&x_{k,l} \in \{0, 1\}, \quad \forall k = 1, \ldots, K, \quad l = 1, \ldots, L \\
+\end{align*}
+
+\end{document}

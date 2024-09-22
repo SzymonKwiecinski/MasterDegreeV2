@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model}
+
+Let \( x_p \) represent the number of batches of part \( p \) produced. The objective is to maximize the total profit, which is given by:
+
+\[
+\text{Profit} = \sum_{p=1}^{P} (\text{price}_p \times x_p) - \sum_{m=1}^{M} \text{cost}_m \left( \sum_{p=1}^{P} \text{time}_{m,p} \times x_p \right)
+\]
+
+\subsection*{Objective Function}
+
+Maximize:
+\[
+Z = \sum_{p=1}^{P} \left( \text{price}_p \times x_p \right) - \sum_{m=1}^{M} \left( \text{cost}_m \sum_{p=1}^{P} \text{time}_{m,p} \times x_p \right)
+\]
+
+\subsection*{Constraints}
+
+1. Availability constraint for Machines 1 to \( M-2 \):
+\[
+\sum_{p=1}^{P} \text{time}_{m,p} \times x_p \leq \text{available}_m, \quad \forall m = 1, \ldots, M-2
+\]
+
+2. Combined availability constraint for Machines \( M-1 \) and \( M \):
+\[
+\sum_{p=1}^{P} \text{time}_{M-1,p} \times x_p + \sum_{p=1}^{P} \text{time}_{M,p} \times x_p \leq \text{available}_{M-1} + \text{available}_M
+\]
+
+3. Minimum production constraint for each part:
+\[
+x_p \geq \text{min\_batches}_p, \quad \forall p = 1, \ldots, P
+\]
+
+4. Non-negativity constraint:
+\[
+x_p \geq 0, \quad \forall p = 1, \ldots, P
+\]
+
+\subsection*{Decision Variables}
+- \( x_p \): Number of batches of part \( p \) produced for \( p = 1, 2, \ldots, P \).
+
+\end{document}

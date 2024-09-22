@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Objective Function}
+
+Minimize the total cost:
+\[
+\text{Minimize } \sum_{k=1}^{K} \text{price}_k \times x_k
+\]
+
+\subsection*{Constraints}
+
+1. Total weight constraint:
+\[
+\sum_{k=1}^{K} x_k = \text{alloy\_quant}
+\]
+
+2. Metal composition constraints for each metal \( m \):
+\[
+\sum_{k=1}^{K} \text{ratio}_{k,m} \times x_k = \text{target}_m \times \text{alloy\_quant} \quad \text{for each } m = 1, \ldots, M
+\]
+
+3. Non-negativity constraints:
+\[
+x_k \geq 0 \quad \text{for each } k = 1, \ldots, K
+\]
+
+\end{document}

@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $produce_{k, t}$: Amount of units produced by industry $k$ in year $t$.
+    \item $buildcapa_{k, t}$: Amount of units used to build productive capacity for industry $k$ in year $t$.
+    \item $stockhold_{k, t}$: Amount of stock held for industry $k$ in year $t$.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $inputone_{k, j}$: Input required from industry $j$ by industry $k$ for production.
+    \item $manpowerone_{k}$: Manpower required by industry $k$ for production.
+    \item $inputtwo_{k, j}$: Input required from industry $j$ by industry $k$ for building capacity.
+    \item $manpowertwo_{k}$: Manpower required by industry $k$ for building capacity.
+    \item $stock_{k}$: Initial stock of industry $k$ in year 0.
+    \item $capacity_{k}$: Initial capacity of industry $k$ in year 0.
+    \item $manpower\_limit$: Limited yearly manpower capacity.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total production in the last two years, $t = T-1$ and $t = T$:
+\[
+\max \sum_{k=1}^{K} (produce_{k, T-1} + produce_{k, T})
+\]
+
+\subsection*{Constraints}
+
+\begin{itemize}
+    \item \textbf{Production Constraints:}
+    \[
+    produce_{k, t} \leq capacity_{k, t} \quad \forall k, t
+    \]
+
+    \item \textbf{Resource Constraints:}
+    \[
+    \sum_{j=1}^{K} inputone_{k, j} \cdot produce_{k, t} + inputtwo_{k, j} \cdot buildcapa_{k, t} \leq stockhold_{j, t} + produce_{j, t} \quad \forall k, j, t
+    \]
+
+    \item \textbf{Manpower Constraints:}
+    \[
+    \sum_{k=1}^{K} (manpowerone_{k} \cdot produce_{k, t} + manpowertwo_{k} \cdot buildcapa_{k, t}) \leq manpower\_limit \quad \forall t
+    \]
+
+    \item \textbf{Stock Balance:}
+    \[
+    stockhold_{k, t+1} = stockhold_{k, t} + produce_{k, t} - \sum_{j=1}^{K} inputone_{j, k} \cdot produce_{j, t} - buildcapa_{k, t} \quad \forall k, t
+    \]
+
+    \item \textbf{Capacity Update:}
+    \[
+    capacity_{k, t+2} = capacity_{k, t+2} + buildcapa_{k, t} \quad \forall k, t
+    \]
+
+    \item \textbf{Non-negativity:}
+    \[
+    produce_{k, t} \geq 0, \quad buildcapa_{k, t} \geq 0, \quad stockhold_{k, t} \geq 0 \quad \forall k, t
+    \]
+\end{itemize}
+
+\end{document}

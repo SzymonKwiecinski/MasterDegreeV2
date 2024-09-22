@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Container Transportation}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( I \) be the number of depots
+    \item Let \( J \) be the number of ports
+    \item \( \text{numdepot}_i \) : Number of containers available at depot \( i \) for \( i = 1, \ldots, I \)
+    \item \( \text{numport}_j \) : Number of containers required at port \( j \) for \( j = 1, \ldots, J \)
+    \item \( \text{price} \) : Cost of transportation per kilometer (Euros/km)
+    \item \( \text{distance}_{i,j} \) : Distance from depot \( i \) to port \( j \) (km)
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let 
+\[
+x_{i,j} \quad \text{be the number of containers sent from depot } i \text{ to port } j
+\]
+
+\subsection*{Objective Function}
+Minimize the total transportation cost:
+\[
+\text{Minimize} \quad Z = \sum_{i=1}^{I} \sum_{j=1}^{J} \left( \frac{x_{i,j}}{2} \cdot \text{distance}_{i,j} \cdot \text{price} \right)
+\]
+Here, \( \frac{x_{i,j}}{2} \) represents the number of barges used, assuming each barge carries 2 containers.
+
+\subsection*{Constraints}
+1. Supply constraints at each depot:
+\[
+\sum_{j=1}^{J} x_{i,j} \leq \text{numdepot}_i, \quad \forall i = 1, \ldots, I
+\]
+2. Demand constraints at each port:
+\[
+\sum_{i=1}^{I} x_{i,j} \geq \text{numport}_j, \quad \forall j = 1, \ldots, J
+\]
+3. Non-negativity constraints:
+\[
+x_{i,j} \geq 0, \quad \forall i = 1, \ldots, I, \quad j = 1, \ldots, J
+\]
+
+\subsection*{Output}
+The output will be:
+\[
+\text{"number"}: \begin{bmatrix}
+x_{1,1} & x_{1,2} & \ldots & x_{1,J} \\
+x_{2,1} & x_{2,2} & \ldots & x_{2,J} \\
+\vdots & \vdots & \ddots & \vdots \\
+x_{I,1} & x_{I,2} & \ldots & x_{I,J}
+\end{bmatrix}
+\]
+
+\end{document}

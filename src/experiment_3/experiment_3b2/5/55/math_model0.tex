@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturing}
+
+\subsection*{Sets and Indices}
+\begin{align*}
+P & : \text{Set of parts, indexed by } p = 1, \ldots, P \\
+M & : \text{Set of machines, indexed by } m = 1, \ldots, M
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+\text{time\_required}_{m,p} & : \text{Time required on machine } m \text{ to produce a batch of part } p \\
+\text{cost}_{m} & : \text{Cost per hour of operating machine } m \\
+\text{available}_{m} & : \text{Availability of machine } m \text{ in hours per month} \\
+\text{price}_{p} & : \text{Selling price of 100-part batch of part } p \\
+\text{min\_batches}_{p} & : \text{Minimum batches of part } p \text{ that must be produced each month} \\
+\text{standard\_cost} & : \text{Standard labor cost for machine 1 up to overtime hours} \\
+\text{overtime\_cost} & : \text{Overtime labor cost for machine 1 beyond overtime hours} \\
+\text{overtime\_hour} & : \text{Maximum regular hours for machine 1 before overtime} \\
+\text{min\_profit} & : \text{Minimum desired profit for the month}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+\text{batches}_{p} & : \text{Number of batches of part } p \text{ produced (integer)} \\
+\text{profit} & : \text{Total profit obtained for the month}
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\begin{align*}
+\text{profit} & = \sum_{p=1}^{P} (\text{price}_{p} \cdot \text{batches}_{p}) - \sum_{m=2}^{M} \left( \sum_{p=1}^{P} (\text{time\_required}_{m,p} \cdot \text{batches}_{p}) \cdot \text{cost}_{m} \right) \\
+& \quad - \left( \sum_{p=1}^{P} (\text{time\_required}_{1,p} \cdot \text{batches}_{p}) \cdot \text{standard\_cost} \right) + \text{possible\_overtime\_cost}
+\end{align*}
+
+Where:
+\begin{align*}
+\text{possible\_overtime\_cost} & = \begin{cases} 
+0, & \text{if } \sum_{p=1}^{P} (\text{time\_required}_{1,p} \cdot \text{batches}_{p}) \leq \text{overtime\_hour} \\
+\left( \sum_{p=1}^{P} (\text{time\_required}_{1,p} \cdot \text{batches}_{p}) - \text{overtime\_hour} \right) \cdot (\text{overtime\_cost} - \text{standard\_cost}), & \text{otherwise}
+\end{cases}
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+\sum_{p=1}^{P} (\text{time\_required}_{m,p} \cdot \text{batches}_{p}) & \leq \text{available}_{m}, & \forall m = 2, \ldots, M \\
+\text{batches}_{p} & \geq \text{min\_batches}_{p}, & \forall p = 1, \ldots, P \\
+\text{profit} & \geq \text{min\_profit}
+\end{align*}
+
+\end{document}

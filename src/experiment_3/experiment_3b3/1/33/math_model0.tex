@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Mathematical Model for the Knapsack Problem}
+\author{}
+\date{}
+\maketitle
+
+\section{Introduction}
+In the knapsack problem, we aim to select a subset of items that maximizes the total value while staying within a specified capacity. Each item \( k \) has an associated value \( \text{value}_{k} \) and size \( \text{size}_{k} \). The capacity of the knapsack is denoted as \( C \).
+
+\section{Mathematical Model}
+
+\subsection{Indices}
+\begin{itemize}
+    \item \( k \): Index for items, where \( k = 1, \ldots, K \)
+\end{itemize}
+
+\subsection{Parameters}
+\begin{itemize}
+    \item \( C \): Maximum capacity of the knapsack
+    \item \( \text{value}_{k} \): Value of item \( k \)
+    \item \( \text{size}_{k} \): Size of item \( k \)
+\end{itemize}
+
+\subsection{Variables}
+\begin{itemize}
+    \item \( \text{isincluded}_{k} \): Binary variable which is 1 if item \( k \) is included in the knapsack, and 0 otherwise
+\end{itemize}
+
+\subsection{Objective Function}
+We want to maximize the total value of the packed items:
+\[
+\text{Maximize} \quad Z = \sum_{k=1}^{K} \text{value}_{k} \cdot \text{isincluded}_{k}
+\]
+
+\subsection{Constraints}
+The total size of the selected items must not exceed the capacity of the knapsack:
+\[
+\sum_{k=1}^{K} \text{size}_{k} \cdot \text{isincluded}_{k} \leq C
+\]
+Additionally, the decision variable must be binary:
+\[
+\text{isincluded}_{k} \in \{0, 1\}, \quad \forall k \in \{1, \ldots, K\}
+\]
+
+\section{Output Format}
+The output will indicate which items are included in the knapsack:
+\[
+\text{output} = \{ \text{isincluded} = [\text{isincluded}_{k} \text{ for } k \text{ in } 1,\ldots,K] \}
+\]
+
+\end{document}

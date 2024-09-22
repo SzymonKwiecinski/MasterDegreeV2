@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Formulation for Auto Parts Manufacturer}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Description}
+
+A division of an auto parts manufacturer produces $P$ different parts using $M$ different machines. Each part $p$ is manufactured in batches of 100 units. The production of each part $p$ on machine $m$ requires a certain amount of time, incurs specific costs, and is bound by the machine's availability.
+
+\section*{Model Formulation}
+
+Define the decision variables:
+\[
+batches_p \quad \text{for all } p = 1, \ldots, P
+\]
+where $batches_p$ represents the number of batches of part $p$ to produce.
+
+\subsection*{Objective Function}
+
+The aim is to maximize profit. The profit is the revenue from selling parts minus the cost of using machines. The objective function is:
+
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} \left( price_{p} \times batches_p \right) - \sum_{m=1}^{M} \left( cost_{m} \times \sum_{p=1}^{P} time_{m,p} \times batches_p \right)
+\]
+
+\subsection*{Constraints}
+
+1. **Machine Time Constraints:**
+   \[
+   \sum_{p=1}^{P} \left( time_{m,p} \times batches_p \right) \leq available_{m} \quad \text{for all } m = 1, \ldots, M-2
+   \]
+
+2. **Shared Availability for Machine $M$ and Machine $M-1$:**
+   \[
+   \sum_{p=1}^{P} \left( time_{M,p} \times batches_p \right) + \sum_{p=1}^{P} \left( time_{M-1,p} \times batches_p \right) \leq available_{M} + available_{M-1}
+   \]
+
+3. **Minimum Batch Constraints:**
+   \[
+   batches_p \geq min\_batches_{p} \quad \text{for all } p = 1, \ldots, P
+   \]
+
+4. **Non-negativity Constraints:**
+   \[
+   batches_p \geq 0 \quad \text{for all } p = 1, \ldots, P
+   \]
+
+\end{document}

@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Cafeteria Staffing}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item $n$: Day index, where $n = 1, 2, \ldots, N$
+    \item $i$: Employee index, where $i = 1, 2, \ldots, \text{total\_number}$
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $num_n$: Required number of employees on day $n$
+    \item $n\_working\_days$: Number of consecutive days an employee works
+    \item $n\_resting\_days$: Number of consecutive days an employee rests
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $total\_number$: Total number of employees to hire
+    \item $is\_work_{n,i}$: Binary variable indicating if employee $i$ works on day $n$ ($is\_work_{n,i} = 1$ if the employee works on day $n$, and $0$ otherwise)
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } total\_number
+\]
+
+\textbf{Constraints:}
+\begin{align}
+    \sum_{i=1}^{total\_number} is\_work_{n,i} & \geq num_n, \quad \forall n \in \{1, 2, \ldots, N\} \tag{1}\\
+    is\_work_{n,i} & = 1 \quad \text{for } n \in \{j, j+1, \ldots, j + n\_working\_days - 1\} \quad \text{if } i \text{ works on day } j \tag{2}\\
+    is\_work_{n,i} & = 0 \quad \text{for } n \in \{j + n\_working\_days, \ldots, j + n\_working\_days + n\_resting\_days - 1\} \quad \text{if } i \text{ works on day } j \tag{3}\\
+    is\_work_{n,i} & \in \{0, 1\} \quad \forall n \forall i \tag{4}
+\end{align}
+
+\textbf{Output:}
+\begin{itemize}
+    \item $total\_number$: Total number of employees hired
+    \item $is\_work$: A matrix representing the work schedule for each employee across the days
+\end{itemize}
+
+\end{document}

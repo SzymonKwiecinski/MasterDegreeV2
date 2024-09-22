@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model for Paper Roll Cutting Problem}
+
+We are given a paper cutting problem where we need to minimize the number of large rolls used to meet the demand for smaller rolls of various widths.
+
+\subsection*{Parameters}
+
+\begin{itemize}
+    \item $W$: Width of the large roll (in inches).
+    \item $M$: Number of different types of smaller rolls.
+    \item $N$: Number of available cutting patterns.
+    \item $\text{width}_j$: Width of the $j^{th}$ smaller roll ($j = 1, \ldots, M$).
+    \item $\text{demand}_j$: Demand for the $j^{th}$ smaller roll ($j = 1, \ldots, M$).
+    \item $\text{pattern}_{i,j}$: Number of $j^{th}$ smaller rolls produced in pattern $i$ ($i = 1, \ldots, N$).
+\end{itemize}
+
+\subsection*{Decision Variables}
+
+Let:
+\begin{itemize}
+    \item $x_i$: Number of large rolls used with cutting pattern $i$.
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Minimize the total number of large rolls used:
+
+\[
+\min \sum_{i=1}^{N} x_i
+\]
+
+\subsection*{Constraints}
+
+1. Meet the demand for each type of smaller roll:
+
+\[
+\sum_{i=1}^{N} \text{pattern}_{i,j} \cdot x_i \geq \text{demand}_j, \quad \forall j = 1, \ldots, M
+\]
+
+2. Non-negativity constraint:
+
+\[
+x_i \geq 0, \quad \forall i = 1, \ldots, N
+\]
+
+\end{document}

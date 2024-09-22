@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( x_j \) be the amount of good \( j \) produced for \( j = 1, 2, \ldots, M \).
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{j=1}^{M} \text{price}_{j} \cdot x_j
+\]
+
+\textbf{Subject to:}
+\begin{itemize}
+    \item For each raw material \( i \):
+    \[
+    \sum_{j=1}^{M} \text{req}_{i,j} \cdot x_j \leq \text{available}_{i}, \quad \text{for } i = 1, 2, \ldots, N
+    \]
+    
+    \item Non-negativity constraints:
+    \[
+    x_j \geq 0, \quad \text{for } j = 1, 2, \ldots, M
+    \]
+\end{itemize}
+
+\textbf{Input Representation:}
+\begin{itemize}
+    \item Let \( \text{available} = [\text{available}_{1}, \ldots, \text{available}_{N}] \)
+    \item Let \( \text{requirements} = [[\text{req}_{1,1}, \ldots, \text{req}_{1,M}], [\text{req}_{2,1}, \ldots, \text{req}_{2,M}], \ldots, [\text{req}_{N,1}, \ldots, \text{req}_{N,M}]] \)
+    \item Let \( \text{prices} = [\text{price}_{1}, \ldots, \text{price}_{M}] \)
+\end{itemize}
+
+\textbf{Output Representation:}
+\begin{itemize}
+    \item The output will be:
+    \[
+    \{ "amount": [x_{1}, \ldots, x_{M}] \}
+    \]
+\end{itemize}
+
+\end{document}

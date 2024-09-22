@@ -1,0 +1,73 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Mathematical Model for Production Optimization}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Description}
+
+Let \( N \) be the number of different product types produced by the company. For each product \( i \) (where \( i = 1, \ldots, N \)), the following parameters are defined:
+
+\begin{itemize}
+    \item \( \text{assemblyHour}_i \): hours of assembly labor required for product \( i \)
+    \item \( \text{testingHour}_i \): hours of testing required for product \( i \)
+    \item \( \text{materialCost}_i \): cost of raw materials for product \( i \) (in dollars)
+    \item \( \text{price}_i \): selling price of product \( i \) (in dollars)
+\end{itemize}
+
+Additionally, the following constraints are given:
+
+\begin{itemize}
+    \item Maximum hours of assembly labor per day: \( \text{maxAssembly} \)
+    \item Maximum hours of testing per day: \( \text{maxTesting} \)
+    \item Maximum overtime assembly hours: \( \text{maxOvertimeAssembly} \)
+    \item Overtime assembly cost per hour: \( \text{overtimeAssemblyCost} \)
+    \item Material discount percentage: \( \text{materialDiscount} \)
+    \item Discount threshold: \( \text{discountThreshold} \)
+\end{itemize}
+
+\section*{Decision Variables}
+
+Let:
+\begin{itemize}
+    \item \( x_i \): number of units produced of product \( i \)
+    \item \( y \): hours of overtime assembly labor scheduled
+\end{itemize}
+
+The total amount of raw materials bought can be represented as:
+\[
+\text{materialBought} = \sum_{i=1}^{N} \text{materialCost}_i \cdot x_i
+\]
+
+\section*{Objective Function}
+
+The objective is to maximize the daily profit, defined as:
+
+\[
+\text{dailyProfit} = \sum_{i=1}^{N} \text{price}_i \cdot x_i - \left( \sum_{i=1}^{N} \text{materialCost}_i \cdot x_i \cdot \left(1 - \frac{\text{materialDiscount}}{100}\right) + y \cdot \text{overtimeAssemblyCost} \right)
+\]
+
+\section*{Constraints}
+
+1. Total assembly hours used must not exceed the maximum available hours:
+\[
+\sum_{i=1}^{N} \text{assemblyHour}_i \cdot x_i + y \leq \text{maxAssembly} + \text{maxOvertimeAssembly}
+\]
+
+2. Total testing hours must not exceed the maximum available hours:
+\[
+\sum_{i=1}^{N} \text{testingHour}_i \cdot x_i \leq \text{maxTesting}
+\]
+
+3. Non-negativity constraints:
+\[
+x_i \geq 0 \quad \forall i = 1, \ldots, N 
+\]
+\[
+y \geq 0
+\]
+
+\end{document}

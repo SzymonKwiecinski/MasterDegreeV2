@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Maximizing Net Income}
+\author{}
+\date{}
+\maketitle
+
+\section*{Variables}
+Let:
+\begin{itemize}
+    \item \( P \) be the number of different products.
+    \item \( x_i \) be the production quantity of the \( i \)-th product, for \( i = 1, \ldots, P \).
+    \item \( u \) be a binary variable indicating the upgrade decision, where \( u = 1 \) if the company upgrades its machine capacity and \( u = 0 \) otherwise.
+\end{itemize}
+
+\section*{Parameters}
+Given parameters are:
+\begin{itemize}
+    \item \( \text{cash} \): available cash.
+    \item \( \text{hour}_i \): machine hours required for producing one unit of the \( i \)-th product.
+    \item \( \text{cost}_i \): production cost per unit of the \( i \)-th product.
+    \item \( \text{price}_i \): selling price per unit of the \( i \)-th product.
+    \item \( \text{investPercentage}_i \): percentage of sales revenue that will be reinvested from the \( i \)-th product.
+    \item \( \text{upgradeHours} \): additional machine hours available after upgrade.
+    \item \( \text{upgradeCost} \): cost of upgrade.
+    \item \( \text{availableHours} \): initial machine hours available in the current production period.
+\end{itemize}
+
+\section*{Objective Function}
+Maximize the total net income:
+\[
+\text{Net Income} = \sum_{i=1}^{P} \left( \text{price}_i \cdot x_i - \text{cost}_i \cdot x_i - \text{investPercentage}_i \cdot \text{price}_i \cdot x_i \right) - u \cdot \text{upgradeCost}
+\]
+
+\section*{Constraints}
+1. Cash constraint:
+\[
+\sum_{i=1}^{P} \text{cost}_i \cdot x_i + u \cdot \text{upgradeCost} \leq \text{cash}
+\]
+
+2. Machine hours constraint:
+\[
+\sum_{i=1}^{P} \text{hour}_i \cdot x_i \leq \text{availableHours} + u \cdot \text{upgradeHours}
+\]
+
+3. Non-negativity constraints:
+\[
+x_i \geq 0 \quad \text{for } i = 1, \ldots, P
+\]
+
+4. Upgrade decision constraint:
+\[
+u \in \{0, 1\}
+\end{document}

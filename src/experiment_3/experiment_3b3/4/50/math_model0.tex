@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Auto Parts Manufacturer}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+Let:
+\begin{itemize}
+    \item \(P\) = number of different parts
+    \item \(M\) = number of different machines
+\end{itemize}
+
+Define:
+\begin{itemize}
+    \item \(batches_p\) = number of batches of part \(p\) produced
+    \item \(time_{m,p}\) = hours required on machine \(m\) for 100 parts of type \(p\)
+    \item \(cost_m\) = cost per hour for machine \(m\)
+    \item \(available_m\) = available hours for machine \(m\)
+    \item \(price_p\) = selling price per batch of part \(p\)
+    \item \(min\_batches_p\) = minimum required batches for part \(p\)
+    \item \(extra\_cost_m\) = cost per hour for extra time on machine \(m\)
+    \item \(max\_extra_m\) = maximum extra hours that can be purchased for machine \(m\)
+    \item \(extra\_time_m\) = extra hours purchased for machine \(m\)
+\end{itemize}
+
+\section*{Objective Function}
+Maximize total profit:
+\[
+\text{Total Profit} = \sum_{p=1}^{P} \left( price_p \cdot batches_p \right) - \sum_{m=1}^{M} \left( cost_m \cdot \left( \sum_{p=1}^{P} time_{m,p} \cdot batches_p + extra\_time_m \right) \right) - \sum_{m=1}^{M} (extra\_cost_m \cdot extra\_time_m)
+\]
+
+\section*{Constraints}
+1. Production time constraint per machine:
+\[
+\sum_{p=1}^{P} time_{m,p} \cdot batches_p + extra\_time_m \leq available_m + max\_extra_m \quad \forall m=1,\ldots,M
+\]
+
+2. Minimum batches constraint:
+\[
+batches_p \geq min\_batches_p \quad \forall p=1,\ldots,P
+\]
+
+3. Non-negativity:
+\[
+batches_p \geq 0 \quad \forall p=1,\ldots,P
+\]
+\[
+extra\_time_m \geq 0 \quad \forall m=1,\ldots,M
+\]
+
+4. Maximum extra time constraint:
+\[
+extra\_time_m \leq max\_extra_m \quad \forall m=1,\ldots,M
+\]
+
+\section*{Output Variables}
+Let the output variables be defined as:
+\begin{itemize}
+    \item \(batches = [batches_p \text{ for } p=1, \ldots, P]\)
+    \item \(extra\_time = [extra\_time_m \text{ for } m=1, \ldots, M]\)
+    \item \(total\_profit = \text{Total Profit}\)
+\end{itemize}
+
+\end{document}

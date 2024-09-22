@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+Minimize the sum of absolute deviations:
+\[
+\min \sum_{k=1}^{K} e_k
+\]
+
+where \( e_k \) represents the absolute deviation for each data point.
+
+\textbf{Subject to:}
+
+For each data point \( k \), introduce constraints to linearize the absolute value:
+
+\[
+y_k - (c \cdot x_k^2 + b \cdot x_k + a) \leq e_k
+\]
+
+\[
+(c \cdot x_k^2 + b \cdot x_k + a) - y_k \leq e_k
+\]
+
+These constraints ensure that \( e_k \) is at least as large as the positive or negative deviation from the predicted value.
+
+\textbf{Variables:}
+
+- \( a \): constant term
+- \( b \): linear term
+- \( c \): quadratic term
+- \( e_k \): absolute deviation for each data point \( k \)
+
+\textbf{Solution:}
+
+The solution will provide the coefficients for the quadratic function, which are:
+
+- Quadratic coefficient (\(c\))
+- Linear coefficient (\(b\))
+- Constant coefficient (\(a\))
+
+\end{document}

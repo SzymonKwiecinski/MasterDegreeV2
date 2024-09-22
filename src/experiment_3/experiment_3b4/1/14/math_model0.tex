@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\title{Linear Programming Model for Maximizing Net Income}
+\author{Operations Research Model}
+\date{}
+\maketitle
+
+\section*{Problem Formulation}
+
+Given the input parameters:
+\begin{itemize}
+    \item $P$: number of products
+    \item $\text{cash}$: available cash
+    \item $\text{hour}_i$: machine hours required per unit of product $i$
+    \item $\text{cost}_i$: production cost per unit of product $i$
+    \item $\text{price}_i$: selling price per unit of product $i$
+    \item $\text{investPercentage}_i$: fraction of sales revenue reinvested for product $i$
+    \item $\text{upgradeHours}$: additional machine hours available after upgrade
+    \item $\text{upgradeCost}$: cost of upgrading machine capacity
+    \item $\text{availableHours}$: current machine hours available
+\end{itemize}
+
+Define decision variables:
+\begin{itemize}
+    \item $x_i$: production quantity of product $i$ for $i = 1, \ldots, P$
+    \item $y$: binary variable for machine upgrade ($y = 1$ if upgrade, $y = 0$ if no upgrade)
+\end{itemize}
+
+The objective is to maximize the total net income:
+\begin{align*}
+    \text{Maximize } Z = \sum_{i=1}^{P} \left( (\text{price}_i - \text{cost}_i - \text{investPercentage}_i \cdot \text{price}_i) \cdot x_i \right) - y \cdot \text{upgradeCost}
+\end{align*}
+
+Subject to the constraints:
+\begin{itemize}
+    \item Cash availability constraint:
+    \begin{align*}
+        \sum_{i=1}^{P} \text{cost}_i \cdot x_i \leq \text{cash} + \sum_{i=1}^{P} \text{investPercentage}_i \cdot \text{price}_i \cdot x_i
+    \end{align*}
+    \item Machine capacity constraint:
+    \begin{align*}
+        \sum_{i=1}^{P} \text{hour}_i \cdot x_i \leq \text{availableHours} + y \cdot \text{upgradeHours}
+    \end{align*}
+    \item Non-negativity and binary constraints:
+    \begin{align*}
+        x_i &\geq 0 \quad \text{for all } i = 1, \ldots, P \\
+        y &\in \{0, 1\}
+    \end{align*}
+\end{itemize}
+
+\section*{Conclusion}
+
+The above LP should be solved to determine the optimal production quantities $x_i$ for each product and whether or not to upgrade the machine capacity ($y$). The solution will maximize the total net income $Z$.
+
+\end{document}

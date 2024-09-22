@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item $P$: Set of different parts, indexed by $p = 1, \ldots, P$.
+    \item $M$: Set of different machines, indexed by $m = 1, \ldots, M$.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $time_{m,p}$: Time in hours on machine $m$ required to produce a batch of part $p$.
+    \item $cost_{m}$: Cost per hour for using machine $m$.
+    \item $available_{m}$: Availability in hours per month for machine $m$.
+    \item $price_{p}$: Selling price per batch of part $p$.
+    \item $min\_batches_{p}$: Minimum number of batches of part $p$ to produce per month to fulfill a contract.
+    \item $standard\_cost$: Standard labor cost per hour for machine 1.
+    \item $overtime\_cost$: Overtime labor cost per hour for machine 1.
+    \item $overtime\_hour$: Number of hours up to which standard cost applies for machine 1.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $batches_{p}$: Number of batches of part $p$ produced each month, for $p \in P$.
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+    \text{Maximize } Z &= \sum_{p=1}^{P} \left( price_{p} \cdot batches_{p} \right) - \sum_{m=1}^{M} \left( cost_{m} \cdot \sum_{p=1}^{P} time_{m,p} \cdot batches_{p} \right) \\
+    &- \left( \text{if } \sum_{p=1}^{P} time_{1,p} \cdot batches_{p} > overtime\_hour \text{ then } (standard\_cost \cdot overtime\_hour + overtime\_cost \cdot \left(\sum_{p=1}^{P} time_{1,p} \cdot batches_{p} - overtime\_hour\right)) \text{ else } (standard\_cost \cdot \sum_{p=1}^{P} time_{1,p} \cdot batches_{p}) \right)
+\end{align*}
+
+\textbf{Constraints:}
+\begin{align*}
+    1. & \quad \sum_{p=1}^{P} time_{m,p} \cdot batches_{p} \leq available_{m}, \quad \forall m \in M \\
+    2. & \quad batches_{p} \geq min\_batches_{p}, \quad \forall p \in P \\
+    3. & \quad batches_{p} \geq 0 \quad \text{and integer, } \forall p \in P
+\end{align*}
+
+\textbf{Output:}
+\begin{align*}
+    & \text{Number of batches produced: } \{batches_{p} \,|\, p \in P\} \\
+    & \text{Total profit: } Z
+\end{align*}
+
+\end{document}

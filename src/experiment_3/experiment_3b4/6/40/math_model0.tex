@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Parameters}
+\begin{align*}
+    n_{\text{steel\_quant}} & \quad \text{(Tons of steel required)} \\
+    \text{mn\_percent} & \quad \text{Minimum percentage of Mn required in steel} \\
+    \text{si\_min} & \quad \text{Minimum percentage of Si allowed in steel} \\
+    \text{si\_max} & \quad \text{Maximum percentage of Si allowed in steel} \\
+    \text{contsi}_k & \quad \text{Percentage of Si in mineral $k$} \\
+    \text{contmn}_k & \quad \text{Percentage of Mn in mineral $k$} \\
+    \text{mang\_price} & \quad \text{Cost in million euros per ton of Mn} \\
+    \text{cost}_k & \quad \text{Cost in million euros per thousand tons of mineral $k$} \\
+    \text{sell\_price} & \quad \text{Selling price in million euros per ton of steel} \\
+    \text{melt\_price} & \quad \text{Smelting cost in million euros per ton of mineral} \\
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    \text{amount}_k & \quad \text{Amount of mineral $k$ melted (in tons)} \\
+    \text{num\_mang} & \quad \text{Amount of Mn directly added (in tons)}
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize profit:
+\[
+\text{Maximize} \quad Z = \text{sell\_price} \times n_{\text{steel\_quant}} - \sum_{k} \left( \frac{\text{cost}_k}{1000} \times \text{amount}_k \right) - \text{mang\_price} \times \text{num\_mang} - \text{melt\_price} \times \sum_k \text{amount}_k
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+    \sum_k \left( \text{amount}_k \times \frac{\text{contmn}_k}{100} \right) + \text{num\_mang} &\geq \frac{\text{mn\_percent}}{100} \times n_{\text{steel\_quant}} \quad \text{(Mn content constraint)} \\
+    \text{si\_min} \times n_{\text{steel\_quant}} &\leq \sum_k \left( \text{amount}_k \times \frac{\text{contsi}_k}{100} \right) \leq \text{si\_max} \times n_{\text{steel\_quant}} \quad \text{(Si content constraint)} \\
+    \sum_k \text{amount}_k + \text{num\_mang} &= n_{\text{steel\_quant}} \quad \text{(Total quantity constraint)} \\
+    \text{amount}_k &\geq 0 \quad \forall k \\
+    \text{num\_mang} &\geq 0
+\end{align*}
+\end{document}

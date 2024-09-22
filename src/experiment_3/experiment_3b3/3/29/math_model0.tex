@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Fitting a Line}
+
+Given a set of observed values for \( y \) and \( x \):
+
+\[
+\begin{aligned}
+y & = [y_1, y_2, \ldots, y_K] \\
+x & = [x_1, x_2, \ldots, x_K]
+\end{aligned}
+\]
+
+We aim to fit the best straight line of the form:
+
+\[
+y = bx + a
+\]
+
+where we want to minimize the maximum deviation of the observed values of \( y \) from the predicted values given by the linear relationship.
+
+Let \( d_k \) be the deviation for each observation, defined as:
+
+\[
+d_k = y_k - (bx_k + a)
+\]
+
+Thus, we want to minimize the maximum absolute deviation:
+
+\[
+\min \max_{k=1,2,\ldots,K} |d_k|
+\]
+
+This can be transformed into a linear programming problem. Define \( M \) as the maximum deviation:
+
+\[
+\text{subject to:} \\
+d_k \leq M, \quad \forall k \\
+-d_k \leq M, \quad \forall k
+\]
+
+The complete linear programming formulation is:
+
+\[
+\begin{aligned}
+\text{Minimize} \quad & M \\
+\text{subject to} \quad & y_k - (bx_k + a) \leq M, \quad \forall k \\
+& -(y_k - (bx_k + a)) \leq M, \quad \forall k \\
+& b \text{ and } a \text{ free variables}
+\end{aligned}
+\]
+
+The output of this linear programming formulation will provide us with the values for:
+
+\[
+\begin{aligned}
+\text{intercept} & = a \\
+\text{slope} & = b
+\end{aligned}
+\]
+
+\end{document}

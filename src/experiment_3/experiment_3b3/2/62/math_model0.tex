@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Traveling Salesman Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $N$: Number of towns to visit.
+    \item $d_{i,j}$: Distance between town $i$ and town $j$.
+    \item $start\_city$: The starting city of the traveler.
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item $x_{i,j}$: Binary variable, where $x_{i,j} = 1$ if the traveler travels directly from town $i$ to town $j$, and $0$ otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total distance traveled:
+
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} \sum_{j=1}^{N} d_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{enumerate}
+    \item Each town must be entered and exited exactly once:
+    \[
+    \sum_{j=1, j \neq i}^{N} x_{i,j} = 1 \quad \forall i \in \{1, \ldots, N\}
+    \]
+    \[
+    \sum_{i=1, i \neq j}^{N} x_{i,j} = 1 \quad \forall j \in \{1, \ldots, N\}
+    \]
+
+    \item Subtour elimination constraints to avoid cycles:
+    \[
+    u_i - u_j + N \cdot x_{i,j} \leq N - 1 \quad \forall i,j \in \{1, \ldots, N\}, i \neq j
+    \]
+    where $u_i$ is a continuous variable representing the position of town $i$ in the tour.
+
+    \item The route must start and end at the $start\_city$:
+    \[
+    x_{start\_city,j} = 1 \quad \forall j \in \{1, \ldots, N\}
+    \]
+    \[
+    x_{j,start\_city} = 1 \quad \forall j \in \{1, \ldots, N\}
+    \]
+\end{enumerate}
+
+\subsection*{Output}
+The output will provide:
+\begin{itemize}
+    \item \texttt{visit\_order}: The sequence of towns visited after starting from \texttt{start\_city}.
+    \item \texttt{total\_distance}: The total distance traveled on this optimal journey.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Model for Nurse Scheduling}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $d_j$: Demand for nurses on day $j$, for $j = 1, \ldots, 7$.
+    \item $\text{period}$: The number of consecutive working days.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_j$: Number of nurses that start their period on day $j$, for $j = 1, \ldots, 7$, where $x_j \in \mathbb{Z}_+$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total number of nurses:
+\[
+\min \sum_{j=1}^{7} x_j
+\]
+
+\subsection*{Constraints}
+For each day $j = 1, \ldots, 7$, the demand is satisfied by the sum of the nurses starting their period within the last $\text{period}$ days:
+\[
+\sum_{k=0}^{\text{period}-1} x_{(j-k-1 \mod 7) + 1} \geq d_j \quad \text{for } j = 1, \ldots, 7
+\]
+where $(j-k-1 \mod 7) + 1$ ensures that the days are wrapped around a weekly schedule.
+
+\end{document}

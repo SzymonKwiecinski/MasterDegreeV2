@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Line Fitting}
+
+Let \( y_k \) be the observed values of \( y \) for \( k = 1, 2, \ldots, K \) and \( x_k \) be the corresponding values of \( x \).
+
+We need to fit the line defined by the equation:
+
+\[
+y = bx + a
+\]
+
+where \( b \) is the slope and \( a \) is the intercept. Our goal is to minimize the maximum deviation of the observed values from the predicted values.
+
+We define the deviation for each observation as follows:
+
+\[
+d_k = y_k - (bx_k + a)
+\]
+
+The objective is to minimize the maximum deviation, which can be formulated as:
+
+\[
+\text{Minimize } M
+\]
+
+subject to:
+
+\[
+y_k - (bx_k + a) \leq M, \quad \forall k = 1, 2, \ldots, K
+\]
+\[
+-(y_k - (bx_k + a)) \leq M, \quad \forall k = 1, 2, \ldots, K
+\]
+
+The full mathematical model can be described using the following linear programming formulation:
+
+\begin{align*}
+\text{Minimize} \quad & M \\
+\text{subject to} \quad & y_k - bx_k - a \leq M, \quad k = 1, 2, \ldots, K \\
+& -y_k + bx_k + a \leq M, \quad k = 1, 2, \ldots, K \\
+& \text{where } b \text{ is the slope, } a \text{ is the intercept, and } M \text{ is the maximum deviation.}
+\end{align*}
+
+\textbf{Output:}
+
+The solution of the above LP will give us the values of \textit{intercept} \( a \) and \textit{slope} \( b \).
+
+\[
+\text{Output: } \{ \text{"intercept"}: a, \text{"slope"}: b \}
+\]
+
+\end{document}

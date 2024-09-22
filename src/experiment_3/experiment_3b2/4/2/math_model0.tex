@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+Let \( N \) be the number of different computer systems DEC can produce. We will use the indices \( i = 1, \ldots, N \) to denote each system. Define the following parameters:
+
+\begin{align*}
+    & \text{is\_workstation}[i] : \text{Boolean, true if system } i \text{ is a workstation, false otherwise},\\
+    & \text{price}[i] : \text{Selling price of system } i, \\
+    & \text{disk\_drives}[i] : \text{Average number of disk drives requested for system } i, \\
+    & \text{256K\_boards}[i] : \text{Average number of 256K memory boards used by system } i, \\
+    & \text{max\_cpu} : \text{Maximum CPU units available}, \\
+    & \text{min\_disk}, \text{ max\_disk} : \text{Range of available disk drives}, \\
+    & \text{min\_mem}, \text{ max\_mem} : \text{Range of available 256K memory boards}, \\
+    & \text{demand}[i] : \text{Maximum demand for system } i, \\
+    & \text{demand\_GP} : \text{Maximum demand for GP systems}, \\
+    & \text{demand\_WS} : \text{Maximum demand for WS systems}, \\
+    & \text{preorder}[i] : \text{Preorders for system } i \text{ that must be fulfilled}, \\
+    & \text{alt\_mem} : \text{Alternative memory units available}, \\
+    & \text{alt\_compatible}[i] : \text{Boolean, true if alternative memory can be used in system } i.
+\end{align*}
+
+Define the decision variables:
+
+\begin{align*}
+    & x_i : \text{Number of system } i \text{ to produce}, \\
+    & \text{mem\_used}_i : \text{Number of 256K memory boards used by system } i, \\
+    & \text{alt\_used}_i : \text{Number of alternative memory boards used by system } i, \\
+    & \text{disk\_used}_i : \text{Number of disk drives used by system } i.
+\end{align*}
+
+The objective function is to maximize the profit, which is given by:
+
+\[
+\max \sum_{i=1}^{N} \text{price}[i] \cdot x_i
+\]
+
+Subject to the following constraints:
+
+\begin{align*}
+    & \sum_{i=1}^{N} x_i \leq \text{max\_cpu}, \quad \text{(CPU constraint)}\\
+    & \sum_{i=1}^{N} \text{disk\_drives}[i] \cdot x_i \leq \text{max\_disk}, \quad \text{(Disk drive upper limit)} \\
+    & \sum_{i=1}^{N} \text{disk\_drives}[i] \cdot x_i \geq \text{min\_disk}, \quad \text{(Disk drive lower limit)}\\
+    & \sum_{i=1}^{N} \text{256K\_boards}[i] \cdot x_i \leq \text{max\_mem}, \quad \text{(Memory board upper limit)} \\
+    & \sum_{i=1}^{N} \text{256K\_boards}[i] \cdot x_i \geq \text{min\_mem}, \quad \text{(Memory board lower limit)}\\
+    & x_i \leq \text{demand}[i], \quad \forall i, \quad \text{(Individual system demand)} \\
+    & \sum_{i \mid \text{not is\_workstation}[i]} x_i \leq \text{demand\_GP}, \quad \text{(GP demand)} \\
+    & \sum_{i \mid \text{is\_workstation}[i]} x_i \leq \text{demand\_WS}, \quad \text{(WS demand)} \\
+    & x_i \geq \text{preorder}[i], \quad \forall i, \quad \text{(Fulfill preorders)} \\
+    & \text{mem\_used}_i = \text{256K\_boards}[i] \cdot x_i \\
+    & \text{alt\_used}_i = \begin{cases} 
+        \text{alt\_compatible}[i] \cdot y_i & \text{if } \text{alt\_compatible}[i] = \text{true} \\ 
+        0 & \text{otherwise} 
+    \end{cases} \\
+    & \text{disk\_used}_i = \text{disk\_drives}[i] \cdot x_i, \quad \forall i
+\end{align*}
+
+Where the variables \( x_i, \text{mem\_used}_i, \text{alt\_used}_i, \text{disk\_used}_i \) are continuous and non-negative.
+
+\end{document}

@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Steel Production}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $n_{\text{steel\_quant}}$: Tons of steel required
+    \item $mn_{\text{percent}}$: Minimum percentage of Manganese (Mn)
+    \item $si_{\text{min}}$: Minimum percentage of Silicon (Si)
+    \item $si_{\text{max}}$: Maximum percentage of Silicon (Si)
+    \item $contsi_k$: Percentage of Silicon in mineral $k$, for $k = 1, \ldots, K$
+    \item $contmn_k$: Percentage of Manganese in mineral $k$, for $k = 1, \ldots, K$
+    \item $mang_{\text{price}}$: Price of Manganese per ton (in million euros)
+    \item $cost_k$: Cost of mineral $k$ per thousand tons (in million euros)
+    \item $sell_{\text{price}}$: Selling price of produced steel per ton (in million euros)
+    \item $melt_{\text{price}}$: Cost of smelting a ton of mineral (in million euros)
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $amount_k$: Amount of mineral $k$ melted, for $k = 1, \ldots, K$
+    \item $num_{\text{mang}}$: Amount of Manganese added
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize profit:
+\[
+\text{Profit} = n_{\text{steel\_quant}} \cdot sell_{\text{price}} - \sum_{k=1}^{K} \left( \frac{cost_k}{1000} \cdot amount_k + melt_{\text{price}} \cdot amount_k \right) - mang_{\text{price}} \cdot num_{\text{mang}}
+\]
+
+\subsection*{Constraints}
+1. Manganese content requirement:
+\[
+\sum_{k=1}^{K} \left( \frac{contmn_k}{100} \cdot amount_k \right) + num_{\text{mang}} \geq n_{\text{steel\_quant}} \cdot \frac{mn_{\text{percent}}}{100}
+\]
+2. Silicon content requirements:
+\[
+\frac{\sum_{k=1}^{K} \left( \frac{contsi_k}{100} \cdot amount_k \right)}{n_{\text{steel\_quant}}} \geq \frac{si_{\text{min}}}{100}
+\]
+\[
+\frac{\sum_{k=1}^{K} \left( \frac{contsi_k}{100} \cdot amount_k \right)}{n_{\text{steel\_quant}}} \leq \frac{si_{\text{max}}}{100}
+\]
+3. Non-negativity constraints:
+\[
+amount_k \geq 0 \quad \text{for } k = 1, \ldots, K
+\]
+\[
+num_{\text{mang}} \geq 0
+\]
+
+\end{document}

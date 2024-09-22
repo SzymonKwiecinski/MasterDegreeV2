@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Problem Formulation}
+
+We are given a set \( P \) defined by the following linear inequality constraints:
+
+\[
+P = \{ \mathbf{x} \in \mathbb{R}^N \mid \mathbf{a}_i^T \mathbf{x} \leq b_i, \, i = 1, \ldots, m \}
+\]
+
+where \( \mathbf{a}_i \in \mathbb{R}^N \) and \( b_i \in \mathbb{R} \).
+
+We aim to find a ball with center \( \mathbf{y} \in \mathbb{R}^N \) and radius \( r \), which is defined as the set of all points within (Euclidean) distance \( r \) from \( \mathbf{y} \):
+
+\[
+B(\mathbf{y}, r) = \{ \mathbf{x} \in \mathbb{R}^N \mid \| \mathbf{x} - \mathbf{y} \|_2 \leq r \}
+\]
+
+Our objective is to maximize the radius \( r \) of the ball such that:
+
+\[
+B(\mathbf{y}, r) \subseteq P
+\]
+
+This translates into the following optimization problem:
+
+\begin{align*}
+\text{maximize} & \quad r \\
+\text{subject to} & \quad \| \mathbf{a}_i^T \mathbf{y} - b_i \|_2 \leq r, \quad i = 1, \ldots, m \\
+                  & \quad \mathbf{y} \in \mathbb{R}^N
+\end{align*}
+
+The output of the problem will include:
+
+- \textbf{center} (list): The center of the ball as a list of floats of length \( N \)
+- \textbf{radius} (float): The radius of the ball as a float
+
+The output format is as follows:
+
+\[
+\text{Output:} \quad \{
+\begin{align*}
+\text{center} & : [y_j \, \text{for } j = 1, \ldots, N], \\
+\text{radius} & : r
+\end{align*}
+\}
+\]
+
+\end{document}

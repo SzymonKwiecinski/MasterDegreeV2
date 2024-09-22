@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mixed-Integer Programming Model for DEC}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $N$: Number of different computer systems.
+    \item $\text{price}_i$: Price of system $i$ in dollars.
+    \item $\text{disk}_i$: Average number of disk drives requested for system $i$.
+    \item $\text{mem}_i$: Average number of 256K memory boards used in system $i$.
+    \item $\text{max\_cpu}$: Maximum number of CPUs available.
+    \item $\text{min\_disk}$, $\text{max\_disk}$: Range of available disk drives.
+    \item $\text{min\_mem}$, $\text{max\_mem}$: Range of available 256K memory boards.
+    \item $\text{demand}_i$: Maximum demand for system $i$.
+    \item $\text{demand\_GP}$: Maximum demand for the GP family.
+    \item $\text{demand\_WS}$: Maximum demand for the WS family.
+    \item $\text{preorder}_i$: Preorder for system $i$.
+    \item $\text{alt\_mem}$: Units of alternative memory boards available.
+    \item $\text{is\_workstation}_i$: Indicator if system $i$ is a workstation (\text{true}/\text{false}).
+    \item $\text{alt\_compatible}_i$: Indicator if system $i$ can use alternative memory boards (\text{true}/\text{false}).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_i$: Number of systems of type $i$ to produce.
+    \item $y_i$: Number of 256K memory boards used in system $i$.
+    \item $z_i$: Number of alternative memory boards used in system $i$.
+    \item $d_i$: Number of disk drives used in system $i$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize} \quad \sum_{i=1}^{N} \text{price}_i \cdot x_i
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    & \sum_{i=1}^{N} x_i \leq \text{max\_cpu} \quad &\text{(CPU constraint)}\\
+    & \sum_{i=1}^{N} d_i \geq \text{min\_disk}, \quad \sum_{i=1}^{N} d_i \leq \text{max\_disk} \quad &\text{(Disk supply constraint)}\\
+    & \sum_{i=1}^{N} y_i \geq \text{min\_mem}, \quad \sum_{i=1}^{N} y_i \leq \text{max\_mem} \quad &\text{(256K Memory supply constraint)}\\
+    & \sum_{i=1}^{N} z_i \leq \text{alt\_mem} \quad &\text{(Alternative memory constraint)}\\
+    & y_i + z_i \geq \text{mem}_i \cdot x_i \quad &\text{(Memory requirement per system)}\\
+    & d_i \geq \text{disk}_i \cdot x_i \quad &\text{(Disk requirement per system)}\\
+    & x_i \leq \text{demand}_i \quad &\text{(Individual system demand constraint)}\\
+    & \sum_{i \text{ is GP}} x_i \leq \text{demand\_GP} \quad &\text{(GP family demand constraint)}\\
+    & \sum_{i \text{ is WS}} x_i \leq \text{demand\_WS} \quad &\text{(WS family demand constraint)}\\
+    & x_i \geq \text{preorder}_i \quad &\text{(Preorder fulfillment)}\\
+    & z_i = 0 \quad \text{if } \text{alt\_compatible}_i \text{ is false} \quad &\text{(Alternative memory compatibility)}\\
+    & x_i \geq 0, \quad y_i \geq 0, \quad z_i \geq 0, \quad d_i \geq 0 \quad &\text{(Non-negativity constraints)}
+\end{align}
+
+In this formulation, we maximize the total profit from selling the computer systems while satisfying constraints on resources, demands, and preorders. The constraints ensure that limited resources such as CPUs, memory boards, and disk drives are allocated efficiently, and orders are fulfilled as required.
+
+\end{document}

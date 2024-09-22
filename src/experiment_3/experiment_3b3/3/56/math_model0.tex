@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Delivery Path Optimization}
+
+\subsection*{Problem Definition}
+A delivery person starts at the intersection of the 1st Avenue and 1st Street and needs to reach the intersection of the $W$th Avenue and $N$th Street on an $N-1 \times W-1$ grid. The time to move between intersections varies depending on pedestrian traffic. The objective is to minimize the total walking time while moving only north or west.
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item $x_{n,w}$ = time to walk from intersection $(w,n)$ to $(w+1,n)$ (westward movement)
+    \item $y_{n,w}$ = time to walk from intersection $(w,n)$ to $(w,n+1)$ (northward movement)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total walking time:
+\[
+\text{Minimize } Z = \sum_{n=1}^{N-1} \sum_{w=1}^{W-1} \left( x_{n,w} + y_{n,w} \right)
+\]
+
+\subsection*{Constraints}
+The following constraints must hold:
+\begin{itemize}
+    \item Starting point: At $(1,1)$, the delivery person begins with a time of 0.
+    \item Non-negativity: 
+    \[
+    x_{n,w} \geq 0, \quad y_{n,w} \geq 0
+    \]
+    \item Flow conservation: For each intersection $(w,n)$, the flow in must equal the flow out:
+    \[
+    \sum_{w=1}^{W-1} x_{n,w} + \sum_{n=1}^{N-1} y_{n,w} = \text{Total time taken}
+    \]
+\end{itemize}
+
+\subsection*{Input Format}
+The input data is given in the following structure:
+\begin{verbatim}
+{
+    "west_time": [[west_{n,w} for w in 1, ..., W-1] for n in 1, ..., N],
+    "north_time": [[north_{n,w} for w in 1, ..., W] for n in 1, ..., N-1],
+}
+\end{verbatim}
+
+\subsection*{Output Format}
+The output consists of:
+\begin{verbatim}
+{
+    "paths": [(street_{n}, avenue_{w}) for id in 1, ..., m],
+    "total_time": total_travel_time
+}
+\end{verbatim}
+
+\end{document}

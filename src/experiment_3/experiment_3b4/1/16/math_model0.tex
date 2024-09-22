@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model to Maximize Revenue}
+
+\subsection*{Decision Variables}
+Let \( x_l \) be the number of times process \( l \) is executed, \( l = 1, \ldots, L \).
+
+\subsection*{Objective Function}
+Maximize:
+\[
+\sum_{p=1}^{P} \sum_{l=1}^{L} \left( \text{price}_p \cdot \text{output}_{l,p} - \text{cost}_l \cdot \text{output}_{l,p} \right) x_l
+\]
+
+\subsection*{Constraints}
+\begin{enumerate}
+    \item \textbf{Crude oil supply constraints:} For each crude oil type \( i \):
+    \[
+    \sum_{l=1}^{L} \text{input}_{l,i} x_l \leq \text{allocated}_i \quad \text{for } i = 1, \ldots, O
+    \]
+
+    \item \textbf{Non-negativity:}
+    \[
+    x_l \geq 0 \quad \text{for } l = 1, \ldots, L
+    \]
+\end{enumerate}
+
+\end{document}

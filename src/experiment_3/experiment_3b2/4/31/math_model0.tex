@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Electricity Load Demand Optimization}
+\author{}
+\date{}
+\maketitle
+
+\section{Problem Formulation}
+
+\subsection{Sets and Indices}
+\begin{itemize}
+    \item $T$: Set of time periods, indexed by $t = 1, \ldots, T$.
+    \item $K$: Set of generator types, indexed by $k = 1, \ldots, K$.
+\end{itemize}
+
+\subsection{Parameters}
+\begin{itemize}
+    \item $demand_t$: Electricity demand in period $t$.
+    \item $num_k$: Number of available units of generator type $k$.
+    \item $minlevel_k$: Minimum operating level of generator type $k$.
+    \item $maxlevel_k$: Maximum operating level of generator type $k$.
+    \item $runcost_k$: Cost of running a generator type $k$ at the minimum level.
+    \item $extracost_k$: Additional cost for each MW above the minimum level for generator type $k$.
+    \item $startcost_k$: Cost of starting a generator type $k$.
+\end{itemize}
+
+\subsection{Decision Variables}
+\begin{itemize}
+    \item $numon_{k,t} \in \{0, 1, \ldots, num_k\}$: Number of generators of type $k$ running in period $t$.
+    \item $power_{k,t} \geq 0$: Power output of all generators of type $k$ during period $t$.
+    \item $start_{k,t} \in \{0, 1\}$: Binary variable indicating if a generator of type $k$ is started in period $t$.
+\end{itemize}
+
+\subsection{Objective Function}
+The objective is to minimize the total cost, which comprises the running cost, extra cost for power above the minimum level, and the starting cost. 
+
+\begin{align}
+\text{Minimize } & \sum_{t=1}^{T} \sum_{k=1}^{K} \big[ runcost_k \cdot numon_{k,t} + extracost_k \cdot (power_{k,t} - numon_{k,t} \cdot minlevel_k) \big] \\
+& + \sum_{t=1}^{T} \sum_{k=1}^{K} startcost_k \cdot start_{k,t}
+\end{align}
+
+\subsection{Constraints}
+\begin{align}
+& \sum_{k=1}^{K} power_{k,t} \geq demand_t, \quad \forall t \\
+
+& numon_{k,t} \cdot minlevel_k \leq power_{k,t} \leq numon_{k,t} \cdot maxlevel_k, \quad \forall k, \forall t \\
+
+& start_{k,t} \geq numon_{k,t} - numon_{k,t-1}, \quad \forall k, \forall t \text{ with } t \geq 2 \\
+
+& 0 \leq numon_{k,t} \leq num_k, \quad \forall k, \forall t \\
+
+& start_{k,t} \in \{0, 1\}, \quad \forall k, \forall t
+\end{align}
+
+\end{document}

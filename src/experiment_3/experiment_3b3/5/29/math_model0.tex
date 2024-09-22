@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Line Fitting}
+
+Given a set of observed values of \( y \) and corresponding values of \( x \), we aim to find the best fitting line of the form:
+
+\[
+y = bx + a
+\]
+
+where \( a \) is the intercept and \( b \) is the slope. 
+
+Let the observed values be defined as follows:
+
+\[
+\begin{align*}
+y_k & \text{ for } k = 1, \ldots, K \\
+x_k & \text{ for } k = 1, \ldots, K
+\end{align*}
+\]
+
+We define the deviations from the predicted values as:
+
+\[
+d_k = y_k - (bx_k + a) \quad \text{for } k = 1, \ldots, K
+\]
+
+Our objective is to minimize the maximum deviation, which can be formulated as:
+
+\[
+\min \quad t
+\]
+
+subject to the constraints:
+
+\[
+\begin{align*}
+y_k - (bx_k + a) & \leq t \quad \text{for } k = 1, \ldots, K \\
+-(y_k - (bx_k + a)) & \leq t \quad \text{for } k = 1, \ldots, K \\
+t & \geq 0
+\end{align*}
+\]
+
+The above constraints ensure that \( t \) is at least as large as the maximum positive and negative deviations.
+
+Thus, the complete formulation in a linear programming format is:
+
+\[
+\begin{align*}
+\text{Minimize} \quad & t \\
+\text{subject to} \quad & y_k - bx_k - a \leq t, \quad k = 1, \ldots, K \\
+& -y_k + bx_k + a \leq t, \quad k = 1, \ldots, K \\
+& t \geq 0
+\end{align*}
+\]
+
+\textbf{Output:} The optimal values of \( a \) (intercept) and \( b \) (slope) will give us the best fitting line that minimizes the maximum deviation from the observed values.
+
+\end{document}

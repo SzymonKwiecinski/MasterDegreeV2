@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Objective}
+Minimize the cost:
+\begin{equation}
+\text{Minimize } \sum_{k=1}^K a_k x_k
+\end{equation}
+
+\subsection*{Constraints}
+1. Total alloy constraint:
+\begin{equation}
+\sum_{k=1}^K x_k = A
+\end{equation}
+
+2. Metal composition constraints:
+\begin{equation}
+\sum_{k=1}^K r_{k,m} x_k = t_m \cdot A \quad \text{for each } m \in \{1, 2, \ldots, M\}
+\end{equation}
+
+\subsection*{Non-negativity}
+\begin{equation}
+x_k \geq 0 \quad \text{for all } k \in \{1, 2, \ldots, K\}
+\end{equation}
+
+\end{document}

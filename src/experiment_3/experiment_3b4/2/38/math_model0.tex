@@ -1,0 +1,21 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+\[
+\text{Minimize} \quad \sum_{n=1}^{N} \left( \text{cost\_regular} \times \text{reg\_quant}_n + \text{cost\_overtime} \times \text{over\_quant}_n + \text{store\_cost} \times \text{store}_n \right)
+\]
+
+\textbf{Subject to:}
+
+\begin{align*}
+& \text{reg\_quant}_n + \text{over\_quant}_n + \text{store}_{n-1} = \text{demand}[n] + \text{store}_n, \quad n = 1, \ldots, N \\
+& \text{reg\_quant}_n \leq \text{max\_regular\_amount}, \quad n = 1, \ldots, N \\
+& \text{reg\_quant}_n \geq 0, \quad \text{over\_quant}_n \geq 0, \quad \text{store}_n \geq 0, \quad n = 1, \ldots, N
+\end{align*}
+
+Assuming \(\text{store}_0 = 0\).
+
+\end{document}

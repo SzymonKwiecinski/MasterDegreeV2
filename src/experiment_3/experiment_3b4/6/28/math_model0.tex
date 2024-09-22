@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+To fit a line \( y = bx + a \) to a given set of data points \((x_k, y_k) \text{ for } k = 1, \ldots, K\), we aim to minimize the sum of the absolute deviations of the observed values \( y_k \) from the predicted values \( bx_k + a \).
+
+The objective function can be expressed as:
+
+\[
+\min \sum_{k=1}^{K} |y_k - (bx_k + a)|
+\]
+
+To handle the absolute value, we introduce non-negative variables \( d_k^+ \) and \( d_k^- \) for each \( k \) such that:
+
+\[
+d_k^+ \geq y_k - (bx_k + a)
+\]
+\[
+d_k^- \geq -(y_k - (bx_k + a))
+\]
+
+Instead of minimizing the absolute value, we minimize the sum of these deviations:
+
+\[
+\min \sum_{k=1}^{K} (d_k^+ + d_k^-)
+\]
+
+Thus, the linear programming problem becomes:
+
+\[
+\begin{align*}
+\min & \quad \sum_{k=1}^{K} (d_k^+ + d_k^-) \\
+\text{subject to:} & \\
+& d_k^+ \geq y_k - (bx_k + a), \quad k = 1, \ldots, K \\
+& d_k^- \geq -(y_k - (bx_k + a)), \quad k = 1, \ldots, K \\
+& d_k^+, d_k^- \geq 0, \quad k = 1, \ldots, K
+\end{align*}
+\]
+
+This is a linear programming problem where:
+- We need to find the values of \( a \) (intercept) and \( b \) (slope) that minimize the objective.
+- The constraints ensure the deviations \( d_k^+ \) and \( d_k^- \) are non-negative and properly account for the absolute deviations.
+
+\end{document}

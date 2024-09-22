@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{MILP Formulation for Nurse Scheduling Problem}
+
+\textbf{Objective:}
+Minimize the total number of nurses hired.
+
+\[
+\text{Minimize } Z = \sum_{j=1}^{7} \text{start}_j
+\]
+
+\textbf{Constraints:}
+
+1. Ensure that the demand on each day \( j \) is met:
+
+For each day \( j \in \{1,...,7\} \), the total number of nurses covering the night shift should be greater than or equal to the demand \( d_j \).
+
+\[
+\sum_{i=0}^{\text{period}-1} \text{start}_{(j-i-1) \mod 7 + 1} \geq d_j, \quad \forall j = 1, \ldots, 7
+\]
+
+Where \((j-i-1) \mod 7 + 1\) ensures a cyclic consideration of days leading up to day \( j \).
+
+2. Non-negativity constraints:
+
+\[
+\text{start}_j \geq 0 \quad \text{and integer}, \quad \forall j = 1, \ldots, 7
+\]
+
+\textbf{Variables:}
+
+- \(\text{start}_j\): The number of nurses starting their period on day \( j \).
+
+\textbf{Parameters:}
+
+- \(d_j\): Demand for nurses on day \( j \).
+- \(\text{period}\): Number of consecutive days each nurse works.
+
+\end{document}

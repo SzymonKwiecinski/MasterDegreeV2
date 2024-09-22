@@ -1,0 +1,69 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Investor's Portfolio}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item \( N \) = number of different stocks
+    \item \( bought_i \) = number of shares bought of stock \( i \)
+    \item \( buyPrice_i \) = price at which the investor bought stock \( i \)
+    \item \( currentPrice_i \) = current price of stock \( i \)
+    \item \( futurePrice_i \) = expected future price of stock \( i \)
+    \item \( transactionRate \) = transaction cost rate (in percentage)
+    \item \( taxRate \) = tax rate on capital gains (in percentage)
+    \item \( K \) = amount of money the investor wants to raise
+    \item \( sell_i \) = number of shares of stock \( i \) that the investor should sell
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to maximize the expected value of the portfolio next year after selling shares. Therefore, the objective function can be expressed as:
+
+\[
+\text{Maximize } Z = \sum_{i=1}^{N} \left( futurePrice_i \cdot (bought_i - sell_i) \right)
+\]
+
+\subsection*{Constraints}
+1. The net amount raised from selling the shares must be at least \( K \):
+
+\[
+\sum_{i=1}^{N} \left( \left( currentPrice_i \cdot sell_i \right) \cdot \left( 1 - \frac{transactionRate}{100} \right) - \left( \left( currentPrice_i - buyPrice_i \right) \cdot sell_i \right) \cdot \frac{taxRate}{100} \right) \geq K
+\]
+
+2. The number of shares sold cannot exceed the number of shares bought:
+
+\[
+0 \leq sell_i \leq bought_i \quad \forall i
+\]
+
+3. Non-negativity constraints:
+
+\[
+sell_i \geq 0 \quad \forall i
+\]
+
+\subsection*{Input Format}
+The input is given by:
+\begin{verbatim}
+{
+    "bought": [bought_i, for i in 1, ..., N],
+    "buyPrice": [buyPrice_i, for i in 1, ..., N],
+    "currentPrice": [currentPrice_i, for i in 1, ..., N],
+    "futurePrice": [futurePrice_i, for i in 1, ..., N],
+    "transactionRate": transactionRate,
+    "taxRate": taxRate,
+    "K": K
+}
+\end{verbatim}
+
+\subsection*{Output Format}
+The output will provide the shares to sell as follows:
+\begin{verbatim}
+{
+    "sell": [sell_i, for i in 1, ..., N],
+}
+\end{verbatim}
+
+\end{document}

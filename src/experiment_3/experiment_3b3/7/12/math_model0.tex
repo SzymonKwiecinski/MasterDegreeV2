@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+Given the parameters:
+\begin{itemize}
+    \item Let \( N \) be the number of available currencies.
+    \item Let \( start_i \) be the starting amount of currency \( i \).
+    \item Let \( limit_i \) be the limit on the amount of currency \( i \) that can be exchanged.
+    \item Let \( rate_{i,j} \) be the exchange rate from currency \( i \) to currency \( j \) where \( rate_{i,j} > 0 \).
+\end{itemize}
+
+Define the decision variables:
+\[
+x_{i,j} \quad \text{amount of currency } i \text{ exchanged for currency } j
+\]
+
+Our objective is to maximize the total amount of currency \( N \) we have at the end of the day, formally expressed as:
+\[
+\text{Maximize } z = x_{N,i} + x_{N,j} + \ldots + x_{N,k} \quad \forall k \neq N
+\]
+
+Subject to the following constraints:
+
+1. **Currency Transactions Limits:**
+   \[
+   x_{i,j} \leq limit_i \quad \forall i,j
+   \]
+
+2. **Starting Constraints:**
+   \[
+   x_{i,j} \leq start_i \quad \forall i,j
+   \]
+
+3. **Flow Conservation:**
+   \[
+   x_{i,j} - x_{j,i} = 0, \quad \forall i \neq j
+   \]
+
+4. **Wealth Inequality Constraint:**
+   \[
+   rate_{i,j} x_{i,j} \leq start_j \quad \forall i,j, \text{ such that } rate_{i,j} \leq 1
+   \]
+
+5. **Non-negativity Constraints:**
+   \[
+   x_{i,j} \geq 0 \quad \forall i,j
+   \]
+
+The output will include a list of transactions and the final amount of currency \( N \):
+\begin{itemize}
+    \item Transactions format:
+    \[
+    \text{transactions} = \{ 
+    \text{from}: i, 
+    \text{to}: j, 
+    \text{amount}: x_{i,j} 
+    \}
+    \]
+    \item Final amount:
+    \[
+    \text{final\_amount\_of\_currency\_N} = total
+    \]
+\end{itemize}
+
+\end{document}

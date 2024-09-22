@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+
+\section*{Mixed-Integer Programming Formulation}
+
+\subsection*{Indices and Sets}
+\begin{align*}
+k & : \text{Index for mines, } k = 1, 2, \ldots, n_{\text{mines}} \\
+i & : \text{Index for years, } i = 1, 2, \ldots, I \\
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+\text{n\_maxwork} & : \text{Maximum number of mines that can operate in one year} \\
+\text{royalty}_k & : \text{Yearly royalty payable for keeping mine } k \text{ open} \\
+\text{limit}_k & : \text{Maximum amount of ore that can be extracted from mine } k \text{ in a year} \\
+\text{quality}_k & : \text{Quality measurement of ore from mine } k \\
+\text{requiredquality}_i & : \text{Required quality of blended ore in year } i \\
+\text{price} & : \text{Selling price per ton of ore} \\
+\text{discount} & : \text{Discount rate for future profits} \\
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+\text{isoperated}_{k,i} & : 
+\begin{cases} 
+1, & \text{if mine } k \text{ is operated in year } i \\
+0, & \text{otherwise}
+\end{cases} \\
+\text{amount}_{k,i} & : \text{Amount of ore produced by mine } k \text{ in year } i \\
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the discounted profit:
+\begin{align*}
+\max \; & \sum_{i=1}^{I} \frac{1}{(1 + \text{discount})^i} \left( \sum_{k=1}^{n_{\text{mines}}} \text{price} \times \text{amount}_{k,i} - \text{royalty}_k \times \text{isoperated}_{k,i} \right)
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+\text{Quality Constraint:} & \quad \sum_{k=1}^{n_{\text{mines}}} \text{quality}_k \times \text{amount}_{k,i} = \text{requiredquality}_i \times \sum_{k=1}^{n_{\text{mines}}} \text{amount}_{k,i}, \quad \forall i \\
+\text{Production Limit:} & \quad \text{amount}_{k,i} \leq \text{limit}_k \times \text{isoperated}_{k,i}, \quad \forall k, \forall i \\
+\text{Maximum Operating Mines:} & \quad \sum_{k=1}^{n_{\text{mines}}} \text{isoperated}_{k,i} \leq \text{n\_maxwork}, \quad \forall i \\
+\end{align*}
+
+\end{document}

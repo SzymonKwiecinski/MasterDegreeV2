@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+% Define Indices
+Let \( K \) be the number of industries, and \( T = 5 \) be the number of years considered.
+
+% Decision Variables
+\begin{align*}
+\text{Let } & \text{produce}_{k,t} & \text{is the amount of units produced by industry } k \text{ in year } t. \\
+\text{Let } & \text{buildcapa}_{k,t} & \text{is the amount of units used to build productive capacity for industry } k \text{ in year } t. \\
+\text{Let } & \text{stockhold}_{k,t} & \text{is the amount of stock of industry } k \text{ held at the end of year } t. \\
+\end{align*}
+
+% Objective Function
+\subsection*{Objective Function}
+Maximize the total manpower requirement over five years:
+\[
+\max \sum_{k=1}^{K} \sum_{t=1}^{T} (\text{manpowerone}_k \times \text{produce}_{k,t} + \text{manpowertwo}_k \times \text{buildcapa}_{k,t})
+\]
+
+% Constraints
+\subsection*{Constraints}
+
+1. \textbf{Stock Balance:}
+\[
+\text{stockhold}_{k,t-1} + \text{produce}_{k,t} - \sum_{j=1}^{K} \text{inputone}_{j,k} \times \text{produce}_{j,t} - \text{demand}_k = \text{stockhold}_{k,t} \quad \forall k, t = 1, \ldots, T
+\]
+
+2. \textbf{Production Capacity:}
+\[
+\text{produce}_{k,t} \leq \text{capacity}_{k} + \sum_{\tau = 0}^{t-2} \text{buildcapa}_{k,\tau} \quad \forall k, t = 1, \ldots, T
+\]
+
+3. \textbf{Resource Constraints for Building Capacity:}
+\[
+\sum_{j=1}^{K} \text{inputtwo}_{j,k} \times \text{buildcapa}_{k,t} \leq \sum_{\tau = 0}^{t} \text{produce}_{j,\tau} \quad \forall k, t = 1, \ldots, T
+\]
+
+4. \textbf{Non-Negative Constraints:}
+\[
+\text{produce}_{k,t}, \text{buildcapa}_{k,t}, \text{stockhold}_{k,t} \geq 0 \quad \forall k, t = 1, \ldots, T
+\]
+
+5. \textbf{Initial Conditions:}
+\[
+\text{stockhold}_{k,0} = \text{stock}_k \quad \forall k
+\]
+\[
+\text{capacity}_{k,0} = \text{capacity}_k \quad \forall k
+\]
+
+\end{document}

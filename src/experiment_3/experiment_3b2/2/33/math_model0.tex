@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Knapsack Problem Formulation}
+
+Given:
+
+- Maximum capacity of the knapsack: \( C \)
+- \( K \) items, where each item \( k \) has:
+  - Value: \( \text{value}_k \)
+  - Size: \( \text{size}_k \)
+
+Define binary decision variables:
+
+\[
+\text{isincluded}_k = 
+\begin{cases} 
+1, & \text{if item } k \text{ is included in the knapsack} \\
+0, & \text{otherwise}
+\end{cases}
+\]
+
+Objective:
+
+\[
+\max \sum_{k=1}^{K} \text{value}_k \cdot \text{isincluded}_k
+\]
+
+Subject to the constraint:
+
+\[
+\sum_{k=1}^{K} \text{size}_k \cdot \text{isincluded}_k \leq C
+\]
+
+Where:
+- \(\text{isincluded}_k \in \{0, 1\}\) for all \(k = 1, \ldots, K\)
+
+\end{document}

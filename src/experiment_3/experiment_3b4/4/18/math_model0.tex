@@ -1,0 +1,73 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Oil Blending Problem}
+
+\subsection*{Parameters:}
+\begin{itemize}
+    \item $I$: Number of different oils.
+    \item $M$: Number of months.
+    \item $price_{i,m}$: Purchase price of oil $i$ in month $m$.
+    \item $sell\_price$: Selling price of the final product per ton.
+    \item $max\_veg$: Maximum refining capacity for vegetable oils per month.
+    \item $max\_non\_veg$: Maximum refining capacity for non-vegetable oils per month.
+    \item $storage\_size$: Maximum storage capacity for each oil.
+    \item $storage\_cost$: Storage cost per ton per month.
+    \item $max\_hardness$: Maximum hardness constraint for the final product.
+    \item $min\_hardness$: Minimum hardness constraint for the final product.
+    \item $hardness_{i}$: Hardness of oil $i$.
+    \item $init\_amount$: Initial storage amount of each oil.
+    \item $is\_vegetable_{i}$: Indicator if oil $i$ is a vegetable oil ($1$ if vegetable, $0$ otherwise).
+\end{itemize}
+
+\subsection*{Decision Variables:}
+\begin{itemize}
+    \item $buyquantity_{i,m}$: Amount of oil $i$ purchased in month $m$.
+    \item $refine_{i,m}$: Amount of oil $i$ refined in month $m$.
+    \item $storage_{i,m}$: Amount of oil $i$ stored at the end of month $m$.
+\end{itemize}
+
+\subsection*{Objective Function:}
+Maximize profit:
+\[
+\text{Maximize } \sum_{m=1}^{M} \left( sell\_price \times \sum_{i=1}^{I} refine_{i,m} - \sum_{i=1}^{I} (price_{i,m} \times buyquantity_{i,m} + storage\_cost \times storage_{i,m}) \right)
+\]
+
+\subsection*{Constraints:}
+\begin{itemize}
+    \item Storage balance:
+    \[
+    storage_{i,m} = storage_{i,m-1} + buyquantity_{i,m} - refine_{i,m}, \quad \forall i, \forall m
+    \]
+    \item Initial storage:
+    \[
+    storage_{i,0} = init\_amount, \quad \forall i
+    \]
+    \item End storage equal to initial amount:
+    \[
+    storage_{i,M} = init\_amount, \quad \forall i
+    \]
+    \item Storage capacity:
+    \[
+    storage_{i,m} \leq storage\_size, \quad \forall i, \forall m
+    \]
+    \item Vegetable oil refining capacity:
+    \[
+    \sum_{i=1}^{I} is\_vegetable_{i} \times refine_{i,m} \leq max\_veg, \quad \forall m
+    \]
+    \item Non-vegetable oil refining capacity:
+    \[
+    \sum_{i=1}^{I} (1 - is\_vegetable_{i}) \times refine_{i,m} \leq max\_non\_veg, \quad \forall m
+    \]
+    \item Hardness constraints:
+    \[
+    min\_hardness \leq \frac{\sum_{i=1}^{I} hardness_{i} \times refine_{i,m}}{\sum_{i=1}^{I} refine_{i,m}} \leq max\_hardness, \quad \forall m
+    \]
+    \item Non-negativity:
+    \[
+    buyquantity_{i,m}, refine_{i,m}, storage_{i,m} \geq 0, \quad \forall i, \forall m
+    \]
+\end{itemize}
+
+\end{document}

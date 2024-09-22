@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\subsection*{Variables}
+Let \( batches_p \) be the number of batches produced for part \( p \) where \( p = 1, \ldots, P \).
+
+\subsection*{Objective Function}
+The objective is to maximize total profit:
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} (price_p \cdot batches_p) - \sum_{m=1}^{M} (cost_m \cdot \sum_{p=1}^{P} (time_{m,p} \cdot batches_p))
+\]
+
+\subsection*{Constraints}
+1. Machine availability for all machines:
+\[
+\sum_{p=1}^{P} (time_{m,p} \cdot batches_p) \leq available_m, \quad \forall m = 1, \ldots, M
+\]
+2. Shared availability for Machine \( M \) and Machine \( M-1 \):
+\[
+\sum_{p=1}^{P} (time_{M-1,p} \cdot batches_p) + \sum_{p=1}^{P} (time_{M,p} \cdot batches_p) \leq available_{M-1} + available_M
+\]
+3. Minimum batches requirement:
+\[
+batches_p \geq min\_batches_p, \quad \forall p = 1, \ldots, P
+\]
+
+\subsection*{Non-negativity Constraints}
+\[
+batches_p \geq 0, \quad \forall p = 1, \ldots, P
+\]
+
+\end{document}

@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective: } Maximize the profit
+
+\begin{align*}
+\text{Maximize } & \sum_{n=1}^{N} (\text{price}_n \times \text{sellquantity}_n - \text{cost}_n \times \text{buyquantity}_n) - \text{holding\_cost} \sum_{n=1}^{N} \text{stock}_n
+\end{align*}
+
+\textbf{Subject to:}
+\begin{align*}
+\text{stock}_0 & = 0 \\
+\text{stock}_n & = \text{stock}_{n-1} + \text{buyquantity}_n - \text{sellquantity}_n, \quad \forall n \in \{1, \ldots, N\} \\
+\text{sellquantity}_n & \leq \text{stock}_{n-1} + \text{buyquantity}_n, \quad \forall n \in \{1, \ldots, N\} \\
+\text{stock}_n & \leq \text{capacity}, \quad \forall n \in \{1, \ldots, N\} \\
+\text{stock}_N & = 0 \\
+\text{buyquantity}_n, \text{sellquantity}_n, \text{stock}_n & \geq 0, \quad \forall n \in \{1, \ldots, N\}
+\end{align*}
+
+\textbf{Variables:}
+\begin{itemize}
+  \item \text{buyquantity}_n: The amount of commodity bought in period \(n\).
+  \item \text{sellquantity}_n: The amount of commodity sold in period \(n\).
+  \item \text{stock}_n: The stock at the end of period \(n\).
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Soybean Transportation Problem}
+
+We need to determine the quantity of soybeans to ship from terminal cities to destination cities via port cities such that the total transportation cost is minimized.
+
+\subsection*{Sets and Parameters}
+
+\begin{itemize}
+    \item Let $A$ be the set of all routes.
+    \item Let $C_{i,j}$ be the transportation cost per metric ton on route $(i, j)$.
+    \item Let $supply_{k}$ be the supply at terminal city $k$.
+    \item Let $demand_{l}$ be the demand at destination city $l$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+
+\begin{itemize}
+    \item $x_{i,j}$: The amount of soybeans transported from city $i$ to city $j$.
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Minimize the total transportation cost:
+\[
+\text{Minimize } Z = \sum_{(i,j) \in A} C_{i,j} \times x_{i,j}
+\]
+
+\subsection*{Constraints}
+
+\begin{itemize}
+    \item Supply constraints at each terminal city $k$:
+    \[
+    \sum_{j : (k, j) \in A} x_{k,j} \leq supply_{k} \quad \forall k
+    \]
+    \item Demand constraints at each destination city $l$:
+    \[
+    \sum_{i : (i, l) \in A} x_{i,l} \geq demand_{l} \quad \forall l
+    \]
+    \item Flow conservation constraints at each port city $p$:
+    \[
+    \sum_{i : (i, p) \in A} x_{i,p} = \sum_{j : (p, j) \in A} x_{p,j} \quad \forall p
+    \]
+    \item Non-negativity constraints:
+    \[
+    x_{i,j} \geq 0 \quad \forall (i,j) \in A
+    \]
+\end{itemize}
+
+The solution to this model will provide the optimal transportation plan that minimizes the cost of shipping soybeans from the terminal cities to the destination cities.
+
+\end{document}

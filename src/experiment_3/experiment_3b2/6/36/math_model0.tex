@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Alloy Production}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_k \): Amount of alloy \( k \) to be purchased, for \( k = 1, \ldots, K \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost of purchasing alloys:
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} \text{price}_k \times x_k
+\]
+
+\subsection*{Constraints}
+\begin{enumerate}
+    \item Total alloy constraint:
+    \[
+    \sum_{k=1}^{K} x_k = \text{alloy\_quant}
+    \]
+
+    \item Metal composition constraints for each metal \( m = 1, \ldots, M \):
+    \[
+    \sum_{k=1}^{K} \text{ratio}_{k,m} \times x_k = \text{target}_m \times \text{alloy\_quant}, \quad \forall m = 1, \ldots, M
+    \]
+
+    \item Non-negativity constraints:
+    \[
+    x_k \geq 0, \quad \forall k = 1, \ldots, K
+    \]
+\end{enumerate}
+
+\end{document}

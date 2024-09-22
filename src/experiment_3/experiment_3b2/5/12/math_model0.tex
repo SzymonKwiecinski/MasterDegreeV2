@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation for Currency Exchange}
+
+\subsection*{Decision Variables}
+Let \( x_{i,j} \) be the amount of currency \( i \) exchanged to currency \( j \).
+
+\subsection*{Objective Function}
+Maximize the final amount of currency \( N \), which is:
+
+\[
+\text{Maximize } \sum_{i=1}^{N} x_{i,N} \times \text{rate}_{i,N}
+\]
+
+\subsection*{Constraints}
+
+1. Currency Exchange Limit Constraints:
+   \[
+   \sum_{j=1}^{N} x_{i,j} \leq \text{limit}_i, \quad \forall i = 1, \ldots, N
+   \]
+
+2. Starting Currency Amount Constraints:
+   \[
+   \sum_{j=1}^{N} x_{j,i} \times \text{rate}_{j,i} \leq \text{start}_i, \quad \forall i = 1, \ldots, N
+   \]
+
+3. Non-negativity Constraints:
+   \[
+   x_{i,j} \geq 0, \quad \forall i, j = 1, \ldots, N
+   \]
+
+\subsection*{Interpretation}
+
+- The objective function seeks to maximize the total units of currency \( N \) obtained through exchanges.
+- The first set of constraints ensures that the total currency exchanged from each currency \( i \) does not exceed the regulatory limit.
+- The second set of constraints ensures that the net currency exchange involving each currency does not exceed the available starting amount.
+- The non-negativity constraints ensure that all exchanges involve non-negative amounts of currency.
+
+\end{document}

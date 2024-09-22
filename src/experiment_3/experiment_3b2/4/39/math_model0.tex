@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} Minimize the number of employees \( total\_number \).
+
+\textbf{Decision Variables:}
+\[
+\text{Let } is\_work_{n,i} =
+\begin{cases} 
+1, & \text{if employee } i \text{ works on day } n \\
+0, & \text{otherwise}
+\end{cases}
+\]
+
+\textbf{Optimization Model:}
+
+\[
+\min total\_number
+\]
+
+subject to:
+
+1. Daily staff requirement:
+
+\[
+\sum_{i=1}^{total\_number} is\_work_{n,i} \geq num_n \quad \forall n \in \{1,...,N\}
+\]
+
+2. Work and rest schedule constraint (illustrative, requires a more detailed constraint formulation):
+
+- Each employee \( i \) works \( n\_working\_days \) consecutive days followed by \( n\_resting\_days \).
+
+\textbf{Binary Constraints:}
+\[
+is\_work_{n,i} \in \{0,1\} \quad \forall n \in \{1,...,N\}, \forall i \in \{1,...,total\_number\}
+\]
+
+\end{document}

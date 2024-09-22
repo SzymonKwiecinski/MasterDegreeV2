@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+% Sets and Parameters
+\begin{itemize}
+    \item Let $N$ be the total number of translators.
+    \item Let $M$ be the total number of required languages.
+    \item Let $T = \{1, 2, \ldots, N\}$ be the set of translators.
+    \item Let $L = \{1, 2, \ldots, M\}$ be the set of required languages.
+    \item For each translator $i \in T$, let $\text{cost}_i$ be the cost of hiring translator $i$.
+    \item Let $\text{languages}_i \subseteq L$ be the set of languages that translator $i$ can translate into.
+\end{itemize}
+
+% Decision Variables
+\begin{itemize}
+    \item $x_i \in \{0, 1\}$: a binary decision variable indicating whether translator $i$ is selected (1) or not (0).
+\end{itemize}
+
+% Objective Function
+\textbf{Objective:}
+\[
+\text{Minimize } \sum_{i \in T} \text{cost}_i \times x_i
+\]
+
+% Constraints
+\textbf{Constraints:}
+
+\begin{itemize}
+    \item Coverage Constraint: Ensure that each required language is covered by at least one selected translator.
+    \[
+    \forall m \in L, \quad \sum_{i \in T : m \in \text{languages}_i} x_i \geq 1
+    \]
+    This constraint ensures that every language $m$ in the set of required languages $L$ is covered by at least one of the selected translators.
+\end{itemize}
+
+\end{document}

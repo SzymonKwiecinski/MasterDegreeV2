@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Warehouse Operations Linear Programming Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( N \): Number of periods
+    \item \( \text{capacity} \): Maximum capacity of the warehouse
+    \item \( \text{holding\_cost} \): Holding cost per unit per period
+    \item \( \text{price}_n \): Selling price of the commodity in period \( n \)
+    \item \( \text{cost}_n \): Purchase cost of the commodity in period \( n \)
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    \text{buyquantity}_n & : \text{Amount of buying in period } n, \quad n = 1, \ldots, N \\
+    \text{sellquantity}_n & : \text{Amount of selling in period } n, \quad n = 1, \ldots, N \\
+    \text{stock}_n & : \text{Stock level at the end of period } n, \quad n = 1, \ldots, N
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\max \sum_{n=1}^{N} (\text{price}_n \cdot \text{sellquantity}_n - \text{cost}_n \cdot \text{buyquantity}_n - \text{holding\_cost} \cdot \text{stock}_n)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+    & \text{Stock balance constraint for each period:} \\
+    & \quad \text{stock}_0 = 0 \\
+    & \quad \text{stock}_n = \text{stock}_{n-1} + \text{buyquantity}_n - \text{sellquantity}_n, \quad n = 1, \ldots, N \\
+    & \text{Capacity constraint for each period:} \\
+    & \quad 0 \leq \text{stock}_n \leq \text{capacity}, \quad n = 1, \ldots, N \\
+    & \text{Non-negativity constraints:} \\
+    & \quad \text{buyquantity}_n \geq 0, \quad \text{sellquantity}_n \geq 0, \quad \text{stock}_n \geq 0, \quad n = 1, \ldots, N \\
+    & \text{Ending stock constraint:} \\
+    & \quad \text{stock}_N = 0
+\end{align*}
+
+\end{document}

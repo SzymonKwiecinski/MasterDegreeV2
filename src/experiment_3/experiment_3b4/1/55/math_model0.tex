@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Decision Variables}
+Let \( x_p \) be the number of batches of part \( p \) produced each month for \( p = 1, \ldots, P \).
+
+\subsection*{Objective Function}
+Maximize the total profit, which is given by:
+
+\[
+\text{Profit} = \sum_{p=1}^{P} (\text{price}_p \cdot x_p) - \sum_{m=1}^{M} (\text{cost}_m \cdot \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p) - \text{Labor Cost}
+\]
+
+\noindent where the labor cost for Machine 1 is calculated as follows:
+\[
+\text{Labor Cost} = 
+\begin{cases} 
+\text{standard\_cost} \cdot \sum_{p=1}^{P} \text{time}_{1,p} \cdot x_p, & \text{if } \sum_{p=1}^{P} \text{time}_{1,p} \cdot x_p \leq \text{overtime\_hour} \\
+\text{standard\_cost} \cdot \text{overtime\_hour} + \text{overtime\_cost} \cdot \left(\sum_{p=1}^{P} \text{time}_{1,p} \cdot x_p - \text{overtime\_hour}\right), & \text{otherwise}
+\end{cases}
+\]
+
+\subsection*{Constraints}
+
+1. Machine Availability Constraints for \( m = 2, \ldots, M \):
+\[
+\sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \leq \text{available}_m
+\]
+
+2. Minimum Batch Requirement for each part \( p \):
+\[
+x_p \geq \text{min\_batches}_p
+\]
+
+3. Minimum Profit Requirement:
+\[
+\text{Profit} \geq \text{min\_profit}
+\]
+
+4. Non-negativity:
+\[
+x_p \geq 0 \quad \text{for all } p = 1, \ldots, P
+\]
+
+\subsection*{Summary}
+
+The above model outlines the decision variables, objective function, and constraints required for optimizing the production batches to maximize profit while satisfying availability, minimum production, and profit constraints.
+
+\end{document}

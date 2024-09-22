@@ -1,0 +1,21 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\begin{align*}
+\text{Maximize} \quad & \sum_{p=1}^{P} (\text{price}_p \cdot x_p) - \left( \sum_{m=2}^{M} \sum_{p=1}^{P} (\text{time}_{m,p} \cdot x_p \cdot \text{cost}_m) + \text{LaborCost} \right) \\
+\text{subject to} \quad & x_p \geq \text{min\_batches}_p, \quad \forall p = 1, 2, \ldots, P, \\
+& \sum_{p=1}^{P} (\text{time}_{m,p} \cdot x_p) \leq \text{available}_m, \quad \forall m = 2, 3, \ldots, M, \\
+& x_p \geq 0, \quad \forall p = 1, 2, \ldots, P.
+\end{align*}
+
+\text{where LaborCost is given by:}
+
+\[
+\text{LaborCost} = \begin{cases} 
+  \text{standard\_cost} \cdot \sum_{p=1}^{P} (\text{time}_{1,p} \cdot x_p), & \text{if } \sum_{p=1}^{P} (\text{time}_{1,p} \cdot x_p) \leq \text{overtime\_hour} \\
+  \text{standard\_cost} \cdot \text{overtime\_hour} + \text{overtime\_cost} \cdot \left( \sum_{p=1}^{P} (\text{time}_{1,p} \cdot x_p) - \text{overtime\_hour} \right), & \text{otherwise}
+  \end{cases}
+\]
+
+\end{document}

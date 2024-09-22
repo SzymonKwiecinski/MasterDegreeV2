@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Mathematical Model: Minimum Cost Translator Selection Problem}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item $T = \{1, 2, \ldots, N\}$: Set of available translators.
+    \item $L = \{1, 2, \ldots, M\}$: Set of required languages.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $c_i$: Cost of hiring translator $i \in T$.
+    \item $a_{ij}$: Binary parameter indicating whether translator $i \in T$ can translate into language $j \in L$. 
+    \begin{itemize}
+        \item $a_{ij} = 1$ if translator $i$ can translate into language $j$, $0$ otherwise.
+    \end{itemize}
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_i$: Binary decision variable indicating whether translator $i \in T$ is selected. 
+    \begin{itemize}
+        \item $x_i = 1$ if translator $i$ is selected, $0$ otherwise.
+    \end{itemize}
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{equation}
+\min \sum_{i \in T} c_i x_i
+\end{equation}
+
+\textbf{Constraints:}
+\begin{itemize}
+    \item Ensure that for each required language at least one translator is selected:
+    \begin{equation}
+    \sum_{i \in T} a_{ij} x_i \geq 1, \quad \forall j \in L
+    \end{equation}
+    \item Binary constraints for decision variables:
+    \begin{equation}
+    x_i \in \{0, 1\}, \quad \forall i \in T
+    \end{equation}
+\end{itemize}
+
+\end{document}

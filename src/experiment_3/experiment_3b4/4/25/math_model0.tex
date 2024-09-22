@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Industry Production and Capacity Building}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( \text{produce}_{k, t} \): Amount of units produced by industry \( k \) in year \( t \).
+    \item \( \text{buildcapa}_{k, t} \): Amount of units used to build productive capacity for industry \( k \) in year \( t \).
+    \item \( \text{stockhold}_{k, t} \): Amount of stock of industry \( k \) held in year \( t \).
+\end{itemize}
+
+\textbf{Objective:}
+\[
+\text{Maximize} \quad \sum_{k=1}^{K} (\text{produce}_{k, T-1} + \text{produce}_{k, T})
+\]
+
+\textbf{Subject to:}
+
+\begin{align}
+    & \sum_{j=1}^{K} \text{inputone}_{k, j} \cdot \text{produce}_{j, t} + \sum_{j=1}^{K} \text{inputtwo}_{k, j} \cdot \text{buildcapa}_{j, t-1} \leq \text{capacity}_{k, t-1} + \text{stockhold}_{k, t-1}, \quad \forall k, t \\
+    & \sum_{k=1}^{K} (\text{manpowerone}_{k} \cdot \text{produce}_{k, t} + \text{manpowertwo}_{k} \cdot \text{buildcapa}_{k, t-1}) \leq \text{manpower\_limit}, \quad \forall t \\
+    & \text{stockhold}_{k, t} = \text{capacity}_{k, t-1} + \text{stockhold}_{k, t-1} - \sum_{j=1}^{K} \text{inputone}_{j, k} \cdot \text{produce}_{j, t}, \quad \forall k, t \\
+    & \text{capacity}_{k, t+2} = \text{capacity}_{k, t} + \text{buildcapa}_{k, t}, \quad \forall k, t \\
+    & \text{stockhold}_{k, 0} = \text{stock}_{k}, \quad \forall k \\
+    & \text{capacity}_{k, 0} = \text{capacity}_{k}, \quad \forall k
+\end{align}
+
+\end{document}

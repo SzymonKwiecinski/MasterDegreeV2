@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} Minimize the total cost over the period.
+
+\begin{align*}
+\text{Minimize } & \sum_{t=1}^{T} \left( \text{unload\_cost}_{t} \times \text{amount}_{t} + \text{holding\_cost} \times \text{storage}_{t} + \text{crane\_cost} \times \text{crane}_{t} \right)
+\end{align*}
+
+\textbf{Subject to:}
+
+\begin{align*}
+& \text{amount}_{t} \leq \text{unload\_capacity}_{t}, & \forall t = 1, \ldots, T, \\
+& \text{storage}_{t} = \text{storage}_{t-1} + \text{amount}_{t} - \text{demand}_{t}, & \forall t = 1, \ldots, T, \\
+& \text{storage}_{t} \leq \text{max\_container}, & \forall t = 1, \ldots, T, \\
+& \text{storage}_{0} = \text{init\_container}, \\
+& \text{storage}_{T} = 0, \\
+& \text{demand}_{t} \leq \text{crane\_capacity} \times \text{crane}_{t}, & \forall t = 1, \ldots, T, \\
+& \text{crane}_{t} \leq \text{num\_cranes}, & \forall t = 1, \ldots, T, \\
+& \text{amount}_{t}, \text{storage}_{t}, \text{crane}_{t} \geq 0, & \forall t = 1, \ldots, T, \\
+& \text{crane}_{t} \in \mathbb{Z}, & \forall t = 1, \ldots, T.
+\end{align*}
+
+\textbf{Variables:}
+
+\begin{itemize}
+    \item $\text{amount}_{t}$: Number of containers unloaded in month $t$.
+    \item $\text{storage}_{t}$: Number of containers stored in the yard at the end of month $t$.
+    \item $\text{crane}_{t}$: Number of cranes rented in month $t$.
+\end{itemize}
+
+\end{document}

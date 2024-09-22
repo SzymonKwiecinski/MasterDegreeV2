@@ -1,0 +1,87 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Quadratic Curve Fitting using Linear Programming}
+
+We want to fit a quadratic curve of the form 
+
+\[
+y = c \cdot x^2 + b \cdot x + a
+\]
+
+to a given set of data points \((x_k, y_k)\) for \(k = 1, \ldots, K\). The goal is to minimize the sum of absolute deviations between the observed values \(y_k\) and the predicted values \(y_k' = c \cdot x_k^2 + b \cdot x_k + a\).
+
+\subsection*{Variables}
+
+Let \(y_k'\) be the predicted value of \(y\) for each \(k\):
+
+\[
+y_k' = c \cdot x_k^2 + b \cdot x_k + a
+\]
+
+We introduce non-negative slack variables \(d_k\) for each deviation:
+
+\[
+d_k \geq 0 \quad \text{for } k = 1, \ldots, K
+\]
+
+The absolute deviation for each point can be expressed as:
+
+\[
+|y_k - y_k'| \leq d_k
+\]
+
+This leads to two inequalities:
+
+\[
+y_k - y_k' \leq d_k \quad \text{and} \quad y_k' - y_k \leq d_k
+\]
+
+Combining these, we can express the absolute deviation as follows:
+
+\[
+d_k \geq y_k - (c \cdot x_k^2 + b \cdot x_k + a) \quad \text{and} \quad d_k \geq -(y_k - (c \cdot x_k^2 + b \cdot x_k + a))
+\]
+
+\subsection*{Objective Function}
+
+The objective is to minimize the total absolute deviation:
+
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} d_k
+\]
+
+\subsection*{Linear Programming Formulation}
+
+We can summarize our linear programming problem as follows:
+
+Minimize:
+
+\[
+Z = \sum_{k=1}^{K} d_k
+\]
+
+Subject to:
+
+\[
+d_k \geq y_k - (c \cdot x_k^2 + b \cdot x_k + a) \quad \forall k = 1, \ldots, K
+\]
+\[
+d_k \geq -(y_k - (c \cdot x_k^2 + b \cdot x_k + a)) \quad \forall k = 1, \ldots, K
+\]
+\[
+d_k \geq 0 \quad \forall k = 1, \ldots, K
+\]
+
+Where \(a\), \(b\), and \(c\) are the coefficients that we need to determine.
+
+\subsection*{Output}
+
+Once the optimization problem is solved, the values of the coefficients will be reported as follows:
+
+\[
+\text{Output: } \{ \text{"quadratic": } c, \text{"linear": } b, \text{"constant": } a \}
+\]
+
+\end{document}

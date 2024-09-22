@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\textbf{Variables:}
+\begin{align*}
+batches_{p} & : \text{ the number of batches produced for part } p \text{, for } p = 1, \ldots, P \\
+\end{align*}
+
+\textbf{Parameters:}
+\begin{align*}
+time_{m,p} & : \text{ time required on machine } m \text{ to produce one batch of part } p \\
+cost_{m} & : \text{ cost per hour for using machine } m \\
+available_{m} & : \text{ availability of machine } m \text{ in hours per month} \\
+price_{p} & : \text{ selling price per batch of part } p \\
+min\_batches_{p} & : \text{ minimum number of batches of part } p \text{ to produce} \\
+standard\_cost & : \text{ standard labor cost per hour} \\
+overtime\_cost & : \text{ overtime labor cost per hour} \\
+overtime\_hour & : \text{ hours after which overtime cost applies} \\
+\end{align*}
+
+\textbf{Objective Function:}
+\begin{align*}
+\text{Maximize } Z & = \sum_{p=1}^{P} (price_{p} \cdot batches_{p}) - \sum_{m=1}^{M} \left( cost_{m} \cdot \sum_{p=1}^{P} (time_{m,p} \cdot batches_{p})\right) - \text{Labor Costs}
+\end{align*}
+
+\textbf{Labor Costs:}
+\begin{align*}
+\text{Labor Costs} & = \begin{cases} 
+standard\_cost \cdot \text{total\_time} & \text{if } \text{total\_time} \leq overtime\_hour \\
+standard\_cost \cdot overtime\_hour + overtime\_cost \cdot (\text{total\_time} - overtime\_hour) & \text{if } \text{total\_time} > overtime\_hour 
+\end{cases}
+\end{align*}
+
+Where \(\text{total\_time} = \sum_{m=1}^{M} \sum_{p=1}^{P} (time_{m,p} \cdot batches_{p})\)
+
+\textbf{Subject to:}
+\begin{align*}
+\sum_{p=1}^{P} (time_{m,p} \cdot batches_{p}) & \leq available_{m} \quad \forall m \in \{2, \ldots, M\} \\
+batches_{p} & \geq min\_batches_{p} \quad \forall p \in \{1, \ldots, P\} \\
+batches_{p} & \geq 0 \quad \forall p \in \{1, \ldots, P\} \\
+\end{align*}
+
+\textbf{Output:}
+\begin{align*}
+\text{Output: } & \{batches_{p} \text{ for } p = 1, \ldots, P, \text{ total\_profit } = Z\}
+\end{align*}
+
+\end{document}

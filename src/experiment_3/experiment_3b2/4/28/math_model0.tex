@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+Minimize \( \sum_{k=1}^{K} |y_k - (bx_k + a)| \)
+
+\textbf{Formulation:}
+
+To handle the absolute values, we introduce non-negative auxiliary variables \( z_k^+ \) and \( z_k^- \) such that:
+
+\[
+y_k - (bx_k + a) = z_k^+ - z_k^-
+\]
+\[
+z_k^+, z_k^- \geq 0
+\]
+
+Thus, the sum of absolute deviations can be written as:
+
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} (z_k^+ + z_k^-)
+\]
+
+\textbf{Subject to:}
+
+For each data point \((x_k, y_k)\), we have the following constraints:
+
+\[
+y_k - (bx_k + a) = z_k^+ - z_k^-
+\]
+\[
+z_k^+, z_k^- \geq 0 \]
+
+\end{document}

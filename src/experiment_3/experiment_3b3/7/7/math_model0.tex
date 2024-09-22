@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Rocket Motion}
+
+Let:
+\begin{itemize}
+    \item \( x_t \) be the position of the rocket at time \( t \).
+    \item \( v_t \) be the velocity of the rocket at time \( t \).
+    \item \( a_t \) be the acceleration of the rocket at time \( t \).
+    \item \( x_0 \) be the initial position of the rocket.
+    \item \( v_0 \) be the initial velocity of the rocket.
+    \item \( x_T \) be the target position at time \( T \).
+    \item \( v_T \) be the target velocity at time \( T \).
+    \item \( T \) be the total time of travel.
+\end{itemize}
+
+The discrete-time dynamics of the rocket can be described by the following equations:
+\[
+x_{t+1} = x_t + v_t
+\]
+\[
+v_{t+1} = v_t + a_t
+\]
+
+The objective is to minimize the maximum thrust required, which is represented as:
+\[
+\min \max_{t} |a_t|
+\]
+
+Subject to the following constraints:
+
+1. Initial conditions:
+    \[
+    x_0 = \text{given initial position}
+    \]
+    \[
+    v_0 = \text{given initial velocity}
+    \]
+
+2. Final conditions:
+    \[
+    x_T = \text{target position}
+    \]
+    \[
+    v_T = \text{target velocity}
+    \]
+
+3. For each time step \( t \) from 0 to \( T-1 \):
+    \[
+    x_{t+1} = x_t + v_t
+    \]
+    \[
+    v_{t+1} = v_t + a_t
+    \]
+
+4. The fuel consumption is proportional to the absolute value of acceleration:
+   \[
+   \text{Fuel Consumption} = \sum_{t=0}^{T-1} |a_t|
+   \]
+
+The output format should include:
+\begin{itemize}
+    \item \( x = [x_i \text{ for } i \text{ in } 0, \ldots, T] \)
+    \item \( v = [v_i \text{ for } i \text{ in } 0, \ldots, T] \)
+    \item \( a = [a_i \text{ for } i \text{ in } 0, \ldots, T] \)
+    \item \( \text{fuel\_spend} = \text{total fuel spent} \)
+\end{itemize}
+
+\end{document}

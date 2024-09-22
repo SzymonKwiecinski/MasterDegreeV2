@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Production Planning}
+
+\subsection*{Decision Variables}
+Let:
+\[
+x_p \quad \text{be the number of batches of part } p \text{ produced, where } p = 1, 2, \ldots, P.
+\]
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize} \quad Z = \sum_{p=1}^{P} \left( \text{price}_{p} \times x_p \right) - \sum_{m=2}^{M} \left( \text{cost}_{m} \times \sum_{p=1}^{P} \text{time}_{m,p} \times x_p \right) - C_1
+\]
+
+Where \( C_1 \) is the cost related to machine 1's labor:
+\[
+C_1 = \begin{cases}
+\text{standard\_cost} \times \sum_{p=1}^{P} \text{time}_{1,p} \times x_p, & \text{if } \sum_{p=1}^{P} \text{time}_{1,p} \times x_p \leq \text{overtime\_hour} \\
+\text{standard\_cost} \times \text{overtime\_hour} + \text{overtime\_cost} \times \left( \sum_{p=1}^{P} \text{time}_{1,p} \times x_p - \text{overtime\_hour} \right), & \text{otherwise}
+\end{cases}
+\]
+
+\subsection*{Constraints}
+
+1. Demand constraints:
+\[
+x_p \geq \text{min\_batches}_{p}, \quad \forall p = 1, 2, \ldots, P.
+\]
+
+2. Machine availability constraints for \( m = 2, 3, \ldots, M \):
+\[
+\sum_{p=1}^{P} \text{time}_{m,p} \times x_p \leq \text{available}_{m}, \quad \forall m = 2, 3, \ldots, M.
+\]
+
+3. Non-negativity constraints:
+\[
+x_p \geq 0, \quad \forall p = 1, 2, \ldots, P.
+\]
+
+\end{document}

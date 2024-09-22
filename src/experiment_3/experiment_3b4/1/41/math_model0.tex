@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Formulation for Floppy Disk Backup Problem}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_{ij} = 
+    \begin{cases} 
+    1, & \text{if file } j \text{ is on disk } i \\
+    0, & \text{otherwise}
+    \end{cases}$
+    
+    \item $y_i =
+    \begin{cases} 
+    1, & \text{if disk } i \text{ is used} \\
+    0, & \text{otherwise}
+    \end{cases}$
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $\text{capacity}$: Capacity of each floppy disk (in GB)
+    \item $\text{size}_j$: Size of file $j$ (in GB)
+    \item $M$: Maximum potential number of disks
+    \item $N$: Number of files
+\end{itemize}
+
+\subsection*{Objective}
+\[
+\text{Minimize} \quad \sum_{i=1}^{M} y_i
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    &\sum_{i=1}^{M} x_{ij} = 1, \quad \forall j \\
+    &\sum_{j=1}^{N} \text{size}_j \cdot x_{ij} \leq \text{capacity} \cdot y_i, \quad \forall i \\
+    &x_{ij} \leq y_i, \quad \forall i, j
+\end{align}
+
+\end{document}

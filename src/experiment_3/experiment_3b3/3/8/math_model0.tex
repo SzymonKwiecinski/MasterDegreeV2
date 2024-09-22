@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Maximizing Profit in a Spare Parts Firm}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( K \) be the number of spare parts.
+    \item Let \( S \) be the number of shops.
+    \item Let \( time_{k, s} \) be the required worker-hours for part \( k \) in shop \( s \).
+    \item Let \( profit_{k} \) be the profit of part \( k \).
+    \item Let \( capacity_{s} \) be the capacity of shop \( s \) in working hours.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( quantity_{k} \) be the quantity of spare part \( k \) to be produced.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} profit_{k} \cdot quantity_{k}
+\]
+
+\subsection*{Constraints}
+We need to ensure that the total worker-hours in each shop do not exceed their respective capacities. This can be expressed as:
+\[
+\sum_{k=1}^{K} time_{k, s} \cdot quantity_{k} \leq capacity_{s} \quad \forall s = 1, \ldots, S
+\]
+
+\subsection*{Non-negativity Constraints}
+The quantity of each spare part produced must be non-negative:
+\[
+quantity_{k} \geq 0 \quad \forall k = 1, \ldots, K
+\]
+
+\subsection*{Complete Model}
+Putting it all together, the linear programming model can be summarized as follows:
+
+\[
+\begin{align*}
+\text{Maximize} & \quad Z = \sum_{k=1}^{K} profit_{k} \cdot quantity_{k} \\
+\text{subject to} & \quad \sum_{k=1}^{K} time_{k, s} \cdot quantity_{k} \leq capacity_{s}, \quad \forall s = 1, \ldots, S \\
+& \quad quantity_{k} \geq 0, \quad \forall k = 1, \ldots, K
+\end{align*}
+\]
+
+\end{document}

@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Food Purchasing}
+
+\subsection*{Variables}
+Let \( x_k \) be the quantity of food \( k \) to purchase, where \( k = 1, 2, \ldots, K \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{price}_k \)  = price of food \( k \)
+    \item \( \text{demand}_m \) = minimum required units of nutrient \( m \)
+    \item \( \text{nutri}_{k, m} \) = units of nutrient \( m \) in food \( k \)
+    \item \( M \) = number of nutrients
+    \item \( K \) = number of different foods
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the total cost of food purchases:
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} \text{price}_k \cdot x_k
+\]
+
+\subsection*{Constraints}
+To ensure that the nutrient demands are met, the following constraints must be satisfied for each nutrient \( m \):
+\[
+\sum_{k=1}^{K} \text{nutri}_{k, m} \cdot x_k \geq \text{demand}_m \quad \text{for } m = 1, 2, \ldots, M
+\]
+
+Additionally, quantities must be non-negative:
+\[
+x_k \geq 0 \quad \text{for } k = 1, 2, \ldots, K
+\]
+
+\subsection*{Output}
+The output will be:
+\begin{itemize}
+    \item \( x_k \): quantity of food \( k \) to purchase.
+\end{itemize}
+
+\end{document}

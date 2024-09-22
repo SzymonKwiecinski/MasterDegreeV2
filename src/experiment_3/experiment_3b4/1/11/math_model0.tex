@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+Let \( x_i \) be the number of units produced in month \( i \) for \( i = 1, 2, \ldots, T \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{deliver}_i \): Units to be delivered at the end of month \( i \).
+    \item \text{storage\_cost}: Storage cost per unit per month.
+    \item \text{switch\_cost}: Cost incurred for changing production levels between consecutive months.
+    \item \( T \): Total number of months.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost, which consists of the storage and switch costs:
+\[
+\text{Minimize} \quad \sum_{i=1}^{T} \text{storage\_cost} \cdot s_i + \sum_{i=1}^{T-1} \text{switch\_cost} \cdot |x_{i+1} - x_i|
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Inventory balance constraints for each month:
+    \[
+    \begin{aligned}
+        & s_1 = x_1 - \text{deliver}_1, \\
+        & s_i = s_{i-1} + x_i - \text{deliver}_i \quad \text{for } i = 2, \ldots, T,
+    \end{aligned}
+    \]
+    where \( s_i \) is the inventory at the end of month \( i \).
+
+    \item Non-negativity constraints:
+    \[
+    \begin{aligned}
+        & x_i \geq 0 \quad \text{for all } i, \\
+        & s_i \geq 0 \quad \text{for all } i.
+    \end{aligned}
+    \]
+
+    \item Initial inventory is zero:
+    \[
+    s_0 = 0
+    \]
+
+    \item Ending inventory at the end of year \( T \) (not required but implicitly zero in cost).
+\end{itemize}
+
+\subsection*{Special Note}
+The term \( |x_{i+1} - x_i| \) requires additional constraints to linearize it for use in a linear programming solver.
+
+\end{document}

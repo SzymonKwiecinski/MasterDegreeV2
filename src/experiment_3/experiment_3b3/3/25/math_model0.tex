@@ -1,0 +1,75 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Economic Production}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item $K$: Number of industries
+    \item $T$: Number of years
+    \item $produce_{k, t}$: Amount of units produced by industry $k$ in year $t$
+    \item $buildcapa_{k, t}$: Amount of units used to build productive capacity for industry $k$ in year $t$
+    \item $stock_{k, t}$: Amount of stock of industry $k$ held in year $t$
+\end{itemize}
+
+\subsection*{Parameters}
+Given:
+\begin{itemize}
+    \item $inputone_{k,j}$: Input from industry $j$ required by industry $k$ for production
+    \item $manpowerone_{k}$: Manpower required by industry $k$ for production
+    \item $inputtwo_{k,j}$: Input from industry $j$ required by industry $k$ for building capacity
+    \item $manpowertwo_{k}$: Manpower required by industry $k$ for building capacity
+    \item $stock_{k}$: Initial stocks of industry $k$
+    \item $capacity_{k}$: Initial capacity of industry $k$
+    \item $manpower_{limit}$: Maximum manpower available per year
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total production in the last two years:
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} \left( produce_{k, T-1} + produce_{k, T} \right)
+\]
+
+\subsection*{Constraints}
+
+1. \textbf{Production Constraints:}
+   \[
+   produce_{k, t} \leq capacity_{k} + stock_{k, t-1} \quad \forall k, \forall t = 1, \ldots, T
+   \]
+
+2. \textbf{Manpower Constraints:}
+   \[
+   \sum_{k=1}^{K} manpowerone_{k} \cdot produce_{k, t} + \sum_{k=1}^{K} manpowertwo_{k} \cdot buildcapa_{k, t} \leq manpower_{limit} \quad \forall t = 1, \ldots, T
+   \]
+
+3. \textbf{Input Constraints for Production:}
+   \[
+   \sum_{j=1}^{K} inputone_{k, j} \cdot produce_{j, t-1} \leq produce_{k, t} \quad \forall k, \forall t = 1, \ldots, T
+   \]
+
+4. \textbf{Input Constraints for Capacity Building:}
+   \[
+   \sum_{j=1}^{K} inputtwo_{k, j} \cdot buildcapa_{j, t} \leq buildcapa_{k, t} \quad \forall k, \forall t = 1, \ldots, T
+   \]
+
+5. \textbf{Stock Constraints:}
+   \[
+   stock_{k, t} = stock_{k, t-1} + produce_{k, t-1} - \sum_{j=1}^{K} inputone_{j, k} \cdot produce_{j, t-1} \quad \forall k, \forall t = 1, \ldots, T
+   \]
+
+6. \textbf{Initial Stocks:}
+   \[
+   stock_{k, 0} = \text{given} \quad \forall k
+   \]
+
+\subsection*{Output Format}
+The output should provide the following:
+\begin{itemize}
+    \item $produce$: Amount of units produced by each industry in each year
+    \item $buildcapa$: Amount of units used to build productive capacity for each industry in each year
+    \item $stockhold$: Amount of stock of each industry held in each year
+\end{itemize}
+
+\end{document}

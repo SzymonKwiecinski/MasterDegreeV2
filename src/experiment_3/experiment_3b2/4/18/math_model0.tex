@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+Let:
+\begin{align*}
+  & \text{buyquantity}_{i, m} \quad \text{be the quantity of oil $i$ bought in month $m$.} \\
+  & \text{refine}_{i, m} \quad \text{be the quantity of oil $i$ refined in month $m$.} \\
+  & \text{storage}_{i, m} \quad \text{be the quantity of oil $i$ stored at the end of month $m$.}
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total profit over the planning horizon:
+\begin{align*}
+  \text{Maximize} \quad 
+  & \sum_{m=1}^{M} \sum_{i=1}^{I} \left[ (\text{sell\_price} \cdot \text{refine}_{i, m}) - (\text{buy\_price}_{i, m} \cdot \text{buyquantity}_{i, m}) - (\text{storage\_cost} \cdot \text{storage}_{i, m}) \right]
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+  & \text{For each oil } i \text{ and month } m: \\
+  & \text{storage}_{i, m} = \text{storage}_{i, m-1} + \text{buyquantity}_{i, m} - \text{refine}_{i, m} \quad \forall i, m \\
+  & \text{storage}_{i, 0} = \text{init\_amount}_{i} \quad \forall i \\
+  & \text{storage}_{i, M} = \text{init\_amount}_{i} \quad \forall i \\
+  & 0 \leq \text{refine}_{i, m} \leq \begin{cases} 
+      \text{max\_veg} & \text{if } \text{is\_vegetable}_{i} = 1 \\
+      \text{max\_non\_veg} & \text{if } \text{is\_vegetable}_{i} = 0 
+    \end{cases} \quad \forall i, m \\
+  & 0 \leq \text{storage}_{i, m} \leq \text{storage\_size} \quad \forall i, m \\
+  & \text{min\_hardness} \leq \frac{\sum_{i=1}^{I} \text{hardness}_{i} \cdot \text{refine}_{i, m}}{\sum_{i=1}^{I} \text{refine}_{i, m}} \leq \text{max\_hardness} \quad \forall m \\
+  & \text{buyquantity}_{i, m}, \text{refine}_{i, m}, \text{storage}_{i, m} \geq 0 \quad \forall i, m
+\end{align*}
+
+\subsection*{Notes}
+- The objective function captures the profit as the difference between revenue from selling refined oil and the costs of purchasing and storing raw oils.
+- The constraints ensure the balance of storage, respect refining capacity per type of oil, impose storage limits, and enforce the hardness requirement on the final product.
+
+\end{document}

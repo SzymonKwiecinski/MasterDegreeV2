@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Electricity Capacity Expansion}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( T \): Number of years in the planning period
+    \item \( \text{demand}_t \): Forecasted demand for electricity in year \( t \), for \( t = 1, \ldots, T \)
+    \item \( \text{oil}_t \): Existing oil capacity available in year \( t \), for \( t = 1, \ldots, T \)
+    \item \( \text{coal\_cost} \): Capital cost per megawatt of coal-fired capacity
+    \item \( \text{nuke\_cost} \): Capital cost per megawatt of nuclear capacity
+    \item \( \text{max\_nuke} \): Maximum percentage of total capacity that can be nuclear
+    \item \( \text{coal\_life} \): Lifetime of coal plants (in years)
+    \item \( \text{nuke\_life} \): Lifetime of nuclear plants (in years)
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{coal\_added}_t \): Coal-fired capacity added at the beginning of year \( t \)
+    \item \( \text{nuke\_added}_t \): Nuclear capacity added at the beginning of year \( t \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost over \( T \) years:
+\[
+\text{Minimize} \quad \sum_{t=1}^{T} (\text{coal\_cost} \cdot \text{coal\_added}_t + \text{nuke\_cost} \cdot \text{nuke\_added}_t)
+\]
+
+\subsection*{Constraints}
+1. Demand satisfaction for each year \( t \):
+\[
+\text{oil}_t + \sum_{k=\max(1, t-\text{coal\_life}+1)}^{t} \text{coal\_added}_k + \sum_{k=\max(1, t-\text{nuke\_life}+1)}^{t} \text{nuke\_added}_k \geq \text{demand}_t \quad \forall t = 1, \ldots, T
+\]
+
+2. Nuclear proportion constraint:
+\[
+\frac{\sum_{k=\max(1, t-\text{nuke\_life}+1)}^{t} \text{nuke\_added}_k}{\text{oil}_t + \sum_{k=\max(1, t-\text{coal\_life}+1)}^{t} \text{coal\_added}_k + \sum_{k=\max(1, t-\text{nuke\_life}+1)}^{t} \text{nuke\_added}_k} \leq \frac{\text{max\_nuke}}{100} \quad \forall t = 1, \ldots, T
+\]
+
+3. Non-negativity constraints:
+\[
+\text{coal\_added}_t \geq 0, \quad \text{nuke\_added}_t \geq 0 \quad \forall t = 1, \ldots, T
+\]
+
+\end{document}

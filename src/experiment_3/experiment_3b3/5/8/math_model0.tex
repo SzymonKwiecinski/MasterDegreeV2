@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Spare Automobile Parts Production}
+
+\subsection*{Definitions}
+\begin{itemize}
+    \item Let \( K \) be the total number of spare parts.
+    \item Let \( S \) be the total number of shops.
+    \item Let \( time_{k,s} \) be the required worker-hours for part \( k \) in shop \( s \).
+    \item Let \( profit_{k} \) be the profit of part \( k \).
+    \item Let \( capacity_{s} \) be the capacity of shop \( s \) in working hours.
+    \item Let \( quantity_{k} \) be the quantity of part \( k \) to be produced.
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to maximize the total profit from producing spare parts:
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} profit_{k} \cdot quantity_{k}
+\]
+
+\subsection*{Constraints}
+The production of spare parts must satisfy the capacity constraints of each shop:
+\[
+\sum_{k=1}^{K} time_{k,s} \cdot quantity_{k} \leq capacity_{s}, \quad \forall s = 1, \ldots, S
+\]
+Also, we must ensure that the quantity produced for each part is non-negative:
+\[
+quantity_{k} \geq 0, \quad \forall k = 1, \ldots, K
+\]
+
+\subsection*{Complete Mathematical Model}
+The complete linear programming model can be summarized as follows:
+
+\begin{align*}
+\text{Maximize} \quad & Z = \sum_{k=1}^{K} profit_{k} \cdot quantity_{k} \\
+\text{Subject to} \quad & \sum_{k=1}^{K} time_{k,s} \cdot quantity_{k} \leq capacity_{s}, \quad \forall s = 1, \ldots, S \\
+& quantity_{k} \geq 0, \quad \forall k = 1, \ldots, K
+\end{align*}
+
+\end{document}

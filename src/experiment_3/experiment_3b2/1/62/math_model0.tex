@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Travelling Salesman Problem}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item $N$: Set of cities including the start city.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $distance_{i,j}$: Distance between city $i$ and city $j$, for all $i, j \in N$.
+    \item $start\_city$: The starting city.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_{i,j} = 
+    \begin{cases} 
+    1, & \text{if the route goes directly from city } i \text{ to city } j \\
+    0, & \text{otherwise}
+    \end{cases}$
+    
+    \item $u_i$: Auxiliary variables for subtour elimination, for all $i \in N$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total travel distance:
+\[
+\min \sum_{i \in N} \sum_{j \in N} distance_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{align}
+& \sum_{j \in N, j \ne i} x_{i,j} = 1, \quad \forall i \in N \quad \text{(Every city is left exactly once)} \\
+& \sum_{i \in N, i \ne j} x_{i,j} = 1, \quad \forall j \in N \quad \text{(Every city is entered exactly once)} \\
+& u_i - u_j + |N| \cdot x_{i,j} \leq |N| - 1, \quad \forall i, j \in N, i \ne j \quad \text{(Subtour elimination)} \\
+& u_i \geq 1, \quad \forall i \in N \setminus \{start\_city\} \\
+& u_{start\_city} = 0 \\
+& x_{i,j} \in \{0, 1\}, \quad \forall i, j \in N
+\end{align}
+
+\end{document}

@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective Function:}
+
+\[
+\text{Minimize } \sum_{t=1}^{T} \sum_{k=1}^{K} \left( \text{runCost}_k \cdot x_{k,t} + \text{extraCost}_k \cdot (y_{k,t} - \text{minLevel}_k \cdot x_{k,t}) + \text{startCost}_k \cdot z_{k,t} \right)
+\]
+
+\textbf{Subject to:}
+
+\[
+\sum_{k=1}^{K} y_{k,t} \geq \text{demand}_t \quad \forall t = 1, \ldots, T
+\]
+
+\[
+\text{minLevel}_k \cdot x_{k,t} \leq y_{k,t} \leq \text{maxLevel}_k \cdot x_{k,t} \quad \forall k = 1, \ldots, K, \forall t = 1, \ldots, T
+\]
+
+\[
+x_{k,t} \leq \text{num}_k \quad \forall k = 1, \ldots, K, \forall t = 1, \ldots, T
+\]
+
+\[
+z_{k,t} \geq x_{k,t} - x_{k,t-1} \quad \forall k = 1, \ldots, K, \forall t = 2, \ldots, T
+\]
+
+\[
+z_{k,1} \geq x_{k,1} \quad \forall k = 1, \ldots, K
+\]
+
+\end{document}

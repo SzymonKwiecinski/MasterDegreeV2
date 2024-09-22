@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Department Relocation}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item \( K \): Set of departments, where \( k \in K \).
+    \item \( L \): Set of cities, where \( l \in L \).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{benefit}_{k,l} \): Benefit for department \( k \) if relocated to city \( l \) (in thousands of pounds).
+    \item \( \text{communication}_{k,j} \): Quantity of communication between department \( k \) and department \( j \).
+    \item \( \text{cost}_{l,m} \): Unit cost of communication between city \( l \) and city \( m \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{islocated}_{k,l} \): Binary variable that is 1 if department \( k \) is relocated at city \( l \), and 0 otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the overall yearly cost:
+\[
+\text{Minimize} \quad Z = \sum_{k \in K} \sum_{l \in L} \left( \sum_{j \in K} \text{communication}_{k,j} \cdot \text{cost}_{l,m} \cdot \text{islocated}_{k,l} \right) - \sum_{k \in K} \sum_{l \in L} \text{benefit}_{k,l} \cdot \text{islocated}_{k,l}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Department location constraint:
+    \[
+    \sum_{l \in L} \text{islocated}_{k,l} = 1, \quad \forall k \in K
+    \]
+    Each department must be located in exactly one city.
+
+    \item Capacity constraint:
+    \[
+    \sum_{k \in K} \text{islocated}_{k,l} \leq 3 \quad \forall l \in L
+    \]
+    No city can have more than three departments.
+
+    \item Binary constraint:
+    \[
+    \text{islocated}_{k,l} \in \{0, 1\}, \quad \forall k \in K, \forall l \in L
+    \]
+\end{itemize}
+
+\end{document}

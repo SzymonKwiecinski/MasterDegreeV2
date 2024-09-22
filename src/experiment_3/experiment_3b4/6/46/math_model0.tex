@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Indices}
+\begin{align*}
+a & : \text{Index for alloys, } a = 1, \ldots, A,\\
+s & : \text{Index for steel types, } s = 1, \ldots, S.
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+\text{available}_a & : \text{Available tons of alloy } a,\\
+\text{carbon}_a & : \text{Percentage of carbon in alloy } a,\\
+\text{nickel}_a & : \text{Percentage of nickel in alloy } a,\\
+\text{alloy\_price}_a & : \text{Price per ton of alloy } a,\\
+\text{steel\_price}_s & : \text{Selling price per ton of steel } s,\\
+\text{carbon\_min}_s & : \text{Minimum carbon percentage required for steel } s,\\
+\text{nickel\_max}_s & : \text{Maximum nickel percentage allowed for steel } s.
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+\text{alloy\_amount}_{a,s} & : \text{Amount of alloy } a \text{ used in steel type } s,\\
+\text{total\_steel}_s & : \text{Total amount of steel type } s \text{ produced}.
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\begin{align*}
+\text{total\_profit} = \sum_{s=1}^{S} \left( \text{steel\_price}_s \times \text{total\_steel}_s \right) - \sum_{a=1}^{A} \sum_{s=1}^{S} \left( \text{alloy\_price}_a \times \text{alloy\_amount}_{a,s} \right).
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+\sum_{s=1}^{S} \text{alloy\_amount}_{a,s} & \leq \text{available}_a, & \forall a, \\
+\sum_{a=1}^{A} \text{alloy\_amount}_{a,s} & = \text{total\_steel}_s, & \forall s, \\
+\sum_{a=1}^{A} \text{carbon}_a \times \text{alloy\_amount}_{a,s} & \geq \text{carbon\_min}_s \times \text{total\_steel}_s, & \forall s, \\
+\sum_{a=1}^{A} \text{nickel}_a \times \text{alloy\_amount}_{a,s} & \leq \text{nickel\_max}_s \times \text{total\_steel}_s, & \forall s, \\
+\text{alloy\_amount}_{1,s} & \leq 0.4 \times \text{total\_steel}_s, & \forall s, \\
+\text{alloy\_amount}_{a,s} & \geq 0, & \forall a, s, \\
+\text{total\_steel}_s & \geq 0, & \forall s.
+\end{align*}
+
+\end{document}

@@ -1,0 +1,79 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Trajectory Optimization}
+
+\subsection*{Problem Formulation}
+
+We are given the following discrete-time dynamics of a rocket:
+
+\begin{align*}
+    x_{t+1} &= x_t + v_t, \\
+    v_{t+1} &= v_t + a_t,
+\end{align*}
+
+where:
+- \( t = 0, 1, \ldots, T-1 \)
+- \( x_0 \) and \( v_0 \) are the initial position and velocity,
+- \( x_T \) and \( v_T \) are the target position and velocity at time \( T \),
+- \( a_t \) is the control input (acceleration).
+
+\subsection*{Objective}
+
+Minimize the maximum thrust, which is proportional to fuel consumption:
+
+\[
+\min \max_{t} |a_t|
+\]
+
+\subsection*{Constraints}
+
+1. Dynamics constraints:
+    \[
+    x_{t+1} = x_t + v_t \quad \text{for } t = 0, 1, \ldots, T-1
+    \]
+    \[
+    v_{t+1} = v_t + a_t \quad \text{for } t = 0, 1, \ldots, T-1
+    \]
+
+2. Initial conditions:
+    \[
+    x_0 = \text{given } x_0, \quad v_0 = \text{given } v_0
+    \]
+
+3. Target conditions:
+    \[
+    x_T = \text{given } x_T, \quad v_T = \text{given } v_T
+    \]
+
+4. Linearize the absolute value for the optimization:
+    \[
+    a_t \leq u, \quad -a_t \leq u \quad \text{for } t = 0, 1, \ldots, T-1
+    \]
+
+where \( u \) is an auxiliary variable representing the maximum magnitude of \( a_t \).
+
+\subsection*{Variables}
+
+- Decision variables: \( a_t \) for \( t = 0, 1, \ldots, T-1 \)
+- Auxiliary variable: \( u \)
+
+\subsection*{Objective Function in LP Form}
+
+\[
+\min u
+\]
+
+\subsection*{Solution Output}
+
+The output of the optimization will include:
+- Positions: \( x_1, x_2, \ldots, x_T \)
+- Velocities: \( v_1, v_2, \ldots, v_T \)
+- Accelerations: \( a_0, a_1, \ldots, a_{T-1} \)
+- Total fuel spent, approximated by: 
+  \[
+  \text{fuel\_spend} = \sum_{t=0}^{T-1} |a_t|
+  \]
+
+\end{document}

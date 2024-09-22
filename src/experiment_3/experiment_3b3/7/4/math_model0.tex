@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{MILP Model for Nurse Scheduling}
+\author{}
+\date{}
+\maketitle
+
+\section{Problem Definition}
+A hospital needs to create a weekly night shift schedule for nurses. The demand for nurses for the night shift on day \( j \) (where \( j = 1, \ldots, 7 \)) is given as an integer \( d_j \). Each nurse works for \( \text{period} \) days in a row and then has \( 7 - \text{period} \) days off.
+
+\section{Variables}
+Let:
+\begin{itemize}
+    \item \( x_j \): Number of nurses that start their period on day \( j \) for \( j = 1, \ldots, 7 \).
+    \item \( N \): Total number of nurses hired.
+\end{itemize}
+
+\section{Objective Function}
+Minimize the total number of nurses hired:
+\[
+\text{Minimize } N = \sum_{j=1}^{7} x_j
+\]
+
+\section{Constraints}
+For each day \( j \), the total number of nurses available must meet or exceed the demand:
+\[
+\sum_{k=0}^{\text{period}-1} x_{(j-k \mod 7)} \geq d_j \quad \forall j = 1, \ldots, 7
+\]
+
+\section{Input Format}
+The model requires the following inputs:
+\begin{itemize}
+    \item \( \text{period} \): Number of consecutive days a nurse works.
+    \item \( d_j \): Array of integer demands for each day \( j \).
+\end{itemize}
+
+\section{Output Format}
+The output should provide:
+\begin{itemize}
+    \item \( \text{start} \): Array containing \( x_j \) for \( j = 1, \ldots, 7 \).
+    \item \( \text{total} \): Total number of nurses hired, \( N \).
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Production and Inventory Scheduling}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Formulation}
+
+Consider the following variables and parameters:
+
+\begin{itemize}
+    \item Let \( x_i \) be the number of units produced in month \( i \) for \( i = 1, 2, \ldots, T \).
+    \item Let \( I_i \) be the inventory at the end of month \( i \), where \( I_0 = 0 \).
+    \item Let \( \text{deliver}_i \) be the units required to be delivered at the end of month \( i \).
+    \item Let \( \text{storage\_cost} \) be the cost of storing one unit for one month.
+    \item Let \( \text{switch\_cost} \) be the cost incurred for switching production levels between two consecutive months.
+\end{itemize}
+
+The total cost to minimize can be defined as:
+\[
+\text{Total Cost} = \sum_{i=1}^{T} \left( \text{storage\_cost} \cdot I_i + \text{switch\_cost} \cdot |x_{i+1} - x_i| \right)
+\]
+
+\section*{Constraints}
+
+The following constraints must be satisfied:
+
+\begin{itemize}
+    \item Inventory balance for each month:
+    \[
+    I_i = I_{i-1} + x_i - \text{deliver}_i \quad \text{for } i = 1, 2, \ldots, T
+    \]
+    \item Non-negativity constraints on production and inventory:
+    \[
+    x_i \geq 0 \quad \text{and} \quad I_i \geq 0 \quad \text{for } i = 1, 2, \ldots, T
+    \]
+    \item The inventory must not incur costs at the end of the year:
+    \[
+    I_T = 0
+    \end{itemize}
+\end{document}

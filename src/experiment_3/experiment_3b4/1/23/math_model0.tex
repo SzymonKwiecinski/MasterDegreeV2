@@ -1,0 +1,73 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model for Manpower Planning}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $requirement_{k,i}$: Estimated manpower requirement for manpower type $k$ in year $i$.
+    \item $strength_{k}$: Current strength of manpower type $k$ (all with more than one year's service).
+    \item $lessonewaste_{k}$: Wastage rate for manpower type $k$ with less than one year's service.
+    \item $moreonewaste_{k}$: Wastage rate for manpower type $k$ with more than one year's service.
+    \item $recruit_{k}$: Maximum number of manpower type $k$ that can be recruited in any one year.
+    \item $costredundancy_{k}$: Redundancy payment per employee for manpower type $k$.
+    \item $num\_overman$: Maximum number of extra workers over the entire company.
+    \item $costoverman_{k}$: Extra cost for each overmanned employee per year for manpower type $k$.
+    \item $num\_shortwork$: Maximum number of workers that can be put on short-time working in each category.
+    \item $costshort_{k}$: Cost per short-time employee per year for manpower type $k$.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_{k,i}$: Number of manpower type $k$ recruited in year $i$.
+    \item $y_{k,i}$: Number of manpower type $k$ on short-time working in year $i$.
+    \item $z_{k,i}$: Number of overmanned manpower type $k$ in year $i$.
+    \item $r_{k,i}$: Number of redundancies to be made for manpower type $k$ in year $i$.
+\end{itemize}
+
+\textbf{Objective:}
+Minimize the total cost:
+\[
+\text{Minimize } \sum_{k=1}^{K} \sum_{i=1}^{I} \left( costredundancy_{k} \cdot r_{k,i} + costoverman_{k} \cdot z_{k,i} + costshort_{k} \cdot y_{k,i} \right)
+\]
+
+\textbf{Constraints:}
+
+\begin{itemize}
+    \item \textbf{Manpower Balance:}
+
+    For each $k$, $i$:
+    \[
+    (1 - moreonewaste_{k}) \cdot (\text{Existing Strength + Previous Year Balance}) + x_{k,i} \cdot (1 - lessonewaste_{k}) + y_{k,i} \cdot 0.5 - r_{k,i} \geq requirement_{k,i} - z_{k,i}
+    \]
+
+    \item \textbf{Recruitment Limits:}
+
+    For each $k$, $i$:
+    \[
+    x_{k,i} \leq recruit_{k}
+    \]
+
+    \item \textbf{Overmanning Limits:}
+
+    \[
+    \sum_{k=1}^{K} z_{k,i} \leq num\_overman
+    \]
+
+    \item \textbf{Short-time Working Limits:}
+
+    For each $k$, $i$:
+    \[
+    y_{k,i} \leq num\_shortwork
+    \]
+
+    \item \textbf{Non-negativity:}
+
+    For each $k$, $i$:
+    \[
+    x_{k,i}, y_{k,i}, z_{k,i}, r_{k,i} \geq 0
+    \]
+\end{itemize}
+
+\end{document}

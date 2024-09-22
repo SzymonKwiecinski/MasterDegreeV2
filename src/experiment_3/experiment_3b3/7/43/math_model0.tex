@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Wild Sports}
+
+\subsection*{Decision Variables}
+Let:
+\begin{itemize}
+    \item \( x_j \) = amount of product \( j \) produced, for \( j = 1, \ldots, M \)
+\end{itemize}
+
+\subsection*{Parameters}
+Given:
+\begin{itemize}
+    \item \( \text{available}_i \) = available units of raw material \( i \), for \( i = 1, \ldots, N \)
+    \item \( \text{req}_{i,j} \) = units of raw material \( i \) required for product \( j \)
+    \item \( \text{price}_j \) = selling price of product \( j \)
+    \item \( \text{cost}_j \) = production cost of product \( j \)
+    \item \( \text{demand}_j \) = maximum forecasted demand for product \( j \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+\text{Total Profit} = \sum_{j=1}^{M} ( \text{price}_j - \text{cost}_j ) x_j
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Material Constraints:
+\[
+\sum_{j=1}^{M} \text{req}_{i,j} x_j \leq \text{available}_i, \quad \forall i = 1, \ldots, N
+\]
+    
+    \item Demand Constraints:
+\[
+x_j \leq \text{demand}_j, \quad \forall j = 1, \ldots, M
+\]
+
+    \item Non-negativity Constraints:
+\[
+x_j \geq 0, \quad \forall j = 1, \ldots, M
+\]
+\end{itemize}
+
+\subsection*{Output}
+The output will include:
+\begin{itemize}
+    \item Amount of each product produced: \( x_j \)
+    \item Total profit: \( \text{Total Profit} \)
+\end{itemize}
+
+\end{document}

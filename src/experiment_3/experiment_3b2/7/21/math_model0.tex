@@ -1,0 +1,85 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Model for Profit Maximization in Manufacturing and Maintenance}
+
+\subsection*{Indices:}
+\begin{itemize}
+    \item $k = 1, \ldots, K$: Products
+    \item $m = 1, \ldots, M$: Machines
+    \item $i = 1, \ldots, I$: Months
+\end{itemize}
+
+\subsection*{Parameters:}
+\begin{itemize}
+    \item $num_{m}$: Number of machine type $m$
+    \item $profit_k$: Profit per unit of product $k$
+    \item $time_{k,m}$: Time required on machine $m$ to produce one unit of product $k$
+    \item $down_{m}$: Maintenance downtime for machine type $m$ in months
+    \item $limit_{k,i}$: Marketing limitation for product $k$ in month $i$
+    \item $store\_price$: Storage cost per unit per month
+    \item $keep\_quantity$: Desired stock level of each product at the end of the planning period
+    \item $n\_workhours$: Number of working hours per shift
+    \item $days\_per\_month$: 24 (for calculation purposes)
+    \item $shifts\_per\_day$: 2 (working shifts per day)
+\end{itemize}
+
+\subsection*{Decision Variables:}
+\begin{itemize}
+    \item $sell_{k,i}$: Amount of product $k$ sold in month $i$
+    \item $manufacture_{k,i}$: Amount of product $k$ manufactured in month $i$
+    \item $storage_{k,i}$: Amount of product $k$ stored at the end of month $i$
+    \item $maintain_{m,i}$: Number of machines type $m$ under maintenance in month $i$
+\end{itemize}
+
+\subsection*{Objective Function:}
+Maximize total profit:
+\[
+\max \sum_{i=1}^{I} \sum_{k=1}^{K} \left( profit_k \cdot sell_{k,i} - store\_price \cdot storage_{k,i} \right)
+\]
+
+\subsection*{Constraints:}
+
+\begin{itemize}
+    \item \textbf{Capacity Constraints:} 
+    \[
+    \sum_{k=1}^{K} time_{k,m} \cdot manufacture_{k,i} \leq (num_{m} - maintain_{m,i}) \cdot n\_workhours \cdot days\_per\_month \cdot shifts\_per\_day \quad \forall m, i
+    \]
+
+    \item \textbf{Maintenance Constraints:} 
+    \[
+    \sum_{i=1}^{I} maintain_{m,i} = down_{m} \cdot num_{m} \quad \forall m
+    \]
+
+    \item \textbf{Marketing Constraints:}
+    \[
+    sell_{k,i} \leq limit_{k,i} \quad \forall k, i
+    \]
+
+    \item \textbf{Storage Capacity Constraints:}
+    \[
+    storage_{k,i} \leq 100 \quad \forall k, i
+    \]
+
+    \item \textbf{Flow Balance Constraints:}
+    \[
+    manufacture_{k,i} + storage_{k,i-1} = sell_{k,i} + storage_{k,i} \quad \forall k, i > 1
+    \]
+    \[
+    manufacture_{k,1} = sell_{k,1} + storage_{k,1} \quad \forall k
+    \]
+    \[
+    storage_{k,I} = keep\_quantity \quad \forall k
+    \]
+
+    \item \textbf{Non-negativity and Integer Constraints:}
+    \[
+    sell_{k,i}, manufacture_{k,i}, storage_{k,i} \geq 0 \quad \forall k, i
+    \]
+    \[
+    maintain_{m,i} \in \mathbb{Z}^+ \quad \forall m, i
+    \]
+\end{itemize}
+
+\end{document}

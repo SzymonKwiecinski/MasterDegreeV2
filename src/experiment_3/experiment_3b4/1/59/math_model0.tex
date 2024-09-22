@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{MILP Formulation:}
+
+\begin{itemize}
+    \item \textbf{Decision Variables:}
+    \begin{align*}
+        x_i & = 
+        \begin{cases} 
+        1, & \text{if translator $i$ is selected} \\ 
+        0, & \text{otherwise}
+        \end{cases}
+        \quad \forall i = 1, \ldots, N
+    \end{align*}
+
+    \item \textbf{Objective Function:}
+    \begin{equation*}
+        \text{Minimize} \quad \sum_{i=1}^{N} \text{cost}_i \cdot x_i
+    \end{equation*}
+
+    \item \textbf{Constraints:}
+    \begin{equation*}
+        \sum_{i=1}^{N} a_{im} \cdot x_i \geq 1, \quad \forall m \in \text{required\_languages}
+    \end{equation*}
+\end{itemize}
+
+\end{document}

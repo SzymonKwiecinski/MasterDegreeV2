@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+Maximize the total manpower requirement over five years:
+
+\[
+\max \sum_{t=1}^{T} \sum_{k=1}^{K} \left( \text{manpowerone}_k \cdot \text{produce}_{k,t} + \text{manpowertwo}_k \cdot \text{buildcapa}_{k,t} \right)
+\]
+
+\textbf{Constraints:}
+
+1. \textit{Production and Demand Satisfaction:}
+\[
+\text{produce}_{k,t} + \text{stockhold}_{k,t-1} \geq \sum_{j=1}^{K} \text{inputone}_{k,j} \cdot \text{produce}_{j,t} + \text{demand}_k, \quad \forall k = 1,\ldots,K, \; t = 1,\ldots,T
+\]
+
+2. \textit{Capacity Constraints:}
+\[
+\text{produce}_{k,t} \leq \text{capacity}_{k} + \sum_{u=0}^{t-2} \text{buildcapa}_{k,u}, \quad \forall k = 1,\ldots,K, \; t = 1,\ldots,T
+\]
+
+3. \textit{Input for Building Capacity:}
+\[
+\text{buildcapa}_{k,t} \leq \sum_{j=1}^{K} \text{inputtwo}_{k,j} \cdot \text{produce}_{j,t}, \quad \forall k = 1,\ldots,K, \; t = 1,\ldots,T
+\]
+
+4. \textit{Stock Flow:}
+\[
+\text{stockhold}_{k,t} = \text{produce}_{k,t} + \text{stockhold}_{k,t-1} - \sum_{j=1}^{K} \text{inputone}_{k,j} \cdot \text{produce}_{j,t} - \text{demand}_k, \quad \forall k = 1,\ldots,K, \; t = 1,\ldots,T
+\]
+
+5. \textit{Initial Stock and Capacity:}
+\[
+\text{stockhold}_{k,0} = \text{stock}_k, \quad \text{capacity}_k, \quad \forall k = 1,\ldots,K
+\]
+
+6. \textit{Non-negativity:}
+\[
+\text{produce}_{k,t}, \text{buildcapa}_{k,t}, \text{stockhold}_{k,t} \geq 0, \quad \forall k = 1,\ldots,K, \; t = 1,\ldots,T
+\]
+
+\end{document}

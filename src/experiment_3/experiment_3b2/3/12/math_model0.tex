@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( N \): Number of currencies.
+    \item \( \text{start}_i \): Initial amount of currency \( i \).
+    \item \( \text{limit}_i \): Maximum limit for exchange involving currency \( i \).
+    \item \( \text{rate}_{i,j} \): Exchange rate from currency \( i \) to currency \( j \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\[
+x_{i,j} \geq 0 \quad \forall i, j \in \{1, 2, \ldots, N\}, \, i \neq j
+\]
+
+\subsection*{Objective Function}
+Maximize the final amount of currency \( N \):
+\[
+\max \left( \sum_{i=1}^{N-1} x_{i,N} \cdot \text{rate}_{i,N} + \text{start}_N - \sum_{j=1}^{N-1} x_{N,j} \right)
+\]
+
+\subsection*{Constraints}
+1. Initial amount constraints for each currency \( i \):
+\[
+\sum_{j=1, j \neq i}^{N} x_{i,j} - \sum_{k=1, k \neq i}^{N} \frac{x_{k,i}}{\text{rate}_{k,i}} \leq \text{start}_i, \quad \forall i \in \{1, 2, \ldots, N\}
+\]
+
+2. Exchange limit constraints for each currency \( i \):
+\[
+\sum_{j=1, j \neq i}^{N} x_{i,j} + \sum_{k=1, k \neq i}^{N} \frac{x_{k,i}}{\text{rate}_{k,i}} \leq \text{limit}_i, \quad \forall i \in \{1, 2, \ldots, N\}
+\]
+
+\end{document}

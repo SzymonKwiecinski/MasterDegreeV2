@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\begin{document}
+
+\textbf{Objective:}
+Minimize the total number of employees:
+
+\[
+\min \sum_{i} x_i
+\]
+
+\textbf{Subject to:}
+
+\begin{itemize}
+    \item Demand constraints:
+    \[
+    \sum_{i} y_{i,n} \geq num_n \quad \text{for each day } n
+    \]
+
+    \item Work-rest schedule constraints:
+    \[
+    \begin{aligned}
+    & y_{i,n} = 1 \text{ if employee } i \text{ works on day } n, \\
+    & \text{follows } n_{\text{working\_days}} \text{ work days followed by } n_{\text{resting\_days}} \text{ rest days} 
+    \end{aligned}
+    \]
+
+    \item Binary constraints:
+    \[
+    x_i \in \{0, 1\}, \quad y_{i,n} \in \{0, 1\}
+    \]
+\end{itemize}
+
+\end{document}

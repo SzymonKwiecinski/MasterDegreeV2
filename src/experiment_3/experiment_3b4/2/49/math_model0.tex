@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+Let \( P \) be the number of different parts and \( M \) be the number of different machines. Define the following variables and parameters:
+
+\begin{itemize}
+    \item \( \text{time\_required}_{m,p} \): Time in hours required on machine \( m \) to produce a batch of 100 part \( p \).
+    \item \( \text{cost}_{m} \): Cost in dollars per hour for using machine \( m \).
+    \item \( \text{available}_{m} \): Availability in hours per month for machine \( m \).
+    \item \( \text{price}_{p} \): Selling price in dollars per batch of 100 part \( p \).
+    \item \( \text{min\_batches}_{p} \): Minimum number of batches of part \( p \) required to be produced each month.
+    \item \( \text{batches}_{p} \): Decision variable representing the number of batches of part \( p \) to produce.
+\end{itemize}
+
+\subsection*{Objective Function}
+
+The objective is to maximize the total profit. The profit is the total revenue from selling the parts minus the total cost of using the machines. Therefore, the objective function is:
+
+\[
+\text{Maximize} \quad \text{total\_profit} = \sum_{p=1}^{P} (\text{price}_{p} \cdot \text{batches}_{p}) - \sum_{m=1}^{M} \sum_{p=1}^{P} (\text{cost}_{m} \cdot \text{time\_required}_{m,p} \cdot \text{batches}_{p})
+\]
+
+\subsection*{Constraints}
+
+1. **Minimum Batch Requirement:**
+
+   For each part, ensure that at least the minimum required batches are produced:
+   \[
+   \text{batches}_{p} \geq \text{min\_batches}_{p}, \quad \forall p = 1, 2, \ldots, P
+   \]
+
+2. **Machine Availability Constraints:**
+
+   For each machine, ensure that the total time used does not exceed available time:
+   \[
+   \sum_{p=1}^{P} (\text{time\_required}_{m,p} \cdot \text{batches}_{p}) \leq \text{available}_{m}, \quad \forall m = 1, 2, \ldots, M-2
+   \]
+
+   For the last two machines, they can share availability:
+   \[
+   \sum_{p=1}^{P} (\text{time\_required}_{M,p} \cdot \text{batches}_{p}) + \sum_{p=1}^{P} (\text{time\_required}_{M-1,p} \cdot \text{batches}_{p}) \leq \text{available}_{M} + \text{available}_{M-1}
+   \]
+
+3. **Non-negativity:**
+
+   \[
+   \text{batches}_{p} \geq 0, \quad \forall p = 1, 2, \ldots, P
+   \]
+
+\end{document}

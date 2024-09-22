@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model:}
+
+Let \( b \) be the slope and \( a \) be the intercept of the line.
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } \sum_{k=1}^{K} (z_k^+ + z_k^-)
+\]
+
+\textbf{Subject to Constraints:}
+\[
+y_k - (bx_k + a) = z_k^+ - z_k^- \quad \forall k = 1, 2, \ldots, K
+\]
+\[
+z_k^+ \geq 0, \quad z_k^- \geq 0 \quad \forall k = 1, 2, \ldots, K
+\]
+
+Here, \( z_k^+ \) and \( z_k^- \) represent the positive and negative deviations for each data point.
+
+\end{document}

@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+\[
+\text{Minimize } \sum_{j=1}^{J} f_j y_j + \sum_{i=1}^{I} \sum_{j=1}^{J} c_{i,j} x_{i,j}
+\]
+
+\textbf{Subject to:}
+
+1. Each project must be assigned to exactly one consultant:
+\[
+\sum_{j=1}^{J} x_{i,j} = 1, \quad \forall i \in \{1, \ldots, I\}
+\]
+
+2. A consultant can handle at most \( K \) projects:
+\[
+\sum_{i=1}^{I} x_{i,j} \leq K y_j, \quad \forall j \in \{1, \ldots, J\}
+\]
+
+3. The assignment variable is binary:
+\[
+x_{i,j} \in \{0, 1\}, \quad \forall i \in \{1, \ldots, I\}, \forall j \in \{1, \ldots, J\}
+\]
+
+4. The hiring variable is binary:
+\[
+y_j \in \{0, 1\}, \quad \forall j \in \{1, \ldots, J\}
+\]
+
+\end{document}

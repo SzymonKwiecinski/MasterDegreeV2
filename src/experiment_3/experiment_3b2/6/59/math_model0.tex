@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Model for Selecting Translators}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item Let \( N \) be the set of translators, indexed by \( i \).
+    \item Let \( M \) be the set of required languages, indexed by \( m \).
+    \item Let \( L_i \) be the set of languages that translator \( i \) can translate into.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{cost}_i \): the cost of hiring translator \( i \).
+    \item \( a_{im} \): binary parameter, \( a_{im} = 1 \) if translator \( i \) can translate into language \( m \), and \( 0 \) otherwise.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_i \): binary variable, \( x_i = 1 \) if translator \( i \) is selected, and \( 0 \) otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost of hiring the translators:
+\[
+\min \sum_{i \in N} \text{cost}_i \cdot x_i
+\]
+
+\subsection*{Constraints}
+Ensure that each required language \( m \in M \) is covered by at least one selected translator:
+\[
+\sum_{i \in N} a_{im} \cdot x_i \geq 1, \quad \forall m \in M
+\]
+
+\subsection*{Binary Constraints}
+\[
+x_i \in \{0, 1\}, \quad \forall i \in N
+\]
+
+\end{document}

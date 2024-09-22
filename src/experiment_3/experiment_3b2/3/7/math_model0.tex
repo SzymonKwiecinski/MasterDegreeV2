@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+We are given the following data:
+\begin{align*}
+x_0 &= \text{initial position of the rocket}, \\
+v_0 &= \text{initial velocity of the rocket}, \\
+x_T &= \text{target position at time } T, \\
+v_T &= \text{target velocity at time } T, \\
+T &= \text{time horizon}.
+\end{align*}
+
+We aim to minimize the maximum thrust, denoted by $\max_t |a_t|$, subjected to the discrete-time rocket equations:
+\begin{align}
+x_{t+1} &= x_t + v_t, \quad \forall t = 0, 1, \ldots, T-1, \\
+v_{t+1} &= v_t + a_t, \quad \forall t = 0, 1, \ldots, T-1,
+\end{align}
+with the initial conditions:
+\begin{align}
+x_0 &= x_0, \\
+v_0 &= v_0,
+\end{align}
+and the final conditions:
+\begin{align}
+x_T &= x_T, \\
+v_T &= v_T.
+\end{align}
+
+Additionally, let us introduce a variable $M$ to represent the maximum absolute acceleration. Our objective function becomes:
+\[
+\min M
+\]
+
+Subject to the constraints:
+\begin{align}
+-M &\leq a_t \leq M, \quad \forall t = 0, 1, \ldots, T-1, \\
+x_{t+1} &= x_t + v_t, \\
+v_{t+1} &= v_t + a_t, \\
+x_0 &= x_0, \quad v_0 = v_0, \\
+x_T &= x_T, \quad v_T = v_T.
+\end{align}
+
+The fuel consumption is proportional to the absolute acceleration. Thus, the total fuel spent, $F$, can be calculated as:
+\[
+F = \sum_{t=0}^{T-1} |a_t|
+\]
+
+This completes the linear programming formulation of the rocket problem.
+
+\end{document}

@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Parameters:}
+\begin{itemize}
+    \item \( N \): Number of road segments
+    \item \( M \): Number of lamps
+    \item \( \text{coeff}_{i,j} \): Coefficient representing the contribution of lamp \( j \) to segment \( i \)
+    \item \( \text{desired}_i \): Desired illumination of segment \( i \)
+\end{itemize}
+
+\subsection*{Decision Variables:}
+\begin{itemize}
+    \item \( power_j \geq 0 \): Power of lamp \( j \), for \( j = 1, \ldots, M \)
+    \item \( z_i^+ \geq 0, z_i^- \geq 0 \): Auxiliary variables for the absolute error in segment \( i \), for \( i = 1, \ldots, N \)
+\end{itemize}
+
+\subsection*{Objective:}
+Minimize the total absolute error:
+\[
+\min \sum_{i=1}^{N} (z_i^+ + z_i^-)
+\]
+
+\subsection*{Constraints:}
+For each segment \( i = 1, \ldots, N \):
+\[
+\sum_{j=1}^{M} \text{coeff}_{i,j} \cdot power_j + z_i^- - z_i^+ = \text{desired}_i
+\]
+\[
+z_i^+ \geq 0, \quad z_i^- \geq 0
+\]
+
+\end{document}

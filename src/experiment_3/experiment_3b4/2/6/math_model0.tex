@@ -1,0 +1,16 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\begin{align*}
+\text{Minimize} \quad & \sum_{t=0}^{T-1} |a_t| \\
+\text{Subject to:} \quad
+& x_{t+1} = x_t + v_t, \quad \text{for } t = 0, 1, \ldots, T-1, \\
+& v_{t+1} = v_t + a_t, \quad \text{for } t = 0, 1, \ldots, T-1, \\
+& x_0 = \text{given initial position}, \\
+& v_0 = \text{given initial velocity}, \\
+& x_T = \text{target position}, \\
+& v_T = \text{target velocity}.
+\end{align*}
+
+\end{document}

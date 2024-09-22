@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+Let \( x_p \) be the number of batches of part \( p \) to be produced, \( p = 1, 2, \ldots, P \).
+
+\subsection*{Objective}
+Maximize total profit:
+\[
+\begin{align*}
+\text{Maximize } & \sum_{p=1}^{P} \text{price}_p \times x_p - \sum_{m=2}^{M} \sum_{p=1}^{P} \text{cost}_m \times \text{time}_{m,p} \times x_p \\
+& - \left( \text{standard\_cost} \times \min(H_1, \text{overtime\_hour}) + \text{overtime\_cost} \times \max(0, H_1 - \text{overtime\_hour}) \right),
+\end{align*}
+\]
+where \( H_1 = \sum_{p=1}^{P} \text{time}_{1,p} \times x_p \).
+
+\subsection*{Constraints}
+\begin{align*}
+\sum_{p=1}^{P} \text{time}_{m,p} \times x_p & \leq \text{available}_m, & \forall m = 2, \ldots, M, \\
+x_p & \geq \text{min\_batches}_p, & \forall p = 1, \ldots, P, \\
+\text{Total Profit} & \geq \text{min\_profit}.
+\end{align*}
+
+\end{document}

@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Sets and Indices}
+\begin{align*}
+& P = \text{set of parts (indexed by } p), \\
+& M = \text{set of machines (indexed by } m).
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+& \text{time\_required}_{m,p} = \text{hours required by machine } m \text{ per batch of part } p, \\
+& \text{cost}_{m} = \text{cost per hour for using machine } m, \\
+& \text{available}_{m} = \text{available hours for machine } m \text{ per month}, \\
+& \text{price}_{p} = \text{price per batch of part } p, \\
+& \text{setup\_time}_{p} = \text{setup time required for machine 1 for part } p.
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+& \text{batches}_{p} \in \mathbb{Z}_{\geq 0} = \text{number of batches to produce for part } p, \\
+& \text{setup\_flag}_{p} \in \{0, 1\} = \text{1 if machine 1 is set up for part } p, \text{ 0 otherwise}.
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Profit} = \sum_{p \in P} \left( \text{price}_{p} \times \text{batches}_{p} \right) - \sum_{m \in M} \left( \text{cost}_{m} \times \sum_{p \in P} \text{time\_required}_{m,p} \times \text{batches}_{p} \right) - \sum_{p \in P} \left( \text{setup\_time}_{p} \times \text{setup\_flag}_{p} \times \text{cost}_{1} \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+& \sum_{p \in P} \left( \text{time\_required}_{m,p} \times \text{batches}_{p} \right) + \delta_{m,1} \sum_{p \in P} \text{setup\_time}_{p} \times \text{setup\_flag}_{p} \leq \text{available}_{m}, \quad \forall m \in M, \\
+& \text{setup\_flag}_{p} \leq \text{batches}_{p}, \quad \forall p \in P \quad (\text{setup only if producing}), \\
+& \text{setup\_flag}_{p} \in \{0, 1\}, \quad \forall p \in P, \\
+& \text{batches}_{p} \in \mathbb{Z}_{\geq 0}, \quad \forall p \in P.
+\end{align*}
+
+\end{document}

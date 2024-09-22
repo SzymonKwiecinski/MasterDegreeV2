@@ -1,0 +1,22 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Objective}
+Maximize the total profit:
+
+\[
+\text{Maximize } \sum_{k=1}^{K} \text{profit}_k \times x_k
+\]
+
+\subsection*{Constraints}
+
+\begin{align*}
+\text{For each stage } s, & \\
+\sum_{k=1}^{K} \text{produce\_time}_{k, s} \times x_k & \leq \text{time}_s \quad \text{for } s = 1, 2, \ldots, S \\
+x_k & \geq 0 \quad \text{for } k = 1, 2, \ldots, K
+\end{align*}
+
+\end{document}

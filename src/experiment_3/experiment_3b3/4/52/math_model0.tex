@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Electricity Transmission}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $p = 1, \ldots, P$ : Index for power plants
+    \item $c = 1, \ldots, C$ : Index for cities
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $supply_{p}$ : Capacity of power plant $p$ (in million kWh)
+    \item $demand_{c}$ : Peak demand of city $c$ (in million kWh)
+    \item $transmission_{p,c}$ : Transmission cost from power plant $p$ to city $c$ (in $/million kWh)
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $send_{p,c}$ : Amount of electricity sent from power plant $p$ to city $c$ (in million kWh)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total transmission cost:
+\[
+\text{Minimize } Z = \sum_{p=1}^{P} \sum_{c=1}^{C} transmission_{p,c} \cdot send_{p,c}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item \textbf{Supply Constraints:} The total amount of electricity sent from each power plant cannot exceed its capacity:
+    \[
+    \sum_{c=1}^{C} send_{p,c} \leq supply_{p}, \quad \forall p \in \{1, \ldots, P\}
+    \]
+
+    \item \textbf{Demand Constraints:} The total amount of electricity received by each city must meet its demand:
+    \[
+    \sum_{p=1}^{P} send_{p,c} \geq demand_{c}, \quad \forall c \in \{1, \ldots, C\}
+    \]
+
+    \item \textbf{Non-negativity Constraints:} The amount of electricity sent must be non-negative:
+    \[
+    send_{p,c} \geq 0, \quad \forall p \in \{1, \ldots, P\}, \forall c \in \{1, \ldots, C\}
+    \]
+\end{itemize}
+
+\end{document}

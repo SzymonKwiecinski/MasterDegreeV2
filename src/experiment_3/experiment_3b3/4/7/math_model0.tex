@@ -1,0 +1,77 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Rocket Trajectory}
+
+Let \( x_t \), \( v_t \), and \( a_t \) represent the position, velocity, and acceleration of the rocket at time \( t \), respectively. The discrete-time model is defined by the following equations:
+
+\begin{align}
+x_{t+1} &= x_t + v_t, \tag{1} \\
+v_{t+1} &= v_t + a_t. \tag{2}
+\end{align}
+
+The acceleration \( a_t \) is under our control, which is influenced by the rocket thrust. The magnitude of the acceleration \( |a_t| \) can be related to fuel consumption.
+
+Given the initial conditions:
+
+\[
+x_0 \quad \text{(initial position)}
+\]
+\[
+v_0 \quad \text{(initial velocity)}
+\]
+
+We aim for the rocket to reach a target position \( x_T \) with speed \( v_T \) at time \( T \).
+
+\subsection*{Objective Function}
+
+Our objective is to minimize the maximum thrust required, expressed as:
+
+\[
+\min \max_{t = 0, \ldots, T} |a_t|. \tag{3}
+\]
+
+\subsection*{Constraints}
+
+We need to satisfy the following constraints at time \( T \):
+
+1. Position constraint:
+\[
+x_T = x_0 + \sum_{t=0}^{T-1} v_t \tag{4}
+\]
+
+2. Velocity constraint:
+\[
+v_T = v_0 + \sum_{t=0}^{T-1} a_t. \tag{5}
+\]
+
+3. Acceleration limits (if any):
+\[
+|a_t| \leq A \quad \text{for all } t, \tag{6}
+\]
+where \( A \) is the maximum allowable acceleration.
+
+\subsection*{Decision Variables}
+
+The decision variables for this problem are:
+\[
+\begin{align*}
+a_t & \quad \text{(acceleration at time } t\text{)} \\
+x_t & \quad \text{(position at time } t\text{)} \\
+v_t & \quad \text{(velocity at time } t\text{)}
+\end{align*}
+\]
+
+\subsection*{Output Format}
+
+The output will consist of:
+
+\begin{align*}
+\text{"x"} & = [x_i \text{ for } i = 0, 1, \ldots, T] \\
+\text{"v"} & = [v_i \text{ for } i = 0, 1, \ldots, T] \\
+\text{"a"} & = [a_i \text{ for } i = 0, 1, \ldots, T] \\
+\text{"fuel\_spend"} & = \text{total fuel spent}
+\end{align*}
+
+\end{document}

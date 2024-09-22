@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mixed Integer Linear Programming Model}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item Let \( J = \{ 1, 2, \ldots, N \} \) be the set of files.
+    \item Let \( D = \{ 1, 2, \ldots, M \} \) be the set of floppy disks, where \( M \) is the maximum allowable number of disks.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{capacity} \): Capacity of each floppy disk in GB.
+    \item \( \text{size}_j \): Size of file \( j \) in GB for \( j \in J \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_{d} \in \{0, 1\} \): Binary variable that is 1 if floppy disk \( d \) is used, and 0 otherwise.
+    \item \( y_{jd} \in \{0, 1\} \): Binary variable that is 1 if file \( j \) is assigned to floppy disk \( d \), and 0 otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total number of floppy disks used:
+\[
+\text{minimize} \quad n_{\text{disks}} = \sum_{d \in D} x_d
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Each file must be assigned to exactly one disk:
+    \[
+    \sum_{d \in D} y_{jd} = 1, \quad \forall j \in J
+    \]
+
+    \item The total size of the files assigned to each disk must not exceed its capacity:
+    \[
+    \sum_{j \in J} \text{size}_j \cdot y_{jd} \leq \text{capacity} \cdot x_d, \quad \forall d \in D
+    \]
+
+    \item A file can only be assigned to a disk if that disk is used:
+    \[
+    y_{jd} \leq x_d, \quad \forall j \in J, \forall d \in D
+    \]
+
+    \item The number of disks is limited:
+    \[
+    \sum_{d \in D} x_d \leq M
+    \]
+\end{itemize}
+
+\subsection*{Output}
+The optimal solution will yield:
+\begin{itemize}
+    \item \( n_{\text{disks}} \): Total number of floppy disks used.
+    \item \( \text{whichdisk} \): An array indicating the disk assigned to each file, where \( \text{whichdisk}[j] = d \) indicates file \( j \) is assigned to disk \( d \).
+\end{itemize}
+
+\end{document}

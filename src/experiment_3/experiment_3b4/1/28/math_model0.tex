@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Formulation for Fitting a Line}
+\author{}
+\date{}
+\maketitle
+
+Given a set of data points \((x_k, y_k)\) for \(k=1,\ldots,K\), the objective is to fit a line \(y = bx + a\) to these points by minimizing the sum of absolute deviations between observed and predicted values of \(y\).
+
+\section*{Mathematical Model}
+
+\textbf{Objective:}
+
+\[
+\min \sum_{k=1}^{K} z_k
+\]
+
+\textbf{Subject to:}
+
+For each \(k = 1, \ldots, K\):
+\[
+z_k \geq y_k - (bx_k + a)
+\]
+\[
+z_k \geq -(y_k - (bx_k + a))
+\]
+
+Where:
+- \( z_k \) is the auxiliary variable representing the absolute deviation for the \(k\)-th data point.
+- \( y_k \) is the observed value.
+- \( x_k \) is the corresponding \(x\) value.
+- \( a \) is the intercept of the line.
+- \( b \) is the slope of the line.
+
+The decision variables are:
+- The intercept \(a\)
+- The slope \(b\)
+- The auxiliary variables \(z_k\) for each \(k\).
+
+\end{document}

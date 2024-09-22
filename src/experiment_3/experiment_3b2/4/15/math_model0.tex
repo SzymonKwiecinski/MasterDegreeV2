@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Daily Profit Maximization}
+
+\subsection*{Decision Variables}
+\begin{align*}
+x_i & : \text{Number of units of product } i \text{ produced} \quad (i = 1, \ldots, N) \\
+o & : \text{Number of hours of overtime assembly labor scheduled} \\
+m & : \text{Total amount of raw materials bought}
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+\text{assemblyHour}_i & : \text{Assembly hours required for one unit of product } i \\
+\text{testingHour}_i & : \text{Testing hours required for one unit of product } i \\
+\text{materialCost}_i & : \text{Material cost for one unit of product } i \text{ (in dollars)} \\
+\text{price}_i & : \text{Price of one unit of product } i \text{ (in dollars)} \\
+\text{maxAssembly} & : \text{Maximum regular assembly hours available per day} \\
+\text{maxTesting} & : \text{Maximum testing hours available per day} \\
+\text{maxOvertimeAssembly} & : \text{Maximum overtime assembly hours available} \\
+\text{overtimeAssemblyCost} & : \text{Cost of one hour of overtime assembly labor (in dollars)} \\
+\text{materialDiscount} & : \text{Discount percentage on materials if total cost exceeds threshold (0 to 100)} \\
+\text{discountThreshold} & : \text{Material cost threshold for discount (in dollars)}
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the daily profit:
+\begin{align*}
+\text{Profit} = \sum_{i=1}^{N} (\text{price}_i \cdot x_i) - (m \cdot (1 - \delta)) - (o \cdot \text{overtimeAssemblyCost})
+\end{align*}
+where,
+\begin{align*}
+m = \sum_{i=1}^{N} (\text{materialCost}_i \cdot x_i) \quad \text{(total material cost)} \\
+\delta = 
+\begin{cases} 
+\frac{\text{materialDiscount}}{100}, & \text{if } m > \text{discountThreshold} \\
+0, & \text{otherwise}
+\end{cases}
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+\sum_{i=1}^{N} (\text{assemblyHour}_i \cdot x_i) & \leq \text{maxAssembly} + o \\
+\sum_{i=1}^{N} (\text{testingHour}_i \cdot x_i) & \leq \text{maxTesting} \\
+o & \leq \text{maxOvertimeAssembly} \\
+x_i & \geq 0 \quad \text{and integer} \quad \forall i = 1, \ldots, N \\
+o & \geq 0 \quad \text{and integer}
+\end{align*}
+
+\end{document}

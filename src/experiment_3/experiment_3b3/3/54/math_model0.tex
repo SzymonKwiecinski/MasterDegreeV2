@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Variables:}
+\begin{enumerate}
+    \item Let \( b_p \) be the number of batches produced for part \( p \) (for \( p = 1, \ldots, P \)).
+\end{enumerate}
+
+\textbf{Parameters:}
+\begin{enumerate}
+    \item \( time_{m,p} \): time required on machine \( m \) to produce a batch of part \( p \)
+    \item \( cost_m \): cost per hour for using machine \( m \)
+    \item \( available_m \): availability of machine \( m \) in hours per month
+    \item \( price_p \): selling price per batch of part \( p \)
+    \item \( min\_batches_p \): minimum batches of part \( p \) required to fulfill a contract
+    \item \( standard\_cost \): standard labor cost per hour
+    \item \( overtime\_cost \): overtime labor cost per hour
+    \item \( overtime\_hour \): regular hours before overtime applies
+\end{enumerate}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} \left( (price_p - \sum_{m=1}^{M} cost_m \cdot \frac{time_{m,p}}{100}) \cdot b_p \right) - \text{Labor\_Cost}
+\]
+Where the \text{Labor\_Cost} is calculated based on the usage of machine 1.
+
+\textbf{Labor Cost Calculation:}
+\[
+\text{Labor\_Cost} = 
+\begin{cases}
+standard\_cost \cdot \sum_{p=1}^{P} \frac{b_p \cdot time_{1,p}}{100} & \text{if } \sum_{p=1}^{P} \frac{b_p \cdot time_{1,p}}{100} \leq overtime\_hour \\
+standard\_cost \cdot overtime\_hour + overtime\_cost \cdot \left( \sum_{p=1}^{P} \frac{b_p \cdot time_{1,p}}{100} - overtime\_hour \right) & \text{otherwise}
+\end{cases}
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+\text{1. Machine Availability:} & \quad \sum_{p=1}^{P} \frac{b_p \cdot time_{m,p}}{100} \leq available_m, \quad \forall m = 2, \ldots, M \\
+\text{2. Minimum Production Requirements:} & \quad b_p \geq min\_batches_p, \quad \forall p = 1, \ldots, P \\
+\end{align*}
+
+\textbf{Non-negativity:}
+\[
+b_p \geq 0, \quad \forall p = 1, \ldots, P
+\]
+
+\end{document}

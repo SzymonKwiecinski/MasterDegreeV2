@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Traveling Salesman Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let $N$ be the number of towns.
+    \item Let $d_{i,j}$ be the distance between town $i$ and town $j$.
+    \item Let $start\_city$ be the starting city.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let $x_{i,j}$ be a binary decision variable, where:
+    \[
+    x_{i,j} = 
+    \begin{cases} 
+    1 & \text{if the traveler travels from city } i \text{ to city } j \\ 
+    0 & \text{otherwise} 
+    \end{cases}
+    \]
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total distance traveled:
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} \sum_{j=1}^{N} d_{i,j} x_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Each town is visited exactly once:
+    \[
+    \sum_{j=1, j \neq i}^{N} x_{i,j} = 1 \quad \forall i \in \{1, 2, \ldots, N\}
+    \]
+    
+    \item Each town must be left exactly once:
+    \[
+    \sum_{i=1, i \neq j}^{N} x_{i,j} = 1 \quad \forall j \in \{1, 2, \ldots, N\}
+    \]
+
+    \item Subtour elimination constraints can be applied to ensure no subtours are formed.
+
+    \item Return to the starting city:
+    \[
+    x_{start\_city,i} = 1 \quad \forall i \in \{1, 2, \ldots, N\}
+    \]
+\end{itemize}
+
+\subsection*{Output}
+The solution will provide:
+\begin{itemize}
+    \item $visit\_order$: The sequence of cities visited after $start\_city$.
+    \item $total\_distance$: The total distance traveled on this optimal journey.
+\end{itemize}
+
+\end{document}

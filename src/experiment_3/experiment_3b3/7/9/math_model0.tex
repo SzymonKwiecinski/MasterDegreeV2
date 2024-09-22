@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $N$: number of segments of the road
+    \item $M$: number of lamps
+    \item $coeff_{i,j}$: coefficient representing the contribution of the $j$-th lamp to the illumination of the $i$-th segment
+    \item $desired_i$: desired illumination for the $i$-th segment
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item $power_j$: power of the $j$-th lamp, where $j = 1, 2, \ldots, M$
+    \item $ill_i$: illumination of the $i$-th segment, where $i = 1, 2, \ldots, N$
+    \item $error_i$: absolute error for the $i$-th segment, defined as $|ill_i - desired_i|$
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} error_i = \sum_{i=1}^{N} | \sum_{j=1}^{M} coeff_{i,j} \cdot power_j - desired_i |
+\]
+
+\textbf{Constraints:}
+\[
+ill_i = \sum_{j=1}^{M} coeff_{i,j} \cdot power_j \quad \text{for } i = 1, 2, \ldots, N
+\]
+\[
+power_j \geq 0 \quad \text{for } j = 1, 2, \ldots, M
+\]
+
+\textbf{Output:}
+\begin{itemize}
+    \item $power = [power_1, power_2, \ldots, power_M]$: optimal powers of the lamps
+    \item $error = \sum_{i=1}^{N} error_i$: total absolute error
+\end{itemize}
+
+\end{document}

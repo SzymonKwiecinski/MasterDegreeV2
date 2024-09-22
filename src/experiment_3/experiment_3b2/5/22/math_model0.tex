@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Workforce Management}
+
+\subsection*{Decision Variables}
+\begin{align*}
+x_{k,i} &: \text{Number of recruits for manpower } k \text{ in year } i, \\
+y_{k,i} &: \text{Number of overmanning employees for manpower } k \text{ in year } i, \\
+z_{k,i} &: \text{Number of short-time workers for manpower } k \text{ in year } i, \\
+r_{k,i} &: \text{Number of redundancies for manpower } k \text{ in year } i.
+\end{align*}
+
+\subsection*{Objective Function}
+\begin{equation}
+\text{Minimize } \sum_{k=1}^{K} \sum_{i=1}^{I} \text{costredundancy}_{k} \times r_{k,i}
+\end{equation}
+
+\subsection*{Constraints}
+
+\paragraph{1. Manpower balance for each category, each year:}
+\begin{equation}
+\forall k, i \quad \text{strength}_{k} + \sum_{j=1}^{i} x_{k,j} - \sum_{j=1}^{i-1} \left(\text{lessonewaste}_{k} \times x_{k,j} + \text{moreonewaste}_{k} \times (\text{strength}_{k} + \sum_{m=1}^{j-1} (x_{k,m} - r_{k,m}))\right) = \text{requirement}_{k, i} + y_{k,i} + z_{k,i} + r_{k,i}
+\end{equation}
+
+\paragraph{2. Recruitment limits:}
+\begin{equation}
+\forall k, i \quad 0 \leq x_{k,i} \leq \text{recruit}_{k}
+\end{equation}
+
+\paragraph{3. Overmanning limits:}
+\begin{equation}
+\forall k, i \quad 0 \leq y_{k,i} \leq \text{num\_overman}
+\end{equation}
+
+\paragraph{4. Short-time working limits:}
+\begin{equation}
+\forall k, i \quad 0 \leq z_{k,i} \leq \text{num\_shortwork}
+\end{equation}
+
+\paragraph{5. Non-negativity constraints:}
+\begin{equation}
+\forall k, i \quad x_{k,i}, y_{k,i}, z_{k,i}, r_{k,i} \geq 0
+\end{equation}
+
+\end{document}

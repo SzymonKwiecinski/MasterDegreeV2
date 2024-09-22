@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model for Rocket Trajectory Optimization}
+
+\subsection*{Decision Variables}
+\begin{align*}
+x_t & : \text{Position of the rocket at time } t, \quad t = 0, \ldots, T \\
+v_t & : \text{Velocity of the rocket at time } t, \quad t = 0, \ldots, T \\
+a_t & : \text{Acceleration of the rocket at time } t, \quad t = 0, \ldots, T-1 \\
+u_t & : \text{Auxiliary variable for } |a_t|, \quad t = 0, \ldots, T-1 \\
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total fuel consumption:
+\[
+\min \sum_{t=0}^{T-1} u_t
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+& x_{t+1} = x_t + v_t, \quad t = 0, \ldots, T-1 \\
+& v_{t+1} = v_t + a_t, \quad t = 0, \ldots, T-1 \\
+& x_0 = \text{given initial position}, \\
+& v_0 = \text{given initial velocity}, \\
+& x_T = \text{desired final position}, \\
+& v_T = \text{desired final velocity}, \\
+& u_t \geq a_t, \quad t = 0, \ldots, T-1 \\
+& u_t \geq -a_t, \quad t = 0, \ldots, T-1 \\
+\end{align*}
+
+\subsection*{Additional Remarks}
+- The auxiliary variables \(u_t\) are introduced to linearize the absolute value of acceleration \(a_t\).
+- The constraints ensure the dynamic behavior of the rocket and the achievement of terminal conditions.
+
+\end{document}

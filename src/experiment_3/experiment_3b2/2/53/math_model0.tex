@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Transportation Problem}
+
+\subsection*{Objective}
+Minimize the total transportation cost:
+\[
+\text{Minimize } Z = \sum_{(i,j) \in A} C_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+
+\begin{enumerate}
+    \item \textbf{Supply Constraints:}
+    \[
+    \sum_{j: (i,j) \in A} x_{i,j} \leq \text{supply}_i \quad \forall \text{ terminal city } i
+    \]
+
+    \item \textbf{Demand Constraints:}
+    \[
+    \sum_{i: (i,j) \in A} x_{i,j} \geq \text{demand}_j \quad \forall \text{ destination city } j
+    \]
+
+    \item \textbf{Non-negativity Constraints:}
+    \[
+    x_{i,j} \geq 0 \quad \forall (i,j) \in A
+    \]
+\end{enumerate}
+
+\end{document}

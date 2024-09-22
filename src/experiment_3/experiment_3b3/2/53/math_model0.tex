@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Transportation Problem Formulation}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item $A$: Set of all routes $(i, j)$ in the transportation network.
+    \item $K$: Set of terminal cities (suppliers).
+    \item $P$: Set of port cities.
+    \item $L$: Set of destination cities.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $C_{i,j}$: Cost per metric ton of transporting soybeans along route $(i, j)$.
+    \item $supply_k$: Supply of soybeans from terminal city $k$.
+    \item $demand_l$: Demand for soybeans at destination city $l$.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $amount_{i,j}$: Amount of soybeans shipped from city $i$ to city $j$.
+\end{itemize}
+
+\textbf{Objective Function:}
+Minimize the total transportation cost:
+\[
+\text{Minimize } Z = \sum_{(i,j) \in A} C_{i,j} \cdot amount_{i,j}
+\]
+
+\textbf{Subject to the constraints:}
+\begin{itemize}
+    \item Supply constraints for each terminal city $k$:
+    \[
+    \sum_{j \in P} amount_{k,j} \leq supply_k \quad \forall k \in K
+    \]
+    \item Demand constraints for each destination city $l$:
+    \[
+    \sum_{i \in P} amount_{i,l} \geq demand_l \quad \forall l \in L
+    \]
+    \item Non-negativity constraints:
+    \[
+    amount_{i,j} \geq 0 \quad \forall (i,j) \in A
+    \]
+\end{itemize}
+
+\textbf{Output:}
+\begin{itemize}
+    \item Distribution of soybeans:
+    \[
+    \text{distribution} = \{(i, j, amount_{i,j}) \mid \text{for } id = 1, \ldots, m\}
+    \]
+    \item Total transportation cost:
+    \[
+    \text{total\_cost} = Z
+    \]
+\end{itemize}
+
+\end{document}

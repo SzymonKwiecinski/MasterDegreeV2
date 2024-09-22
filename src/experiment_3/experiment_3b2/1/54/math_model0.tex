@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Sets and Indices}
+\begin{align*}
+    &P: \text{Number of different parts} \\
+    &M: \text{Number of different machines} \\
+    &p: \text{Index for parts}, \quad p = 1, 2, \ldots, P \\
+    &m: \text{Index for machines}, \quad m = 1, 2, \ldots, M
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+    &\text{time\_required}[m][p]: \text{Time required on machine } m \text{ to produce part } p \text{ (hours per 100 parts)} \\
+    &\text{machine\_costs}[m]: \text{Cost per hour of machine } m \\
+    &\text{availability}[m]: \text{Maximum available hours for machine } m \text{ per month} \\
+    &\text{prices}[p]: \text{Price per batch (100 parts) of part } p \\
+    &\text{min\_batches}[p]: \text{Minimum batches of part } p \text{ required per month to fulfill contracts} \\
+    &\text{standard\_cost}: \text{Standard labor cost for machine 1 (per hour)} \\
+    &\text{overtime\_cost}: \text{Overtime labor cost for machine 1 (per hour)} \\
+    &\text{overtime\_hour}: \text{Number of hours after which overtime cost applies for machine 1}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    &\text{batches}[p]: \text{Number of batches of part } p \text{ to produce}
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\begin{align*}
+    &\text{total\_profit} = \sum_{p=1}^{P} \left( \text{prices}[p] \times \text{batches}[p] \right) \\
+    &\quad - \sum_{m=2}^{M} \left( \text{machine\_costs}[m] \times \sum_{p=1}^{P} ( \text{time\_required}[m][p] \times \text{batches}[p] ) \right) \\
+    &\quad - \left( \text{standard\_cost} \times \min\left(\sum_{p=1}^{P} (\text{time\_required}[1][p] \times \text{batches}[p]), \text{overtime\_hour} \right) \right) \\
+    &\quad - \left( \text{overtime\_cost} \times \max\left(0, \sum_{p=1}^{P} (\text{time\_required}[1][p] \times \text{batches}[p]) - \text{overtime\_hour} \right) \right)
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+    &\sum_{p=1}^{P} \left( \text{time\_required}[m][p] \times \text{batches}[p] \right) \leq \text{availability}[m], \quad \forall m=2, \ldots, M \\
+    &\text{batches}[p] \geq \text{min\_batches}[p], \quad \forall p=1, \ldots, P \\
+    &\text{batches}[p] \geq 0, \quad \forall p=1, \ldots, P
+\end{align*}
+
+\end{document}

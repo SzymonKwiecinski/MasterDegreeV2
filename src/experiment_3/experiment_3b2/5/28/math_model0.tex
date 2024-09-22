@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Fitting a Line}
+
+Given the data points \((x_k, y_k)\) for \(k = 1, 2, \ldots, K\), we want to find the slope \(b\) and intercept \(a\) that minimize the sum of absolute deviations of observed values \(y_k\) from the values predicted by the line \( y = bx + a \).
+
+\subsection*{Objective Function}
+The objective is to minimize the sum of absolute deviations:
+\[
+\min \sum_{k=1}^{K} |y_k - (bx_k + a)|
+\]
+
+\subsection*{Transformation to Linear Programming}
+Introduce auxiliary variables \(d_k^+\) and \(d_k^-\) for each deviation, such that:
+\[
+y_k - (bx_k + a) = d_k^+ - d_k^-
+\]
+where \(d_k^+ \geq 0\) and \(d_k^- \geq 0\).
+
+Then, the absolute deviation can be expressed as \( |y_k - (bx_k + a)| = d_k^+ + d_k^- \).
+
+The LP objective function becomes:
+\[
+\min \sum_{k=1}^{K} (d_k^+ + d_k^-)
+\]
+
+\subsection*{Constraints}
+For each data point, the following constraints must hold:
+\[
+y_k - bx_k - a = d_k^+ - d_k^- 
+\]
+\[
+d_k^+ \geq 0, \quad d_k^- \geq 0
+\]
+
+\subsection*{Variables}
+- \( a \): intercept of the fitted line
+- \( b \): slope of the fitted line
+- \( d_k^+, d_k^- \): auxiliary variables for absolute deviations
+
+\end{document}

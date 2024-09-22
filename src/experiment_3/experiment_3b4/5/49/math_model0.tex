@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Problem}
+
+\subsection*{Decision Variables}
+Let $x_p$ be the number of batches of part $p$ produced each month, for $p = 1, 2, \ldots, P$.
+
+\subsection*{Objective Function}
+The objective is to maximize the total profit, which is the difference between the total revenue and the total cost of machine usage. The total revenue is given by the sum of the revenue from each part, and the total cost is the sum of the costs of using each machine. The objective function can be expressed as:
+
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} (\text{price}_{p} \cdot x_p) - \sum_{m=1}^{M} (\text{cost}_{m} \cdot \sum_{p=1}^{P} (\text{time}_{m,p} \cdot x_p))
+\]
+
+\subsection*{Constraints}
+
+\begin{itemize}
+    \item \textbf{Machine Availability Constraints:} For machines $1$ to $M-2$, the machine cannot be used beyond its availability.
+
+    \[
+    \sum_{p=1}^{P} (\text{time}_{m,p} \cdot x_p) \leq \text{available}_{m}, \quad \text{for } m = 1, 2, \ldots, M-2
+    \]
+
+    For machines $M-1$ and $M$, they share their availability jointly, thus:
+
+    \[
+    \sum_{p=1}^{P} (\text{time}_{M-1,p} \cdot x_p) + \sum_{p=1}^{P} (\text{time}_{M,p} \cdot x_p) \leq \text{available}_{M-1} + \text{available}_{M}
+    \]
+
+    \item \textbf{Minimum Production Requirement:} The number of batches produced for each part must meet the minimum required batches due to contractual obligations.
+
+    \[
+    x_p \geq \text{min_batches}_{p}, \quad \text{for } p = 1, 2, \ldots, P
+    \]
+
+    \item \textbf{Non-negativity Constraints:} The number of batches produced cannot be negative.
+
+    \[
+    x_p \geq 0, \quad \text{for } p = 1, 2, \ldots, P
+    \]
+
+\end{itemize}
+
+\end{document}

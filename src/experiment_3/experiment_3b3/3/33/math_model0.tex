@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mixed Integer Programming Model for the Knapsack Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $C$: Maximum capacity of the knapsack.
+    \item $K$: Total number of items.
+    \item $value_k$: Value of item $k$ for $k = 1, \ldots, K$.
+    \item $size_k$: Size of item $k$ for $k = 1, \ldots, K$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_k$: Binary variable indicating whether item $k$ is included in the knapsack ($x_k = 1$) or not ($x_k = 0$), for $k = 1, \ldots, K$.
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to maximize the total value of the included items:
+
+\begin{equation}
+\text{Maximize } Z = \sum_{k=1}^{K} value_k \cdot x_k
+\end{equation}
+
+\subsection*{Constraints}
+The total size of the included items must not exceed the knapsack's capacity:
+
+\begin{equation}
+\sum_{k=1}^{K} size_k \cdot x_k \leq C
+\end{equation}
+
+Additionally, we have the binary constraint for each item:
+
+\begin{equation}
+x_k \in \{0, 1\}, \quad \text{for } k = 1, \ldots, K
+\end{equation}
+
+\subsection*{Output}
+The output will be:
+\begin{itemize}
+    \item $isincluded_k$: Indicates whether item $k$ is included in the knapsack, for $k = 1, \ldots, K$.
+\end{itemize}
+
+\end{document}

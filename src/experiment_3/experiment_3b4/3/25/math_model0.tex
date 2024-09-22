@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{inputone}_{k, j} \): Input required from industry \( j \) to produce in industry \( k \)
+    \item \( \text{manpowerone}_{k} \): Manpower required for production in industry \( k \)
+    \item \( \text{inputtwo}_{k, j} \): Input required from industry \( j \) to build capacity for industry \( k \)
+    \item \( \text{manpowertwo}_{k} \): Manpower required to build capacity in industry \( k \)
+    \item \( \text{stock}_{k} \): Initial stock of industry \( k \)
+    \item \( \text{capacity}_{k} \): Initial capacity of industry \( k \)
+    \item \( \text{manpower\_limit} \): Maximum available manpower per year
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{produce}_{k,t} \geq 0 \): Production of industry \( k \) in year \( t \)
+    \item \( \text{buildcapa}_{k,t} \geq 0 \): Units used to build capacity for industry \( k \) in year \( t \)
+    \item \( \text{stockhold}_{k,t} \geq 0 \): Stock of industry \( k \) held at the end of year \( t \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total production in the last two years:
+\[
+\max \sum_{k=1}^{K} \sum_{t=T-1}^{T} \text{produce}_{k,t}
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+\text{Capacity Constraint:} & \\
+\text{produce}_{k,t} + \text{buildcapa}_{k,t} &\leq \text{capacity}_{k,t}, \quad \forall k, \forall t = 1, \ldots, T \\
+
+\text{Stock Constraint:} & \\
+\text{stockhold}_{k,t-1} + \sum_{j=1}^{K} \text{produce}_{j,t-1} \cdot \text{inputone}_{k,j} &\geq \text{produce}_{k,t} + \text{buildcapa}_{k,t}, \quad \forall k, \forall t = 1, \ldots, T \\
+
+\text{Manpower Constraint:} & \\
+\sum_{k=1}^{K} (\text{produce}_{k,t} \cdot \text{manpowerone}_{k} + \text{buildcapa}_{k,t} \cdot \text{manpowertwo}_{k}) &\leq \text{manpower\_limit}, \quad \forall t = 1, \ldots, T \\
+
+\text{Capacity Update:} & \\
+\text{capacity}_{k,t} &= \text{capacity}_{k,t-1} + \sum_{j=1}^{K} \text{buildcapa}_{j,t-2} \cdot \text{inputtwo}_{k,j}, \quad \forall k, \forall t = 3, \ldots, T \\
+\end{align*}
+
+\subsection*{Initial Conditions}
+\begin{align*}
+\text{stockhold}_{k,0} &= \text{stock}_{k}, \quad \forall k \\
+\text{capacity}_{k,0} &= \text{capacity}_{k}, \quad \forall k \\
+\end{align*}
+
+\end{document}

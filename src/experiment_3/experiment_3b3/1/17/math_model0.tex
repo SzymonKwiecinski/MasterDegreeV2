@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Stock Selling Optimization}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $N$: Number of different stocks.
+    \item $bought_i$: Number of shares bought of stock $i$.
+    \item $buyPrice_i$: Purchase price of stock $i$.
+    \item $currentPrice_i$: Current price of stock $i$.
+    \item $futurePrice_i$: Expected future price of stock $i$.
+    \item $transactionRate$: Transaction cost percentage.
+    \item $taxRate$: Tax rate on capital gains percentage.
+    \item $K$: Desired amount of money net of capital gains and transaction costs.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $sell_i$: Number of shares of stock $i$ that the investor will sell.
+\end{itemize}
+
+\textbf{Objective Function:}
+Maximize the expected value of the portfolio next year, given by:
+\[
+\text{Maximize } \sum_{i=1}^{N} futurePrice_i \cdot (bought_i - sell_i) 
+\]
+
+\textbf{Constraints:}
+1. The net amount raised from selling shares must meet the requirement:
+\[
+\sum_{i=1}^{N} \left( (currentPrice_i \cdot sell_i) \cdot (1 - \frac{transactionRate}{100}) - (sell_i \cdot (currentPrice_i - buyPrice_i)) \cdot \frac{taxRate}{100} \right) \geq K
+\]
+
+2. The number of shares sold cannot exceed the number of shares bought:
+\[
+0 \leq sell_i \leq bought_i, \quad \forall i = 1, \ldots, N
+\]
+
+\textbf{Output Format:}
+The solution will return:
+\[
+\{ "sell": [sell_1, sell_2, \ldots, sell_N] \}
+\]
+
+\end{document}

@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+Minimize the total cost:
+\[
+\text{Total Cost} = \sum_{t=1}^{T} \left( \text{coal\_cost} \times \text{coal\_add}_t + \text{nuke\_cost} \times \text{nuke\_add}_t \right)
+\]
+
+\textbf{Constraints:}
+
+1. Demand satisfaction for each \( t = 1, \ldots, T \):
+\[
+\text{oil}_t + \sum_{k=1}^{\min(t, \text{coal\_life})} \text{coal\_add}_{t-k+1} + \sum_{k=1}^{\min(t, \text{nuke\_life})} \text{nuke\_add}_{t-k+1} \geq \text{demand}_t
+\]
+
+2. Nuclear capacity limit for each \( t = 1, \ldots, T \):
+\[
+\sum_{k=1}^{\min(t, \text{nuke\_life})} \text{nuke\_add}_{t-k+1} \leq \frac{\text{max\_nuke}}{100} \times \left( \text{oil}_t + \sum_{k=1}^{\min(t, \text{coal\_life})} \text{coal\_add}_{t-k+1} + \sum_{k=1}^{\min(t, \text{nuke\_life})} \text{nuke\_add}_{t-k+1} \right)
+\]
+
+3. Non-negativity constraints:
+\[
+\text{coal\_add}_t \geq 0, \quad \text{nuke\_add}_t \geq 0 \quad \forall t = 1, \ldots, T
+\]
+
+\end{document}

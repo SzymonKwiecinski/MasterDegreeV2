@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+Let:
+\begin{itemize}
+    \item \( K \) be the number of products,
+    \item \( S \) be the number of stages,
+    \item \( \text{produce\_time}_{k,s} \) be the time required to produce one unit of product \( k \) at stage \( s \),
+    \item \( \text{time}_{s} \) be the available working hours at stage \( s \),
+    \item \( \text{profit}_{k} \) be the profit for product \( k \),
+    \item \( \text{quantity}_{k} \) be the quantity of product \( k \) to be produced.
+\end{itemize}
+
+The objective is to maximize the total profit:
+\[
+\text{Maximize } \sum_{k=1}^{K} \text{profit}_{k} \times \text{quantity}_{k}
+\]
+
+Subject to the constraints:
+\[
+\sum_{k=1}^{K} \text{produce\_time}_{k,s} \times \text{quantity}_{k} \leq \text{time}_{s} \quad \forall s \in \{1, 2, \ldots, S\}
+\]
+
+And the non-negativity constraints:
+\[
+\text{quantity}_{k} \geq 0 \quad \forall k \in \{1, 2, \ldots, K\}
+\]
+
+\end{document}

@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Decision Variables:}
+\[
+x_k \quad \text{(amount of alloy } k \text{ purchased, for } k = 1, \ldots, K)
+\]
+
+\textbf{Objective Function:}
+\[
+\min \sum_{k=1}^{K} \text{price}_k \cdot x_k
+\]
+
+\textbf{Constraints:}
+
+1. Total Quantity Constraint:
+\[
+\sum_{k=1}^{K} x_k = \text{alloy\_quant}
+\]
+
+2. Metal Composition Constraints:
+\[
+\sum_{k=1}^{K} \text{ratio}_{k, m} \cdot x_k = \text{target}_m \cdot \text{alloy\_quant}, \quad \text{for } m = 1, \ldots, M
+\]
+
+3. Non-negativity:
+\[
+x_k \geq 0 \quad \text{for all } k=1, \ldots, K
+\]
+
+\end{document}

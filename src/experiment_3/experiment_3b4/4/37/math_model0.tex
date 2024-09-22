@@ -1,0 +1,19 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} Maximize the total profit.
+
+\[
+\text{Maximize} \quad Z = \sum_{k=1}^{K} \text{profit}_k \times x_k
+\]
+
+\textbf{Subject to:}
+\[
+\sum_{k=1}^{K} \text{time}_{k, s} \times x_k \leq \text{capacity}_s, \quad \forall s = 1, \ldots, S
+\]
+\[
+x_k \geq 0, \quad \forall k = 1, \ldots, K
+\]
+
+\end{document}

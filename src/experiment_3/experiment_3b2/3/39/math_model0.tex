@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+Let:
+\begin{itemize}
+    \item \( N \) be the total number of days.
+    \item \( \text{num}_n \) be the required number of employees on day \( n \).
+    \item \( \text{n\_working\_days} \) be the number of consecutive working days.
+    \item \( \text{n\_resting\_days} \) be the number of consecutive resting days.
+    \item \( x_i \) be a binary decision variable indicating whether the \(i^{th}\) employee is employed.
+    \item \( \text{is\_work}_{n,i} \) be a binary decision variable indicating whether the \(i^{th}\) employee is working on day \(n\).
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Minimize the total number of employees:
+
+\[
+\min \sum_{i=1}^{\infty} x_i
+\]
+
+\subsection*{Constraints}
+
+1. Staffing requirements for each day:
+
+\[
+\sum_{i=1}^{\infty} \text{is\_work}_{n,i} \geq \text{num}_n, \quad \forall n = 1, \ldots, N
+\]
+
+2. Work/rest schedule:
+
+Each employee works \text{n\_working\_days} followed by \text{n\_resting\_days}:
+
+\[
+\begin{aligned}
+    &\text{is\_work}_{n,i} \leq x_i, \quad \forall n, i \\
+    &\text{is\_work}_{n,i} = 1 \quad \text{for } n = (k\ (\text{n\_working\_days} + \text{n\_resting\_days}) + 1) \ldots (k\ (\text{n\_working\_days} + \text{n\_resting\_days}) + \text{n\_working\_days}) \\
+    &\text{is\_work}_{n,i} = 0 \quad \text{for } n = (k\ (\text{n\_working\_days} + \text{n\_resting\_days}) + \text{n\_working\_days} + 1) \ldots ((k+1)\ (\text{n\_working\_days} + \text{n\_resting\_days}))
+\end{aligned}
+\]
+
+for each \( i \) and \( k \in \mathbb{N}_0 \) such that the indices fall within \(1\) to \(N\).
+
+\subsection*{Binary Variables}
+
+\[
+x_i \in \{0, 1\}, \quad \text{is\_work}_{n,i} \in \{0, 1\}
+\]
+
+\end{document}

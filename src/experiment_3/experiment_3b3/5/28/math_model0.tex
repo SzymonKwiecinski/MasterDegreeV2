@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Best Fit Line}
+
+Given a set of observed values \( y_k \) and corresponding values \( x_k \) for \( k = 1, \ldots, K \), we want to fit the best straight line of the form:
+
+\[
+y = bx + a
+\]
+
+To minimize the sum of absolute deviations, we define the objective function as follows:
+
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} |y_k - (bx_k + a)|
+\]
+
+To handle the absolute values in the objective function, we introduce auxiliary variables \( u_k \) for each observation:
+
+\[
+u_k \geq y_k - (bx_k + a) \quad \text{for } k = 1, \ldots, K
+\]
+
+\[
+u_k \geq -(y_k - (bx_k + a)) \quad \text{for } k = 1, \ldots, K
+\]
+
+This transforms our minimization problem into a linear programming format:
+
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} u_k
+\]
+
+Subject to the constraints:
+
+\[
+u_k \geq y_k - (bx_k + a) \quad \text{for } k = 1, \ldots, K
+\]
+
+\[
+u_k \geq -(y_k - (bx_k + a)) \quad \text{for } k = 1, \ldots, K
+\]
+
+\end{document}

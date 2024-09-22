@@ -1,0 +1,14 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Mathematical Model:}
+
+\begin{align*}
+\text{Maximize} \quad & \sum_{i=1}^{N} (bought_i - x_i) \times futurePrice_i \\
+\text{subject to} \quad & \sum_{i=1}^{N} \Bigg( (1 - \frac{\text{transactionRate}}{100}) \times x_i \times currentPrice_i \\
+& \quad - \frac{\text{taxRate}}{100} \times \max(0, x_i \times currentPrice_i - x_i \times buyPrice_i) \Bigg) \geq K, \\
+& 0 \leq x_i \leq bought_i, \quad \forall i = 1, \ldots, N
+\end{align*}
+
+\end{document}

@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Auto Parts Production}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item $P$: Set of parts, indexed by $p = 1, \ldots, P$.
+    \item $M$: Set of machines, indexed by $m = 1, \ldots, M$.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $time_{m,p}$: Time required (in hours) on machine $m$ to produce one batch of part $p$.
+    \item $cost_{m}$: Cost (in currency per hour) of using machine $m$.
+    \item $available_{m}$: Availability (in hours) of machine $m$ per month.
+    \item $price_{p}$: Selling price (in currency) per batch of part $p$.
+    \item $setup\_time_{p}$: Setup time (in hours) required on machine 1 for part $p$.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $batches_{p}$: Number of batches produced for part $p$.
+    \item $setup\_flag_{p}$: Binary variable indicating whether part $p$ is set up ($1$ if set up, $0$ otherwise).
+    \item $total\_profit$: Total profit for the month.
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } total\_profit = \sum_{p=1}^{P} price_{p} \cdot batches_{p} - \sum_{m=1}^{M} cost_{m} \cdot \left( \sum_{p=1}^{P} time_{m,p} \cdot batches_{p} + \sum_{p=1}^{P} setup\_flag_{p} \cdot setup\_time_{p} \cdot \delta_{m,1} \right)
+\]
+where $\delta_{m,1}$ is the Kronecker delta function that equals 1 if $m=1$, and 0 otherwise.
+
+\textbf{Constraints:}
+\begin{align*}
+\sum_{p=1}^{P} time_{m,p} \cdot batches_{p} + \sum_{p=1}^{P} setup\_flag_{p} \cdot setup\_time_{p} \cdot \delta_{m,1} & \leq available_{m}, & \forall m \in M \\
+batches_{p} & \geq 0, & \forall p \in P \\
+setup\_flag_{p} & \in \{0, 1\}, & \forall p \in P 
+\end{align*}
+
+\textbf{Output:}
+\begin{itemize}
+    \item Number of batches produced for each part, $batches_{p}$.
+    \item Setup flags for each part, $setup\_flag_{p}$.
+    \item Total profit for the month, $total\_profit$.
+\end{itemize}
+
+\end{document}

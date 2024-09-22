@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} Maximize total profit
+
+\[
+\text{Profit} = \sum_{p=1}^{P} \left( \text{price}_{p} \times \text{batches}_{p} \right) - \sum_{m=1}^{M} \left( \text{cost}_{m} \times \sum_{p=1}^{P} (\text{time}_{m,p} \times \text{batches}_{p} + 
+\begin{cases} 
+\text{setup\_time}_{p} \times \text{setup\_flag}_{p}, & \text{if } m = 1 \\
+0, & \text{if } m \neq 1 
+\end{cases}
+) \right)
+\]
+
+Subject to:
+
+\begin{itemize}
+    \item \textbf{Machine Time Constraint} for each machine \( m \):
+    \[
+    \sum_{p=1}^{P} (\text{time}_{m,p} \times \text{batches}_{p}) + 
+    \begin{cases} 
+    \text{setup\_time}_{p} \times \text{setup\_flag}_{p}, & \text{if } m = 1 \\
+    0, & \text{if } m \neq 1 
+    \end{cases}
+    \leq \text{available}_{m}
+    \]
+
+    \item \textbf{Setup Constraint} for each part \( p \):
+    \[
+    \text{setup\_flag}_{p} \geq \frac{\text{batches}_{p}}{U}
+    \]
+    where \( U \) is a large number (upper bound on \(\text{batches}_{p}\)) to ensure that \(\text{setup\_flag}_{p} = 1\) if \(\text{batches}_{p} > 0\).
+
+    \item \textbf{Non-negativity and Integer Constraints}:
+    \[
+    \text{batches}_{p} \geq 0, \quad \text{setup\_flag}_{p} \in \{0, 1\}, \quad \forall \, p = 1,\ldots,P
+    \]
+\end{itemize}
+
+\end{document}

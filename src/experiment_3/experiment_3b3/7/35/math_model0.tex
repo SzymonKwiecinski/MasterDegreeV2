@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Warehouse Operation Linear Programming Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( C \) be the warehouse capacity.
+    \item Let \( h \) be the holding cost per unit for one period.
+    \item Let \( p_n \) be the selling price of the commodity in period \( n \).
+    \item Let \( c_n \) be the purchase cost of the commodity in period \( n \).
+    \item Let \( N \) be the total number of periods.
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item Let \( b_n \) be the amount bought in period \( n \).
+    \item Let \( s_n \) be the amount sold in period \( n \).
+    \item Let \( x_n \) be the stock in the warehouse at the end of period \( n \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit over the periods:
+\[
+\text{Maximize } Z = \sum_{n=1}^{N} (p_n s_n - c_n b_n - h x_n)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+    1. & \quad x_n = x_{n-1} + b_n - s_n, \quad \forall n = 1, \ldots, N \\
+    2. & \quad x_n \leq C, \quad \forall n = 1, \ldots, N \\
+    3. & \quad x_N = 0 \\
+    4. & \quad b_n \geq 0, \quad \forall n = 1, \ldots, N \\
+    5. & \quad s_n \geq 0, \quad \forall n = 1, \ldots, N \\
+\end{align*}
+
+\subsection*{Output Variables}
+The solution will provide:
+\begin{itemize}
+    \item \( b_n \): Amount of buying in each period \( n \).
+    \item \( s_n \): Amount of selling in each period \( n \).
+    \item \( x_n \): Stock in each period \( n \).
+\end{itemize}
+
+\end{document}

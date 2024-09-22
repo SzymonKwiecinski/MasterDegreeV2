@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+Maximize
+\[
+\text{Profit} = \sum_{p=1}^{P} \text{price}_p \cdot x_p - \sum_{m=1}^{M} \left( \text{cost}_m \cdot \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p + \text{extra\_cost}_m \cdot e_m \right)
+\]
+
+\textbf{Constraints:}
+
+1. Machine Time Constraints:
+\[
+\sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \leq \text{available}_m + e_m, \quad \forall m = 1, 2, \ldots, M
+\]
+
+2. Minimum Production Constraints:
+\[
+x_p \geq \text{min\_batches}_p, \quad \forall p = 1, 2, \ldots, P
+\]
+
+3. Extra Time Limits:
+\[
+0 \leq e_m \leq \text{max\_extra}_m, \quad \forall m = 1, 2, \ldots, M
+\]
+
+4. Non-negativity Constraints:
+\[
+x_p \geq 0, \quad \forall p = 1, 2, \ldots, P
+\]
+\[
+e_m \geq 0, \quad \forall m = 1, 2, \ldots, M
+\]
+
+\end{document}

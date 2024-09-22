@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Cutting Stock Problem}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $W$: Width of the large roll (inches), where $W = \text{large\_roll\_width}$
+    \item $M$: Number of different types of smaller rolls
+    \item $j$: Index representing the type of smaller roll, where $j = 1, \ldots, M$
+    \item $d_j$: Demand for rolls of width $j$, where $d_j = \text{demand}_j$
+    \item $N$: Number of different cutting patterns available
+    \item $i$: Index representing the cutting pattern, where $i = 1, \ldots, N$
+    \item $p_{i,j}$: Number of rolls of width $j$ produced by cutting pattern $i$, where $p_{i,j} = \text{pattern}_{i,j}$
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_i$: Number of times cutting pattern $i$ is used, where $x_i \geq 0$ and is an integer for $i = 1, \ldots, N$
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{equation}
+\text{Minimize } Z = \sum_{i=1}^{N} x_i
+\end{equation}
+This objective function aims to minimize the total number of large rolls used.
+
+\textbf{Constraints:}
+\begin{equation}
+\sum_{i=1}^{N} p_{i,j} x_i \geq d_j \quad \forall j = 1, \ldots, M
+\end{equation}
+This constraint ensures that the demand for each roll width $j$ is satisfied.
+
+\begin{equation}
+\sum_{j=1}^{M} p_{i,j} \leq W \quad \forall i = 1, \ldots, N
+\end{equation}
+This constraint ensures that the total width of the rolls produced by any cutting pattern does not exceed the width of the large roll.
+
+\textbf{Solution Variables:}
+The solution will provide:
+\begin{itemize}
+    \item Patterns applied to the large rolls
+    \item Total number of large rolls used: $T = \sum_{i=1}^{N} x_i$
+\end{itemize}
+
+\end{document}

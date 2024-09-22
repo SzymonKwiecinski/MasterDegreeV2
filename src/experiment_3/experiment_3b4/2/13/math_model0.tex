@@ -1,0 +1,21 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Mathematical Model:}
+
+\begin{align*}
+\text{maximize:} \quad & r \\
+\text{subject to:} \quad & \mathbf{a_i}^T \mathbf{y} + \|\mathbf{a_i}\|_2 r \leq b_i, \quad \forall i = 1, \ldots, m \\
+\quad & r \geq 0
+\end{align*}
+
+\text{where:}
+\begin{itemize}
+    \item \( \mathbf{y} \in \mathbb{R}^N \) is the center of the ball.
+    \item \( r \) is the radius of the ball.
+    \item \( \mathbf{a_i} \in \mathbb{R}^N \) and \( b_i \in \mathbb{R} \).
+    \item \( \|\mathbf{a_i}\|_2 \) is the Euclidean norm of \( \mathbf{a_i} \).
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+\[
+\text{Minimize } \sum_{k=1}^{K} z_k
+\]
+
+\textbf{Subject to:}
+
+\[
+z_k \geq y_k - (b x_k + a), \quad k = 1, 2, \ldots, K
+\]
+
+\[
+z_k \geq - (y_k - (b x_k + a)), \quad k = 1, 2, \ldots, K
+\]
+
+\[
+z_k \geq 0, \quad k = 1, 2, \ldots, K
+\]
+
+\textbf{Variables:}
+
+- \( a \) (intercept)
+- \( b \) (slope)
+- \( z_k \geq 0 \) for each \( k \).
+
+\end{document}

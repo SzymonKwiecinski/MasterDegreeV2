@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+
+% Define the parameters and decision variables
+\newcommand{\nmines}{n_{\text{mines}}}
+\newcommand{\nmaxwork}{n_{\text{maxwork}}}
+\newcommand{\royalty}{\text{royalty}}
+\newcommand{\limit}{\text{limit}}
+\newcommand{\quality}{\text{quality}}
+\newcommand{\requiredquality}{\text{requiredquality}}
+\newcommand{\price}{\text{price}}
+\newcommand{\discount}{\text{discount}}
+\newcommand{\isoperated}{\text{isoperated}}
+\newcommand{\amount}{\text{amount}}
+
+% Objective function: Maximize the total discounted profit
+\begin{align*}
+\text{Maximize:} \quad & \sum_{i=1}^{I} \left( \frac{\price}{(1 + \discount)^i} \sum_{k=1}^{K} \amount_{k,i} \right) - \sum_{i=1}^{I} \sum_{k=1}^{K} \frac{\royalty_k \cdot (1 - \isoperated_{k,i})}{(1 + \discount)^i}
+\end{align*}
+
+% Constraints
+\text{Subject to:}
+\begin{align*}
+& \sum_{k=1}^{K} \isoperated_{k,i} \leq \nmaxwork, \quad \forall i = 1,\ldots,I \\
+& \amount_{k,i} \leq \limit_k \cdot \isoperated_{k,i}, \quad \forall k = 1,\ldots,K, \forall i = 1,\ldots,I \\
+& \sum_{k=1}^{K} \left( \amount_{k,i} \cdot \quality_k \right) = \requiredquality_i \sum_{k=1}^{K} \amount_{k,i}, \quad \forall i = 1,\ldots,I \\
+& \isoperated_{k,i} \in \{0, 1\}, \quad \forall k = 1,\ldots,K, \forall i = 1,\ldots,I \\
+& \amount_{k,i} \geq 0, \quad \forall k = 1,\ldots,K, \forall i = 1,\ldots,I
+\end{align*}
+
+\end{document}

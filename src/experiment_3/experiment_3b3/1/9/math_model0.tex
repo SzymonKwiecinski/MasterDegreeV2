@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Lamp Power Optimization}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( \text{power}_j \) be the power of the \( j \)-th lamp for \( j = 1, 2, \ldots, M \).
+    \item Let \( \text{error}_i \) be the error for the \( i \)-th segment illumination for \( i = 1, 2, \ldots, N \).
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item Let \( \text{coeff}_{i,j} \) be the coefficient representing the contribution of the \( j \)-th lamp to the illumination of the \( i \)-th segment.
+    \item Let \( \text{desired}_i \) be the desired illumination of segment \( i \).
+\end{itemize}
+
+\textbf{Objective Function:}
+We aim to minimize the total absolute error between the actual illumination \( \text{ill}_i \) and the desired illumination \( \text{desired}_i \):
+\[
+\text{minimize} \quad \sum_{i=1}^{N} \text{error}_i
+\]
+where
+\[
+\text{ill}_i = \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j \quad \text{for } i = 1, 2, \ldots, N
+\]
+and the errors are defined as:
+\[
+\text{error}_i = |\text{ill}_i - \text{desired}_i|
+\]
+
+\textbf{Constraints:}
+For each segment \( i \), the following constraints must hold:
+\[
+\text{ill}_i - \text{desired}_i \leq \text{error}_i \quad \text{for } i = 1, 2, \ldots, N
+\]
+\[
+-\text{ill}_i + \text{desired}_i \leq \text{error}_i \quad \text{for } i = 1, 2, \ldots, N
+\]
+
+Additionally, there may be non-negativity constraints on the lamp powers:
+\[
+\text{power}_j \geq 0 \quad \text{for } j = 1, 2, \ldots, M
+\]
+
+\textbf{Output:}
+The output will consist of the optimal lamp powers and the total error:
+\[
+\text{output} = \{ \text{"power"}: [\text{power}_j \text{ for } j = 1, \ldots, M], \text{"error"}: \text{error} \}
+\]
+
+\end{document}

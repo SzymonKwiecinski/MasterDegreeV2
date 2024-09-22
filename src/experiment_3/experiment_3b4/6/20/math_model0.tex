@@ -1,0 +1,73 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Decision Variables:}
+
+Let \( \text{sell}_{k, i} \) be the number of units of product \( k \) sold in month \( i \).
+
+Let \( \text{manufacture}_{k, i} \) be the number of units of product \( k \) manufactured in month \( i \).
+
+Let \( \text{storage}_{k, i} \) be the number of units of product \( k \) stored at the end of month \( i \).
+
+\textbf{Objective Function:}
+
+Maximize the total profit, which is the profit from selling the products minus the storage costs:
+
+\[
+\text{Maximize } Z = \sum_{i=1}^{I} \sum_{k=1}^{K} \left( \text{profit}_k \cdot \text{sell}_{k, i} - \text{store\_price} \cdot \text{storage}_{k, i} \right)
+\]
+
+\textbf{Subject to Constraints:}
+
+1. \textit{Production Constraints:}
+
+For each product \( k \) in each month \( i \), the production should not exceed available machine hours:
+
+\[
+\sum_{m=1}^{M} \left( \text{time}_{k, m} \cdot \text{manufacture}_{k, i} \right) \leq \sum_{m=1}^{M} \left( \text{num\_machines}_m - \text{maintain}_{i, m} \right) \cdot 24 \cdot \text{n\_workhours}
+\]
+
+2. \textit{Demand/Sales Constraints:}
+
+The sales for each product \( k \) in each month \( i \) should not exceed the marketing limitations:
+
+\[
+\text{sell}_{k, i} \leq \text{limit}_{k, i}
+\]
+
+3. \textit{Storage Balance Constraints:}
+
+For each product \( k \) in each month \( i \), the balance of manufacturing, selling, and storing should satisfy:
+
+\[
+\text{storage}_{k, i-1} + \text{manufacture}_{k, i} = \text{sell}_{k, i} + \text{storage}_{k, i}
+\]
+
+Where \( \text{storage}_{k, 0} = 0 \) initially since there are no stocks at present.
+
+4. \textit{Storage Capacity Constraints:}
+
+The storage of each product should not exceed the storage capacity:
+
+\[
+\text{storage}_{k, i} \leq 100
+\]
+
+5. \textit{End of Period Stock Constraints:}
+
+At the end of the last month \( I \), the stock of each product should be at least \( \text{keep\_quantity} \):
+
+\[
+\text{storage}_{k, I} \geq \text{keep\_quantity}
+\]
+
+\textbf{Non-Negativity Constraints:}
+
+All decision variables must be non-negative:
+
+\[
+\text{sell}_{k, i}, \text{manufacture}_{k, i}, \text{storage}_{k, i} \geq 0
+\]
+
+\end{document}

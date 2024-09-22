@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+Maximize the total number of unique clicks, which can be expressed as:
+
+\[
+\text{Maximize } \sum_{a=1}^{A} \text{unique\_click}_{a} \cdot \text{clicks}_{a}
+\]
+
+\textbf{Subject to:}
+\begin{align*}
+1. & \quad \sum_{a=1}^{A} \text{cost}_{a} \cdot \text{clicks}_{a} \leq \text{budget} \\
+2. & \quad \sum_{a=1}^{A} \text{young\_click}_{a} \cdot \text{clicks}_{a} \geq \text{goal\_young} \\
+3. & \quad \sum_{a=1}^{A} \text{old\_click}_{a} \cdot \text{clicks}_{a} \geq \text{goal\_old} \\
+4. & \quad \sum_{a=1}^{A} \text{unique\_click}_{a} \cdot \text{clicks}_{a} \geq \text{goal\_unique\_young} \quad \text{for visitors aged 18-25} \\
+5. & \quad \sum_{a=1}^{A} \left(1 - \text{unique\_click}_{a}\right) \cdot \text{clicks}_{a} \geq \text{goal\_unique\_old} \quad \text{for visitors older than 25} \\
+6. & \quad \text{clicks}_{a} \leq \text{max\_click}_{a}, \quad \forall a = 1, \ldots, A \\
+7. & \quad \text{clicks}_{a} \geq 0, \quad \forall a = 1, \ldots, A
+\end{align*}
+
+\textbf{Decision Variables:}
+- \(\text{clicks}_{a}\): The number of clicks purchased for ad type \(a\) in thousands.
+
+\textbf{Parameters:}
+- \(\text{cost}_{a}\): Cost per 1000 clicks for ad type \(a\).
+- \(\text{young\_click}_{a}\): Percentage of clicks from the 18-25 age range for ad type \(a\).
+- \(\text{old\_click}_{a}\): Percentage of clicks from older visitors for ad type \(a\).
+- \(\text{unique\_click}_{a}\): Percentage of unique visitors for ad type \(a\).
+- \(\text{max\_click}_{a}\): Maximum allowable clicks for ad type \(a\).
+- \(\text{budget}\): Total advertising budget.
+- \(\text{goal\_young}\), \(\text{goal\_old}\): Goals for clicks from specific age groups.
+- \(\text{goal\_unique\_young}\), \(\text{goal\_unique\_old}\): Goals for unique clicks from specific age groups.
+
+\end{document}

@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+
+\section*{MILP Formulation for TSP}
+
+\subsection*{Given:}
+\begin{itemize}
+    \item A set of cities \( V = \{0, 1, 2, \ldots, N\} \), where city 0 is the start_city.
+    \item Distances between cities \( \text{distance}_{i,j} \), for all \( i, j \in V \).
+\end{itemize}
+
+\subsection*{Variables:}
+\begin{itemize}
+    \item \( x_{i,j} \) : Binary variable, \( x_{i,j} = 1 \) if the path goes from city \( i \) to city \( j \); 0 otherwise.
+    \item \( u_i \) : Continuous variable used for subtour elimination for \( i \in \{1, 2, \ldots, N\} \).
+\end{itemize}
+
+\subsection*{Objective:}
+Minimize the total distance traveled:
+\[
+\min \sum_{i=0}^{N} \sum_{j=0, j \neq i}^{N} \text{distance}_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints:}
+\begin{align}
+1. & \quad \sum_{j=0, j \neq i}^{N} x_{i,j} = 1, \quad \forall i \in V \setminus \{0\} \\
+2. & \quad \sum_{i=0, i \neq j}^{N} x_{i,j} = 1, \quad \forall j \in V \setminus \{0\} \\
+3. & \quad \sum_{j=1}^{N} x_{0,j} = 1 \\
+4. & \quad \sum_{i=1}^{N} x_{i,0} = 1 \\
+5. & \quad u_i - u_j + (N-1) \cdot x_{i,j} \leq N-2, \quad \forall i \neq j, \quad i, j \in \{1, 2, \ldots, N\} \\
+6. & \quad u_i \geq 1, \quad u_i \leq N-1, \quad \forall i \in \{1, 2, \ldots, N\} \\
+7. & \quad x_{i,j} \in \{0, 1\}, \quad \forall i, j \in V
+\end{align}
+
+\subsection*{Explanation:}
+\begin{itemize}
+    \item Constraints (1) and (2) ensure that each city is entered and left exactly once.
+    \item Constraint (3) ensures that the tour starts from the start city.
+    \item Constraint (4) ensures that the tour ends at the start city.
+    \item Constraint (5) eliminates subtours using the Miller-Tucker-Zemlin (MTZ) formulation.
+    \item Constraints (6) define the range of \( u_i \) for subtour elimination.
+\end{itemize}
+
+\end{document}

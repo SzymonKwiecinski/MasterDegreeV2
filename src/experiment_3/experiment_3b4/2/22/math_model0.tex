@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Objective:}\\
+Minimize the total redundancy cost:
+\[
+\text{Minimize } \sum_{k=1}^{K} \sum_{i=1}^{I} \text{costredundancy}_k \times \text{redundancy}_{k,i}
+\]
+
+\textbf{Subject to:}
+
+1. \textbf{Manpower Balance:}
+\[
+\text{strength}_k + \sum_{j=1}^{i} \text{recruit}_{k,j} \times (1 - \text{lessonewaste}_k)^{(i-j)_+} \times (1 - \text{moreonewaste}_k)^{i-j-1} - \text{redundancy}_{k,i} + \text{overmanning}_{k,i} + \frac{1}{2} \text{short}_{k,i} \geq \text{requirement}_{k,i}
+\]
+for all \( k = 1, \ldots, K \), \( i = 1, \ldots, I \).
+
+2. \textbf{Recruitment Constraints:}
+\[
+0 \leq \text{recruit}_{k,i} \leq \text{recruit}_k
+\]
+for all \( k = 1, \ldots, K \), \( i = 1, \ldots, I \).
+
+3. \textbf{Overmanning Constraints:}
+\[
+\sum_{k=1}^{K} \text{overmanning}_{k,i} \leq \text{num\_overman}
+\]
+for all \( i = 1, \ldots, I \).
+
+4. \textbf{Short-Time Working Constraints:}
+\[
+0 \leq \text{short}_{k,i} \leq \text{num\_shortwork}
+\]
+for all \( k = 1, \ldots, K \), \( i = 1, \ldots, I \).
+
+5. \textbf{Non-negativity Constraints:}
+\[
+\text{recruit}_{k,i}, \text{redundancy}_{k,i}, \text{overmanning}_{k,i}, \text{short}_{k,i} \geq 0
+\]
+for all \( k = 1, \ldots, K \), \( i = 1, \ldots, I \).
+
+\end{document}

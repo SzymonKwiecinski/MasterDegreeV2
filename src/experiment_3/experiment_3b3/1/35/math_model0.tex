@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Warehouse Operations}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( C \) be the capacity of the warehouse.
+    \item Let \( h \) be the holding cost per unit of stock for one period.
+    \item Let \( p_n \) be the selling price of the commodity in period \( n \).
+    \item Let \( c_n \) be the purchase cost in period \( n \).
+    \item Let \( N \) be the total number of periods.
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item Let \( b_n \) be the quantity bought in period \( n \).
+    \item Let \( s_n \) be the quantity sold in period \( n \).
+    \item Let \( x_n \) be the stock in period \( n \) (excluding the initial stock).
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to maximize the total profit over \( N \) periods, defined as:
+\[
+\text{Maximize} \quad Z = \sum_{n=1}^{N} (p_n \cdot s_n - c_n \cdot b_n - h \cdot x_n)
+\]
+
+\subsection*{Subject to Constraints}
+\begin{align}
+    0 \leq x_n \leq C \quad & \text{(Capacity constraint)} \\
+    x_n = x_{n-1} + b_n - s_n \quad & \text{(Stock balance equation)} \\
+    x_0 = 0 \quad & \text{(Initial stock condition)} \\
+    x_N = 0 \quad & \text{(Final stock condition)} \\
+    b_n, s_n, x_n \geq 0 \quad & \text{(Non-negativity constraints)}
+\end{align}
+
+\subsection*{Output Variables}
+The output will include:
+\begin{itemize}
+    \item \( \text{buyquantity} = [b_n \text{ for } n=1,\ldots,N] \)
+    \item \( \text{sellquantity} = [s_n \text{ for } n=1,\ldots,N] \)
+    \item \( \text{stock} = [x_n \text{ for } n=1,\ldots,N] \)
+\end{itemize}
+
+\end{document}

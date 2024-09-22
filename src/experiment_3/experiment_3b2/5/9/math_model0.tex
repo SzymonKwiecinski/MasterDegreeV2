@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Minimizing Illumination Error}
+
+Given:
+\begin{itemize}
+    \item $N$: Number of road segments
+    \item $M$: Number of lamps
+    \item $\text{coeff}_{i,j}$: Coefficients representing the contribution of lamp $j$ to segment $i$
+    \item $\text{desired}_i$: Desired illumination for segment $i$
+\end{itemize}
+
+Variables:
+\begin{itemize}
+    \item $\text{power}_j$: Power of lamp $j$, for $j = 1, \ldots, M$
+    \item $\text{error}_i$: Absolute error for segment $i$, for $i = 1, \ldots, N$
+\end{itemize}
+
+Objective:
+\[
+\min \sum_{i=1}^{N} \text{error}_i
+\]
+
+Subject to:
+\[
+\forall i = 1, \ldots, N:
+\]
+\[
+\text{ill}_i = \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j
+\]
+\[
+-\text{error}_i \leq \text{ill}_i - \text{desired}_i \leq \text{error}_i
+\]
+
+where $\text{ill}_i$ is the calculated illumination for segment $i$.
+
+\end{document}

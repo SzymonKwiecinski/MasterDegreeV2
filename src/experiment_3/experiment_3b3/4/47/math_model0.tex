@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Police Officer Shift Assignment}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $S$: Total number of shifts
+    \item $officers\_needed_{s}$: Number of police officers needed during shift $s$, for $s = 1, \ldots, S$
+    \item $shift\_cost_{s}$: Cost incurred by starting a shift $s$, for $s = 1, \ldots, S$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $officers\_assigned_{s}$: Number of officers assigned to shift $s$, for $s = 1, \ldots, S$
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{s=1}^{S} shift\_cost_{s} \cdot \left\lceil \frac{officers\_needed_{s}}{2} \right\rceil
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+    \text{For each shift } s: & \\
+    officers\_assigned_{s} & \geq officers\_needed_{s}, \quad \forall s = 1, \ldots, S \\
+    officers\_assigned_{s} & = officers\_assigned_{s-1} + officers\_assigned_{s+1}, \quad \forall s = 1, \ldots, S-1
+\end{align*}
+
+\subsection*{Output}
+The solution will yield:
+\begin{itemize}
+    \item $officers\_assigned_{s}$: Number of officers assigned to each shift $s$, for $s = 1, \ldots, S$
+    \item $total\_cost$: Total cost incurred by the town
+\end{itemize}
+
+\end{document}

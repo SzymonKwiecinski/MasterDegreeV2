@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for MILP Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $M$: Number of machines
+    \item $K$: Number of products
+    \item $I$: Number of months
+    \item $num_m = [num_{m} \text{ for } m = 1,\ldots,M]$: Number of machines
+    \item $profit = [profit_{k} \text{ for } k = 1,\ldots,K]$: Profit per unit of product
+    \item $time = [[time_{k,m} \text{ for } m = 1,\ldots,M] \text{ for } k = 1,\ldots,K]$: Production time for each product on each machine
+    \item $down = [down_{m} \text{ for } m = 1,\ldots,M]$: Months each machine is down for maintenance
+    \item $limit = [[limit_{k,i} \text{ for } i = 1,\ldots,I] \text{ for } k = 1,\ldots,K]$: Sales limits for each product each month
+    \item $store\_price$: Storage cost per unit per month
+    \item $keep\_quantity$: Desired stock quantity of each product
+    \item $n\_workhours$: Number of work hours per day
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $sell_{k,i}$: Quantity sold of product $k$ in month $i$
+    \item $manufacture_{k,i}$: Quantity manufactured of product $k$ in month $i$
+    \item $storage_{k,i}$: Quantity stored of product $k$ in month $i$
+    \item $maintain_{m,i}$: Number of machines in maintenance in month $i$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+\text{Maximize } Z = \sum_{i=1}^{I} \sum_{k=1}^{K} (profit_{k} \cdot sell_{k,i}) - \sum_{i=1}^{I} \sum_{k=1}^{K} (store\_price \cdot storage_{k,i})
+\]
+
+\subsection*{Constraints}
+1. Production time availability:
+\[
+\sum_{k=1}^{K} time_{k,m} \cdot manufacture_{k,i} \leq (n\_workhours \cdot 12 \cdot \left(24 - \sum_{j=1}^{min(i, down_{m})} 1\right)) \quad \forall m, i
+\]
+2. Marketing limitations:
+\[
+sell_{k,i} \leq limit_{k,i} \quad \forall k, i
+\]
+3. Storage constraints:
+\[
+storage_{k,i} \leq 100 \quad \forall k, i
+\]
+4. Stock requirements:
+\[
+storage_{k,i} + manufacture_{k,i} - sell_{k,i} = keep\_quantity \quad \forall k, i
+\]
+5. Non-negativity constraints:
+\[
+sell_{k,i} \geq 0, \quad manufacture_{k,i} \geq 0, \quad storage_{k,i} \geq 0, \quad maintain_{m,i} \geq 0 \quad \forall k, m, i
+\]
+
+\end{document}

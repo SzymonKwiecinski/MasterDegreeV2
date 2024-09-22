@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Mathematical Model for Floppy Disk Backup Problem}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+
+We want to minimize the number of floppy disks used to back up important files, given the size of each file and the capacity of the disks.
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $C$: Capacity of each floppy disk (in GB)
+    \item $N$: Number of files
+    \item $size_j$: Size of file $j$ (for $j = 1, \ldots, N$)
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $d_k$: Binary variable, $d_k = 1$ if disk $k$ is used, $0$ otherwise
+    \item $x_{jk}$: Binary variable, $x_{jk} = 1$ if file $j$ is placed on disk $k$, $0$ otherwise
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total number of disks used:
+\[
+\text{Minimize } n_{disks} = \sum_{k=1}^{M} d_k
+\]
+where $M$ is the maximum number of disks we can potentially use.
+
+\subsection*{Constraints}
+1. Each file must be assigned to exactly one disk:
+\[
+\sum_{k=1}^{M} x_{jk} = 1 \quad \forall j \in \{1, \ldots, N\}
+\]
+
+2. The total size of the files on each disk must not exceed its capacity:
+\[
+\sum_{j=1}^{N} size_j \cdot x_{jk} \leq C \cdot d_k \quad \forall k \in \{1, \ldots, M\}
+\]
+
+3. A disk can only be marked as used if at least one file is assigned to it:
+\[
+d_k \geq x_{jk} \quad \forall j \in \{1, \ldots, N\}, \forall k \in \{1, \ldots, M\}
+\]
+
+4. Binary constraints:
+\[
+x_{jk} \in \{0, 1\}, \quad d_k \in \{0, 1\} \quad \forall j, k
+\]
+
+\subsection*{Outputs}
+The outputs of the model will be:
+\begin{itemize}
+    \item $n_{disks}$: Total number of floppy disks used
+    \item $whichdisk$: An array indicating on which disk each file is distributed
+\end{itemize}
+
+\end{document}

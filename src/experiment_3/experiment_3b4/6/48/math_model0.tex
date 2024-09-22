@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+Maximize total profit:
+\[
+\text{total\_profit} = \sum_{w=1}^{W} \left( \text{selling\_price} \times (\text{regular\_basket}_w + \text{overtime\_basket}_w) - \text{material\_cost} \times (\text{regular\_basket}_w + \text{overtime\_basket}_w) - \text{regular\_cost} \times \text{regular\_used}_w - \text{overtime\_cost} \times \text{overtime\_used}_w - \text{holding\_cost} \times \text{inventory}_{w-1} \right) + \text{salvage\_value} \times \text{inventory}_W
+\]
+
+\textbf{Constraints:}
+
+1. Labor constraints (Regular and Overtime):
+\[
+\text{regular\_used}_w \leq \text{regular\_labor}_w \quad \forall w
+\]
+\[
+\text{overtime\_used}_w \leq \text{overtime\_labor}_w \quad \forall w
+\]
+
+2. Assembly time constraints:
+\[
+\text{regular\_basket}_w = \frac{\text{regular\_used}_w}{\text{assembly\_time}} \quad \forall w
+\]
+\[
+\text{overtime\_basket}_w = \frac{\text{overtime\_used}_w}{\text{assembly\_time}} \quad \forall w
+\]
+
+3. Inventory balance constraints:
+\[
+\text{inventory}_w = \text{inventory}_{w-1} + \text{regular\_basket}_w + \text{overtime\_basket}_w - \text{demand}_w \quad \forall w
+\]
+
+4. Non-negativity constraints:
+\[
+\text{regular\_used}_w, \text{overtime\_used}_w, \text{regular\_basket}_w, \text{overtime\_basket}_w, \text{inventory}_w \geq 0 \quad \forall w
+\]
+
+5. Initial condition:
+\[
+\text{inventory}_0 = 0
+\]
+
+\end{document}

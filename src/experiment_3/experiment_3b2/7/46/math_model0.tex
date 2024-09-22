@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Alloy and Steel Production}
+
+\subsection*{Decision Variables:}
+\begin{itemize}
+    \item Let \( x_{a,s} \) be the amount (in tons) of alloy \( a \) used in steel type \( s \).
+    \item Let \( y_s \) be the total amount (in tons) of steel type \( s \) produced.
+\end{itemize}
+
+\subsection*{Objective Function:}
+Maximize the profit, which is the difference between the revenue from selling the steel and the cost of purchasing the alloys:
+
+\[
+\text{Maximize } Z = \sum_{s=1}^{S} \left( \text{steel\_price}_s \cdot y_s \right) - \sum_{a=1}^{A} \sum_{s=1}^{S} \left( \text{alloy\_price}_a \cdot x_{a,s} \right)
+\]
+
+\subsection*{Constraints:}
+
+\begin{itemize}
+    \item \textbf{Alloy Usage:}
+    \[
+    \sum_{s=1}^{S} x_{a,s} \leq \text{available}_a, \quad \forall a \in \{1, \ldots, A\}
+    \]
+
+    \item \textbf{Steel Production:}
+    \[
+    \sum_{a=1}^{A} x_{a,s} = y_s, \quad \forall s \in \{1, \ldots, S\}
+    \]
+
+    \item \textbf{Carbon Requirement:}
+    \[
+    \frac{\sum_{a=1}^{A} \left( \text{carbon}_a \cdot x_{a,s} \right)}{y_s} \geq \text{carbon\_min}_s, \quad \forall s \in \{1, \ldots, S\}
+    \]
+
+    \item \textbf{Nickel Constraint:}
+    \[
+    \frac{\sum_{a=1}^{A} \left( \text{nickel}_a \cdot x_{a,s} \right)}{y_s} \leq \text{nickel\_max}_s, \quad \forall s \in \{1, \ldots, S\}
+    \]
+
+    \item \textbf{Alloy 1 Constraint:}
+    \[
+    \frac{x_{1,s}}{y_s} \leq 0.4, \quad \forall s \in \{1, \ldots, S\}
+    \]
+
+    \item \textbf{Non-negativity:}
+    \[
+    x_{a,s} \geq 0, \quad \forall a \in \{1, \ldots, A\}, \forall s \in \{1, \ldots, S\}
+    \]
+    \[
+    y_s \geq 0, \quad \forall s \in \{1, \ldots, S\}
+    \]
+\end{itemize}
+
+\end{document}

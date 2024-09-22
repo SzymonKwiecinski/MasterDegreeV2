@@ -1,0 +1,25 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+Minimize the total cost:
+\[
+\text{Minimize} \quad \sum_{s=1}^{S} \text{shift\_cost}_s \cdot x_s
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+x_s + x_{s-1} & \geq \text{officers\_needed}_s \quad \text{for } s = 1, 2, ..., S \\
+x_s & \geq 0 \quad \text{for } s = 1, 2, ..., S
+\end{align*}
+
+\textbf{Where:}
+\begin{itemize}
+    \item \( x_s \) is the number of officers starting at shift \( s \).
+    \item \text{shift\_cost}_s is the cost associated with starting a shift at \( s \).
+    \item \text{officers\_needed}_s is the number of officers needed at shift \( s \).
+    \item \( S \) is the total number of shifts in the day.
+\end{itemize}
+
+\end{document}

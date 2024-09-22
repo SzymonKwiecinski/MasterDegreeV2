@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item $x_p$: Number of batches of part $p$ produced each month, for $p = 1, \ldots, P$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\max \sum_{p=1}^{P} \left( \text{price}_p \times x_p \right) - \sum_{m=2}^{M} \left( \sum_{p=1}^{P} \text{cost}_m \times \text{time}_{m,p} \times x_p \right) 
+- \text{Labor Cost for Machine 1}
+\]
+
+Where the labor cost for machine 1 is calculated as:
+\[
+\text{Labor Cost for Machine 1} = 
+\begin{cases} 
+\text{standard_cost} \times \left(\sum_{p=1}^{P} \text{time}_{1,p} \times x_p\right), & \text{if } \sum_{p=1}^{P} \text{time}_{1,p} \times x_p \leq \text{overtime_hour} \\ 
+\text{standard_cost} \times \text{overtime_hour} + \text{overtime_cost} \times \left(\sum_{p=1}^{P} \text{time}_{1,p} \times x_p - \text{overtime_hour}\right), & \text{otherwise}
+\end{cases}
+\]
+
+\subsection*{Constraints}
+
+\paragraph{Demand Constraints:}
+\[
+x_p \geq \text{min_batches}_p \quad \forall p = 1, \ldots, P
+\]
+
+\paragraph{Machine Availability Constraints:}
+\[
+\sum_{p=1}^{P} \text{time}_{m,p} \times x_p \leq \text{available}_m \quad \forall m = 2, \ldots, M
+\]
+
+\end{document}

@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Manpower Management}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item $k$: Index for manpower types (1 to $K$)
+    \item $i$: Index for years (1 to $I$)
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $requirement_{k,i}$: Estimated manpower requirements for type $k$ in year $i$
+    \item $strength_{k}$: Current number of manpower of type $k$
+    \item $lessonewaste_{k}$: Wastage rate of manpower $k$ with less than one year's service
+    \item $moreonewaste_{k}$: Wastage rate of manpower $k$ with more than one year's service
+    \item $recruit_{k}$: Maximum number of recruits for manpower type $k$
+    \item $costredundancy_{k}$: Redundancy payment for manpower type $k$
+    \item $num\_overman$: Maximum number of excess workers allowed
+    \item $costoverman_{k}$: Extra cost per year per excess worker of type $k$
+    \item $num\_shortwork$: Maximum number of workers eligible for short-time working
+    \item $costshort_{k}$: Cost per year for short-time working for manpower type $k$
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $recruit_{k,i}$: Number of recruits for manpower type $k$ in year $i$
+    \item $overmanning_{k,i}$: Number of excess workers for manpower type $k$ in year $i$
+    \item $short_{k,i}$: Number of workers on short-time working for manpower type $k$ in year $i$
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} \sum_{i=1}^{I} costredundancy_{k} \cdot (redundancies_{k,i})
+\]
+
+\textbf{Subject to:}
+
+1. Manpower balance constraint for each type $k$ and year $i$:
+\[
+strength_{k} - wastage_{k,i} + recruit_{k,i} + overmanning_{k,i} - short_{k,i} = requirement_{k,i}, \quad \forall k, i
+\]
+where,
+\[
+wastage_{k,i} = lessonewaste_{k} \cdot recruit_{k,i} + moreonewaste_{k} \cdot (strength_{k} - recruit_{k,i})
+\]
+
+2. Recruitment limit:
+\[
+recruit_{k,i} \leq recruit_{k}, \quad \forall k, i
+\]
+
+3. Overmanning limit:
+\[
+\sum_{k=1}^{K} overmanning_{k,i} \leq num\_overman, \quad \forall i
+\]
+
+4. Short-time working limit:
+\[
+short_{k,i} \leq num\_shortwork, \quad \forall k, i
+\]
+
+5. Non-negativity constraints:
+\[
+recruit_{k,i} \geq 0, \quad overmanning_{k,i} \geq 0, \quad short_{k,i} \geq 0, \quad \forall k, i
+\]
+
+\end{document}

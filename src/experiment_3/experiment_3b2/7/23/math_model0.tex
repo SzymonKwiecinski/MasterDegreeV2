@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item $K$: Set of manpower categories, indexed by $k$.
+    \item $I$: Set of years, indexed by $i$.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $requirement_{k,i}$: Required manpower of type $k$ in year $i$.
+    \item $strength_k$: Current strength of manpower type $k$.
+    \item $lessonewaste_k$: Wastage rate for manpower type $k$ with less than one year's service.
+    \item $moreonewaste_k$: Wastage rate for manpower type $k$ with more than one year's service.
+    \item $recruit_k$: Maximum number of manpower type $k$ that can be recruited in a year.
+    \item $costredundancy_k$: Redundancy cost for manpower type $k$.
+    \item $num\_overman$: Maximum number of overmanned workers over the entire company.
+    \item $costoverman_k$: Cost for each overmanned employee of type $k$ per year.
+    \item $num\_shortwork$: Maximum number of short-time workers per manpower category.
+    \item $costshort_k$: Cost for each short-time worker of type $k$ per year.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $recruit_{k,i}$: Number of manpower type $k$ recruited in year $i$.
+    \item $overmanning_{k,i}$: Number of overmanning manpower type $k$ in year $i$.
+    \item $short_{k,i}$: Number of short-time manpower type $k$ in year $i$.
+    \item $redundancy_{k,i}$: Number of manpower type $k$ made redundant in year $i$.
+    \item $employed_{k,i}$: Total number of employed manpower type $k$ in year $i$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+
+\[
+\min \sum_{i=1}^{I} \sum_{k=1}^{K} \left( costredundancy_k \cdot redundancy_{k,i} + costoverman_k \cdot overmanning_{k,i} + costshort_k \cdot short_{k,i} \right)
+\]
+
+\subsection*{Constraints}
+\begin{align}
+& employed_{k,1} = strength_k - moreonewaste_k \cdot strength_k + recruit_{k,1}, & \forall k \\
+& employed_{k,i} = employed_{k,i-1} - (lessonewaste_k \cdot recruit_{k,i-1} + moreonewaste_k \cdot (employed_{k,i-1} - recruit_{k,i-1})) + recruit_{k,i}, & \forall k, \forall i > 1 \\
+& employed_{k,i} = requirement_{k,i} + overmanning_{k,i} + 0.5 \cdot short_{k,i}, & \forall k, \forall i \\
+& recruit_{k,i} \leq recruit_k, & \forall k, \forall i \\
+& overmanning_{k,i} \leq num\_overman, & \forall i \\
+& short_{k,i} \leq num\_shortwork, & \forall k, \forall i \\
+& redundancy_{k,i} = employed_{k,i} - (requirement_{k,i} + overmanning_{k,i} + 0.5 \cdot short_{k,i}), & \forall k, \forall i \\
+\end{align}
+
+\subsection*{Non-negativity}
+\[
+recruit_{k,i}, \overmanning_{k,i}, short_{k,i}, redundancy_{k,i} \geq 0, \quad \forall k, \forall i
+\]
+
+\end{document}

@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mixed-Integer Programming Model for Department Relocation}
+
+\textbf{Decision Variables:}\\
+Let \( x_{k, l} \) be a binary decision variable such that:
+\[
+x_{k, l} = 
+\begin{cases} 
+1, & \text{if department } k \text{ is located in city } l \\
+0, & \text{otherwise}
+\end{cases}
+\]
+
+\textbf{Objective Function:}\\
+Minimize the total cost:
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} \sum_{l=1}^{L} \left(-\text{benefit}_{k, l} \cdot x_{k, l}\right) + \sum_{k=1}^{K} \sum_{j=1}^{K} \sum_{l=1}^{L} \sum_{m=1}^{L} \left(\text{communication}_{k, j} \cdot \text{cost}_{l, m} \cdot x_{k, l} \cdot x_{j, m}\right)
+\]
+
+\textbf{Constraints:}
+\begin{enumerate}
+    \item Each department is located in one city:
+    \[
+    \sum_{l=1}^{L} x_{k, l} = 1, \quad \forall k = 1, 2, \ldots, K
+    \]
+    
+    \item No more than three departments can be located in the same city:
+    \[
+    \sum_{k=1}^{K} x_{k, l} \leq 3, \quad \forall l = 1, 2, \ldots, L
+    \]
+    
+    \item Binary constraints:
+    \[
+    x_{k, l} \in \{0, 1\}, \quad \forall k = 1, 2, \ldots, K, \quad \forall l = 1, 2, \ldots, L
+    \]
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,26 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} Minimize the total cost of purchasing alloys
+\[
+\min \sum_{k=1}^{K} \text{price}_k \cdot x_k
+\]
+
+\textbf{Subject to:}
+- Total weight constraint:
+\[
+\sum_{k=1}^{K} x_k = \text{alloy\_quant}
+\]
+
+- Metal proportion requirements:
+\[
+\sum_{k=1}^{K} \text{ratio}_{k,m} \cdot x_k = \text{target}_m \cdot \text{alloy\_quant} \quad \text{for each } m = 1, \ldots, M
+\]
+
+- Non-negativity constraints:
+\[
+x_k \geq 0 \quad \text{for each } k = 1, \ldots, K
+\]
+
+\end{document}

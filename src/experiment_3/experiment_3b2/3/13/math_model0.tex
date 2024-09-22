@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Problem Formulation:}
+
+Given a set \( P \) defined by linear inequalities:
+\[
+P = \{ x \in \mathbb{R}^N \mid a_i^T x \leq b_i, \, i = 1, \ldots, m \}
+\]
+
+We want to find a ball with center \( y \) and radius \( r \) that is entirely contained within \( P \).
+
+\textbf{LP Formulation:}
+
+Let \( y \in \mathbb{R}^N \) be the center of the ball. The Euclidean distance from the center \( y \) to the hyperplane \( a_i^T x = b_i \) must be at least \( r \) for all \( i \).
+
+The Euclidean distance constraint can be expressed using the Euclidean norm (Chebyshev norm in this context because we are maximizing the smallest distance), leading to:
+\[
+a_i^T y + \| a_i \|_2 r \leq b_i, \, i = 1, \ldots, m
+\]
+
+Thus, the LP formulation is:
+\[
+\begin{aligned}
+& \max \quad r \\
+& \text{subject to} \\
+& a_i^T y + \| a_i \|_2 r \leq b_i, \quad i = 1, \ldots, m \\
+& y \in \mathbb{R}^N, \quad r \geq 0
+\end{aligned}
+\]
+
+\end{document}

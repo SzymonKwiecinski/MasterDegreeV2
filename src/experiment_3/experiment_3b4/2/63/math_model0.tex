@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Formulation for Paper Roll Cutting Problem}
+
+\subsection*{Parameters:}
+\begin{itemize}
+    \item $W$: Width of the large roll (inches)
+    \item $M$: Number of different types of smaller rolls
+    \item $demand_j$: Demand for roll type $j$, for $j = 1, \dots, M$
+    \item $pattern_{i,j}$: Number of rolls of width $j$ produced by cutting pattern $i$,
+    for $i = 1, \dots, N$ and $j = 1, \dots, M$
+\end{itemize}
+
+\subsection*{Decision Variables:}
+\begin{itemize}
+    \item $x_i$: Number of times cutting pattern $i$ is used, where $x_i \geq 0$ and integer, for $i = 1, \dots, N$
+\end{itemize}
+
+\subsection*{Objective Function:}
+Minimize the total number of large rolls used:
+\[
+\min \sum_{i=1}^{N} x_i
+\]
+
+\subsection*{Constraints:}
+1. Demand satisfaction for each type of smaller roll:
+\[
+\sum_{i=1}^{N} pattern_{i,j} \cdot x_i \geq demand_j, \quad \forall j = 1, \dots, M
+\]
+
+2. Non-negative integer constraints for pattern usage:
+\[
+x_i \in \mathbb{Z}_{\ge 0}, \quad \forall i = 1, \dots, N
+\]
+
+\subsection*{Problem Goal:}
+Determine the values for $x_i$ such that all demand constraints are satisfied and the objective is minimized.
+
+\end{document}

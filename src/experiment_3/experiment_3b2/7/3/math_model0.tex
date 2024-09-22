@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Sets and Parameters}
+\begin{align*}
+    T & : \text{Number of years to plan for} \\
+    \text{demand}_t & : \text{Forecasted demand in year } t \\
+    \text{oil}_t & : \text{Existing oil capacity in year } t \\
+    \text{coal\_cost} & : \text{Capital cost per megawatt for coal} \\
+    \text{nuke\_cost} & : \text{Capital cost per megawatt for nuclear} \\
+    \text{max\_nuke} & : \text{Maximum percentage of total capacity that can be nuclear} \\
+    \text{coal\_life} & : \text{Lifespan of a coal plant in years} \\
+    \text{nuke\_life} & : \text{Lifespan of a nuclear plant in years}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    \text{coal\_added}_t & : \text{Coal capacity added in year } t \\
+    \text{nuke\_added}_t & : \text{Nuclear capacity added in year } t
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost of capacity additions:
+\[
+\min \sum_{t=1}^{T} \left( \text{coal\_cost} \cdot \text{coal\_added}_t + \text{nuke\_cost} \cdot \text{nuke\_added}_t \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+    \text{Total capacity constraint: } & \forall t \in \{1, \dots, T\}, \\
+    & \text{oil}_t + \sum_{k=\max(1, t-\text{coal\_life}+1)}^{t} \text{coal\_added}_k + \sum_{k=\max(1, t-\text{nuke\_life}+1)}^{t} \text{nuke\_added}_k \geq \text{demand}_t \\
+    \text{Nuclear capacity constraint: } & \forall t \in \{1, \dots, T\}, \\
+    & \frac{\sum_{k=\max(1, t-\text{nuke\_life}+1)}^{t} \text{nuke\_added}_k}{\text{oil}_t + \sum_{k=\max(1, t-\text{coal\_life}+1)}^{t} \text{coal\_added}_k + \sum_{k=\max(1, t-\text{nuke\_life}+1)}^{t} \text{nuke\_added}_k} \leq \frac{\text{max\_nuke}}{100} \\
+    \text{Non-negativity constraints: } & \forall t \in \{1, \dots, T\}, \\
+    & \text{coal\_added}_t \geq 0, \\
+    & \text{nuke\_added}_t \geq 0
+\end{align*}
+
+\end{document}

@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Indices}
+
+\begin{align*}
+& n = 1, \ldots, N & \text{(days)} \\
+& i \text{ (employee index)}
+\end{align*}
+
+\textbf{Parameters}
+
+\begin{align*}
+& num[n] & \text{(required number of employees on day } n) \\
+& n\_working\_days & \text{(number of consecutive working days)} \\
+& n\_resting\_days & \text{(number of consecutive resting days)}
+\end{align*}
+
+\textbf{Decision Variables}
+
+\begin{align*}
+& x_i \in \{0,1\} & \text{(1 if employee } i \text{ is hired, 0 otherwise)} \\
+& y_{n,i} \in \{0,1\} & \text{(1 if employee } i \text{ works on day } n \text{, 0 otherwise)}
+\end{align*}
+
+\textbf{Objective Function}
+
+\[
+\min \sum_{i} x_i
+\]
+
+\textbf{Constraints}
+
+\begin{align}
+& \sum_{i} y_{n,i} \geq num[n], \quad \forall n \\
+& y_{n,i} \leq x_i, \quad \forall n, i \\
+& \text{Work/rest cycle constraints:} \\
+& \left(1 - \sum_{j=0}^{n\_working\_days - 1} y_{n+j,i}\right) + \sum_{j=n\_working\_days}^{n\_working\_days+n\_resting\_days-1} y_{n+j,i} \leq n\_resting\_days \times (1-x_i), \\
+& \quad \forall n, i \text{ ensuring work/rest cycle}
+\end{align}
+
+\end{document}

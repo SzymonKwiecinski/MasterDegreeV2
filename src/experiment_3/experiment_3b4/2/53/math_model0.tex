@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Soybean Transportation Linear Programming Model}
+
+\subsection*{Objective Function}
+
+Minimize the total transportation cost:
+
+\[
+Z = \sum_{(i,j) \in A} C_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+
+1. \textbf{Supply Constraints:}
+
+\[
+\sum_{j: (k,j) \in A} x_{k,j} \leq \text{supply}_{k}, \quad \forall \text{ terminal } k
+\]
+
+2. \textbf{Demand Constraints:}
+
+\[
+\sum_{i: (i,l) \in A} x_{i,l} \geq \text{demand}_{l}, \quad \forall \text{ destination } l
+\]
+
+3. \textbf{Non-Negativity Constraints:}
+
+\[
+x_{i,j} \geq 0, \quad \forall (i,j) \in A
+\]
+
+\end{document}

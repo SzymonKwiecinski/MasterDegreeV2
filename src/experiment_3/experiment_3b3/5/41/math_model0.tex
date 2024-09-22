@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Floppy Disk Backup Problem}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $C$: Capacity of each floppy disk (in GB)
+    \item $N$: Total number of files
+    \item $size_j$: Size of file $j$ (for $j = 1, \ldots, N$)
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item $n\_disks$: Total number of floppy disks used
+    \item $x_{ij}$: A binary variable that equals 1 if file $j$ is assigned to disk $i$, and 0 otherwise (for $i = 1, \ldots, n\_disks$ and $j = 1, \ldots, N$)
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+\text{Minimize} \quad & n\_disks
+\end{align*}
+
+\textbf{Constraints:}
+\begin{align*}
+\sum_{i=1}^{n\_disks} x_{ij} &= 1 \quad \forall j = 1, \ldots, N \quad \text{(Each file must be assigned to exactly one disk)} \\
+\sum_{j=1}^{N} size_j \cdot x_{ij} &\leq C \quad \forall i = 1, \ldots, n\_disks \quad \text{(Disk capacity constraint)} \\
+x_{ij} &\in \{0, 1\} \quad \forall i, j \quad \text{(Binary variable)}
+\end{align*}
+
+\textbf{Output:}
+\begin{itemize}
+    \item $n\_disks$: Total number of floppy disks used
+    \item $whichdisk$: An array where $whichdisk[j]$ indicates the disk to which file $j$ is assigned
+\end{itemize}
+
+\end{document}

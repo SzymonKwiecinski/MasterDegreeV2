@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+\[
+\text{Minimize} \quad Z = \sum_{t=1}^{T} (\text{coal\_cost} \times \text{coal\_add}_t + \text{nuke\_cost} \times \text{nuke\_add}_t)
+\]
+
+\textbf{Subject to:}
+
+\begin{align*}
+& \text{Demand Satisfaction:} \\
+& \sum_{j=\max(1, t-\text{coal\_life}+1)}^t \text{coal\_add}_j + \sum_{j=\max(1, t-\text{nuke\_life}+1)}^t \text{nuke\_add}_j + \text{oil}_t \geq \text{demand}_t, \quad \forall t = 1, \ldots, T \\
+
+& \text{Nuclear Capacity Limit:} \\
+& \sum_{j=\max(1, t-\text{nuke\_life}+1)}^t \text{nuke\_add}_j \leq \frac{\text{max\_nuke}}{100} \times \left( \text{oil}_t + \sum_{j=\max(1, t-\text{coal\_life}+1)}^t \text{coal\_add}_j + \sum_{j=\max(1, t-\text{nuke\_life}+1)}^t \text{nuke\_add}_j \right), \quad \forall t = 1, \ldots, T \\
+
+& \text{Non-negativity:} \\
+& \text{coal\_add}_t \geq 0, \quad \text{nuke\_add}_t \geq 0, \quad \forall t = 1, \ldots, T
+\end{align*}
+
+\end{document}

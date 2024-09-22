@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Mathematical Model for Floppy Disk Backup Problem}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Description}
+We are given several files that need to be backed up onto floppy disks, each having a certain capacity. The objective is to minimize the number of floppy disks used while ensuring that the files do not exceed the capacity of the disks.
+
+\section*{Parameters}
+\begin{itemize}
+    \item Let \( C \) be the capacity of each floppy disk (in GB).
+    \item Let \( N \) be the total number of files.
+    \item Let \( s_j \) be the size of file \( j \) where \( j \in \{1, 2, \ldots, N\} \).
+\end{itemize}
+
+\section*{Decision Variables}
+\begin{itemize}
+    \item Let \( n \) be the total number of floppy disks used.
+    \item Let \( x_{ij} \) be a binary variable that equals 1 if file \( j \) is placed on floppy disk \( i \), and 0 otherwise, where \( i \in \{1, 2, \ldots, n\} \) and \( j \in \{1, 2, \ldots, N\} \).
+\end{itemize}
+
+\section*{Objective Function}
+The objective is to minimize the total number of floppy disks used:
+
+\[
+\text{Minimize } n = \sum_{i=1}^{n} y_i
+\]
+
+where \( y_i \) is a binary variable that equals 1 if disk \( i \) is used, and 0 otherwise.
+
+\section*{Constraints}
+1. Each file must be assigned to exactly one disk:
+   \[
+   \sum_{i=1}^{n} x_{ij} = 1 \quad \forall j \in \{1, 2, \ldots, N\}
+   \]
+
+2. The total size of files assigned to each disk must not exceed its capacity:
+   \[
+   \sum_{j=1}^{N} s_j x_{ij} \leq C y_i \quad \forall i \in \{1, 2, \ldots, n\}
+   \]
+
+3. The total number of disks used is given by:
+   \[
+   n \geq y_i \quad \forall i \in \{1, 2, \ldots, n\}
+   \]
+
+4. Binary constraints:
+   \[
+   x_{ij} \in \{0, 1\} \quad \forall i, j
+   \]
+   \[
+   y_i \in \{0, 1\} \quad \forall i
+   \]
+
+\section*{Output}
+The output of the model will provide:
+\begin{itemize}
+    \item \( n \): the total number of floppy disks used.
+    \item \( \text{whichdisk} \): an array indicating on which disk each file is distributed.
+\end{itemize}
+
+\end{document}

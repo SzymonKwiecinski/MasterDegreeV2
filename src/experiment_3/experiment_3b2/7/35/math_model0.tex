@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+Maximize the total profit over $N$ periods:
+
+\[
+\text{Maximize} \quad \sum_{n=1}^{N} \left( \text{price}_n \times \text{sellquantity}_n - \text{cost}_n \times \text{buyquantity}_n \right) - \sum_{n=1}^{N} \text{holding\_cost} \times \text{stock}_n
+\]
+
+\textbf{Subject to the constraints:}
+
+1. Stock balance equation for each period $n$:
+
+\[
+\text{stock}_n = \text{stock}_{n-1} + \text{buyquantity}_n - \text{sellquantity}_n, \quad \forall n \in \{1, 2, ..., N\}
+\]
+
+2. Warehouse capacity constraint:
+
+\[
+0 \leq \text{stock}_n \leq \text{capacity}, \quad \forall n \in \{1, 2, ..., N\}
+\]
+
+3. Non-negativity constraints:
+
+\[
+\text{buyquantity}_n \geq 0, \quad \text{sellquantity}_n \geq 0, \quad \forall n \in \{1, 2, ..., N\}
+\]
+
+4. Initial and final stock conditions:
+
+\[
+\text{stock}_0 = 0, \quad \text{stock}_N = 0
+\]
+
+\textbf{Variables:}
+
+- $\text{buyquantity}_n$: Amount of commodity bought in period $n$.
+- $\text{sellquantity}_n$: Amount of commodity sold in period $n$.
+- $\text{stock}_n$: Amount of commodity in stock at the end of period $n$.
+
+Given the input parameters:
+
+- \text{capacity}: Maximum warehouse capacity (units).
+- \text{holding\_cost}: Cost per unit for holding stock for one period.
+- \text{price}_n: Selling price of the commodity in period $n$.
+- \text{cost}_n: Purchase price of the commodity in period $n$.
+
+\end{document}

@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Road Illumination}
+
+\subsection*{Decision Variables}
+Let \( power_j \) be the power of the \( j \)-th lamp, where \( j = 1, 2, \ldots, M \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( N \): Number of segments of the road
+    \item \( M \): Number of lamps
+    \item \( coeff_{i,j} \): Coefficient representing the contribution of lamp \( j \) to the illumination of segment \( i \)
+    \item \( desired_i \): Desired illumination for segment \( i \)
+\end{itemize}
+
+\subsection*{Illumination Model}
+The illumination \( ill_i \) of the \( i \)-th segment is given by:
+\[
+ill_i = \sum_{j=1}^{M} coeff_{i,j} \cdot power_j
+\]
+
+\subsection*{Objective Function}
+The objective is to minimize the absolute error between the actual and desired illuminations, formulated as:
+\[
+\text{Minimize} \quad Z = \sum_{i=1}^{N} |ill_i - desired_i|
+\]
+
+\subsection*{Constraints}
+There are no specific constraints given for the powers of the lamps in the problem statement. However, it is generally assumed that:
+\[
+power_j \geq 0 \quad \text{for } j = 1, 2, \ldots, M
+\]
+
+\subsection*{Output}
+The output will provide:
+\begin{itemize}
+    \item \( power \): Optimal powers of the lamps, \( [power_j \text{ for } j = 1, \ldots, M] \)
+    \item \( error \): The minimum absolute error, \( error \)
+\end{itemize}
+
+\subsection*{Final Model}
+The final linear programming model can be summarized as follows:
+\[
+\begin{align*}
+\text{Minimize} \quad & Z = \sum_{i=1}^{N} | \sum_{j=1}^{M} coeff_{i,j} \cdot power_j - desired_i | \\
+\text{subject to} \quad & power_j \geq 0, \quad j = 1, 2, \ldots, M
+\end{align*}
+\]
+
+\end{document}

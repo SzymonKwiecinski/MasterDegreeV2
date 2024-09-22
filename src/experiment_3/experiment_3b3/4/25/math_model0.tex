@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+Let:
+\begin{itemize}
+    \item \( K \) = number of industries
+    \item \( T \) = number of years
+    \item \( produce_{k,t} \) = units produced by industry \( k \) in year \( t \)
+    \item \( buildcapa_{k,t} \) = units used to build productive capacity for industry \( k \) in year \( t \)
+    \item \( stock_{k,t} \) = stock of industry \( k \) held in year \( t \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total production in the last two years:
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} \left( produce_{k,T} + produce_{k,T-1} \right)
+\]
+
+\subsection*{Constraints}
+
+\textbf{Production Constraints:}
+For each industry \( k \) in year \( t \):
+\[
+produce_{k,t} \leq capacity_{k} + stock_{k,t-1} \quad \forall k, \; t = 1, \ldots, T
+\]
+
+\textbf{Input Requirements:}
+For each industry \( k \) in year \( t \):
+\[
+produce_{k,t} \leq \sum_{j=1}^{K} inputone_{k,j} \cdot produce_{j,t-1} + stock_{k,t-1} \quad \forall k, \; t = 1, \ldots, T
+\]
+
+\textbf{Manpower Constraints:}
+For each industry \( k \) in year \( t \):
+\[
+manpowerone_{k} \cdot produce_{k,t} + manpowertwo_{k} \cdot buildcapa_{k,t} \leq manpower\_limit \quad \forall k, \; t = 1, \ldots, T
+\]
+
+\textbf{Building Capacity:}
+For each industry \( k \) in year \( t \):
+\[
+buildcapa_{k,t} \leq \sum_{j=1}^{K} inputtwo_{k,j} \cdot produce_{j,t-1} + stock_{k,t-1} \quad \forall k, \; t = 1, \ldots, T
+\]
+
+\textbf{Stock Flow:}
+For each industry \( k \) in year \( t \):
+\[
+stock_{k,t} = stock_{k,t-1} + produce_{k,t} - buildcapa_{k,t} \quad \forall k, \; t = 1, \ldots, T
+\]
+
+\textbf{Initial Conditions:}
+\[
+stock_{k,0} \text{ is given for all } k
+\]
+\[
+capacity_{k} \text{ is given for all } k
+\]
+
+\end{document}

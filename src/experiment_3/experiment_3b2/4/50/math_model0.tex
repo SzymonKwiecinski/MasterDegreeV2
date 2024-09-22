@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_p \): Number of batches of part \( p \) produced \((p = 1, \ldots, P)\).
+    \item \( e_m \): Extra hours purchased for machine \( m \) \((m = 1, \ldots, M)\).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Profit} = \sum_{p=1}^{P} \text{price}_p \cdot x_p - \sum_{m=1}^{M} \text{cost}_m \cdot \left(\sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p + e_m \right) - \sum_{m=1}^{M} \text{extra\_cost}_m \cdot e_m
+\]
+
+\subsection*{Constraints}
+\begin{enumerate}
+    \item Time constraints for each machine \( m \):
+    \[
+    \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \leq \text{available}_m + e_m, \quad \forall m = 1, \ldots, M
+    \]
+    
+    \item Minimum production constraints for each part \( p \):
+    \[
+    x_p \geq \text{min\_batches}_p, \quad \forall p = 1, \ldots, P
+    \]
+
+    \item Extra time constraints for each machine \( m \):
+    \[
+    0 \leq e_m \leq \text{max\_extra}_m, \quad \forall m = 1, \ldots, M
+    \]
+\end{enumerate}
+
+\subsection*{Non-negativity Constraints}
+\[
+x_p \geq 0, \quad \forall p = 1, \ldots, P
+\]
+\[
+e_m \geq 0, \quad \forall m = 1, \ldots, M
+\]
+
+\end{document}

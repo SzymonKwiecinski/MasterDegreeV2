@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Knapsack Problem as a MIP Model}
+
+Given:
+\begin{itemize}
+    \item \( K \) – Number of items
+    \item \( \text{value}_k \) – Value of item \( k \)
+    \item \( \text{size}_k \) – Size of item \( k \)
+    \item \( C \) – Maximum capacity of the container
+\end{itemize}
+
+Objective:
+\[
+\text{Maximize} \quad Z = \sum_{k=1}^{K} \text{value}_k \cdot x_k
+\]
+
+Subject to:
+\[
+\sum_{k=1}^{K} \text{size}_k \cdot x_k \leq C
+\]
+
+Binary Decision Variables:
+\[
+x_k \in \{0, 1\} \quad \text{for all } k = 1, \ldots, K
+\]
+
+Here, \( x_k = 1 \) if item \( k \) is included in the knapsack, and \( x_k = 0 \) otherwise.
+
+\end{document}

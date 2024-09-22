@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Indices and Parameters}
+
+\begin{itemize}
+    \item $i \in \{1, 2, \ldots, N\}$: Index for cutting patterns.
+    \item $j \in \{1, 2, \ldots, M\}$: Index for types of smaller rolls.
+    \item $demand_j$: Demand for rolls of width $inch_j$.
+    \item $pattern_{i,j}$: Number of rolls of width $j$ produced by pattern $i$.
+    \item $large\_roll\_width$: Width of the large roll.
+\end{itemize}
+
+\subsection*{Decision Variables}
+
+\begin{itemize}
+    \item $x_i$: Integer variable representing the number of times pattern $i$ is used.
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Minimize the total number of large rolls used:
+
+\[
+\min \sum_{i=1}^{N} x_i
+\]
+
+\subsection*{Constraints}
+
+\begin{itemize}
+    \item Demand constraints: Ensure that the total number of smaller rolls produced meets or exceeds the demand for each type.
+    \[
+    \sum_{i=1}^{N} pattern_{i,j} \cdot x_i \geq demand_j, \quad \forall j \in \{1, 2, \ldots, M\}
+    \]
+
+    \item Non-negativity and integer constraints:
+    \[
+    x_i \geq 0 \quad \text{and integer}, \quad \forall i \in \{1, 2, \ldots, N\}
+    \]
+\end{itemize}
+
+\section*{Explanation}
+
+The objective is to minimize the total number of large rolls used, which is accomplished by selecting the number of times each pattern is used. The constraints ensure that the chosen patterns cover at least the demanded number of smaller rolls for each type.
+
+\end{document}

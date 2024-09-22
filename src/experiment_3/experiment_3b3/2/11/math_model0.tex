@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item $i$: month index, where $i = 1, 2, \ldots, T$
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $deliver_i$: units of product to deliver at the end of month $i$
+    \item $storage\_cost$: cost per month for holding one unit in inventory
+    \item $switch\_cost$: cost of switching production level between months
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item $x_i$: units produced in month $i$
+    \item $I_i$: inventory at the end of month $i$
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+\text{Minimize} \quad & \sum_{i=1}^{T} (storage\_cost \cdot I_i + switch\_cost \cdot |x_{i+1} - x_i|) \\
+\end{align*}
+
+\textbf{Constraints:}
+\begin{align*}
+I_1 & = x_1 - deliver_1 \\
+I_i & = I_{i-1} + x_i - deliver_i \quad \text{for } i = 2, \ldots, T \\
+I_i & \geq 0 \quad \text{for } i = 1, \ldots, T \\
+I_T & = 0 \\
+\end{align*}
+
+\textbf{Non-negativity:}
+\begin{align*}
+x_i & \geq 0 \quad \text{for } i = 1, \ldots, T \\
+I_i & \geq 0 \quad \text{for } i = 1, \ldots, T \\
+\end{align*}
+
+\end{document}

@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Quadratic Curve Fitting Problem}
+
+We aim to fit a quadratic curve to the data points provided for \(x\) and \(y\). The model is expressed as:
+
+\[
+y = c \cdot x^2 + b \cdot x + a
+\]
+
+where \(c\), \(b\), and \(a\) are the coefficients we want to determine.
+
+\subsection*{Objective Function}
+
+The objective is to minimize the sum of absolute deviations of the observed \(y_k\) values from the predicted values. Mathematically, we want to minimize:
+
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} |y_k - (c \cdot x_k^2 + b \cdot x_k + a)|
+\]
+
+\subsection*{Constraints}
+
+Since the problem is about fitting, we can define variables for deviations:
+
+Let \(d_k = y_k - (c \cdot x_k^2 + b \cdot x_k + a)\) for \(k = 1, \ldots, K\).
+
+Thus, we transform the absolute value into linear constraints:
+
+\[
+d_k \geq y_k - (c \cdot x_k^2 + b \cdot x_k + a) \quad \forall k
+\]
+\[
+-d_k \geq -y_k + (c \cdot x_k^2 + b \cdot x_k + a) \quad \forall k
+\]
+
+\subsection*{Final Model}
+
+The complete linear programming model will thus be:
+
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} d_k
+\]
+
+subject to:
+
+\[
+d_k \geq y_k - (c \cdot x_k^2 + b \cdot x_k + a) \quad \forall k
+\]
+\[
+-d_k \geq -y_k + (c \cdot x_k^2 + b \cdot x_k + a) \quad \forall k
+\]
+
+The solution will provide the coefficients:
+
+\[
+\text{Output Format:} \quad \{ "quadratic": c, "linear": b, "constant": a \}
+\]
+
+\end{document}

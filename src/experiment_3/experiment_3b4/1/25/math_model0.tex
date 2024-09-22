@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Objective:} Maximize total production in the last two years.
+
+\[
+\max \sum_{t=T-1}^{T} \sum_{k=1}^{K} \text{produce}_{k, t}
+\]
+
+\textbf{Subject to:}
+
+1. \textbf{Input requirements for production:}
+
+\[
+\text{produce}_{k, t+1} \leq \sum_{j=1}^{K} \text{inputone}_{k,j} \cdot \text{produce}_{j, t}, \quad \forall k, \forall t
+\]
+
+2. \textbf{Manpower constraints:}
+
+\[
+\sum_{k=1}^{K} \left( \text{manpowerone}_{k} \cdot \text{produce}_{k, t} + \text{manpowertwo}_{k} \cdot \text{buildcapa}_{k, t} \right) \leq \text{manpower\_limit}, \quad \forall t
+\]
+
+3. \textbf{Capacity constraints:}
+
+\[
+\text{produce}_{k, t} + \text{buildcapa}_{k, t} \leq \text{capacity}_{k}, \quad \forall k, t=0
+\]
+
+\[
+\text{capacity}_{k,t+1} = \text{capacity}_{k,t} + \sum_{j=1}^{K} \text{inputtwo}_{j,k} \cdot \text{buildcapa}_{j, t-1}, \quad \forall k, t \geq 2
+\]
+
+4. \textbf{Stock dynamics:}
+
+\[
+\text{stockhold}_{k, t} = \text{stockhold}_{k, t-1} + \text{produce}_{k, t} - \sum_{j=1}^{K} \text{inputone}_{j,k} \cdot \text{produce}_{k,t+1} - \text{buildcapa}_{k, t}, \quad \forall k, t
+\]
+
+5. \textbf{Non-negativity:}
+
+\[
+\text{produce}_{k, t} \geq 0, \quad \text{buildcapa}_{k, t} \geq 0, \quad \text{stockhold}_{k, t} \geq 0, \quad \forall k, \forall t
+\]
+
+\end{document}

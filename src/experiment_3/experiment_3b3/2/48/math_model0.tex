@@ -1,0 +1,83 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Gift Basket Production}
+
+\textbf{Parameters:}
+
+\begin{itemize}
+    \item $W$: Number of weeks
+    \item $demand_{w}$: Demand for week $w$, $w = 1, 2, \ldots, W$
+    \item $regular\_labor_{w}$: Regular labor hours available in week $w$
+    \item $overtime\_labor_{w}$: Overtime labor hours available in week $w$
+    \item $regular\_cost$: Cost of regular labor per hour
+    \item $overtime\_cost$: Cost of overtime labor per hour
+    \item $assembly\_time$: Hours required to assemble one basket
+    \item $material\_cost$: Material cost per basket
+    \item $selling\_price$: Selling price per basket
+    \item $holding\_cost$: Holding cost for unsold baskets per week
+    \item $salvage\_value$: Salvage value of unsold baskets at the end of week $W$
+\end{itemize}
+
+\textbf{Decision Variables:}
+
+\begin{itemize}
+    \item $regular\_used_{w}$: Hours of regular labor used in week $w$
+    \item $overtime\_used_{w}$: Hours of overtime labor used in week $w$
+    \item $regular\_basket_{w}$: Number of baskets assembled with regular labor in week $w$
+    \item $overtime\_basket_{w}$: Number of baskets assembled with overtime labor in week $w$
+    \item $inventory_{w}$: Number of baskets on hand at the end of week $w$
+\end{itemize}
+
+\textbf{Objective Function:}
+
+Maximize total profit:
+
+\[
+\text{Maximize } Z = \sum_{w=1}^{W} \left( selling\_price \cdot (regular\_basket_{w} + overtime\_basket_{w}) - (material\_cost \cdot (regular\_basket_{w} + overtime\_basket_{w})) - (regular\_cost \cdot regular\_used_{w}) - (overtime\_cost \cdot overtime\_used_{w}) - holding\_cost \cdot inventory_{w} \right)
+\]
+
+\textbf{Subject to:}
+
+1. Labor constraints:
+\[
+regular\_used_{w} + overtime\_used_{w} \leq regular\_labor_{w} + overtime\_labor_{w}, \quad \forall w
+\]
+
+2. Assembly constraints:
+\[
+regular\_basket_{w} = \frac{regular\_used_{w}}{assembly\_time}, \quad \forall w
+\]
+\[
+overtime\_basket_{w} = \frac{overtime\_used_{w}}{assembly\_time}, \quad \forall w
+\]
+
+3. Demand constraints:
+\[
+regular\_basket_{w} + overtime\_basket_{w} + inventory_{w-1} \geq demand_{w}, \quad \forall w\ (w > 1)
+\]
+\[
+regular\_basket_{1} + overtime\_basket_{1} \geq demand_{1}
+\]
+
+4. Inventory balance:
+\[
+inventory_{w} = inventory_{w-1} + (regular\_basket_{w} + overtime\_basket_{w}) - demand_{w}, \quad \forall w
+\]
+\[
+inventory_{1} = 0
+\]
+
+5. End of season inventory salvage:
+\[
+profit_{end} = salvage\_value \cdot inventory_{W}
+\]
+
+\textbf{Non-negativity constraints:}
+
+\[
+regular\_used_{w}, overtime\_used_{w}, regular\_basket_{w}, overtime\_basket_{w}, inventory_{w} \geq 0, \quad \forall w
+\]
+
+\end{document}

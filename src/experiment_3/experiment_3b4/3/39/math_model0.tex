@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Parameters}
+
+\begin{itemize}
+    \item Let \( \text{num}_n \) be the required number of employees on day \( n \).
+    \item \( \text{n\_working\_days} \) is the number of consecutive working days for each employee.
+    \item \( \text{n\_resting\_days} \) is the number of consecutive resting days for each employee.
+    \item \( N \) is the total number of days.
+\end{itemize}
+
+\subsection*{Decision Variables}
+
+\begin{itemize}
+    \item Let \( y_i \) be a binary variable that takes value 1 if employee \( i \) is hired, 0 otherwise.
+    \item Let \( x_{i,n} \) be a binary variable that takes value 1 if employee \( i \) works on day \( n \), 0 otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Minimize the total number of employees hired:
+
+\[
+\min \sum_{i=1}^{M} y_i
+\]
+
+\subsection*{Constraints}
+
+\begin{enumerate}
+    \item \textbf{Daily Staffing Requirement:}
+
+    \[
+    \sum_{i=1}^{M} x_{i,n} \geq \text{num}_n, \quad \forall n = 1, 2, \ldots, N
+    \]
+
+    \item \textbf{Work and Rest Cycles:}
+
+    For each employee \( i \), they should work for \(\text{n\_working\_days}\) consecutively followed by \(\text{n\_resting\_days}\).
+
+    \[
+    x_{i,n} \leq y_i, \quad \forall i, n
+    \]
+
+    The cycle can be controlled using a series of inequalities. If we define the cycle as:
+
+    \[
+    \left(x_{i,n}, x_{i,n+1}, \ldots, x_{i,n+\text{n\_working\_days}-1}\right) = \text{working}
+    \]
+
+    \[
+    \left(x_{i,n+\text{n\_working\_days}}, \ldots, x_{i,n+\text{n\_working\_days}+\text{n\_resting\_days}-1}\right) = \text{resting}
+    \]
+
+    These constraints can be generalized based on the periodicity of the cycle to ensure proper sequencing. These constraints depend on complex logic and can be quite cumbersome to write without further simplification or assumption.
+
+    \item \textbf{Binary Constraints:}
+
+    \[
+    y_i \in \{0,1\}, \quad x_{i,n} \in \{0,1\}, \quad \forall i = 1,\ldots,M, \forall n = 1,2,\ldots,N
+    \]
+\end{enumerate}
+
+\end{document}

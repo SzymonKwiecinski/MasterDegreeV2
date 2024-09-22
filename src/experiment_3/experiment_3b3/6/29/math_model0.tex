@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Linear Regression}
+
+Given the observed values of \( y \) and \( x \):
+
+\[
+\{y_k\}_{k=1}^{K}, \quad \{x_k\}_{k=1}^{K}
+\]
+
+we want to fit a straight line represented by the equation:
+
+\[
+y = bx + a
+\]
+
+Our objective is to minimize the maximum deviation of the observed values \( y_k \) from the predicted values \( \hat{y}_k = bx_k + a \). 
+
+To formulate this as a linear programming problem, we introduce a variable \( d_k \) which represents the deviation for each \( k \):
+
+\[
+d_k \geq y_k - (bx_k + a) \quad \text{for } k = 1, \ldots, K
+\]
+
+\[
+d_k \geq (bx_k + a) - y_k \quad \text{for } k = 1, \ldots, K
+\]
+
+The objective is to minimize the maximum deviation \( D \):
+
+\[
+\text{Minimize } D
+\]
+
+subject to the constraints:
+
+\[
+d_k \leq D \quad \text{for } k = 1, \ldots, K
+\]
+
+The complete set of linear constraints is therefore:
+
+1. \( d_k \geq y_k - (bx_k + a) \) for \( k = 1, \ldots, K \)
+2. \( d_k \geq (bx_k + a) - y_k \) for \( k = 1, \ldots, K \)
+3. \( d_k \leq D \) for \( k = 1, \ldots, K \)
+
+Additionally, the relationships between \( D \), \( a \), and \( b \) must be defined. Thus, our optimization problem can be summarized as:
+
+\[
+\begin{align*}
+\text{Minimize} & \quad D \\
+\text{subject to} & \\
+& d_k \geq y_k - (bx_k + a) \quad \forall k \\
+& d_k \geq (bx_k + a) - y_k \quad \forall k \\
+& d_k \leq D \quad \forall k \\
+& \text{where } a \text{ is the intercept and } b \text{ is the slope.}
+\end{align*}
+\]
+
+\end{document}

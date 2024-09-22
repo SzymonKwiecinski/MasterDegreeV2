@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Alloy Production}
+
+\textbf{Parameters:}
+\begin{itemize}
+	\item $A$ = total weight of the alloy to be produced (in lb) = \texttt{alloy\_quant}
+	\item $M$ = number of metals
+	\item $K$ = number of available alloys
+	\item $t_m$ = target quantity of metal $m$ = \texttt{target}[m] for $m = 1, \ldots, M$
+	\item $r_{k,m}$ = ratio of metal $m$ in alloy $k$ = \texttt{ratio}[k][m] for $k = 1, \ldots, K$ and $m = 1, \ldots, M$
+	\item $p_k$ = price of alloy $k$ = \texttt{price}[k] for $k = 1, \ldots, K$
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+	\item $x_k$ = amount of alloy $k$ to purchase (in lb) for $k = 1, \ldots, K$
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+\text{Minimize } Z = \sum_{k=1}^{K} p_k x_k
+\end{align*}
+
+\textbf{Subject to the Constraints:}
+
+\begin{align}
+\sum_{k=1}^{K} x_k = A \quad & \text{(Total amount of alloys produced)} \tag{1} \\
+\sum_{k=1}^{K} r_{k,m} x_k = t_m \quad & \text{for } m = 1, \ldots, M \quad \text{(Metal composition requirement)} \tag{2} \\
+x_k \geq 0 \quad & \text{for } k = 1, \ldots, K \quad \text{(Non-negativity)} \tag{3}
+\end{align}
+
+\textbf{Output:}
+The solution will provide the amounts of each alloy to purchase:
+\begin{align*}
+\text{amount} = [x_k \text{ for } k = 1, \ldots, K]
+\end{align*}
+
+\end{document}

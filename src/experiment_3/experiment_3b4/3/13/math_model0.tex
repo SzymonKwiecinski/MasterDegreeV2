@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+To find the Chebyshev center of the set \(\var{P}\), we need to formulate a linear programming problem. The Chebyshev center is the center of the largest ball that can be inscribed within the set \(\var{P}\). Let's define the problem mathematically.
+
+Given:
+\[
+\var{P} = \{\var{x} \in \mathbb{R}^N \mid \var{a_i}^T \var{x} \leq \var{b_i}, \, i = 1, \ldots, m\}
+\]
+where \(\var{a_i} \in \mathbb{R}^N\) and \(\var{b_i} \in \mathbb{R}\).
+
+We seek to find the center \(\var{y} \in \mathbb{R}^N\) and the largest possible radius \(r\) such that a ball centered at \(\var{y}\) with radius \(r\) is completely contained in \(\var{P}\).
+
+The LP formulation is as follows:
+
+Minimize the negative radius, \(-r\), (or equivalently, maximize \(r\)):
+\[
+\max \, r
+\]
+
+Subject to:
+\[
+\var{a_i}^T \var{y} + \| \var{a_i} \|_2 \cdot r \leq \var{b_i}, \quad i = 1, \ldots, m
+\]
+
+Here, \(\| \var{a_i} \|_2\) is the Euclidean norm of \(\var{a_i}\), \(\| \var{a_i} \|_2 = \sqrt{\sum_{j=1}^{N} (a_{i,j})^2}\).
+
+The constraint ensures that the ball of radius \(r\), centered at \(\var{y}\), does not exceed the boundary defined by each linear constraint. The objective function maximizes the radius \(r\).
+
+To implement, solve this linear programming problem using a suitable solver which handles such constraints.
+
+\end{document}

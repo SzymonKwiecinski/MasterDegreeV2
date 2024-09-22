@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Police Shift Assignment}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+
+Let:
+\begin{itemize}
+    \item \( S \) be the total number of shifts.
+    \item \( officers\_needed_{s} \) be the number of police officers needed for shift \( s \).
+    \item \( shift\_cost_{s} \) be the cost incurred by assigning a shift \( s \).
+    \item \( officers\_assigned_{s} \) be the number of police officers assigned to shift \( s \).
+\end{itemize}
+
+\section*{Objective}
+
+Minimize the total cost of assigning police officers:
+
+\[
+\text{Minimize } Z = \sum_{s=1}^{S} shift\_cost_{s} \cdot x_s
+\]
+
+where \( x_s \) is the number of officers assigned to shift \( s \).
+
+\section*{Constraints}
+
+1. Each police officer works for two consecutive shifts. Therefore, the number of officers assigned must meet the requirement for both shifts \( s \) and \( s+1 \):
+
+\[
+x_s + x_{s+1} \geq officers\_needed_{s}, \quad \forall s = 1, 2, \ldots, S-1
+\]
+
+2. The number of officers assigned must be non-negative:
+
+\[
+x_s \geq 0, \quad \forall s = 1, 2, \ldots, S
+\]
+
+3. For the last shift, since it has no succeeding shift, we can define it simply to meet its own requirement:
+
+\[
+x_S \geq officers\_needed_{S}
+\]
+
+\section*{Variables}
+
+\[
+x_s = \text{officers\_assigned}_{s}, \quad \forall s = 1, 2, \ldots, S
+\]
+
+\section*{Output}
+
+The required output is:
+
+\begin{itemize}
+    \item \( officers\_assigned \): the number of officers assigned to each shift.
+    \item \( total\_cost \): the total cost for the town.
+\end{itemize}
+
+\end{document}

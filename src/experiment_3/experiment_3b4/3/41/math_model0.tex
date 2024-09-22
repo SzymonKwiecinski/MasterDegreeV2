@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Formulation for Minimizing Floppy Disks Usage}
+
+\subsection*{Decision Variables:}
+\begin{itemize}
+    \item $x_{ij} \in \{0, 1\}$: Binary variable indicating if file $j$ is on disk $i$.
+    \item $y_i \in \{0, 1\}$: Binary variable indicating if disk $i$ is used.
+\end{itemize}
+
+\subsection*{Parameters:}
+\begin{itemize}
+    \item $N$: Number of files.
+    \item $M$: Maximum potential number of disks (initially set to $N$).
+    \item \text{capacity}: Capacity of each floppy disk.
+    \item \text{size}$_j$: Size of file $j$.
+\end{itemize}
+
+\subsection*{Objective:}
+\begin{equation}
+\min \sum_{i=1}^{M} y_i
+\end{equation}
+
+\subsection*{Constraints:}
+\begin{align}
+&\sum_{i=1}^{M} x_{ij} = 1, \quad \forall j = 1, \ldots, N\\
+&\sum_{j=1}^{N} \text{size}_j \cdot x_{ij} \leq \text{capacity} \cdot y_i, \quad \forall i = 1, \ldots, M\\
+&x_{ij} \in \{0, 1\}, \quad y_i \in \{0, 1\}
+\end{align}
+
+\end{document}

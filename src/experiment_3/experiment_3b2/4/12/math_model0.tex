@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Currency Exchange}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $N$: Number of available currencies.
+    \item $start_i$: Initial units of currency $i$ for $i = 1, \ldots, N$.
+    \item $limit_i$: Exchange limit for currency $i$ for $i = 1, \ldots, N$.
+    \item $rate_{i,j}$: Exchange rate from currency $i$ to currency $j$ for $i, j = 1, \ldots, N$.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_{i,j}$: Amount of currency $i$ to be exchanged for currency $j$ for $i, j = 1, \ldots, N$.
+\end{itemize}
+
+\textbf{Objective:}
+Maximize the amount of currency $N$ at the end of the day:
+
+\[
+\max \left( start_N + \sum_{i=1}^{N} x_{i,N} \cdot rate_{i,N} - \sum_{j=1}^{N} x_{N,j} \right)
+\]
+
+\textbf{Constraints:}
+\begin{align}
+    &\sum_{j=1}^{N} x_{i,j} + \sum_{j=1}^{N} x_{j,i} \leq limit_i, \quad \forall i = 1, \ldots, N \\
+    &\sum_{j=1}^{N} x_{i,j} - \sum_{j=1}^{N} (x_{j,i} \cdot rate_{j,i}) \leq start_i, \quad \forall i = 1, \ldots, N \\
+    &x_{i,j} \geq 0, \quad \forall i, j = 1, \ldots, N
+\end{align}
+
+\textbf{Explanation of Constraints:}
+\begin{itemize}
+    \item Equation (1) ensures that the total currency exchanged for each currency $i$ does not exceed its limit.
+    \item Equation (2) ensures that the net exchange of each currency $i$ does not exceed the starting amount.
+    \item Equation (3) ensures that all transactions are non-negative.
+\end{itemize}
+
+\end{document}

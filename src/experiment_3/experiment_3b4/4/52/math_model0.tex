@@ -1,0 +1,17 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+\[
+\text{Minimize} \quad \sum_{p=1}^{P} \sum_{c=1}^{C} \text{transmission}_{p,c} \times \text{send}_{p,c}
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+& \sum_{c=1}^{C} \text{send}_{p,c} \leq \text{supply}_p, \quad \forall p = 1, \ldots, P \\
+& \sum_{p=1}^{P} \text{send}_{p,c} = \text{demand}_c, \quad \forall c = 1, \ldots, C \\
+& \text{send}_{p,c} \geq 0, \quad \forall p = 1, \ldots, P, \quad \forall c = 1, \ldots, C
+\end{align*}
+
+\end{document}

@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Maximizing Revenue}
+
+\subsection*{Problem Description}
+
+A firm produces \( M \) different goods using \( N \) different raw materials. The objective is to determine the amount of each good to produce to maximize the firm's total revenue, subject to the availability of raw materials.
+
+\subsection*{Data}
+
+\begin{itemize}
+    \item Let \( \text{available}_i \) be the amount of raw material \( i \) available for \( i = 1, \ldots, N \).
+    \item Let \( \text{req}_{i,j} \) be the units of material \( i \) required per unit of good \( j \) produced for \( i = 1, \ldots, N \) and \( j = 1, \ldots, M \).
+    \item Let \( \text{price}_j \) be the revenue per unit produced of good \( j \) for \( j = 1, \ldots, M \).
+\end{itemize}
+
+\subsection*{Variables}
+
+\begin{itemize}
+    \item Let \( \text{amount}_j \) be the amount of good \( j \) produced for \( j = 1, \ldots, M \).
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Maximize the total revenue:
+
+\[
+\text{Maximize} \quad Z = \sum_{j=1}^{M} \text{price}_j \times \text{amount}_j
+\]
+
+\subsection*{Constraints}
+
+\begin{itemize}
+    \item Material constraints: Ensure that the production does not exceed available raw materials.
+    \[
+    \sum_{j=1}^{M} \text{req}_{i,j} \times \text{amount}_j \leq \text{available}_i, \quad \forall i = 1, \ldots, N
+    \]
+    \item Non-negativity constraints: Production amount for each good cannot be negative.
+    \[
+    \text{amount}_j \geq 0, \quad \forall j = 1, \ldots, M
+    \]
+\end{itemize}
+
+\end{document}

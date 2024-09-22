@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Alloy Production}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Statement}
+A manufacturer wishes to produce a total of \( \text{alloy\_quant} \) lb of an alloy that consists of several kinds of metals, specifically targeting \( \text{target}_{m} \) lb of metal \( \text{metal}_{m} \). The manufacturer has \( K \) different alloys available for purchase.
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{alloy\_quant} \): Total weight of the desired alloy (in lb).
+    \item \( \text{target}_{m} \): Target weight of metal \( m \) (for \( m = 1, \ldots, M \)).
+    \item \( \text{ratio}_{k,m} \): Ratio of metal \( m \) in alloy \( k \) (for \( k = 1, \ldots, K \) and \( m = 1, \ldots, M \)).
+    \item \( \text{price}_{k} \): Price of alloy \( k \) (for \( k = 1, \ldots, K \)).
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let \( \text{amount}_{k} \) be the quantity of alloy \( k \) purchased (for \( k = 1, \ldots, K \)).
+
+\subsection*{Objective Function}
+The objective is to minimize the total cost of the alloys purchased:
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} \text{price}_{k} \cdot \text{amount}_{k}
+\]
+
+\subsection*{Constraints}
+1. The total weight of the alloy produced must equal the desired weight:
+   \[
+   \sum_{k=1}^{K} \text{amount}_{k} = \text{alloy\_quant}
+   \]
+
+2. The quantity of each metal in the alloy must satisfy the target requirement:
+   \[
+   \sum_{k=1}^{K} \text{ratio}_{k,m} \cdot \text{amount}_{k} = \text{target}_{m}, \quad \text{for } m = 1, \ldots, M
+   \]
+
+3. Non-negativity constraint:
+   \[
+   \text{amount}_{k} \geq 0, \quad \text{for } k = 1, \ldots, K
+   \]
+
+\subsection*{Output}
+The solution will provide the amounts of each alloy to purchase:
+\[
+\text{amount} = [\text{amount}_{1}, \text{amount}_{2}, \ldots, \text{amount}_{K}]
+\]
+
+\end{document}

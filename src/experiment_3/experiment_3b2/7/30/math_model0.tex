@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Quadratic Curve Fitting}
+
+Given data:
+
+- \( y = [y_1, y_2, \ldots, y_K] \)
+- \( x = [x_1, x_2, \ldots, x_K] \)
+
+Objective: Fit the best quadratic curve \( y = c \cdot x^2 + b \cdot x + a \) to the data points by minimizing the sum of absolute deviations.
+
+\subsection*{Linear Programming Formulation}
+
+\textbf{Objective:}
+
+Minimize:
+\[
+\sum_{k=1}^{K} z_k
+\]
+
+\textbf{Subject to:}
+\[
+z_k \geq y_k - (c \cdot x_k^2 + b \cdot x_k + a) \quad \text{for } k = 1, \ldots, K
+\]
+\[
+z_k \geq -(y_k - (c \cdot x_k^2 + b \cdot x_k + a)) \quad \text{for } k = 1, \ldots, K
+\]
+
+\textbf{Variables:}
+- \( c \) : Coefficient of the quadratic term
+- \( b \) : Coefficient of the linear term
+- \( a \) : Constant coefficient
+- \( z_k \) : Absolute deviation for each data point \( k \)
+
+\end{document}

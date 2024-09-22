@@ -1,0 +1,75 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model for Rocket Trajectory Optimization}
+
+\subsection*{Given Data and Problem Description}
+
+We consider a rocket traveling along a straight path with the following parameters:
+- Initial position: \( x_0 \)
+- Initial velocity: \( v_0 \)
+- Target position: \( x_T \)
+- Target velocity: \( v_T \)
+- Time horizon: \( T \)
+
+The state of the rocket at time \( t \) is represented by:
+- Position: \( x_t \)
+- Velocity: \( v_t \)
+- Acceleration: \( a_t \)
+
+The relationships between these variables over discrete time increments are given by:
+\begin{align*}
+    x_{t+1} &= x_t + v_t \\
+    v_{t+1} &= v_t + a_t
+\end{align*}
+
+The acceleration \( a_t \) is controlled by the rocket's thrust, and we aim to minimize the maximum thrust required over the course of the flight, denoted as \( \max_t |a_t| \).
+
+\subsection*{Objective}
+
+Minimize the maximum thrust:
+
+\[
+\min \max_t |a_t|, \quad t = 0, 1, \ldots, T-1
+\]
+
+\subsection*{Constraints}
+
+The constraints for the rocket's trajectory are:
+1. Initial and target conditions for position and velocity:
+   \begin{align*}
+       x_0 &= \text{given} \\
+       v_0 &= \text{given} \\
+       x_T &= \text{given target position} \\
+       v_T &= \text{given target velocity}
+   \end{align*}
+
+2. Dynamics of the motion for \( t = 0, 1, \ldots, T-1 \):
+   \begin{align*}
+       x_{t+1} &= x_t + v_t \\
+       v_{t+1} &= v_t + a_t
+   \end{align*}
+
+3. Fuel consumption is proportional to the absolute value of acceleration \( |a_t| \).
+
+\subsection*{Decision Variables}
+
+- \( x_t \): Position of the rocket at time \( t \)
+- \( v_t \): Velocity of the rocket at time \( t \)
+- \( a_t \): Acceleration of the rocket at time \( t \)
+- \( |a_t| \leq M \) with \( M = \max_t |a_t| \)
+
+\subsection*{Output Information}
+
+The solution to the problem will provide:
+- A list of the positions \( x_t \) for \( t = 1, \ldots, T \)
+- A list of the velocities \( v_t \) for \( t = 1, \ldots, T \)
+- A list of the accelerations \( a_t \) for \( t = 0, 1, \ldots, T-1 \)
+- The total fuel spent, computed as:
+  \[
+  \text{fuel\_spend} = \sum_{t=0}^{T-1} |a_t|
+  \]
+
+\end{document}

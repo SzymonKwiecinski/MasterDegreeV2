@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+
+\section*{Mathematical Model for the Mining Company Problem}
+
+\subsection*{Sets and Indices}
+\begin{align*}
+&K = \{1, 2, \ldots, n\_mines\} \quad \text{(set of mines)} \\
+&I = \{1, 2, \ldots, \text{time horizon in years}\} \quad \text{(set of years)} \\
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+&n\_maxwork \quad \text{(maximum number of mines that can operate in a year)} \\
+&\text{royalty}_k \quad \text{(yearly royalties payable on mine } k) \\
+&\text{limit}_k \quad \text{(upper limit of ore extractable from mine } k \text{ in a year)} \\
+&\text{quality}_k \quad \text{(quality of ore from mine } k) \\
+&\text{requiredquality}_i \quad \text{(required quality of ore in year } i) \\
+&\text{price} \quad \text{(selling price of blended ore per ton)} \\
+&\text{discount} \quad \text{(discount rate per annum)} \\
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+&\text{isoperated}_{k,i} \in \{0,1\} \quad \text{(1 if mine } k \text{ is operated in year } i, \text{ 0 otherwise)} \\
+&\text{amount}_{k,i} \geq 0 \quad \text{(amount of ore produced by mine } k \text{ in year } i)} \\
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the present value of profits over the planning horizon:
+\[
+\text{Maximize } Z = \sum_{i \in I} \left( \frac{1}{(1 + \text{discount})^i} \left( \text{price} \times \sum_{k \in K} \text{amount}_{k,i} - \sum_{k \in K} \text{royalty}_k \times \text{isoperated}_{k,i} \right) \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+&\text{(1) Limit on number of operating mines:} \\
+&\sum_{k \in K} \text{isoperated}_{k,i} \leq n\_maxwork, \quad \forall i \in I \\
+&\text{(2) Limit on ore extraction:} \\
+&0 \leq \text{amount}_{k,i} \leq \text{limit}_k \times \text{isoperated}_{k,i}, \quad \forall k \in K, \forall i \in I \\
+&\text{(3) Blended quality requirement:} \\
+&\frac{\sum_{k \in K} \text{quality}_k \times \text{amount}_{k,i}}{\sum_{k \in K} \text{amount}_{k,i}} = \text{requiredquality}_i, \quad \forall i \in I \text{ (when production is positive)}\\
+&\text{(4) Production and operation consistency:} \\
+&\text{amount}_{k,i} = 0 \quad \text{if } \text{isoperated}_{k,i} = 0, \quad \forall k \in K, \forall i \in I \\
+\end{align*}
+
+\end{document}

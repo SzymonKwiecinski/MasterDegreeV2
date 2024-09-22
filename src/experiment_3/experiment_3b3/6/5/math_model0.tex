@@ -1,0 +1,81 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Communication Network}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item Let \( N \) be the set of nodes, where \( n = |N| \).
+    \item Let \( A \) be the set of all ordered pairs representing communication links, where each link is defined as \( (i, j) \) with \( i, j \in N \).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( U_{i,j} \): Maximum capacity of link \( (i,j) \) in bits per second.
+    \item \( C_{i,j} \): Cost per bit transmitted along link \( (i,j) \).
+    \item \( B_{k,l} \): Rate of data generated from node \( k \) to node \( l \) in bits per second.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( x_{i,j} \) be the flow of data on link \( (i,j) \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total transmission cost:
+\[
+\text{Minimize } Z = \sum_{(i,j) \in A} C_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Capacity constraints:
+    \[
+    x_{i,j} \leq U_{i,j} \quad \forall (i,j) \in A
+    \]
+
+    \item Flow conservation constraints for each node:
+    \[
+    \sum_{j:(i,j) \in A} x_{i,j} - \sum_{j:(j,i) \in A} x_{j,i} = 
+        \begin{cases}
+            B_{i,j} & \text{for } i=k \text{ (source node)} \\
+            -B_{j,i} & \text{for } j=l \text{ (destination node)} \\
+            0 & \text{otherwise}
+        \end{cases}
+    \quad \forall i \in N
+    \]
+
+    \item Non-negativity constraint:
+    \[
+    x_{i,j} \geq 0 \quad \forall (i,j) \in A
+    \]
+\end{itemize}
+
+\subsection*{Output Variables}
+\begin{itemize}
+    \item \( \text{total\_cost} = Z \)
+    \item \( \text{path\_cost} \) for each path from \( k \) to \( l \)
+    \item \( \text{path\_flow} = x_{i,j} \) for the corresponding paths
+\end{itemize}
+
+\subsection*{Output Format}
+The optimized paths will be represented as:
+\[
+\{ 
+    \text{"optimized\_paths"}: \{
+        \text{"paths"}: [
+            \{
+                \text{"source"}: k, 
+                \text{"destination"}: l, 
+                \text{"route"}: [k, i_1, i_2, \ldots, l], 
+                \text{"path\_flow"}: \text{path\_flow}, 
+                \text{"path\_cost"}: \text{path\_cost}
+            \}
+        ],
+        \text{"total\_cost"}: \text{total\_cost}
+    \}
+\}
+\]
+
+\end{document}

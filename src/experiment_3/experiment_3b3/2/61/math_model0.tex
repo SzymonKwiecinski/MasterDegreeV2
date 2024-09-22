@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Intrusion Intervention in Network}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item \( N \): Set of clusters where \( i \in N \) represents each cluster.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{isolate\_central}_i \): Processing time for isolating cluster \( i \) centrally.
+    \item \( \text{scan\_central}_i \): Processing time for scanning cluster \( i \) centrally.
+    \item \( \text{isolate\_distributed}_i \): Processing time for isolating cluster \( i \) through distributed nodes.
+    \item \( \text{scan\_distributed}_i \): Processing time for scanning cluster \( i \) through distributed nodes.
+    \item \( \text{central\_cost} \): Cost per hour for central processing.
+    \item \( \text{distributed\_cost} \): Cost per hour for distributed processing.
+    \item \( \text{max\_central} \): Maximum hours available for central processing.
+    \item \( \text{max\_distributed} \): Maximum hours available for distributed processing.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( x_{i,j} \): Binary variable indicating if intervention type \( j \) (where \( j \in \{ \text{isolate, scan} \} \)) is applied to cluster \( i \).
+    \item \( y_i \): Binary variable indicating the processing method for cluster \( i \) (where \( y_i = 1 \) for central and \( y_i = 0 \) for distributed).
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+    \text{Minimize} \quad Z = \sum_{i=1}^{N} \Big(y_i \cdot \big( x_{i,\text{isolate}} \cdot \text{isolate\_central}_i + x_{i,\text{scan}} \cdot \text{scan\_central}_i \big) \cdot \text{central\_cost} + (1 - y_i) \cdot \big( x_{i,\text{isolate}} \cdot \text{isolate\_distributed}_i + x_{i,\text{scan}} \cdot \text{scan\_distributed}_i \big) \cdot \text{distributed\_cost} \Big) 
+\end{align*}
+
+\textbf{Subject to:}
+
+\textbf{1. Intervention Type Consistency:}
+\[
+\sum_{j \in \{ \text{isolate}, \text{scan} \}} x_{i,j} = 1, \quad \forall i \in N
+\]
+
+\textbf{2. Central Processing Time Constraint:}
+\[
+\sum_{i=1}^{N} (y_i \cdot (x_{i,\text{isolate}} \cdot \text{isolate\_central}_i + x_{i,\text{scan}} \cdot \text{scan\_central}_i)) \leq \text{max\_central}
+\]
+
+\textbf{3. Distributed Processing Time Constraint:}
+\[
+\sum_{i=1}^{N} ((1 - y_i) \cdot (x_{i,\text{isolate}} \cdot \text{isolate\_distributed}_i + x_{i,\text{scan}} \cdot \text{scan\_distributed}_i)) \leq \text{max\_distributed}
+\]
+
+\textbf{4. Binary Constraints:}
+\[
+x_{i,j} \in \{0, 1\}, \quad \forall i \in N, j \in \{ \text{isolate}, \text{scan} \}
+\]
+\[
+y_i \in \{0, 1\}, \quad \forall i \in N
+\]
+
+\textbf{Output:}
+\begin{itemize}
+    \item \textbf{Interventions:} A list specifying the intervention type, processing method, and amount for each cluster.
+    \item \textbf{Total Cost:} The objective function value \( Z \) representing the total cost of interventions.
+\end{itemize}
+
+\end{document}

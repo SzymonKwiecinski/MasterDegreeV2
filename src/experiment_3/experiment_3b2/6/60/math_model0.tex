@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Indices:}
+\begin{align*}
+& i = 1, 2, \ldots, I \quad \text{(projects)} \\
+& j = 1, 2, \ldots, J \quad \text{(consultants)}
+\end{align*}
+
+\textbf{Parameters:}
+\begin{align*}
+& f_j \quad \text{= fixed cost for hiring consultant } j \\
+& c_{i,j} \quad \text{= additional cost for assigning project } i \text{ to consultant } j \\
+& K \quad \text{= maximum number of projects a consultant can be assigned}
+\end{align*}
+
+\textbf{Decision Variables:}
+\begin{align*}
+& x_{i,j} \quad \text{= 1, if project } i \text{ is assigned to consultant } j, \text{ 0 otherwise} \\
+& y_j \quad \text{= 1, if consultant } j \text{ is hired, \text{ 0 otherwise}}
+\end{align*}
+
+\textbf{Objective:}
+\[
+\text{Minimize} \quad Z = \sum_{j=1}^J f_j y_j + \sum_{i=1}^I \sum_{j=1}^J c_{i,j} x_{i,j}
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+& \sum_{j=1}^J x_{i,j} = 1, \quad \forall i = 1, \ldots, I \quad \text{(Each project must be assigned to exactly one consultant)} \\
+& \sum_{i=1}^I x_{i,j} \leq K y_j, \quad \forall j = 1, \ldots, J \quad \text{(Consultants can handle at most } K \text{ projects)} \\
+& x_{i,j} \leq y_j, \quad \forall i = 1, \ldots, I, \quad j = 1, \ldots, J \quad \text{(Project can be assigned only if the consultant is hired)} \\
+& x_{i,j} \in \{0, 1\}, \quad \forall i = 1, \ldots, I, \quad j = 1, \ldots, J \\
+& y_j \in \{0, 1\}, \quad \forall j = 1, \ldots, J
+\end{align*}
+
+\end{document}

@@ -1,0 +1,16 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\begin{align*}
+\text{Maximize} \quad & Z = \sum_{i=1}^{I} \sum_{k=1}^{K} \left( \text{profit}_k \times \text{sell}_{k,i} - \text{store\_price} \times \text{storage}_{k,i} \right) \\
+\text{Subject to:} \quad & \sum_{k=1}^{K} \text{time}_{k,m} \times \text{manufacture}_{k,i} \leq (\text{num}_{m} - \text{maintain}_{i,m}) \times 6 \times \text{n\_workhours} \times 24, \quad \forall m, \forall i \\
+& \text{sell}_{k,i} \leq \text{limit}_{k,i}, \quad \forall k, \forall i \\
+& \text{storage}_{k,i} \leq 100, \quad \forall k, \forall i \\
+& \text{storage}_{k,i-1} + \text{manufacture}_{k,i} = \text{sell}_{k,i} + \text{storage}_{k,i}, \quad \forall k, \forall i \\
+& \text{storage}_{k,0} = 0, \quad \forall k \\
+& \text{storage}_{k,I} = \text{keep\_quantity}, \quad \forall k \\
+& \text{sell}_{k,i}, \text{manufacture}_{k,i}, \text{storage}_{k,i} \geq 0, \quad \forall k, \forall i 
+\end{align*}
+
+\end{document}

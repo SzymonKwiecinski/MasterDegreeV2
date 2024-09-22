@@ -1,0 +1,26 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+Maximize the total profit, which is given by:
+\[
+Z = \sum_{k=1}^{K} \text{profit}_{k} \times \text{quantity}_{k}
+\]
+
+\textbf{Constraints:}
+
+1. Time constraints at each stage:
+\[
+\sum_{k=1}^{K} \text{produce\_time}_{k,s} \times \text{quantity}_{k} \leq \text{time}_{s}, \quad \forall s = 1, \ldots, S
+\]
+
+2. Non-negativity constraints for each product:
+\[
+\text{quantity}_{k} \geq 0, \quad \forall k = 1, \ldots, K
+\]
+
+\textbf{Variables:}
+- \(\text{quantity}_{k}\): the number of units to produce for each product \(k\).
+
+\end{document}

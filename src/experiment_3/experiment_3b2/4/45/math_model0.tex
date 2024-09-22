@@ -1,0 +1,21 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Formulation}
+
+\text{Objective:}
+\begin{align*}
+\text{Minimize} \quad & \sum_{a=1}^{A} \text{cost}_a \cdot x_a
+\end{align*}
+
+\text{Subject to:}
+\begin{align*}
+& \sum_{a=1}^{A} \text{young\_clicks}_a \cdot x_a \geq \text{goal\_young} & \text{(Clicks from 18-25)} \\
+& \sum_{a=1}^{A} \text{old\_clicks}_a \cdot x_a \geq \text{goal\_old} & \text{(Clicks from 25+)} \\
+& \sum_{a=1}^{A} \text{young\_clicks}_a \cdot \text{unique\_clicks}_a \cdot x_a \geq \text{goal\_unique\_young} & \text{(Unique clicks from 18-25)} \\
+& \sum_{a=1}^{A} \text{old\_clicks}_a \cdot \text{unique\_clicks}_a \cdot x_a \geq \text{goal\_unique\_old} & \text{(Unique clicks from 25+)} \\
+& 0 \leq x_a \leq \text{max\_clicks}_a & \text{for each } a = 1, \ldots, A
+\end{align*}
+
+\end{document}

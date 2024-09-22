@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\subsection*{Decision Variables}
+Let \( \text{batches}_p \) be the number of batches of part \( p \) produced, where \( p = 1, \ldots, P \).
+
+\subsection*{Objective Function}
+Maximize the profit, which is total revenue minus total cost:
+\[
+\text{Profit} = \sum_{p=1}^{P} \left( \text{price}_p \times \text{batches}_p \right) - \sum_{m=1}^{M} \left( \text{cost}_m \times \sum_{p=1}^{P} \text{time}_{m,p} \times \text{batches}_p \right)
+\]
+
+\subsection*{Constraints}
+
+1. Machine availability constraints:
+   \[
+   \sum_{p=1}^{P} \text{time}_{m,p} \times \text{batches}_p \leq \text{available}_m, \quad \forall m = 1, \ldots, M
+   \]
+
+2. Minimum batch production constraints:
+   \[
+   \text{batches}_p \geq \text{min\_batches}_p, \quad \forall p = 1, \ldots, P
+   \]
+
+3. Non-negativity constraints:
+   \[
+   \text{batches}_p \geq 0, \quad \forall p = 1, \ldots, P
+   \]
+
+\subsection*{Objective}
+Formulate the objective as
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} \left( \text{price}_p \times \text{batches}_p \right) - \sum_{m=1}^{M} \left( \text{cost}_m \times \sum_{p=1}^{P} \text{time}_{m,p} \times \text{batches}_p \right)
+\]
+
+\subsection*{Subject to}
+\[
+\begin{align*}
+& \sum_{p=1}^{P} \text{time}_{m,p} \times \text{batches}_p \leq \text{available}_m, && \forall m = 1, \ldots, M \\
+& \text{batches}_p \geq \text{min\_batches}_p, && \forall p = 1, \ldots, P \\
+& \text{batches}_p \geq 0, && \forall p = 1, \ldots, P
+\end{align*}
+\]
+
+\end{document}

@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Steel Production}
+
+\textbf{Variables:} \\
+Let \( x_k \) be the amount of mineral \( k \) (in tons) that is melted, for \( k = 1, \ldots, K \). \\
+Let \( y \) be the amount of Manganese (in tons) added directly.
+
+\textbf{Parameters:} \\
+- \( n_{\text{steel\_quant}} \): amount of steel required (tons) \\
+- \( mn_{\text{percent}} \): minimum percentage of manganese \\
+- \( si_{\text{min}} \): minimum percentage of silicon \\
+- \( si_{\text{max}} \): maximum percentage of silicon \\
+- \( \text{contsi}_k \): percentage of silicon in mineral \( k \) \\
+- \( \text{contmn}_k \): percentage of manganese in mineral \( k \) \\
+- \( \text{mang\_price} \): price of manganese (million euros per ton) \\
+- \( \text{cost}_k \): cost of mineral \( k \) (million euros per thousand tons) \\
+- \( \text{sell\_price} \): selling price of steel (million euros per ton) \\
+- \( \text{melt\_price} \): cost of smelting a ton of mineral (million euros) \\
+
+\textbf{Objective:} \\
+Maximize profit:
+
+\[
+\text{Profit} = n_{\text{steel\_quant}} \cdot \text{sell\_price} - \sum_{k=1}^{K} \left( \frac{\text{cost}_k}{1000} \cdot x_k + \text{melt\_price} \cdot x_k \right) - \text{mang\_price} \cdot y
+\]
+
+\textbf{Subject to:}
+
+1. Total steel produced must meet quantity requirement:
+\[
+\sum_{k=1}^{K} \left( \frac{\text{contsi}_k}{100} \cdot x_k \right) + y \geq n_{\text{steel\_quant}} \cdot \frac{mn_{\text{percent}}}{100}
+\]
+
+2. Silicon content must be within specified limits:
+\[
+si_{\text{min}} \leq \sum_{k=1}^{K} \left( \frac{\text{contsi}_k}{100} \cdot x_k \right) \leq si_{\text{max}}
+\]
+
+3. Total steel produced must match the steel quantity required:
+\[
+\sum_{k=1}^{K} x_k + y = n_{\text{steel\_quant}}
+\]
+
+4. Non-negativity constraints:
+\[
+x_k \geq 0, \quad y \geq 0 \quad \forall k = 1, \ldots, K
+\]
+
+\textbf{Output Variables:}
+\begin{itemize}
+    \item \( \text{amount} = [x_1, x_2, \ldots, x_K] \): amounts of each mineral melted
+    \item \( num_{\text{mang}} = y \): amount of Manganese added
+\end{itemize}
+
+\end{document}

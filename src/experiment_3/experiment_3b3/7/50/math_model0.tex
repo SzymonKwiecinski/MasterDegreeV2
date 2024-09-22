@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item Let \( b_p \) be the number of batches of part \( p \) produced (for \( p = 1, \ldots, P \)).
+    \item Let \( e_m \) be the extra time purchased for machine \( m \) (for \( m = 1, \ldots, M \)).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{time}_{m,p} \): hours required on machine \( m \) to produce one batch of part \( p \).
+    \item \( \text{cost}_{m} \): cost per hour for using machine \( m \).
+    \item \( \text{available}_{m} \): available hours for machine \( m \) per month.
+    \item \( \text{price}_{p} \): selling price per batch of part \( p \).
+    \item \( \text{min\_batches}_{p} \): minimum batches required for part \( p \) to fulfill contracts.
+    \item \( \text{extra\_costs}_{m} \): cost of extra hours for machine \( m \).
+    \item \( \text{max\_extra}_{m} \): maximum extra hours that can be purchased for machine \( m \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} \left( \text{price}_{p} \cdot b_p \right) - \sum_{m=1}^{M} \left( \text{cost}_{m} \cdot \left( \sum_{p=1}^{P} \text{time}_{m,p} \cdot b_p + e_m \right) \right) - \sum_{m=1}^{M} \left( \text{extra\_costs}_{m} \cdot e_m \right)
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Machine time constraints:
+    \[
+    \sum_{p=1}^{P} \text{time}_{m,p} \cdot b_p \leq \text{available}_{m} + e_m, \quad \forall m = 1, \ldots, M
+    \]
+    \item Minimum production constraints:
+    \[
+    b_p \geq \text{min\_batches}_{p}, \quad \forall p = 1, \ldots, P
+    \]
+    \item Extra time limits:
+    \[
+    e_m \leq \text{max\_extra}_{m}, \quad \forall m = 1, \ldots, M
+    \]
+    \item Non-negativity constraints:
+    \[
+    b_p \geq 0, \quad e_m \geq 0 \quad \forall p = 1, \ldots, P, \, m = 1, \ldots, M
+    \]
+\end{itemize}
+
+\end{document}

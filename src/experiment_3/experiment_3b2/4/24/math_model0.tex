@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model: Mixed Integer Programming (MIP)}
+
+\subsection*{Sets and Indices}
+\begin{align*}
+& K = \{1, 2, \ldots, \text{n\_mines}\} & \text{Set of mines.} \\
+& I = \{1, 2, \ldots, \text{number of years}\} & \text{Set of years.}
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+& \text{n\_maxwork} & \text{Maximum number of mines that can operate in any one year.} \\
+& \text{royalty}_k & \text{Royalty payable for keeping mine $k$ open.} \\
+& \text{limit}_k & \text{Maximum ore extraction limit for mine $k$ per year.} \\
+& \text{quality}_k & \text{Quality of ore from mine $k$.} \\
+& \text{requiredquality}_i & \text{Required quality of blended ore for year $i$.} \\
+& \text{price} & \text{Selling price per ton of blended ore.} \\
+& \text{discount} & \text{Discount rate per annum.}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+& \text{isoperated}_{k,i} \in \{0, 1\} & \text{1 if mine $k$ is operated in year $i$, 0 otherwise.} \\
+& \text{amount}_{k,i} \geq 0 & \text{Amount of ore produced by mine $k$ in year $i$.}
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the discounted profit over the planning horizon:
+\begin{align*}
+\max \sum_{i \in I} \left(\frac{\text{price} \times \sum_{k \in K} \text{amount}_{k,i} - \sum_{k \in K} (\text{royalty}_k \times \text{isoperated}_{k,i})}{(1 + \text{discount})^i}\right)
+\end{align*}
+
+\subsection*{Constraints}
+\noindent \textbf{Quality Constraint:}
+\begin{align*}
+\sum_{k \in K} \text{amount}_{k,i} \times \text{quality}_k = \text{requiredquality}_i \times \sum_{k \in K} \text{amount}_{k,i}, \quad \forall i \in I
+\end{align*}
+
+\noindent \textbf{Operational Limit Constraint:}
+\begin{align*}
+\sum_{k \in K} \text{isoperated}_{k,i} \leq \text{n\_maxwork}, \quad \forall i \in I
+\end{align*}
+
+\noindent \textbf{Production Limit Constraint:}
+\begin{align*}
+0 \leq \text{amount}_{k,i} \leq \text{limit}_k \times \text{isoperated}_{k,i}, \quad \forall k \in K, \forall i \in I
+\end{align*}
+
+\noindent \textbf{Operation Requirement Constraint:}
+\begin{align*}
+\text{isoperated}_{k,i} \geq \text{isoperated}_{k,i+1}, \quad \forall k \in K, \forall i \in I - \{n\_years\}
+\end{align*}
+
+\end{document}

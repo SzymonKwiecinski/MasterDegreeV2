@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item \( W \): Set of weeks, indexed by \( w = 1, \ldots, W \)
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{regular\_cost} \): Cost of regular labor per hour
+    \item \( \text{overtime\_cost} \): Cost of overtime labor per hour
+    \item \( \text{assembly\_time} \): Time to assemble one basket in hours
+    \item \( \text{material\_cost} \): Material cost per basket
+    \item \( \text{selling\_price} \): Selling price per basket
+    \item \( \text{holding\_cost} \): Holding cost per basket per week
+    \item \( \text{salvage\_value} \): Salvage value per unsold basket at the end of the season
+    \item \( \text{demand}_w \): Demand for baskets in week \( w \)
+    \item \( \text{regular\_labor}_w \): Maximum regular labor hours available in week \( w \)
+    \item \( \text{overtime\_labor}_w \): Maximum overtime labor hours available in week \( w \)
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{regular\_used}_w \): Hours of regular labor used in week \( w \)
+    \item \( \text{overtime\_used}_w \): Hours of overtime labor used in week \( w \)
+    \item \( \text{regular\_baskets}_w \): Number of baskets assembled with regular labor in week \( w \)
+    \item \( \text{overtime\_baskets}_w \): Number of baskets assembled with overtime labor in week \( w \)
+    \item \( \text{inventory}_w \): Number of baskets on hand at the end of week \( w \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit over the season:
+
+\[
+\begin{aligned}
+\max \quad & \sum_{w=1}^{W} \left( \text{selling\_price} \times (\text{regular\_baskets}_w + \text{overtime\_baskets}_w) - \text{material\_cost} \times (\text{regular\_baskets}_w + \text{overtime\_baskets}_w) \right) \\
+& - \sum_{w=1}^{W} \left( \text{regular\_cost} \times \text{regular\_used}_w + \text{overtime\_cost} \times \text{overtime\_used}_w \right) \\
+& - \sum_{w=1}^{W-1} \text{holding\_cost} \times \text{inventory}_w + \text{salvage\_value} \times \text{inventory}_W
+\end{aligned}
+\]
+
+\subsection*{Constraints}
+
+\[
+\begin{aligned}
+& \text{regular\_used}_w \leq \text{regular\_labor}_w, && \forall w \\
+& \text{overtime\_used}_w \leq \text{overtime\_labor}_w, && \forall w \\
+& \text{regular\_baskets}_w = \frac{\text{regular\_used}_w}{\text{assembly\_time}}, && \forall w \\
+& \text{overtime\_baskets}_w = \frac{\text{overtime\_used}_w}{\text{assembly\_time}}, && \forall w \\
+& \text{inventory}_w = \text{inventory}_{w-1} + \text{regular\_baskets}_w + \text{overtime\_baskets}_w - \text{demand}_w, && \forall w \\
+& \text{inventory}_0 = 0 \\
+& \text{inventory}_w \geq 0, && \forall w \\
+\end{aligned}
+\]
+
+This model aims to determine the optimal usage of regular and overtime labor to maximize profit while ensuring the demand is met each week.
+
+\end{document}

@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Nurse Scheduling Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $period$: The number of consecutive days a nurse works the night shift.
+    \item $d_j$: The demand for nurses on night shift for day $j$, where $j = 1, \ldots, 7$.
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item $start_j$: The number of nurses that start their shift on day $j$, where $j = 1, \ldots, 7$.
+    \item $total$: The total number of nurses hired.
+\end{itemize}
+
+\subsection*{Objective}
+Minimize the total number of nurses hired:
+\[
+\text{Minimize } total = \sum_{j=1}^{7} start_j
+\]
+
+\subsection*{Constraints}
+The demand for nurses on each day must be satisfied, which can be expressed as:
+\[
+\sum_{i=0}^{period-1} start_{(j-i) \mod 7} \geq d_j, \quad \forall j = 1, \ldots, 7
+\]
+where $start_{(j-i) \mod 7}$ is the number of nurses starting on day $j-i$.
+
+\subsection*{Non-negativity Constraints}
+All variables must be non-negative integers:
+\[
+start_j \geq 0 \quad \forall j = 1, \ldots, 7
+\]
+\[
+total \geq 0
+\]
+
+\end{document}

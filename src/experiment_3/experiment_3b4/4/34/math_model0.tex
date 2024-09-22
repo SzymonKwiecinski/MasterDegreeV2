@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Minimizing Food Cost}
+
+\textbf{Objective:}
+Minimize the total purchase cost of foods:
+
+\[
+\min \sum_{k=1}^{K} \text{price}_k \cdot \text{quantity}_k
+\]
+
+\textbf{Subject to:}
+
+For each nutrient \( m \), ensure that the nutritional demand is met:
+
+\[
+\sum_{k=1}^{K} \text{nutri}_{k, m} \cdot \text{quantity}_k \geq \text{demand}_m \quad \text{for } m = 1, \ldots, M
+\]
+
+\textbf{Decision Variables:}
+
+\[
+\text{quantity}_k \geq 0 \quad \text{for } k = 1, \ldots, K
+\]
+
+In this model:
+\begin{itemize}
+    \item \(\text{price}_k\) is the cost of one unit of food \( k \).
+    \item \(\text{demand}_m\) is the required amount of nutrient \( m \).
+    \item \(\text{nutri}_{k, m}\) is the amount of nutrient \( m \) in one unit of food \( k \).
+    \item \(\text{quantity}_k\) is the amount of food \( k \) to purchase.
+\end{itemize}
+
+This linear programming model can be solved using optimization software to determine the optimal quantities of each food to purchase, thus minimizing the total cost while meeting all nutritional demands.
+
+\end{document}

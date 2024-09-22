@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Translator Selection Problem}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $i \in \{1, 2, \ldots, N\}$: Index for translators
+    \item $m \in \{1, 2, \ldots, M\}$: Index for required languages
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $cost_i$: Cost for hiring translator $i$
+    \item $languages_i$: Set of languages that translator $i$ can translate
+    \item $required\_languages_m$: Required languages for translation
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_i \in \{0, 1\}$: Binary variable that equals 1 if translator $i$ is selected, 0 otherwise
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost of hiring translators:
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} cost_i \cdot x_i
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Ensure that all required languages are covered:
+\end{itemize}
+\[
+\sum_{i: language_m \in languages_i} x_i \geq 1 \quad \forall m \in \{1, 2, \ldots, M\}
+\]
+This constraint ensures that for each required language $m$, at least one translator who can translate that language is selected.
+
+\subsection*{Solution}
+The solution will yield:
+\begin{itemize}
+    \item \texttt{selected\_translators}: list of translator ids ($i$) that are chosen
+    \item \texttt{total\_cost}: the total cost associated with the selected translators
+\end{itemize}
+
+\end{document}

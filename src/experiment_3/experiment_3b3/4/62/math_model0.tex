@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item Let \( C = \{ 1, 2, \ldots, N \} \) be the set of towns.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{distance}_{i,j} \): Distance between town \( i \) and town \( j \).
+    \item \( \text{start\_city} \): The starting town for the traveler.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_{i,j} \): Binary variable that is 1 if the traveler travels directly from town \( i \) to town \( j \), and 0 otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the total distance traveled:
+\[
+\text{minimize } Z = \sum_{i \in C} \sum_{j \in C} \text{distance}_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+1. & \quad \sum_{j \in C} x_{\text{start\_city},j} = 1 \quad \text{(from start city to one town)} \\
+2. & \quad \sum_{j \in C} x_{j,\text{start\_city}} = 1 \quad \text{(return to start city)} \\
+3. & \quad \sum_{j \in C} x_{i,j} = 1 \quad \forall i \in C \setminus \{\text{start\_city}\} \\
+4. & \quad \sum_{i \in C} x_{i,j} = 1 \quad \forall j \in C \setminus \{\text{start\_city}\} \\
+5. & \quad x_{i,j} \in \{0, 1\} \quad \forall i,j \in C
+\end{align*}
+
+\subsection*{Output}
+The output will be structured as follows:
+\begin{itemize}
+    \item \texttt{visit\_order}: The sequence of cities visited after \texttt{start\_city}.
+    \item \texttt{total\_distance}: The total distance traveled on the optimal journey.
+\end{itemize}
+
+\end{document}

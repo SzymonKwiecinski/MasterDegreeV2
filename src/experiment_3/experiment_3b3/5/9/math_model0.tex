@@ -1,0 +1,69 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Lamp Power Optimization}
+
+\subsection*{Problem Definition}
+Consider a road divided into \( N \) segments, illuminated by \( M \) lamps. Each lamp \( j \) has a power \( \text{power}_j \), and the illumination \( \text{ill}_i \) of segment \( i \) is given by:
+
+\[
+\text{ill}_i = \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j
+\]
+
+where \( \text{coeff}_{i,j} \) are known coefficients that represent the contribution of the \( j \)-th lamp to the illumination of the \( i \)-th segment. The desired illumination for segment \( i \) is denoted as \( \text{desired}_i \).
+
+\subsection*{Objective}
+We aim to minimize the absolute error between the actual illumination of the segments and the desired illumination:
+
+\[
+\text{error} = \sum_{i=1}^{N} | \text{ill}_i - \text{desired}_i |
+\]
+
+\subsection*{Mathematical Formulation}
+We can formulate the problem as follows:
+
+\textbf{Variables:}
+\begin{itemize}
+    \item \( \text{power}_j \) for \( j = 1, \ldots, M \) (lamp powers to be determined)
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize} \quad \sum_{i=1}^{N} \left( e_i^+ + e_i^- \right)
+\]
+where \( e_i^+ \) and \( e_i^- \) are the positive and negative errors defined as:
+\[
+e_i^+ = \max(0, \text{ill}_i - \text{desired}_i)
+\]
+\[
+e_i^- = \max(0, \text{desired}_i - \text{ill}_i)
+\]
+
+\textbf{Subject to:}
+\[
+\text{ill}_i = \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j, \quad \text{for } i = 1, \ldots, N
+\]
+\[
+e_i^+ \geq \text{ill}_i - \text{desired}_i, \quad \text{for } i = 1, \ldots, N
+\]
+\[
+e_i^- \geq \text{desired}_i - \text{ill}_i, \quad \text{for } i = 1, \ldots, N
+\]
+
+\textbf{Non-negativity Constraints:}
+\[
+\text{power}_j \geq 0, \quad \text{for } j = 1, \ldots, M
+\]
+\[
+e_i^+ \geq 0, \quad e_i^- \geq 0, \quad \text{for } i = 1, \ldots, N
+\]
+
+\subsection*{Output}
+The output of the optimization will provide:
+\begin{itemize}
+    \item \( \text{power} = [\text{power}_j \text{ for } j = 1, \ldots, M] \)
+    \item \( \text{error} = \text{error} \)
+\end{itemize}
+
+\end{document}

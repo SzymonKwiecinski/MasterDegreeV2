@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Decision Variables:} \\
+Let \( x_p \) represent the number of batches produced for part \( p \), where \( p = 1, 2, \ldots, P \).
+
+\textbf{Objective Function:} \\
+Maximize the total profit:
+
+\[
+\text{Total Profit} = \sum_{p=1}^{P} \left( \text{price}_p \times x_p \right) - \sum_{m=1}^{M} \left( \text{cost}_m \times \sum_{p=1}^{P} \left( \text{time}_{m,p} \times x_p \right) \right)
+\]
+
+\textbf{Constraints:} \\
+1. Machine availability constraint for each machine \( m \):
+
+\[
+\sum_{p=1}^{P} \left( \text{time}_{m,p} \times x_p \right) \leq \text{available}_m, \quad \text{for } m = 1, 2, \ldots, M
+\]
+
+2. Minimum production constraint for each part \( p \):
+
+\[
+x_p \geq \text{min\_batches}_p, \quad \text{for } p = 1, 2, \ldots, P
+\]
+
+3. Non-negativity constraint:
+
+\[
+x_p \geq 0, \quad \text{for } p = 1, 2, \ldots, P
+\]
+
+\textbf{Given Parameters:} \\
+- \(\text{time}_{m,p}\): The time required on machine \( m \) for part \( p \).
+- \(\text{cost}_m\): The cost per hour for using machine \( m \).
+- \(\text{available}_m\): The available hours per month for machine \( m \).
+- \(\text{price}_p\): The selling price per batch of part \( p \).
+- \(\text{min\_batches}_p\): The minimum number of batches needed for part \( p \).
+
+\end{document}

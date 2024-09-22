@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+We consider a set \( P \) defined by linear inequality constraints:
+
+\[
+P = \{ \mathbf{x} \in \mathbb{R}^N \mid \mathbf{a}_i^T \mathbf{x} \leq b_i, \, i = 1, \ldots, m \}
+\]
+
+where \( \mathbf{a}_i \in \mathbb{R}^N \) and \( b_i \in \mathbb{R} \).
+
+Our goal is to find a ball with center \( \mathbf{y} \) in \( \mathbb{R}^N \) and radius \( r \), defined as the set of all points within (Euclidean) distance \( r \) from \( \mathbf{y} \):
+
+\[
+B(\mathbf{y}, r) = \{ \mathbf{x} \in \mathbb{R}^N \mid \| \mathbf{x} - \mathbf{y} \|_2 \leq r \}
+\]
+
+We seek to maximize the radius \( r \) such that the ball \( B(\mathbf{y}, r) \) is entirely contained within the set \( P \):
+
+\[
+B(\mathbf{y}, r) \subseteq P
+\]
+
+This translates to the following linear programming problem:
+
+\[
+\text{Maximize } r
+\]
+
+subject to the constraints:
+
+\[
+\mathbf{a}_i^T (\mathbf{y} + r \mathbf{u}) \leq b_i, \quad \forall \mathbf{u} \in \mathbb{R}^N \text{ such that } \| \mathbf{u} \|_2 \leq 1, \, i = 1, \ldots, m
+\]
+
+This requires the introduction of auxiliary variables for the constraints, ensuring that for every direction \( \mathbf{u} \) on the boundary of the unit ball, the ball is contained within the feasible region defined by \( \mathbf{a}_i \) and \( b_i \).
+
+The outputs of this model are:
+
+\begin{itemize}
+    \item Center: \( \mathbf{y} = [y_1, y_2, \ldots, y_N] \)
+    \item Radius: \( r \)
+\end{itemize}
+
+The output format is given by:
+
+\[
+\text{Output} = \{ \text{center}: [y_j \text{ for } j = 1, \ldots, N], \text{ radius}: r \}
+\]
+
+\end{document}

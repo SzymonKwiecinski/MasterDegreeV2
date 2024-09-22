@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Nurse Scheduling}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $period$: The number of consecutive days a nurse works during the night shift.
+    \item $d_j$: The demand for nurses on night shift on day $j$, where $j = 1, 2, \ldots, 7$.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $start_j$: The number of nurses that start their working period on day $j$, where $j = 1, 2, \ldots, 7$.
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } Z = \sum_{j=1}^{7} start_j
+\]
+
+\textbf{Constraints:}
+\begin{equation}
+\sum_{j=1}^{7} start_j \cdot x_{j,k} \geq d_k \quad \text{for } k = 1, 2, \ldots, 7
+\end{equation}
+where 
+\[
+x_{j,k} = 
+\begin{cases} 
+1 & \text{if nurse starting on day } j \text{ is working on day } k \\
+0 & \text{otherwise} 
+\end{cases}
+\]
+and is defined as:
+\[
+x_{j,k} = 
+\begin{cases} 
+1 & \text{if } k \in \{j, j+1, \ldots, j + period - 1\} \mod 7\\
+0 & \text{otherwise} 
+\end{cases}
+\]
+
+\textbf{Non-negativity Constraints:}
+\[
+start_j \geq 0 \quad \text{for } j = 1, 2, \ldots, 7
+\]
+
+\end{document}

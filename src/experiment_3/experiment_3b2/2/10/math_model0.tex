@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+Minimize the total distance traveled by all students:
+
+\[
+\sum_{n=1}^{N} \sum_{s=1}^{S} \sum_{g=1}^{G} d_{n,s} \cdot x_{n,s,g}
+\]
+
+\textbf{Subject to:}
+
+Every student must be assigned to a school:
+
+\[
+\sum_{s=1}^{S} x_{n,s,g} = \text{population}_{n,g} \quad \forall n, g
+\]
+
+Capacity constraints:
+
+\[
+\sum_{n=1}^{N} x_{n,s,g} \leq \text{capacity}_{s,g} \quad \forall s, g
+\]
+
+Non-negativity constraints:
+
+\[
+x_{n,s,g} \geq 0 \quad \forall n, s, g
+\]
+
+\end{document}

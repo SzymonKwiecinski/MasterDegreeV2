@@ -1,0 +1,25 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+\[
+\text{Minimize} \quad \sum_{i=1}^{I} \sum_{j=1}^{J} \left( \frac{x_{i,j}}{2} \cdot \text{price} \cdot \text{distance}_{i,j} \right)
+\]
+
+\textbf{Subject to:}
+
+\[
+\sum_{j=1}^{J} x_{i,j} \leq \text{numdepot}_i \quad \forall \, i
+\]
+
+\[
+\sum_{i=1}^{I} x_{i,j} \geq \text{numport}_j \quad \forall \, j
+\]
+
+\[
+x_{i,j} \geq 0 \quad \forall \, i, j
+\]
+
+\end{document}

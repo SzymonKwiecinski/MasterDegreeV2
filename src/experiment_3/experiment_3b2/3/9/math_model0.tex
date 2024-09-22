@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Objective}
+
+Minimize the total error:
+\[
+\text{Minimize} \quad \sum_{i=1}^{N} (error^+_i + error^-_i)
+\]
+
+\subsection*{Constraints}
+
+For each road segment \( i = 1, \ldots, N \):
+\[
+\sum_{j=1}^{M} coeff_{i,j} \cdot power_j - desired_i = error^+_i - error^-_i
+\]
+
+Non-negativity constraints for errors:
+\[
+error^+_i \geq 0, \quad error^-_i \geq 0
+\]
+
+\end{document}

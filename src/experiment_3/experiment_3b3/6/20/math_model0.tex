@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Manufacturing Problem}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $M$: Number of machines, where $m \in \{1, \ldots, M\}$
+    \item $K$: Number of products, where $k \in \{1, \ldots, K\}$
+    \item $I$: Number of months, where $i \in \{1, \ldots, I\}$
+    \item $\text{profit}_k$: Profit per unit of product $k$
+    \item $\text{time}_{k,m}$: Time required to produce one unit of product $k$ on machine $m$
+    \item $\text{maintain}_{i,m}$: Number of machines down for maintenance in month $i$
+    \item $\text{limit}_{k,i}$: Marketing limitation for product $k$ in month $i$
+    \item $\text{store\_price}$: Cost of storage per unit per month
+    \item $\text{keep\_quantity}$: Desired stock level of each product at the end of subsequent months
+    \item $n_{\text{workhours}}$: Number of working hours per day
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $\text{sell}_{k,i}$: Amount of product $k$ sold in month $i$
+    \item $\text{manufacture}_{k,i}$: Amount of product $k$ manufactured in month $i$
+    \item $\text{storage}_{k,i}$: Amount of product $k$ stored at the end of month $i$
+\end{itemize}
+
+\textbf{Objective Function:}
+Maximize total profit:
+\[
+\text{Maximize } Z = \sum_{i=1}^{I} \sum_{k=1}^{K} \left( \text{profit}_k \cdot \text{sell}_{k,i} - \text{store\_price} \cdot \text{storage}_{k,i} \right)
+\]
+
+\textbf{Constraints:}
+1. \text{Time Constraint:}
+\[
+\sum_{k=1}^{K} \sum_{m=1}^{M} \text{time}_{k,m} \cdot \text{manufacture}_{k,i} \leq (M - \sum_{m=1}^{M} \text{maintain}_{i,m}) \cdot n_{\text{workhours}} \cdot 24
+\]
+
+2. \text{Marketing Limitations:}
+\[
+\text{sell}_{k,i} \leq \text{limit}_{k,i} \quad \forall k, \forall i
+\]
+
+3. \text{Storage Constraint:}
+\[
+\text{storage}_{k,i} \leq 100 \quad \forall k, \forall i
+\]
+
+4. \text{Stock Levels:}
+\[
+\text{storage}_{k,i} = \text{manufacture}_{k,i} + \text{storage}_{k,i-1} - \text{sell}_{k,i} + \text{keep\_quantity} \quad \forall k, i>1
+\]
+
+5. \text{Non-negativity:}
+\[
+\text{sell}_{k,i}, \text{manufacture}_{k,i}, \text{storage}_{k,i} \geq 0 \quad \forall k, i
+\]
+
+\end{document}

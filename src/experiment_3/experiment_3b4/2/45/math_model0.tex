@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Custom Tees Advertising Campaign}
+
+\subsection*{Decision Variables}
+Let \( x_a \) be the number of thousands of clicks purchased for ad type \( a \), where \( a = 1, \ldots, A \).
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{a=1}^{A} \text{cost}_a \cdot x_a
+\]
+
+\subsection*{Constraints}
+
+1. Clicks from visitors aged 18-25:
+\[
+\sum_{a=1}^{A} \text{young\_click}_a \cdot x_a \geq \text{goal\_young}
+\]
+
+2. Clicks from visitors older than 25:
+\[
+\sum_{a=1}^{A} \text{old\_click}_a \cdot x_a \geq \text{goal\_old}
+\]
+
+3. Unique clicks from visitors aged 18-25:
+\[
+\sum_{a=1}^{A} \text{young\_click}_a \cdot \text{unique\_click}_a \cdot x_a \geq \text{goal\_unique\_young}
+\]
+
+4. Unique clicks from visitors older than 25:
+\[
+\sum_{a=1}^{A} \text{old\_click}_a \cdot \text{unique\_click}_a \cdot x_a \geq \text{goal\_unique\_old}
+\]
+
+5. Maximum allowable clicks for each ad type:
+\[
+0 \leq x_a \leq \text{max\_click}_a \quad \forall a = 1, \ldots, A
+\]
+
+\subsection*{Non-negativity Constraints}
+\[
+x_a \geq 0 \quad \forall a = 1, \ldots, A
+\]
+
+\end{document}

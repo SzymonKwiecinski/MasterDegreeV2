@@ -41,6 +41,14 @@ def run(
         tasks.append(Task.from_folder(number=i, path=ALL_DATA_PATH / str(i)))
 
     for exp_retry in range(1, EXP_RETRY + 1):
+        if experiment_name in ["experiment_3b2", "experiment_3b3"]:
+            if exp_retry <= 7:
+                continue
+
+        if experiment_name in ["experiment_3b4"]:
+            if exp_retry <= 6:
+                continue
+
         retry_experiment_path = experiment_path / str(exp_retry)
         retry_experiment_path.mkdir(exist_ok=True)
 

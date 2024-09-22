@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the MIP Problem}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item \( P \): Set of parts, indexed by \( p \).
+    \item \( M \): Set of machines, indexed by \( m \).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{time\_required}_{m,p} \): Time required in hours for machine \( m \) to produce a batch of part \( p \).
+    \item \( \text{machine\_costs}_m \): Cost per hour for operating machine \( m \).
+    \item \( \text{availability}_m \): Available hours per month for machine \( m \).
+    \item \( \text{prices}_p \): Selling price per batch of part \( p \).
+    \item \( \text{setup\_time}_p \): Setup time required on machine 1 for part \( p \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{batches}_p \): Number of batches of part \( p \) produced.
+    \item \( \text{setup\_flags}_p \): Binary variable indicating whether part \( p \) is set up on machine 1 (1 if set up, 0 otherwise).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+
+\[
+\text{Total Profit} = \sum_{p=1}^{P} \left( \text{prices}_p \times \text{batches}_p \right) - \sum_{m=1}^{M} \sum_{p=1}^{P} \left( \text{time\_required}_{m,p} \times \text{batches}_p \times \text{machine\_costs}_m \right) - \sum_{p=1}^{P} \left( \text{setup\_flags}_p \times \text{setup\_time}_p \times \text{machine\_costs}_1 \right)
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item \textbf{Machine Time Constraints}:
+    \[
+    \forall m \in M: \quad \sum_{p=1}^{P} \left( \text{time\_required}_{m,p} \times \text{batches}_p \right) + 
+    \begin{cases} 
+      \sum_{p=1}^{P} \left( \text{setup\_flags}_p \times \text{setup\_time}_p \right), & \text{if } m = 1 \\
+      0, & \text{otherwise} 
+    \end{cases} 
+    \leq \text{availability}_m
+    \]
+
+    \item \textbf{Setup Constraint for Machine 1}:
+    \[
+    \forall p \in P: \quad \text{setup\_flags}_p \geq \frac{\text{batches}_p}{1+\text{batches}_p}
+    \]
+
+    \item \textbf{Non-negativity and Integer Constraint}:
+    \[
+    \forall p \in P: \quad \text{batches}_p \geq 0, \quad \text{batches}_p \in \mathbb{Z}
+    \]
+    \[
+    \forall p \in P: \quad \text{setup\_flags}_p \in \{0, 1\}
+    \]
+\end{itemize}
+
+\end{document}

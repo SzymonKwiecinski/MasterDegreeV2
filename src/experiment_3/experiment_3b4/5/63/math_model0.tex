@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{MILP Formulation for Cutting Stock Problem:}
+
+\textbf{Objective:}
+\[
+\text{Minimize} \quad \sum_{i=1}^{N} x_i
+\]
+
+\textbf{Constraints:}
+
+\[
+\sum_{i=1}^{N} \text{pattern}_{i,j} \cdot x_i \geq \text{demand}_j, \quad \forall j = 1, 2, \ldots, M
+\]
+
+\[
+x_i \geq 0 \quad \text{and integer}, \quad \forall i = 1, 2, \ldots, N
+\]
+
+\textbf{Where:}
+\begin{align*}
+& x_i \text{ is the number of times pattern } i \text{ is used,}\\
+& \text{pattern}_{i,j} \text{ is the number of rolls of width } j \text{ produced by pattern } i,\\
+& \text{demand}_j \text{ is the demand for rolls of width } j.
+\end{align*}
+
+\end{document}

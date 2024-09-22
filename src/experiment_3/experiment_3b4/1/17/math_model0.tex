@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $\text{sell}_i$: Number of shares of stock $i$ to sell.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $\text{bought}_i$: Number of shares of stock $i$ bought.
+    \item $\text{buyPrice}_i$: Purchase price per share of stock $i$.
+    \item $\text{currentPrice}_i$: Current price per share of stock $i$.
+    \item $\text{futurePrice}_i$: Expected future price per share of stock $i$.
+    \item $\text{transactionRate}$: Transaction cost rate (percentage).
+    \item $\text{taxRate}$: Tax rate on capital gains (percentage).
+    \item $K$: Amount of money to be raised.
+\end{itemize}
+
+\subsection*{Objective Function}
+\begin{equation}
+    \max \sum_{i=1}^{N} \left(\text{bought}_i - \text{sell}_i\right) \times \text{futurePrice}_i
+\end{equation}
+
+\subsection*{Constraints}
+\begin{align}
+    &\sum_{i=1}^{N} \left(\text{sell}_i \times \text{currentPrice}_i \times \left(1 - \frac{\text{transactionRate}}{100}\right) - \max(0, \text{sell}_i \times (\text{currentPrice}_i - \text{buyPrice}_i)) \times \frac{\text{taxRate}}{100}\right) \geq K \\
+    &0 \leq \text{sell}_i \leq \text{bought}_i \quad \text{for all } i
+\end{align}
+
+\end{document}

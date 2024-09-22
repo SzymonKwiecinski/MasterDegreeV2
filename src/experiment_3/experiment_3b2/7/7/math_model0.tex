@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket LP Model}
+
+\subsection*{Objective}
+Minimize the maximum thrust:
+\[
+\min z
+\]
+
+\subsection*{Constraints}
+\begin{align}
+x_{t+1} &= x_t + v_t && \text{for } t = 0, 1, \ldots, T-1 \\
+v_{t+1} &= v_t + a_t && \text{for } t = 0, 1, \ldots, T-1 \\
+x_0 &= x_0 \\
+v_0 &= v_0 \\
+x_T &= x_T \\
+v_T &= v_T \\
+a_t^+ &\geq a_t \quad && \text{for } t = 0, 1, \ldots, T-1 \\
+a_t^- &\geq -a_t \quad && \text{for } t = 0, 1, \ldots, T-1 \\
+z &\geq a_t^+ + a_t^- && \text{for } t = 0, 1, \ldots, T-1
+\end{align}
+
+\subsection*{Fuel Consumption}
+The total fuel consumption is given by:
+\[
+\text{fuel\_spend} = \sum_{t=0}^{T-1} (a_t^+ + a_t^-)
+\]
+
+\end{document}

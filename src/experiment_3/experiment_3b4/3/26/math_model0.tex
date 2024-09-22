@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Objective}
+Maximize the total manpower requirement over five years, given by:
+\[
+\text{Maximize } \sum_{t=1}^{5} \sum_{k=1}^{K} \left( \text{manpowerone}_{k} \cdot \text{produce}_{k, t} + \text{manpowertwo}_{k} \cdot \text{buildcapa}_{k, t} \right)
+\]
+
+\subsection*{Constraints}
+
+1. \textbf{Input requirement for production}:
+   \[
+   \sum_{j=1}^{K} \text{inputone}_{k, j} \cdot \text{produce}_{j, t} + \text{manpowerone}_{k} \cdot \text{produce}_{k, t} \leq \text{capacity}_{k, t}, \quad \forall k, \, t
+   \]
+
+2. \textbf{Input requirement for capacity building}:
+   \[
+   \sum_{j=1}^{K} \text{inputtwo}_{k, j} \cdot \text{buildcapa}_{j, t} + \text{manpowertwo}_{k} \cdot \text{buildcapa}_{k, t} \leq \text{stock}_{k, t}, \quad \forall k, \, t
+   \]
+
+3. \textbf{Stock balance}:
+   \[
+   \text{stock}_{k, t} = \text{stock}_{k, t-1} + \text{produce}_{k, t} - \sum_{j=1}^{K} \text{inputone}_{k, j} \cdot \text{produce}_{j, t} - \text{demand}_{k} - \text{buildcapa}_{k, t}, \quad \forall k, \, t
+   \]
+
+4. \textbf{Capacity update}:
+   \[
+   \text{capacity}_{k, t+2} = \text{capacity}_{k, t+1} + \text{buildcapa}_{k, t}, \quad \forall k, \, t
+   \]
+
+5. \textbf{Non-negativity constraints}:
+   \[
+   \text{produce}_{k, t} \geq 0, \quad \text{buildcapa}_{k, t} \geq 0, \quad \text{stock}_{k, t} \geq 0, \quad \forall k, \, t
+   \]
+
+\end{document}

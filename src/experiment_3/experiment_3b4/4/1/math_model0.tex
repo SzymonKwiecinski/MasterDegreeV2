@@ -1,0 +1,23 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} Maximize the total revenue
+
+\[
+\text{Maximize } Z = \sum_{j=1}^{M} \text{price}_j \cdot x_j
+\]
+
+\textbf{Subject to the constraints:}
+
+For each raw material \( i = 1, 2, \ldots, N \),
+\[
+\sum_{j=1}^{M} \text{req}_{i,j} \cdot x_j \leq \text{available}_i
+\]
+
+\textbf{Non-negativity:}
+\[
+x_j \geq 0 \quad \text{for all } j = 1, 2, \ldots, M
+\]
+
+\end{document}

@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Indices and Sets}
+\begin{itemize}
+    \item $k \in \{1, \ldots, n\_mines\}$: Index representing each mine.
+    \item $i \in \{1, \ldots, I\}$: Index representing each year.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $n\_maxwork$: Maximum number of mines that can be operated in any one year.
+    \item $royalty_k$: Yearly royalty cost for keeping mine $k$ open.
+    \item $limit_k$: Maximum production limit for mine $k$ in any year.
+    \item $quality_k$: Quality of ore from mine $k$.
+    \item $requiredquality_i$: Required quality of blended ore for year $i$.
+    \item $price$: Selling price per ton of final blended ore.
+    \item $discount$: Discount rate for future revenues and expenses.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $isoperated_{k,i} \in \{0, 1\}$: Binary variable indicating if mine $k$ is operated in year $i$.
+    \item $amount_{k,i} \geq 0$: Amount of ore produced by mine $k$ in year $i$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the discounted profit:
+
+\[
+\max \sum_{i=1}^{I} \left( \frac{1}{(1 + discount)^i} \left( price \cdot \sum_{k=1}^{n\_mines} amount_{k,i} - \sum_{k=1}^{n\_mines} royalty_k \cdot isoperated_{k,i} \right) \right)
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    & \sum_{k=1}^{n\_mines} isoperated_{k,i} \leq n\_maxwork, \quad \forall i \in \{1, \ldots, I\} \quad \text{(Maximum number of mines operated per year)} \\
+    & amount_{k,i} \leq limit_k \cdot isoperated_{k,i}, \quad \forall k \in \{1, \ldots, n\_mines\}, \forall i \in \{1, \ldots, I\} \quad \text{(Production limit constraint)} \\
+    & \sum_{k=1}^{n\_mines} quality_k \cdot amount_{k,i} = requiredquality_i \cdot \sum_{k=1}^{n\_mines} amount_{k,i}, \quad \forall i \in \{1, \ldots, I\} \quad \text{(Quality requirement constraint)}
+\end{align}
+
+\end{document}

@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Department Relocation Problem}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item Let \( K \) be the set of departments \( \{1, 2, \ldots, K\} \).
+    \item Let \( L \) be the set of cities \( \{1, 2, \ldots, L\} \).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{benefit}_{k, l} \): Benefits for department \( k \) from relocation at city \( l \) (in thousands of pounds).
+    \item \( \text{communication}_{k, j} \): Quantity of communication between department \( k \) and department \( j \).
+    \item \( \text{cost}_{l, m} \): Unit cost of communication between city \( l \) and city \( m \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Define \( \text{islocated}_{k, l} \) as a binary variable which is 1 if department \( k \) is located at city \( l \) and 0 otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the overall yearly cost:
+
+\[
+Z = \sum_{k=1}^{K} \sum_{l=1}^{L} \left( \text{islocated}_{k, l} \cdot \left( \sum_{j=1}^{K} \text{communication}_{k, j} \cdot \sum_{m=1}^{L} \text{cost}_{l, m} \cdot \text{islocated}_{j, m} \right) - \text{benefit}_{k, l} \cdot \text{islocated}_{k, l} \right)
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Each department can be located in exactly one city:
+    \[
+    \sum_{l=1}^{L} \text{islocated}_{k, l} = 1, \quad \forall k \in K
+    \]
+
+    \item No city can accommodate more than three departments:
+    \[
+    \sum_{k=1}^{K} \text{islocated}_{k, l} \leq 3, \quad \forall l \in L
+    \]
+
+    \item Each city can only host departments if \( \text{islocated}_{k, l} \) is set to 1:
+    \[
+    0 \leq \text{islocated}_{k, l} \leq 1, \quad \forall k \in K, \forall l \in L
+    \]
+\end{itemize}
+
+\subsection*{Output}
+The output will be in the form of:
+\[
+\text{islocated} = \left[\left[\text{islocated}_{k, l} \text{ for } l = 1, \ldots, L\right] \text{ for } k = 1, \ldots, K\right]
+\]
+
+\end{document}

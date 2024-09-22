@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Network Intrusion Intervention}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    x_{i}^{c, \text{isolate}} & : \text{Binary variable indicating central processing isolation for cluster } i. \\
+    x_{i}^{c, \text{scan}} & : \text{Binary variable indicating central processing scanning for cluster } i. \\
+    x_{i}^{d, \text{isolate}} & : \text{Binary variable indicating distributed processing isolation for cluster } i. \\
+    x_{i}^{d, \text{scan}} & : \text{Binary variable indicating distributed processing scanning for cluster } i. \\
+    t_{i} & : \text{Continuous variable for time allocated to intervention on cluster } i.
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total opportunity cost:
+\begin{align*}
+    \text{Minimize } & \sum_{i=1}^{N} \left( \text{central\_cost} \times \left( x_{i}^{c, \text{isolate}} \cdot \text{isolate\_central}_{i} + x_{i}^{c, \text{scan}} \cdot \text{scan\_central}_{i} \right) \right) \\
+    & + \sum_{i=1}^{N} \left( \text{distributed\_cost} \times \left( x_{i}^{d, \text{isolate}} \cdot \text{isolate\_distributed}_{i} + x_{i}^{d, \text{scan}} \cdot \text{scan\_distributed}_{i} \right) \right)
+\end{align*}
+
+\subsection*{Constraints}
+
+1. Each cluster must be assigned exactly one intervention type and method:
+\begin{align*}
+    x_{i}^{c, \text{isolate}} + x_{i}^{c, \text{scan}} + x_{i}^{d, \text{isolate}} + x_{i}^{d, \text{scan}} = 1, \quad \forall i = 1, \ldots, N
+\end{align*}
+
+2. Total central processing time must not exceed the maximum allowed:
+\begin{align*}
+    \sum_{i=1}^{N} \left( x_{i}^{c, \text{isolate}} \cdot t_{i} + x_{i}^{c, \text{scan}} \cdot t_{i} \right) \leq \text{max\_central}
+\end{align*}
+
+3. Total distributed processing time must not exceed the maximum allowed:
+\begin{align*}
+    \sum_{i=1}^{N} \left( x_{i}^{d, \text{isolate}} \cdot t_{i} + x_{i}^{d, \text{scan}} \cdot t_{i} \right) \leq \text{max\_distributed}
+\end{align*}
+
+4. Linking decision variables to processing times:
+\begin{align*}
+    t_{i} \geq x_{i}^{c, \text{isolate}} \cdot \text{isolate\_central}_{i}, \quad \forall i \\
+    t_{i} \geq x_{i}^{c, \text{scan}} \cdot \text{scan\_central}_{i}, \quad \forall i \\
+    t_{i} \geq x_{i}^{d, \text{isolate}} \cdot \text{isolate\_distributed}_{i}, \quad \forall i \\
+    t_{i} \geq x_{i}^{d, \text{scan}} \cdot \text{scan\_distributed}_{i}, \quad \forall i
+\end{align*}
+
+5. Non-negativity and binary constraints:
+\begin{align*}
+    x_{i}^{c, \text{isolate}}, x_{i}^{c, \text{scan}}, x_{i}^{d, \text{isolate}}, x_{i}^{d, \text{scan}} \in \{0, 1\}, \quad t_{i} \geq 0, \quad \forall i
+\end{align*}
+
+\end{document}

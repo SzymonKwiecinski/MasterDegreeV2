@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+Minimize the total cost, which includes regular production, overtime production, and storage costs over \( N \) months.
+
+\[
+\text{Minimize } Z = \sum_{n=1}^{N} ( \text{cost\_regular} \cdot x_n + \text{cost\_overtime} \cdot y_n + \text{store\_cost} \cdot s_n)
+\]
+
+\textbf{Subject to:}
+\begin{align*}
+1. & \quad x_n + y_n + s_{n-1} = \text{demand}_n + s_n, \quad \forall n = 1, \ldots, N \\
+2. & \quad x_n \leq \text{max\_regular\_amount}, \quad \forall n = 1, \ldots, N \\
+3. & \quad x_n, y_n, s_n \geq 0, \quad \forall n = 1, \ldots, N \\
+4. & \quad s_0 = 0 \quad (\text{initial inventory})
+\end{align*}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item \( x_n \): Regular production quantity in month \( n \)
+    \item \( y_n \): Overtime production quantity in month \( n \)
+    \item \( s_n \): Units stored at the end of month \( n \)
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( M \) be the total number of machines, where \( m \in \{1, 2, \ldots, M\} \).
+    \item Let \( K \) be the total number of products, where \( k \in \{1, 2, \ldots, K\} \).
+    \item Let \( I \) be the total number of months, where \( i \in \{1, 2, \ldots, I\} \).
+    
+    \item \( \text{profit}_k \): Profit from selling product \( k \).
+    \item \( \text{time}_{k,m} \): Time required to produce one unit of product \( k \) on machine \( m \).
+    \item \( \text{down}_m \): Duration (in months) for which machine \( m \) is down for maintenance.
+    \item \( \text{limit}_{k,i} \): Sales limit for product \( k \) in month \( i \).
+    \item \( \text{store\_price} \): Cost of storing one unit of product per month.
+    \item \( \text{keep\_quantity} \): Desired ending stock of each product.
+    \item \( n_{\text{workhours}} \): Total working hours in one month.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{sell}_{k,i} \): Quantity of product \( k \) sold in month \( i \).
+    \item \( \text{manufacture}_{k,i} \): Quantity of product \( k \) manufactured in month \( i \).
+    \item \( \text{storage}_{k,i} \): Quantity of product \( k \) stored at the end of month \( i \).
+    \item \( \text{maintain}_{m,i} \): Binary variable indicating whether machine \( m \) is under maintenance in month \( i \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+\text{Maximize} \quad Z = \sum_{i=1}^{I} \sum_{k=1}^{K} \left( \text{profit}_k \cdot \text{sell}_{k,i} - \text{store\_price} \cdot \text{storage}_{k,i} \right)
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    \text{Production Time Constraint:} & \quad \sum_{k=1}^{K} \text{time}_{k, m} \cdot \text{manufacture}_{k,i} \leq \text{available\_time}_m \quad \forall m, i \\
+    \text{Available Time:} & \quad \text{available\_time}_m = n_{\text{workhours}} \times \left(24 - \text{down}_m \cdot \text{months}\right) \quad \forall m \\
+    \text{Sales Limitations:} & \quad \text{sell}_{k,i} \leq \text{limit}_{k,i} \quad \forall k, i \\
+    \text{Storage:} & \quad \text{storage}_{k,i} = \text{storage}_{k,i-1} + \text{manufacture}_{k,i} - \text{sell}_{k,i} \quad \forall k, i \\
+    \text{Ending Inventory Requirement:} & \quad \text{storage}_{k,I} \geq \text{keep\_quantity} \quad \forall k \\
+    \text{Machine Maintenance:} & \quad \text{maintain}_{m,i} \in \{0,1\} \quad \forall m, i
+\end{align}
+
+\subsection*{Output}
+The solution will yield:
+\begin{itemize}
+    \item Selling quantities \( \text{sell} \)
+    \item Manufacturing quantities \( \text{manufacture} \)
+    \item Storage quantities \( \text{storage} \)
+    \item Maintenance statuses \( \text{maintain} \)
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Electricity Capacity Expansion Model}
+
+\textbf{Variables:}
+
+Let:
+\begin{itemize}
+    \item \( C_t \) = capacity of coal-fired power plants added in year \( t \) (in megawatts)
+    \item \( N_t \) = capacity of nuclear power plants added in year \( t \) (in megawatts)
+    \item \( T \) = total number of years
+\end{itemize}
+
+\textbf{Parameters:}
+
+\begin{itemize}
+    \item \( \text{demand}_t \) = demand for electricity during year \( t \) (in megawatts)
+    \item \( \text{oil}_t \) = existing oil capacity available during year \( t \) (in megawatts)
+    \item \( \text{coal\_cost} \) = capital cost per megawatt for coal-fired plants
+    \item \( \text{nuke\_cost} \) = capital cost per megawatt for nuclear plants
+    \item \( \text{max\_nuke} \) = maximum percentage of total capacity that can be nuclear
+    \item \( \text{coal\_life} \) = lifespan of coal plants (in years)
+    \item \( \text{nuke\_life} \) = lifespan of nuclear plants (in years)
+\end{itemize}
+
+\textbf{Objective Function:}
+
+Minimize the total cost:
+\[
+\text{Total Cost} = \sum_{t=1}^{T} (\text{coal\_cost} \cdot C_t + \text{nuke\_cost} \cdot N_t)
+\]
+
+\textbf{Constraints:}
+
+1. Capacity Constraint:
+\[
+\text{oil}_t + \sum_{i=1}^{\min(t, \text{coal\_life})} C_{t-i} + \sum_{j=1}^{\min(t, \text{nuke\_life})} N_{t-j} \geq \text{demand}_t \quad \forall t \in \{1, \ldots, T\}
+\]
+
+2. Nuclear Capacity Limit:
+\[
+\sum_{j=1}^{\min(t, \text{nuke\_life})} N_{t-j} \leq \frac{\text{max\_nuke}}{100} \left( \text{oil}_t + \sum_{i=1}^{\min(t, \text{coal\_life})} C_{t-i} + \sum_{j=1}^{\min(t, \text{nuke\_life})} N_{t-j} \right) \quad \forall t \in \{1, \ldots, T\}
+\]
+
+3. Non-negativity:
+\[
+C_t \geq 0, \quad N_t \geq 0 \quad \forall t \in \{1, \ldots, T\}
+\]
+
+\textbf{Output:}
+The output should be represented as follows:
+\begin{verbatim}
+{
+    "coal_cap_added": [C_1, C_2, ..., C_T],
+    "nuke_cap_added": [N_1, N_2, ..., N_T],
+    "total_cost": total_cost
+}
+\end{verbatim}
+
+\end{document}

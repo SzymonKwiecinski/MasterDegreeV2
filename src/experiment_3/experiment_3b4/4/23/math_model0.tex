@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model for Manpower Planning}
+
+\subsection*{Indices:}
+\begin{align*}
+k & : \text{Index for manpower category} \\
+i & : \text{Index for year} \\
+\end{align*}
+
+\subsection*{Parameters:}
+\begin{align*}
+\text{requirement}_{k,i} & : \text{Manpower requirement of category } k \text{ in year } i \\
+\text{strength}_k & : \text{Current strength of manpower category } k \\
+\text{lessonewaste}_k & : \text{Wastage rate for category } k \text{ for less than one year's service} \\
+\text{moreonewaste}_k & : \text{Wastage rate for category } k \text{ for more than one year's service} \\
+\text{recruit}_k & : \text{Max number that can be recruited for category } k \text{ per year} \\
+\text{costredundancy}_k & : \text{Redundancy cost for category } k \\
+\text{num\_overman} & : \text{Max number of additional workers allowed over the whole company} \\
+\text{costoverman}_k & : \text{Cost of overmanning for category } k \\
+\text{num\_shortwork} & : \text{Max number of short-time workers allowed per category} \\
+\text{costshort}_k & : \text{Cost of short-time working for category } k \\
+\end{align*}
+
+\subsection*{Decision Variables:}
+\begin{align*}
+\text{recruit}_{k,i} & : \text{Number of recruits for category } k \text{ in year } i \\
+\text{overmanning}_{k,i} & : \text{Number of overmanned workers for category } k \text{ in year } i \\
+\text{short}_{k,i} & : \text{Number of short-time workers for category } k \text{ in year } i \\
+\text{redundancy}_{k,i} & : \text{Number of redundancies for category } k \text{ in year } i \\
+\end{align*}
+
+\subsection*{Objective:}
+Minimize the total cost:
+\begin{align*}
+\min \sum_{k} \sum_{i} & \left( \text{costredundancy}_k \times \text{redundancy}_{k,i} + \text{costoverman}_k \times \text{overmanning}_{k,i} + \text{costshort}_k \times \text{short}_{k,i} \right)
+\end{align*}
+
+\subsection*{Constraints:}
+
+\noindent \textbf{Manpower Balance:}
+\begin{align*}
+\text{Current manpower balance: } 
+& \quad \text{strength}_k = \left(1 - \text{moreonewaste}_k \right) \times \text{strength}_k + \text{recruit}_{k,1} - \text{redundancy}_{k,1} + \text{overmanning}_{k,1} \\
+& \quad \forall k
+\end{align*}
+
+\begin{align*}
+\text{Future manpower balance: }
+& \quad \text{balance}_{k,i} = \left(1 - \text{lessonewaste}_k \right) \times \text{recruit}_{k,i-1} + \left(1 - \text{moreonewaste}_k \right) \times \text{balance}_{k,i-1} \\
+& \quad + \text{recruit}_{k,i} - \text{redundancy}_{k,i} + \text{overmanning}_{k,i} \quad \forall k, i > 1 \\
+\end{align*}
+
+\noindent \textbf{Meeting Requirements:}
+\begin{align*}
+\text{balance}_{k,i} + 0.5 \times \text{short}_{k,i} & \geq \text{requirement}_{k,i} \quad \forall k, i
+\end{align*}
+
+\noindent \textbf{Limits and Bounds:}
+\begin{align*}
+\text{recruit}_{k,i} & \leq \text{recruit}_k \quad \forall k, i \\
+\text{overmanning}_{k,i} & \leq \text{num\_overman} \quad \forall i \\
+\text{short}_{k,i} & \leq \text{num\_shortwork} \quad \forall k, i \\
+\text{redundancy}_{k,i} & \geq 0 \quad \forall k, i \\
+\text{recruit}_{k,i}, \text{overmanning}_{k,i}, \text{short}_{k,i} & \geq 0 \quad \forall k, i \\
+\end{align*}
+
+\end{document}

@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} Minimize the maximum deviation \( d \).
+
+\textbf{Decision Variables:}
+\[
+\begin{aligned}
+    &a \quad \text{(intercept of the line)} \\
+    &b \quad \text{(slope of the line)} \\
+    &d \quad \text{(maximum deviation)}
+\end{aligned}
+\]
+
+\textbf{Objective Function:}
+\[
+\min d
+\]
+
+\textbf{Constraints:}
+For each \( k = 1, \ldots, K \):
+\[
+\begin{aligned}
+    &y_k - (bx_k + a) \leq d \\
+    &(bx_k + a) - y_k \leq d
+\end{aligned}
+\]
+
+\textbf{Conclusion:}
+
+By solving this linear programming model, we can obtain the values of \( a \) (intercept) and \( b \) (slope) that fit the best straight line to the data by minimizing the maximum deviation.
+
+\end{document}

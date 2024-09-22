@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+To fit the best quadratic curve \( y = c \cdot x^2 + b \cdot x + a \) to the given data points, we need to formulate the following optimization problem:
+
+\subsection*{Objective Function}
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} d_k
+\]
+
+\subsection*{Subject to Constraints}
+\begin{align*}
+& c \cdot x_k^2 + b \cdot x_k + a - y_k \leq d_k, \quad \forall k, \\
+& c \cdot x_k^2 + b \cdot x_k + a - y_k \geq -d_k, \quad \forall k, \\
+& d_k \geq 0, \quad \forall k.
+\end{align*}
+
+\subsection*{Variables}
+- \( c \) is the coefficient of the quadratic term.
+- \( b \) is the coefficient of the linear term.
+- \( a \) is the coefficient of the constant term.
+- \( d_k \) are the deviation (absolute differences) for each data point.
+
+\end{document}

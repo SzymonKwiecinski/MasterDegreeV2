@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Oil Refinery Production}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Formulation}
+
+\subsection*{Decision Variables}
+Let \( x_l \) be the number of times process \( l \) is executed, where \( l = 1, \ldots, L \).
+
+\subsection*{Objective Function}
+Maximize the total revenue:
+
+\[
+Z = \sum_{p=1}^{P} \left( \sum_{l=1}^{L} \text{output}_{l,p} \cdot x_l \cdot \text{price}_p \right) - \sum_{l=1}^{L} \left( \sum_{p=1}^{P} \text{output}_{l,p} \cdot x_l \cdot \text{cost}_l \right)
+\]
+
+\subsection*{Constraints}
+
+1. Crude Oil Usage Constraints:
+   \[
+   \sum_{l=1}^{L} \text{input}_{l,i} \cdot x_l \leq \text{allocated}_i \quad \forall i = 1, \ldots, O
+   \]
+
+2. Non-negativity Constraints:
+   \[
+   x_l \geq 0 \quad \forall l = 1, \ldots, L
+   \]
+
+\end{document}

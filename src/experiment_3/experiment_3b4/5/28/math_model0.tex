@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} Minimize sum of absolute deviations
+\[
+\min \sum_{k=1}^{K} e_k
+\]
+
+\textbf{Subject to:}
+\[
+e_k \geq y_k - (bx_k + a), \quad k = 1, \ldots, K
+\]
+\[
+e_k \geq -(y_k - (bx_k + a)), \quad k = 1, \ldots, K
+\]
+
+\textbf{Variables:}
+\[
+a \text{ (intercept)}
+\]
+\[
+b \text{ (slope)}
+\]
+\[
+e_k \text{ (absolute deviation for each } k \text{)}
+\]
+
+\end{document}

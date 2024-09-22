@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Soybean Transportation LP Model}
+
+We define the decision variables:
+\[
+x_{i,j} = \text{amount of soybeans transported from city } i \text{ to city } j
+\]
+
+The objective is to minimize the total transportation cost, given by:
+\[
+\text{Minimize } Z = \sum_{(i,j) \in A} C_{i,j} \cdot x_{i,j}
+\]
+
+Subject to:
+- Supply constraints at each terminal \( k \):
+  \[
+  \sum_{j: (k,j) \in A} x_{k,j} \leq \text{supply}_k \quad \forall k
+  \]
+
+- Demand constraints at each destination \( l \):
+  \[
+  \sum_{i: (i,l) \in A} x_{i,l} \geq \text{demand}_l \quad \forall l
+  \]
+
+- Flow balance for intermediate ports:
+  \[
+  \sum_{i: (i,p) \in A} x_{i,p} = \sum_{j: (p,j) \in A} x_{p,j} \quad \forall p
+  \]
+
+- Non-negativity constraints:
+  \[
+  x_{i,j} \geq 0 \quad \forall (i,j) \in A
+  \]
+
+Where:
+- \( C_{i,j} \) is the transportation cost per metric ton from city \( i \) to city \( j \).
+- \( \text{supply}_k \) is the soybean supply available at terminal city \( k \).
+- \( \text{demand}_l \) is the soybean demand required at destination city \( l \).
+- \( A \) is the set of all possible routes.
+
+This model will determine the optimal shipments \( x_{i,j} \) from each source to destination cities to minimize the total cost.
+
+\end{document}

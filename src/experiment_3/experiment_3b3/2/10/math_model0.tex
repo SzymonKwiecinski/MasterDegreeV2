@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for School Assignment}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( N \): Number of neighborhoods
+    \item \( S \): Number of schools
+    \item \( G \): Number of grades
+    \item \( capacity_{s,g} \): Capacity of school \( s \) for grade \( g \)
+    \item \( population_{n,g} \): Student population in neighborhood \( n \) for grade \( g \)
+    \item \( d_{n,s} \): Distance of school \( s \) from neighborhood \( n \)
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let \( x_{n,s,g} \) be the number of students of grade \( g \) from neighborhood \( n \) assigned to school \( s \).
+
+\subsection*{Objective Function}
+Minimize the total distance traveled by all students:
+\[
+\text{Minimize } Z = \sum_{n=1}^{N} \sum_{s=1}^{S} \sum_{g=1}^{G} d_{n,s} \cdot x_{n,s,g}
+\]
+
+\subsection*{Constraints}
+1. Capacity Constraints:
+\[
+\sum_{n=1}^{N} \sum_{g=1}^{G} x_{n,s,g} \leq \sum_{g=1}^{G} capacity_{s,g} \quad \forall s \in \{1, \ldots, S\}
+\]
+
+2. Population Constraints:
+\[
+\sum_{s=1}^{S} x_{n,s,g} = population_{n,g} \quad \forall n \in \{1, \ldots, N\}, \forall g \in \{1, \ldots, G\}
+\]
+
+3. Non-negativity Constraints:
+\[
+x_{n,s,g} \geq 0 \quad \forall n \in \{1, \ldots, N\}, \forall s \in \{1, \ldots, S\}, \forall g \in \{1, \ldots, G\}
+\]
+
+\end{document}

@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item \( i \in \{1, \ldots, N\} \): Index for computer systems.
+    \item \( \text{GP}, \text{WS} \): Sets for general-purpose and workstation systems respectively.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{price}_i \): Price of system \( i \).
+    \item \( \text{disk}_i \): Average units of disk drive requested for system \( i \).
+    \item \( \text{mem}_i \): Average units of 256K memory boards used by system \( i \).
+    \item \( \text{max\_cpu} \): Maximum units of CPUs available.
+    \item \( \text{min\_disk}, \text{max\_disk} \): Range of available disk drives.
+    \item \( \text{min\_mem}, \text{max\_mem} \): Range of available 256K memory boards.
+    \item \( \text{demand}_i \): Maximum demand for system \( i \).
+    \item \( \text{demand\_GP}, \text{demand\_WS} \): Maximum demand for GP and WS systems.
+    \item \( \text{preorder}_i \): Preorders for system \( i \) to be fulfilled.
+    \item \( \text{alt\_mem} \): Units of alternative memory boards available.
+    \item \( \text{alt\_compatible}_i \): Boolean indicating if system \( i \) can use alternative memory.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_i \): Number of systems \( i \) to produce (continuous).
+    \item \( \text{mem\_used}_i \): Total 256K memory boards used by system \( i \).
+    \item \( \text{alt\_used}_i \): Total alternative boards used by system \( i \) (if compatible).
+    \item \( \text{disk\_used}_i \): Total disk drives used by system \( i \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Profit} = \sum_{i=1}^{N} \text{price}_i \times x_i
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    & \sum_{i=1}^{N} x_i \leq \text{max\_cpu} & \text{(CPU availability)} \\
+    & \sum_{i=1}^{N} \text{disk}_i \times x_i \leq \text{max\_disk} & \text{(Disk drive upper limit)} \\
+    & \sum_{i=1}^{N} \text{disk}_i \times x_i \geq \text{min\_disk} & \text{(Disk drive lower limit)} \\
+    & \sum_{i=1}^{N} \text{mem\_used}_i \leq \text{max\_mem} & \text{(256K memory board upper limit)} \\
+    & \sum_{i=1}^{N} \text{mem\_used}_i \geq \text{min\_mem} & \text{(256K memory board lower limit)} \\
+    & \sum_{i \in \text{GP}} x_i \leq \text{demand\_GP} & \text{(GP systems demand)} \\
+    & \sum_{i \in \text{WS}} x_i \leq \text{demand\_WS} & \text{(WS systems demand)} \\
+    & x_i \leq \text{demand}_i & \forall i \text{ (Demand for system \( i \))} \\
+    & x_i \geq \text{preorder}_i & \forall i \text{ (Preorders)}
+
+\end{align}
+
+For alternative memory usage:
+\begin{align}
+    & \text{alt\_used}_i = 0, & \text{if }\text{alt\_compatible}_i = \text{false} \\
+    & \sum_{i=1}^{N} \text{alt\_used}_i \leq \text{alt\_mem} & \text{(Alternative memory limit)}
+\end{align}
+
+\end{document}

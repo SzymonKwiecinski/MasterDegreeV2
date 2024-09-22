@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Line Fitting}
+
+We want to fit a straight line of the form:
+\[
+y = bx + a
+\]
+where \(a\) is the intercept and \(b\) is the slope. The objective is to minimize the maximum deviation of the observed values of \(y\) from the values predicted by the linear relationship. 
+
+Let:
+\[
+\text{Deviation}_{k} = y_{k} - (bx_{k} + a)
+\]
+for \(k = 1, \ldots, K\).
+
+To formulate this as a linear programming problem, we introduce a variable \(M\) to represent the maximum deviation. The linear programming model can be expressed as follows:
+
+\subsection*{Objective Function}
+Minimize \(M\)
+
+\subsection*{Subject to}
+\[
+y_{k} - (bx_{k} + a) \leq M \quad \forall k = 1, \ldots, K
+\]
+\[
+-(y_{k} - (bx_{k} + a)) \leq M \quad \forall k = 1, \ldots, K
+\]
+
+\subsection*{Variable Constraints}
+\[
+a \in \mathbb{R}, \quad b \in \mathbb{R}, \quad M \geq 0
+\]
+
+\subsection*{Output}
+The output of the model will provide the best fitted line parameters:
+\begin{itemize}
+    \item Intercept: \(a\)
+    \item Slope: \(b\)
+\end{itemize}
+
+\end{document}

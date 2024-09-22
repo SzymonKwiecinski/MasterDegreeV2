@@ -1,0 +1,26 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Assigning Police Officers to Shifts}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( x_s \) : Number of officers starting their duty at shift \( s \).
+\end{itemize}
+
+\textbf{Objective Function:}
+
+\[
+\text{Minimize} \quad \sum_{s=1}^{S} \text{shift\_cost}_s \times x_s
+\]
+
+\textbf{Subject to Constraints:}
+\begin{align*}
+ x_s + x_{s-1} & \geq \text{officers\_needed}_s \quad \forall s = 1, \ldots, S \\
+ x_s & \geq 0 \quad \forall s = 1, \ldots, S
+\end{align*}
+
+Assume \( x_0 = x_S \) to account for circular scheduling of shifts.
+
+\end{document}

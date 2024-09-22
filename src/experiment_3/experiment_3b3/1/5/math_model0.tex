@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Communication Network Optimization}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item \( x_{i,j} \): the flow of data from node \( i \) to node \( j \).
+\end{itemize}
+
+\subsection*{Parameters}
+Given:
+\begin{itemize}
+    \item \( A \): the set of all links in the network.
+    \item \( U_{i,j} \): the maximum capacity (bits per second) of link \( (i,j) \).
+    \item \( C_{i,j} \): the cost (per bit) of transmitting data along link \( (i,j) \).
+    \item \( B_{k,l} \): the data generation rate (bits per second) from node \( k \) to node \( l \).
+    \item \( K \): the set of all source nodes.
+    \item \( L \): the set of all destination nodes.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{(i,j) \in A} C_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+1. Flow conservation at each node \( k \) (except for source and destination):
+\[
+\sum_{j: (k,j) \in A} x_{k,j} - \sum_{i: (i,k) \in A} x_{i,k} = 0 \quad \forall k \in (K \cup L), k \text{ not a source or destination}
+\]
+
+2. Supply at source nodes:
+\[
+\sum_{j: (k,j) \in A} x_{k,j} = B_{k,l} \quad \forall k \in K
+\]
+
+3. Demand at destination nodes:
+\[
+\sum_{i: (i,l) \in A} x_{i,l} = B_{k,l} \quad \forall l \in L
+\]
+
+4. Capacity constraints:
+\[
+0 \leq x_{i,j} \leq U_{i,j} \quad \forall (i,j) \in A
+\]
+
+\subsection*{Output}
+The solution will provide:
+\begin{itemize}
+    \item \texttt{optimized\_paths}: a list of paths and their corresponding flow and cost.
+    \item \texttt{total\_cost}: total cost of all paths.
+\end{itemize}
+
+\end{document}

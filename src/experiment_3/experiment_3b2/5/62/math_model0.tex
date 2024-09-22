@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{amsfonts}
+
+\begin{document}
+
+\section*{Mixed-Integer Linear Programming Model for the Traveling Salesman Problem}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item Let \( C = \{0, 1, 2, \ldots, N\} \) be the set of cities, where city \( 0 \) is the start city.
+    \item Let \( i, j \in C \) represent cities.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{distance}_{i,j} \): distance between city \( i \) and city \( j \), for \( i, j \in C \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_{i,j} \): binary variable, equal to 1 if the route goes directly from city \( i \) to city \( j \), and 0 otherwise, for \( i, j \in C \).
+    \item \( u_i \): auxiliary variables for subtour elimination, \( i \in C \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total distance traveled:
+\[
+\min \sum_{i \in C} \sum_{j \in C, j \neq i} \text{distance}_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{align}
+\sum_{j \in C, j \neq i} x_{i,j} &= 1, \quad \forall i \in C \quad \text{(each city is departed exactly once)} \\
+\sum_{i \in C, i \neq j} x_{i,j} &= 1, \quad \forall j \in C \quad \text{(each city is arrived at exactly once)} \\
+u_i - u_j + N \cdot x_{i,j} &\leq N-1, \quad \forall i, j \in C, i \neq j \quad \text{(subtour elimination)}
+\end{align}
+
+\subsection*{Variable Domains}
+\begin{align}
+x_{i,j} &\in \{0, 1\}, \quad \forall i, j \in C, i \neq j \\
+u_i &\geq 0, \quad \forall i \in C, i \neq 0
+\end{align}
+
+\subsection*{Explanation}
+\begin{itemize}
+    \item The objective function minimizes the total traveling distance.
+    \item Constraints (1) and (2) ensure each city is visited exactly once, forming a complete tour.
+    \item Constraint (3) is implemented to eliminate subtours by using auxiliary variables \( u_i \).
+    \item \( u_0 \) is fixed (implicitly by not being part of subtour constraints).
+\end{itemize}
+
+\end{document}

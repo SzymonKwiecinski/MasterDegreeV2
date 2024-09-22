@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Maximizing Profit}
+
+\textbf{Decision Variables:}
+\begin{align*}
+\text{regular\_used}_{w} & \quad \text{Hours of regular labor used in week $w$, for } w = 1, \ldots, W.\\
+\text{overtime\_used}_{w} & \quad \text{Hours of overtime labor used in week $w$, for } w = 1, \ldots, W.\\
+\text{regular\_basket}_{w} & \quad \text{Baskets assembled with regular labor in week $w$, for } w = 1, \ldots, W.\\
+\text{overtime\_basket}_{w} & \quad \text{Baskets assembled with overtime labor in week $w$, for } w = 1, \ldots, W.\\
+\text{inventory}_{w} & \quad \text{Baskets on hand at the end of week $w$, for } w = 1, \ldots, W.
+\end{align*}
+
+\textbf{Objective Function:}
+Maximize the total profit over $W$ weeks:
+\[
+\text{total\_profit} = \sum_{w=1}^{W} \left( \text{selling\_price} \cdot (\text{regular\_basket}_{w} + \text{overtime\_basket}_{w}) - \text{regular\_cost} \cdot \text{regular\_used}_{w} - \text{overtime\_cost} \cdot \text{overtime\_used}_{w} - \text{material\_cost} \cdot (\text{regular\_basket}_{w} + \text{overtime\_basket}_{w}) \right) - \sum_{w=1}^{W-1} \text{holding\_cost} \cdot \text{inventory}_{w} + \text{salvage\_value} \cdot \text{inventory}_{W}
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+\text{regular\_used}_{w} & \leq \text{regular\_labor}_{w}, & \forall w = 1, \ldots, W \\
+\text{overtime\_used}_{w} & \leq \text{overtime\_labor}_{w}, & \forall w = 1, \ldots, W \\
+\text{regular\_basket}_{w} & = \frac{\text{regular\_used}_{w}}{\text{assembly\_time}}, & \forall w = 1, \ldots, W \\
+\text{overtime\_basket}_{w} & = \frac{\text{overtime\_used}_{w}}{\text{assembly\_time}}, & \forall w = 1, \ldots, W \\
+\text{inventory}_{w} & = \text{inventory}_{w-1} + \text{regular\_basket}_{w} + \text{overtime\_basket}_{w} - \text{demand}_{w}, & \forall w = 1, \ldots, W \\
+\text{inventory}_{0} & = 0
+\end{align*}
+
+\textbf{Charge No Holding Cost at the End of the Season:}
+\[
+\text{inventory}_{W} \text{ incurs no holding cost, but has salvage value.}
+\]
+
+All variables are non-negative.
+
+\end{document}

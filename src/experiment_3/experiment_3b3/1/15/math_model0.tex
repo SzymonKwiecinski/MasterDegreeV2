@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Production Optimization}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item $N$: Number of product types
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $assemblyHour_i$: Assembly hours required for product type $i$ 
+    \item $testingHour_i$: Testing hours required for product type $i$ 
+    \item $materialCost_i$: Material cost for product type $i$ in dollars
+    \item $maxAssembly$: Maximum available assembly hours per day
+    \item $maxTesting$: Maximum available testing hours per day
+    \item $price_i$: Selling price of product type $i$ in dollars
+    \item $maxOvertimeAssembly$: Maximum allowable overtime assembly hours
+    \item $overtimeAssemblyCost$: Cost per hour of overtime assembly
+    \item $materialDiscount$: Discount percentage on materials if applicable
+    \item $discountThreshold$: Threshold for discount eligibility
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $unitsProduced_i$: Number of units produced of product type $i$
+    \item $overtimeAssembly$: Number of overtime assembly hours scheduled
+    \item $materialBought$: Total cost of materials bought
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+\text{Maximize: } & \text{dailyProfit} = \sum_{i=1}^{N} (price_i \cdot unitsProduced_i) - materialBought - (overtimeAssembly \cdot overtimeAssemblyCost)
+\end{align*}
+
+\textbf{Constraints:}
+\begin{align*}
+1. & \quad \sum_{i=1}^{N} (assemblyHour_i \cdot unitsProduced_i) + overtimeAssembly \leq maxAssembly + maxOvertimeAssembly \\
+2. & \quad \sum_{i=1}^{N} (testingHour_i \cdot unitsProduced_i) \leq maxTesting \\
+3. & \quad materialBought = \sum_{i=1}^{N} materialCost_i \cdot unitsProduced_i \cdot \left(1 - \frac{materialDiscount}{100}\right) \text{ if } materialBought > discountThreshold \\
+4. & \quad materialBought = \sum_{i=1}^{N} materialCost_i \cdot unitsProduced_i \text{ otherwise}
+\end{align*}
+
+\textbf{Output:}
+\begin{align*}
+\text{dailyProfit} & \\
+unitsProduced & = [unitsProduced_1, unitsProduced_2, \ldots, unitsProduced_N] \\
+overtimeAssembly & \\
+materialBought & 
+\end{align*}
+
+\end{document}

@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $\text{period}$: Number of consecutive days a nurse works
+    \item $d_j$: Demand for nurses on day $j$, $j = 1, \ldots, 7$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $\text{start}_j$: Number of nurses starting their period on day $j$, $j = 1, \ldots, 7$
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total number of nurses hired:
+\[
+\text{Minimize} \quad \text{total} = \sum_{j=1}^{7} \text{start}_j
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    & \sum_{i=0}^{\text{period}-1} \text{start}_{(j-i-1) \mod 7 + 1} \geq d_j, \quad j = 1, \ldots, 7 \\
+    & \text{start}_j \geq 0 \quad \text{and integer}, \quad j = 1, \ldots, 7
+\end{align}
+
+\end{document}

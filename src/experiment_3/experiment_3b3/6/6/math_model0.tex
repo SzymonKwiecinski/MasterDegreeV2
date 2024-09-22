@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Motion and Fuel Optimization Problem}
+
+We consider a rocket traveling along a straight path, where the variables \( x_t \), \( v_t \), and \( a_t \) represent the position, velocity, and acceleration of the rocket at time \( t \), respectively. 
+The discrete-time motion model is given by:
+
+\begin{align*}
+    x_{t+1} &= x_t + v_t, \\
+    v_{t+1} &= v_t + a_t.
+\end{align*}
+
+We assume that the acceleration \( a_t \) is under our control, determined by the rocket thrust. The magnitude of the acceleration \( |a_t| \) can be approximated to be proportional to the rate of fuel consumption at time \( t \).
+
+Given the initial conditions:
+- \( x_0 \): Initial position
+- \( v_0 \): Initial velocity
+
+We aim to guide the rocket to reach a target position \( x_T \) with a target velocity \( v_T \) at time \( T \). The goal is to minimize the total fuel consumption \( \sum_{t=0}^{T-1} |a_t| \).
+
+\subsection*{Input}
+The input is represented as:
+\[
+\begin{align*}
+    &\text{Input:} \\
+    &\{ \\
+    &\quad x_0, \\
+    &\quad v_0, \\
+    &\quad x_T, \\
+    &\quad v_T, \\
+    &\quad T \\
+    &\}
+\end{align*}
+\]
+
+\subsection*{Objective Function}
+The objective function to minimize is:
+\[
+\text{Minimize } Z = \sum_{t=0}^{T-1} |a_t|
+\]
+
+\subsection*{Constraints}
+The following constraints must be satisfied:
+1. \( x_0 \) and \( v_0 \) are given initial conditions.
+2. Final conditions at time \( T \):
+   \[
+   x_T = x_T
+   \]
+   \[
+   v_T = v_T
+   \]
+
+3. Evolution constraints:
+   \[
+   x_{t+1} = x_t + v_t, \quad t=0,1,\ldots,T-1,
+   \]
+   \[
+   v_{t+1} = v_t + a_t, \quad t=0,1,\ldots,T-1.
+   \]
+
+\subsection*{Output}
+The desired output format is:
+\[
+\begin{align*}
+    &\{ \\
+    &\quad "x": [x_i \text{ for } i = 0, \ldots, T], \\
+    &\quad "v": [v_i \text{ for } i = 0, \ldots, T], \\
+    &\quad "a": [a_i \text{ for } i = 0, \ldots, T], \\
+    &\quad "fuel\_spend": \text{fuel\_spent} \\
+    &\}
+\end{align*}
+\]
+
+\end{document}

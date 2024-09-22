@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Production Management}
+
+\subsection*{Objective Function}
+\[
+\text{Maximize} \quad \sum_{i=1}^{I} \sum_{k=1}^{K} \left( profit_k \cdot y_{k,i} - \text{store\_price} \cdot z_{k,i} \right)
+\]
+
+\subsection*{Constraints}
+
+1. \textbf{Production Constraints}
+\[
+\sum_{k=1}^{K} \text{time}_{k,m} \cdot x_{k,i} \leq \left(\text{num}_{m} - \text{maintain}_{i,m}\right) \cdot \text{n\_workhours} \cdot 24, \quad \forall m = 1, \ldots, M, \, \forall i = 1, \ldots, I
+\]
+
+2. \textbf{Demand Constraints}
+\[
+y_{k,i} \leq \text{limit}_{k,i}, \quad \forall k = 1, \ldots, K, \, \forall i = 1, \ldots, I
+\]
+
+3. \textbf{Inventory Balance Constraints}
+\[
+z_{k,i} = z_{k,i-1} + x_{k,i} - y_{k,i}, \quad \forall k = 1, \ldots, K, \, \forall i = 1, \ldots, I, \quad \text{with } z_{k,0} = 0
+\]
+
+4. \textbf{Storage Constraints}
+\[
+z_{k,i} \leq 100, \quad \forall k = 1, \ldots, K, \, \forall i = 1, \ldots, I
+\]
+
+5. \textbf{Final Month Stock Requirement}
+\[
+z_{k,I} = \text{keep\_quantity}, \quad \forall k = 1, \ldots, K
+\]
+
+\end{document}

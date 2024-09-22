@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Shortest Path Problem Using Linear Programming}
+\author{}
+\date{}
+\maketitle
+
+\section*{Mathematical Model}
+
+Let:
+\begin{itemize}
+    \item \( x_{n,w}^{\text{north}} \) be the binary variable indicating movement north from intersection \((n, w)\).
+    \item \( x_{n,w}^{\text{west}} \) be the binary variable indicating movement west from intersection \((n, w)\).
+    \item \( \text{west\_time}_{n,w} \) be the time taken to move from intersection \((n, w)\) to \((n, w+1)\).
+    \item \( \text{north\_time}_{n,w} \) be the time taken to move from intersection \((n, w)\) to \((n+1, w)\).
+\end{itemize}
+
+Objective Function:
+\[
+\min \sum_{n=1}^{N} \sum_{w=1}^{W-1} \left( \text{west\_time}_{n,w} \cdot x_{n,w}^{\text{west}} \right) + \sum_{n=1}^{N-1} \sum_{w=1}^{W} \left( \text{north\_time}_{n,w} \cdot x_{n,w}^{\text{north}} \right)
+\]
+
+Subject to:
+\begin{align*}
+    & x_{1,1}^{\text{north}} + x_{1,1}^{\text{west}} = 1 & \text{(Start at (1,1))}\\
+    & x_{N,W} = 1 & \text{(End at (N,W))}\\
+    & \sum_{j=1}^{B-1} \left( x_{j,i}^{\text{north}} + x_{j,i}^{\text{west}} \right) = \sum_{j=0}^{A} \left( x_{i,j}^{\text{north}} + x_{i,j}^{\text{west}} \right) & \forall n \in \{2, \ldots, N-1\}, \forall w \in \{2, \ldots, W-1\} & \text{(Flow conservation)}\\
+    & x_{n,w}^{\text{north}}, x_{n,w}^{\text{west}} \in \{0, 1\} & \forall n, w
+\end{align*}
+
+\end{document}

@@ -1,0 +1,12 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\begin{align*}
+\text{Minimize} \quad & \sum_{k=1}^{K} \text{price}_k \cdot x_k \\
+\text{subject to} \quad & \sum_{k=1}^{K} \text{ratio}_{k,m} \cdot x_k = \text{target}_m, \quad \text{for} \quad m = 1, \ldots, M \\
+& \sum_{k=1}^{K} x_k = \text{alloy\_quant} \\
+& x_k \geq 0, \quad \text{for} \quad k = 1, \ldots, K
+\end{align*}
+
+\end{document}

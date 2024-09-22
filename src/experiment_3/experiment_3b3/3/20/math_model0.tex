@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $M$: Number of machines
+    \item $K$: Number of products
+    \item $I$: Number of months
+    \item $profit_k$: Profit per unit of product $k$ 
+    \item $time_{k,m}$: Production time of product $k$ on machine $m$
+    \item $maintain_{i,m}$: Number of machines down in month $i$
+    \item $limit_{k,i}$: Marketing limitation of product $k$ in month $i$
+    \item $store\_price$: Cost of storing one unit of product per month
+    \item $keep\_quantity$: Quantity of each product to keep in stock at the end of subsequent months
+    \item $n\_workhours$: Number of working hours per day
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $sell_{k,i}$: Amount of product $k$ sold in month $i$
+    \item $manufacture_{k,i}$: Amount of product $k$ manufactured in month $i$
+    \item $storage_{k,i}$: Amount of product $k$ stored at the end of month $i$
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{i=1}^{I} \sum_{k=1}^{K} \left( profit_k \cdot sell_{k,i} - store\_price \cdot storage_{k,i} \right)
+\]
+
+\textbf{Constraints:}
+\begin{enumerate}
+    \item \textbf{Production Capacity:}
+    \[
+    \sum_{k=1}^{K} \sum_{m=1}^{M} time_{k,m} \cdot manufacture_{k,i} \leq \left( n\_workhours \cdot 6 \cdot (24 - \sum_{m=1}^{M} maintain_{i,m}) \right) \quad \forall i
+    \]
+    
+    \item \textbf{Marketing Limitations:}
+    \[
+    sell_{k,i} \leq limit_{k,i} \quad \forall k, i
+    \]
+    
+    \item \textbf{Storage Constraints:}
+    \[
+    storage_{k,i-1} + manufacture_{k,i} - sell_{k,i} = storage_{k,i} \quad \forall k, i \text{ (where } i>1\text{)}
+    \]
+    
+    \item \textbf{Ending Stock Requirement:}
+    \[
+    storage_{k,I} \geq keep\_quantity \quad \forall k
+    \]
+
+    \item \textbf{Non-negativity Constraints:}
+    \[
+    sell_{k,i} \geq 0, \quad manufacture_{k,i} \geq 0, \quad storage_{k,i} \geq 0 \quad \forall k, i
+    \]
+\end{enumerate}
+
+\end{document}

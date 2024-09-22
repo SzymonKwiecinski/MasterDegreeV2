@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Communication Network}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( n \) be the number of nodes in the network.
+    \item Let \( A \) be the set of all links, where each link is represented as an ordered pair \( (i, j) \).
+    \item Let \( U_{i,j} \) be the capacity (in bits per second) of the link \( (i, j) \).
+    \item Let \( C_{i,j} \) be the cost (per bit) of transmitting along the link \( (i, j) \).
+    \item Let \( B_{k,l} \) be the data generation rate (in bits per second) from node \( k \) to node \( l \).
+\end{itemize}
+
+\subsection*{Variables}
+Define the flow variables \( x_{i,j} \) for each link \( (i, j) \in A \):
+\[
+x_{i,j} \text{ = flow on link } (i, j)
+\]
+
+\subsection*{Objective Function}
+Minimize the total transmission cost:
+\[
+\text{Minimize } Z = \sum_{(i,j) \in A} C_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+
+1. **Flow Capacity Constraints**:
+   \[
+   0 \leq x_{i,j} \leq U_{i,j}, \quad \forall (i,j) \in A
+   \]
+
+2. **Flow Conservation Constraints**:
+   For each node \( k \):
+   \[
+   \sum_{j | (k,j) \in A} x_{k,j} - \sum_{i | (i,k) \in A} x_{i,k} = 
+   \begin{cases} 
+   B_{k,l} & \text{if } k \text{ is a source node} \\
+   -B_{k,l} & \text{if } k \text{ is a destination node} \\
+   0 & \text{otherwise}
+   \end{cases}
+   \]
+
+3. **Data Transmission Requirement**:
+   Ensure that the flow from source to destination matches the data rate:
+   \[
+   \sum_{j | (k,j) \in A} x_{k,j} = B_{k,l} \quad \text{for each } (k,l) \text{ in data}
+   \]
+
+\subsection*{Output}
+Define the output format as:
+\begin{verbatim}
+{
+    "optimized_paths": {
+        "paths": [
+            {
+                "source": k,
+                "destination": l,
+                "route": [k, i_1, i_2, ..., l],
+                "path_flow": path_flow,
+                "path_cost": path_cost
+            },
+            ...
+        ],
+        "total_cost": total_cost
+    }
+}
+\end{verbatim}
+
+\end{document}

@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item \( I = \{1, 2, \ldots, N\} \): Set of translators.
+    \item \( L = \{1, 2, \ldots, M\} \): Set of required languages.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{cost}_i \): Cost of hiring translator \( i \) for \( i \in I \).
+    \item \( \text{language}_{il} \): Binary parameter, \( \text{language}_{il} = 1 \) if translator \( i \) can translate to language \( l \), and 0 otherwise.
+    \item \( \text{required}_l \): Binary parameter, \( \text{required}_l = 1 \) if language \( l \) is required.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_i \): Binary variable, \( x_i = 1 \) if translator \( i \) is selected, 0 otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost of selected translators:
+\[
+\min \sum_{i \in I} \text{cost}_i \cdot x_i
+\]
+
+\subsection*{Constraints}
+Ensure all required languages are covered:
+\[
+\sum_{i \in I} \text{language}_{il} \cdot x_i \geq \text{required}_l, \quad \forall l \in L
+\]
+
+\subsection*{Binary Constraints}
+\[
+x_i \in \{0, 1\}, \quad \forall i \in I
+\]
+
+\end{document}

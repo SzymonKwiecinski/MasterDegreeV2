@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Optimal Manufacturing Policy}
+
+Given the problem description, we need to formulate a mathematical model to determine the optimal manufacturing, selling, and storing policy that maximizes profits for the engineering factory. We will define the following sets, parameters, and decision variables:
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item $K$: Set of products, indexed by $k = 1, \ldots, K$.
+    \item $M$: Set of machines, indexed by $m = 1, \ldots, M$.
+    \item $I$: Set of months, indexed by $i = 1, \ldots, I$.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $num_{m}$: Number of machine $m$ available.
+    \item $profit_{k}$: Profit per unit of product $k$.
+    \item $time_{k,m}$: Production time required by product $k$ on machine $m$ (in hours).
+    \item $maintain_{i,m}$: Number of machine $m$ down for maintenance in month $i$.
+    \item $limit_{k,i}$: Maximum number of product $k$ that can be sold in month $i$.
+    \item $store\_price$: Storage cost per unit per month.
+    \item $keep\_quantity$: Desired stock of each product at the end of the planning horizon.
+    \item $n\_workhours$: Number of working hours per day.
+    \item $n\_days$: Number of working days per month (24 days).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $sell_{k,i}$: Number of units of product $k$ sold in month $i$.
+    \item $manufacture_{k,i}$: Number of units of product $k$ manufactured in month $i$.
+    \item $storage_{k,i}$: Number of units of product $k$ stored at the end of month $i$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the overall profit, which includes selling profits and storage costs:
+\[
+\max \sum_{i=1}^{I} \sum_{k=1}^{K} \left( profit_{k} \cdot sell_{k,i} - store\_price \cdot storage_{k,i} \right)
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    & \text{Manufacturing Capacity Constraints:} \notag \\
+    & \sum_{k=1}^{K} time_{k,m} \cdot manufacture_{k,i} \leq \left( num_{m} - maintain_{i,m} \right) \cdot n\_workhours \cdot n\_days, \quad \forall m, \forall i \\
+    & \text{Sales and Storage Constraints:} \notag \\
+    & sell_{k,i} \leq limit_{k,i}, \quad \forall k, \forall i \\
+    & manufacture_{k,i} = sell_{k,i} + storage_{k,i} - storage_{k,i-1}, \quad \forall k, \forall i \\
+    & storage_{k,0} = 0, \quad \forall k \\
+    & storage_{k,I} = keep\_quantity, \quad \forall k \\
+    & 0 \leq storage_{k,i} \leq 100, \quad \forall k, \forall i \\
+\end{align}
+
+This model provides a framework to determine the manufacturing, selling, and storing decisions for the factory to maximize profit while considering machine capacities, maintenance schedules, marketing limits, and storage constraints.
+
+\end{document}

@@ -1,0 +1,21 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\begin{align*}
+& \text{Given data points: } (x_k, y_k) \text{ for } k = 1, 2, \ldots, K \\
+& \text{Objective: Minimize the sum of absolute deviations.} \\
+
+& \min \sum_{k=1}^{K} (e_k^+ + e_k^-) \\
+
+\text{Subject to:} \\
+
+& y_k - (c \cdot x_k^2 + b \cdot x_k + a) = e_k^+ - e_k^-, \quad k = 1, 2, \ldots, K \\
+
+& e_k^+ \geq 0, \quad k = 1, 2, \ldots, K \\
+& e_k^- \geq 0, \quad k = 1, 2, \ldots, K \\
+
+& \text{Variables: } a, b, c, e_k^+, e_k^-
+\end{align*}
+
+\end{document}

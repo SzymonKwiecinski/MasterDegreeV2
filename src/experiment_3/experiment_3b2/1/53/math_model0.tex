@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\textbf{Decision Variables:}
+
+\[
+x_{i,j} = \text{Amount of soybeans transported from node } i \text{ to node } j
+\]
+
+\textbf{Objective Function:}
+
+Minimize the total cost of transportation:
+
+\[
+\text{Minimize } Z = \sum_{(i,j) \in A} C_{i,j} \cdot x_{i,j}
+\]
+
+\textbf{Constraints:}
+
+1. Supply constraints: The total amount shipped from each terminal \(k\) should not exceed the supply at that terminal.
+
+\[
+\sum_{j : (k,j) \in A} x_{k,j} \leq \text{supply}_k, \quad \forall k
+\]
+
+2. Demand constraints: The total amount received at each destination \(l\) should meet its demand.
+
+\[
+\sum_{i : (i,l) \in A} x_{i,l} \geq \text{demand}_l, \quad \forall l
+\]
+
+3. Flow balance for intermediate nodes (ports): The total inflow should equal the total outflow.
+
+\[
+\sum_{i : (i,p) \in A} x_{i,p} = \sum_{j : (p,j) \in A} x_{p,j}, \quad \forall \text{port } p
+\]
+
+4. Non-negativity constraints: All transported amounts should be non-negative.
+
+\[
+x_{i,j} \geq 0, \quad \forall (i,j) \in A
+\]
+
+\end{document}

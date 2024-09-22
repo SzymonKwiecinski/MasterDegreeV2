@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\textbf{Linear Programming Model:}
+
+\textbf{Decision Variables:}
+\[
+x_k \quad \text{for } k = 1, \ldots, K \quad (\text{quantity of product } k)
+\]
+
+\textbf{Objective Function:}
+Maximize the total profit:
+\[
+\max \sum_{k=1}^{K} \text{profit}_k \cdot x_k
+\]
+
+\textbf{Constraints:}
+
+For each stage \( s = 1, \ldots, S \), the total production time should not exceed the available time:
+\[
+\sum_{k=1}^{K} \text{produce\_time}_{k,s} \cdot x_k \leq \text{time}_s
+\]
+
+Non-negativity constraints for production quantities:
+\[
+x_k \geq 0 \quad \forall k = 1, \ldots, K
+\]
+
+\end{document}

@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model for Scheduling Nurses}
+
+\subsection*{Objective}
+Minimize the total number of nurses:
+\[
+\text{Minimize } \sum_{j=1}^{7} x_j
+\]
+
+\subsection*{Constraints}
+For each day \( j = 1, \ldots, 7 \), the available nurses should meet or exceed the demand:
+\[
+\begin{align*}
+x_1 + x_7 + x_6 + \cdots + x_{(8-\text{period}) \mod 7} &\geq d_1 \\
+x_2 + x_1 + x_7 + \cdots + x_{(9-\text{period}) \mod 7} &\geq d_2 \\
+x_3 + x_2 + x_1 + \cdots + x_{(10-\text{period}) \mod 7} &\geq d_3 \\
+x_4 + x_3 + x_2 + \cdots + x_{(11-\text{period}) \mod 7} &\geq d_4 \\
+x_5 + x_4 + x_3 + \cdots + x_{(12-\text{period}) \mod 7} &\geq d_5 \\
+x_6 + x_5 + x_4 + \cdots + x_{(13-\text{period}) \mod 7} &\geq d_6 \\
+x_7 + x_6 + x_5 + \cdots + x_{(14-\text{period}) \mod 7} &\geq d_7 \\
+\end{align*}
+\]
+
+\subsection*{Variables}
+\[
+x_j \geq 0, \quad \text{integer for } j = 1, \ldots, 7
+\]
+
+\end{document}

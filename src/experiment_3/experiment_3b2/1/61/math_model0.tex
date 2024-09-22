@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Model for Network Intrusion Intervention Optimization}
+
+\subsection*{Decision Variables}
+\begin{align*}
+x_{i,c} & : \text{Binary variable; 1 if cluster } i \text{ uses 'isolate' with 'central', 0 otherwise.} \\
+x_{i,d} & : \text{Binary variable; 1 if cluster } i \text{ uses 'isolate' with 'distributed', 0 otherwise.} \\
+y_{i,c} & : \text{Binary variable; 1 if cluster } i \text{ uses 'scan' with 'central', 0 otherwise.} \\
+y_{i,d} & : \text{Binary variable; 1 if cluster } i \text{ uses 'scan' with 'distributed', 0 otherwise.}
+\end{align*}
+
+\subsection*{Objective Function}
+\[
+\text{Minimize } \sum_{i=1}^{N} \left( \text{central\_cost} \cdot (x_{i,c} \cdot \text{isolate\_central}_i + y_{i,c} \cdot \text{scan\_central}_i) + \text{distributed\_cost} \cdot (x_{i,d} \cdot \text{isolate\_distributed}_i + y_{i,d} \cdot \text{scan\_distributed}_i) \right)
+\]
+
+\subsection*{Constraints}
+\begin{enumerate}
+    \item Each cluster must have exactly one type of intervention:
+    \[
+    x_{i,c} + x_{i,d} + y_{i,c} + y_{i,d} = 1 \quad \forall i = 1, \ldots, N
+    \]
+
+    \item Central processing must not exceed the maximum allotted hours:
+    \[
+    \sum_{i=1}^{N} (x_{i,c} \cdot \text{isolate\_central}_i + y_{i,c} \cdot \text{scan\_central}_i) \leq \text{max\_central}
+    \]
+
+    \item Distributed processing must not exceed the maximum allotted hours:
+    \[
+    \sum_{i=1}^{N} (x_{i,d} \cdot \text{isolate\_distributed}_i + y_{i,d} \cdot \text{scan\_distributed}_i) \leq \text{max\_distributed}
+    \]
+\end{enumerate}
+
+\end{document}

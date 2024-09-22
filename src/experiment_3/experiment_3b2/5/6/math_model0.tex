@@ -1,0 +1,26 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Objective:} Minimize the total fuel
+
+\[
+\min \sum_{t=0}^{T-1} (a^+_t + a^-_t)
+\]
+
+\textbf{Subject to the following constraints:}
+
+\begin{align*}
+x_{t+1} &= x_t + v_t, \quad t = 0, 1, \ldots, T-1 \\
+v_{t+1} &= v_t + a_t, \quad t = 0, 1, \ldots, T-1 \\
+x_0 &= \text{given initial position} \\
+v_0 &= \text{given initial velocity} \\
+x_T &= \text{target position} \\
+v_T &= \text{target velocity} \\
+a_t &= a^+_t - a^-_t \\
+a^+_t &\geq 0, \quad a^-_t \geq 0, \quad t = 0, 1, \ldots, T-1
+\end{align*}
+
+\end{document}

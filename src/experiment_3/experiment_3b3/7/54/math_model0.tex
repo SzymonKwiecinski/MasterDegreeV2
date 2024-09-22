@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( x_p \) be the number of batches produced for part \( p \) where \( p = 1, 2, \ldots, P \).
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} \left( price_p \cdot x_p - \sum_{m=1}^{M} cost_m \cdot \frac{time_{m,p}}{100} \cdot x_p \right) - \text{Labor Cost for Machine 1}
+\]
+
+Where the Labor Cost for Machine 1 is calculated as:
+\[
+\text{Labor Cost} = 
+\begin{cases} 
+standard\_cost \cdot \text{hours} & \text{if } \text{hours} \leq overtime\_hour \\ 
+standard\_cost \cdot overtime\_hour + overtime\_cost \cdot (\text{hours} - overtime\_hour) & \text{if } \text{hours} > overtime\_hour 
+\end{cases}
+\]
+
+\textbf{Constraints:}
+1. Machine Availability Constraints:
+\[
+\sum_{p=1}^{P} time_{m,p} \cdot x_p \leq available_m \quad \forall m = 2, \ldots, M
+\]
+
+2. Minimum Production Requirements:
+\[
+x_p \geq min\_batches_p \quad \forall p = 1, \ldots, P
+\]
+
+3. Non-negativity Constraints:
+\[
+x_p \geq 0 \quad \forall p = 1, \ldots, P
+\]
+
+\textbf{Output:}
+\begin{itemize}
+    \item The number of batches produced: \( \{ x_p \} \) for \( p = 1, \ldots, P \).
+    \item Total profit: \( Z \).
+\end{itemize}
+
+\end{document}

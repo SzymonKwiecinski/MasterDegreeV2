@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+\textbf{Objective:} Maximize the total profit
+
+\begin{align*}
+\text{Maximize} \quad & \sum_{w=1}^{W} \text{selling\_price} \times (\text{regular\_baskets}_w + \text{overtime\_baskets}_w) \\
+& + \text{salvage\_value} \times \text{inventory}_W \\
+& - \sum_{w=1}^{W} (\text{regular_cost} \times \text{regular\_used}_w + \text{overtime_cost} \times \text{overtime\_used}_w) \\
+& - \sum_{w=1}^{W} \text{material_cost} \times (\text{regular\_baskets}_w + \text{overtime\_baskets}_w) \\
+& - \sum_{w=1}^{W-1} \text{holding_cost} \times \text{inventory}_w
+\end{align*}
+
+\textbf{Subject to:}
+
+\begin{align*}
+\text{regular\_baskets}_w &= \frac{\text{regular\_used}_w}{\text{assembly\_time}}, & \forall w \\
+\text{overtime\_baskets}_w &= \frac{\text{overtime\_used}_w}{\text{assembly\_time}}, & \forall w \\
+\text{inventory}_w &= \text{inventory}_{w-1} + \text{regular\_baskets}_w + \text{overtime\_baskets}_w - \text{demand}_w, & \forall w \\
+\text{inventory}_0 &= 0 \\
+\text{regular\_used}_w &\leq \text{regular\_labor}_w, & \forall w \\
+\text{overtime\_used}_w &\leq \text{overtime\_labor}_w, & \forall w \\
+\end{align*}
+
+\end{document}

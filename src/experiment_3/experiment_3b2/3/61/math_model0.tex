@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Formulation}
+
+Define the decision variables:
+\[
+x_{i, j, k} = 
+\begin{cases} 
+1, & \text{if intervention type $j$ is used for cluster $i$ with method $k$} \\
+0, & \text{otherwise}
+\end{cases}
+\]
+where \( i = 1, \ldots, N \), \( j \in \{\text{isolate, scan}\} \), and \( k \in \{\text{central, distributed}\} \).
+
+The objective is to minimize the total cost:
+\[
+\text{Minimize} \quad Z = \sum_{i=1}^{N} \left( \text{central\_cost} \cdot \sum_{j} x_{i, j, \text{central}} \cdot p_{i, j, \text{central}} + \text{distributed\_cost} \cdot \sum_{j} x_{i, j, \text{distributed}} \cdot p_{i, j, \text{distributed}} \right)
+\]
+where \( p_{i, j, k} \) represents the processing time for intervention $j$ on cluster $i$ with method $k$.
+
+Subject to the constraints:
+
+1. Each cluster must have exactly one intervention type:
+\[
+\sum_{j} \sum_{k} x_{i, j, k} = 1, \quad \forall i
+\]
+
+2. Total central processing time must not exceed the central maximum hours:
+\[
+\sum_{i=1}^{N} \sum_{j} x_{i, j, \text{central}} \cdot p_{i, j, \text{central}} \leq \text{max\_central}
+\]
+
+3. Total distributed processing time must not exceed the distributed maximum hours:
+\[
+\sum_{i=1}^{N} \sum_{j} x_{i, j, \text{distributed}} \cdot p_{i, j, \text{distributed}} \leq \text{max\_distributed}
+\]
+
+4. Binary constraints for decision variables:
+\[
+x_{i, j, k} \in \{0, 1\}, \quad \forall i, j, k
+\]
+
+The processing times \( p_{i, j, k} \) are given by:
+\begin{align*}
+p_{i, \text{isolate}, \text{central}} &= \text{isolate\_central}_{i} \\
+p_{i, \text{scan}, \text{central}} &= \text{scan\_central}_{i} \\
+p_{i, \text{isolate}, \text{distributed}} &= \text{isolate\_distributed}_{i} \\
+p_{i, \text{scan}, \text{distributed}} &= \text{scan\_distributed}_{i}
+\end{align*}
+
+This formulation ensures that the most cost-effective combination of interventions is selected to address the network intrusion within the given constraints.
+
+\end{document}

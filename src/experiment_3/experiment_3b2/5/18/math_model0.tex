@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+% Decision Variables:
+% Let \( \text{buyquantity}_{i,m} \) be the amount of oil \( i \) purchased in month \( m \)
+% Let \( \text{refine}_{i,m} \) be the amount of oil \( i \) refined in month \( m \)
+% Let \( \text{storage}_{i,m} \) be the storage of oil \( i \) at the end of month \( m \)
+
+% Objective Function:
+% Maximize profit:
+\[
+\max \sum_{m=1}^{M} \left( \text{sell\_price} \sum_{i=1}^{I} \text{refine}_{i,m} - \sum_{i=1}^{I} \text{buy\_price}_{i,m} \cdot \text{buyquantity}_{i,m} - \text{storage\_cost} \sum_{i=1}^{I} \text{storage}_{i,m} \right)
+\]
+
+% Subject to constraints:
+
+% Storage Balance:
+\[
+\text{storage}_{i,m} = \text{storage}_{i,m-1} + \text{buyquantity}_{i,m} - \text{refine}_{i,m} \quad \forall i, m
+\]
+
+% Initial Storage:
+\[
+\text{storage}_{i,0} = \text{init\_amount} \quad \forall i
+\]
+
+% Final Storage Requirement:
+\[
+\text{storage}_{i,M} = \text{init\_amount} \quad \forall i
+\]
+
+% Storage Capacity:
+\[
+0 \leq \text{storage}_{i,m} \leq \text{storage\_size} \quad \forall i, m
+\]
+
+% Refining Capacity (Vegetable and Non-Vegetable):
+\[
+\sum_{i: \text{is\_vegetable}_{i} = 1} \text{refine}_{i,m} \leq \text{max\_vegetable\_refining\_per\_month} \quad \forall m
+\]
+\[
+\sum_{i: \text{is\_vegetable}_{i} = 0} \text{refine}_{i,m} \leq \text{max\_non\_vegetable\_refining\_per\_month} \quad \forall m
+\]
+
+% Hardness Constraint:
+\[
+\text{min\_hardness} \leq \frac{\sum_{i=1}^{I} \text{hardness}_{i} \cdot \text{refine}_{i,m}}{\sum_{i=1}^{I} \text{refine}_{i,m}} \leq \text{max\_hardness} \quad \forall m, \text{ if } \sum_{i=1}^{I} \text{refine}_{i,m} > 0
+\]
+
+% Non-negativity:
+\[
+\text{buyquantity}_{i,m} \geq 0, \quad \text{refine}_{i,m} \geq 0, \quad \text{storage}_{i,m} \geq 0 \quad \forall i, m
+\]
+
+\end{document}

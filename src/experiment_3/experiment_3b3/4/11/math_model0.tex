@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $i$: Month index, where $i = 1, 2, \ldots, T$
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $deliver_i$: Units to be delivered at the end of month $i$
+    \item $storage\_cost$: Storage cost per unit per month
+    \item $switch\_cost$: Cost per unit of change in production level
+    \item $T$: Total number of months
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_i$: Units produced in month $i$
+    \item $I_i$: Inventory at the end of month $i$
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize total cost:
+\[
+\text{Minimize } Z = \sum_{i=1}^{T} (storage\_cost \cdot I_i + switch\_cost \cdot |x_{i+1} - x_i|)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+    I_i & = I_{i-1} + x_i - deliver_i & \text{for } i = 1, 2, \ldots, T \\
+    I_0 & = 0 & \text{(initial inventory)} \\
+    I_i & \geq 0 & \text{for } i = 1, 2, \ldots, T \\
+    x_i & \geq 0 & \text{for } i = 1, 2, \ldots, T
+\end{align*}
+
+\subsection*{Output}
+The output will consist of:
+\begin{itemize}
+    \item $x = [x_1, x_2, \ldots, x_T]$: Production schedule for each month
+    \item $cost = Z$: Total cost of the production and inventory schedule
+\end{itemize}
+
+\end{document}

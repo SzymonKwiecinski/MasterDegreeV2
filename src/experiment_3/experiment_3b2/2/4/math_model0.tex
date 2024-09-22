@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Nurse Scheduling MILP Model}
+\author{}
+\date{}
+\maketitle
+
+\section*{Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{period} \): Number of consecutive days a nurse works.
+    \item \( d_j \): Demand for nurses on day \( j \) for \( j = 1, 2, \ldots, 7 \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_j \): Number of nurses starting their shift on day \( j \), \( j = 1, 2, \ldots, 7 \).
+    \item \( \text{total} \): Total number of nurses hired.
+\end{itemize}
+
+\subsection*{Objective Function}
+\[
+\min \text{ total} = \sum_{j=1}^{7} x_j
+\]
+
+\subsection*{Constraints}
+
+For each day \( j \), the demand \( d_j \) must be satisfied. Nurses starting on day \( j \) are available to work for \( \text{period} \) days. Thus, the constraint for day \( j \) is:
+
+\begin{align*}
+\text{For } j = 1, \ldots, 7, \quad & \sum_{k=0}^{\text{period}-1} x_{(j-k-1) \bmod 7 + 1} \geq d_j
+\end{align*}
+
+\subsection*{Variables Constraints}
+\begin{align*}
+x_j & \geq 0, \quad \text{and integer} \quad \forall j = 1, \ldots, 7
+\end{align*}
+
+\end{document}

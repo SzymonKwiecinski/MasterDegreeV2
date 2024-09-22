@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( x_i \): Number of units produced in month \( i \), for \( i = 1, \ldots, T \).
+    \item \( I_i \): Inventory at the end of month \( i \), for \( i = 1, \ldots, T \).
+\end{itemize}
+
+\textbf{Objective Function:}
+
+Minimize the total cost:
+\[
+\text{Minimize: } \sum_{i=1}^{T} \left( \text{storage\_cost} \cdot I_i \right) + \sum_{i=1}^{T-1} \text{switch\_cost} \cdot |x_{i+1} - x_i|
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+1. & \quad I_0 = 0 \quad \text{(Initial inventory)} \\
+2. & \quad I_i = I_{i-1} + x_i - \text{deliver}_i, \quad i = 1, \ldots, T \\
+3. & \quad I_i \geq 0, \quad i = 1, \ldots, T \\
+4. & \quad x_i \geq 0, \quad i = 1, \ldots, T
+\end{align*}
+
+The objective is to minimize the total cost, which includes the storage cost and the switching cost. The constraints ensure that the inventory levels are non-negative and that the production and delivery requirements are met.
+
+\end{document}

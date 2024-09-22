@@ -1,0 +1,85 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item \( I \): Set of oils, indexed by \( i \).
+    \item \( M \): Set of months, indexed by \( m \).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{buy\_price}_{i,m} \): Purchase price of oil \( i \) in month \( m \).
+    \item \( \text{sell\_price} \): Selling price of the final product per ton.
+    \item \( \text{is\_vegetable}_i \): Indicator if oil \( i \) is vegetable (1 if true, 0 otherwise).
+    \item \( \text{max\_vegetable\_refining\_per\_month} \): Maximum tons of vegetable oils that can be refined per month.
+    \item \( \text{max\_non\_vegetable\_refining\_per\_month} \): Maximum tons of non-vegetable oils that can be refined per month.
+    \item \( \text{storage\_size} \): Maximum storage capacity for each oil in tons.
+    \item \( \text{storage\_cost} \): Storage cost per ton per month.
+    \item \( \text{max\_hardness} \) and \( \text{min\_hardness} \): Bounds for the hardness of the final product.
+    \item \( \text{hardness}_i \): Hardness of oil \( i \).
+    \item \( \text{init\_amount} \): Initial storage of each oil in month 0.
+    \item \( \text{min\_usage} \): Minimum usage of an oil if used in a month.
+    \item \( \text{dependency}_{i,j} \): Dependency matrix, where 1 indicates oil \( j \) must be used if oil \( i \) is used.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{buyquantity}_{i,m} \): Tons of oil \( i \) purchased in month \( m \).
+    \item \( \text{refine}_{i,m} \): Tons of oil \( i \) refined in month \( m \).
+    \item \( \text{storage}_{i,m} \): Tons of oil \( i \) stored at the end of month \( m \).
+    \item \( \text{use}_{i,m} \): Binary variable indicating whether oil \( i \) is used in month \( m \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize profit over all months:
+\[
+\max \sum_{m=1}^{M} \left( \text{sell\_price} \cdot \sum_{i=1}^{I} \text{refine}_{i,m} - \sum_{i=1}^{I} \text{buy\_price}_{i,m} \cdot \text{buyquantity}_{i,m} - \text{storage\_cost} \cdot \sum_{i=1}^{I} \text{storage}_{i,m} \right)
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item \textbf{Flow Balance:}
+    \[
+    \text{storage}_{i,m} = \text{storage}_{i,m-1} + \text{buyquantity}_{i,m} - \text{refine}_{i,m}, \quad \forall i, \forall m
+    \]
+    \item \textbf{Refining Capacity:}
+    \[
+    \sum_{i \in \text{Vegetable}} \text{refine}_{i,m} \leq \text{max\_vegetable\_refining\_per\_month}, \quad \forall m
+    \]
+    \[
+    \sum_{i \in \text{Non-Vegetable}} \text{refine}_{i,m} \leq \text{max\_non\_vegetable\_refining\_per\_month}, \quad \forall m
+    \]
+    \item \textbf{Storage Limit:}
+    \[
+    0 \leq \text{storage}_{i,m} \leq \text{storage\_size}, \quad \forall i, \forall m
+    \]
+    \item \textbf{Hardness Constraints:}
+    \[
+    \text{min\_hardness} \leq \frac{\sum_{i=1}^{I} \text{hardness}_i \cdot \text{refine}_{i,m}}{\sum_{i=1}^{I} \text{refine}_{i,m}} \leq \text{max\_hardness}, \quad \forall m
+    \]
+    \item \textbf{Initial and End Storage:}
+    \[
+    \text{storage}_{i,0} = \text{init\_amount}, \quad \text{storage}_{i,M} = \text{init\_amount}, \quad \forall i
+    \]
+    \item \textbf{Usage Constraints:}
+    \[
+    \text{refine}_{i,m} \geq \text{min\_usage} \cdot \text{use}_{i,m}, \quad \forall i, \forall m
+    \]
+    \[
+    \sum_{i=1}^{I} \text{use}_{i,m} \leq 3, \quad \forall m
+    \]
+    \item \textbf{Dependency Constraints:}
+    \[
+    \text{use}_{i,m} \leq \text{use}_{j,m} + (1 - \text{dependency}_{i,j}), \quad \forall i, j, \forall m
+    \]
+    \item \textbf{Binary Constraints:}
+    \[
+    \text{use}_{i,m} \in \{0, 1\}, \quad \forall i, \forall m
+    \]
+\end{itemize}
+
+\end{document}

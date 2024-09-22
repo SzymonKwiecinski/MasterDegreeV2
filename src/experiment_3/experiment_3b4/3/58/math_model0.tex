@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Decision Variables}
+\begin{align*}
+batches_{p} & : \text{Number of batches of part } p \text{ to be produced, for } p = 1, \ldots, P. \\
+setup\_flags_{p} & : \text{Binary variable, } 1 \text{ if part } p \text{ is set up on machine 1, } 0 \text{ otherwise, for } p = 1, \ldots, P.
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\begin{equation}
+\max \sum_{p=1}^{P} \left( \text{price}_{p} \times batches_{p} \right) - \sum_{m=1}^{M} \left( \text{cost}_{m} \times \sum_{p=1}^{P} \left( \text{time}_{m,p} \times batches_{p} \right) + \delta_{m,1} \times \sum_{p=1}^{P} \left( \text{setup\_time}_{p} \times setup\_flags_{p} \right) \right)
+\end{equation}
+
+\subsection*{Constraints}
+\begin{align}
+& \sum_{p=1}^{P} \left( \text{time}_{m,p} \times batches_{p} \right) + \delta_{m,1} \times \sum_{p=1}^{P} \left( \text{setup\_time}_{p} \times setup\_flags_{p} \right) \leq \text{available}_{m}, \quad \forall m = 1, \ldots, M \\
+& batches_{p} \geq 0, \quad \forall p = 1, \ldots, P \\
+& setup\_flags_{p} \in \{0, 1\}, \quad \forall p = 1, \ldots, P \\
+& setup\_flags_{p} \geq \frac{batches_{p}}{U}, \quad \forall p = 1, \ldots, P
+\end{align}
+
+\subsection*{Explanation of Constraints}
+\begin{itemize}
+    \item Constraint (2) ensures that the total time used on machine $m$, including setup time for machine 1, does not exceed its availability.
+    \item Constraint (3) ensures that the number of batches produced is non-negative.
+    \item Constraint (4) ensures that the setup flag is a binary variable.
+    \item Constraint (5) links the setup flags with the production; if any batches of a part $p$ are produced, the setup flag for that part must be set to 1.
+\end{itemize}
+
+\end{document}

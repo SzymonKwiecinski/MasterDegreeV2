@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Decision Variables}
+Let \( x_{i,j} \) be the number of containers transported from depot \( i \) to port \( j \).
+
+\subsection*{Objective Function}
+Minimize the total transportation cost:
+\[
+\text{Minimize} \quad Z = \sum_{i=1}^{I} \sum_{j=1}^{J} \left( \frac{x_{i,j}}{2} \right) \cdot \text{price} \cdot \text{distance}_{i,j}
+\]
+Note that \( \frac{x_{i,j}}{2} \) represents the number of barges since each barge carries two containers.
+
+\subsection*{Constraints}
+
+1. Supply constraints: The number of containers sent from each depot \( i \) cannot exceed the available number of containers.
+\[
+\sum_{j=1}^{J} x_{i,j} \leq \text{numdepot}_i, \quad \forall i = 1, \ldots, I
+\]
+
+2. Demand constraints: Each port \( j \) must receive the required number of containers.
+\[
+\sum_{i=1}^{I} x_{i,j} = \text{numport}_j, \quad \forall j = 1, \ldots, J
+\]
+
+3. Non-negativity constraints: The number of containers sent must be non-negative.
+\[
+x_{i,j} \geq 0, \quad \forall i = 1, \ldots, I, \quad \forall j = 1, \ldots, J
+\]
+
+\end{document}

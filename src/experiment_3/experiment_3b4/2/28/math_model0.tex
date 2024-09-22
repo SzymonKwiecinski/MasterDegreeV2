@@ -1,0 +1,14 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Formulation for Fitting a Line with Minimum Absolute Deviations:}
+
+\begin{align*}
+    & \text{Minimize} \quad \sum_{k=1}^{K} (u_k + v_k) \\
+    & \text{Subject to:} \\
+    & y_k - (bx_k + a) = u_k - v_k, \quad \text{for } k = 1, \ldots, K \\
+    & u_k \geq 0, \quad v_k \geq 0, \quad \text{for } k = 1, \ldots, K
+\end{align*}
+
+\end{document}

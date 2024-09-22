@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Model for Network Intrusion Intervention}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item \( i \): Index for clusters, \( i = 1, 2, \ldots, N \)
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{isolate\_central}_i \): Processing time for isolating cluster \( i \) centrally.
+    \item \( \text{scan\_central}_i \): Processing time for scanning cluster \( i \) centrally.
+    \item \( \text{isolate\_distributed}_i \): Processing time for isolating cluster \( i \) distributed.
+    \item \( \text{scan\_distributed}_i \): Processing time for scanning cluster \( i \) distributed.
+    \item \( \text{central\_cost} \): Cost per hour for central processing.
+    \item \( \text{distributed\_cost} \): Cost per hour for distributed processing.
+    \item \( \text{max\_central} \): Maximum hours available for central processing.
+    \item \( \text{max\_distributed} \): Maximum hours available for distributed processing.
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item \( x_{i, \text{central, isolate}} \): Binary variable, 1 if cluster \( i \) is isolated centrally, 0 otherwise.
+    \item \( x_{i, \text{central, scan}} \): Binary variable, 1 if cluster \( i \) is scanned centrally, 0 otherwise.
+    \item \( x_{i, \text{distributed, isolate}} \): Binary variable, 1 if cluster \( i \) is isolated distributed, 0 otherwise.
+    \item \( x_{i, \text{distributed, scan}} \): Binary variable, 1 if cluster \( i \) is scanned distributed, 0 otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost of interventions:
+\begin{align*}
+\min \sum_{i=1}^{N} & (\text{isolate\_central}_i \cdot \text{central\_cost} \cdot x_{i, \text{central, isolate}} + \text{scan\_central}_i \cdot \text{central\_cost} \cdot x_{i, \text{central, scan}} \\
+& + \text{isolate\_distributed}_i \cdot \text{distributed\_cost} \cdot x_{i, \text{distributed, isolate}} + \text{scan\_distributed}_i \cdot \text{distributed\_cost} \cdot x_{i, \text{distributed, scan}})
+\end{align*}
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Each cluster must have exactly one type of intervention:
+    \begin{align*}
+    x_{i, \text{central, isolate}} + x_{i, \text{central, scan}} + x_{i, \text{distributed, isolate}} + x_{i, \text{distributed, scan}} = 1, \quad \forall i
+    \end{align*}
+    
+    \item Central processing time constraint:
+    \begin{align*}
+    \sum_{i=1}^{N} (\text{isolate\_central}_i \cdot x_{i, \text{central, isolate}} + \text{scan\_central}_i \cdot x_{i, \text{central, scan}}) \leq \text{max\_central}
+    \end{align*}
+    
+    \item Distributed processing time constraint:
+    \begin{align*}
+    \sum_{i=1}^{N} (\text{isolate\_distributed}_i \cdot x_{i, \text{distributed, isolate}} + \text{scan\_distributed}_i \cdot x_{i, \text{distributed, scan}}) \leq \text{max\_distributed}
+    \end{align*}
+    
+    \item Binary constraints for decision variables:
+    \begin{align*}
+    x_{i, \text{central, isolate}}, x_{i, \text{central, scan}}, x_{i, \text{distributed, isolate}}, x_{i, \text{distributed, scan}} \in \{0, 1\}, \quad \forall i
+    \end{align*}
+\end{itemize}
+
+\end{document}

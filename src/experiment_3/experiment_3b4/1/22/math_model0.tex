@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} Minimize the total redundancy cost over all categories and years.
+
+\textbf{Decision Variables:}
+\begin{align*}
+  &\text{Let } recruit_{k,i} \text{ be the number of manpower } k \text{ recruited in year } i. \\
+  &\text{Let } overmanning_{k,i} \text{ be the number of manpower } k \text{ employed more than required in year } i. \\
+  &\text{Let } short_{k,i} \text{ be the number of manpower } k \text{ on short-time working in year } i. \\
+  &\text{Let } redundancy_{k,i} \text{ be the number of redundancies for manpower } k \text{ in year } i. \\
+\end{align*}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } \sum_{k=1}^{K} \sum_{i=1}^{I} costredundancy_{k} \times redundancy_{k,i}
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+  &\text{(1) Workforce Balance:} \\
+  &\qquad \text{For } i = 1: \\
+  &\qquad current_{k,i} = strength_k, \\
+  &\qquad \text{For } i > 1: \\
+  &\qquad current_{k,i} = current_{k,i-1} \times (1 - moreonewaste_{k}) + recruit_{k,i-1}, \\
+  &\quad \text{Manpower Utilization: } \\
+  &\qquad current_{k,i} + overmanning_{k,i} = requirement_{k,i} - short_{k,i}/2 + redundancy_{k,i},\\
+  &\text{(2) Recruitment Limit:} \\
+  &\qquad recruit_{k,i} \leq recruit_{k}, \\
+  &\text{(3) Overmanning Limit:} \\
+  &\qquad \sum_{k=1}^{K} overmanning_{k,i} \leq num\_overman, \\
+  &\text{(4) Short-Time Working Limit:} \\
+  &\qquad short_{k,i} \leq num\_shortwork, \\
+  &\text{(5) Non-Negativity:} \\
+  &\qquad recruit_{k,i}, overmanning_{k,i}, short_{k,i}, redundancy_{k,i} \geq 0.
+\end{align*}
+
+\textbf{Additional Considerations:}
+\begin{itemize}
+  \item Manpower who have been recruited in the last year experience the wastage rate of \text{lessonewaste_{k}} in their first year.
+\end{itemize}
+
+\end{document}

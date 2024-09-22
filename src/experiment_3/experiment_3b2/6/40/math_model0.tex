@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( n_{\text{steel\_quant}} \): Total steel required (tons)
+    \item \( \text{mn\_percent} \): Minimum percentage of manganese required
+    \item \( \text{si\_min} \): Minimum percentage of silicon required
+    \item \( \text{si\_max} \): Maximum percentage of silicon allowed
+    \item \( \text{contsi}_{k} \): Percentage of silicon in mineral \( k \)
+    \item \( \text{contmn}_{k} \): Percentage of manganese in mineral \( k \)
+    \item \( \text{mang\_price} \): Cost per ton of manganese (million euros)
+    \item \( \text{cost}_{k} \): Cost per thousand tons of mineral \( k \) (million euros)
+    \item \( \text{sell\_price} \): Selling price per ton of steel (million euros)
+    \item \( \text{melt\_price} \): Melting cost per ton (million euros)
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_k \): Amount of mineral \( k \) used (in thousand tons)
+    \item \( y \): Amount of manganese directly added (in tons)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the profit:
+
+\[
+\text{Maximize} \quad Z = \text{sell\_price} \cdot n_{\text{steel\_quant}} - \sum_{k} \left( x_k \cdot \text{cost}_k \right) - y \cdot \text{mang\_price} - \left( \sum_{k} x_k + \frac{y}{1000} \right) \cdot n_{\text{steel\_quant}} \cdot \text{melt\_price}
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    \sum_{k} x_k + \frac{y}{1000} &= n_{\text{steel\_quant}} \quad (\text{Total steel production}) \\
+    \sum_{k} x_k \cdot \text{contmn}_k + \left( \frac{y}{n_{\text{steel\_quant}}} \right) &\geq \text{mn\_percent} \quad (\text{Manganese requirement}) \\
+    \sum_{k} x_k \cdot \text{contsi}_k &\geq \text{si\_min} \quad (\text{Silicon lower bound}) \\
+    \sum_{k} x_k \cdot \text{contsi}_k &\leq \text{si\_max} \quad (\text{Silicon upper bound}) \\
+    x_k &\geq 0 \quad \forall k \\
+    y &\geq 0
+\end{align}
+
+\end{document}

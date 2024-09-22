@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Parameters}
+
+\begin{align*}
+& \text{buy\_price}_{i,m} & \text{Cost of oil } i \text{ in month } m. \\
+& \text{sell\_price} & \text{Selling price per ton of final product.} \\
+& \text{is\_vegetable}_i & \text{Indicator if oil } i \text{ is vegetable.} \\
+& \text{max\_veg} & \text{Max refining capacity for vegetable oils per month.} \\
+& \text{max\_non\_veg} & \text{Max refining capacity for non-vegetable oils per month.} \\
+& \text{storage\_size} & \text{Max storage size per oil type.} \\
+& \text{storage\_cost} & \text{Cost of storage per ton per month.} \\
+& \text{max\_hardness} & \text{Max permissible hardness of the final product.} \\
+& \text{min\_hardness} & \text{Min permissible hardness of the final product.} \\
+& \text{hardness}_i & \text{Hardness of oil } i. \\
+& \text{init\_amount} & \text{Initial storage amount for each oil type.} \\
+\end{align*}
+
+\subsection*{Decision Variables}
+
+\begin{align*}
+& \text{buyquantity}_{i,m} & \text{Amount of oil } i \text{ bought in month } m. \\
+& \text{refine}_{i,m} & \text{Amount of oil } i \text{ refined in month } m. \\
+& \text{storage}_{i,m} & \text{Amount of oil } i \text{ stored at the end of month } m. \\
+\end{align*}
+
+\subsection*{Objective Function}
+
+Maximize the profit:
+\[
+\sum_{m=1}^{M} \left( \text{sell\_price} \times \sum_{i=1}^{I} \text{refine}_{i,m} - \sum_{i=1}^{I} (\text{buy\_price}_{i,m} \times \text{buyquantity}_{i,m} + \text{storage\_cost} \times \text{storage}_{i,m}) \right)
+\]
+
+\subsection*{Constraints}
+
+1. \textbf{Refining Capacity}
+\begin{align*}
+& \sum_{i \in \text{vegetable oils}} \text{refine}_{i,m} \leq \text{max\_veg} & \forall m \\
+& \sum_{i \in \text{non-vegetable oils}} \text{refine}_{i,m} \leq \text{max\_non\_veg} & \forall m \\
+\end{align*}
+
+2. \textbf{Hardness Constraint}
+\begin{align*}
+\text{min\_hardness} \leq \frac{\sum_{i=1}^{I} \text{hardness}_i \times \text{refine}_{i,m}}{\sum_{i=1}^{I} \text{refine}_{i,m}} \leq \text{max\_hardness} & \forall m \\
+\end{align*}
+
+3. \textbf{Storage Constraints}
+\begin{align*}
+& \text{storage}_{i,0} = \text{init\_amount} & \forall i \\
+& \text{storage}_{i,M} = \text{init\_amount} & \forall i \\
+& \text{storage}_{i,m-1} + \text{buyquantity}_{i,m} - \text{refine}_{i,m} = \text{storage}_{i,m} & \forall i, m > 0 \\
+& 0 \leq \text{storage}_{i,m} \leq \text{storage\_size} & \forall i, m \\
+\end{align*}
+
+This model will help determine the optimal buying, refining, and storage strategies for the company to maximize its profit, adhering to the given constraints.
+
+\end{document}

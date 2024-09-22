@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Electricity Transmission Problem}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( send_{p,c} \) be the amount of electricity (in million kwh) sent from power plant \( p \) to city \( c \).
+    \item Let \( total\_cost \) be the total transmission cost.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( P \): Number of power plants
+    \item \( C \): Number of cities
+    \item \( supply_{p} \): Capacity of power plant \( p \) (in million kwh)
+    \item \( demand_{c} \): Peak demand of city \( c \) (in million kwh)
+    \item \( transmission_{p,c} \): Transmission cost from power plant \( p \) to city \( c \) (in \$ per million kwh)
+\end{itemize}
+
+\textbf{Objective:}
+\[
+\text{Minimize } total\_cost = \sum_{p=1}^{P} \sum_{c=1}^{C} transmission_{p,c} \cdot send_{p,c}
+\]
+
+\textbf{Subject to:}
+\begin{align}
+    \sum_{c=1}^{C} send_{p,c} & \leq supply_{p} \quad \forall p = 1, \ldots, P \tag{1} \\
+    \sum_{p=1}^{P} send_{p,c} & \geq demand_{c} \quad \forall c = 1, \ldots, C \tag{2} \\
+    send_{p,c} & \geq 0 \quad \forall p = 1, \ldots, P, \; c = 1, \ldots, C \tag{3}
+\end{align}
+
+\textbf{Output:}
+\begin{itemize}
+    \item The matrix \( send = [send_{p,c}] \) for \( p = 1, \ldots, P \) and \( c = 1, \ldots, C \)
+    \item The total cost \( total\_cost \)
+\end{itemize}
+
+\end{document}

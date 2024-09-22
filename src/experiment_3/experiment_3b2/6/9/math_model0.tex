@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Optimal Lamp Power}
+
+Let \( N \) be the number of road segments and \( M \) be the number of lamps.
+
+\subsection*{Variables}
+- \( \text{power}_j \) for \( j = 1, \ldots, M \): Power of the \( j \)-th lamp.
+- \( \text{error}_i \) for \( i = 1, \ldots, N \): Absolute error between the actual and desired illumination of the \( i \)-th segment.
+
+\subsection*{Parameters}
+- \( \text{coeff}_{i,j} \): Coefficient representing the effect of the \( j \)-th lamp on the \( i \)-th segment.
+- \( \text{desired}_i \): Desired illumination level for the \( i \)-th segment.
+
+\subsection*{Objective Function}
+The objective is to minimize the total absolute error over all segments:
+
+\[
+\min \sum_{i=1}^{N} \text{error}_i
+\]
+
+\subsection*{Constraints}
+For each road segment \( i \), the illumination is calculated as:
+
+\[
+\text{ill}_i = \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j
+\]
+
+We define the absolute error with the following constraints:
+
+\[
+\text{ill}_i - \text{desired}_i \leq \text{error}_i, \quad \forall i = 1, \ldots, N
+\]
+
+\[
+\text{desired}_i - \text{ill}_i \leq \text{error}_i, \quad \forall i = 1, \ldots, N
+\]
+
+Where:
+- \( \text{ill}_i \) is the calculated illumination of the \( i \)-th segment.
+- \( \text{error}_i \) is a non-negative variable representing the absolute error.
+
+\subsection*{Non-negativity Constraints}
+- \( \text{power}_j \geq 0, \quad \forall j = 1, \ldots, M \)
+- \( \text{error}_i \geq 0, \quad \forall i = 1, \ldots, N \)
+
+\end{document}

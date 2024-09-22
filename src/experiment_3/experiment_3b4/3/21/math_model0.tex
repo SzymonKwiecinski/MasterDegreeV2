@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Indices}
+\begin{align*}
+m & : \text{Index for machines, } m = 1, \ldots, M \\
+k & : \text{Index for products, } k = 1, \ldots, K \\
+i & : \text{Index for months, } i = 1, \ldots, I \\
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+\text{\textit{num\_machines}}_m &: \text{Number of machines of type } m \\
+\text{\textit{profit}}_k &: \text{Profit per unit of product } k \\
+\text{\textit{time}}_{k,m} &: \text{Time required on machine } m \text{ for product } k \\
+\text{\textit{down}}_m &: \text{Maintenance months required for machine } m \\
+\text{\textit{limit}}_{k,i} &: \text{Marketing limitation of product } k \text{ in month } i \\
+\text{\textit{store\_price}} &: \text{Storage cost per unit per month} \\
+\text{\textit{keep\_quantity}} &: \text{Desired stock at the end of the period for each product} \\
+\text{\textit{n\_workhours}} &: \text{Number of work hours per shift} \\
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+\text{sell}_{k,i} &\geq 0 : \text{Amount of product } k \text{ sold in month } i \\
+\text{manufacture}_{k,i} &\geq 0 : \text{Amount of product } k \text{ manufactured in month } i \\
+\text{storage}_{k,i} &\geq 0 : \text{Amount of product } k \text{ stored at the end of month } i \\
+\text{maintain}_{m,i} &\geq 0 : \text{Number of machines } m \text{ under maintenance in month } i \\
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total profit over all months:
+\begin{align*}
+\max \sum_{i=1}^{I} \sum_{k=1}^{K} \left(\text{profit}_k \cdot \text{sell}_{k,i} - \text{store\_price} \cdot \text{storage}_{k,i}\right)
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+& \text{Manufacturing balance:} \\
+& \text{storage}_{k,i-1} + \text{manufacture}_{k,i} = \text{sell}_{k,i} + \text{storage}_{k,i} \quad \forall k, \forall i \\
+& \text{Initial conditions:} \\
+& \text{storage}_{k,0} = 0 \quad \forall k \\
+& \text{End stock requirement:} \\
+& \text{storage}_{k,I} = \text{keep\_quantity} \quad \forall k \\
+& \text{Machine availability:} \\
+& \sum_{k=1}^{K} \text{manufacture}_{k,i} \cdot \text{time}_{k,m} \leq (\text{num\_machines}_m - \text{maintain}_{m,i}) \cdot 24 \cdot 6 \cdot \text{n\_workhours} \quad \forall m, \forall i \\
+& \text{Maintenance requirement:} \\
+& \sum_{i=1}^{I} \text{maintain}_{m,i} = \text{down}_m \cdot \text{num\_machines}_m \quad \forall m \\
+& \text{Marketing limits:} \\
+& 0 \leq \text{sell}_{k,i} \leq \text{limit}_{k,i} \quad \forall k, \forall i \\
+\end{align*}
+
+\end{document}

@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Economic Planning}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item $K$: Number of industries, indexed by $k$ and $j$.
+    \item $T$: Number of years, indexed by $t$.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $\text{inputone}_{k,j}$: Input required from industry $j$ for producing £1 worth of production in industry $k$.
+    \item $\text{manpowerone}_k$: Manpower required for £1 worth of production in industry $k$.
+    \item $\text{inputtwo}_{k,j}$: Input required from industry $j$ to increase capacity of industry $k$ by £1 worth.
+    \item $\text{manpowertwo}_k$: Manpower required to increase capacity of industry $k$ by £1 worth.
+    \item $\text{stock}_k$: Initial stock of industry $k$ at year $0$.
+    \item $\text{capacity}_k$: Initial capacity of industry $k$ at year $0$.
+    \item $\text{demand}_k$: Exogenous consumption requirement from industry $k$ for $t = 1, \ldots, T$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $\text{produce}_{k,t}$: Units produced by industry $k$ in year $t$.
+    \item $\text{buildcapa}_{k,t}$: Units used to build productive capacity for industry $k$ in year $t$.
+    \item $\text{stockhold}_{k,t}$: Stock of industry $k$ held at the end of year $t$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total manpower requirement over five years:
+\[
+\text{Maximize} \quad \sum_{k=1}^{K} \sum_{t=1}^{T} \left( \text{manpowerone}_k \cdot \text{produce}_{k,t} + \text{manpowertwo}_k \cdot \text{buildcapa}_{k,t} \right)
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item \textbf{Production and Capacity Constraints:}
+    \[
+    \text{produce}_{k,t} + \text{buildcapa}_{k,t} \leq \text{capacity}_k + \sum_{j=1}^{t-1} \text{buildcapa}_{k,j}, \quad \forall k, \forall t
+    \]
+
+    \item \textbf{Stock Balance Constraints:}
+    \[
+    \text{stockhold}_{k,t} = \text{stock}_{k,t-1} + \text{produce}_{k,t} - \text{demand}_k - \sum_{j=1}^{K} \text{inputone}_{k,j} \cdot \text{produce}_{j,t}, \quad \forall k, \forall t
+    \]
+    where $\text{stock}_{k,0} = \text{stock}_k$.
+
+    \item \textbf{Non-negativity Constraints:}
+    \[
+    \text{produce}_{k,t}, \text{buildcapa}_{k,t}, \text{stockhold}_{k,t} \geq 0, \quad \forall k, \forall t
+    \]
+\end{itemize}
+
+\end{document}

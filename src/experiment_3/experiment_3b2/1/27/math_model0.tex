@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item $K$: Set of departments, indexed by $k$.
+    \item $L$: Set of possible locations (cities), indexed by $l$.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $benefit_{k,l}$: Benefit for department $k$ from relocation at city $l$ (in thousands of pounds).
+    \item $communication_{k,j}$: Quantity of communication between department $k$ and department $j$.
+    \item $cost_{l,m}$: Unit cost of communication between city $l$ and city $m$.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $islocated_{k,l} \in \{0, 1\}$: Binary variable indicating whether department $k$ is relocated at city $l$.
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} \sum_{l=1}^{L} \left( -benefit_{k,l} \cdot islocated_{k,l} \right) + \sum_{k=1}^{K} \sum_{j=1}^{K} \sum_{l=1}^{L} \sum_{m=1}^{L} \left( communication_{k,j} \cdot cost_{l,m} \cdot islocated_{k,l} \cdot islocated_{j,m} \right)
+\]
+
+\textbf{Subject to:}
+\begin{align}
+    & \sum_{l=1}^{L} islocated_{k,l} = 1 \quad \forall k = 1, \ldots, K \\ 
+    & \sum_{k=1}^{K} islocated_{k,l} \leq 3 \quad \forall l = 1, \ldots, L \\
+    & islocated_{k,l} \in \{0, 1\} \quad \forall k = 1, \ldots, K, \, l = 1, \ldots, L 
+\end{align}
+
+\textbf{Explanation:}
+\begin{itemize}
+    \item Equation (1) ensures that each department is located in exactly one city.
+    \item Equation (2) ensures that no city hosts more than three departments.
+    \item The objective function includes the benefits of relocation (which are subtracted to reflect cost minimization) and the network communication costs.
+\end{itemize}
+
+\end{document}

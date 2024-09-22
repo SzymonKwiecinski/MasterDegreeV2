@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Formulation for Floppy Disk Backup Problem}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item $j \in \{1, \ldots, N\}$: Index for files, where $N$ is the total number of files.
+    \item $i \in \{1, \ldots, N\}$: Index for disks (at most $N$ disks are needed if each file is on a separate disk).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $capacity$: Capacity of each floppy disk (in GB).
+    \item $size_j$: Size of file $j$ (in GB).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_{ij} \in \{0, 1\}$: Binary variable, where $x_{ij} = 1$ if file $j$ is assigned to disk $i$, and 0 otherwise.
+    \item $y_i \in \{0, 1\}$: Binary variable, where $y_i = 1$ if disk $i$ is used, and 0 otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the number of disks used:
+\[
+\min \sum_{i=1}^{N} y_i
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Each file must be placed on exactly one disk:
+    \[
+    \sum_{i=1}^{N} x_{ij} = 1, \quad \forall j \in \{1, \ldots, N\}
+    \]
+    
+    \item The total size of files on each disk must not exceed its capacity:
+    \[
+    \sum_{j=1}^{N} size_j \cdot x_{ij} \leq capacity \cdot y_i, \quad \forall i \in \{1, \ldots, N\}
+    \]
+    
+    \item A disk $i$ is used if at least one file is assigned to it:
+    \[
+    x_{ij} \leq y_i, \quad \forall i \in \{1, \ldots, N\}, \forall j \in \{1, \ldots, N\}
+    \]
+\end{itemize}
+
+\subsection*{Model Description}
+This MILP model seeks to distribute the files across a set of floppy disks in a way that minimizes the number of disks used. The constraints ensure that no disk exceeds its capacity and that each file is assigned to exactly one disk. The decision variable $y_i$ indicates whether disk $i$ is used.
+
+\end{document}

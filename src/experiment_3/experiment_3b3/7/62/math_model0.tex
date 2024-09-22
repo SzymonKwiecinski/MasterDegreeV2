@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Traveling Salesman Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $N$: Number of towns to visit.
+    \item $distance_{i,j}$: Distance between city $i$ and city $j$.
+    \item $start\_city$: The starting city of the traveler.
+\end{itemize}
+
+\subsection*{Decision Variables}
+Define binary decision variables:
+\[
+x_{i,j} = 
+\begin{cases} 
+1 & \text{if the route goes from city } i \text{ to city } j \\
+0 & \text{otherwise}
+\end{cases}
+\]
+for $i, j \in \{1, 2, \ldots, N\}$ and $i \neq j$.
+
+\subsection*{Objective Function}
+The objective is to minimize the total distance traveled:
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} \sum_{j=1, j \neq i}^{N} distance_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+1. Each city must be entered and exited exactly once:
+\[
+\sum_{j=1, j \neq i}^{N} x_{i,j} = 1 \quad \forall i \in \{1, 2, \ldots, N\}
+\]
+\[
+\sum_{i=1, i \neq j}^{N} x_{i,j} = 1 \quad \forall j \in \{1, 2, \ldots, N\}
+\]
+
+2. Subtour elimination constraints can be added to ensure there are no disconnected routes:
+   For subsets of cities, ensure that if $i$ and $j$ are in a subset, they must be connected.
+
+3. The starting city must be the first visited city:
+\[
+x_{start\_city, j} = 1 \quad \forall j \in \{1, 2, \ldots, N\}
+\]
+
+4. Ensure the traveler returns to the starting city:
+\[
+x_{j, start\_city} = 1 \quad \forall j \in \{1, 2, \ldots, N\}
+\]
+
+\subsection*{Output}
+The solution should provide:
+\begin{itemize}
+    \item \textbf{visit\_order}: The sequence of cities visited after $start\_city$.
+    \item \textbf{total\_distance}: The total distance traveled in this optimal journey.
+\end{itemize}
+
+\end{document}

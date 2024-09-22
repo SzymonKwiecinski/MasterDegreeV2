@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} 
+Maximize the total manpower requirement over five years:
+\[
+\max \sum_{t=1}^{5} \sum_{k=1}^{K} \left( \text{manpowerone}_k \cdot \text{produce}_{k,t} + \text{manpowertwo}_k \cdot \text{buildcapa}_{k,t} \right)
+\]
+
+\textbf{Subject to:}
+
+1. \textbf{Demand Satisfaction (for each year \(t = 1, 2, 3, 4, 5\)):}
+\[
+\text{produce}_{k,t} + \text{stockhold}_{k,t-1} - \sum_{j=1}^{K} \text{inputone}_{k,j} \cdot \text{produce}_{j,t} - \text{demand}_k \geq 0, \quad \forall k = 1, \ldots, K
+\]
+
+2. \textbf{Capacity Constraints (for each year \(t = 1, 2, 3, 4, 5\)):}
+\[
+\text{produce}_{k,t} + \text{buildcapa}_{k,t} \leq \text{capacity}_{k,t}, \quad \forall k = 1, \ldots, K
+\]
+
+3. \textbf{Initial Stocks (for year \(t = 0\)):}
+\[
+\text{stockhold}_{k,0} = \text{stock}_k, \quad \forall k = 1, \ldots, K
+\]
+
+4. \textbf{Capacity Built-in Constraints (for year \(t = 2, 3, 4, 5\)):}
+\[
+\text{capacity}_{k,t} = \text{capacity}_{k,t-1} + \text{buildcapa}_{k,t-2}, \quad \forall k = 1, \ldots, K
+\]
+
+5. \textbf{Resource Constraints (for each year \(t = 1, 2, 3, 4, 5\)):}
+\[
+\sum_{j=1}^{K} \text{inputtwo}_{k,j} \cdot \text{buildcapa}_{j,t} \leq \text{produce}_{k,t}, \quad \forall k = 1, \ldots, K
+\]
+
+6. \textbf{Non-negativity Constraints:}
+\[
+\text{produce}_{k,t}, \text{buildcapa}_{k,t}, \text{stockhold}_{k,t} \geq 0, \quad \forall k = 1, \ldots, K, \forall t = 1, \ldots, 5
+\]
+
+\end{document}

@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\begin{document}
+
+\section*{Mathematical Model for the Problem}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item \( k \in \{1, \ldots, K\} \): Products
+    \item \( m \in \{1, \ldots, M\} \): Machines
+    \item \( i \in \{1, \ldots, I\} \): Months
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \texttt{num\_machines}[m] \): Number of machine \( m \)
+    \item \( \texttt{profit}[k] \): Profit for product \( k \) 
+    \item \( \texttt{time}[k][m] \): Unit production time for product \( k \) on machine \( m \)
+    \item \( \texttt{down}[m] \): Maintenance months required for machine \( m \)
+    \item \( \texttt{limit}[k][i] \): Marketing limitation for product \( k \) in month \( i \)
+    \item \( \texttt{store\_price} \): Storage cost per unit per month
+    \item \( \texttt{keep\_quantity} \): Desired end-of-month stock for each product
+    \item \( \texttt{n\_workhours} \): Number of work hours per shift
+    \item Work days per month \( = 24 \)
+    \item Shifts per day \( = 2 \)
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \texttt{sell}[k][i] \): Quantity of product \( k \) sold in month \( i \)
+    \item \( \texttt{manufacture}[k][i] \): Quantity of product \( k \) manufactured in month \( i \)
+    \item \( \texttt{storage}[k][i] \): Quantity of product \( k \) stored at the end of month \( i \)
+    \item \( \texttt{maintain}[m][i] \): Number of machines \( m \) under maintenance in month \( i \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+\sum_{i=1}^{I} \sum_{k=1}^{K} \left( \texttt{profit}[k] \cdot \texttt{sell}[k][i] - \texttt{store\_price} \cdot \texttt{storage}[k][i] \right)
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    & \texttt{maintain}[m][i] \leq \texttt{down}[m], \quad \forall m, i \\
+    & \sum_{k=1}^{K} \left(\texttt{manufacture}[k][i] \cdot \texttt{time}[k][m]\right) \leq (\texttt{num\_machines}[m] - \texttt{maintain}[m][i]) \cdot 24 \cdot 2 \cdot \texttt{n\_workhours}, \quad \forall m, i \\
+    & \texttt{sell}[k][i] \leq \texttt{limit}[k][i], \quad \forall k, i \\
+    & \texttt{storage}[k][i] \leq 100, \quad \forall k, i \\
+    & \texttt{storage}[k][i] = \texttt{storage}[k][i-1] + \texttt{manufacture}[k][i] - \texttt{sell}[k][i], \quad \forall k, i \\
+    & \texttt{storage}[k][0] = 0, \quad \forall k \\
+    & \texttt{storage}[k][I] = \texttt{keep\_quantity}, \quad \forall k \\
+    & \texttt{manufacture}[k][i], \texttt{sell}[k][i], \texttt{storage}[k][i], \texttt{maintain}[m][i] \geq 0, \quad \forall k, m, i
+\end{align}
+
+\end{document}

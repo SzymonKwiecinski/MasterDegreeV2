@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Knapsack Problem Formulation}
+
+\textbf{Given:}
+\begin{itemize}
+    \item Maximum capacity: \( C \)
+    \item Values of items: \( \text{value}_k \) for each item \( k \)
+    \item Sizes of items: \( \text{size}_k \) for each item \( k \)
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item \( x_k \) = 
+    \begin{cases} 
+      1 & \text{if item } k \text{ is included in the container} \\
+      0 & \text{otherwise}
+    \end{cases}
+\end{itemize}
+
+\textbf{Objective:}
+\[
+\max \sum_{k=1}^{K} \text{value}_k \times x_k
+\]
+
+\textbf{Subject to:}
+\[
+\sum_{k=1}^{K} \text{size}_k \times x_k \leq C
+\]
+\[
+x_k \in \{0, 1\} \quad \forall k = 1, 2, \ldots, K
+\]
+
+\end{document}

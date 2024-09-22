@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Online Advertising Campaign}
+
+\subsection*{Parameters}
+\begin{align*}
+& \text{Let } A \text{ be the number of ad types,} \\
+& \text{goal\_young: the goal of clicks from visitors aged 18-25 (in thousands),} \\
+& \text{goal\_old: the goal of clicks from visitors older than 25 (in thousands),} \\
+& \text{goal\_unique\_young: the goal of unique clicks from visitors aged 18-25 (in thousands),} \\
+& \text{goal\_unique\_old: the goal of unique clicks from visitors older than 25 (in thousands),} \\
+& \text{young\_clicks}_a: \text{percentage of clicks from the 18-25 age range for ad type } a, \\
+& \text{old\_clicks}_a: \text{percentage of clicks from older visitors for ad type } a, \\
+& \text{cost}_a: \text{cost per 1000 clicks for ad type } a, \\
+& \text{max\_clicks}_a: \text{maximum allowable clicks for ad type } a \text{ (in thousands),} \\
+& \text{unique\_clicks}_a: \text{estimated percentage of unique visitors for ad type } a, \\
+& \text{budget: total advertising budget.}
+\end{align*}
+
+\subsection*{Decision Variables}
+Let \( \text{clicks}_a \) be the number of clicks purchased for ad type \( a \) (in thousands).
+
+\subsection*{Objective Function}
+Maximize the total number of unique clicks:
+\[
+\text{Maximize } Z = \sum_{a=1}^{A} \text{unique\_clicks}_a \cdot \text{clicks}_a
+\]
+
+\subsection*{Constraints}
+1. Clicks from visitors aged 18-25:
+\[
+\sum_{a=1}^{A} \text{young\_clicks}_a \cdot \text{clicks}_a \geq \text{goal\_young}
+\]
+2. Clicks from visitors older than 25:
+\[
+\sum_{a=1}^{A} \text{old\_clicks}_a \cdot \text{clicks}_a \geq \text{goal\_old}
+\]
+3. Unique clicks from visitors aged 18-25:
+\[
+\sum_{a=1}^{A} \text{unique\_clicks}_a \cdot \text{clicks}_a \geq \text{goal\_unique\_young}
+\]
+4. Unique clicks from visitors older than 25:
+\[
+\sum_{a=1}^{A} \text{unique\_clicks}_a \cdot \text{clicks}_a \geq \text{goal\_unique\_old}
+\]
+5. Budget constraint:
+\[
+\sum_{a=1}^{A} \text{cost}_a \cdot \text{clicks}_a \leq \text{budget}
+\]
+6. Maximum allowable clicks for each ad type:
+\[
+\text{clicks}_a \leq \text{max\_clicks}_a, \quad \forall a \in \{1, \ldots, A\}
+\]
+7. Non-negativity:
+\[
+\text{clicks}_a \geq 0, \quad \forall a \in \{1, \ldots, A\}
+\]
+
+\subsection*{Output Variables}
+The outputs will be:
+\begin{itemize}
+    \item \( \text{clicks} = [\text{clicks}_1, \text{clicks}_2, \ldots, \text{clicks}_A] \)
+    \item \( \text{total\_unique\_clicks} = Z \)
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Cafeteria Staffing Problem}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $N$: Total number of days
+    \item $num_n$: Number of desired employees on day $n$, for $n = 1, 2, \ldots, N$
+    \item $n_{\text{working\_days}}$: Number of consecutive working days for each employee
+    \item $n_{\text{resting\_days}}$: Number of consecutive resting days for each employee
+    \item $T = n_{\text{working\_days}} + n_{\text{resting\_days}}$: Total cycle duration
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x$: Total number of employees to hire, $x \in \mathbb{Z}^+$
+    \item $is\_work_{n,i}$: Binary variable indicating whether employee $i$ is working on day $n$, where $n = 1, 2, \ldots, N$ and $i = 1, 2, \ldots, x$
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize} \quad x
+\]
+
+\textbf{Constraints:}
+\begin{itemize}
+    \item For each day $n$, ensure that the number of employees working meets the required number:
+    \[
+    \sum_{i=1}^{x} is\_work_{n,i} \geq num_n, \quad \forall n \in \{1, 2, \ldots, N\}
+    \]
+    
+    \item Enforce the working and resting pattern for each employee:
+    \[
+    is\_work_{n,i} = 
+    \begin{cases}
+    1 & \text{if employee } i \text{ works on day } n \\
+    0 & \text{otherwise}
+    \end{cases}
+    \]
+
+    \item Each employee works for $n_{\text{working\_days}}$ followed by $n_{\text{resting\_days}}$:
+    \[
+    is\_work_{n,i} + is\_work_{n+1,i} + \ldots + is\_work_{n + n_{\text{working\_days}} - 1,i} = n_{\text{working\_days}}, \quad \forall n \equiv 0 \mod T, \; \forall i
+    \]
+    
+    \item Likewise, resting days would sum up accordingly:
+    \[
+    is\_work_{n + n_{\text{working\_days}},i} + is\_work_{n + n_{\text{working\_days}} + 1,i} + \ldots + is\_work_{n + T - 1,i} = 0, \quad \forall n \equiv 0 \mod T, \; \forall i
+    \]
+\end{itemize}
+
+\textbf{Output:}
+\begin{itemize}
+    \item $total\_number = x$
+    \item $is\_work = [is\_work_{n,i} \text{ for } n \text{ in } 1, \ldots, N \text{ for } i \text{ in } 1, \ldots, x]$
+\end{itemize}
+
+\end{document}

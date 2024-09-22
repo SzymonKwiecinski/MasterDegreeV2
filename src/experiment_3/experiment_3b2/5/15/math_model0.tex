@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Decision Variables}
+\begin{align*}
+x_i & \quad \text{Number of units produced of product } i, \; \forall i = 1, \ldots, N \\
+y & \quad \text{Overtime assembly hours scheduled}
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+\text{assemblyHour}_i & \quad \text{Assembly hours required for product } i \\
+\text{testingHour}_i & \quad \text{Testing hours required for product } i \\
+\text{materialCost}_i & \quad \text{Material cost for product } i \\
+\text{price}_i & \quad \text{Price of product } i \\
+\text{maxAssembly} & \quad \text{Maximum assembly hours available} \\
+\text{maxTesting} & \quad \text{Maximum testing hours available} \\
+\text{maxOvertimeAssembly} & \quad \text{Maximum overtime assembly hours available} \\
+\text{overtimeAssemblyCost} & \quad \text{Cost of overtime assembly hours per hour} \\
+\text{materialDiscount} & \quad \text{Discount percentage on material cost if discount threshold met} \\
+\text{discountThreshold} & \quad \text{Threshold for material cost to apply discount}
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the daily profit:
+\begin{align*}
+\text{Profit} = \sum_{i=1}^{N} \left(\text{price}_i \times x_i\right) - \left(\sum_{i=1}^{N} \text{materialCost}_i \times x_i \times (1 - \text{discount})\right) - \left(y \times \text{overtimeAssemblyCost}\right)
+\end{align*}
+where:
+\[
+\text{discount} = 
+\begin{cases} 
+\frac{\text{materialDiscount}}{100} & \text{if } \sum_{i=1}^{N} \text{materialCost}_i \times x_i > \text{discountThreshold} \\
+0 & \text{otherwise}
+\end{cases}
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+\sum_{i=1}^{N} \text{assemblyHour}_i \times x_i & \leq \text{maxAssembly} + y \\
+\sum_{i=1}^{N} \text{testingHour}_i \times x_i & \leq \text{maxTesting} \\
+y & \leq \text{maxOvertimeAssembly} \\
+x_i & \geq 0, \quad \text{and integer} \\
+y & \geq 0, \quad \text{and integer}
+\end{align*}
+
+\end{document}

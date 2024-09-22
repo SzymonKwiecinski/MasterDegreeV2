@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Manufacturing Optimization}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( M \): Number of machines
+    \item \( K \): Number of products
+    \item \( I \): Number of months
+    \item \( \text{profit}_k \): Profit from product \( k \) per unit
+    \item \( \text{time}_{k,m} \): Time needed to produce product \( k \) on machine \( m \)
+    \item \( \text{down}_m \): Months machine \( m \) is down for maintenance
+    \item \( \text{limit}_{k,i} \): Marketing limit for product \( k \) in month \( i \)
+    \item \( \text{store\_price} \): Cost to store one unit of product per month
+    \item \( \text{keep\_quantity} \): Desired quantity to keep in stock for each product
+    \item \( n_{\text{workhours}} \): Number of work hours available (6 days a week, 2 shifts)
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{sell}_{k,i} \): Amount sold of product \( k \) in month \( i \)
+    \item \( \text{manufacture}_{k,i} \): Amount manufactured of product \( k \) in month \( i \)
+    \item \( \text{storage}_{k,i} \): Amount of product \( k \) stored at the end of month \( i \)
+    \item \( \text{maintain}_{m,k} \): Number of machines \( m \) under maintenance for product \( k \) in month \( i \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize profit:
+
+\[
+\text{Maximize} \quad Z = \sum_{i=1}^{I} \sum_{k=1}^{K} \left( \text{profit}_k \cdot \text{sell}_{k,i} - \text{store\_price} \cdot \text{storage}_{k,i} \right)
+\]
+
+\subsection*{Constraints}
+1. Machine Time Constraint:
+\[
+\sum_{k=1}^{K} \text{time}_{k,m} \cdot \text{manufacture}_{k,i} \leq \text{Available\_time}_{m,i}, \quad \forall m, i
+\]
+where \( \text{Available\_time}_{m,i} = n_{\text{workhours}} \cdot 24 - \text{down}_m \)
+
+2. Selling Limits:
+\[
+\text{sell}_{k,i} \leq \text{limit}_{k,i}, \quad \forall k, i
+\]
+
+3. Storage Balance:
+\[
+\text{storage}_{k,i} = \text{storage}_{k,i-1} + \text{manufacture}_{k,i} - \text{sell}_{k,i}, \quad \forall k, i
+\]
+with \( \text{storage}_{k,0} = 0 \)
+
+4. End-of-Period Stock Requirement:
+\[
+\text{storage}_{k,I} \geq \text{keep\_quantity}, \quad \forall k
+\]
+
+5. Non-negativity:
+\[
+\text{sell}_{k,i} \geq 0, \quad \text{manufacture}_{k,i} \geq 0, \quad \text{storage}_{k,i} \geq 0, \quad \text{maintain}_{m,k} \geq 0, \quad \forall k, m, i
+\]
+
+\end{document}

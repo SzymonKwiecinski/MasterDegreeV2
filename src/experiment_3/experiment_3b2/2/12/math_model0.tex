@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\textbf{Objective:}
+
+Maximize the total amount of currency \( N \) at the end of the day:
+
+\[
+\text{Maximize: } \sum_{i=1}^{N-1} x_{i,N} \cdot \text{rate}_{i,N}
+\]
+
+\textbf{Subject to:}
+
+1. Initial Amount Constraint:
+
+\[
+\sum_{j=1, j \neq i}^{N} x_{i,j} \leq \text{start}_i + \sum_{j=1, j \neq i}^{N} x_{j,i} \cdot \text{rate}_{j,i} \quad \forall i = 1, \ldots, N
+\]
+
+2. Exchange Limit Constraint:
+
+\[
+\sum_{j=1, j \neq i}^{N} x_{i,j} + \sum_{j=1, j \neq i}^{N} x_{j,i} \cdot \text{rate}_{j,i} \leq \text{limit}_i \quad \forall i = 1, \ldots, N
+\]
+
+3. Non-negativity Constraint:
+
+\[
+x_{i,j} \geq 0 \quad \forall i, j = 1, \ldots, N
+\]
+
+\end{document}

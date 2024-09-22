@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( x_i \) be the number of units produced in month \( i \) for \( i = 1, 2, \ldots, T \).
+    \item Let \( I_i \) be the inventory at the end of month \( i \).
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{deliver}_i \): number of units to be delivered at the end of month \( i \).
+    \item \( \text{storage\_cost} \): cost of storage per unit per month.
+    \item \( \text{switch\_cost} \): cost incurred for switching production levels.
+    \item \( T \): total number of months.
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } Z = \sum_{i=1}^{T} \left( \text{storage\_cost} \cdot I_i + \text{switch\_cost} \cdot |x_{i+1} - x_i| \right)
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+I_1 & = x_1 - \text{deliver}_1 \\
+I_i & = I_{i-1} + x_i - \text{deliver}_i, \quad \forall i = 2, \ldots, T \\
+I_i & \geq 0, \quad \forall i = 1, \ldots, T \\
+x_i & \geq 0, \quad \forall i = 1, \ldots, T
+\end{align*}
+
+\textbf{Initialization:}
+\[
+I_0 = 0 \quad \text{(starting with zero inventory)}
+\]
+
+\end{document}
