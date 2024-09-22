@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+Given the problem setup, we define the following variables:
+
+\begin{itemize}
+    \item Let \( x_{i,j} \) be the amount of currency \( i \) exchanged for currency \( j \).
+    \item Let \( y_i \) be the amount of currency \( i \) held after all transactions.
+\end{itemize}
+
+### Objective Function:
+We want to maximize the total amount of currency \( N \) at the end of the day:
+
+\[
+\text{Maximize } y_N
+\]
+
+### Constraints:
+
+1. **Initial Currency Holdings:**
+   The amount of currency \( i \) after transactions should equal the initial amount plus the amounts received and minus the amounts exchanged:
+   \[
+   y_i = start_i + \sum_{j=1}^{N} x_{j,i} - \sum_{j=1}^{N} x_{i,j} \quad \forall i \in \{1, 2, ..., N\}
+   \]
+
+2. **Currency Exchange Limits:**
+   We need to respect the regulations that limit the total amount of currency \( i \) that can be exchanged:
+   \[
+   \sum_{j=1}^{N} x_{i,j} + \sum_{j=1}^{N} x_{j,i} \leq limit_i \quad \forall i \in \{1, 2, ..., N\}
+   \]
+
+3. **Exchange Rates:**
+   The amounts exchanged must comply with the currency exchange rates:
+   \[
+   x_{i,j} \leq rate_{i,j} \cdot y_i \quad \forall i, j \in \{1, 2, ..., N\}
+   \]
+
+4. **Non-negativity:**
+   All exchanged amounts and final amounts must be non-negative:
+   \[
+   x_{i,j} \geq 0, \quad y_i \geq 0 \quad \forall i, j \in \{1, 2, ..., N\}
+   \]
+
+### Summary:
+The Linear Programming problem can be summarized as:
+
+\[
+\begin{align*}
+\text{Maximize } & y_N \\
+\text{subject to } & y_i = start_i + \sum_{j=1}^{N} x_{j,i} - \sum_{j=1}^{N} x_{i,j}, \quad \forall i \\
+& \sum_{j=1}^{N} x_{i,j} + \sum_{j=1}^{N} x_{j,i} \leq limit_i, \quad \forall i \\
+& x_{i,j} \leq rate_{i,j} \cdot y_i, \quad \forall i, j \\
+& x_{i,j} \geq 0, \quad y_i \geq 0, \quad \forall i, j 
+\end{align*}
+\]
+
+\end{document}

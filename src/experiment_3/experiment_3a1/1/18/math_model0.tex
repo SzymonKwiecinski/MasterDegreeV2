@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Variables}
+\begin{align*}
+\text{buyquantity}_{i,m} & : \text{ Amount of oil } i \text{ bought in month } m \\
+\text{refine}_{i,m} & : \text{ Amount of oil } i \text{ refined in month } m \\
+\text{storage}_{i,m} & : \text{ Amount of oil } i \text{ stored at the end of month } m
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+\text{price}_{i,m} & : \text{ Purchase price of oil } i \text{ in month } m \\
+\text{sell\_price} & : \text{ Selling price of the final product per ton} \\
+\text{max\_veg} & : \text{ Maximum tons of vegetable oils refined per month} \\
+\text{max\_non\_veg} & : \text{ Maximum tons of non-vegetable oils refined per month} \\
+\text{storage\_size} & : \text{ Maximum storage capacity for each raw oil} \\
+\text{storage\_cost} & : \text{ Cost of storage per ton per month} \\
+\text{max\_hardness} & : \text{ Maximum allowable hardness of the final product} \\
+\text{min\_hardness} & : \text{ Minimum allowable hardness of the final product} \\
+\text{hardness}_{i} & : \text{ Hardness of oil } i \\
+\text{init\_amount} & : \text{ Initial amount of each type of raw oil}
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize Profit:
+\[
+\text{Profit} = \sum_{m=1}^{M} \left( \text{sell\_price} \cdot \sum_{i=1}^{I} \text{refine}_{i,m} - \sum_{i=1}^{I} \text{price}_{i,m} \cdot \text{buyquantity}_{i,m} - \sum_{i=1}^{I} \text{storage\_cost} \cdot \text{storage}_{i,m} \right)
+\]
+
+\subsection*{Constraints}
+
+\textbf{1. Storage Dynamics:}
+\[
+\text{storage}_{i,m} = \text{storage}_{i,m-1} + \text{buyquantity}_{i,m} - \text{refine}_{i,m}, \quad \forall i, \forall m
+\]
+\[
+\text{storage}_{i,0} = \text{init\_amount}, \quad \forall i
+\]
+\[
+\text{storage}_{i,M} = \text{init\_amount}, \quad \forall i
+\]
+\[
+0 \leq \text{storage}_{i,m} \leq \text{storage\_size}, \quad \forall i, \forall m
+\]
+
+\textbf{2. Refining Capacity:}
+\[
+\sum_{i \text{ is vegetable}} \text{refine}_{i,m} \leq \text{max\_veg}, \quad \forall m
+\]
+\[
+\sum_{i \text{ is non-vegetable}} \text{refine}_{i,m} \leq \text{max\_non\_veg}, \quad \forall m
+\]
+
+\textbf{3. Hardness Restrictions:}
+\[
+\frac{\sum_{i=1}^{I} \text{hardness}_{i} \cdot \text{refine}_{i,m}}{\sum_{i=1}^{I} \text{refine}_{i,m}} \text{ is between } \text{min\_hardness and max\_hardness}, \quad \forall m
+\]
+
+\textbf{4. Non-negativity Constraints:}
+\[
+\text{buyquantity}_{i,m} \geq 0, \quad \text{refine}_{i,m} \geq 0, \quad \text{storage}_{i,m} \geq 0, \quad \forall i, \forall m
+\]
+
+\end{document}

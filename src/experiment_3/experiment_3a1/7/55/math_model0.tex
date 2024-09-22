@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\subsection*{Sets and Parameters}
+\begin{itemize}
+    \item $P$: Number of different parts produced
+    \item $M$: Number of different machines
+    \item $time_{m,p}$: Time (in hours) required on machine $m$ to produce a batch of 100 part $p$
+    \item $cost_{m}$: Cost per hour of using machine $m$
+    \item $available_{m}$: Availability (in hours) of machine $m$ per month
+    \item $price_{p}$: Selling price per batch of part $p$
+    \item $min\_batches_{p}$: Minimum batches of part $p$ that must be produced per month
+    \item $standard\_cost$: Standard labor cost per hour
+    \item $overtime\_cost$: Overtime labor cost per hour
+    \item $overtime\_hour$: Number of hours at standard cost before overtime applies
+    \item $min\_profit$: Minimum desired profit per month
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $batches_{p}$: Number of batches of part $p$ produced per month
+    \item $total\_profit$: Total profit obtained for the month
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit $Z$:
+\[
+Z = \sum_{p=1}^{P} (price_{p} \cdot batches_{p}) - \sum_{m=1}^{M} (cost_{m} \cdot \sum_{p=1}^{P} time_{m,p} \cdot batches_{p}) - labor\_cost
+\]
+
+where,
+\[
+labor\_cost = 
+\begin{cases}
+standard\_cost \cdot \min(overtime\_hour, \sum_{m=1}^{M} (time_{1,p} \cdot batches_{p}) ) & \text{if } \sum_{m=1}^{M} (time_{1,p} \cdot batches_{p}) \leq overtime\_hour \\
+standard\_cost \cdot overtime\_hour + overtime\_cost \cdot \left( \sum_{m=1}^{M} (time_{1,p} \cdot batches_{p}) - overtime\_hour \right) & \text{otherwise}
+\end{cases}
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+1. & \quad \sum_{p=1}^{P} time_{m,p} \cdot batches_{p} \leq available_{m}, \quad \forall m \in \{1, \ldots, M\} \\
+2. & \quad batches_{p} \geq min\_batches_{p}, \quad \forall p \in \{1, \ldots, P\} \\
+3. & \quad Z \geq min\_profit
+\end{align*}
+
+\subsection*{Solution}
+The solution will provide:
+\begin{itemize}
+    \item The number of batches of each part produced: $batches_{p}$ for $p = 1, \ldots, P$
+    \item Total profit for the month: $total\_profit$
+\end{itemize}
+
+\end{document}

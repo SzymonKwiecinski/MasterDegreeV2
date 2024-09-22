@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Industry Production}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item Let $K$ be the number of industries.
+    \item Let $T$ be the time horizon (5 years).
+    \item $inputone_{k,j}$: input required from industry $j$ by industry $k$.
+    \item $manpowerone_k$: manpower required by industry $k$.
+    \item $inputtwo_{k,j}$: input required to build capacity for industry $k$ using output from industry $j$.
+    \item $manpowertwo_k$: manpower required to build capacity for industry $k$.
+    \item $stock_k$: stock available for industry $k$ at year 0.
+    \item $capacity_k$: initial capacity of industry $k$.
+    \item $demand_k$: demand for industry $k$ in each year except year 0.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $produce_{k,t}$: amount of units produced by industry $k$ in year $t$.
+    \item $buildcapa_{k,t}$: amount of units used to build productive capacity for industry $k$ in year $t$.
+    \item $stockhold_{k,t}$: amount of stock of industry $k$ held at the end of year $t$.
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+\text{Maximize } Z = \sum_{t=1}^T \sum_{k=1}^K manpowerone_k \cdot produce_{k,t} + \sum_{k=1}^K manpowertwo_k \cdot buildcapa_{k,t}
+\end{align*}
+
+\textbf{Subject to:}
+
+\textbf{Production Constraints:}
+\begin{align*}
+\sum_{j=1}^{K} inputone_{k,j} \cdot produce_{j,t} + stockhold_{k,t-1} &\geq demand_k, \quad \forall k, \, t = 1,\ldots,T \\
+produce_{k,t} &\leq capacity_k + stockhold_{k,t-1}, \quad \forall k, \, t = 1,\ldots,T
+\end{align*}
+
+\textbf{Capacity Building Constraints:}
+\begin{align*}
+buildcapa_{k,t} \cdot inputtwo_{k,j} + stockhold_{k,t-1} &\geq capacity_k \, \forall k, \, t = 1,\ldots,T \\
+capacity_{k} &\text{ increases by } \sum_{j=1}^{K} buildcapa_{j,t-1} \quad \text{in year } t+2
+\end{align*}
+
+\textbf{Stock Constraints:}
+\begin{align*}
+stockhold_{k,t} &= stock_k + stockhold_{k,t-1} - produce_{k,t}, \quad \forall k, \, t = 1,\ldots,T
+\end{align*}
+
+\textbf{Non-negativity Constraints:}
+\begin{align*}
+produce_{k,t},\, buildcapa_{k,t},\, stockhold_{k,t} &\geq 0, \quad \forall k, \, t = 1,\ldots,T
+\end{align*}
+
+\end{document}

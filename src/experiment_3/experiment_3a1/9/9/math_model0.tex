@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Lamp Power Optimization}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item \( power_j \) be the power of the \( j \)-th lamp for \( j = 1, \ldots, M \).
+    \item \( ill_i \) be the illumination of the \( i \)-th segment for \( i = 1, \ldots, N \).
+    \item \( desired_i \) be the desired illumination of the \( i \)-th segment.
+    \item \( coeff_{i,j} \) be the known coefficient representing the contribution of lamp \( j \) to the illumination of segment \( i \).
+    \item \( error_i \) be the absolute error for the \( i \)-th segment, defined as \( error_i = |ill_i - desired_i| \).
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the total absolute error:
+\[
+\text{Minimize } \sum_{i=1}^{N} error_i = \sum_{i=1}^{N} | \sum_{j=1}^{M} coeff_{i,j} \cdot power_j - desired_i |
+\]
+
+\subsection*{Constraints}
+The illuminations for each segment are defined as:
+\[
+ill_i = \sum_{j=1}^{M} coeff_{i,j} \cdot power_j \quad \text{for } i = 1, \ldots, N
+\]
+
+\subsection*{Formulation}
+The linear programming model can be summarized as follows:
+\begin{align*}
+\text{Minimize} &: \sum_{i=1}^{N} | \sum_{j=1}^{M} coeff_{i,j} \cdot power_j - desired_i | \\
+\text{Subject to} &: ill_i = \sum_{j=1}^{M} coeff_{i,j} \cdot power_j, \quad \forall i \in \{1, \ldots, N\} \\
+& power_j \geq 0, \quad \forall j \in \{1, \ldots, M\}
+\end{align*}
+
+\subsection*{Output}
+The output will consist of:
+\begin{itemize}
+    \item \( power_j \): The optimal power of the \( j \)-th lamp.
+    \item \( error \): The total absolute error between the illuminations and the desired illuminations.
+\end{itemize}
+
+\end{document}

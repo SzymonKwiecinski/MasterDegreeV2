@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturing}
+
+\subsection*{Decision Variables}
+Let:
+\begin{itemize}
+    \item \( b_p \) = number of batches produced for part \( p = 1, \ldots, P \)
+    \item \( e_m \) = extra hours purchased for machine \( m = 1, \ldots, M \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} \left( \text{price}_p \times b_p \right) - \sum_{m=1}^{M} \left( \text{cost}_m \times \left( \sum_{p=1}^{P} \text{time}_{m,p} \times b_p \right) + \text{extra\_costs}_m \times e_m \right)
+\]
+
+\subsection*{Constraints}
+1. Time availability constraints for each machine:
+\[
+\sum_{p=1}^{P} \text{time}_{m,p} \times b_p + e_m \leq \text{available}_m + \text{max\_extra}_m, \quad \forall m = 1, \ldots, M
+\]
+
+2. Minimum production requirements for each part:
+\[
+b_p \geq \text{min\_batches}_p, \quad \forall p = 1, \ldots, P
+\]
+
+3. Non-negativity constraints:
+\[
+b_p \geq 0, \quad \forall p = 1, \ldots, P
+\]
+\[
+e_m \geq 0, \quad \forall m = 1, \ldots, M
+\]
+
+\subsection*{Output}
+The output results will include:
+\begin{itemize}
+    \item The number of batches of each part produced: \( \{ b_p \, | \, p = 1, \ldots, P \} \)
+    \item The extra time purchased for each machine: \( \{ e_m \, | \, m = 1, \ldots, M \} \)
+    \item The total profit obtained: \( Z \)
+\end{itemize}
+
+\end{document}

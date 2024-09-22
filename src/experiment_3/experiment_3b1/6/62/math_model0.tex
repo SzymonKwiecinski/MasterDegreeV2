@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Traveling Salesman Problem (TSP)}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item $N$: The number of towns to visit.
+    \item $C = \{0, 1, 2, \ldots, N\}$: The set of cities, where $0$ represents the \texttt{start\_city} and cities $1$ to $N$ represent all towns.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $d_{i,j}$: The distance between city $i$ and city $j$.
+    \item $start\_city$: The starting city of the traveler, denoted by $0$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_{i,j}$: Binary variable, where $x_{i,j} = 1$ if the traveler visits city $j$ immediately after city $i$, and $0$ otherwise.
+    \end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total distance traveled:
+\[
+\text{Minimize } Z = \sum_{i \in C} \sum_{j \in C} d_{i,j} x_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Each city (except the starting city) is visited exactly once:
+    \[
+    \sum_{j \in C} x_{0,j} = 1 \quad \text{(departure from start city)}
+    \]
+    \[
+    \sum_{j \in C} x_{i,j} = 1 \quad \forall i \in \{1, \ldots, N\} \quad \text{(exactly one departure from each town)}
+    \]
+    \item Each city (except the starting city) is entered exactly once:
+    \[
+    \sum_{i \in C} x_{i,j} = 1 \quad \forall j \in \{1, \ldots, N\} \quad \text{(exactly one arrival to each town)}
+    \]
+    \item Subtour elimination constraints (Miller-Tucker-Zemlin formulation):
+      To prevent subtours, we introduce auxiliary variables $u_i$:
+    \[
+    u_i - u_j + N x_{i,j} \leq N-1 \quad \forall i,j \in \{1, \ldots, N\}, i \neq j
+    \]
+    \item Non-negativity and binary conditions:
+    \[
+    x_{i,j} \in \{0, 1\} \quad \forall i,j \in C
+    \]
+\end{itemize}
+
+\subsection*{Output Information}
+The sequence of cities visited after \texttt{start\_city} is denoted by \texttt{visit\_order}, and the total distance traveled is given as \texttt{total\_distance}.
+
+\end{document}

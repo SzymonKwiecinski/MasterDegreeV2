@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Steel Production}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( x_{a,s} \) be the amount of alloy \( a \) used in steel type \( s \) (in tons).
+    \item Let \( y_s \) be the total amount of steel type \( s \) produced (in tons).
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{available}_{a} \): Available tons of alloy \( a \).
+    \item \( \text{carbon}_{a} \): Percentage of carbon in alloy \( a \).
+    \item \( \text{nickel}_{a} \): Percentage of nickel in alloy \( a \).
+    \item \( \text{alloy\_price}_{a} \): Purchase price per ton of alloy \( a \).
+    \item \( \text{steel\_price}_{s} \): Selling price per ton of steel type \( s \).
+    \item \( \text{carbon\_min}_{s} \): Minimum percentage of carbon required for steel type \( s \).
+    \item \( \text{nickel\_max}_{s} \): Maximum allowable percentage of nickel for steel type \( s \).
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{s=1}^{S} \left( y_s \cdot \text{steel\_price}_{s} \right) - \sum_{a=1}^{A} \left( \sum_{s=1}^{S} x_{a,s} \cdot \text{alloy\_price}_{a} \right)
+\]
+
+\textbf{Subject to:}
+\begin{align*}
+1. & \quad \sum_{s=1}^{S} x_{a,s} \leq \text{available}_{a}, \quad \forall a \in \{1, \ldots, A\} \\
+2. & \quad \sum_{a=1}^{A} x_{a,s} \cdot \text{carbon}_{a} \geq \text{carbon\_min}_{s} \cdot y_s, \quad \forall s \in \{1, \ldots, S\} \\
+3. & \quad \sum_{a=1}^{A} x_{a,s} \cdot \text{nickel}_{a} \leq \text{nickel\_max}_{s} \cdot y_s, \quad \forall s \in \{1, \ldots, S\} \\
+4. & \quad x_{1,s} \leq 0.4 \cdot y_s, \quad \forall s \in \{1, \ldots, S\} \\
+5. & \quad x_{a,s} \geq 0, \quad \forall a \in \{1, \ldots, A\}, s \in \{1, \ldots, S\} \\
+6. & \quad y_s \geq 0, \quad \forall s \in \{1, \ldots, S\}
+\end{align*}
+
+\textbf{Output:}
+\begin{itemize}
+    \item \( x_{a,s} \): Amount of alloy \( a \) used in steel type \( s \)
+    \item \( y_s \): Total amount of steel type \( s \) produced
+    \item \( Z \): Total profit
+\end{itemize}
+
+\end{document}

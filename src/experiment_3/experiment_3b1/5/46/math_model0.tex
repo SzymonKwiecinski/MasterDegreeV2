@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+\begin{align*}
+x_{a,s} & : \text{Amount of alloy } a \text{ used in steel type } s, \quad \forall a \in \{1, \ldots, A\}, s \in \{1, \ldots, S\} \\
+y_s & : \text{Total amount of steel type } s \text{ produced}, \quad \forall s \in \{1, \ldots, S\}
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+\text{available}_a & : \text{available tons of alloy } a, \quad \forall a \in \{1, \ldots, A\} \\
+\text{carbon}_{a} & : \text{carbon percentage in alloy } a, \quad \forall a \in \{1, \ldots, A\} \\
+\text{nickel}_{a} & : \text{nickel percentage in alloy } a, \quad \forall a \in \{1, \ldots, A\} \\
+\text{alloy\_price}_{a} & : \text{purchase price of alloy } a, \quad \forall a \in \{1, \ldots, A\} \\
+\text{steel\_price}_{s} & : \text{selling price of steel type } s, \quad \forall s \in \{1, \ldots, S\} \\
+\text{carbon\_min}_{s} & : \text{minimum carbon percentage for steel type } s, \quad \forall s \in \{1, \ldots, S\} \\
+\text{nickel\_max}_{s} & : \text{maximum nickel percentage for steel type } s, \quad \forall s \in \{1, \ldots, S\}
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+\text{total\_profit} = \sum_{s=1}^{S} (\text{steel\_price}_{s} y_s) - \sum_{a=1}^{A} (\text{alloy\_price}_{a} \sum_{s=1}^{S} x_{a,s})
+\]
+
+\subsection*{Constraints}
+\textbf{1. Alloy availability:}
+\[
+\sum_{s=1}^{S} x_{a,s} \leq \text{available}_a, \quad \forall a \in \{1, \ldots, A\}
+\]
+
+\textbf{2. Carbon content:}
+\[
+\frac{\sum_{a=1}^{A} (x_{a,s} \cdot \text{carbon}_{a})}{y_s} \geq \text{carbon\_min}_{s}, \quad \forall s \in \{1, \ldots, S\}
+\]
+
+\textbf{3. Nickel content:}
+\[
+\frac{\sum_{a=1}^{A} (x_{a,s} \cdot \text{nickel}_{a})}{y_s} \leq \text{nickel\_max}_{s}, \quad \forall s \in \{1, \ldots, S\}
+\]
+
+\textbf{4. Alloy 1 restriction:}
+\[
+\sum_{s=1}^{S} x_{1,s} \leq 0.4 \cdot \sum_{s=1}^{S} y_s
+\]
+
+\textbf{5. Non-negativity:}
+\[
+x_{a,s} \geq 0, \quad y_s \geq 0, \quad \forall a \in \{1, \ldots, A\}, s \in \{1, \ldots, S\}
+\]
+
+\end{document}

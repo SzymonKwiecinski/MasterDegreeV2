@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Police Officer Shift Assignment}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $s$: Shift index, where $s = 1, 2, \ldots, S$.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $S$: Total number of shifts.
+    \item $officers\_needed_{s}$: Number of police officers needed during shift $s$.
+    \item $shift\_cost_{s}$: Cost incurred by the town for assigning officers to shift $s$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $officers\_assigned_{s}$: Number of police officers assigned to shift $s$.
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{s=1}^{S} shift\_cost_{s} \cdot \left( \frac{officers\_assigned_{s} + officers\_assigned_{s+1}}{2} \right)
+\]
+Note: For $s = S$, we assume $officers\_assigned_{S+1} = 0$.
+
+\subsection*{Constraints}
+The following constraints ensure that the number of officers assigned meets the required number of officers for each shift:
+\[
+officers\_assigned_{s} + officers\_assigned_{s-1} \geq officers\_needed_{s} \quad \text{for } s = 1, 2, \ldots, S
+\]
+with the additional constraint that $officers\_assigned_{0} = 0$.
+
+\subsection*{Non-negativity Constraints}
+\[
+officers\_assigned_{s} \geq 0 \quad \text{for all } s
+\]
+
+\end{document}

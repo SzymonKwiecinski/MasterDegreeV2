@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( P \): Number of different products
+    \item \( hour_i \): Machine hours required for product \( i \) (for \( i = 1, \ldots, P \))
+    \item \( cost_i \): Production cost per unit of product \( i \) (for \( i = 1, \ldots, P \))
+    \item \( price_i \): Selling price per unit of product \( i \) (for \( i = 1, \ldots, P \))
+    \item \( investPercentage_i \): Investment percentage from sales revenues of product \( i \) (for \( i = 1, \ldots, P \))
+    \item \( availableHours \): Available machine hours
+    \item \( cash \): Available cash
+    \item \( upgradeHours \): Possible machine hours to upgrade
+    \item \( upgradeCost \): Cost to upgrade machine hours
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( production_i \): Quantity to produce of product \( i \) (for \( i = 1, \ldots, P \))
+    \item \( upgrade \): Boolean variable indicating whether to upgrade machine capacity (1 if yes, 0 if no)
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+    \text{Maximize } net\_income = \sum_{i=1}^{P} \left( (price_i - cost_i) \cdot production_i - investPercentage_i \cdot (price_i \cdot production_i) \right) - upgradeCost \cdot upgrade
+\end{align*}
+
+\textbf{Subject to:}
+
+\textbf{1. Machine Capacity Constraint:}
+\begin{align*}
+    \sum_{i=1}^{P} hour_i \cdot production_i \leq availableHours + upgradeHours \cdot upgrade
+\end{align*}
+
+\textbf{2. Cash Constraint:}
+\begin{align*}
+    \sum_{i=1}^{P} cost_i \cdot production_i \leq cash
+\end{align*}
+
+\textbf{3. Non-negativity Restrictions:}
+\begin{align*}
+    production_i \geq 0 \quad \forall i \in \{1, \ldots, P\} \\
+    upgrade \in \{0, 1\}
+\end{align*}
+
+\end{document}

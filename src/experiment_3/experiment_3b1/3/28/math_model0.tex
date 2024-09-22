@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Fitting a Line}
+
+Given the data points \( (x_k, y_k) \) for \( k = 1, \ldots, K \), we want to fit the best straight line of the form:
+
+\[
+y = bx + a
+\]
+
+The objective is to minimize the sum of absolute deviations of each observed value of \( y \) from the predicted values:
+
+\[
+\text{Minimize} \quad Z = \sum_{k=1}^{K} |y_k - (bx_k + a)|
+\]
+
+To handle the absolute values, we can introduce non-negative slack variables \( t_k \) for each deviation:
+
+\[
+t_k \geq y_k - (bx_k + a) \quad \forall k
+\]
+
+\[
+t_k \geq -(y_k - (bx_k + a)) \quad \forall k
+\]
+
+This leads us to the following linear programming formulation:
+
+\textbf{Objective:}
+\[
+\text{Minimize} \quad Z = \sum_{k=1}^{K} t_k
+\]
+
+\textbf{Subject to:}
+\[
+t_k \geq y_k - (bx_k + a) \quad \forall k
+\]
+\[
+t_k \geq -(y_k - (bx_k + a)) \quad \forall k
+\]
+\[
+t_k \geq 0 \quad \forall k
+\]
+
+\textbf{Variables:}
+- \( a \): Intercept of the fitted line
+- \( b \): Slope of the fitted line
+- \( t_k \): Non-negative slack variables for each \( k \)
+
+Once the linear program is solved, the fitted line parameters can be extracted as:
+
+\[
+\text{intercept} = a
+\]
+\[
+\text{slope} = b
+\]
+
+\end{document}

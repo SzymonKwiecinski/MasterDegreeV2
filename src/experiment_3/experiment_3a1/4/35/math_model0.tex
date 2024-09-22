@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Warehouse Operations}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( C \): Warehouse capacity
+    \item \( H \): Holding cost per unit for one period
+    \item \( P_n \): Selling price of the commodity in period \( n \)
+    \item \( C_n \): Purchase cost of the commodity in period \( n \)
+    \item \( N \): Total number of periods
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( b_n \): Buy quantity in period \( n \)
+    \item \( s_n \): Sell quantity in period \( n \)
+    \item \( x_n \): Stock quantity at the end of period \( n \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit over \( N \) periods:
+
+\[
+\text{Maximize } Z = \sum_{n=1}^{N} (P_n \cdot s_n - C_n \cdot b_n - H \cdot x_n)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+    x_1 &= b_1 - s_1 \\
+    x_n &= x_{n-1} + b_n - s_n & \text{for } n = 2, \ldots, N \\
+    x_n &\leq C & \text{for } n = 1, \ldots, N \\
+    s_n &\leq x_n & \text{for } n = 1, \ldots, N \\
+    x_N &= 0 \\
+    b_n, s_n &\geq 0 & \text{for } n = 1, \ldots, N
+\end{align*}
+
+\end{document}

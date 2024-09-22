@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Quadratic Curve Fitting via Linear Programming}
+
+Given a set of data points $(x_k, y_k)$ for $k = 1, \ldots, K$, we aim to fit a quadratic curve of the form:
+
+\[
+y = c x^2 + b x + a
+\]
+
+where \( c \), \( b \), and \( a \) are the coefficients representing the quadratic, linear, and constant terms respectively.
+
+The objective is to minimize the sum of absolute deviations between the observed values \( y_k \) and the predicted values \( \hat{y}_k = c x_k^2 + b x_k + a \):
+
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} |y_k - \hat{y}_k| = \sum_{k=1}^{K} |y_k - (c x_k^2 + b x_k + a)|
+\]
+
+To formulate this as a linear programming problem, we introduce auxiliary variables \( d_k \) to represent the absolute deviations:
+
+\[
+d_k \geq y_k - (c x_k^2 + b x_k + a) \quad \forall k
+\]
+\[
+d_k \geq -(y_k - (c x_k^2 + b x_k + a)) \quad \forall k
+\]
+
+Therefore, we can express the optimization problem as:
+
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} d_k
+\]
+
+subject to the constraints:
+
+\[
+d_k \geq y_k - (c x_k^2 + b x_k + a) \quad \forall k
+\]
+
+\[
+d_k \geq -(y_k - (c x_k^2 + b x_k + a)) \quad \forall k
+\]
+
+This formulation allows us to find the coefficients \( c \), \( b \), and \( a \) that minimize the sum of absolute deviations.
+
+\end{document}

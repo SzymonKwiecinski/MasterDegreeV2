@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item \( k \): index for products \( k = 1, \ldots, K \)
+    \item \( s \): index for stages \( s = 1, \ldots, S \)
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{produce\_time}_{k,s} \): time required to produce 1 unit of product \( k \) at stage \( s \) (in hours)
+    \item \( \text{time}_{s} \): available time at stage \( s \) (in hours)
+    \item \( \text{profit}_{k} \): unit profit for product \( k \)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( \text{quantity}_{k} \): quantity produced of product \( k \)
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+    \text{Maximize } Z = \sum_{k=1}^{K} \text{profit}_{k} \cdot \text{quantity}_{k}
+\end{align*}
+
+\textbf{Constraints:}
+\begin{align*}
+    \sum_{k=1}^{K} \text{produce\_time}_{k,s} \cdot \text{quantity}_{k} & \leq \text{time}_{s} \quad \forall s = 1, \ldots, S \\
+    \text{quantity}_{k} & \geq 0 \quad \forall k = 1, \ldots, K
+\end{align*}
+
+\end{document}

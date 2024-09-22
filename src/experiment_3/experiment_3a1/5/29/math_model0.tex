@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Linear Regression}
+
+Given a set of observations $\{(x_k, y_k) \; | \; k = 1, \ldots, K\}$, we want to fit a linear model of the form:
+
+\[
+y = bx + a
+\]
+
+where $b$ is the slope and $a$ is the intercept.
+
+\subsection*{Objective Function}
+We want to minimize the maximum deviation of the observed values of $y$ from those predicted by the linear model. Therefore, we introduce non-negative slack variables $d_k$ for each observation, where:
+
+\[
+d_k \geq 0 \quad \forall k = 1, \ldots, K
+\]
+
+The objective is to minimize the maximum deviation:
+
+\[
+\min \; D
+\]
+
+subject to:
+
+\[
+y_k - (bx_k + a) \leq D \quad \forall k = 1, \ldots, K
+\]
+
+\[
+(bx_k + a) - y_k \leq D \quad \forall k = 1, \ldots, K
+\]
+
+\subsection*{Constraints}
+We can express the constraints in terms of the deviations:
+
+\[
+y_k - bx_k - a \leq D \quad \forall k = 1, \ldots, K
+\]
+
+\[
+bx_k + a - y_k \leq D \quad \forall k = 1, \ldots, K
+\]
+
+This results in the following set of constraints that must be satisfied:
+
+1. $y_k - bx_k - a \leq D$ for each $k$.
+2. $bx_k + a - y_k \leq D$ for each $k$.
+3. $D \geq 0$.
+
+\subsection*{Final Formulation}
+The complete linear programming formulation can be summarized as follows:
+
+\[
+\begin{align*}
+\text{Minimize} \quad & D \\
+\text{subject to} \quad & y_k - bx_k - a \leq D \quad \forall k = 1, \ldots, K \\
+& bx_k + a - y_k \leq D \quad \forall k = 1, \ldots, K \\
+& D \geq 0 \\
+& b, a \text{ are free variables.}
+\end{align*}
+\]
+
+\subsection*{Outputs}
+Once the linear program is solved, the values of the intercept $a$ and slope $b$ can be extracted:
+
+\begin{itemize}
+    \item \texttt{intercept} represents the intercept of the fitted line ($a$).
+    \item \texttt{slope} represents the slope of the fitted line ($b$).
+\end{itemize}
+
+\end{document}

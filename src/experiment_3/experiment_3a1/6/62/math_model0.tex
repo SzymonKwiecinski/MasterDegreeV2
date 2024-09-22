@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Traveling Salesman Problem}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item \( i, j \): Indices representing the towns, where \( i, j \in \{1, 2, \ldots, N\} \)
+    \item \( 0 \): Index representing the start city (i.e., \( \text{start\_city} \))
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{distance}_{i,j} \): Distance between town \( i \) and town \( j \)
+    \item \( N \): Total number of towns to visit
+    \item \( \text{start\_city} \): The city from where the traveler starts and returns
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_{i,j} \): Binary decision variable equal to 1 if the traveler visits town \( j \) immediately after town \( i \), and 0 otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the total distance traveled:
+\[
+\text{Minimize } Z = \sum_{i=0}^{N} \sum_{j=0}^{N} \text{distance}_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{enumerate}
+    \item Each town must be visited exactly once:
+    \[
+    \sum_{j=1}^{N} x_{0,j} = 1 \quad \text{(starting from the start city)}
+    \]
+    \[
+    \sum_{j=0}^{N} x_{i,j} = 1 \quad \forall i \in \{1, 2, \ldots, N\} \quad \text{(visiting from each town)}
+    \]
+    
+    \item Return to the start city:
+    \[
+    \sum_{j=1}^{N} x_{j,0} = 1
+    \]
+
+    \item Subtour elimination constraints (Miller-Tucker-Zemlin formulation):
+    \[
+    u_i - u_j + N \cdot x_{i,j} \leq N-1 \quad \forall i,j \in \{1, \ldots, N\}, \; i \neq j
+    \]
+    \[
+    u_i \geq 1 \quad \forall i \in \{1, 2, \ldots, N\}
+    \]
+    \item Where \( u_i \) represents the position of town \( i \) in the tour.
+\end{enumerate}
+
+\subsection*{Output}
+The output consists of:
+\begin{itemize}
+    \item \texttt{visit\_order}: The sequence of cities visited after \texttt{start\_city}.
+    \item \texttt{total\_distance}: The total distance traveled on the optimal journey.
+\end{itemize}
+
+\end{document}

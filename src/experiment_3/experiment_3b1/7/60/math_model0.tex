@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Mixed Integer Linear Programming Model for Project Assignment}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+
+Let:
+\begin{itemize}
+    \item $I$: Number of projects
+    \item $J$: Number of consultants
+    \item $K$: Maximum number of projects per consultant
+    \item $f_j$: Fixed cost of hiring consultant $j$, for $j = 1, \ldots, J$
+    \item $c_{i,j}$: Additional cost of assigning project $i$ to consultant $j$, for $i = 1, \ldots, I$ and $j = 1, \ldots, J$
+    \item $x_{j}$: Binary variable indicating whether consultant $j$ is hired (1) or not (0)
+    \item $y_{i,j}$: Binary variable indicating whether project $i$ is assigned to consultant $j$ (1) or not (0)
+\end{itemize}
+
+\section*{Objective Function}
+
+The objective is to minimize the total cost, which is the sum of the fixed costs of hiring consultants and the additional costs of assigning projects:
+
+\[
+\text{Minimize } Z = \sum_{j=1}^{J} f_j x_j + \sum_{i=1}^{I} \sum_{j=1}^{J} c_{i,j} y_{i,j}
+\]
+
+\section*{Constraints}
+
+\begin{enumerate}
+    \item Each project must be assigned to exactly one consultant:
+    \[
+    \sum_{j=1}^{J} y_{i,j} = 1, \quad \forall i = 1, \ldots, I
+    \]
+
+    \item A consultant can only take on projects if they are hired:
+    \[
+    y_{i,j} \leq x_j, \quad \forall i = 1, \ldots, I, \, j = 1, \ldots, J
+    \]
+
+    \item The total number of projects assigned to each consultant cannot exceed $K$:
+    \[
+    \sum_{i=1}^{I} y_{i,j} \leq K x_j, \quad \forall j = 1, \ldots, J
+    \]
+    
+    \item Binary variable definitions:
+    \[
+    x_j \in \{0, 1\}, \quad \forall j = 1, \ldots, J
+    \]
+    \[
+    y_{i,j} \in \{0, 1\}, \quad \forall i = 1, \ldots, I, \, j = 1, \ldots, J
+    \]
+\end{enumerate}
+
+\section*{Output}
+
+The output of the model will include:
+\begin{itemize}
+    \item Assignments of projects to consultants: 
+    \[
+    \text{Assignments} = \{ y_{i,j} \, | \, i = 1, \ldots, I; \, j = 1, \ldots, J \}
+    \]
+    \item Total cost incurred:
+    \[
+    \text{Total Cost} = Z
+    \]
+\end{itemize}
+
+\end{document}

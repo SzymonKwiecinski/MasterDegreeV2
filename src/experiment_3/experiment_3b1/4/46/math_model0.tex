@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item $x_{a,s}$: Amount of alloy $a$ used in steel type $s$ (in tons)
+    \item $y_s$: Total amount of steel type $s$ produced (in tons)
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $available_a$: Available tons of alloy $a$, for $a = 1, \ldots, A$
+    \item $carbon_{a}$: Percentage of carbon in alloy $a$, for $a = 1, \ldots, A$
+    \item $nickel_{a}$: Percentage of nickel in alloy $a$, for $a = 1, \ldots, A$
+    \item $alloy\_price_{a}$: Purchase price of alloy $a$ (per ton), for $a = 1, \ldots, A$
+    \item $steel\_price_{s}$: Selling price of steel type $s$ (per ton), for $s = 1, \ldots, S$
+    \item $carbon\_min_{s}$: Minimum percentage of carbon required for steel type $s$, for $s = 1, \ldots, S$
+    \item $nickel\_max_{s}$: Maximum allowable percentage of nickel for steel type $s$, for $s = 1, \ldots, S$
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+\text{Maximize } Z = \sum_{s=1}^{S} (steel\_price_{s} \cdot y_s) - \sum_{a=1}^{A} (alloy\_price_{a} \cdot \sum_{s=1}^{S} x_{a,s})
+\end{align*}
+
+\textbf{Subject to:}
+\begin{align}
+\sum_{s=1}^{S} x_{a,s} & \leq available_a, \quad \forall a \in \{1, \ldots, A\} \tag{1}\\
+\sum_{a=1}^{A} carbon_{a} \cdot \frac{x_{a,s}}{y_s} & \geq carbon\_min_{s}, \quad \forall s \in \{1, \ldots, S\} \tag{2}\\
+\sum_{a=1}^{A} nickel_{a} \cdot \frac{x_{a,s}}{y_s} & \leq nickel\_max_{s}, \quad \forall s \in \{1, \ldots, S\} \tag{3}\\
+\sum_{a=1}^{A} x_{1,s} & \leq 0.4 \cdot y_s, \quad \forall s \in \{1, \ldots, S\} \tag{4}\\
+x_{a,s} & \geq 0, \quad \forall a \in \{1, \ldots, A\}, s \in \{1, \ldots, S\} \tag{5}\\
+y_s & \geq 0, \quad \forall s \in \{1, \ldots, S\} \tag{6}
+\end{align}
+
+\textbf{Output:}
+\begin{itemize}
+    \item $alloy\_use$: Amount of each alloy used in each type of steel $x_{a,s}$
+    \item $total\_steel$: Total amount of steel type $s$ produced $y_s$
+    \item $total\_profit$: Total profit $Z$
+\end{itemize}
+
+\end{document}

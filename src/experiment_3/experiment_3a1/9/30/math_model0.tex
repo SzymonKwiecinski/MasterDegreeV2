@@ -1,0 +1,69 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Quadratic Curve Fitting}
+
+Given a set of data points represented by \( K \) observations of \( (x_k, y_k) \) for \( k = 1, 2, \ldots, K \), we aim to fit the quadratic curve defined by:
+
+\[
+y = c \cdot x^2 + b \cdot x + a
+\]
+
+where \( c \) is the coefficient of the quadratic term, \( b \) is the coefficient of the linear term, and \( a \) is the constant term.
+
+\subsection*{Objective Function}
+The objective is to minimize the sum of absolute deviations between the observed \( y \) values and the predicted \( y \) values from the quadratic equation:
+
+\[
+\text{Minimize} \quad Z = \sum_{k=1}^{K} |y_k - (c \cdot x_k^2 + b \cdot x_k + a)|
+\]
+
+To handle the absolute values, we introduce auxiliary variables \( d_k \):
+
+\[
+d_k \geq y_k - (c \cdot x_k^2 + b \cdot x_k + a) \quad \text{for } k = 1, \ldots, K
+\]
+\[
+d_k \geq -(y_k - (c \cdot x_k^2 + b \cdot x_k + a)) \quad \text{for } k = 1, \ldots, K
+\]
+
+Thus, we can rewrite the objective function as:
+
+\[
+\text{Minimize} \quad Z = \sum_{k=1}^{K} d_k
+\]
+
+\subsection*{Constraints}
+The problem leads to the following constraints based on the introduced variables:
+
+\[
+y_k - (c \cdot x_k^2 + b \cdot x_k + a) \leq d_k \quad \text{for } k = 1, \ldots, K
+\]
+
+\[
+-(y_k - (c \cdot x_k^2 + b \cdot x_k + a)) \leq d_k \quad \text{for } k = 1, \ldots, K
+\]
+
+\subsection*{Variables}
+The variables in this linear programming model are:
+
+\begin{itemize}
+    \item \( c \): coefficient of the quadratic term
+    \item \( b \): coefficient of the linear term
+    \item \( a \): constant term
+    \item \( d_k \): auxiliary variables for \( k = 1, \ldots, K \)
+\end{itemize}
+
+\subsection*{Output Format}
+The output format of the coefficients is as follows:
+
+\[
+\{
+    \text{"quadratic"}: c,
+    \text{"linear"}: b,
+    \text{"constant"}: a
+\}
+\]
+
+\end{document}

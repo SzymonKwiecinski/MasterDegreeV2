@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Steel Production}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( x_k \) be the amount (in tons) of mineral \( k \) melted, for \( k = 1, \ldots, K \).
+    \item Let \( y \) be the amount (in tons) of manganese added directly.
+\end{itemize}
+
+\textbf{Objective Function:}
+
+The objective is to maximize profit, which can be expressed as:
+\[
+\text{Maximize } Z = n_{\text{steel\_quant}} \cdot \text{sell\_price} - \sum_{k=1}^{K} x_k \cdot \text{cost}_k \cdot 1000 - y \cdot \text{mang\_price} - \sum_{k=1}^{K} x_k \cdot \text{melt\_price}
+\]
+
+\textbf{Constraints:}
+
+1. Total weight of steel produced must equal the order quantity:
+\[
+\sum_{k=1}^{K} x_k + y = n_{\text{steel\_quant}}
+\]
+
+2. Manganese content constraint:
+\[
+\frac{\sum_{k=1}^{K} x_k \cdot \left( \frac{\text{contmn}_k}{100} \right) + y}{n_{\text{steel\_quant}}} \geq \frac{mn_{\text{percent}}}{100}
+\]
+This can be rearranged to:
+\[
+\sum_{k=1}^{K} x_k \cdot \text{contmn}_k + 100y \geq n_{\text{steel\_quant}} \cdot mn_{\text{percent}}
+\]
+
+3. Silicon content constraints:
+\[
+\sum_{k=1}^{K} x_k \cdot \left( \frac{\text{contsi}_k}{100} \right) \geq n_{\text{steel\_quant}} \cdot si_{\text{min}}
+\]
+\[
+\sum_{k=1}^{K} x_k \cdot \left( \frac{\text{contsi}_k}{100} \right) \leq n_{\text{steel\_quant}} \cdot si_{\text{max}}
+\]
+
+4. Non-negativity constraints:
+\[
+x_k \geq 0 \quad \forall k \in \{1, \ldots, K\}
+\]
+\[
+y \geq 0
+\]
+
+\textbf{Output Variables:}
+\begin{itemize}
+    \item \( \text{amount} = [x_1, x_2, \ldots, x_K] \)
+    \item \( \text{num\_mang} = y \)
+\end{itemize}
+
+\end{document}

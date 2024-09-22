@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Knapsack Problem}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $C$: Maximum capacity of the container
+    \item $K$: Number of items
+    \item $value_k$: Value of item $k$ for $k = 1, \ldots, K$
+    \item $size_k$: Size of item $k$ for $k = 1, \ldots, K$
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $isincluded_k \in \{0, 1\}$: A binary variable where $isincluded_k = 1$ if item $k$ is included in the knapsack, and $isincluded_k = 0$ otherwise.
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+    \text{Maximize} \quad & \sum_{k=1}^{K} value_k \cdot isincluded_k
+\end{align*}
+
+\textbf{Constraints:}
+\begin{align*}
+    & \sum_{k=1}^{K} size_k \cdot isincluded_k \leq C \quad \text{(Capacity Constraint)} \\
+    & isincluded_k \in \{0, 1\}, \quad \forall k = 1, \ldots, K \quad \text{(Binary Variables)}
+\end{align*}
+
+\textbf{Output:}
+\begin{itemize}
+    \item $isincluded$: A list representing whether each item is included in the container:
+    \[
+    isincluded = [isincluded_1, isincluded_2, \ldots, isincluded_K]
+    \]
+\end{itemize}
+
+\end{document}

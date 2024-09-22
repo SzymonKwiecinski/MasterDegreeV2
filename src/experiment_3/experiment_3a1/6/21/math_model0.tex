@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $m$: index for machines, $m = 1, \ldots, M$
+    \item $k$: index for products, $k = 1, \ldots, K$
+    \item $i$: index for months, $i = 1, \ldots, I$
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $num_{m}$: number of machines
+    \item $profit_{k}$: profit from product $k$
+    \item $time_{k,m}$: production time of product $k$ on machine $m$
+    \item $down_{m}$: downtime for maintenance of machine $m$ in months
+    \item $limit_{k,i}$: marketing limitation for product $k$ in month $i$
+    \item $store\_price$: storage cost per unit per month
+    \item $keep\_quantity$: desired stock of each product at the end of each month
+    \item $n\_workhours$: working hours available per month
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $sell_{k,i}$: quantity of product $k$ sold in month $i$
+    \item $manufacture_{k,i}$: quantity of product $k$ manufactured in month $i$
+    \item $storage_{k,i}$: quantity of product $k$ stored at the end of month $i$
+    \item $maintain_{m,i}$: binary variable indicating if machine $m$ is under maintenance in month $i$
+\end{itemize}
+
+\subsection*{Objective Function}
+\begin{align*}
+    \text{Maximize} \quad Z = \sum_{i=1}^{I} \sum_{k=1}^{K} profit_{k} \cdot sell_{k,i} - \sum_{k=1}^{K} store\_price \cdot storage_{k,i}
+\end{align*}
+
+\subsection*{Constraints}
+
+\textbf{1. Machine Availability:}
+\begin{align*}
+    \sum_{k=1}^{K} time_{k,m} \cdot manufacture_{k,i} \leq (n\_workhours \cdot 24 \cdot 6) - down_{m} \cdot 4 & \quad \forall m, \, i
+\end{align*}
+
+\textbf{2. Production Limits:}
+\begin{align*}
+    sell_{k,i} \leq limit_{k,i} & \quad \forall k, \, i
+\end{align*}
+
+\textbf{3. Inventory Balance:}
+\begin{align*}
+    storage_{k,i} = storage_{k,i-1} + manufacture_{k,i} - sell_{k,i} & \quad \forall k, \, i > 1 \\
+    storage_{k,1} = 0 & \quad \forall k
+\end{align*}
+
+\textbf{4. Desired Stock:}
+\begin{align*}
+    storage_{k,I} \geq keep\_quantity & \quad \forall k
+\end{align*}
+
+\textbf{5. Non-negativity and Binary Constraints:}
+\begin{align*}
+    sell_{k,i}, manufacture_{k,i}, storage_{k,i} & \geq 0 \quad \forall k, \, i \\
+    maintain_{m,i} & \in \{0, 1\} \quad \forall m, \, i
+\end{align*}
+
+\end{document}

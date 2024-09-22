@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for the Economy}
+
+\subsection*{Parameters}
+Let:
+\begin{itemize}
+    \item \( K \) be the number of industries.
+    \item \( inputone_{k, j} \) be the input required from industry \( j \) by industry \( k \).
+    \item \( manpowerone_k \) be the manpower required by industry \( k \).
+    \item \( inputtwo_{k, j} \) be the input required from industry \( j \) to build productive capacity for industry \( k \).
+    \item \( manpowertwo_k \) be the manpower required by industry \( k \) to build productive capacity.
+    \item \( stock_k \) be the initial stock of industry \( k \).
+    \item \( capacity_k \) be the initial capacity of industry \( k \).
+    \item \( demand_k \) be the exogenous consumption requirement of industry \( k \).
+    \item \( T = 5 \) be the number of years.
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let:
+\begin{itemize}
+    \item \( produce_{k, t} \) be the amount produced by industry \( k \) in year \( t \).
+    \item \( buildcapa_{k, t} \) be the amount used to build productive capacity for industry \( k \) in year \( t \).
+    \item \( stockhold_{k, t} \) be the amount of stock held by industry \( k \) in year \( t \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total manpower requirement over five years:
+\[
+\text{Maximize } Z = \sum_{t=1}^{T} \sum_{k=1}^{K} manpowerone_k \cdot produce_{k, t} + manpowertwo_k \cdot buildcapa_{k, t}
+\]
+
+\subsection*{Constraints}
+
+\textbf{Production and Capacity Constraints}:
+\begin{align*}
+produce_{k, t} + stockhold_{k, t-1} & = stockhold_{k, t} + demand_k && \text{for } t = 1, \ldots, T \text{ and } k = 1, \ldots, K \\
+capacity_k + \sum_{t=1}^{T} buildcapa_{k, t} & \geq produce_{k, t} + \sum_{j=1}^{K} inputone_{k,j} \cdot produce_{j,t-1} && \text{for } t = 1, \ldots, T \text{ and } k = 1, \ldots, K
+\end{align*}
+
+\textbf{Manpower Constraints}:
+\[
+\sum_{k=1}^{K} manpowerone_k \cdot produce_{k, t} + \sum_{k=1}^{K} manpowertwo_k \cdot buildcapa_{k, t} \leq \text{Total Manpower Available} \quad \text{for } t = 1, \ldots, T
+\]
+
+\textbf{Stock Constraints}:
+\[
+stockhold_{k, t} \geq 0 \quad \text{for } t = 1, \ldots, T \text{ and } k = 1, \ldots, K
+\]
+
+\textbf{Build Capacity Constraints}:
+\[
+buildcapa_{k, t} \geq 0 \quad \text{for } t = 1, \ldots, T \text{ and } k = 1, \ldots, K
+\]
+
+\textbf{Production Non-Negativity Constraints}:
+\[
+produce_{k, t} \geq 0 \quad \text{for } t = 1, \ldots, T \text{ and } k = 1, \ldots, K
+\]
+
+\end{document}

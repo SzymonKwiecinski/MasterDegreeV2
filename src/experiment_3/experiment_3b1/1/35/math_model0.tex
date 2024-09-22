@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Warehouse Operations Linear Programming Model}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+
+We aim to maximize the profit of operating a warehouse by purchasing and selling a certain commodity over multiple periods. The warehouse has a fixed capacity and incurs holding costs for the stock.
+
+\subsection*{Parameters}
+
+\begin{itemize}
+    \item $C$: Capacity of the warehouse
+    \item $h$: Holding cost per unit for one period
+    \item $p_n$: Selling price of the commodity in period $n$, for $n = 1, \ldots, N$
+    \item $c_n$: Purchase cost of the commodity in period $n$, for $n = 1, \ldots, N$
+\end{itemize}
+
+\subsection*{Variables}
+
+\begin{itemize}
+    \item $b_n$: Amount of buying in period $n$, for $n = 1, \ldots, N$
+    \item $s_n$: Amount of selling in period $n$, for $n = 1, \ldots, N$
+    \item $x_n$: Stock in period $n$, for $n = 1, \ldots, N$
+\end{itemize}
+
+\subsection*{Objective Function}
+
+The objective is to maximize total profit over the periods, which can be expressed as:
+
+\[
+\text{Maximize } Z = \sum_{n=1}^{N} \left( p_n \cdot s_n - c_n \cdot b_n - h \cdot x_n \right)
+\]
+
+\subsection*{Constraints}
+
+1. **Stock Balance Constraint**:
+   \[
+   x_n = x_{n-1} + b_n - s_n \quad \forall n \in \{1, \ldots, N\}
+   \]
+   
+2. **Capacity Constraint**:
+   \[
+   x_n \leq C \quad \forall n \in \{1, \ldots, N\}
+   \]
+
+3. **Non-negativity Constraints**:
+   \[
+   b_n \geq 0, \quad s_n \geq 0, \quad x_n \geq 0 \quad \forall n \in \{1, \ldots, N\}
+   \]
+
+4. **Initial and Final Stock Condition**:
+   \[
+   x_0 = 0 \quad \text{and} \quad x_N = 0
+   \]
+
+\subsection*{Output}
+
+The solution will provide the following quantities:
+
+\begin{itemize}
+    \item $b_n$: Amount of buying in each period
+    \item $s_n$: Amount of selling in each period
+    \item $x_n$: Stock in each period
+\end{itemize}
+
+\end{document}

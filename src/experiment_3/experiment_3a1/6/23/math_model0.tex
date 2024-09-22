@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Manpower Management}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Description}
+
+A company is undergoing changes that affect its manpower requirements across different skill levels. The objective is to minimize costs while adjusting recruitment, retraining, redundancy, and short-time working policies in response to changing demands.
+
+\section*{Variables}
+
+Let:
+\begin{itemize}
+    \item \( r_{k,i} \): Number of recruits of manpower type \( k \) in year \( i \)
+    \item \( o_{k,i} \): Number of overmanned workers of manpower type \( k \) in year \( i \)
+    \item \( s_{k,i} \): Number of workers on short-time working of manpower type \( k \) in year \( i \)
+\end{itemize}
+
+\section*{Parameters}
+
+Given the following parameters:
+\begin{itemize}
+    \item \( requirement_{k,i} \): Manpower requirement of type \( k \) in year \( i \)
+    \item \( strength_{k} \): Current strength of manpower type \( k \)
+    \item \( lessonewaste_{k} \): Wastage rate of manpower type \( k \) with less than one year's service
+    \item \( moreonewaste_{k} \): Wastage rate of manpower type \( k \) with more than one year's service
+    \item \( recruit_{k} \): Maximum number of recruits for manpower type \( k \)
+    \item \( costredundancy_{k} \): Redundancy cost for manpower type \( k \)
+    \item \( num\_overman \): Maximum number of overmanned workers
+    \item \( costoverman_{k} \): Cost for overmanning manpower type \( k \)
+    \item \( num\_shortwork \): Maximum number of short-time workers per category
+    \item \( costshort_{k} \): Cost for short-time working of manpower type \( k \)
+\end{itemize}
+
+\section*{Objective Function}
+
+The objective is to minimize the total cost, which can be represented mathematically as:
+
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} \sum_{i=1}^{I} \left( costredundancy_{k} \cdot (strength_{k} - requirement_{k,i} - o_{k,i} - 0.5 \cdot s_{k,i}) + costoverman_{k} \cdot o_{k,i} + costshort_{k} \cdot s_{k,i} \right)
+\]
+
+\section*{Constraints}
+
+The model is subject to the following constraints:
+
+1. **Manpower Requirement**:
+\[
+strength_{k} - \sum_{j=1}^{i} (lessonewaste_{k} \cdot r_{k,j}) - \sum_{j=1}^{i} (moreonewaste_{k} \cdot (strength_{k} - \sum_{j=1}^{i} r_{k,j})) + o_{k,i} + 0.5 \cdot s_{k,i} \geq requirement_{k,i} \quad \forall k, i
+\]
+
+2. **Recruitment Limit**:
+\[
+r_{k,i} \leq recruit_{k} \quad \forall k, i
+\]
+
+3. **Overmanning Limit**:
+\[
+\sum_{k=1}^{K} \sum_{i=1}^{I} o_{k,i} \leq num\_overman
+\]
+
+4. **Short-time Working Limit**:
+\[
+s_{k,i} \leq num\_shortwork \quad \forall k, i
+\]
+
+5. **Non-negativity**:
+\[
+r_{k,i} \geq 0, \quad o_{k,i} \geq 0, \quad s_{k,i} \geq 0 \quad \forall k, i
+\]
+
+\end{document}

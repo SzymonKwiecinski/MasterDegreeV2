@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Delivery Person's Optimal Path}
+
+\subsection*{Problem Definition}
+The delivery person starts at the intersection of the 1st Avenue and 1st Street and needs to reach the intersection of the Wth Avenue and Nth Street. The path can be represented as an \( (N-1) \times (W-1) \) grid, where the time taken to move between intersections varies.
+
+\subsection*{Variables}
+Let:\\
+\begin{itemize}
+    \item \( x_{n,w} \) = 1 if the delivery person moves from the intersection at \( w \)th Avenue and \( n \)th Street to the intersection at \( (w+1) \)th Avenue and \( n \)th Street; 0 otherwise.
+    \item \( y_{n,w} \) = 1 if the delivery person moves from the intersection at \( w \)th Avenue and \( n \)th Street to the intersection at \( w \)th Avenue and \( (n+1) \)th Street; 0 otherwise.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{west\_time}_{n,w} \) = time taken to move west from intersection \( (w,n) \) to \( (w+1,n) \)
+    \item \( \text{north\_time}_{n,w} \) = time taken to move north from intersection \( (w,n) \) to \( (w,n+1) \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total travel time:
+\[
+\text{minimize } Z = \sum_{n=1}^{N} \sum_{w=1}^{W-1} \text{west\_time}_{n,w} \cdot x_{n,w} + \sum_{n=1}^{N-1} \sum_{w=1}^{W} \text{north\_time}_{n,w} \cdot y_{n,w}
+\]
+
+\subsection*{Constraints}
+1. Flow conservation for moving west:
+\[
+\sum_{n=1}^{N} x_{n,w} = \sum_{n=1}^{N} y_{n,w} + 1 \quad \forall w = 1, \ldots, W-1
+\]
+2. Flow conservation for moving north:
+\[
+\sum_{w=1}^{W} y_{n,w} = \sum_{w=1}^{W} x_{n,w} + 1 \quad \forall n = 1, \ldots, N-1
+\]
+3. Non-negativity and binary conditions:
+\[
+x_{n,w}, y_{n,w} \in \{0, 1\}
+\]
+
+\subsection*{Output}
+The output will provide:
+\begin{itemize}
+    \item \( \text{paths} \): List of tuples representing the intersections visited.
+    \item \( \text{total\_time} \): The minimum total time taken for the delivery.
+\end{itemize}
+
+\end{document}

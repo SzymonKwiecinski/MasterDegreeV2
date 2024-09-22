@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Power Generation Problem}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item \( T \): Set of time periods in a day, \( t = 1, \ldots, T \)
+    \item \( K \): Set of generator types, \( k = 1, \ldots, K \)
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( demand_{t} \): Electricity demand in period \( t \)
+    \item \( num_{k} \): Number of generators of type \( k \)
+    \item \( minlevel_{k} \): Minimum output level of generator type \( k \)
+    \item \( maxlevel_{k} \): Maximum output level of generator type \( k \)
+    \item \( runcost_{k} \): Hourly cost of running generator type \( k \) at minimum level
+    \item \( extracost_{k} \): Extra cost per megawatt for generator type \( k \) above minimum level
+    \item \( startcost_{k} \): Startup cost for generator type \( k \)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( numon_{k,t} \): Number of generators of type \( k \) that are on in period \( t \)
+    \item \( power_{k,t} \): Power output from generator type \( k \) in period \( t \) (if turned on)
+    \item \( startup_{k,t} \): Binary variable indicating if generator type \( k \) is started in period \( t \) (1 if started, 0 otherwise)
+\end{itemize}
+
+\textbf{Objective Function:}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{t=1}^{T} \sum_{k=1}^{K} \left( runcost_{k} \cdot numon_{k,t} + extracost_{k} \cdot (power_{k,t} - minlevel_{k}) \cdot numon_{k,t} + startup_{k,t} \cdot startcost_{k} \right)
+\]
+
+\textbf{Constraints:}
+
+1. \textbf{Demand Satisfaction:}
+\[
+\sum_{k=1}^{K} power_{k,t} = demand_{t}, \quad \forall t \in T
+\]
+
+2. \textbf{Power Output Levels:}
+\[
+minlevel_{k} \cdot numon_{k,t} \leq power_{k,t} \leq maxlevel_{k} \cdot numon_{k,t}, \quad \forall k \in K, \forall t \in T
+\]
+
+3. \textbf{Number of Running Generators:}
+\[
+0 \leq numon_{k,t} \leq num_{k}, \quad \forall k \in K, \forall t \in T
+\]
+
+4. \textbf{Generate Binary Startup Variable:}
+\[
+startup_{k,t} \geq numon_{k,t} - numon_{k,t-1}, \quad \forall k \in K, \forall t \in T, \text{ where } numon_{k,0} = 0
+\]
+\[
+startup_{k,t} \in \{0, 1\}, \quad \forall k \in K, \forall t \in T
+\]
+
+\end{document}

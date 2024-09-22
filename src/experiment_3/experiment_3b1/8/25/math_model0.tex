@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Economic Production}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item $produce_{k, t}$ be the output produced by industry $k$ in year $t$.
+    \item $buildcapa_{k, t}$ be the capacity built by industry $k$ in year $t$.
+    \item $stock_{k, t}$ be the stock held by industry $k$ in year $t$.
+\end{itemize}
+
+\subsection*{Parameters}
+Let:
+\begin{itemize}
+    \item $inputone_{k, j}$ be the input required from industry $j$ to produce one unit in industry $k$.
+    \item $manpowerone_{k}$ be the manpower required by industry $k$ to produce one unit.
+    \item $inputtwo_{k, j}$ be the input required from industry $j$ to build additional capacity for industry $k$.
+    \item $manpowertwo_{k}$ be the manpower required by industry $k$ to build additional capacity.
+    \item $stock_{k}$ be the initial stock of industry $k$.
+    \item $capacity_{k}$ be the existing capacity of industry $k$.
+    \item $manpower\_limit$ be the total available manpower in each year.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total production in the last two years:
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} (produce_{k, T-1} + produce_{k, T})
+\]
+
+\subsection*{Constraints}
+1. **Production Constraints for Year $t$**:
+\[
+produce_{k, t} \leq capacity_{k} + stock_{k, t-1}, \quad \forall k, \forall t
+\]
+
+2. **Manpower Constraints for Production**:
+\[
+\sum_{k=1}^{K} manpowerone_{k} \cdot produce_{k, t} \leq manpower\_limit, \quad \forall t
+\]
+
+3. **Input Constraints for Production**:
+\[
+\sum_{j=1}^{K} inputone_{k, j} \cdot produce_{k, t} \leq stock_{j, t-1} + buildcapa_{j, t-2}, \quad \forall k, \forall t
+\]
+
+4. **Capacity Building Constraints for Year $t$**:
+\[
+buildcapa_{k, t} \leq capacity_{k} + stock_{k, t-1}, \quad \forall k, \forall t
+\]
+
+5. **Manpower Constraints for Capacity Building**:
+\[
+\sum_{k=1}^{K} manpowertwo_{k} \cdot buildcapa_{k, t} \leq manpower\_limit, \quad \forall t
+\]
+
+6. **Stock Dynamics**:
+\[
+stock_{k, t} = stock_{k, t-1} + produce_{k, t-1} - \sum_{j=1}^{K} inputone_{j, k} \cdot produce_{j, t-1} + buildcapa_{k, t-2}, \quad \forall k, \forall t
+\]
+
+\subsection*{Output Format}
+The output of the model will consist of:
+\begin{itemize}
+    \item $produce$: A matrix where each entry $produce_{k, t}$ represents the amount produced by industry $k$ in year $t$.
+    \item $buildcapa$: A matrix where each entry $buildcapa_{k, t}$ represents the amount of capacity built by industry $k$ in year $t$.
+    \item $stockhold$: A matrix where each entry $stock_{k, t}$ represents the amount of stock held by industry $k$ in year $t$.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Mining Company Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $n_mines$: Number of mines
+    \item $n_maxwork$: Maximum number of mines that can operate in any one year
+    \item $royalty_k$: Yearly royalty payable on mine $k$ if it is kept 'open'
+    \item $limit_k$: Upper limit of ore that can be extracted from mine $k$ in a year
+    \item $quality_k$: Quality of ore from mine $k$
+    \item $requiredquality_i$: Required quality of blended ore in year $i$
+    \item $price$: Selling price of the blended ore per ton
+    \item $discount$: Discount rate per annum
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $isoperated_{k,i}$: Binary variable that indicates if mine $k$ is operated in year $i$ ($1$ if operated, $0$ otherwise)
+    \item $amount_{k,i}$: Amount of ore produced by mine $k$ in year $i$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total discounted profit over the planning horizon:
+\[
+\text{Maximize } Z = \sum_{i=1}^{I} \frac{ (price \cdot \sum_{k=1}^{n_mines} amount_{k,i} ) - \sum_{k=1}^{n_mines} royalty_k \cdot isoperated_{k,i} }{(1 + discount)^i}
+\]
+
+\subsection*{Constraints}
+1. Capacity Constraint:
+\[
+amount_{k,i} \leq limit_k \cdot isoperated_{k,i} \quad \forall k \in \{1, \ldots, n_mines\}, i \in \{1, \ldots, I\}
+\]
+
+2. Quality Constraint:
+\[
+\sum_{k=1}^{n_mines} \frac{amount_{k,i} \cdot quality_k}{\sum_{j=1}^{n_mines} amount_{j,i}} = requiredquality_i \quad \forall i \in \{1, \ldots, I\}
+\]
+
+3. Active Mines Constraint:
+\[
+\sum_{k=1}^{n_mines} isoperated_{k,i} \leq n_maxwork \quad \forall i \in \{1, \ldots, I\}
+\]
+
+4. Non-negativity Constraint:
+\[
+amount_{k,i} \geq 0 \quad \forall k \in \{1, \ldots, n_mines\}, i \in \{1, \ldots, I\}
+\]
+
+5. Binary Constraint:
+\[
+isoperated_{k,i} \in \{0, 1\} \quad \forall k \in \{1, \ldots, n_mines\}, i \in \{1, \ldots, I\}
+\]
+
+\end{document}

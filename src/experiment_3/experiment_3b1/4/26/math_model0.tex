@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+Let:
+\begin{itemize}
+    \item $K$: Number of industries
+    \item $T$: Time period (years, where $T = 5$)
+    \item $inputone_{k, j}$: Input from industry $j$ required by industry $k$
+    \item $manpowerone_{k}$: Manpower required by industry $k$ for production
+    \item $inputtwo_{k, j}$: Input from industry $j$ required by industry $k$ to build capacity
+    \item $manpowertwo_{k}$: Manpower required by industry $k$ to build capacity
+    \item $stock_{k, t}$: Stock of industry $k$ at year $t$
+    \item $capacity_{k}$: Initial capacity of industry $k$
+    \item $demand_{k}$: Demand for industry $k$ in each year except year 0
+    \item $produce_{k, t}$: Amount produced by industry $k$ in year $t$
+    \item $buildcapa_{k, t}$: Amount used to build capacity for industry $k$ in year $t$
+    \item $stockhold_{k, t}$: Amount of stock of industry $k$ held in year $t$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total manpower requirement over five years:
+\[
+\text{Maximize } Z = \sum_{t=1}^{T} \sum_{k=1}^{K} manpowerone_k \cdot produce_{k, t} + \sum_{k=1}^{K} manpowertwo_k \cdot buildcapa_{k, t}
+\]
+
+\subsection*{Constraints}
+1. For production in each industry:
+\[
+produce_{k, t} \leq stock_{k, t-1} + capacity_k + \sum_{j=1}^{K} inputone_{k, j} \cdot produce_{j, t-1} \quad \forall k \in 1, \ldots, K, \forall t \in 1, \ldots, T
+\]
+
+2. To satisfy demand (for years 1 to T):
+\[
+produce_{k, t} + stock_{k, t-1} - stock_{k, t} \geq demand_k \quad \forall k \in 1, \ldots, K, \forall t \in 1, \ldots, T
+\]
+
+3. Capacity building constraints:
+\[
+buildcapa_{k, t} \leq stock_{k, t-1} + \sum_{j=1}^{K} inputtwo_{k, j} \cdot produce_{j, t-1} \quad \forall k \in 1, \ldots, K, \forall t \in 1, \ldots, T
+\]
+
+4. Manpower constraints:
+\[
+manpowerone_k \cdot produce_{k, t} + manpowertwo_k \cdot buildcapa_{k, t} \leq \text{available manpower} \quad \forall k \in 1, \ldots, K, \forall t \in 1, \ldots, T
+\]
+
+5. Stock balance:
+\[
+stock_{k, t} = stock_{k, t-1} + produce_{k, t} - demand_k + buildcapa_{k, t} \quad \forall k \in 1, \ldots, K, \forall t \in 1, \ldots, T
+\]
+
+6. Initial conditions:
+\[
+stock_{k, 0} = stock_k \quad \text{and} \quad capacity_{k, 0} = capacity_k \quad \forall k \in 1, \ldots, K
+\]
+
+\subsection*{Output}
+The output of the model will include:
+\begin{itemize}
+    \item $produce = [produce_{k, t}] \text{ for } t = 1, \ldots, T \text{ and } k = 1, \ldots, K$
+    \item $buildcapa = [buildcapa_{k, t}] \text{ for } t = 1, \ldots, T \text{ and } k = 1, \ldots, K$
+    \item $stockhold = [stock_{k, t}] \text{ for } t = 1, \ldots, T \text{ and } k = 1, \ldots, K$
+\end{itemize}
+
+\end{document}

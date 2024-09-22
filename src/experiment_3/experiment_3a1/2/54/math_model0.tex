@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( P \) be the number of different parts.
+    \item Let \( M \) be the number of different machines.
+    \item Let \( time_{m,p} \) be the hours required on machine \( m \) to produce a batch of 100 parts of type \( p \).
+    \item Let \( cost_{m} \) be the cost per hour of using machine \( m \).
+    \item Let \( available_{m} \) be the maximum available hours per month for machine \( m \).
+    \item Let \( price_{p} \) be the selling price per batch of part \( p \).
+    \item Let \( min\_batches_{p} \) be the minimum number of batches of part \( p \) that must be produced each month.
+    \item Let \( standard\_cost \) be the standard labor cost per hour.
+    \item Let \( overtime\_cost \) be the overtime labor cost per hour.
+    \item Let \( overtime\_hour \) be the number of hours after which overtime costs apply.
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let \( batches_{p} \) be the number of batches produced for part \( p \).
+
+\subsection*{Objective Function}
+Maximize the total profit:
+
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} (price_{p} \cdot batches_{p}) - \sum_{m=1}^{M} (cost_{m} \cdot \sum_{p=1}^{P} (time_{m,p} \cdot batches_{p}))
+\]
+
+\subsection*{Constraints}
+1. Production constraints for each part:
+\[
+batches_{p} \geq min\_batches_{p}, \quad \forall p \in \{1, \ldots, P\}
+\]
+
+2. Machine availability constraints:
+\[
+\sum_{p=1}^{P} (time_{m,p} \cdot batches_{p}) \leq available_{m}, \quad \forall m \in \{2, \ldots, M\}
+\]
+
+3. Labor cost constraints for Machine 1:
+\begin{align*}
+\text{Let } T & = \sum_{p=1}^{P} (time_{1,p} \cdot batches_{p}) \\
+\text{If } T & \leq overtime\_hour: \\
+\text{Cost} & = standard\_cost \cdot T \\
+\text{If } T & > overtime\_hour: \\
+\text{Cost} & = standard\_cost \cdot overtime\_hour + overtime\_cost \cdot (T - overtime\_hour)
+\end{align*}
+
+\subsection*{Non-negativity Constraints}
+\[
+batches_{p} \geq 0, \quad \forall p \in \{1, \ldots, P\}
+\]
+
+\subsection*{Output}
+The solution will provide:
+\begin{itemize}
+    \item \( batches_{p} \) for \( p \in \{1, \ldots, P\} \)
+    \item \( total\_profit \) defined as:
+\[
+total\_profit = Z
+\end{itemize}
+
+\end{document}

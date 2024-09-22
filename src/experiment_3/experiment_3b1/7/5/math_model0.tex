@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for the Communication Network}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( n \) be the number of nodes in the network.
+    \item Let \( A \) be the set of all links, where each link is represented as an ordered pair \( (i, j) \).
+    \item \( U_{i,j} \): maximum capacity in bits per second for the link \( (i, j) \).
+    \item \( C_{i,j} \): cost per bit transmitted along the link \( (i, j) \).
+    \item \( B_{k,l} \): data generation rate in bits per second from node \( k \) to node \( l \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let \( x_{i,j} \) represent the flow of data transmitted along the link \( (i, j) \).
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{(i,j) \in A} C_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+1. Flow capacity constraints:
+\[
+x_{i,j} \leq U_{i,j} \quad \forall (i,j) \in A
+\]
+
+2. Flow conservation constraints:
+For each node \( k \):
+\[
+\sum_{(j,k) \in A} x_{j,k} - \sum_{(k,i) \in A} x_{k,i} = 
+\begin{cases} 
+B_{k,l} & \text{if } k \text{ is a source node to } l \\ 
+0 & \text{otherwise} 
+\end{cases}
+\]
+
+3. Non-negativity constraints:
+\[
+x_{i,j} \geq 0 \quad \forall (i,j) \in A
+\]
+
+\subsection*{Output Information}
+The output will include:
+\begin{itemize}
+    \item Total cost of all the paths, denoted as \( \text{total\_cost} \).
+    \item Cost of the corresponding path, denoted as \( \text{path\_cost} \).
+    \item Flow going through the corresponding path, denoted as \( \text{path\_flow} \).
+\end{itemize}
+
+\subsection*{Output Format}
+The optimized paths can be represented as:
+\[
+\text{optimized\_paths} = \{ 
+\text{"paths"}: 
+    \begin{bmatrix}
+        \{ \text{"source": } k, \\
+          \text{"destination": } l, \\
+          \text{"route": } [k, i_1, i_2, ..., l], \\
+          \text{"path\_flow": } \text{path\_flow}, \\
+          \text{"path\_cost": } \text{path\_cost} \} 
+    \end{bmatrix}, 
+\text{"total\_cost": } \text{total\_cost} 
+\}
+\]
+
+\end{document}

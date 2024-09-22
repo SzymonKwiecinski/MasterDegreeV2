@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Police Shift Scheduling Problem}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Formulation}
+
+Let:
+\begin{itemize}
+    \item \( S \) be the number of different shifts,
+    \item \( officers\_needed_s \) be the number of officers needed during shift \( s \),
+    \item \( shift\_cost_s \) be the cost incurred by starting a shift \( s \),
+    \item \( officers\_assigned_s \) be the number of officers assigned to shift \( s \).
+\end{itemize}
+
+The objective is to minimize the total cost for the town associated with scheduling police shifts while ensuring that the required number of officers are on duty during each shift.
+
+\section*{Formulation}
+
+\subsection*{Objective Function}
+The total cost can be represented as:
+\[
+\text{Total Cost} = \sum_{s=1}^{S} shift\_cost_s \cdot \left(\frac{officers\_assigned_s + officers\_assigned_{s-1}}{2}\right)
+\]
+
+\subsection*{Constraints}
+The main constraints to satisfy the required number of officers for each shift are:
+\[
+officers\_assigned_s = officers\_needed_s, \quad \forall s = 1, \ldots, S
+\]
+where \( officers\_assigned_0 = 0 \) for appropriate indexing.
+
+Additionally, since each officer works for two consecutive shifts, the assignment should adhere to:
+\[
+officers\_assigned_s = officers\_assigned_{s+1}, \quad \forall s = 1, \ldots, S-1
+\]
+
+\subsection*{Model}
+We can summarize the Linear Programming (LP) model as follows:
+
+\begin{align*}
+\text{Minimize:} & \quad \sum_{s=1}^{S} shift\_cost_s \cdot officers\_assigned_s \\
+\text{Subject to:} & \\
+& officers\_assigned_s \geq officers\_needed_s, \quad \forall s = 1, \ldots, S \\
+& officers\_assigned_s = officers\_assigned_{s+1}, \quad \forall s = 1, \ldots, S-1 \\
+& officers\_assigned_s \geq 0 \quad \forall s = 1, \ldots, S
+\end{align*}
+
+\section*{Output}
+The output includes:
+\begin{itemize}
+    \item \( officers\_assigned = [officers\_assigned_s \text{ for } s = 1, \ldots, S] \)
+    \item \( total\_cost \) which represents the total cost incurred for the shifts.
+\end{itemize}
+
+\end{document}

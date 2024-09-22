@@ -1,0 +1,69 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Communication Network}
+
+Consider a communication network consisting of \( n \) nodes connected by communication links. The links allow one-way transmission and are modeled as ordered pairs \( (i, j) \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( A \): Set of all links.
+    \item \( U_{i,j} \): Maximum capacity of the link \( (i, j) \) (in bits per second).
+    \item \( C_{i,j} \): Cost per bit transmitted along the link \( (i, j) \).
+    \item \( B_{k,l} \): Data generation rate from node \( k \) to node \( l \) (in bits per second).
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let \( x_{i,j} \) be the flow of data from node \( i \) to node \( j \).
+
+\subsection*{Objective Function}
+The objective is to minimize the total cost of data transmission given by:
+
+\[
+\text{Minimize } Z = \sum_{(i,j) \in A} C_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+1. Capacity constraints for each link:
+
+\[
+x_{i,j} \leq U_{i,j}, \quad \forall (i,j) \in A
+\]
+
+2. Flow conservation for each node (excluding source and destination nodes):
+
+\[
+\sum_{j | (k,j) \in A} x_{k,j} - \sum_{i | (i,k) \in A} x_{i,k} = 0, \quad \forall k \in N \backslash \{source, destination\}
+\]
+
+3. Demand satisfaction for each source and destination:
+
+\[
+\sum_{j | (k,j) \in A} x_{k,j} = B_{k,l}, \quad \forall k \text{ (source)}, l \text{ (destination)}
+\]
+
+4. Non-negativity constraints:
+
+\[
+x_{i,j} \geq 0, \quad \forall (i,j) \in A
+\]
+
+\subsection*{Output Information}
+The outputs of the optimization will include the following:
+\begin{itemize}
+    \item \texttt{optimized\_paths}: A data structure containing:
+    \begin{itemize}
+        \item \texttt{paths}: A list of paths, each containing:
+        \begin{itemize}
+            \item \texttt{source}: Node \( k \)
+            \item \texttt{destination}: Node \( l \)
+            \item \texttt{route}: The route taken from \( k \) to \( l \) (e.g., \([k, i_1, i_2, ..., l]\))
+            \item \texttt{path\_flow}: The flow through the corresponding path
+            \item \texttt{path\_cost}: The cost of the corresponding path
+        \end{itemize}
+    \end{itemize}
+    \item \texttt{total\_cost}: The total cost of all the paths.
+\end{itemize}
+
+\end{document}

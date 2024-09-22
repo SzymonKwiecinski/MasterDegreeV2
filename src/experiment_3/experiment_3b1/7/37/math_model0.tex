@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Maximizing Profit in Spare Auto Parts Production}
+
+\subsection*{Definitions}
+Let:
+\begin{itemize}
+    \item $K$ = Number of different spare parts
+    \item $S$ = Number of shops
+    \item $time_{k, s}$ = Worker-hours required to produce part $k$ in shop $s$
+    \item $profit_{k}$ = Profit obtained from producing part $k$
+    \item $capacity_{s}$ = Available working hours in shop $s$
+    \item $quantity_{k}$ = Quantity of part $k$ to be produced
+\end{itemize}
+
+\subsection*{Objective Function}
+We want to maximize the total profit, which can be formulated as:
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} profit_{k} \cdot quantity_{k}
+\]
+
+\subsection*{Constraints}
+The production of each part must adhere to the capacity constraints of each shop. For each shop $s$, the total time spent on all parts cannot exceed its capacity:
+\[
+\sum_{k=1}^{K} time_{k, s} \cdot quantity_{k} \leq capacity_{s} \quad \forall s \in \{1, 2, \ldots, S\}
+\]
+
+Additionally, we have the non-negativity constraints:
+\[
+quantity_{k} \geq 0 \quad \forall k \in \{1, 2, \ldots, K\}
+\]
+
+\subsection*{Complete LP Formulation}
+The complete linear programming formulation is as follows:
+
+\begin{align*}
+\text{Maximize } & Z = \sum_{k=1}^{K} profit_{k} \cdot quantity_{k} \\
+\text{Subject to } & \sum_{k=1}^{K} time_{k, s} \cdot quantity_{k} \leq capacity_{s} \quad \forall s \in \{1, 2, \ldots, S\} \\
+& quantity_{k} \geq 0 \quad \forall k \in \{1, 2, \ldots, K\}
+\end{align*}
+
+\subsection*{Output}
+The solution will provide:
+\[
+\text{quantity} = [quantity_{k} \text{ for } k = 1, \ldots, K]
+\]
+
+\end{document}

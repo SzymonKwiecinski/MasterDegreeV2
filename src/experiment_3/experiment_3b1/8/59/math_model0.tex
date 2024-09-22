@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Translator Selection}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $N$: Total number of translators available.
+    \item $M$: Total number of required languages.
+    \item $c_i$: Cost of hiring translator $i$.
+    \item $L_i$: Set of languages that translator $i$ can translate into.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_i$: Binary variable that is 1 if translator $i$ is selected, 0 otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost of selected translators:
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} c_i \cdot x_i
+\]
+
+\subsection*{Constraints}
+Ensure that all required languages are covered by the selected translators:
+\[
+\sum_{i: \text{language}_m \in L_i} x_i \geq 1 \quad \forall m \in \{1, \ldots, M\}
+\]
+
+\subsection*{Binary Restrictions}
+\[
+x_i \in \{0, 1\} \quad \forall i \in \{1, \ldots, N\}
+\]
+
+\subsection*{Output Information}
+\begin{itemize}
+    \item \texttt{selected\_translators}: List of transformer IDs chosen.
+    \item \texttt{total\_cost}: Total cost for hiring the selected translators.
+\end{itemize}
+
+\end{document}

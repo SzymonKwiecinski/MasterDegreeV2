@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Mining Company Problem}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( n_mines \): Total number of mines
+    \item \( n_{maxwork} \): Maximum number of mines that can be operated in any one year
+    \item \( royalty_k \): Yearly royalties for keeping mine \( k \) open
+    \item \( limit_k \): Upper limit of ore that can be extracted from mine \( k \) in a year
+    \item \( quality_k \): Quality of ore from mine \( k \)
+    \item \( requiredquality_i \): Required quality of blended ore in year \( i \)
+    \item \( price \): Selling price of the final blended ore per ton
+    \item \( discount \): Discount rate per annum
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item \( isoperated_{k,i} \): Binary variable, 1 if mine \( k \) is operated in year \( i \), 0 otherwise
+    \item \( amount_{k,i} \): Amount of ore produced by mine \( k \) in year \( i \)
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+    \text{Maximize } Z = \sum_{i=1}^{I} \left( \frac{price \cdot \left( \sum_{k=1}^{n_mines} amount_{k,i} \right) - \sum_{k=1}^{n_mines} (royalty_k \cdot isoperated_{k,i})}{(1 + discount)^{i}} \right)
+\end{align*}
+
+\textbf{Subject to:}
+
+\begin{align}
+    \sum_{k=1}^{n_mines} isoperated_{k,i} & \leq n_{maxwork} \quad \forall i \in \{1, \ldots, I\} \label{eq:work_limit} \\
+    \sum_{k=1}^{n_mines} quality_k \cdot amount_{k,i} &= requiredquality_i \cdot \left( \sum_{k=1}^{n_mines} amount_{k,i} \right) \quad \forall i \in \{1, \ldots, I\} \label{eq:quality_constraint} \\
+    amount_{k,i} & \leq limit_k \cdot isoperated_{k,i} \quad \forall k \in \{1, \ldots, n_mines\}, \forall i \in \{1, \ldots, I\} \label{eq:production_limit} \\
+    isoperated_{k,i} & \in \{0, 1\} \quad \forall k \in \{1, \ldots, n_mines\}, \forall i \in \{1, \ldots, I\} \label{eq:binary}
+\end{align}
+
+\end{document}

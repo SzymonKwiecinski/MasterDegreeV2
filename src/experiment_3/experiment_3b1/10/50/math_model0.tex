@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\subsection*{Indices and Parameters}
+\begin{itemize}
+    \item Let \( P \) = number of different parts
+    \item Let \( M \) = number of different machines
+    \item \( \text{time}_{m,p} \) = time required in hours on machine \( m \) to produce a batch of part \( p \)
+    \item \( \text{cost}_m \) = charge per hour for using machine \( m \)
+    \item \( \text{available}_m \) = availability of machine \( m \) in hours per month
+    \item \( \text{price}_p \) = selling price per batch of part \( p \)
+    \item \( \text{min\_batches}_p \) = minimum batches of part \( p \) required to fulfill a contract
+    \item \( \text{extra\_costs}_m \) = extra cost per hour for machine \( m \)
+    \item \( \text{max\_extra}_m \) = maximum extra hours that can be purchased for machine \( m \)
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( \text{batches}_p \) = number of batches produced for part \( p \)
+    \item Let \( \text{extra\_time}_m \) = additional hours purchased for machine \( m \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+
+\[
+\text{Total Profit} = \sum_{p=1}^{P} \left( \text{price}_p \cdot \text{batches}_p \right) - \sum_{m=1}^{M} \left( \text{cost}_m \cdot \left( \sum_{p=1}^{P} \text{time}_{m,p} \cdot \text{batches}_p + \text{extra\_time}_m \right) + \text{extra\_costs}_m \cdot \text{extra\_time}_m \right)
+\]
+
+\subsection*{Constraints}
+1. **Production Requirements**:
+   \[
+   \text{batches}_p \geq \text{min\_batches}_p \quad \forall p \in \{1, \ldots, P\}
+   \]
+
+2. **Machine Availability**:
+   \[
+   \sum_{p=1}^{P} \text{time}_{m,p} \cdot \text{batches}_p + \text{extra\_time}_m \leq \text{available}_m + \text{max\_extra}_m \quad \forall m \in \{1, \ldots, M\}
+   \]
+
+3. **Extra Time Limit**:
+   \[
+   \text{extra\_time}_m \leq \text{max\_extra}_m \quad \forall m \in \{1, \ldots, M\}
+   \]
+
+4. **Non-negativity**:
+   \[
+   \text{batches}_p \geq 0 \quad \forall p \in \{1, \ldots, P\}
+   \]
+   \[
+   \text{extra\_time}_m \geq 0 \quad \forall m \in \{1, \ldots, M\}
+   \]
+
+\subsection*{Output}
+The output will consist of:
+\begin{itemize}
+    \item \( \text{batches} = [\text{batches}_p \text{ for } p = 1, \ldots, P] \)
+    \item \( \text{extra\_time} = [\text{extra\_time}_m \text{ for } m = 1, \ldots, M] \)
+    \item \( \text{total\_profit} = \text{Total Profit} \)
+\end{itemize}
+
+\end{document}

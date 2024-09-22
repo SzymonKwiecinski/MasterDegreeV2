@@ -1,0 +1,89 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for MILP Problem}
+
+\subsection*{Sets and Parameters}
+Let \( N \) be the number of clusters.  
+Define sets:
+\begin{itemize}
+    \item \( C = \{1, 2, \ldots, N\} \) (set of clusters)
+    \item \( T = \{ \text{isolate}, \text{scan} \} \) (types of interventions)
+    \item \( M = \{ \text{central}, \text{distributed} \} \) (processing methods)
+\end{itemize}
+
+Define parameters:
+\begin{itemize}
+    \item \( \text{isolate\_central}_i \): processing time for isolating cluster \( i \) using central processing
+    \item \( \text{scan\_central}_i \): processing time for scanning cluster \( i \) using central processing
+    \item \( \text{isolate\_distributed}_i \): processing time for isolating cluster \( i \) using distributed processing
+    \item \( \text{scan\_distributed}_i \): processing time for scanning cluster \( i \) using distributed processing
+    \item \( \text{central\_cost} \): cost per hour for central processing
+    \item \( \text{distributed\_cost} \): cost per hour for distributed processing
+    \item \( \text{max\_central} \): maximum hours available for central processing
+    \item \( \text{max\_distributed} \): maximum hours available for distributed processing
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let \( x_{i,t,m} \) be a binary variable defined as:
+\[
+x_{i,t,m} =
+\begin{cases}
+1, & \text{if intervention type } t \text{ using method } m \text{ is applied to cluster } i\\
+0, & \text{otherwise}
+\end{cases}
+\]
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{i \in C} \sum_{t \in T} \sum_{m \in M} \text{cost}(t, m)_{i} \cdot x_{i,t,m}
+\]
+where cost for each intervention is defined as follows:
+\[
+\text{cost}(t, m)_{i} =
+\begin{cases}
+\text{central\_cost} \cdot \text{isolate\_central}_i, & \text{if } t = \text{isolate and } m = \text{central}\\
+\text{central\_cost} \cdot \text{scan\_central}_i, & \text{if } t = \text{scan and } m = \text{central}\\
+\text{distributed\_cost} \cdot \text{isolate\_distributed}_i, & \text{if } t = \text{isolate and } m = \text{distributed}\\
+\text{distributed\_cost} \cdot \text{scan\_distributed}_i, & \text{if } t = \text{scan and } m = \text{distributed}
+\end{cases}
+\]
+
+\subsection*{Constraints}
+1. Each cluster must have one intervention type consistently applied:
+\[
+\sum_{t \in T} \sum_{m \in M} x_{i,t,m} = 1, \quad \forall i \in C
+\]
+
+2. Central processing time constraint:
+\[
+\sum_{i \in C} \sum_{t \in T} \text{time}(t)_{i,\text{central}} \cdot x_{i,t,\text{central}} \leq \text{max\_central}
+\]
+
+3. Distributed processing time constraint:
+\[
+\sum_{i \in C} \sum_{t \in T} \text{time}(t)_{i,\text{distributed}} \cdot x_{i,t,\text{distributed}} \leq \text{max\_distributed}
+\]
+
+\subsection*{Output Information}
+The output will consist of:
+\begin{itemize}
+    \item Intervention types and methods for each cluster:
+    \[
+    \begin{align*}
+    \text{interventions} &= \{ \\
+    & \{ \text{cluster\_id} = i, \text{type} = t, \text{method} = m, \text{amount} = \text{amount}_i \} \\
+    & \text{for } i \in C, \text{for each } t \in T, m \in M \\
+    & \}
+    \end{align*}
+    \]
+    \item Total cost:
+    \[
+    \text{total\_cost} = Z
+    \end{align*}
+    \]
+\end{itemize}
+
+\end{document}

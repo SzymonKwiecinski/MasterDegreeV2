@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Oil Refinery}
+
+\subsection*{Decision Variables}
+Let \( x_l \) be the number of times process \( l \) should be executed, for \( l = 1, 2, \ldots, L \).
+
+\subsection*{Objective Function}
+The objective is to maximize the total revenue, defined as:
+\[
+\text{maximize } Z = \sum_{p=1}^{P} \text{price}_p \cdot \sum_{l=1}^{L} \text{output}_{l,p} \cdot x_l
+\]
+
+\subsection*{Constraints}
+1. **Resource Constraints**: For each crude oil type \( i \):
+\[
+\sum_{l=1}^{L} \text{input}_{l,i} \cdot x_l \leq \text{allocated}_i \quad \forall i = 1, 2, \ldots, O
+\]
+
+2. **Non-negativity Constraints**: 
+\[
+x_l \geq 0 \quad \forall l = 1, 2, \ldots, L
+\]
+
+\subsection*{Output Variables}
+- The total revenue for the month is given by the objective function value \( Z \).
+- The number of times process \( l \) should be executed is given by \( x_l \).
+
+\subsection*{Output Format}
+The output will provide:
+\begin{itemize}
+    \item \text{revenue}: \( Z \)
+    \item \text{execute}: \( [x_1, x_2, \ldots, x_L] \)
+\end{itemize}
+
+\end{document}

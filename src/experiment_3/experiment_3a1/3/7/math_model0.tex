@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Movement Optimization Problem}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item $\var{x_t}$: Position of the rocket at time $t$
+    \item $\var{v_t}$: Velocity of the rocket at time $t$
+    \item $\var{a_t}$: Acceleration (thrust) of the rocket at time $t$
+\end{itemize}
+
+\textbf{Discrete-Time Model:}
+\begin{align}
+    \var{x_{t+1}} &= \var{x_t} + \var{v_t} \quad \text{(1)} \\
+    \var{v_{t+1}} &= \var{v_t} + \var{a_t} \quad \text{(2)}
+\end{align}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item Initial position: $\var{x_0}$
+    \item Initial velocity: $\var{v_0}$
+    \item Target position: $\var{x_T}$
+    \item Target velocity: $\var{v_T}$
+    \item Time duration: $T$
+\end{itemize}
+
+\textbf{Objective:}
+Minimize the maximum thrust required:
+\[
+\text{minimize } Z = \max_{t} |\var{a_t}|
+\]
+
+\textbf{Constraints:}
+\begin{align}
+    \var{x_0} &= x_0 \quad \text{(initial condition)} \\
+    \var{v_0} &= v_0 \quad \text{(initial condition)} \\
+    \var{x_T} &= \var{x_T} \quad \text{(target position)} \\
+    \var{v_T} &= \var{v_T} \quad \text{(target velocity)} \\
+    \var{x_{t+1}} &= \var{x_t} + \var{v_t}, \quad t = 0, 1, \ldots, T-1 \quad \text{(1)} \\
+    \var{v_{t+1}} &= \var{v_t} + \var{a_t}, \quad t = 0, 1, \ldots, T-1 \quad \text{(2)}
+\end{align}
+
+\textbf{Output:}
+\begin{itemize}
+    \item Key "x" contains: $\{ \var{x_i} \;|\; i = 0, 1, \ldots, T \}$
+    \item Key "v" contains: $\{ \var{v_i} \;|\; i = 0, 1, \ldots, T \}$
+    \item Key "a" contains: $\{ \var{a_i} \;|\; i = 0, 1, \ldots, T \}$
+    \item Key "fuel\_spend" contains the total fuel spent by the rocket
+\end{itemize}
+
+\textbf{Output Format:}
+\begin{verbatim}
+{
+    "x": [x_i for i in 0, ..., T],
+    "v": [v_i for i in 0, ..., T],
+    "a": [a_i for i in 0, ..., T],
+    "fuel_spend": fuel_spent,
+}
+\end{verbatim}
+
+\end{document}

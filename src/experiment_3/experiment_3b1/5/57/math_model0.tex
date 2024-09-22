@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Seaport Container Management}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item $T$: Set of months, $t \in \{1, 2, \ldots, T\}$
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $demand_{t}$: Demand for containers by ships in month $t$
+    \item $unload\_cost_{t}$: Unloading cost per container in month $t$
+    \item $unload\_capacity_{t}$: Maximum number of containers that can be unloaded in month $t$
+    \item $holding\_cost$: Holding cost per container in the yard
+    \item $max\_container$: Maximum number of containers that the yard can store at the end of any month
+    \item $init\_container$: Initial number of containers in the yard at the start of month 1
+    \item $num\_cranes$: Maximum number of cranes that can be rented each month
+    \item $crane\_capacity$: Loading capacity of each crane
+    \item $crane\_cost$: Cost for renting each crane
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $amount_{t}$: Number of containers unloaded in month $t$
+    \item $crane_{t}$: Number of cranes rented in month $t$
+    \item $containers_{t}$: Number of containers in the yard at the end of month $t$
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{total\_cost} = \sum_{t=1}^{T} \left( unload\_cost_{t} \cdot amount_{t} + holding\_cost \cdot containers_{t} + crane\_cost \cdot crane_{t} \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+1. & \quad containers_{t-1} + amount_{t} - demand_{t} = containers_{t}, \quad t \in \{1, \ldots, T\} \\
+2. & \quad amount_{t} \leq unload\_capacity_{t}, \quad t \in \{1, \ldots, T\} \\
+3. & \quad amount_{t} \leq containers_{t-1}, \quad t \in \{1, \ldots, T\} \\
+4. & \quad containers_{t} \leq max\_container, \quad t \in \{1, \ldots, T\} \\
+5. & \quad crane_{t} \cdot crane\_capacity \geq demand_{t}, \quad t \in \{1, \ldots, T\} \\
+6. & \quad crane_{t} \leq num\_cranes, \quad t \in \{1, \ldots, T\} \\
+7. & \quad containers_{1} = init\_container \\
+8. & \quad containers_{T} = 0
+\end{align*}
+
+\end{document}

@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Cafeteria Staffing Problem}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $N$: Total number of days.
+    \item $num_n$: Required number of employees on day $n$, where $n = 1, 2, \ldots, N$.
+    \item $n_{working}$: Number of consecutive working days for each employee.
+    \item $n_{resting}$: Number of consecutive days off for each employee.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $total\_number$: Total number of employees to hire.
+    \item $is\_work_{n,i}$: Binary variable where $is\_work_{n,i} = 1$ if employee $i$ is working on day $n$, and $is\_work_{n,i} = 0$ otherwise, for $i = 1, 2, \ldots, total\_number$ and $n = 1, 2, \ldots, N$.
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } total\_number
+\]
+
+\textbf{Constraints:}
+For each day $n$, ensure that the required number of employees is met:
+\[
+\sum_{i=1}^{total\_number} is\_work_{n,i} \geq num_n \quad \forall n \in \{1, 2, \ldots, N\}
+\]
+
+Incorporate the working and resting constraint for each employee. For each employee $i$:
+\[
+is\_work_{n,i} = 1 \quad \text{for } n = j \text{ to } j+n_{working}-1
+\]
+\[
+is\_work_{j+n_{working},i} = 0 \quad \text{for } j+n_{working} \text{ to } j+n_{working}+n_{resting}-1
+\]
+
+\textbf{Binary Constraints:}
+\[
+is\_work_{n,i} \in \{0, 1\} \quad \forall n \in \{1, 2, \ldots, N\}, i \in \{1, 2, \ldots, total\_number\}
+\]
+
+\end{document}

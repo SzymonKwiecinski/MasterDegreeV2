@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Production Problem}
+
+\subsection*{Sets and Parameters}
+\begin{align*}
+& N: \text{Number of product types} \\
+& \text{assemblyHour}_i: \text{Hours of assembly labor required for product } i \quad \forall i \in \{1, 2, \ldots, N\} \\
+& \text{testingHour}_i: \text{Hours of testing required for product } i \quad \forall i \in \{1, 2, \ldots, N\} \\
+& \text{materialCost}_i: \text{Cost of raw materials for product } i \quad \forall i \in \{1, 2, \ldots, N\} \\
+& \text{maxAssembly}: \text{Maximum assembly hours available} \\
+& \text{maxTesting}: \text{Maximum testing hours available} \\
+& \text{price}_i: \text{Selling price of product } i \quad \forall i \in \{1, 2, \ldots, N\} \\
+& \text{maxOvertimeAssembly}: \text{Maximum hours of overtime assembly available} \\
+& \text{overtimeAssemblyCost}: \text{Cost per hour of overtime assembly} \\
+& \text{materialDiscount}: \text{Discount on materials (in percent)} \\
+& \text{discountThreshold}: \text{Threshold for material discount} \\
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+& x_i: \text{Units of product } i \text{ produced} \quad \forall i \in \{1, 2, \ldots, N\} \\
+& y: \text{Hours of overtime assembly scheduled} \\
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the daily profit:
+\begin{align*}
+\text{dailyProfit} = \sum_{i=1}^{N} (\text{price}_i \cdot x_i) - \left( \sum_{i=1}^{N} (\text{materialCost}_i \cdot x_i) + \text{overtimeAssemblyCost} \cdot y - \text{discount} \right)
+\end{align*}
+where
+\begin{align*}
+\text{discount} =
+\begin{cases}
+\frac{\text{materialDiscount}}{100} \cdot \sum_{i=1}^{N} (\text{materialCost}_i \cdot x_i) & \text{if } \sum_{i=1}^{N} (\text{materialCost}_i \cdot x_i) > \text{discountThreshold} \\
+0 & \text{otherwise}
+\end{cases}
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+\sum_{i=1}^{N} (\text{assemblyHour}_i \cdot x_i) + y & \leq \text{maxAssembly} + \text{maxOvertimeAssembly} \\
+\sum_{i=1}^{N} (\text{testingHour}_i \cdot x_i) & \leq \text{maxTesting} \\
+x_i & \geq 0 \quad \forall i \in \{1, 2, \ldots, N\} \\
+y & \geq 0 \\
+y & \leq \text{maxOvertimeAssembly} \\
+\end{align*}
+
+\end{document}

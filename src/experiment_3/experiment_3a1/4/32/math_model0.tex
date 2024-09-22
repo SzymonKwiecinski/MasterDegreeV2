@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Product Production}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $k$: index for products, where $k = 1, \ldots, K$
+    \item $s$: index for stages, where $s = 1, \ldots, S$
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $produce\_time_{k,s}$: time required to produce 1 unit of product $k$ at stage $s$ (in hours)
+    \item $time_{s}$: total available time at stage $s$ (in hours)
+    \item $profit_{k}$: profit from producing 1 unit of product $k$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $quantity_{k}$: quantity of product $k$ to be produced
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Max } Z = \sum_{k=1}^{K} profit_{k} \cdot quantity_{k}
+\]
+
+\subsection*{Constraints}
+For each stage $s$, the total production time must not exceed the available time:
+\[
+\sum_{k=1}^{K} produce\_time_{k,s} \cdot quantity_{k} \leq time_{s}, \quad \forall s = 1, \ldots, S
+\]
+
+\subsection*{Non-negativity Constraints}
+\[
+quantity_{k} \geq 0, \quad \forall k = 1, \ldots, K
+\]
+
+\end{document}

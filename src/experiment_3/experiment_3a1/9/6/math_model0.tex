@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Rocket Trajectory Optimization}
+
+Let \( x_t \), \( v_t \), and \( a_t \) denote the position, velocity, and acceleration of the rocket at time \( t \), respectively. The discrete-time model is defined as follows:
+
+\[
+x_{t+1} = x_t + v_t
+\]
+
+\[
+v_{t+1} = v_t + a_t
+\]
+
+Assuming that the acceleration \( a_t \) is under our control and is proportional to the rate of fuel consumption, we aim to minimize the total fuel used over a time horizon from \( t = 0 \) to \( t = T-1 \). 
+
+Given the inputs:
+\begin{itemize}
+    \item Initial position: \( x_0 \)
+    \item Initial velocity: \( v_0 \)
+    \item Target position: \( x_T \)
+    \item Target velocity: \( v_T \)
+    \item Total time steps: \( T \)
+\end{itemize}
+
+The optimization problem can be formulated as follows:
+
+\textbf{Objective:}
+Minimize the total fuel consumption:
+\[
+\text{Minimize} \quad \sum_{t=0}^{T-1} |a_t|
+\]
+
+\textbf{Subject to:}
+\begin{align*}
+x_{t+1} &= x_t + v_t, \quad \forall t = 0, 1, \ldots, T-1 \\
+v_{t+1} &= v_t + a_t, \quad \forall t = 0, 1, \ldots, T-1 \\
+x_0 &= \text{initial position} \\
+v_0 &= \text{initial velocity} \\
+x_T &= \text{target position} \\
+v_T &= \text{target velocity} \\
+\end{align*}
+
+\textbf{Output:}
+The solution includes:
+\begin{itemize}
+    \item \( x \): positions of the rocket at each time step from \( 0 \) to \( T \)
+    \item \( v \): velocities of the rocket at each time step from \( 0 \) to \( T \)
+    \item \( a \): accelerations of the rocket at each time step from \( 0 \) to \( T \)
+    \item \( \text{fuel\_spend} \): total fuel spent by the rocket
+\end{itemize}
+
+The output format will be:
+\[
+\{ 
+    "x": [x_i \, | \, i = 1, \ldots, T], 
+    "v": [v_i \, | \, i = 1, \ldots, T], 
+    "a": [a_i \, | \, i = 1, \ldots, T], 
+    "fuel\_spend": \text{fuel\_spent} 
+\}
+\]
+
+\end{document}

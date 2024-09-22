@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Intervention Problem}
+
+\subsection*{Decision Variables}
+Let:
+\begin{itemize}
+    \item $x_{i,j,k}$ = 1 if intervention type $j$ (where $j \in \{\text{isolate, scan}\}$) is applied to cluster $i$ using method $k$ (where $k \in \{\text{central, distributed}\}$), 0 otherwise for $i = 1,\ldots,N$.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $isolate\_central_i$: processing time for isolating cluster $i$ centrally
+    \item $scan\_central_i$: processing time for scanning cluster $i$ centrally
+    \item $isolate\_distributed_i$: processing time for isolating cluster $i$ using distributed method
+    \item $scan\_distributed_i$: processing time for scanning cluster $i$ using distributed method
+    \item $central\_cost$: opportunity cost per hour for central processing
+    \item $distributed\_cost$: opportunity cost per hour for distributed processing
+    \item $max\_central$: maximum hours allowed for central processing
+    \item $max\_distributed$: maximum hours allowed for distributed processing
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize total cost:
+\[
+\text{Total Cost} = \sum_{i=1}^N \left( \sum_{j \in \{\text{isolate, scan}\}} \sum_{k \in \{\text{central, distributed}\}} c_{j,k,i} \cdot x_{i,j,k} \right)
+\]
+where
+\[
+c_{\text{isolate, central},i} = central\_cost \cdot isolate\_central_i,
+\quad c_{\text{scan, central},i} = central\_cost \cdot scan\_central_i,
+\]
+\[
+c_{\text{isolate, distributed},i} = distributed\_cost \cdot isolate\_distributed_i,
+\quad c_{\text{scan, distributed},i} = distributed\_cost \cdot scan\_distributed_i.
+\]
+
+\subsection*{Constraints}
+1. Each cluster must be treated with one intervention type consistently:
+\[
+\sum_{j \in \{\text{isolate, scan}\}} \sum_{k \in \{\text{central, distributed}\}} x_{i,j,k} = 1 \quad \forall i = 1,\ldots,N
+\]
+  
+2. Central processing time limit:
+\[
+\sum_{i=1}^N \left( \sum_{j \in \{\text{isolate, scan}\}} isolate\_central_i \cdot x_{i,j,\text{central}} + \sum_{j \in \{\text{isolate, scan}\}} scan\_central_i \cdot x_{i,j,\text{central}} \right) \leq max\_central
+\]
+
+3. Distributed processing time limit:
+\[
+\sum_{i=1}^N \left( \sum_{j \in \{\text{isolate, scan}\}} isolate\_distributed_i \cdot x_{i,j,\text{distributed}} + \sum_{j \in \{\text{isolate, scan}\}} scan\_distributed_i \cdot x_{i,j,\text{distributed}} \right) \leq max\_distributed
+\]
+
+\end{document}

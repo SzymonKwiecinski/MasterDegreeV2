@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Problem Definition:}
+
+Let:
+\begin{itemize}
+    \item $P$ = Number of different parts
+    \item $M$ = Number of different machines
+    \item $batches_p$ = Number of batches produced for part $p$ (for $p = 1, \ldots, P$)
+    \item $time_{m,p}$ = Time required on machine $m$ for part $p$ (in hours)
+    \item $cost_m$ = Hourly cost of machine $m$
+    \item $available_m$ = Available hours of machine $m$ per month
+    \item $price_p$ = Selling price of part $p$ (per batch)
+    \item $min\_batches_p$ = Minimum batches required for part $p$
+    \item $standard\_cost$ = Standard labor cost (per hour)
+    \item $overtime\_cost$ = Overtime labor cost (per hour)
+    \item $overtime\_hour$ = Maximum hours before overtime kicks in
+    \item $min\_profit$ = Minimum desired profit
+\end{itemize}
+
+\textbf{Objective Function:}
+
+Maximize the total profit:
+
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} (price_p \cdot batches_p) - \sum_{m=1}^{M} (cost_m \cdot \sum_{p=1}^{P} (time_{m,p} \cdot batches_p))
+\]
+
+\textbf{Subject to:}
+
+1. Machine time utilization constraints:
+
+\[
+\sum_{p=1}^{P} (time_{m,p} \cdot batches_p) \leq available_m \quad \forall m = 1, \ldots, M
+\]
+
+2. Minimum production requirements:
+
+\[
+batches_p \geq min\_batches_p \quad \forall p = 1, \ldots, P
+\]
+
+3. Labor cost constraints (for Machine 1):
+
+\[
+\text{Total hours used on Machine 1} = \sum_{p=1}^{P} (time_{1,p} \cdot batches_p)
+\]
+\[
+\text{If } \sum_{p=1}^{P} (time_{1,p} \cdot batches_p) \leq overtime\_hour \Rightarrow \text{Cost} = standard\_cost \cdot \sum_{p=1}^{P} (time_{1,p} \cdot batches_p)
+\]
+\[
+\text{If } \sum_{p=1}^{P} (time_{1,p} \cdot batches_p) > overtime\_hour \Rightarrow \text{Cost} = standard\_cost \cdot overtime\_hour + overtime\_cost \cdot \left( \sum_{p=1}^{P} (time_{1,p} \cdot batches_p) - overtime\_hour \right)
+\]
+
+4. Profit constraint:
+
+\[
+Z \geq min\_profit
+\]
+
+\textbf{Variables:}
+
+\begin{itemize}
+    \item $batches_p \geq 0$ (for $p = 1, \ldots, P$)
+\end{itemize}
+
+\textbf{Output:}
+
+\begin{itemize}
+    \item $batches = [batches_p \text{ for } p = 1, \ldots, P]$
+    \item $total\_profit = Z$
+\end{itemize}
+
+\end{document}

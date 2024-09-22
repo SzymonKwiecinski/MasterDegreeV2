@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Economic Industries}
+
+\subsection*{Sets}
+Let \( K \) be the set of industries indexed by \( k \) and \( j \) where \( k, j = 1, \ldots, K \). 
+Let \( T \) be the set of years indexed by \( t \) where \( t = 1, 2, 3, 4, 5 \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{inputone}_{k,j} \): Input from industry \( j \) required by industry \( k \).
+    \item \( \text{manpowerone}_{k} \): Manpower required by industry \( k \) for production.
+    \item \( \text{inputtwo}_{k,j} \): Input from industry \( j \) required by industry \( k \) to build capacity.
+    \item \( \text{manpowertwo}_{k} \): Manpower required by industry \( k \) to build capacity.
+    \item \( \text{stock}_{k} \): Initial stock of industry \( k \).
+    \item \( \text{capacity}_{k} \): Initial capacity of industry \( k \).
+    \item \( \text{demand}_{k} \): Exogenous demand for industry \( k \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{produce}_{k,t} \): Amount produced by industry \( k \) in year \( t \).
+    \item \( \text{buildcapa}_{k,t} \): Amount used to build capacity by industry \( k \) in year \( t \).
+    \item \( \text{stockhold}_{k,t} \): Amount of stock held by industry \( k \) in year \( t \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total manpower requirement over five years:
+\[
+\text{Maximize } Z = \sum_{t=1}^{5} \sum_{k=1}^{K} \left( \text{manpowerone}_{k} \cdot \text{produce}_{k,t} + \text{manpowertwo}_{k} \cdot \text{buildcapa}_{k,t} \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+\text{Production Constraints:} & \quad \text{produce}_{k,t} + \text{stockhold}_{k,t-1} - \text{stockhold}_{k,t} = \text{demand}_{k} && \forall k, t \in T \\
+\text{Initial Stock:} & \quad \text{stockhold}_{k,0} = \text{stock}_{k} && \forall k \\
+\text{Capacity Constraints:} & \quad \text{produce}_{k,t} \leq \text{capacity}_{k} + \text{buildcapa}_{k,t-2} && \forall k, t \in \{3, 4, 5\} \\
+\text{Input Constraints:} & \quad \sum_{j=1}^{K} \text{inputone}_{k,j} \cdot \text{produce}_{j,t-1} + \sum_{j=1}^{K} \text{inputtwo}_{k,j} \cdot \text{buildcapa}_{j,t-2} \geq \text{produce}_{k,t} && \forall k, t \\
+\text{Non-negativity Constraints:} & \quad \text{produce}_{k,t}, \text{buildcapa}_{k,t}, \text{stockhold}_{k,t} \geq 0 && \forall k, t
+\end{align*}
+
+\subsection*{Output Format}
+The results will include:
+\begin{itemize}
+    \item \( \text{produce} \): Amount of units produced by each industry in each year.
+    \item \( \text{buildcapa} \): Amount of units used to build productive capacity for each industry in each year.
+    \item \( \text{stockhold} \): Amount of stock of each industry held in each year.
+\end{itemize}
+
+\end{document}

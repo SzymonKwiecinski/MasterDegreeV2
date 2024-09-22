@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+Let \( N \) be the number of available currencies. We define the following variables and parameters:
+
+\begin{itemize}
+    \item Let \( x_{i,j} \) be the amount of currency \( i \) exchanged for currency \( j \).
+    \item Let \( \text{start}_i \) be the initial amount of currency \( i \) available at the start of the day.
+    \item Let \( \text{limit}_i \) be the limit on the total amount of currency \( i \) that can be exchanged in any given day.
+    \item Let \( \text{rate}_{i,j} \) be the exchange rate from currency \( i \) to currency \( j \) (i.e., how much currency \( j \) can be obtained for one unit of currency \( i \)).
+\end{itemize}
+
+The objective is to maximize the total amount of currency \( N \) at the end of the day. The mathematical model is as follows:
+
+\[
+\text{Maximize} \quad Z = \sum_{j=1}^{N} x_{N,j}
+\]
+
+subject to the following constraints:
+
+1. **Exchange Limit Constraints for Each Currency:**
+
+\[
+\sum_{j=1}^{N} x_{i,j} \leq \text{limit}_i \quad \forall i \in \{1, 2, \ldots, N\}
+\]
+
+2. **Initial Amount Constraints:**
+
+\[
+\sum_{j=1}^{N} x_{i,j} \leq \text{start}_i \quad \forall i \in \{1, 2, \ldots, N\}
+\]
+
+3. **Flow Conservation Constraints:**
+
+For each currency \( i \):
+
+\[
+\text{start}_i + \sum_{j=1}^{N} x_{j,i} - \sum_{j=1}^{N} x_{i,j} = \text{final}_i \quad \forall i \in \{1, 2, \ldots, N\}
+\]
+
+4. **Exchange Rate Constraints:**
+
+For currency exchanges:
+
+\[
+x_{i,j} \cdot \text{rate}_{i,j} \leq x_{j,i} \quad \forall i,j \in \{1, 2, \ldots, N\} \text{ where } i \neq j
+\]
+
+5. **Non-negativity Constraints:**
+
+\[
+x_{i,j} \geq 0 \quad \forall i,j \in \{1, 2, \ldots, N\}
+\]
+
+This formulation allows us to determine the optimal transactions to maximize the total amount of currency \( N \) we can accumulate by the end of the day while adhering to the constraints imposed by initial amounts, limits, and exchange rates.
+
+\end{document}

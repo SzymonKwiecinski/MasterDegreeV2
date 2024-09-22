@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Industry Production}
+
+\textbf{Indices:} \\
+\begin{itemize}
+    \item $k$: Industry index ($k = 1, 2, \ldots, K$)
+    \item $j$: Industry index for inputs ($j = 1, 2, \ldots, K$)
+    \item $t$: Time index (years, $t = 1, 2, \ldots, T$)
+\end{itemize}
+
+\textbf{Parameters:} \\
+\begin{itemize}
+    \item $inputone_{k, j}$: Input from industry $j$ required by industry $k$
+    \item $manpowerone_{k}$: Manpower required by industry $k$ for production
+    \item $inputtwo_{k, j}$: Input from industry $j$ required by industry $k$ for capacity building
+    \item $manpowertwo_{k}$: Manpower required by industry $k$ for capacity building
+    \item $stock_{k}$: Initial stock of industry $k$
+    \item $capacity_{k}$: Initial capacity of industry $k$
+    \item $demand_{k}$: External demand for industry $k$
+\end{itemize}
+
+\textbf{Variables:} \\
+\begin{itemize}
+    \item $produce_{k, t}$: Amount produced by industry $k$ in year $t$
+    \item $buildcapa_{k, t}$: Amount used to build productive capacity for industry $k$ in year $t$
+    \item $stock_{k, t}$: Amount of stock of industry $k$ held in year $t$
+\end{itemize}
+
+\textbf{Objective Function:} \\
+Maximize total manpower requirement over five years:
+\[
+\text{Maximize } Z = \sum_{t=1}^{5} \sum_{k=1}^{K} (manpowerone_k \cdot produce_{k, t} + manpowertwo_k \cdot buildcapa_{k, t})
+\]
+
+\textbf{Constraints:} \\
+1. Production constraints for each industry $k$ in each year $t$:
+\[
+produce_{k, t} + stock_{k, t-1} = \sum_{j=1}^{K} inputone_{k, j} \cdot produce_{j, t-1} + stock_{k, t} + buildcapa_{k, t-1} \quad (t \geq 1)
+\]
+
+2. Capacity building constraints for each industry $k$ in each year $t$:
+\[
+capacity_{k} + \sum_{t=1}^{5} \sum_{j=1}^{K} inputtwo_{k, j} \cdot buildcapa_{j, t} \leq capacity_{k} + stock_{k, t + 2}
+\]
+
+3. Demand satisfaction for each industry $k$ (except year 0):
+\[
+produce_{k, t} + stock_{k, t-1} \geq demand_k \quad (t = 1, 2, \ldots, 5)
+\]
+
+4. Non-negativity constraints:
+\[
+produce_{k, t} \geq 0, \quad buildcapa_{k, t} \geq 0, \quad stock_{k, t} \geq 0 \quad (k = 1, \ldots, K; \, t = 1, \ldots, 5)
+\]
+
+\end{document}

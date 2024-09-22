@@ -1,0 +1,95 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for DEC's Computer Systems Production}
+
+\subsection*{Variables}
+Let \( x_i \) be the number of systems of type \( i \) produced, where \( i = 1, 2, \ldots, N \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{is\_workstation}_i \) : boolean indicating if system \( i \) is a workstation.
+    \item \( \text{price}_i \) : price of system \( i \).
+    \item \( \text{disk\_drives}_i \) : average number of disk drives requested for system \( i \).
+    \item \( \text{256K\_boards}_i \) : average memory boards required for system \( i \).
+    \item \( \text{max\_cpu} \) : maximum number of CPUs available.
+    \item \( \text{min\_disk} \) : minimum number of disk drives available.
+    \item \( \text{max\_disk} \) : maximum number of disk drives available.
+    \item \( \text{min\_mem} \) : minimum number of 256K memory boards available.
+    \item \( \text{max\_mem} \) : maximum number of 256K memory boards available.
+    \item \( \text{demand}_i \) : maximum demand for system \( i \).
+    \item \( \text{demand\_GP} \) : maximum demand for general-purpose systems.
+    \item \( \text{demand\_WS} \) : maximum demand for workstation systems.
+    \item \( \text{preorder}_i \) : preorders for system \( i \).
+    \item \( \text{alt\_mem} \) : available alternative memory boards.
+    \item \( \text{alt\_compatible}_i \) : boolean for compatibility with alternative memory boards for system \( i \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the profit:
+
+\[
+\text{Profit} = \sum_{i=1}^{N} \left( \text{price}_i \cdot x_i - \text{costs}(x_i) \right)
+\]
+
+Where \(\text{costs}(x_i)\) accounts for memory and disk drive costs.
+
+\subsection*{Constraints}
+1. CPU constraint:
+\[
+\sum_{i=1}^{N} x_i \leq \text{max\_cpu}
+\]
+
+2. Disk drive constraint:
+\[
+\sum_{i=1}^{N} \text{disk\_drives}_i \cdot x_i \geq \text{min\_disk}
+\]
+\[
+\sum_{i=1}^{N} \text{disk\_drives}_i \cdot x_i \leq \text{max\_disk}
+\]
+
+3. Memory board constraint:
+\[
+\sum_{i=1}^{N} \text{256K\_boards}_i \cdot x_i \geq \text{min\_mem}
+\]
+\[
+\sum_{i=1}^{N} \text{256K\_boards}_i \cdot x_i + \sum_{i=1}^{N} \text{alt\_compatible}_i \cdot x_i \leq \text{max\_mem} + \text{alt\_mem}
+\]
+
+4. Demand constraints:
+\[
+\sum_{i \,:\, \text{is\_workstation}_i} x_i \leq \text{demand\_WS}
+\]
+\[
+\sum_{i \,:\, \neg \text{is\_workstation}_i} x_i \leq \text{demand\_GP}
+\]
+
+5. Preorder constraints:
+\[
+x_i \geq \text{preorder}_i, \quad \forall i \in \{1, 2, \ldots, N\}
+\]
+
+6. Demand limits:
+\[
+x_i \leq \text{demand}_i, \quad \forall i
+\]
+
+\subsection*{Output Format}
+The output should be formatted as follows:
+\begin{verbatim}
+{
+    "system_output": [
+        {
+            "num_produced": x_i,
+            "total_256K_boards_used": \text{boards_used}_i,
+            "total_alt_boards_used": \text{alt_boards_used}_i,
+            "total_disk_drives_used": \text{disk_used}_i
+        } 
+        \text{ for } i = 1, \ldots, N
+    ],
+    "profit": \text{total_profit}
+}
+\end{verbatim}
+
+\end{document}

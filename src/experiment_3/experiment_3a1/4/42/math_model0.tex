@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Container Transport}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $I$: Number of depots
+    \item $J$: Number of ports
+    \item $numdepot_i$: Number of containers available at depot $i$ (for $i = 1, \ldots, I$)
+    \item $numport_j$: Number of containers required at port $j$ (for $j = 1, \ldots, J$)
+    \item $price$: Cost of transport per barge per km
+    \item $distance_{i,j}$: Distance from depot $i$ to port $j$
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $number_{i,j}$: Number of containers sent from depot $i$ to port $j$
+\end{itemize}
+
+\textbf{Objective Function:}
+Minimize the total transportation cost:
+\[
+\text{Minimize } Z = \sum_{i=1}^{I} \sum_{j=1}^{J} \frac{1}{2} \cdot number_{i,j} \cdot distance_{i,j} \cdot price
+\]
+(Note: Each barge carries 2 containers, hence the factor $\frac{1}{2}$.)
+
+\textbf{Constraints:}
+\begin{itemize}
+    \item Supply Constraints (for each depot $i$):
+    \[
+    \sum_{j=1}^{J} number_{i,j} \leq numdepot_i \quad \forall i = 1, \ldots, I
+    \]
+    
+    \item Demand Constraints (for each port $j$):
+    \[
+    \sum_{i=1}^{I} number_{i,j} \geq numport_j \quad \forall j = 1, \ldots, J
+    \]
+    
+    \item Non-negativity Constraints:
+    \[
+    number_{i,j} \geq 0 \quad \forall i = 1, \ldots, I \text{ and } j = 1, \ldots, J
+    \]
+\end{itemize}
+
+\textbf{Output:}
+\[
+\text{Output } = \{ "number": [[number_{i,j} \text{ for } i = 1,\ldots,I] \text{ for } j = 1,\ldots,J] ] \}
+\]
+
+\end{document}

@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Alloy Production}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+A manufacturer wishes to produce a total of \( \text{alloy\_quant} \) lb of an alloy that contains targeted quantities of various metals. The alloy consists of several kinds of metals, and the quantity of metal \( m \) in the final alloy should meet the target weight \( \text{target}_{m} \). 
+
+The available alloys have varying compositions and prices:
+
+\begin{itemize}
+    \item Alloy \( k \) has a ratio \( \text{ratio}_{k,m} \) of metal \( m \) and is sold at a price \( \text{price}_k \).
+    \item The ratio \( \text{ratio}_{k,m} \) of each alloy is within the range [0, 1].
+\end{itemize}
+
+\section*{Decision Variables}
+Let \( \text{amount}_k \) represent the quantity of alloy \( k \) purchased.
+
+\section*{Objective Function}
+The objective of the manufacturer is to minimize the total cost of the alloys purchased:
+
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} \text{price}_k \cdot \text{amount}_k
+\]
+
+\section*{Constraints}
+1. The total amount of the produced alloy must equal the desired alloy quantity:
+
+\[
+\sum_{k=1}^{K} \text{amount}_k = \text{alloy\_quant}
+\]
+
+2. The amount of each metal \( m \) in the produced alloy must meet the target:
+
+\[
+\sum_{k=1}^{K} \text{ratio}_{k,m} \cdot \text{amount}_k = \text{target}_{m}, \quad \forall m = 1, \ldots, M
+\]
+
+3. Non-negativity constraints on the amount of each alloy:
+
+\[
+\text{amount}_k \geq 0, \quad \forall k = 1, \ldots, K
+\]
+
+\section*{Output}
+The solution will provide the quantities of each alloy to be purchased:
+
+\[
+\text{Output: } \text{"amount": } [ \text{amount}_k \text{ for } k = 1, \ldots, K ]
+\]
+
+\end{document}

@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Traveling Salesman Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( N \) be the number of towns to visit.
+    \item Let \( \text{distance}_{i,j} \) be the distance between town \( i \) and town \( j \).
+    \item Let \( \text{start\_city} \) be the city where the traveler starts and returns.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( x_{i,j} \) be a binary variable where:
+    \[
+    x_{i,j} =
+    \begin{cases}
+    1 & \text{if the traveler travels from city } i \text{ to city } j \\
+    0 & \text{otherwise}
+    \end{cases}
+    \]
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total distance traveled:
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} \sum_{j=1}^{N} \text{distance}_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Each city must be entered and exited exactly once:
+    \[
+    \sum_{j=1}^{N} x_{start\_city,j} = 1  \quad \forall j \in \{1, ..., N\}
+    \]
+    \[
+    \sum_{i=1}^{N} x_{i,start\_city} = 1 \quad \forall i \in \{1, ..., N\}
+    \]
+    
+    \item The flow conservation constraint for each town:
+    \[
+    \sum_{j=1}^{N} x_{i,j} - \sum_{j=1}^{N} x_{j,i} = 0 \quad \forall i \in \{1, ..., N\}
+    \]
+    
+    \item Eliminating subtours using Miller-Tucker-Zemlin (MTZ) formulation. Let \( u_i \) be the number of towns visited before reaching town \( i \):
+    \[
+    u_i - u_j + N \cdot x_{i,j} \leq N-1 \quad \forall i,j \in \{1, ..., N\}, i \neq j
+    \]
+    \item Where \( u_i \) is defined as:
+    \[
+    1 \leq u_i \leq N-1 \quad \forall i \in \{1, ..., N\}
+    \]
+\end{itemize}
+
+\subsection*{Output}
+The output will provide the sequence of cities visited after \( \text{start\_city} \) and the total distance traveled:
+\begin{itemize}
+    \item \text{visit\_order}: Sequence of cities visited
+    \item \text{total\_distance}: Total distance of the optimal route
+\end{itemize}
+
+\end{document}

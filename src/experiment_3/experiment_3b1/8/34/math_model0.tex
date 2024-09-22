@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Food Purchase Optimization}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item Let \( K \) be the set of food items, indexed by \( k = 1, \ldots, K \).
+    \item Let \( M \) be the set of nutrients, indexed by \( m = 1, \ldots, M \).
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{price}_{k} \): Price per unit of food \( k \).
+    \item \( \text{demand}_{m} \): Minimum units of nutrient \( m \) required per day.
+    \item \( \text{nutri}_{k, m} \): Units of nutrient \( m \) contained in one unit of food \( k \).
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item \( \text{quantity}_{k} \): Quantity of food \( k \) to purchase.
+\end{itemize}
+
+\textbf{Objective Function:}
+We want to minimize the total cost of food purchased:
+
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} \text{price}_{k} \cdot \text{quantity}_{k}
+\]
+
+\textbf{Constraints:}
+Each nutrient \( m \) must meet its respective daily demand:
+
+\[
+\sum_{k=1}^{K} \text{nutri}_{k, m} \cdot \text{quantity}_{k} \geq \text{demand}_{m}, \quad \forall m \in M
+\]
+
+\textbf{Non-negativity Constraints:}
+\[
+\text{quantity}_{k} \geq 0, \quad \forall k \in K
+\]
+
+\end{document}

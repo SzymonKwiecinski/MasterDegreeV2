@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Mathematical Model for Seaport Container Management}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+
+Let:
+\begin{itemize}
+    \item $T$: Total number of months
+    \item $demand_t$: Demand for containers by ships in month $t$, for $t = 1, \ldots, T$
+    \item $unload\_cost_t$: Cost to unload a container in month $t$
+    \item $unload\_capacity_t$: Maximum number of containers that can be unloaded in month $t$
+    \item $holding\_cost$: Holding cost per container per month
+    \item $max\_container$: Maximum number of containers the yard can hold at any month
+    \item $init\_container$: Initial number of containers in the yard at the start of month 1
+    \item $num\_cranes$: Maximum number of cranes that can be rented in any month
+    \item $crane\_capacity$: Capacity of each crane for loading containers
+    \item $crane\_cost$: Cost for renting each crane
+\end{itemize}
+
+\section*{Decision Variables}
+Define the following decision variables:
+\begin{itemize}
+    \item $amount_t$: Number of containers unloaded in month $t$, for $t = 1, \ldots, T$
+    \item $crane_t$: Number of cranes rented in month $t$, for $t = 1, \ldots, T$
+    \item $hold_t$: Number of containers held in the yard at the end of month $t$, for $t = 1, \ldots, T$
+\end{itemize}
+
+\section*{Objective Function}
+Minimize the total cost:
+\[
+\text{Total Cost} = \sum_{t=1}^{T} (unload\_cost_t \cdot amount_t + holding\_cost \cdot hold_t + crane\_cost \cdot crane_t)
+\]
+
+\section*{Constraints}
+\begin{align*}
+1. & \quad hold_t = init\_container + \sum_{i=1}^{t} amount_i - \sum_{i=1}^{t} demand_i & \forall t = 1, \ldots, T \\
+2. & \quad hold_t \leq max\_container & \forall t = 1, \ldots, T \\
+3. & \quad amount_t \leq unload\_capacity_t & \forall t = 1, \ldots, T \\
+4. & \quad amount_t \leq hold_{t-1} + unload\_capacity_t & \forall t = 1, \ldots, T \\
+5. & \quad \sum_{j=1}^{num\_cranes} crane_t \cdot crane\_capacity \geq demand_t & \forall t = 1, \ldots, T \\
+6. & \quad crane_t \leq num\_cranes & \forall t = 1, \ldots, T \\
+7. & \quad hold_T = 0
+\end{align*}
+
+\section*{Output Format}
+The solution will provide:
+\begin{itemize}
+    \item $containers\_unloaded = [amount_t \text{ for } t = 1, \ldots, T]$
+    \item $cranes\_rented = [crane_t \text{ for } t = 1, \ldots, T]$
+    \item $total\_cost$
+\end{itemize}
+
+\end{document}

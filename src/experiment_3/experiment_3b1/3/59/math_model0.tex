@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Translator Selection Problem}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item $x_i \in \{0, 1\}$, where $x_i = 1$ if translator $i$ is selected, $0$ otherwise, for $i = 1, \ldots, N$.
+\end{itemize}
+
+\subsection*{Parameters}
+Let:
+\begin{itemize}
+    \item $cost_i$: the cost of hiring translator $i$.
+    \item $Languages_i$: the set of languages that translator $i$ can translate into.
+    \item $RequiredLanguages$: the set of required languages to be translated.
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the total cost of hiring the selected translators:
+
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} cost_i \cdot x_i
+\]
+
+\subsection*{Constraints}
+The following constraints ensure that all required languages are covered by the selected translators:
+
+\[
+\forall m \in RequiredLanguages, \quad \sum_{i: language_m \in Languages_i} x_i \geq 1
+\]
+
+In words, for each required language $m$, at least one translator that can translate that language must be selected.
+
+\subsection*{Complete Model}
+The complete model can be summarized as follows:
+
+\begin{align*}
+\text{Minimize} & \quad Z = \sum_{i=1}^{N} cost_i \cdot x_i \\
+\text{subject to} & \quad \sum_{i: language_m \in Languages_i} x_i \geq 1, \quad \forall m \in RequiredLanguages \\
+& \quad x_i \in \{0, 1\}, \quad \forall i = 1, \ldots, N
+\end{align*}
+
+\end{document}

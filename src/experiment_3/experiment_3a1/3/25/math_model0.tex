@@ -1,0 +1,80 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Economic Capacity and Production}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Formulation}
+
+Let:
+\begin{itemize}
+    \item \( K \): Number of industries
+    \item \( T \): Number of years (where \( T \) includes the current year \( 0 \))
+    \item \( \text{inputone}_{k,j} \): Amount of input from industry \( j \) required by industry \( k \) to produce one unit
+    \item \( \text{manpowerone}_{k} \): Manpower required by industry \( k \) to produce one unit
+    \item \( \text{inputtwo}_{k,j} \): Amount of input from industry \( j \) required by industry \( k \) to build productive capacity for one unit
+    \item \( \text{manpowertwo}_{k} \): Manpower required by industry \( k \) to build productive capacity for one unit
+    \item \( \text{stock}_{k} \): Initial stock of industry \( k \)
+    \item \( \text{capacity}_{k} \): Initial capacity of industry \( k \)
+    \item \( \text{manpower\_limit} \): Maximum available manpower capacity per year
+\end{itemize}
+
+\section*{Decision Variables}
+Define the following decision variables:
+\begin{itemize}
+    \item \( \text{produce}_{k,t} \): Amount of units produced by industry \( k \) in year \( t \)
+    \item \( \text{buildcapa}_{k,t} \): Amount of units used to build productive capacity for industry \( k \) in year \( t \)
+    \item \( \text{stockhold}_{k,t} \): Amount of stock of industry \( k \) held in year \( t \)
+\end{itemize}
+
+\section*{Objective Function}
+Maximize total production in the last two years:
+\[
+\text{Maximize} \quad \sum_{k=1}^{K} \left( \text{produce}_{k,T-1} + \text{produce}_{k,T} \right)
+\]
+
+\section*{Constraints}
+
+\subsection*{Production Constraints}
+For each industry \( k \) and year \( t \):
+\[
+\text{produce}_{k,t} \leq \text{capacity}_{k} + \text{stockhold}_{k,t-1} \quad \forall k, \, t = 1, \ldots, T
+\]
+
+\subsection*{Input Requirements}
+For each industry \( k \) and year \( t \):
+\[
+\sum_{j=1}^{K} \text{inputone}_{k,j} \cdot \text{produce}_{j,t-1} + \text{stockhold}_{k,t-1} \geq \text{produce}_{k,t} \quad \forall k, \, t = 1, \ldots, T
+\]
+
+\subsection*{Manpower Constraints}
+The total manpower used in each year must not exceed the manpower limit:
+\[
+\sum_{k=1}^{K} \left( \text{manpowerone}_{k} \cdot \text{produce}_{k,t} + \text{manpowertwo}_{k} \cdot \text{buildcapa}_{k,t} \right) \leq \text{manpower\_limit} \quad \forall t = 1, \ldots, T
+\]
+
+\subsection*{Capacity Building}
+The increase in productive capacity for industry \( k \):
+\[
+\text{capacity}_{k} (t+2) = \text{capacity}_{k}(t) + \sum_{j=1}^{K} \text{inputtwo}_{k,j} \cdot \text{buildcapa}_{j,t} \quad \forall k, \, t = 1, \ldots, T-2
+\]
+
+\subsection*{Stock Dynamics}
+To account for stock held from year to year:
+\[
+\text{stockhold}_{k,t} = \text{stock}_{k} + \text{stockhold}_{k,t-1} + \text{produce}_{k,t-1} - \text{produce}_{k,t} \quad \forall k, \, t = 1, \ldots, T
+\]
+
+\section*{Output Format}
+The output will consist of:
+\begin{itemize}
+    \item \( \text{produce}_{k,t} \)
+    \item \( \text{buildcapa}_{k,t} \)
+    \item \( \text{stockhold}_{k,t} \)
+\end{itemize}
+for all \( k = 1, \ldots, K \) and \( t = 1, \ldots, T \).
+
+\end{document}

@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Traveling Salesman Problem (TSP)}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item $C$: Set of cities, including the start city and $N$ towns, where $|C| = N + 1$.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $d_{i,j}$: Distance between city $i$ and city $j$ (symmetric).
+    \item $s$: Start city.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_{i,j}$: Binary variable, where $x_{i,j} = 1$ if the traveler goes from city $i$ to city $j$, and $0$ otherwise.
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+    \text{Minimize} \quad & Z = \sum_{i \in C} \sum_{j \in C} d_{i,j} \cdot x_{i,j}
+\end{align*}
+
+\textbf{Constraints:}
+1. Each city is visited exactly once:
+   \begin{align*}
+       \sum_{j \in C} x_{s,j} = 1, \quad & \text{for } s \in C \\
+       \sum_{i \in C} x_{i,j} = 1, \quad & \text{for all } j \in C \setminus \{s\} \\
+       \sum_{j \in C} x_{j,s} = 1, \quad & \text{for } s \in C
+   \end{align*}
+
+2. Subtour elimination:
+   \begin{align*}
+       u_i - u_j + N x_{i,j} \leq N - 1, \quad & \text{for all } i,j \in C, i \neq j
+   \end{align*}
+   where $u_i$ is a continuous variable representing the number of cities visited before city $i$.
+
+3. Binary constraints:
+   \begin{align*}
+       x_{i,j} \in \{0, 1\}, \quad & \text{for all } i,j \in C
+   \end{align*}
+
+\textbf{Output Information:}
+\begin{itemize}
+    \item \textit{visit\_order}: Sequence of cities visited after the start city.
+    \item \textit{total\_distance}: Total distance traveled on the optimal journey.
+\end{itemize}
+
+\end{document}

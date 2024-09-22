@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Manpower Management}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( K \): Number of manpower categories
+    \item \( I \): Number of years
+    \item \( requirement_{k,i} \): Manpower requirement for category \( k \) in year \( i \)
+    \item \( strength_k \): Current strength of manpower in category \( k \)
+    \item \( lessonewaste_k \): Wastage rate for manpower with less than one year of service in category \( k \)
+    \item \( moreonewaste_k \): Wastage rate for manpower with more than one year of service in category \( k \)
+    \item \( recruit_k \): Maximum recruits allowed for manpower category \( k \)
+    \item \( costredundancy_k \): Redundancy payment for manpower category \( k \)
+    \item \( num\_overman \): Maximum number of overmanned workers allowed
+    \item \( costoverman_k \): Extra cost per overmanned worker in category \( k \)
+    \item \( num\_shortwork \): Maximum number of workers allowed on short-time working in each category
+    \item \( costshort_k \): Cost of short-time working per worker in category \( k \)
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( recruit_{k,i} \): Number of recruits for category \( k \) in year \( i \)
+    \item \( overmanning_{k,i} \): Number of overmanned workers for category \( k \) in year \( i \)
+    \item \( short_{k,i} \): Number of workers on short-time working for category \( k \) in year \( i \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize total costs:
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} \sum_{i=1}^{I} \left( costredundancy_k \cdot (strength_k - requirement_{k,i})^+ + costoverman_k \cdot overmanning_{k,i} + costshort_k \cdot short_{k,i} \right)
+\]
+Where \((x)^+ = \max(0, x)\).
+
+\subsection*{Constraints}
+1. **Manpower Requirement Constraints**:
+\[
+strength_k + recruit_{k,i} - moreonewaste_k \cdot (strength_k - short_{k,i}) \geq requirement_{k,i} - overmanning_{k,i}, \quad \forall k, i
+\]
+
+2. **Recruitment Constraints**:
+\[
+recruit_{k,i} \leq recruit_k, \quad \forall k, i
+\]
+
+3. **Overmanning Constraints**:
+\[
+\sum_{k=1}^{K} overmanning_{k,i} \leq num\_overman, \quad \forall i
+\]
+
+4. **Short-time Working Constraints**:
+\[
+short_{k,i} \leq num\_shortwork, \quad \forall k, i
+\]
+
+5. **Non-negativity Constraints**:
+\[
+recruit_{k,i} \geq 0, \quad overmanning_{k,i} \geq 0, \quad short_{k,i} \geq 0, \quad \forall k, i
+\]
+
+\end{document}

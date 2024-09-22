@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Custom Tees Advertising Campaign}
+
+\subsection*{Variables}
+Let \( x_a \) be the number of clicks purchased for ad type \( a \) (in thousands), where \( a = 1, 2, \ldots, A \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{goal\_young} \): Target clicks from visitors aged 18-25 (in thousands).
+    \item \( \text{goal\_old} \): Target clicks from visitors older than 25 (in thousands).
+    \item \( \text{goal\_unique\_young} \): Target unique clicks from visitors aged 18-25 (in thousands).
+    \item \( \text{goal\_unique\_old} \): Target unique clicks from visitors older than 25 (in thousands).
+    \item \( \text{young\_click}_a \): Percentage of clicks from the 18-25 age range for ad type \( a \).
+    \item \( \text{old\_click}_a \): Percentage of clicks from older visitors for ad type \( a \).
+    \item \( \text{cost}_a \): Cost of ad type \( a \) (per 1000 clicks).
+    \item \( \text{max\_click}_a \): Maximum allowable clicks for ad type \( a \) (in thousands).
+    \item \( \text{unique\_click}_a \): Estimated percentage of unique visitors for ad type \( a \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+
+\[
+\text{Total Cost} = \sum_{a=1}^{A} \text{cost}_a \cdot x_a
+\]
+
+\subsection*{Constraints}
+
+\subsubsection*{Click Constraints}
+\begin{align}
+\sum_{a=1}^{A} \text{young\_click}_a \cdot x_a & \geq \text{goal\_young} \\
+\sum_{a=1}^{A} \text{old\_click}_a \cdot x_a & \geq \text{goal\_old}
+\end{align}
+
+\subsubsection*{Unique Click Constraints}
+\begin{align}
+\sum_{a=1}^{A} \text{unique\_click}_a \cdot x_a & \geq \text{goal\_unique\_young} \\
+\sum_{a=1}^{A} \text{unique\_click}_a \cdot x_a & \geq \text{goal\_unique\_old}
+\end{align}
+
+\subsubsection*{Maximum Click Constraints}
+\[
+x_a \leq \text{max\_click}_a \quad \forall a = 1, \ldots, A
+\]
+
+\subsubsection*{Non-negativity Constraints}
+\[
+x_a \geq 0 \quad \forall a = 1, \ldots, A
+\]
+
+\subsection*{Output}
+The output includes:
+\begin{itemize}
+    \item \( \text{clicks} = [x_1, x_2, \ldots, x_A] \) (number of clicks purchased for each ad type in thousands)
+    \item \( \text{total\_cost} \) (total cost of the ad campaign)
+\end{itemize}
+
+\end{document}

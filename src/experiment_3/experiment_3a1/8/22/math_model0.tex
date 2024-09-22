@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Manpower Requirements}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item \( k \): index for manpower types (\( k = 1, \ldots, K \))
+    \item \( i \): index for years (\( i = 1, \ldots, I \))
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{requirement}_{k, i} \): manpower requirement for type \( k \) in year \( i \)
+    \item \( \text{strength}_{k} \): current strength of manpower type \( k \)
+    \item \( \text{lessonewaste}_{k} \): wastage rate for type \( k \) with less than one year's service
+    \item \( \text{moreonewaste}_{k} \): wastage rate for type \( k \) with more than one year's service
+    \item \( \text{recruit}_{k} \): maximum number of recruits for manpower type \( k \)
+    \item \( \text{costredundancy}_{k} \): redundancy payment for manpower type \( k \)
+    \item \( \text{num\_overman} \): maximum number of overmanned workers
+    \item \( \text{costoverman}_{k} \): extra cost per employee per year for manpower type \( k \)
+    \item \( \text{num\_shortwork} \): maximum number of short-time workers per category
+    \item \( \text{costshort}_{k} \): cost per employee per year for short-time working for manpower type \( k \)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( \text{recruit}_{k, i} \): number of recruits for manpower type \( k \) in year \( i \)
+    \item \( \text{overmanning}_{k, i} \): number of overmanned employees for type \( k \) in year \( i \)
+    \item \( \text{short}_{k, i} \): number of short-time employees for type \( k \) in year \( i \)
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} \sum_{i=1}^{I} \text{costredundancy}_{k} \cdot R_{k, i} + \sum_{k=1}^{K} \sum_{i=1}^{I} \text{costoverman}_{k} \cdot \text{overmanning}_{k, i} + \sum_{k=1}^{K} \sum_{i=1}^{I} \text{costshort}_{k} \cdot \text{short}_{k, i}
+\]
+
+\textbf{Subject to:}
+1. \text{Manpower balance for each type}:
+\[
+\text{strength}_{k} - \text{moreonewaste}_{k} \cdot \text{strength}_{k} - R_{k, i} + \text{recruit}_{k, i} + \text{overmanning}_{k, i} + \frac{1}{2} \cdot \text{short}_{k, i} = \text{requirement}_{k, i}, \quad \forall k, i
+\]
+
+2. \text{Recruitment limits}:
+\[
+\text{recruit}_{k, i} \leq \text{recruit}_{k}, \quad \forall k, i
+\]
+
+3. \text{Overmanning limits}:
+\[
+\sum_{k=1}^{K} \text{overmanning}_{k, i} \leq \text{num\_overman}, \quad \forall i
+\]
+
+4. \text{Short-time working limits}:
+\[
+\text{short}_{k, i} \leq \text{num\_shortwork}, \quad \forall k, i
+\]
+
+5. \text{Non-negativity constraints}:
+\[
+\text{recruit}_{k, i} \geq 0, \quad \text{overmanning}_{k, i} \geq 0, \quad \text{short}_{k, i} \geq 0, \quad \forall k, i
+\]
+
+\end{document}

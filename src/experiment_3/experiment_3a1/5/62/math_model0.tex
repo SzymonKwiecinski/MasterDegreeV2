@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Traveling Salesman Problem}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item Let \( C \) be the set of cities where \( C = \{0, 1, 2, \ldots, N\} \) with 0 representing the \texttt{start\_city} and cities \( 1, 2, \ldots, N \) representing the towns to visit.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( d_{i,j} \): distance between city \( i \) and city \( j \).
+    \item \( N \): number of towns.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_{i,j} \):
+    \begin{cases}
+      1 & \text{if the traveler travels from city } i \text{ to city } j \\
+      0 & \text{otherwise}
+    \end{cases}
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total distance traveled:
+\[
+\text{Minimize } Z = \sum_{i \in C} \sum_{j \in C} d_{i,j} x_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Each city must be entered and exited exactly once:
+    \[
+    \sum_{j \in C} x_{0,j} = 1 \quad \text{(departure from start\_city)}
+    \]
+    \[
+    \sum_{j \in C} x_{i,j} = 1 \quad \forall i \in \{1, 2, \ldots, N\} \quad \text{(visit each town once)}
+    \]
+    \item The return to the start city:
+    \[
+    \sum_{i \in C} x_{i,0} = 1
+    \]
+    \item Subtour elimination constraints (if needed, implementing based on Miller-Tucker-Zemlin or similar):
+    \[
+    u_i - u_j + N x_{i,j} \leq N-1 \quad \forall i \neq j, \, i,j \in \{1, \ldots, N\}
+    \]
+    \[
+    u_i \geq 1 \quad \forall i \in \{1, \ldots, N\}
+    \]
+\end{itemize}
+
+\subsection*{Output}
+The solution will provide:
+\begin{itemize}
+    \item \( \text{visit\_order} = [0, c_1, c_2, \ldots, c_N, 0] \) where \( c_n \) is the sequence of towns visited.
+    \item \( \text{total\_distance} = Z \)
+\end{itemize}
+
+\end{document}

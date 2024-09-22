@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Mathematical Model for Floppy Disk Backup Problem}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Description}
+We want to distribute files across a set of floppy disks to minimize the number of disks used, given their capacity and the sizes of the files.
+
+\section*{Parameters}
+\begin{itemize}
+    \item Let \( C \) be the capacity of each floppy disk (in GB).
+    \item Let \( N \) be the number of files.
+    \item Let \( size_j \) be the size of file \( j \) for \( j = 1, \ldots, N \).
+\end{itemize}
+
+\section*{Decision Variables}
+\begin{itemize}
+    \item Let \( n \) be the number of floppy disks used.
+    \item Let \( x_{ij} \) be a binary variable such that:
+    \[
+    x_{ij} = 
+    \begin{cases} 
+    1 & \text{if file } j \text{ is placed on disk } i \\ 
+    0 & \text{otherwise} 
+    \end{cases}
+    \]
+\end{itemize}
+
+\section*{Objective Function}
+The objective is to minimize the total number of disks used:
+\[
+\text{Minimize } n
+\]
+
+\section*{Constraints}
+1. Each file must be assigned to exactly one disk:
+\[
+\sum_{i=1}^{n} x_{ij} = 1 \quad \forall j = 1, \ldots, N
+\]
+
+2. The total size of files on each disk must not exceed its capacity:
+\[
+\sum_{j=1}^{N} size_j \cdot x_{ij} \leq C \quad \forall i = 1, \ldots, n
+\]
+
+3. The number of disks used should be represented as:
+\[
+n \geq 1
+\]
+
+\section*{Output}
+The solution to this model will provide:
+\begin{itemize}
+    \item \( n_{disks} \): The total number of floppy disks used.
+    \item \( whichdisk \): An array indicating the disk number for each file.
+\end{itemize}
+
+\end{document}

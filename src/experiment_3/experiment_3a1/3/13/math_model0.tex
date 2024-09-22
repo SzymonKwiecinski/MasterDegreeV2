@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Chebychev Center}
+
+Let the feasible region \( P \) be defined as:
+
+\[
+P = \{ \mathbf{x} \in \mathbb{R}^N \mid \mathbf{a}_i^T \mathbf{x} \leq b_i, \, i = 1, \ldots, m \}
+\]
+
+where \( \mathbf{a}_i \in \mathbb{R}^N \) and \( b_i \in \mathbb{R} \). 
+
+We want to find a ball with center \( \mathbf{y} \in \mathbb{R}^N \) and radius \( r \) such that the ball is entirely contained within \( P \). The ball is defined as:
+
+\[
+B(\mathbf{y}, r) = \{ \mathbf{x} \in \mathbb{R}^N \mid \|\mathbf{x} - \mathbf{y}\|_2 \leq r \}
+\]
+
+To ensure that the ball is contained in the set \( P \), we require that for all points \( \mathbf{x} \) on the boundary of the ball, the following holds:
+
+\[
+\mathbf{a}_i^T (\mathbf{y} + r \mathbf{u}) \leq b_i \quad \forall i = 1, \ldots, m
+\]
+
+where \( \mathbf{u} \) is a unit vector in the \( N \)-dimensional space such that \( \|\mathbf{u}\|_2 = 1 \).
+
+Mathematically, we can express the optimization problem as follows:
+
+\[
+\text{Maximize } r
+\]
+
+Subject to:
+
+\[
+\mathbf{a}_i^T \mathbf{y} + r \cdot \mathbf{a}_i^T \mathbf{u} \leq b_i \quad \forall i = 1, \ldots, m
+\]
+
+This leads to the constraints:
+
+\[
+r \cdot \mathbf{a}_i^T \mathbf{u} \leq b_i - \mathbf{a}_i^T \mathbf{y}, \quad \forall i = 1, \ldots, m
+\]
+
+Thus, for each direction \( \mathbf{u} \), we can derive different values of \( r \), and the overall optimization problem can be structured as:
+
+\[
+\begin{aligned}
+& \text{Find } \mathbf{y} \in \mathbb{R}^N, r \in \mathbb{R} \\
+& \text{such that } r = \min_{i} \frac{b_i - \mathbf{a}_i^T \mathbf{y}}{\mathbf{a}_i^T \mathbf{u}}
+\end{aligned}
+\]
+
+This gives the center of the ball as \( \mathbf{y} \) and the radius \( r \), which represents the Chebychev center of the feasible region \( P \).
+
+\end{document}

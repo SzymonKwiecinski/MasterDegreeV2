@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for the Chebychev Center Problem}
+
+We want to find the Chebychev center of the set \( P \) defined by the linear constraints:
+
+\[
+P = \{ \mathbf{x} \in \mathbb{R}^N \mid \mathbf{a}_i^T \mathbf{x} \leq b_i, \; i = 1, \ldots, m \}
+\]
+
+where \( \mathbf{a}_i \in \mathbb{R}^N \) and \( b_i \in \mathbb{R} \).
+
+The ball with center \( \mathbf{y} \in \mathbb{R}^N \) and radius \( r \) is defined as:
+
+\[
+B(\mathbf{y}, r) = \{ \mathbf{x} \in \mathbb{R}^N \mid \|\mathbf{x} - \mathbf{y}\|_2 \leq r \}
+\]
+
+We seek to maximize the radius \( r \) such that the ball \( B(\mathbf{y}, r) \) is entirely contained within the set \( P \). This can be formulated as the following optimization problem:
+
+\[
+\begin{align*}
+\text{maximize} \quad & r \\
+\text{subject to} \quad & \|\mathbf{y} - \mathbf{x}_i\|_2 \leq r, \quad \forall i \\
+& \mathbf{a}_j^T \mathbf{y} \leq b_j, \quad \forall j \\
+& r \geq 0
+\end{align*}
+\]
+
+where \( \mathbf{x}_i \) denotes the vertices of the feasible region defined by the constraints \( \mathbf{a}_i^T \mathbf{x} \leq b_i \).
+
+We can express the Euclidean norm constraint in terms of inequalities:
+
+\[
+\begin{align*}
+y_j - r & \leq x_i \leq y_j + r, \quad \forall j, \forall i \\
+\mathbf{a}_j^T \mathbf{y} & \leq b_j, \quad \forall j
+\end{align*}
+\]
+
+Finally, our output will consist of:
+
+\[
+\text{Output:} \quad \{ \text{center} = [y_j \text{ for } j = 1, \ldots, N], \; \text{radius} = r \}
+\]
+
+\end{document}

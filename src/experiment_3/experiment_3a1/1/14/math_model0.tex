@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+Let:
+\begin{itemize}
+    \item \( P \) be the number of products.
+    \item \( production_i \) be the production quantity of the \( i \)-th product.
+    \item \( upgrade \) be a binary variable indicating whether to upgrade machine capacity (1 if yes, 0 otherwise).
+    \item \( cash \) be the total available cash.
+    \item \( hour_i \) be the machine hours required for product \( i \).
+    \item \( cost_i \) be the production cost per unit of product \( i \).
+    \item \( price_i \) be the selling price per unit of product \( i \).
+    \item \( investPercentage_i \) be the investment percentage for product \( i \).
+    \item \( upgradeHours \) be the additional hours gained through upgrading.
+    \item \( upgradeCost \) be the cost of the upgrade.
+    \item \( availableHours \) be the initial available machine hours.
+\end{itemize}
+
+\subsection*{Objective Function}
+
+We aim to maximize the total net income:
+
+\[
+\text{Maximize } Z = \sum_{i=1}^{P} (price_i \cdot production_i - cost_i \cdot production_i - investPercentage_i \cdot (price_i \cdot production_i)) 
+\]
+
+This simplifies to:
+
+\[
+Z = \sum_{i=1}^{P} \left( (price_i - cost_i - investPercentage_i \cdot price_i) \cdot production_i \right)
+\]
+
+\subsection*{Constraints}
+
+1. \textbf{Machine Hours Constraint:}
+\[
+\sum_{i=1}^{P} hour_i \cdot production_i \leq availableHours + upgrade \cdot upgradeHours
+\]
+
+2. \textbf{Cash Availability Constraint:}
+\[
+\sum_{i=1}^{P} (cost_i \cdot production_i + investPercentage_i \cdot (price_i \cdot production_i)) \leq cash + upgrade \cdot upgradeCost
+\]
+
+3. \textbf{Non-negativity Constraints:}
+\[
+production_i \geq 0 \quad \forall i = 1, \ldots, P
+\]
+\[
+upgrade \in \{0, 1\}
+\]
+
+\subsection*{Output Variables}
+
+\begin{itemize}
+    \item \( net\_income = Z \)
+    \item \( production = [production_1, production_2, \ldots, production_P] \)
+    \item \( upgrade = true \text{ or } false \)
+\end{itemize}
+
+\end{document}

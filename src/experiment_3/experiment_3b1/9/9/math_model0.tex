@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Lamp Power Optimization}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item \( N \) be the number of segments of the road.
+    \item \( M \) be the number of lamps.
+    \item \( \text{power}_j \) be the power of the \( j \)-th lamp where \( j = 1, 2, \ldots, M \).
+    \item \( \text{ill}_i \) be the illumination of the \( i \)-th segment where \( i = 1, 2, \ldots, N \).
+    \item \( \text{coeff}_{i,j} \) be the coefficient representing the contribution of the \( j \)-th lamp to the illumination of the \( i \)-th segment.
+    \item \( \text{desired}_i \) be the desired illumination for the \( i \)-th segment.
+\end{itemize}
+
+\subsection*{Objective Function}
+We aim to minimize the absolute error between the actual illumination and the desired illumination. The objective function can be formulated as:
+
+\[
+\text{minimize} \quad \sum_{i=1}^{N} \left| \text{ill}_i - \text{desired}_i \right|
+\]
+
+where the illumination for the \( i \)-th segment is defined as:
+
+\[
+\text{ill}_i = \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j
+\]
+
+The absolute error can be expressed using auxiliary variables \( e_i \):
+
+\[
+\text{minimize} \quad \sum_{i=1}^{N} e_i
+\]
+
+subject to the constraints:
+
+\[
+\begin{align*}
+\text{ill}_i - \text{desired}_i & \leq e_i, \quad \forall i = 1, \ldots, N \\
+\text{desired}_i - \text{ill}_i & \leq e_i, \quad \forall i = 1, \ldots, N \\
+\end{align*}
+\]
+
+\subsection*{Constraints}
+The decision variables and constraints can be summarized as:
+- Decision Variables: \( \text{power}_j \) for \( j = 1, 2, \ldots, M \)
+- Constraints for each segment:
+\[
+\text{ill}_i = \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j
+\]
+
+\subsection*{Output}
+The output of the optimization process will be:
+\begin{itemize}
+    \item \( \text{power} = [\text{power}_j \text{ for } j = 1, \ldots, M] \)
+    \item \( \text{error} = \sum_{i=1}^{N} e_i \)
+\end{itemize}
+
+\end{document}

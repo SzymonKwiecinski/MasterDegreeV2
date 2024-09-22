@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mixed-Integer Linear Programming Model for Consultant Assignment Problem}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item $I$: Set of projects, indexed by $i = 1, 2, \ldots, I$
+    \item $J$: Set of consultants, indexed by $j = 1, 2, \ldots, J$
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $f_j$: Fixed cost of hiring consultant $j$
+    \item $c_{i,j}$: Additional cost of assigning project $i$ to consultant $j$
+    \item $K$: Maximum number of projects that can be assigned to a single consultant
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item $x_{j}$: Binary variable indicating whether consultant $j$ is hired ($x_{j} = 1$) or not ($x_{j} = 0$)
+    \item $y_{i,j}$: Binary variable indicating whether project $i$ is assigned to consultant $j$ ($y_{i,j} = 1$) or not ($y_{i,j} = 0$)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{j=1}^{J} f_j x_j + \sum_{i=1}^{I} \sum_{j=1}^{J} c_{i,j} y_{i,j}
+\]
+
+\subsection*{Constraints}
+1. Each project must be assigned to exactly one consultant:
+\[
+\sum_{j=1}^{J} y_{i,j} = 1 \quad \forall i \in I
+\]
+
+2. A consultant can only work on a project if they are hired:
+\[
+y_{i,j} \leq x_j \quad \forall i \in I, \forall j \in J
+\]
+
+3. Each consultant can be assigned a maximum of $K$ projects:
+\[
+\sum_{i=1}^{I} y_{i,j} \leq K x_j \quad \forall j \in J
+\]
+
+4. Binary constraints:
+\[
+x_j \in \{0, 1\} \quad \forall j \in J
+\]
+\[
+y_{i,j} \in \{0, 1\} \quad \forall i \in I, \forall j \in J
+\]
+
+\subsection*{Output}
+The assignments of projects to consultants and the total cost can be represented as:
+\[
+\text{Output} = \{ \text{assignments}_{j,i} \text{ for } j = 1, \ldots, J \text{ and } i = 1, \ldots, I, \text{ total\_cost} \}
+\]
+
+\end{document}

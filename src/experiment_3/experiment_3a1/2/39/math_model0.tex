@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Cafeteria Staff Scheduling}
+\author{Operations Research Model}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+
+Let \(N\) be the total number of days for which the staff required is known. The number of desired employees on day \(n\) is denoted by \(num_n\). Each employee works \(n_{\text{working\_days}}\) days in a row followed by \(n_{\text{resting\_days}}\) days off.
+
+\section*{Variables}
+
+\begin{align*}
+& x: \text{Total number of employees to hire} \\
+& is\_work_{n, i}: \text{Binary variable indicating if employee } i \text{ is working on day } n
+\end{align*}
+
+\section*{Parameters}
+
+\begin{align*}
+& num_n \in \mathbb{Z}^+, \quad n = 1, \ldots, N \\
+& n_{\text{working\_days}} \in \mathbb{Z}^+ \\
+& n_{\text{resting\_days}} \in \mathbb{Z}^+
+\end{align*}
+
+\section*{Objective Function}
+
+The objective is to minimize the total number of employees hired:
+
+\[
+\text{Minimize } x
+\]
+
+\section*{Constraints}
+
+1. Each day's staffing requirement must be met:
+
+\[
+\sum_{i=1}^{x} is\_work_{n, i} \geq num_n, \quad n = 1, \ldots, N
+\]
+
+2. Each employee works for \(n_{\text{working\_days}}\) and rests for \(n_{\text{resting\_days}}\):
+
+\[
+is\_work_{n, i} = 
+\begin{cases}
+1 & \text{if employee } i \text{ works on day } n \\
+0 & \text{if employee } i \text{ is resting on day } n
+\end{cases}
+\]
+
+3. Employee's work-rest schedule must be consistent:
+
+\[
+is\_work_{n, i} = 1 \text{ for } n \in [k, k + n_{\text{working\_days}} - 1] \implies is\_work_{n + n_{\text{working\_days}}, i} = 0, \quad \text{where } k \text{ is a starting day}
+\]
+
+4. Binary constraints on the work variable:
+
+\[
+is\_work_{n, i} \in \{0, 1\}
+\]
+
+\section*{Output}
+
+The output consists of two variables:
+
+\begin{align*}
+& total\_number: x \\
+& is\_work: \{[is\_work_{n, i} \text{ for } n = 1, \ldots, N] \text{ for } i = 1, \ldots, total\_number]\}
+\end{align*}
+
+\end{document}

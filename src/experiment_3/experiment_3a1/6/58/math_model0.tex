@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Auto Parts Production}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item $P$: Set of different parts ($p = 1, 2, \ldots, P$)
+    \item $M$: Set of different machines ($m = 1, 2, \ldots, M$)
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $time_{m,p}$: Time required on machine $m$ to produce a batch of part $p$ (in hours)
+    \item $cost_{m}$: Cost per hour of using machine $m$
+    \item $available_{m}$: Total available hours for machine $m$ per month
+    \item $price_{p}$: Selling price per batch of part $p$
+    \item $setup\_time_{p}$: Setup time required for part $p$ on machine 1 (in hours)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $batches_{p}$: Number of batches produced for part $p$
+    \item $setup\_flags_{p}$: Binary variable indicating if part $p$ is set up (1 if setup, 0 otherwise)
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } total\_profit = \sum_{p=1}^{P} (price_{p} \cdot batches_{p}) - \sum_{m=1}^{M} (cost_{m} \cdot \left( \sum_{p=1}^{P} (time_{m,p} \cdot batches_{p}) + \sum_{p=1}^{P} (setup\_time_{p} \cdot setup\_flags_{p}) \right))
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+\sum_{p=1}^{P} (time_{m,p} \cdot batches_{p}) + \sum_{p=1}^{P} (setup\_time_{p} \cdot setup\_flags_{p}) & \leq available_{m}, & \forall m \in M\\
+batches_{p} & \geq 0, & \forall p \in P\\
+setup\_flags_{p} & \in \{0, 1\}, & \forall p \in P\\
+\end{align*}
+
+\textbf{Output Variables:}
+\begin{itemize}
+    \item $batches_{p}$: Number of batches of each part produced
+    \item $setup\_flags_{p}$: Indicates whether part $p$ is set up (1) or not (0)
+    \item $total\_profit$: Total profit obtained for the month
+\end{itemize}
+
+\end{document}

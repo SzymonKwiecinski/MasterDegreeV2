@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mixed Integer Programming Model for Power Generation}
+
+\subsection*{Decision Variables}
+Let \( numon_{k,t} \) be the number of generators of type \( k \) that are on during period \( t \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( demand_t \): Demand during period \( t \) for \( t = 1, \ldots, T \)
+    \item \( num_k \): Number of generators of type \( k \) for \( k = 1, \ldots, K \)
+    \item \( minlevel_k \): Minimum level of type \( k \) generator
+    \item \( maxlevel_k \): Maximum level of type \( k \) generator
+    \item \( runcost_k \): Hourly cost of running each type \( k \) generator at minimum level
+    \item \( extracost_k \): Extra hourly cost for each megawatt operated above the minimum level for type \( k \)
+    \item \( startcost_k \): Start-up cost for type \( k \) generator
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+
+\[
+\text{Minimize } Z = \sum_{t=1}^{T} \sum_{k=1}^{K} \left( startcost_k \cdot y_{k,t} + runcost_k \cdot numon_{k,t} + extracost_k \cdot \max(0, numon_{k,t} - minlevel_k) \right)
+\]
+
+where \( y_{k,t} \) is a binary variable indicating if generator \( k \) is started in period \( t \) (1 if started, 0 otherwise).
+
+\subsection*{Constraints}
+1. Demand satisfaction:
+
+\[
+\sum_{k=1}^{K} numon_{k,t} \geq demand_t \quad \forall t = 1, \ldots, T
+\]
+
+2. Generator capacity:
+
+\[
+minlevel_k \cdot y_{k,t} \leq numon_{k,t} \leq maxlevel_k \cdot y_{k,t} \quad \forall k = 1, \ldots, K, \forall t = 1, \ldots, T
+\]
+
+3. Generator availability:
+
+\[
+numon_{k,t} \leq num_k \quad \forall k = 1, \ldots, K, \forall t = 1, \ldots, T
+\]
+
+4. Binary startup variable:
+
+\[
+y_{k,t} \in \{0, 1\} \quad \forall k = 1, \ldots, K, \forall t = 1, \ldots, T
+\]
+
+\subsection*{Output Format}
+The output will specify the number of generators of each type that are on during each period:
+
+\[
+\{ "numon": [[numon_{k,t} \text{ for } t=1,\ldots,T] \text{ for } k=1,\ldots,K] ] \}
+\]
+
+\end{document}

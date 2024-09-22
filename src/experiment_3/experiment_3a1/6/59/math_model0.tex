@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Mathematical Model for Translator Selection Problem}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+
+We have a set of translators available to translate from English into $M$ different languages. Each translator $i$ has a cost $c_i$ and a specific set of languages they can translate into.
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $N$: Total number of translators.
+    \item $M$: Number of required languages.
+    \item $c_i$: Cost of hiring translator $i$.
+    \item $L_i$: Set of languages that translator $i$ can translate into.
+    \item $R$: Set of required languages.
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let $x_i$ be a binary decision variable such that:
+\[
+x_i =
+\begin{cases}
+1 & \text{if translator } i \text{ is selected} \\
+0 & \text{otherwise}
+\end{cases}
+\]
+
+\subsection*{Objective Function}
+Minimize the total cost of hiring translators:
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} c_i x_i
+\]
+
+\subsection*{Constraints}
+1. Ensure that all required languages are covered:
+\[
+\sum_{i: language_j \in L_i} x_i \geq 1, \quad \forall j \in R
+\]
+where $j$ represents each required language.
+
+2. Decision variable constraints:
+\[
+x_i \in \{0, 1\}, \quad \forall i = 1, \ldots, N
+\]
+
+\section*{Output}
+The output will consist of:
+\begin{itemize}
+    \item $selected\_translators$: The list of translator IDs that were selected.
+    \item $total\_cost$: The total cost of the selected translators.
+\end{itemize}
+
+\end{document}

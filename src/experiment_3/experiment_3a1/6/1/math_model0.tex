@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+Let:
+\begin{itemize}
+    \item \( M \): Number of different goods
+    \item \( N \): Number of different raw materials
+    \item \( \text{available}_i \): Available units of raw material \( i \) for \( i = 1, \ldots, N \)
+    \item \( \text{req}_{i,j} \): Units of raw material \( i \) required to produce one unit of good \( j \) for \( j = 1, \ldots, M \)
+    \item \( \text{price}_j \): Revenue generated from selling one unit of good \( j \) for \( j = 1, \ldots, M \)
+    \item \( \text{amount}_j \): Amount of good \( j \) produced
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to maximize the total revenue:
+
+\[
+\text{Maximize } Z = \sum_{j=1}^{M} \text{price}_j \cdot \text{amount}_j
+\]
+
+\subsection*{Constraints}
+The production of goods is limited by the availability of raw materials:
+
+\[
+\sum_{j=1}^{M} \text{req}_{i,j} \cdot \text{amount}_j \leq \text{available}_i \quad \text{for } i = 1, \ldots, N
+\]
+
+Additionally, the production amounts must be non-negative:
+
+\[
+\text{amount}_j \geq 0 \quad \text{for } j = 1, \ldots, M
+\]
+
+\subsection*{Summary}
+The linear programming model can be summarized as follows:
+
+\begin{align*}
+\text{Maximize } & Z = \sum_{j=1}^{M} \text{price}_j \cdot \text{amount}_j \\
+\text{Subject to: } & \sum_{j=1}^{M} \text{req}_{i,j} \cdot \text{amount}_j \leq \text{available}_i, \quad i = 1, \ldots, N \\
+& \text{amount}_j \geq 0, \quad j = 1, \ldots, M
+\end{align*}
+
+\end{document}

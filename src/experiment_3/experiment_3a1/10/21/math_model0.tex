@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for MILP Problem}
+
+\subsection*{Parameters}
+
+\begin{align*}
+& \text{Let } M \text{ be the number of machines} \\
+& \text{Let } K \text{ be the number of products} \\
+& \text{Let } I \text{ be the number of months} \\
+& num_m = \{1, \ldots, M\} \\
+& profit_k \text{ for } k \in \{1, \ldots, K\} \\
+& time_{k, m} \text{ for } k \in \{1, \ldots, K\}, m \in \{1, \ldots, M\} \\
+& down_m \text{ for } m \in \{1, \ldots, M\} \\
+& limit_{k, i} \text{ for } k \in \{1, \ldots, K\}, i \in \{1, \ldots, I\} \\
+& store\_price \\
+& keep\_quantity \\
+& n\_workhours \\
+& T = 24 \times 6 \text{ (total work hours per month)}
+\end{align*}
+
+\subsection*{Decision Variables}
+
+\begin{align*}
+& sell_{k, i} \text{ = quantity of product } k \text{ sold in month } i \\
+& manufacture_{k, i} \text{ = quantity of product } k \text{ manufactured in month } i \\
+& storage_{k, i} \text{ = quantity of product } k \text{ stored at the end of month } i \\
+& maintain_{m, k} \text{ = number of machines of type } m \text{ maintained for product } k
+\end{align*}
+
+\subsection*{Objective Function}
+
+\begin{align*}
+& \text{Maximize } Z = \sum_{i=1}^{I} \sum_{k=1}^{K} profit_k \cdot sell_{k, i} - \sum_{k=1}^{K} \sum_{i=1}^{I} store\_price \cdot storage_{k, i}
+\end{align*}
+
+\subsection*{Constraints}
+
+\begin{align*}
+& \sum_{k=1}^{K} sell_{k, i} \leq limit_{k, i} \quad \forall k, i \\
+& \sum_{k=1}^{K} manufacture_{k, i} \cdot time_{k, m} \leq T \cdot (1 - \text{is\_down}_m) \quad \forall m, i \\
+& \text{is\_down}_m = 
+\begin{cases} 
+1 & \text{if machine } m \text{ is down for maintenance} \\
+0 & \text{otherwise}
+\end{cases} \\
+& storage_{k, i} = storage_{k, i-1} + manufacture_{k, i} - sell_{k, i} \quad \forall k, i \\
+& storage_{k, I} \geq keep\_quantity \quad \forall k \\
+& \sum_{m=1}^{M} maintain_{m, k} \leq down_m \quad \forall m, k \\
+& sell_{k, i}, manufacture_{k, i}, storage_{k, i}, maintain_{m, k} \geq 0 \quad \forall k, i, m
+\end{align*}
+
+\end{document}

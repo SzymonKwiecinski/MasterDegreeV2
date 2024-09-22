@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Linear Regression}
+
+We are given a set of corresponding values for \( x \) and \( y \) as follows:
+
+\[
+y = [y_{1}, y_{2}, \ldots, y_{K}]
+\]
+\[
+x = [x_{1}, x_{2}, \ldots, x_{K}]
+\]
+
+We want to fit the best straight line of the form:
+
+\[
+y = bx + a
+\]
+
+Where:
+- \( b \) is the slope,
+- \( a \) is the intercept.
+
+The objective is to minimize the sum of absolute deviations between the observed values \( y_k \) and the predicted values \( bx_k + a \):
+
+\[
+\text{Minimize } \sum_{k=1}^{K} |y_k - (bx_k + a)|
+\]
+
+To formulate this as a linear programming problem, we introduce auxiliary variables \( d_k \) for each \( k \) to represent the absolute deviations. Thus, we can rewrite the objective function as:
+
+\[
+\text{Minimize } \sum_{k=1}^{K} d_k
+\]
+
+Subject to the constraints:
+
+\[
+y_k - (bx_k + a) \leq d_k \quad \forall k = 1, \ldots, K
+\]
+\[
+-(y_k - (bx_k + a)) \leq d_k \quad \forall k = 1, \ldots, K
+\]
+
+This linear programming model allows us to determine the values of \( a \) (intercept) and \( b \) (slope) that minimize the sum of absolute deviations.
+
+\end{document}

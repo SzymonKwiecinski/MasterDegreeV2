@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Linear Regression}
+
+Given a set of data points with corresponding values of \( y \) and \( x \):
+
+\[
+y = [y_{1}, y_{2}, \ldots, y_{K}]
+\]
+\[
+x = [x_{1}, x_{2}, \ldots, x_{K}]
+\]
+
+We need to fit a straight line of the form:
+
+\[
+y = bx + a
+\]
+
+to minimize the maximum deviation of the observed values of \( y \) from the predicted values.
+
+\subsection*{Decision Variables}
+Let:
+\begin{itemize}
+    \item \( a \) = intercept of the line
+    \item \( b \) = slope of the line
+    \item \( d_{k} \) = deviation for each point \( k \)
+\end{itemize}
+
+\subsection*{Objective Function}
+We aim to minimize the maximum deviation, which can be formulated as:
+
+\[
+\text{Minimize } D
+\]
+
+subject to the constraints:
+
+\[
+d_{k} \geq y_{k} - (bx_{k} + a), \quad \forall k \in \{1, 2, \ldots, K\}
+\]
+\[
+d_{k} \geq -(y_{k} - (bx_{k} + a)), \quad \forall k \in \{1, 2, \ldots, K\}
+\]
+\[
+D \geq d_{k}, \quad \forall k \in \{1, 2, \ldots, K\}
+\]
+
+\subsection*{Output}
+The output will provide the values of the intercept and slope:
+
+\[
+\begin{align*}
+\text{Output:} \\
+\text{"intercept": } & a \\
+\text{"slope": } & b 
+\end{align*}
+\]
+
+\end{document}

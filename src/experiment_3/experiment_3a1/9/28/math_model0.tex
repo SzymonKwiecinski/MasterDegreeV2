@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Line Fitting}
+
+Given a set of data points with corresponding values of \(y\) and \(x\):
+
+\[
+\begin{align*}
+y & = [y_{1}, y_{2}, \ldots, y_{K}] \\
+x & = [x_{1}, x_{2}, \ldots, x_{K}]
+\end{align*}
+\]
+
+We want to fit the best straight line \(y = bx + a\) to this data, minimizing the sum of absolute deviations:
+
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} |y_k - (bx_k + a)|
+\]
+
+To represent absolute deviations, we introduce an auxiliary variable \(d_k\) for each \(k\):
+
+\[
+d_k \geq y_k - (bx_k + a)
+\]
+\[
+d_k \geq -(y_k - (bx_k + a))
+\]
+
+Thus, our objective function becomes:
+
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} d_k
+\]
+
+Subject to the constraints:
+
+\[
+d_k \geq y_k - (bx_k + a) \quad \forall k = 1, 2, \ldots, K
+\]
+\[
+d_k \geq -(y_k - (bx_k + a)) \quad \forall k = 1, 2, \ldots, K
+\]
+
+We also have the following conditions for the slope \(b\) and the intercept \(a\):
+
+\[
+b \in \mathbb{R}, \quad a \in \mathbb{R}
+\]
+
+After solving this linear program, the results will give us:
+
+\[
+\begin{align*}
+\text{intercept} & = a \\
+\text{slope} & = b
+\end{align*}
+\]
+
+\end{document}

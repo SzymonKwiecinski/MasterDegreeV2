@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Custom Tees Advertising Campaign}
+
+\subsection*{Variables}
+Let \( x_a \) be the number of clicks purchased (in thousands) for ad type \( a \), where \( a = 1, 2, \ldots, A \).
+
+\subsection*{Parameters}
+\begin{align*}
+\text{goal\_young} & : \text{Target clicks from visitors aged 18-25 (in thousands)} \\
+\text{goal\_old} & : \text{Target clicks from visitors older than 25 (in thousands)} \\
+\text{goal\_unique\_young} & : \text{Target unique clicks from visitors aged 18-25 (in thousands)} \\
+\text{goal\_unique\_old} & : \text{Target unique clicks from visitors older than 25 (in thousands)} \\
+\text{young\_click}_a & : \text{Percentage of clicks from 18-25 age range for ad type } a \\
+\text{old\_click}_a & : \text{Percentage of clicks from older visitors for ad type } a \\
+\text{cost}_a & : \text{Cost per 1000 clicks for ad type } a \\
+\text{max\_click}_a & : \text{Maximum allowable clicks for ad type } a \\
+\text{unique\_click}_a & : \text{Estimated percentage of unique visitors for ad type } a \\
+\text{budget} & : \text{Total advertising budget}
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total number of unique clicks:
+\[
+\text{Maximize } Z = \sum_{a=1}^{A} \text{unique\_click}_a \cdot x_a
+\]
+
+\subsection*{Constraints}
+1. **Budget Constraint**:
+\[
+\sum_{a=1}^{A} \text{cost}_a \cdot x_a \leq \text{budget}
+\]
+
+2. **Click Constraints for Visitors Aged 18-25**:
+\[
+\sum_{a=1}^{A} \text{young\_click}_a \cdot x_a \geq \text{goal\_young}
+\]
+
+3. **Click Constraints for Visitors Older than 25**:
+\[
+\sum_{a=1}^{A} \text{old\_click}_a \cdot x_a \geq \text{goal\_old}
+\]
+
+4. **Unique Clicks for Visitors Aged 18-25**:
+\[
+\sum_{a=1}^{A} \text{unique\_click}_a \cdot x_a \geq \text{goal\_unique\_young}
+\]
+
+5. **Unique Clicks for Visitors Older than 25**:
+\[
+\sum_{a=1}^{A} \text{unique\_click}_a \cdot x_a \geq \text{goal\_unique\_old}
+\]
+
+6. **Maximum Click Constraints**:
+\[
+x_a \leq \text{max\_click}_a \quad \forall a = 1, 2, \ldots, A
+\]
+
+7. **Non-negativity Constraints**:
+\[
+x_a \geq 0 \quad \forall a = 1, 2, \ldots, A
+\]
+
+\end{document}

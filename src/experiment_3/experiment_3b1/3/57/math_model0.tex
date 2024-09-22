@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Seaport Container Management}
+
+\subsection*{Parameters}
+\begin{align*}
+& T \quad \text{(total number of months)} \\
+& demand_t \quad \text{(demand for containers by ships in month } t) \\
+& unload\_cost_t \quad \text{(unloading cost per container in month } t) \\
+& unload\_capacity_t \quad \text{(maximum containers that can be unloaded in month } t) \\
+& holding\_cost \quad \text{(holding cost per container per month)} \\
+& max\_container \quad \text{(maximum number of containers that can be stored in the yard)} \\
+& init\_container \quad \text{(initial number of containers at the start)} \\
+& num\_cranes \quad \text{(maximum number of cranes that can be rented each month)} \\
+& crane\_capacity \quad \text{(capacity of each crane to load containers)} \\
+& crane\_cost \quad \text{(cost per rented crane)}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+& amount_t \quad \text{(number of containers unloaded in month } t) \\
+& crane_t \quad \text{(number of cranes rented in month } t) \\
+& containers_t \quad \text{(number of containers in the yard at the end of month } t)
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Total Cost} = \sum_{t=1}^{T} \left( unload\_cost_t \cdot amount_t + holding\_cost \cdot containers_t + crane\_cost \cdot crane_t \right)
+\]
+
+\subsection*{Constraints}
+
+1. Demand Fulfillment:
+\[
+amount_t + containers_{t-1} - containers_t = demand_t, \quad \forall t \in \{1, \ldots, T\}
+\]
+
+2. Unloading Capacity:
+\[
+amount_t \leq unload\_capacity_t, \quad \forall t \in \{1, \ldots, T\}
+\]
+
+3. Crane Rental Capacity:
+\[
+crane_t \cdot crane\_capacity \geq demand_t, \quad \forall t \in \{1, \ldots, T\}
+\]
+
+4. Maximum Cranes:
+\[
+crane_t \leq num\_cranes, \quad \forall t \in \{1, \ldots, T\}
+\]
+
+5. Yard Storage Limit:
+\[
+containers_t \leq max\_container, \quad \forall t \in \{1, \ldots, T\}
+\]
+
+6. Initial Condition:
+\[
+containers_0 = init\_container
+\]
+
+7. Final Condition:
+\[
+containers_T = 0
+\]
+
+8. Non-negativity:
+\[
+amount_t, crane_t, containers_t \geq 0, \quad \forall t \in \{1, \ldots, T\}
+\]
+
+\end{document}

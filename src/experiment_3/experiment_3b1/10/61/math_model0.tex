@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for MILP Problem}
+
+\textbf{Sets}
+\begin{itemize}
+    \item $N$: set of clusters, indexed by $i = 1, \ldots, N$
+\end{itemize}
+
+\textbf{Parameters}
+\begin{itemize}
+    \item $isolate\_central_i$: processing time for isolating cluster $i$ using central processing
+    \item $scan\_central_i$: processing time for scanning cluster $i$ using central processing
+    \item $isolate\_distributed_i$: processing time for isolating cluster $i$ using distributed processing
+    \item $scan\_distributed_i$: processing time for scanning cluster $i$ using distributed processing
+    \item $central\_cost$: hourly cost of central processing
+    \item $distributed\_cost$: hourly cost of distributed processing
+    \item $max\_central$: maximum hours available for central processing
+    \item $max\_distributed$: maximum hours available for distributed processing
+\end{itemize}
+
+\textbf{Decision Variables}
+\begin{itemize}
+    \item $x_{i,j,k} \in \{0, 1\}$: binary variable that represents the choice of intervention type ($j \in \{\text{isolate, scan}\}$) and processing method ($k \in \{\text{central, distributed}\}$) for cluster $i$.
+\end{itemize}
+
+\textbf{Objective Function}
+\begin{align*}
+    \text{Minimize } Z &= \sum_{i=1}^{N} \left( (isolate\_central_i \cdot central\_cost \cdot x_{i,\text{isolate, central}}) + (scan\_central_i \cdot central\_cost \cdot x_{i,\text{scan, central}}) \right. \\
+    &\quad + \left. (isolate\_distributed_i \cdot distributed\_cost \cdot x_{i,\text{isolate, distributed}}) + (scan\_distributed_i \cdot distributed\_cost \cdot x_{i,\text{scan, distributed}}) \right)
+\end{align*}
+
+\textbf{Constraints}
+\begin{align*}
+    &\sum_{j,k} x_{i,j,k} = 1, \quad \forall i \in N \quad \text{(Each cluster must have exactly one intervention type)} \\
+    &\sum_{i=1}^{N} (isolate\_central_i \cdot x_{i,\text{isolate, central}} + scan\_central_i \cdot x_{i,\text{scan, central}}) \leq max\_central \quad \text{(Central processing time limit)} \\
+    &\sum_{i=1}^{N} (isolate\_distributed_i \cdot x_{i,\text{isolate, distributed}} + scan\_distributed_i \cdot x_{i,\text{scan, distributed}}) \leq max\_distributed \quad \text{(Distributed processing time limit)} \\
+    &x_{i,j,k} \in \{0, 1\}, \quad \forall i \in N, j \in \{\text{isolate, scan}\}, k \in \{\text{central, distributed}\}
+\end{align*}
+
+\textbf{Output}
+\begin{align*}
+    &\text{Interventions: } \{(cluster\_id, type, method, amount)\}_{i=1}^N \\
+    &\text{Total Cost: } Z
+\end{align*}
+
+\end{document}

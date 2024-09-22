@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let $b_p$ be the number of batches produced for part $p$, where $p \in \{1, 2, \ldots, P\}$.
+    \item Let $total\_profit$ be the total profit obtained for the month.
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } total\_profit = \sum_{p=1}^{P} \left( price_p \cdot b_p \right) - \sum_{m=1}^{M} \left( cost_m \cdot \sum_{p=1}^{P} \left( time_{m,p} \cdot b_p \right) \right)
+\]
+
+\textbf{Subject to:}
+
+\begin{itemize}
+    \item \textbf{Production Requirements:} 
+    \[
+    b_p \geq min\_batches_p \quad \forall p \in \{1, 2, \ldots, P\}
+    \]
+
+    \item \textbf{Machine Hours Availability:} 
+    \[
+    \sum_{p=1}^{P} \left( time_{m,p} \cdot b_p \right) \leq available_m \quad \forall m \in \{2, 3, \ldots, M\}
+    \]
+
+    \item \textbf{Machine 1 Labor Costs:} 
+    \begin{itemize}
+        \item If $\sum_{p=1}^{P} (time_{1,p} \cdot b_p) \leq overtime\_hour$:
+        \[
+        total\_cost_1 = standard\_cost \cdot \sum_{p=1}^{P} (time_{1,p} \cdot b_p)
+        \]
+        
+        \item If $\sum_{p=1}^{P} (time_{1,p} \cdot b_p) > overtime\_hour$:
+        \[
+        total\_cost_1 = standard\_cost \cdot overtime\_hour + overtime\_cost \cdot \left( \sum_{p=1}^{P} (time_{1,p} \cdot b_p) - overtime\_hour \right)
+        \end{itemize}
+    \end{itemize}
+
+    \item \textbf{Profit Condition:} 
+    \[
+    total\_profit \geq min\_profit
+    \]
+
+\textbf{Non-negativity Constraints:}
+\[
+b_p \geq 0 \quad \forall p \in \{1, 2, \ldots, P\}
+\]
+
+\end{document}

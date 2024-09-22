@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Production and Inventory Schedule}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item $i$: month index, where $i = 1, 2, \ldots, T$.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $deliver_i$: units to be delivered at the end of month $i$.
+    \item $storage\_cost$: cost per unit per month for storage.
+    \item $switch\_cost$: cost incurred for changing production levels between months.
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item $x_i$: units produced in month $i$.
+    \item $I_i$: inventory at the end of month $i$.
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+\text{Minimize} \quad & \sum_{i=1}^{T} (storage\_cost \cdot I_i + switch\_cost \cdot |x_{i+1} - x_i|) \\
+& \text{with } x_{T+1} = 0 \text{ (no production after month T)}
+\end{align*}
+
+\textbf{Subject to:}
+\begin{align*}
+I_1 &= x_1 - deliver_1 \\
+I_i &= I_{i-1} + x_i - deliver_i \quad \text{for } i = 2, 3, \ldots, T \\
+I_i &\geq 0 \quad \text{for } i = 1, 2, \ldots, T \\
+x_i &\geq 0 \quad \text{for } i = 1, 2, \ldots, T
+\end{align*}
+
+\textbf{Note:} 
+At the end of the year, the inventory $I_T$ does not incur storage costs and can be set to 0 for the last month's calculation.
+
+\end{document}

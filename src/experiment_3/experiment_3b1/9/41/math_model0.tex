@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Floppy Disk Backup}
+
+\textbf{Notation:}
+\begin{itemize}
+    \item Let $N$ be the number of files to back up.
+    \item Let $capacity$ be the capacity of each floppy disk in GB.
+    \item Let $size_j$ be the size of file $j$ in GB for $j = 1, \ldots, N$.
+    \item Let $n\_disks$ be the total number of floppy disks used.
+    \item Let $whichdisk_j$ be the index of the floppy disk where file $j$ is stored.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item Let $x_{i}$ be a binary variable:
+    \[
+    x_i = 
+    \begin{cases} 
+    1 & \text{if disk } i \text{ is used} \\
+    0 & \text{otherwise}
+    \end{cases}
+    \]
+    for $i = 1, \ldots, n\_disks$.
+\end{itemize}
+
+\textbf{Objective Function:}
+Minimize the number of floppy disks used:
+\[
+\text{Minimize } n\_disks = \sum_{i=1}^{N} x_i
+\]
+
+\textbf{Constraints:}
+1. Each file must be assigned to exactly one disk:
+\[
+\sum_{i=1}^{n\_disks} y_{ij} = 1, \quad \forall j = 1, \ldots, N
+\]
+where $y_{ij}$ is a binary variable that indicates if file $j$ is assigned to disk $i$.
+
+2. The total size of files on each disk must not exceed its capacity:
+\[
+\sum_{j=1}^{N} size_j \cdot y_{ij} \leq capacity \cdot x_i, \quad \forall i = 1, \ldots, n\_disks
+\]
+
+3. The assignment $y_{ij}$ should link to the use of a disk:
+\[
+y_{ij} \in \{0, 1\}, \quad \forall i = 1, \ldots, n\_disks, \; j = 1, \ldots, N
+\]
+\[
+x_i \in \{0, 1\}, \quad \forall i = 1, \ldots, n\_disks
+\]
+
+\textbf{Output:}
+\begin{itemize}
+    \item $n\_disks$: Total number of floppy disks used.
+    \item $whichdisk_j$: On which disk each file $j$ is distributed, for $j = 1, \ldots, N$.
+\end{itemize}
+
+\end{document}

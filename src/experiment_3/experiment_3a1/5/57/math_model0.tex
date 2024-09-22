@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $T$: Number of months
+    \item $demand_{t}$: Demand for containers by ships in month $t$, for $t = 1, \ldots, T$
+    \item $unload\_cost_{t}$: Cost to unload a single container in month $t$
+    \item $unload\_capacity_{t}$: Maximum containers that can be unloaded in month $t$
+    \item $holding\_cost$: Cost to hold a container in the yard for a month
+    \item $max\_container$: Maximum containers that can be stored in the yard at the end of any month
+    \item $init\_container$: Initial number of containers in the yard
+    \item $num\_cranes$: Maximum number of cranes that can be rented each month
+    \item $crane\_capacity$: Capacity of each crane in terms of containers
+    \item $crane\_cost$: Cost to rent one crane for a month
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $amount_{t}$: Number of containers unloaded in month $t$
+    \item $crane_{t}$: Number of cranes rented in month $t$
+    \item $inventory_{t}$: Number of containers in the yard at the end of month $t$
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize total cost:
+\[
+\text{Total Cost} = \sum_{t=1}^{T} \left( unload\_cost_{t} \cdot amount_{t} + holding\_cost \cdot inventory_{t} + crane\_cost \cdot crane_{t} \right)
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    & \text{Capacity Constraint:} \quad amount_{t} \leq unload\_capacity_{t}, \quad \forall t \in \{1, \ldots, T\} \\
+    & \text{Demand Fulfillment:} \quad inventory_{t-1} + amount_{t} - demand_{t} = inventory_{t}, \quad \forall t \in \{1, \ldots, T\} \\
+    & \text{Initial Inventory:} \quad inventory_{0} = init\_container \\
+    & \text{Final Inventory:} \quad inventory_{T} = 0 \\
+    & \text{Storage Capacity:} \quad inventory_{t} \leq max\_container, \quad \forall t \in \{1, \ldots, T\} \\
+    & \text{Cranes Usage:} \quad crane_{t} \cdot crane\_capacity \geq amount_{t}, \quad \forall t \in \{1, \ldots, T\} \\
+    & \text{Cranes Limit:} \quad crane_{t} \leq num\_cranes, \quad \forall t \in \{1, \ldots, T\} \\
+    & \text{Non-negativity:} \quad amount_{t} \geq 0, \quad crane_{t} \geq 0, \quad inventory_{t} \geq 0, \quad \forall t \in \{1, \ldots, T\}
+\end{align}
+
+\end{document}

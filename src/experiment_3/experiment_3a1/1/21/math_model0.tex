@@ -1,0 +1,78 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Engineering Factory Problem}
+
+\subsection*{Sets and Parameters}
+\begin{itemize}
+    \item Let \( M \) be the number of machines, indexed by \( m \in \{1, \ldots, M\} \).
+    \item Let \( K \) be the number of products, indexed by \( k \in \{1, \ldots, K\} \).
+    \item Let \( I \) be the number of months, indexed by \( i \in \{1, \ldots, I\} \).
+    
+    \item Parameters:
+    \begin{itemize}
+        \item \( \text{profit}_{k} \): profit per unit for product \( k \).
+        \item \( \text{time}_{k, m} \): production time required for product \( k \) on machine \( m \) (in hours).
+        \item \( \text{down}_{m} \): number of months machine \( m \) is out of service for maintenance.
+        \item \( \text{limit}_{k, i} \): marketing limitation for product \( k \) in month \( i \).
+        \item \( \text{store\_price} \): cost of storage for a unit of product per month.
+        \item \( \text{keep\_quantity} \): desired quantity to keep in stock for each product.
+        \item \( n_{\text{workhours}} \): total working hours available per month.
+    \end{itemize}
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{sell}_{k, i} \): quantity of product \( k \) sold in month \( i \).
+    \item \( \text{manufacture}_{k, i} \): quantity of product \( k \) manufactured in month \( i \).
+    \item \( \text{storage}_{k, i} \): quantity of product \( k \) stored at the end of month \( i \).
+    \item \( \text{maintain}_{m, i} \): binary variable indicating if machine \( m \) is under maintenance in month \( i \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize} \quad Z = \sum_{i=1}^{I} \sum_{k=1}^{K} \left( \text{profit}_{k} \cdot \text{sell}_{k, i} - \text{store\_price} \cdot \text{storage}_{k, i} \right)
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item \textbf{Production Time Constraint:}
+    \[
+    \sum_{k=1}^{K} \text{time}_{k, m} \cdot \text{manufacture}_{k, i} \leq n_{\text{workhours}} \cdot (1 - \text{maintain}_{m, i}) \quad \forall m \in \{1, \ldots, M\}, \forall i \in \{1, \ldots, I\}
+    \]
+
+    \item \textbf{Marketing Limitation:}
+    \[
+    \text{sell}_{k, i} \leq \text{limit}_{k, i} \quad \forall k \in \{1, \ldots, K\}, \forall i \in \{1, \ldots, I\}
+    \]
+
+    \item \textbf{Storage Dynamics:}
+    \[
+    \text{storage}_{k, i} = \text{storage}_{k, i-1} + \text{manufacture}_{k, i} - \text{sell}_{k, i} \quad \forall k \in \{1, \ldots, K\}, \forall i \in \{2, \ldots, I\}
+    \]
+    with \( \text{storage}_{k, 1} = 0 \).
+
+    \item \textbf{Final Inventory Requirement:}
+    \[
+    \text{storage}_{k, I} \geq \text{keep\_quantity} \quad \forall k \in \{1, \ldots, K\}
+    \]
+    
+    \item \textbf{Machine Maintenance Requirement:}
+    \[
+    \sum_{m=1}^{M} \text{maintain}_{m, i} \leq \sum_{m=1}^{M} \text{down}_{m} \quad \forall i \in \{1, \ldots, I\}
+    \]
+    
+    \item \textbf{Non-negativity Constraints:}
+    \[
+    \text{sell}_{k, i} \geq 0, \quad \text{manufacture}_{k, i} \geq 0, \quad \text{storage}_{k, i} \geq 0 \quad \forall k, i
+    \]
+
+    \item \textbf{Binary Constraints:}
+    \[
+    \text{maintain}_{m, i} \in \{0, 1\} \quad \forall m, i
+    \]
+\end{itemize}
+
+\end{document}

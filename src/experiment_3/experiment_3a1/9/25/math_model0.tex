@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Industry Production}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $k$: Index for industries, where $k = 1, \ldots, K$
+    \item $j$: Index for industries, where $j = 1, \ldots, K$
+    \item $t$: Index for years, where $t = 1, \ldots, T$
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $inputone_{k,j}$: Input required from industry $j$ to produce in industry $k$
+    \item $manpowerone_k$: Manpower required to produce in industry $k$
+    \item $inputtwo_{k,j}$: Input required from industry $j$ to build capacity in industry $k$
+    \item $manpowertwo_k$: Manpower required to build capacity in industry $k$
+    \item $stock_k$: Initial stock of industry $k$ at year 0
+    \item $capacity_k$: Capacity of industry $k$ at year 0
+    \item $manpower_{limit}$: Maximum allowable manpower in a year
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $produce_{k,t}$: Amount of units produced by industry $k$ in year $t$
+    \item $buildcapa_{k,t}$: Amount of units used to build productive capacity for industry $k$ in year $t$
+    \item $stock_{k,t}$: Amount of stock of industry $k$ held in year $t$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total production in the last two years:
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} (produce_{k,T} + produce_{k,T-1})
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    & \text{Capacity constraints:} \\
+    & produce_{k,t} \leq capacity_k + \sum_{j=1}^{K} buildcapa_{j,t-2} \quad \forall k, t \\
+    & stock_{k,t} = stock_{k,t-1} + produce_{k,t-1} - \sum_{j=1}^{K} inputone_{j,k} \cdot produce_{j,t-1} \quad \forall k, t \\
+    & stock_{k,t} \geq 0 \quad \forall k, t \\
+    & \\
+    & \text{Manpower constraints:} \\
+    & \sum_{k=1}^{K} manpowerone_k \cdot produce_{k,t} + \sum_{k=1}^{K} manpowertwo_k \cdot buildcapa_{k,t} \leq manpower_{limit} \quad \forall t \\
+    & \\
+    & \text{Production constraint:} \\
+    & produce_{k,t} \geq 0 \quad \forall k, t \\
+    & buildcapa_{k,t} \geq 0 \quad \forall k, t \\
+\end{align}
+
+\end{document}

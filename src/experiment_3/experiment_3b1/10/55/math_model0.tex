@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( P \) be the number of different parts.
+    \item Let \( M \) be the number of different machines.
+    \item Let \( \text{time}_{m,p} \) be the hours required on machine \( m \) to produce a batch of 100 parts \( p \).
+    \item Let \( \text{cost}_{m} \) be the charge per hour for using machine \( m \).
+    \item Let \( \text{available}_{m} \) be the availability of machine \( m \) in hours per month.
+    \item Let \( \text{price}_{p} \) be the selling price per batch of part \( p \).
+    \item Let \( \text{min\_batches}_{p} \) be the minimum number of batches of part \( p \) to be produced to fulfill a contract.
+    \item Let \( \text{standard\_cost} \) be the labor cost per hour up to a limit.
+    \item Let \( \text{overtime\_cost} \) be the labor cost per hour after the limit.
+    \item Let \( \text{overtime\_hour} \) be the maximum hours before overtime charges apply.
+    \item Let \( \text{min\_profit} \) be the minimum desired profit.
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let \( x_{p} \) be the number of batches of part \( p \) produced.
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+\text{Total Profit} = \sum_{p=1}^{P} \left( \text{price}_{p} \cdot x_{p} \right) - \sum_{m=1}^{M} \left( \text{cost}_{m} \cdot \left( \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_{p} \right) \right) - \text{Labor Costs}
+\]
+
+\subsection*{Labor Costs}
+\[
+\text{Labor Costs} = 
+\begin{cases} 
+\text{standard\_cost} \cdot \text{overtime\_hour} & \text{if } \sum_{p=1}^{P} \sum_{m=1}^{M} \text{time}_{m,p} \cdot x_{p} \leq \text{overtime\_hour} \\ 
+\text{standard\_cost} \cdot \text{overtime\_hour} + \text{overtime\_cost} \cdot \left( \sum_{p=1}^{P} \sum_{m=1}^{M} \text{time}_{m,p} \cdot x_{p} - \text{overtime\_hour} \right) & \text{if } \sum_{p=1}^{P} \sum_{m=1}^{M} \text{time}_{m,p} \cdot x_{p} > \text{overtime\_hour}
+\end{cases}
+\]
+
+\subsection*{Constraints}
+1. Machine Availability Constraints:
+\[
+\sum_{p=1}^{P} \text{time}_{m,p} \cdot x_{p} \leq \text{available}_{m} \quad \text{for all } m = 1, \ldots, M
+\]
+
+2. Minimum Batches Requirement:
+\[
+x_{p} \geq \text{min\_batches}_{p} \quad \text{for all } p = 1, \ldots, P
+\]
+
+3. Minimum Profit Requirement:
+\[
+\text{Total Profit} \geq \text{min\_profit}
+\]
+
+4. Non-negativity Constraints:
+\[
+x_{p} \geq 0 \quad \text{for all } p = 1, \ldots, P
+\]
+
+\end{document}

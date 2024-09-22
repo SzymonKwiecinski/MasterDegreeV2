@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for the Delivery Person's Path}
+
+\textbf{Definitions:}
+
+Let:
+\begin{itemize}
+    \item $N$: Total number of streets (north)
+    \item $W$: Total number of avenues (west)
+    \item $m$: Total number of stages or steps taken
+    \item $west\_time_{n,w}$: Time taken to move from intersection $(w,n)$ to $(w+1,n)$ (west)
+    \item $north\_time_{n,w}$: Time taken to move from intersection $(w,n)$ to $(w,n+1)$ (north)
+    \item $x_{n,w}$: A binary decision variable where $x_{n,w} = 1$ if the delivery person moves through intersection $(w,n)$, and $0$ otherwise.
+\end{itemize}
+
+\textbf{Objective Function:}
+
+Minimize the total delivery time:
+\[
+\text{Minimize } Z = \sum_{n=1}^{N-1} \sum_{w=1}^{W-1} \left( west\_time_{n,w} \cdot x_{n,w} + north\_time_{n,w} \cdot x_{n,w} \right)
+\]
+
+\textbf{Constraints:}
+
+1. The delivery person can only move north or west:
+   \[
+   \sum_{n=1}^{N-1} x_{n,w} + \sum_{w=1}^{W-1} x_{n,w} = 1 \quad \forall \text{ (valid intersections)}
+   \]
+
+2. Flow conservation constraints to ensure proper transitions between intersections:
+   \[
+   x_{n,w} \leq \sum_{n'} x_{n',w} \quad \forall n \in [1, N-1], w \in [1, W-1]
+   \]
+
+3. Non-negativity and binary constraints on decision variables:
+   \[
+   x_{n,w} \in \{0,1\} \quad \forall n \in [1, N], w \in [1, W]
+   \]
+
+\textbf{Output:}
+
+The optimal paths and total travel time can be represented as:
+\[
+\text{Output: } \{ \text{"paths"}: [(street_{n}, avenue_{w}) \text{ for } id \in 1, \ldots, m], \text{"total\_time"}: total\_travel\_time \}
+\]
+
+\end{document}

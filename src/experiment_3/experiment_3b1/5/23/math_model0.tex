@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item \( k \): Index for manpower category (e.g., skilled, semi-skilled, unskilled)
+    \item \( i \): Index for years
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{requirement}_{k, i} \): Estimated manpower requirements for category \( k \) in year \( i \)
+    \item \( \text{strength}_{k} \): Current strength of manpower category \( k \)
+    \item \( \text{lessonewaste}_{k} \): Wastage rate of manpower category \( k \) with less than one year's service
+    \item \( \text{moreonewaste}_{k} \): Wastage rate of manpower category \( k \) with more than one year's service
+    \item \( \text{recruit}_{k} \): Maximum number of recruits for manpower category \( k \)
+    \item \( \text{costredundancy}_{k} \): Redundancy payment for manpower category \( k \)
+    \item \( \text{num\_overman} \): Maximum number of overmanning allowed
+    \item \( \text{costoverman}_{k} \): Extra cost per employee per year for overmanning category \( k \)
+    \item \( \text{num\_shortwork} \): Maximum number of short-time workers allowed per category
+    \item \( \text{costshort}_{k} \): Cost per employee per year for short-time working in category \( k \)
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{recruit}_{k,i} \): Number of recruits for manpower category \( k \) in year \( i \)
+    \item \( \text{overmanning}_{k,i} \): Number of overmanning for manpower category \( k \) in year \( i \)
+    \item \( \text{short}_{k,i} \): Number of short-time workers for manpower category \( k \) in year \( i \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize total costs:
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} \sum_{i=1}^{I} \left( \text{costredundancy}_{k} \cdot \text{redundant}_{k,i} + \text{costoverman}_{k} \cdot \text{overmanning}_{k,i} + \text{costshort}_{k} \cdot \text{short}_{k,i} \right)
+\]
+
+\subsection*{Constraints}
+
+1. Manpower balance for each category and year:
+   \[
+   \text{strength}_{k} - \text{lessonewaste}_{k} \cdot \text{strength}_{k} - \text{moreonewaste}_{k} \cdot \text{strength}_{k} + \text{recruit}_{k,i} + \text{overmanning}_{k,i} - \text{short}_{k,i} \geq \text{requirement}_{k,i}, \forall k, i
+   \]
+
+2. Recruitment limits:
+   \[
+   \text{recruit}_{k,i} \leq \text{recruit}_{k}, \forall k, i
+   \]
+
+3. Overmanning limits:
+   \[
+   \sum_{k=1}^{K} \sum_{i=1}^{I} \text{overmanning}_{k,i} \leq \text{num\_overman}
+   \]
+
+4. Short-time working limits:
+   \[
+   \text{short}_{k,i} \leq \text{num\_shortwork}, \forall k, i
+   \]
+
+5. Non-negativity constraints:
+   \[
+   \text{recruit}_{k,i} \geq 0, \quad \text{overmanning}_{k,i} \geq 0, \quad \text{short}_{k,i} \geq 0, \forall k, i
+   \]
+
+\end{document}

@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Motion Optimization Problem}
+
+We define the following variables:
+\begin{align*}
+    x_t & : \text{position of the rocket at time } t, \\
+    v_t & : \text{velocity of the rocket at time } t, \\
+    a_t & : \text{acceleration of the rocket at time } t.
+\end{align*}
+
+The motion of the rocket is described by the following discrete-time equations:
+\begin{align}
+    x_{t+1} = x_t + v_t, \\
+    v_{t+1} = v_t + a_t.
+\end{align}
+
+We want to control the acceleration \( a_t \) at each time step. We have the following initial conditions:
+\begin{align*}
+    x_0 & : \text{initial position}, \\
+    v_0 & : \text{initial velocity}.
+\end{align*}
+
+The goal is to reach a target position \( x_T \) with a final velocity \( v_T \) at time \( T \):
+\begin{align*}
+    x_T & : \text{target position}, \\
+    v_T & : \text{target velocity}.
+\end{align*}
+
+The optimization problem can be formulated as follows:
+
+\textbf{Objective:}
+Minimize the total fuel consumption (total acceleration) over the time period:
+\begin{equation}
+    \text{Minimize} \quad \sum_{t=0}^{T-1} |a_t|.
+\end{equation}
+
+\textbf{Subject to:}
+\begin{align}
+    x_{t+1} = x_t + v_t, \quad & t = 0, 1, \ldots, T-1, \\
+    v_{t+1} = v_t + a_t, \quad & t = 0, 1, \ldots, T-1, \\
+    x_0 = & \text{given initial position}, \\
+    v_0 = & \text{given initial velocity}, \\
+    x_T = & \text{target position}, \\
+    v_T = & \text{target velocity}.
+\end{align}
+
+The output should include:
+\begin{align*}
+    "x" & : \text{list of positions from } x_0 \text{ to } x_T, \\
+    "v" & : \text{list of velocities from } v_0 \text{ to } v_T, \\
+    "a" & : \text{list of accelerations over time,} \\
+    "fuel\_spend" & : \text{total fuel spent}.
+\end{align*}
+
+\end{document}

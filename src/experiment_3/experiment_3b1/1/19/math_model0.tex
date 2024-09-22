@@ -1,0 +1,93 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Food Manufacturing Problem}
+
+\subsection*{Parameters}
+\begin{align*}
+& I: \text{Number of different oils} \\
+& M: \text{Number of months} \\
+& \text{price}_{i,m}: \text{Price of oil } i \text{ in month } m \\
+& \text{sell\_price}: \text{Selling price per ton of the final product} \\
+& \text{max\_veg}: \text{Maximum vegetable oils refining capacity per month} \\
+& \text{max\_non\_veg}: \text{Maximum non-vegetable oils refining capacity per month} \\
+& \text{storage\_size}: \text{Maximum storage capacity per oil} \\
+& \text{storage\_cost}: \text{Cost of storage per ton per month} \\
+& \text{max\_hardness}: \text{Maximum allowed hardness of the final product} \\
+& \text{min\_hardness}: \text{Minimum allowed hardness of the final product} \\
+& \text{hardness}_{i}: \text{Hardness of oil } i \\
+& \text{init\_amount}: \text{Initial amount of each type of oil} \\
+& \text{min\_usage}: \text{Minimum usage amount for an oil if it is used} \\
+& \text{dependency}_{i,j}: \text{Dependency of oil } j \text{ on oil } i \\
+& \text{is\_veg}_{i}: \text{Indicator for vegetable oil (1) or non-vegetable oil (0)} \\
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+& \text{buyquantity}_{i,m}: \text{Amount of oil } i \text{ bought in month } m \\
+& \text{refine}_{i,m}: \text{Amount of oil } i \text{ refined in month } m \\
+& \text{storage}_{i,m}: \text{Amount of oil } i \text{ stored at the end of month } m \\
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the profit:
+\[
+\text{Profit} = \sum_{m=1}^{M} \left( \text{sell\_price} \cdot \sum_{i=1}^{I} \text{refine}_{i,m} - \sum_{i=1}^{I} \text{buyquantity}_{i,m} \cdot \text{price}_{i,m} - \sum_{i=1}^{I} \text{storage}_{i,m} \cdot \text{storage\_cost} \right)
+\]
+
+\subsection*{Constraints}
+1. **Storage Constraint**:
+\[
+\text{storage}_{i,m} = \text{storage}_{i,m-1} + \text{buyquantity}_{i,m} - \text{refine}_{i,m}, \quad \forall i, m
+\]
+
+2. **Initial Storage**:
+\[
+\text{storage}_{i,0} = \text{init\_amount}, \quad \forall i
+\]
+
+3. **Final Storage**:
+\[
+\text{storage}_{i,M} = \text{init\_amount}, \quad \forall i
+\]
+
+4. **Refining Capacity**:
+\[
+\sum_{\text{is\_veg}_{i}=1} \text{refine}_{i,m} \leq \text{max\_veg}, \quad \forall m
+\]
+\[
+\sum_{\text{is\_veg}_{i}=0} \text{refine}_{i,m} \leq \text{max\_non\_veg}, \quad \forall m
+\]
+
+5. **Hardness Constraint**:
+\[
+\text{max\_hardness} \geq \frac{\sum_{i=1}^{I} \text{hardness}_{i} \cdot \text{refine}_{i,m}}{\sum_{i=1}^{I} \text{refine}_{i,m}} \geq \text{min\_hardness}, \quad \forall m
+\]
+
+6. **Oil Usage Constraints**:
+   - At least \text{min\_usage} must be used if an oil is used:
+\[
+\text{refine}_{i,m} \geq \text{min\_usage} \cdot y_{i,m}, \quad \forall i, m
+\]
+   - A binary variable \( y_{i,m} \) is defined as:
+\[
+y_{i,m} = 
+\begin{cases} 
+1 & \text{if refining oil } i \text{ in month } m \\
+0 & \text{otherwise}
+\end{cases}
+\]
+
+7. **Dependency Constraint**:
+If oil \( i \) is used, all dependent oils \( j \) must also be used:
+\[
+\text{refine}_{j,m} \geq \text{min\_usage} \cdot (y_{i,m} + y_{j,m} - 1), \quad \forall i, j \text{ such that } \text{dependency}_{i,j} = 1, m
+\]
+
+8. **Limit on the number of oils**:
+\[
+\sum_{i=1}^{I} y_{i,m} \leq 3, \quad \forall m
+\]
+
+\end{document}

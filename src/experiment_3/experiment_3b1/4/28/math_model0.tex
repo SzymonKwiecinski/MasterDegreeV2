@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model to Fit a Line}
+
+Given the data points \((x_k, y_k)\) for \(k = 1, \ldots, K\), we aim to find the best fit line \(y = bx + a\) by minimizing the sum of absolute deviations. The objective is formulated as follows:
+
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} |y_k - (bx_k + a)|
+\]
+
+To handle the absolute values, we introduce non-negative variables \(u_k\) for \(k = 1, \ldots, K\) such that:
+
+\[
+u_k \geq y_k - (bx_k + a) \quad \text{and} \quad u_k \geq -(y_k - (bx_k + a))
+\]
+
+This leads to the following linear constraints:
+
+1. \( y_k - bx_k - a \leq u_k \) for all \( k = 1, \ldots, K \)
+2. \( -y_k + bx_k + a \leq u_k \) for all \( k = 1, \ldots, K \)
+
+We can rewrite the optimization problem as:
+
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} u_k
+\]
+
+Subject to the constraints:
+
+\[
+\begin{align*}
+y_k - bx_k - a & \leq u_k, \quad k = 1, \ldots, K \\
+-y_k + bx_k + a & \leq u_k, \quad k = 1, \ldots, K \\
+u_k & \geq 0, \quad k = 1, \ldots, K
+\end{align*}
+\]
+
+Additionally, we include the constraints for \(b\) and \(a\) to be determined.
+
+The solution of this linear program will yield the values of the intercept \(a\) and the slope \(b\) of the fitted line.
+
+\textbf{Output:}
+
+\[
+\{
+\text{"intercept"}: a,
+\text{"slope"}: b
+\}
+\]
+
+\end{document}

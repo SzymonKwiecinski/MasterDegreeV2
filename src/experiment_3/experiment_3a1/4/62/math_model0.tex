@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Traveling Salesman Problem (TSP)}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $N$: Number of towns to visit.
+    \item $d_{i,j}$: Distance between city $i$ and city $j$ (symmetric, i.e., $d_{i,j} = d_{j,i}$).
+    \item $start\_city$: The starting city of the traveler.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_{i,j}$: Binary variable that is 1 if the traveler goes from city $i$ to city $j$, and 0 otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total distance traveled:
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} \sum_{j=1}^{N} d_{i,j} x_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Each city must be visited exactly once:
+    \[
+    \sum_{j=1}^{N} x_{start\_city,j} = 1 \quad \forall j \neq start\_city
+    \]
+    \[
+    \sum_{j=1}^{N} x_{j,start\_city} = 1
+    \]
+    
+    \item Ensuring that each city is left exactly once:
+    \[
+    \sum_{i=1}^{N} x_{i,j} = 1 \quad \forall j \neq start\_city
+    \]
+    
+    \item Ensuring that each city is entered exactly once:
+    \[
+    \sum_{j=1}^{N} x_{j,i} = 1 \quad \forall i \neq start\_city
+    \]
+
+    \item Subtour elimination constraints (for subtours):
+    \[
+    u_i - u_j + N x_{i,j} \leq N - 1 \quad \forall i \neq j \text{ with } i,j \in \{1, \ldots, N\}
+    \]
+    where $u_i$ is a continuous variable representing the number of visited nodes when the traveler departs from city $i$.
+\end{itemize}
+
+\subsection*{Output}
+The solution will provide:
+\begin{itemize}
+    \item \texttt{visit\_order}: The sequence of cities visited after \texttt{start\_city}.
+    \item \texttt{total\_distance}: The total distance traveled on the optimal journey.
+\end{itemize}
+
+\end{document}

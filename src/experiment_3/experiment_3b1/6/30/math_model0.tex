@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Quadratic Curve Fitting Model}
+
+Given a set of data points where \( y \) depends on \( x \), the goal is to fit a quadratic curve of the form:
+
+\[
+y = c \cdot x^2 + b \cdot x + a
+\]
+
+for the observed values \( y_k \) corresponding to \( x_k \) for \( k = 1, \ldots, K \).
+
+\subsection*{Objective}
+
+We aim to minimize the sum of absolute deviations between the observed values of \( y \) and the predicted values from the quadratic function:
+
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} |y_k - (c \cdot x_k^2 + b \cdot x_k + a)|
+\]
+
+\subsection*{Variables}
+
+Let:
+\begin{itemize}
+    \item \( c \): coefficient of the quadratic term
+    \item \( b \): coefficient of the linear term
+    \item \( a \): coefficient of the constant term
+\end{itemize}
+
+Define auxiliary variables \( e_k \) for \( k = 1, \ldots, K \):
+
+\[
+e_k \geq y_k - (c \cdot x_k^2 + b \cdot x_k + a) \quad \text{(for positive deviations)}
+\]
+\[
+-e_k \geq y_k - (c \cdot x_k^2 + b \cdot x_k + a) \quad \text{(for negative deviations)}
+\]
+
+This leads us to the following linear programming formulation:
+
+\subsection*{Linear Programming Formulation}
+
+\begin{align*}
+\text{Minimize } & Z = \sum_{k=1}^{K} e_k \\
+\text{Subject to:} & \\
+y_k - (c \cdot x_k^2 + b \cdot x_k + a) & \leq e_k \quad \forall k \\
+-(y_k - (c \cdot x_k^2 + b \cdot x_k + a)) & \leq e_k \quad \forall k \\
+\end{align*}
+
+\subsection*{Output}
+
+The output will be the coefficients of the fitted quadratic model represented in the following format:
+
+\[
+\{
+    "quadratic": c,
+    "linear": b,
+    "constant": a
+\}
+\]
+
+\end{document}

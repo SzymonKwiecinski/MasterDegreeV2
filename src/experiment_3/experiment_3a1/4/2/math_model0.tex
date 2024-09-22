@@ -1,0 +1,90 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for DEC System Production}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item Let \( N \) = number of different computer systems.
+    \item Let \( i \in \{1, 2, \ldots, N\} \) denote each computer system.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{is\_workstation}_i \): boolean indicating if system \( i \) is a workstation.
+    \item \( \text{price}_i \): price of system \( i \) (in dollars).
+    \item \( \text{disk\_drives}_i \): average number of disk drives requested by customers for system \( i \).
+    \item \( \text{256K\_boards}_i \): average number of 256K memory boards used by system \( i \).
+    \item \( \text{max\_cpu} \): maximum number of CPUs available.
+    \item \( \text{min\_disk} \): minimum number of disk drives available.
+    \item \( \text{max\_disk} \): maximum number of disk drives available.
+    \item \( \text{min\_mem} \): minimum number of 256K memory boards available.
+    \item \( \text{max\_mem} \): maximum number of 256K memory boards available.
+    \item \( \text{demand}_i \): maximum demand for system \( i \).
+    \item \( \text{demand\_GP} \): maximum demand for the whole GP family.
+    \item \( \text{demand\_WS} \): maximum demand for the whole WS family.
+    \item \( \text{preorder}_i \): preorder units for system \( i \).
+    \item \( \text{alt\_mem} \): units of alternative memory board available.
+    \item \( \text{alt\_compatible}_i \): boolean indicating if system \( i \) is compatible with alternative memory.
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let:
+\[
+x_i = \text{number of systems produced for system } i
+\]
+\[
+y_i = \text{number of alternative memory boards used for system } i
+\]
+
+\subsection*{Objective Function}
+Maximize profit:
+\[
+\text{Profit} = \sum_{i=1}^{N} (\text{price}_i \cdot x_i) - \text{cost\_of\_components}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item \text{CPU constraint:}
+    \[
+    \sum_{i=1}^{N} x_i \leq \text{max\_cpu}
+    \]
+
+    \item \text{Disk drives constraint:}
+    \[
+    \sum_{i=1}^{N} \text{disk\_drives}_i \cdot x_i \leq \text{max\_disk}
+    \]
+    
+    \item \text{Memory boards constraints:}
+    \[
+    \sum_{i=1}^{N} \text{256K\_boards}_i \cdot x_i + \sum_{i=1}^{N} y_i \leq \text{max\_mem}
+    \]
+    \[
+    \sum_{i=1}^{N} y_i \leq \text{alt\_mem}  \quad \text{(if } \text{alt\_compatible}_i \text{ is true)}
+    \]
+
+    \item \text{Demand constraints:}
+    \[
+    x_i \geq \text{preorder}_i \quad \forall i
+    \]
+    \[
+    \sum_{i \in \text{GP}} x_i \leq \text{demand\_GP}
+    \]
+    \[
+    \sum_{i \in \text{WS}} x_i \leq \text{demand\_WS}
+    \]
+    \[
+    x_i \leq \text{demand}_i \quad \forall i
+    \]
+
+    \item \text{Non-negativity:}
+    \[
+    x_i \geq 0 \quad \forall i
+    \]
+    \[
+    y_i \geq 0 \quad \forall i \text{ if } \text{alt\_compatible}_i = \text{true}
+    \]
+\end{itemize}
+
+\end{document}

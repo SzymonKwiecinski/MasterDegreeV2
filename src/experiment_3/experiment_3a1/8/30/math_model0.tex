@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Quadratic Curve Fitting Problem}
+
+Given a set of known pairs of values \( (x_k, y_k) \) for \( k = 1, \ldots, K \), we aim to fit a quadratic curve of the form:
+
+\[
+y = c \cdot x^2 + b \cdot x + a
+\]
+
+where:
+- \( c \) is the coefficient of the quadratic term,
+- \( b \) is the coefficient of the linear term,
+- \( a \) is the constant term.
+
+The objective is to minimize the sum of absolute deviations between the observed values \( y_k \) and the predicted values from the quadratic relationship:
+
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} |y_k - (c \cdot x_k^2 + b \cdot x_k + a)|
+\]
+
+This formulation represents a Linear Programming (LP) problem where:
+
+1. We introduce auxiliary variables \( d_k \) to handle the absolute values:
+   
+   \[
+   d_k \geq y_k - (c \cdot x_k^2 + b \cdot x_k + a), \quad \forall k
+   \]
+   \[
+   d_k \geq -(y_k - (c \cdot x_k^2 + b \cdot x_k + a)), \quad \forall k
+   \]
+
+2. The objective function can be rewritten as:
+
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} d_k
+\]
+
+3. Subject to the constraints defined above.
+
+The solution will result in values for \( c \), \( b \), and \( a \) corresponding to the best fit quadratic curve.
+
+\subsection*{Output Format}
+
+The output will provide the coefficients of the fitted quadratic curve in the following format:
+
+\[
+\{
+    "quadratic": c,
+    "linear": b,
+    "constant": a
+\}
+\]
+
+Where \( c \) is the coefficient of the quadratic term, \( b \) is the coefficient of the linear term, and \( a \) is the constant.
+
+\end{document}

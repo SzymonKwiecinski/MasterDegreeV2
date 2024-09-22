@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let $x_i$ be the production quantity of the $i$-th product for $i = 1, \dots, P$.
+    \item Let $u$ be a binary variable such that $u = 1$ if the company upgrades its machine capacity, and $u = 0$ otherwise.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $hour_i$: machine hours required for each unit of the $i$-th product.
+    \item $cost_i$: production cost per unit of the $i$-th product.
+    \item $price_i$: selling price per unit of the $i$-th product.
+    \item $investPercentage_i$: percentage of sales revenues from the $i$-th product that will be used for financing operations.
+    \item $availableHours$: total machine hours available in the current production period.
+    \item $cash$: total available cash.
+    \item $upgradeHours$: additional machine hours gained by upgrading.
+    \item $upgradeCost$: cost of upgrading machine capacity.
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+\text{Maximize } Z = \sum_{i=1}^{P} \left( (price_i - cost_i) x_i - investPercentage_i \cdot price_i \cdot x_i \right) - upgradeCost \cdot u
+\end{align*}
+
+\textbf{Subject to:}
+\begin{align*}
+\sum_{i=1}^{P} hour_i \cdot x_i & \leq availableHours + upgradeHours \cdot u \quad & \text{(Machine Capacity)} \\
+\sum_{i=1}^{P} cost_i \cdot x_i & \leq cash \quad & \text{(Cash Availability)} \\
+x_i & \geq 0 \quad & \text{(Non-negativity for all } i) \\
+u & \in \{0, 1\} \quad & \text{(Binary Upgrade Decision)}
+\end{align*}
+
+\textbf{Output:}
+\begin{itemize}
+    \item net\_income: Total Net Income of the company
+    \item production: $[x_1, x_2, \ldots, x_P]$: production quantities for each product
+    \item upgrade: Boolean variable indicating whether to upgrade the machine capacity or not
+\end{itemize}
+
+\end{document}

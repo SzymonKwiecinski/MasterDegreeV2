@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Road Illumination}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item \( N \): Number of road segments.
+    \item \( M \): Number of lamps.
+    \item \( \text{power}_j \): Power of the \( j \)-th lamp, for \( j = 1, \ldots, M \).
+    \item \( \text{coeff}_{i,j} \): Coefficient representing the contribution of the \( j \)-th lamp to the illumination of the \( i \)-th segment.
+    \item \( \text{desired}_i \): Desired illumination for the \( i \)-th segment.
+    \item \( \text{ill}_i \): Illumination of the \( i \)-th segment, given by \( \text{ill}_i = \sum_{j=1}^{M} \text{coeff}_{i,j} \text{power}_j \).
+    \item \( \text{error}_i \): Absolute error between the desired and actual illumination for the \( i \)-th segment, defined as \( \text{error}_i = |\text{ill}_i - \text{desired}_i| \).
+\end{itemize}
+
+\subsection*{Objective Function}
+We want to minimize the total absolute error across all segments:
+\[
+\text{Minimize} \quad \sum_{i=1}^{N} \text{error}_i = \sum_{i=1}^{N} |\text{ill}_i - \text{desired}_i|
+\]
+
+\subsection*{Constraints}
+The illumination for each segment is defined as:
+\[
+\text{ill}_i = \sum_{j=1}^{M} \text{coeff}_{i,j} \text{power}_j, \quad \text{for } i = 1, \ldots, N
+\]
+
+\subsection*{Model Formulation}
+Putting it all together, the complete model can be stated as follows:
+\begin{align*}
+\text{Minimize} & \quad \sum_{i=1}^{N} |\sum_{j=1}^{M} \text{coeff}_{i,j} \text{power}_j - \text{desired}_i| \\
+\text{subject to} & \quad \text{ill}_i = \sum_{j=1}^{M} \text{coeff}_{i,j} \text{power}_j, \quad i = 1, \ldots, N \\
+& \quad \text{power}_j \geq 0, \quad j = 1, \ldots, M
+\end{align*}
+
+\subsection*{Output}
+The solution will yield:
+\begin{itemize}
+    \item \( \text{power} = [\text{power}_j \text{ for } j = 1, \ldots, M] \)
+    \item \( \text{error} = \sum_{i=1}^{N} |\text{ill}_i - \text{desired}_i| \)
+\end{itemize}
+
+\end{document}

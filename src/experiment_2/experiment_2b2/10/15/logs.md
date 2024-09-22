@@ -1,0 +1,310 @@
+# START: OnePrompt 
+## START ROLE MESSAGE | Role.SYSTEM 
+Background: You are a expert at Operations Research and Linear Programming and Python. Based on description you solve given problem using Pulp python library. Python code place between ```python and ```. You receive the data in json format between: <DATA></DATA>. Do not change data format! Do not use `while` loop in python code! Do not include 'pip install' in script. Assume every python package is installed Print at the end the objective between <OBJ></OBJ> `print(f' (Objective Value): <OBJ>{pulp.value(problem.objective)}</OBJ>')`  
+## START MESSAGE 0 
+### ROLE: Role.USER
+<DESCRIPTION>
+PROBLEM TYPE: MILP
+
+PROBLEM INFO: 
+- A company produces \var{N} kinds of products. 
+- A product of the \var{i}-th type requires \var{assemblyHour_i} hours of assembly labor, \var{testingHour_i} hours of testing, and \var{materialCost_i} worth of raw materials (in $).
+- Given the current personnel of the company, there can be at most \var{maxAssembly} hours of assembly labor and \var{maxTesting} hours of testing, each day.
+- Product of the \var{i}-th type has a price of \var{price_i} dollars.
+- The company can schedule up tp \var{maxOvertimeAssembly} hours of overtime assembly labor can be sched­uled, at a cost of \var{overtimeAssemblyCost} per hour.
+- Suppose that the raw material supplier provides a \var{materialDiscount}% discount if the daily bill is above \var{discountThreshold} dollars (\var{materialDiscount} is a number between 0 and 100).
+
+INPUT FORMAT: 
+
+{
+    "assemblyHour": [assemblyHour_i for i in 1, ..., N]
+    "testingHour": [testingHour_i for i in 1, ..., N],
+    "materialCost": [materialCost_i for i in 1, ..., N],
+    "maxAssembly": maxAssembly
+    "maxTesting": maxTesting,
+    "price": [price_i for i in 1, ..., N],
+    "maxOvertimeAssembly": maxOvertimeAssembly,
+    "overtimeAssemblyCost": overtimeAssemblyCost,
+    "materialDiscount": materialDiscount,
+    "discountThreshold": discountThreshold
+}
+
+OBJECTIVE: We want to maximize the daily profit of the company, which is the total revenue minus the total cost.
+
+OUTPUT INFO: 
+
+- \var{dailyProfit} shows the daily profit of the company 
+- \var{unitsProduced_i} shows the number of units of the \var{i}-th product produced
+- \var{overtimeAssembly} shows the number of hours of overtime assembly labor scheduled
+- \var{materialBought} shows the amount of raw materials bought
+
+OUTPUT FORMAT:
+
+{
+    "dailyProfit": dailyProfit,
+    "unitsProduced": [unitsProduced_i for i in 1, ..., N],
+    "overtimeAssembly": overtimeAssembly,
+    "materialBought": materialBought
+}
+</DESCRIPTION>
+<DATA>
+{'N': 2, 'AssemblyHour': [0.25, 0.3333], 'TestingHour': [0.125, 0.3333], 'MaterialCost': [1.2, 0.9], 'MaxAssembly': 10, 'MaxTesting': 70, 'Price': [9, 8], 'MaxOvertimeAssembly': 50, 'OvertimeAssemblyCost': 5, 'MaterialDiscount': 10, 'DiscountThreshold': 300}</DATA>
+
+
+## START MESSAGE 1 
+### ROLE: Role.ASSISTANT
+```python
+import pulp
+
+#### Extract data
+data = {'N': 2, 'AssemblyHour': [0.25, 0.3333], 'TestingHour': [0.125, 0.3333], 'MaterialCost': [1.2, 0.9], 'MaxAssembly': 10, 'MaxTesting': 70, 'Price': [9, 8], 'MaxOvertimeAssembly': 50, 'OvertimeAssemblyCost': 5, 'MaterialDiscount': 10, 'DiscountThreshold': 300}
+
+N = data['N']
+assemblyHour = data['AssemblyHour']
+testingHour = data['TestingHour']
+materialCost = data['MaterialCost']
+maxAssembly = data['MaxAssembly']
+maxTesting = data['MaxTesting']
+price = data['Price']
+maxOvertimeAssembly = data['MaxOvertimeAssembly']
+overtimeAssemblyCost = data['OvertimeAssemblyCost']
+materialDiscount = data['MaterialDiscount']
+discountThreshold = data['DiscountThreshold']
+
+#### Define problem
+problem = pulp.LpProblem("Maximize_Profit", pulp.LpMaximize)
+
+#### Decision variables
+unitsProduced = [pulp.LpVariable(f"unitsProduced_{i}", lowBound=0, cat='Continuous') for i in range(N)]
+overtimeAssembly = pulp.LpVariable("overtimeAssembly", lowBound=0, upBound=maxOvertimeAssembly, cat='Continuous')
+
+#### Objective function
+revenue = pulp.lpSum([price[i] * unitsProduced[i] for i in range(N)])
+totalMaterialCost = pulp.lpSum([materialCost[i] * unitsProduced[i] for i in range(N)])
+discountedMaterialCost = totalMaterialCost * (1 - materialDiscount / 100 if totalMaterialCost > discountThreshold else 1)
+overtimeCost = overtimeAssembly * overtimeAssemblyCost
+profit = revenue - discountedMaterialCost - overtimeCost
+
+problem += profit
+
+#### Constraints
+problem += pulp.lpSum([assemblyHour[i] * unitsProduced[i] for i in range(N)]) <= maxAssembly + overtimeAssembly
+problem += pulp.lpSum([testingHour[i] * unitsProduced[i] for i in range(N)]) <= maxTesting
+
+#### Solve problem
+problem.solve()
+
+#### Output results
+dailyProfit = pulp.value(problem.objective)
+unitsProduced_values = [pulp.value(unitsProduced[i]) for i in range(N)]
+overtimeAssembly_value = pulp.value(overtimeAssembly)
+materialBought = pulp.value(totalMaterialCost)
+
+output = {
+    "dailyProfit": dailyProfit,
+    "unitsProduced": unitsProduced_values,
+    "overtimeAssembly": overtimeAssembly_value,
+    "materialBought": materialBought
+}
+
+print(output)
+print(f' (Objective Value): <OBJ>{pulp.value(problem.objective)}</OBJ>')
+```
+
+
+# START: OnePrompt 
+## START ROLE MESSAGE | Role.SYSTEM 
+Background: You are a expert at Operations Research and Linear Programming and Python. Based on description you solve given problem using Pulp python library. Python code place between ```python and ```. You receive the data in json format between: <DATA></DATA>. Do not change data format! Do not use `while` loop in python code! Do not include 'pip install' in script. Assume every python package is installed Print at the end the objective between <OBJ></OBJ> `print(f' (Objective Value): <OBJ>{pulp.value(problem.objective)}</OBJ>')`  
+## START MESSAGE 0 
+### ROLE: Role.USER
+<DESCRIPTION>
+PROBLEM TYPE: MILP
+
+PROBLEM INFO: 
+- A company produces \var{N} kinds of products. 
+- A product of the \var{i}-th type requires \var{assemblyHour_i} hours of assembly labor, \var{testingHour_i} hours of testing, and \var{materialCost_i} worth of raw materials (in $).
+- Given the current personnel of the company, there can be at most \var{maxAssembly} hours of assembly labor and \var{maxTesting} hours of testing, each day.
+- Product of the \var{i}-th type has a price of \var{price_i} dollars.
+- The company can schedule up tp \var{maxOvertimeAssembly} hours of overtime assembly labor can be sched­uled, at a cost of \var{overtimeAssemblyCost} per hour.
+- Suppose that the raw material supplier provides a \var{materialDiscount}% discount if the daily bill is above \var{discountThreshold} dollars (\var{materialDiscount} is a number between 0 and 100).
+
+INPUT FORMAT: 
+
+{
+    "assemblyHour": [assemblyHour_i for i in 1, ..., N]
+    "testingHour": [testingHour_i for i in 1, ..., N],
+    "materialCost": [materialCost_i for i in 1, ..., N],
+    "maxAssembly": maxAssembly
+    "maxTesting": maxTesting,
+    "price": [price_i for i in 1, ..., N],
+    "maxOvertimeAssembly": maxOvertimeAssembly,
+    "overtimeAssemblyCost": overtimeAssemblyCost,
+    "materialDiscount": materialDiscount,
+    "discountThreshold": discountThreshold
+}
+
+OBJECTIVE: We want to maximize the daily profit of the company, which is the total revenue minus the total cost.
+
+OUTPUT INFO: 
+
+- \var{dailyProfit} shows the daily profit of the company 
+- \var{unitsProduced_i} shows the number of units of the \var{i}-th product produced
+- \var{overtimeAssembly} shows the number of hours of overtime assembly labor scheduled
+- \var{materialBought} shows the amount of raw materials bought
+
+OUTPUT FORMAT:
+
+{
+    "dailyProfit": dailyProfit,
+    "unitsProduced": [unitsProduced_i for i in 1, ..., N],
+    "overtimeAssembly": overtimeAssembly,
+    "materialBought": materialBought
+}
+</DESCRIPTION>
+<DATA>
+{'N': 2, 'AssemblyHour': [0.25, 0.3333], 'TestingHour': [0.125, 0.3333], 'MaterialCost': [1.2, 0.9], 'MaxAssembly': 10, 'MaxTesting': 70, 'Price': [9, 8], 'MaxOvertimeAssembly': 50, 'OvertimeAssemblyCost': 5, 'MaterialDiscount': 10, 'DiscountThreshold': 300}</DATA>
+
+
+## START MESSAGE 1 
+### ROLE: Role.ASSISTANT
+```python
+import pulp
+
+#### Extract data
+data = {'N': 2, 'AssemblyHour': [0.25, 0.3333], 'TestingHour': [0.125, 0.3333], 'MaterialCost': [1.2, 0.9], 'MaxAssembly': 10, 'MaxTesting': 70, 'Price': [9, 8], 'MaxOvertimeAssembly': 50, 'OvertimeAssemblyCost': 5, 'MaterialDiscount': 10, 'DiscountThreshold': 300}
+
+N = data['N']
+assemblyHour = data['AssemblyHour']
+testingHour = data['TestingHour']
+materialCost = data['MaterialCost']
+maxAssembly = data['MaxAssembly']
+maxTesting = data['MaxTesting']
+price = data['Price']
+maxOvertimeAssembly = data['MaxOvertimeAssembly']
+overtimeAssemblyCost = data['OvertimeAssemblyCost']
+materialDiscount = data['MaterialDiscount']
+discountThreshold = data['DiscountThreshold']
+
+#### Define problem
+problem = pulp.LpProblem("Maximize_Profit", pulp.LpMaximize)
+
+#### Decision variables
+unitsProduced = [pulp.LpVariable(f"unitsProduced_{i}", lowBound=0, cat='Continuous') for i in range(N)]
+overtimeAssembly = pulp.LpVariable("overtimeAssembly", lowBound=0, upBound=maxOvertimeAssembly, cat='Continuous')
+
+#### Objective function
+revenue = pulp.lpSum([price[i] * unitsProduced[i] for i in range(N)])
+totalMaterialCost = pulp.lpSum([materialCost[i] * unitsProduced[i] for i in range(N)])
+discountedMaterialCost = totalMaterialCost * (1 - materialDiscount / 100 if totalMaterialCost > discountThreshold else 1)
+overtimeCost = overtimeAssembly * overtimeAssemblyCost
+profit = revenue - discountedMaterialCost - overtimeCost
+
+problem += profit
+
+#### Constraints
+problem += pulp.lpSum([assemblyHour[i] * unitsProduced[i] for i in range(N)]) <= maxAssembly + overtimeAssembly
+problem += pulp.lpSum([testingHour[i] * unitsProduced[i] for i in range(N)]) <= maxTesting
+
+#### Solve problem
+problem.solve()
+
+#### Output results
+dailyProfit = pulp.value(problem.objective)
+unitsProduced_values = [pulp.value(unitsProduced[i]) for i in range(N)]
+overtimeAssembly_value = pulp.value(overtimeAssembly)
+materialBought = pulp.value(totalMaterialCost)
+
+output = {
+    "dailyProfit": dailyProfit,
+    "unitsProduced": unitsProduced_values,
+    "overtimeAssembly": overtimeAssembly_value,
+    "materialBought": materialBought
+}
+
+print(output)
+print(f' (Objective Value): <OBJ>{pulp.value(problem.objective)}</OBJ>')
+```
+
+
+## START MESSAGE 2 
+### ROLE: Role.USER
+Fix the code based on the error
+
+## START MESSAGE 3 
+### ROLE: Role.USER
+<CODE_ERROR>
+Traceback (most recent call last):
+  File "/Users/kwiecs01/PrivProjects/MasterDegreeV2/src/experiment_2/experiment_2b2/10/15/python_code0.py", line 28, in <module>
+    discountedMaterialCost = totalMaterialCost * (1 - materialDiscount / 100 if totalMaterialCost > discountThreshold else 1)
+                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '>' not supported between instances of 'LpAffineExpression' and 'int'
+</CODE_ERROR>
+
+
+## START MESSAGE 4 
+### ROLE: Role.ASSISTANT
+```python
+import pulp
+
+#### Extract data
+data = {'N': 2, 'AssemblyHour': [0.25, 0.3333], 'TestingHour': [0.125, 0.3333], 'MaterialCost': [1.2, 0.9], 'MaxAssembly': 10, 'MaxTesting': 70, 'Price': [9, 8], 'MaxOvertimeAssembly': 50, 'OvertimeAssemblyCost': 5, 'MaterialDiscount': 10, 'DiscountThreshold': 300}
+
+N = data['N']
+assemblyHour = data['AssemblyHour']
+testingHour = data['TestingHour']
+materialCost = data['MaterialCost']
+maxAssembly = data['MaxAssembly']
+maxTesting = data['MaxTesting']
+price = data['Price']
+maxOvertimeAssembly = data['MaxOvertimeAssembly']
+overtimeAssemblyCost = data['OvertimeAssemblyCost']
+materialDiscount = data['MaterialDiscount']
+discountThreshold = data['DiscountThreshold']
+
+#### Define problem
+problem = pulp.LpProblem("Maximize_Profit", pulp.LpMaximize)
+
+#### Decision variables
+unitsProduced = [pulp.LpVariable(f"unitsProduced_{i}", lowBound=0, cat='Continuous') for i in range(N)]
+overtimeAssembly = pulp.LpVariable("overtimeAssembly", lowBound=0, upBound=maxOvertimeAssembly, cat='Continuous')
+materialBought = pulp.LpVariable("materialBought", lowBound=0, cat='Continuous')
+
+#### Objective function
+revenue = pulp.lpSum([price[i] * unitsProduced[i] for i in range(N)])
+totalMaterialCost = pulp.lpSum([materialCost[i] * unitsProduced[i] for i in range(N)])
+
+#### Apply discount only if totalMaterialCost exceeds the discount threshold
+discountedMaterialCost = totalMaterialCost - materialBought
+problem += materialBought >= totalMaterialCost - (materialDiscount / 100) * totalMaterialCost
+problem += materialBought >= totalMaterialCost - (materialDiscount / 100) * discountThreshold
+
+overtimeCost = overtimeAssembly * overtimeAssemblyCost
+
+profit = revenue - discountedMaterialCost - overtimeCost
+
+problem += profit
+
+#### Constraints
+problem += pulp.lpSum([assemblyHour[i] * unitsProduced[i] for i in range(N)]) <= maxAssembly + overtimeAssembly
+problem += pulp.lpSum([testingHour[i] * unitsProduced[i] for i in range(N)]) <= maxTesting
+
+#### Solve problem
+problem.solve()
+
+#### Output results
+dailyProfit = pulp.value(problem.objective)
+unitsProduced_values = [pulp.value(unitsProduced[i]) for i in range(N)]
+overtimeAssembly_value = pulp.value(overtimeAssembly)
+materialBought_value = pulp.value(materialBought)
+
+output = {
+    "dailyProfit": dailyProfit,
+    "unitsProduced": unitsProduced_values,
+    "overtimeAssembly": overtimeAssembly_value,
+    "materialBought": materialBought_value
+}
+
+print(output)
+print(f' (Objective Value): <OBJ>{pulp.value(problem.objective)}</OBJ>')
+```
+

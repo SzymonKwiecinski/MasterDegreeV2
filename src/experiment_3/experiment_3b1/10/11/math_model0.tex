@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item $x_i$ = units produced in month $i$, for $i = 1, 2, \ldots, T$.
+    \item $I_i$ = inventory at the end of month $i$, for $i = 1, 2, \ldots, T$.
+\end{itemize}
+
+\subsection*{Parameters}
+Given:
+\begin{itemize}
+    \item $deliver_i$ = units that must be delivered at the end of month $i$.
+    \item $storage\_cost$ = cost of storing one unit for one month.
+    \item $switch\_cost$ = cost incurred for switching production levels.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Cost} = \sum_{i=1}^{T} (storage\_cost \cdot I_i + switch\_cost \cdot |x_{i+1} - x_i|)
+\]
+subject to the conditions below.
+
+\subsection*{Constraints}
+1. Inventory balance constraints:
+\[
+I_i = I_{i-1} + x_i - deliver_i, \quad \forall i = 1, 2, \ldots, T
+\]
+with $I_0 = 0$ (initial inventory).
+
+2. Non-negativity constraints:
+\[
+x_i \geq 0, \quad I_i \geq 0, \quad \forall i = 1, 2, \ldots, T
+\]
+
+3. Final inventory constraint (no leftover inventory at the end of the year):
+\[
+I_T = 0
+\]
+
+This model effectively captures the production and inventory dynamics while minimizing costs associated with storage and production level changes.
+
+\end{document}

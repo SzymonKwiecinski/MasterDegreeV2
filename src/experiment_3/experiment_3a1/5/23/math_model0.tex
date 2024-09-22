@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Manpower Management}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item $K$: Set of manpower categories (e.g., skilled, semi-skilled, unskilled).
+    \item $I$: Set of future years.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $requirement_{k,i}$: Estimated manpower requirements for category $k$ in year $i$.
+    \item $strength_{k}$: Current strength of manpower in category $k$.
+    \item $lessonewaste_{k}$: Wastage rate of category $k$ manpower with less than one year's service.
+    \item $moreonewaste_{k}$: Wastage rate of category $k$ manpower with more than one year's service.
+    \item $recruit_{k}$: Maximum number of workers that can be recruited for category $k$.
+    \item $costredundancy_{k}$: Redundancy payment for category $k$ manpower.
+    \item $num\_overman$: Maximum number of overmanned workers across the company.
+    \item $costoverman_{k}$: Extra cost per employee per year for overmanning category $k$.
+    \item $num\_shortwork$: Maximum number of workers in each category that can be put on short-time working.
+    \item $costshort_{k}$: Cost per employee per year for short-time working of category $k$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $recruit_{k,i}$: Number of workers recruited for category $k$ in year $i$.
+    \item $overmanning_{k,i}$: Number of overmanned workers for category $k$ in year $i$.
+    \item $short_{k,i}$: Number of workers on short-time working for category $k$ in year $i$.
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{k \in K} \sum_{i \in I} \left( costredundancy_{k} \cdot redundancy_{k,i} + costoverman_{k} \cdot overmanning_{k,i} + costshort_{k} \cdot short_{k,i} \right)
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    \text{Current manpower for each category in year } i: \\
+    strength_{k} - \sum_{j=1}^{i} \left( lessonewaste_{k} \cdot recruit_{k,j} + moreonewaste_{k} \cdot strength_{k} \right) + recruit_{k,i} + overmanning_{k,i} - short_{k,i} & = requirement_{k,i} \quad \forall k \in K, \forall i \in I \\
+    \text{Wastage for less than one year: } \\
+    \sum_{j=1}^{i-1} recruit_{k,j} \cdot lessonewaste_{k} & \leq strength_{k} \quad \forall k \in K, \forall i \in I \\
+    \text{Wastage for more than one year: } \\
+    \sum_{j=1}^{i-1} (strength_{k} \cdot moreonewaste_{k}) & \leq strength_{k} \quad \forall k \in K, \forall i \in I \\
+    \text{Recruitment limits: } \\
+    recruit_{k,i} & \leq recruit_{k} \quad \forall k \in K, \forall i \in I \\
+    \text{Overmanning limits: } \\
+    \sum_{i=1}^{I} overmanning_{k,i} & \leq num\_overman \quad \forall k \in K \\
+    \text{Short-time working limits: } \\
+    short_{k,i} & \leq num\_shortwork \quad \forall k \in K, \forall i \in I \\
+    \text{Non-negativity: } \\
+    recruit_{k,i}, overmanning_{k,i}, short_{k,i} & \geq 0 \quad \forall k \in K, \forall i \in I 
+\end{align}
+
+\end{document}

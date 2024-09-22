@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Linear Regression}
+
+Let \( y_k \) be the \( k \)-th observed value of \( y \) and \( x_k \) be the \( k \)-th observed value of \( x \), for \( k = 1, 2, \ldots, K \). We aim to fit the best straight line given by the equation
+
+\[
+y = bx + a
+\]
+
+where \( b \) is the slope and \( a \) is the intercept. The objective is to minimize the sum of absolute deviations between observed values and predicted values.
+
+Define the deviation for each observation as
+
+\[
+d_k = y_k - (bx_k + a)
+\]
+
+Our objective function is to minimize the total absolute deviation, expressed as:
+
+\[
+\text{Minimize } \sum_{k=1}^{K} |d_k|
+\]
+
+To handle the absolute values, we introduce non-negative variables \( e_k \) such that:
+
+\[
+d_k \leq e_k \quad \text{and} \quad -d_k \leq e_k \quad \text{for } k = 1, 2, \ldots, K
+\]
+
+This allows us to rewrite our objective function as:
+
+\[
+\text{Minimize } \sum_{k=1}^{K} e_k
+\]
+
+Thus, the complete linear programming model can be formulated as follows:
+
+\begin{align*}
+\text{Minimize } & \sum_{k=1}^{K} e_k \\
+\text{subject to } & y_k - (bx_k + a) \leq e_k, \quad k = 1, \ldots, K \\
+& -(y_k - (bx_k + a)) \leq e_k, \quad k = 1, \ldots, K \\
+& e_k \geq 0, \quad k = 1, \ldots, K \\
+& b \text{ and } a \text{ are unrestricted in sign.}
+\end{align*}
+
+After solving this linear programming problem, the values of \( a \) and \( b \) will provide the slope and intercept of the fitted line, respectively.
+
+\end{document}

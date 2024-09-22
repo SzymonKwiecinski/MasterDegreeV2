@@ -1,0 +1,97 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for DEC Production Optimization}
+
+\subsection*{Sets and Parameters}
+Let \( N \) be the number of different computer systems.
+\begin{itemize}
+    \item \( is\_workstation_i \in \{0, 1\} \): indicator variable for whether system \( i \) is a workstation (1) or a general-purpose system (0).
+    \item \( price_i \): price of system \( i \) in dollars.
+    \item \( disk_i \): average number of disk drives requested by customers for system \( i \).
+    \item \( mem_i \): average units of 256K memory boards required for system \( i \).
+    \item \( max\_cpu \): maximum number of CPUs available.
+    \item \( min\_disk \): minimum number of disk drives available.
+    \item \( max\_disk \): maximum number of disk drives available.
+    \item \( min\_mem \): minimum number of 256K memory boards available.
+    \item \( max\_mem \): maximum number of 256K memory boards available.
+    \item \( demand_i \): maximum demand for system \( i \) in the next quarter.
+    \item \( demand\_GP \): maximum demand for the whole GP family.
+    \item \( demand\_WS \): maximum demand for the whole WS family.
+    \item \( preorder_i \): number of preorders for system \( i \).
+    \item \( alt\_mem \): units of alternative memory boards available.
+    \item \( alt\_compatible_i \in \{0, 1\} \): indicator for whether the alternative memory board can be used in system \( i \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let \( x_i \) denote the number of systems produced of type \( i \), where \( i = 1, \ldots, N \).
+
+Define:
+\[
+mem\_used_i = mem_i \cdot x_i
+\]
+\[
+alt\_used_i = \begin{cases} 
+0 & \text{if } alt\_compatible_i = 0 \\
+x_i & \text{if } alt\_compatible_i = 1 
+\end{cases}
+\]
+\[
+disk\_used_i = disk_i \cdot x_i
+\]
+
+\subsection*{Objective Function}
+Maximize total profit \( P \):
+\[
+P = \sum_{i=1}^{N} price_i \cdot x_i - \text{costs}
+\]
+
+\subsection*{Constraints}
+1. CPU constraint:
+\[
+\sum_{i=1}^{N} x_i \leq max\_cpu
+\]
+
+2. Disk drives constraint:
+\[
+\sum_{i=1}^{N} disk\_used_i \geq min\_disk
+\]
+\[
+\sum_{i=1}^{N} disk\_used_i \leq max\_disk
+\]
+
+3. Memory boards constraint:
+\[
+\sum_{i=1}^{N} mem\_used_i + \sum_{i=1}^{N} alt\_used_i \geq min\_mem
+\]
+\[
+\sum_{i=1}^{N} mem\_used_i + \sum_{i=1}^{N} alt\_used_i \leq max\_mem
+\]
+
+4. Demand constraints for each system:
+\[
+x_i \leq demand_i \quad \forall i
+\]
+
+5. Demand constraints for GP and WS families:
+\[
+\sum_{i \, : \, is\_workstation_i = 0} x_i \leq demand\_GP
+\]
+\[
+\sum_{i \, : \, is\_workstation_i = 1} x_i \leq demand\_WS
+\]
+
+6. Preorder constraints:
+\[
+x_i \geq preorder_i \quad \forall i
+\]
+
+\subsection*{Output}
+The output will include:
+\begin{itemize}
+    \item A list of systems produced with the number of systems, total memory boards used, total alternative boards used, and total disk drives used.
+    \item The total profit for the next quarter.
+\end{itemize}
+
+\end{document}

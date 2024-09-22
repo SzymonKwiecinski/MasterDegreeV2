@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mixed Integer Linear Programming Model}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $C$: Capacity of each floppy disk (in GB)
+    \item $S_j$: Size of file $j$ (for $j = 1, 2, \ldots, N$)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_{ij}$: 1 if file $j$ is assigned to disk $i$, 0 otherwise
+    \item $y_i$: 1 if disk $i$ is used, 0 otherwise
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align}
+\text{Minimize } z & = \sum_{i} y_i
+\end{align}
+
+\textbf{Constraints:}
+\begin{align}
+\sum_{j} x_{ij} & \leq C \cdot y_i, \quad \forall i \quad \text{(Disk capacity constraint)} \\
+\sum_{i} x_{ij} & = 1, \quad \forall j \quad \text{(Each file is assigned to exactly one disk)} \\
+x_{ij} & \in \{0, 1\}, \quad \forall i,j \quad \text{(Binary variable indicating assignment)} \\
+y_i & \in \{0, 1\}, \quad \forall i \quad \text{(Binary variable indicating if disk is used)}
+\end{align}
+
+\textbf{Output:}
+\begin{itemize}
+    \item $n\_disks$: Total number of floppy disks used, calculated as $n\_disks = \sum_{i} y_i$
+    \item $whichdisk[j]$: The disk assigned to file $j$, determined by the values of $x_{ij}$
+\end{itemize}
+
+\end{document}

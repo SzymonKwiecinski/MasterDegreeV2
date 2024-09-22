@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Advertising Campaign}
+
+\subsection*{Decision Variables}
+Let \( x_a \) be the number of clicks purchased for ad type \( a \) (in thousands), where \( a = 1, 2, \ldots, A \).
+
+\subsection*{Objective Function}
+Minimize the total cost of the advertising campaign:
+\[
+\text{Minimize } Z = \sum_{a=1}^{A} \text{cost}_a \cdot x_a
+\]
+
+\subsection*{Constraints}
+
+\subsubsection*{Click Goals}
+The total number of clicks from visitors aged 18-25 must meet the goal:
+\[
+\sum_{a=1}^{A} \text{young\_click}_{a} \cdot x_a \geq \text{goal\_young}
+\]
+
+The total number of clicks from visitors older than 25 must meet the goal:
+\[
+\sum_{a=1}^{A} \text{old\_click}_{a} \cdot x_a \geq \text{goal\_old}
+\]
+
+\subsubsection*{Unique Click Goals}
+The total number of unique clicks from visitors aged 18-25 must meet the goal:
+\[
+\sum_{a=1}^{A} \text{unique\_click}_{a} \cdot x_a \geq \text{goal\_unique\_young}
+\]
+
+The total number of unique clicks from visitors older than 25 must meet the goal:
+\[
+\sum_{a=1}^{A} \text{unique\_click}_{a} \cdot x_a \geq \text{goal\_unique\_old}
+\]
+
+\subsubsection*{Maximum Click Constraints}
+The number of clicks purchased for each ad type must not exceed its maximum allowable clicks:
+\[
+x_a \leq \text{max\_click}_{a} \quad \forall a = 1, 2, \ldots, A
+\]
+
+\subsubsection*{Non-negativity Constraints}
+The number of clicks cannot be negative:
+\[
+x_a \geq 0 \quad \forall a = 1, 2, \ldots, A
+\]
+
+\subsection*{Summary}
+The linear programming model to minimize the total cost for the advertising campaign can be summarized as follows:
+
+\begin{align*}
+\text{Minimize } & Z = \sum_{a=1}^{A} \text{cost}_a \cdot x_a \\
+\text{subject to } & \sum_{a=1}^{A} \text{young\_click}_{a} \cdot x_a \geq \text{goal\_young} \\
+& \sum_{a=1}^{A} \text{old\_click}_{a} \cdot x_a \geq \text{goal\_old} \\
+& \sum_{a=1}^{A} \text{unique\_click}_{a} \cdot x_a \geq \text{goal\_unique\_young} \\
+& \sum_{a=1}^{A} \text{unique\_click}_{a} \cdot x_a \geq \text{goal\_unique\_old} \\
+& x_a \leq \text{max\_click}_{a} \quad \forall a \\
+& x_a \geq 0 \quad \forall a
+\end{align*}
+
+\end{document}

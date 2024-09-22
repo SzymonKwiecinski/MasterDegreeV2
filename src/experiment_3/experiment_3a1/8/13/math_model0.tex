@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for the Chebyshev Center}
+
+Given a set \( P \) described by the linear inequalities:
+
+\[
+P = \{ \mathbf{x} \in \mathbb{R}^N \mid \mathbf{a}_i^T \mathbf{x} \leq b_i, \; i = 1, \ldots, m \}
+\]
+
+where \( \mathbf{a}_i \in \mathbb{R}^N \) and \( b_i \in \mathbb{R} \).
+
+We aim to find the largest ball with center \( \mathbf{y} \) and radius \( r \) that is entirely contained within the set \( P \). The ball is defined as:
+
+\[
+B(\mathbf{y}, r) = \{ \mathbf{x} \in \mathbb{R}^N \mid \|\mathbf{x} - \mathbf{y}\| \leq r \}
+\]
+
+The problem can be formulated as a linear programming problem as follows:
+
+\begin{align*}
+\text{Maximize} \quad & r \\
+\text{subject to} \quad & \mathbf{a}_i^T \mathbf{y} + r \|\mathbf{a}_i\|_2 \leq b_i, \; i = 1, \ldots, m \\
+& r \geq 0 \\
+\end{align*}
+
+where \( \|\mathbf{a}_i\|_2 \) denotes the Euclidean norm of the vector \( \mathbf{a}_i \).
+
+\subsection*{Input Format}
+
+The input consists of:
+\begin{itemize}
+    \item \( A \): A matrix where each row corresponds to \( \mathbf{a}_i \).
+    \item \( b \): A vector where each element corresponds to \( b_i \).
+\end{itemize}
+
+\subsection*{Output Format}
+
+The output is given as:
+\begin{verbatim}
+{
+    "center": [y_j for j in 1, ..., n],
+    "radius": r
+}
+\end{verbatim}
+
+\end{document}

@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Optimal Path in a Grid}
+
+We consider the delivery problem on an \(N \times W\) grid where the delivery person can travel north or west. Let us define the variables and the objective function.
+
+Let:
+
+\begin{itemize}
+    \item \( \text{west\_time}_{n,w} \) be the time taken to move west from intersection \( (w,n) \).
+    \item \( \text{north\_time}_{n,w} \) be the time taken to move north from intersection \( (w,n) \).
+    \item \( \text{total\_time} \) be the total time taken to travel from \( (1, 1) \) to \( (W, N) \).
+    \item \( x_{n,w} \) be the decision variable indicating the path taken at intersection \( (w,n) \).
+\end{itemize}
+
+The objective is to minimize the total travel time:
+
+\[
+\text{minimize} \quad Z = \sum_{n=1}^{N-1} \sum_{w=1}^{W-1} \left( x_{n,w} \cdot \text{west\_time}_{n,w} + y_{n,w} \cdot \text{north\_time}_{n,w} \right)
+\]
+
+where 
+
+\[
+y_{n,w} = 
+\begin{cases} 
+1 & \text{if moving north at } (w,n) \\ 
+0 & \text{otherwise} 
+\end{cases} 
+\]
+
+The constraints are as follows:
+
+1. The flow must satisfy the movement constraints:
+   - For moving west at \( (w,n) \):
+   \[
+   x_{n,w} + y_{n-1,w} = 
+   \begin{cases} 
+   1 & \text{if } n = 1, w = 1 \\ 
+   0 & \text{otherwise}
+   \end{cases}
+   \]
+
+2. At the final intersection \( (W,N) \):
+   \[
+   x_{N-1,W-1} + y_{N-1,W-1} = 1
+   \]
+
+3. Non-negativity:
+\[
+x_{n,w} \geq 0, \quad y_{n,w} \geq 0
+\]
+
+The outputs we desire include the paths taken and the total travel time:
+
+\begin{itemize}
+    \item \( \text{paths} = \{ (street_{n}, avenue_{w}) \; | \; \text{id} \in \{1, \ldots, m\} \} \)
+    \item \( \text{total\_time} = Z \)
+\end{itemize}
+
+\end{document}

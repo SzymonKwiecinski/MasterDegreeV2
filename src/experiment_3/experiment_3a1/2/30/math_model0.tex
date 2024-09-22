@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Quadratic Curve Fitting using Linear Programming}
+
+Given a set of corresponding values for \(y\) and \(x\) where
+
+\[
+y = [y_{k} \text{ for } k = 1,...,K]
+\]
+
+\[
+x = [x_{k} \text{ for } k = 1,...,K]
+\]
+
+our objective is to fit a quadratic curve of the form:
+
+\[
+y = c \cdot x^2 + b \cdot x + a
+\]
+
+by minimizing the sum of absolute deviations between the observed values of \(y\) and those predicted by the model.
+
+\subsection*{Mathematical Model}
+
+Let \( y_k \) be the observed value at \( x_k \). We need to define our decision variables and constraints as follows:
+
+\begin{align*}
+\text{Minimize } & \sum_{k=1}^{K} |y_k - (c \cdot x_k^2 + b \cdot x_k + a)| \\
+\text{subject to } & \\
+& z_k \geq y_k - (c \cdot x_k^2 + b \cdot x_k + a) \quad \text{for } k = 1, \ldots, K \\
+& z_k \geq -(y_k - (c \cdot x_k^2 + b \cdot x_k + a)) \quad \text{for } k = 1, \ldots, K \\
+& z_k \geq 0 \quad \text{for } k = 1, \ldots, K
+\end{align*}
+
+where \( z_k \) represents the absolute deviation for each \( k \).
+
+The linear programming formulation will yield the optimal coefficients \(c\), \(b\), and \(a\) that minimize the sum of the absolute deviations \( \sum_{k=1}^{K} z_k \).
+
+\subsection*{Output Format}
+
+The output will provide the optimal coefficients in the following format:
+
+\[
+\{
+    \text{"quadratic"}: c,
+    \text{"linear"}: b,
+    \text{"constant"}: a
+\}
+\]
+
+\end{document}

@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Department Relocation Optimization}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item $k$: Index for departments, where $k = 1, \ldots, K$
+    \item $l$: Index for cities, where $l = 1, \ldots, L$
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $benefit_{k,l}$: Benefits for department $k$ from relocation at city $l$ (in thousands of pounds)
+    \item $communication_{k,j}$: Quantity of communication between department $k$ and department $j$
+    \item $cost_{l,m}$: Unit cost of communication between city $l$ and city $m$
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item $islocated_{k,l}$: Binary variable indicating whether department $k$ is relocated at city $l$ (1 if yes, 0 otherwise)
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} \sum_{l=1}^{L} islocated_{k,l} \cdot \left( \sum_{j=1}^{K} communication_{k,j} \cdot \sum_{m=1}^{L} cost_{l,m} \cdot islocated_{j,m} - benefit_{k,l} \right)
+\]
+
+\textbf{Subject to:}
+\begin{itemize}
+    \item \textbf{Department location constraint:} Each department must be located in one city:
+    \[
+    \sum_{l=1}^{L} islocated_{k,l} = 1, \quad \forall k
+    \]
+
+    \item \textbf{City capacity constraint:} No more than three departments can be located in any city:
+    \[
+    \sum_{k=1}^{K} islocated_{k,l} \leq 3, \quad \forall l
+    \]
+
+    \item \textbf{Binary variable constraint:} The location variable must be binary:
+    \[
+    islocated_{k,l} \in \{0, 1\}, \quad \forall k, \forall l
+    \]
+\end{itemize}
+
+\end{document}

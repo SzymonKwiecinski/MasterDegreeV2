@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Mathematical Model for Cutting Paper Rolls}
+\author{Paper Company}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+A paper company produces large rolls of paper with a width of \( \text{large\_roll\_width} \) inches. These large rolls are cut into smaller rolls of various widths to meet customer demand. The objective is to determine the minimum number of large rolls needed to fulfill all orders based on given cutting patterns.
+
+\section*{Parameters}
+\begin{itemize}
+    \item \( L \): Large roll width (inches)
+    \item \( M \): Number of different types of smaller rolls
+    \item \( \text{inch}_j \): Width of small roll \( j \) (for \( j = 1, \ldots, M \))
+    \item \( \text{demand}_j \): Demand for small roll \( j \) (for \( j = 1, \ldots, M \))
+    \item \( N \): Number of different cutting patterns
+    \item \( \text{pattern}_{i,j} \): Number of small rolls of width \( j \) produced using pattern \( i \) (for \( i = 1, \ldots, N \) and \( j = 1, \ldots, M \))
+\end{itemize}
+
+\section*{Decision Variables}
+\begin{itemize}
+    \item \( x_i \): Number of times cutting pattern \( i \) is applied (for \( i = 1, \ldots, N \))
+\end{itemize}
+
+\section*{Objective Function}
+Minimize the total number of large rolls used:
+\[
+\text{Minimize} \quad \sum_{i=1}^{N} x_i
+\]
+
+\section*{Constraints}
+\begin{itemize}
+    \item Demand fulfillment constraints:
+    \[
+    \sum_{i=1}^{N} x_i \cdot \text{pattern}_{i,j} \geq \text{demand}_j \quad \text{for } j = 1, \ldots, M
+    \]
+    
+    \item Non-negativity constraints:
+    \[
+    x_i \geq 0 \quad \text{and integer for } i = 1, \ldots, N
+    \]
+\end{itemize}
+
+\section*{Output Format}
+The output will detail the cutting patterns applied to the large rolls and the total number of large rolls used:
+\begin{verbatim}
+{
+    "patterns": [
+        {
+         "pattern": [pattern_j for j in 1, ..., M],
+         "amount": amount_i
+        }
+        for i in 1, ..., N
+    ],
+    "total_large_rolls_used": total_large_rolls
+}
+\end{verbatim}
+
+\end{document}

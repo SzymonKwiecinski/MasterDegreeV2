@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Wild Sports Production}
+
+\subsection*{Variables}
+Let \( x_j \) be the amount produced of product \( j \) for \( j = 1, \ldots, M \).
+
+\subsection*{Objective Function}
+The objective is to maximize the total profit, which can be expressed as:
+\[
+\text{Maximize } Z = \sum_{j=1}^{M} (price_j - cost_j) \cdot x_j
+\]
+
+\subsection*{Constraints}
+1. **Raw Material Constraints**:
+   For each raw material \( i \) (where \( i = 1, \ldots, N \)):
+   \[
+   \sum_{j=1}^{M} req_{i,j} \cdot x_j \leq available_i
+   \]
+
+2. **Demand Constraints**:
+   For each product \( j \):
+   \[
+   x_j \leq demand_j
+   \]
+
+3. **Non-negativity Constraints**:
+   For each product \( j \):
+   \[
+   x_j \geq 0
+   \]
+
+\subsection*{Input Format}
+The input format for the model is as follows:
+\begin{verbatim}
+{
+    "available": [available_{i} for i in 1, ..., N],
+    "requirements": [[req_{i,j} for i in 1, ..., N] for j in 1, ..., M],
+    "prices": [price_{j} for j in 1, ..., M],
+    "costs": [cost_{j} for j in 1, ..., M],
+    "demands": [demand_{j} for j in 1, ..., M]
+}
+\end{verbatim}
+
+\subsection*{Output Format}
+The output format of the solution will be:
+\begin{verbatim}
+{
+    "amount": [amount_{j} for j in 1, ..., M],
+    "total_profit": total_profit
+}
+\end{verbatim}
+
+\end{document}

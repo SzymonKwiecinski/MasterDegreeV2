@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Communication Network}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( n \) be the number of nodes.
+    \item Let \( A \) be the set of all links.
+    \item Each link \( (i,j) \in A \) carries up to \( U_{i,j} \) bits per second.
+    \item Each link \( (i,j) \) has a cost \( C_{i,j} \) per bit transmitted.
+    \item Each node \( k \) generates data at the rate \( B_{k,l} \) bits per second for node \( l \).
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item Let \( x_{i,j} \) be the flow of data transmitted along link \( (i,j) \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{(i,j) \in A} C_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+1. Flow conservation for each node \( k \):
+\[
+\sum_{j : (k,j) \in A} x_{k,j} - \sum_{i : (i,k) \in A} x_{i,k} = B_{k,l} \quad \forall k \text{ (source nodes)}
+\]
+
+2. Capacity constraint for each link \( (i,j) \):
+\[
+x_{i,j} \leq U_{i,j} \quad \forall (i,j) \in A
+\]
+
+3. Non-negativity constraints:
+\[
+x_{i,j} \geq 0 \quad \forall (i,j) \in A
+\]
+
+\subsection*{Output Specification}
+The solution will provide:
+\begin{itemize}
+    \item \texttt{optimized\_paths}: A collection of paths along which the data is transmitted.
+    \item For each path from source \( k \) to destination \( l \):
+    \begin{itemize}
+        \item \texttt{source}: \( k \)
+        \item \texttt{destination}: \( l \)
+        \item \texttt{route}: A sequence of nodes representing the path, e.g., \([k, i_1, i_2, ..., l]\)
+        \item \texttt{path\_flow}: The flow through that path
+        \item \texttt{path\_cost}: The cost of that path
+    \end{itemize}
+    \item \texttt{total\_cost}: The total cost incurred for all paths.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item Let \( K \) be the set of spare parts, indexed by \( k \).
+    \item Let \( S \) be the set of shops, indexed by \( s \).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{time}_{k,s} \): Worker-hours required for part \( k \) in shop \( s \).
+    \item \( \text{profit}_{k} \): Profit from producing part \( k \).
+    \item \( \text{capacity}_{s} \): Maximum working hours available in shop \( s \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{quantity}_{k} \): Quantity of part \( k \) to be produced.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize} \quad Z = \sum_{k=1}^{K} \text{profit}_{k} \cdot \text{quantity}_{k}
+\]
+
+\subsection*{Constraints}
+Subject to the constraints:
+\[
+\sum_{k=1}^{K} \text{time}_{k,s} \cdot \text{quantity}_{k} \leq \text{capacity}_{s}, \quad \forall s \in S
+\]
+
+\[
+\text{quantity}_{k} \geq 0, \quad \forall k \in K
+\]
+
+\subsection*{Output}
+\begin{itemize}
+    \item The output will provide the optimal quantities of each spare part:
+    \[
+    \text{quantity} = [\text{quantity}_{k} \text{ for } k = 1, \ldots, K]
+    \]
+\end{itemize}
+
+\end{document}

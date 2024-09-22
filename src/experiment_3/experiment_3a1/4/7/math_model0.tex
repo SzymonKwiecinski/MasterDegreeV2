@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Trajectory Optimization Problem}
+
+Let \( x_t \), \( v_t \), and \( a_t \) be the position, velocity, and acceleration of the rocket at time \( t \), respectively. The discrete-time model can be formulated as follows:
+
+\begin{align}
+    x_{t+1} &= x_t + v_t \\
+    v_{t+1} &= v_t + a_t
+\end{align}
+
+We are given the initial conditions:
+
+\begin{align*}
+    x_0 & = \text{initial position} \\
+    v_0 & = \text{initial velocity} \\
+\end{align*}
+
+The objective is to reach a target position \( x_T \) with a target velocity \( v_T \) at time \( T \). The goal is to minimize the maximum thrust required, which can be expressed as:
+
+\[
+\text{Minimize} \quad \max_{t=0}^{T} |a_t|
+\]
+
+\text{Subject to:}
+
+\begin{align}
+    x_T &= x_0 + \sum_{t=0}^{T-1} v_t \\
+    v_T &= v_0 + \sum_{t=0}^{T-1} a_t
+\end{align}
+
+The variables are defined as follows:
+
+- \( a_t \) is controlled acceleration, reflecting fuel consumption.
+- We aim to minimize the fuel spent given by the maximum of the absolute values of acceleration over time.
+
+The output of the model will be summarized as follows:
+
+\begin{align*}
+    \text{Output:} \\
+    & \text{"x"}: [x_i \text{ for } i = 0, \ldots, T] \\
+    & \text{"v"}: [v_i \text{ for } i = 0, \ldots, T] \\
+    & \text{"a"}: [a_i \text{ for } i = 0, \ldots, T] \\
+    & \text{"fuel\_spend"}: \text{total fuel spent by the rocket}
+\end{align*}
+
+\end{document}

@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Nurse Scheduling}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $j \in \{1, 2, \ldots, 7\}$: Index for days of the week
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $d_j$: Demand for nurses on day $j$, where $j = 1, \ldots, 7$
+    \item $period$: Number of consecutive days a nurse works in a row
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $start_j$: Number of nurses that start their shift on day $j$, where $j = 1, \ldots, 7$
+    \item $total$: Total number of nurses hired
+\end{itemize}
+
+\subsection*{Objective Function}
+\begin{align*}
+\text{Minimize } & total \\
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+\text{For each day } j: & \\
+& \sum_{k=0}^{period-1} start_{(j-k) \mod 7} \geq d_j, \quad \text{for } j = 1, \ldots, 7 \\
+& total = \sum_{j=1}^{7} start_j \\
+\end{align*}
+
+\subsection*{Output}
+\begin{itemize}
+    \item $start_j$ for each day $j = 1, \ldots, 7$
+    \item $total$
+\end{itemize}
+
+\end{document}

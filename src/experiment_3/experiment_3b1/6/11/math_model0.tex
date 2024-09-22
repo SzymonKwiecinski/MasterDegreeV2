@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Production and Inventory Scheduling}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+
+Let:
+\begin{itemize}
+    \item $T$ be the total number of months.
+    \item $deliver_i$ be the number of units to deliver at the end of month $i$ for $i=1, \ldots, T$.
+    \item $storage\_cost$ be the cost for storing one unit of product for one month.
+    \item $switch\_cost$ be the cost incurred for changing the production level from month $i$ to month $i+1$.
+    \item $x_i$ be the number of units produced in month $i$.
+    \item $inv_i$ be the inventory held at the end of month $i$.
+\end{itemize}
+
+\section*{Variables}
+\begin{itemize}
+    \item Decision variables:
+    \begin{itemize}
+        \item $x_i \geq 0$, for $i = 1, 2, \ldots, T$ (units produced in month $i$)
+        \item $inv_i \geq 0$, for $i = 1, 2, \ldots, T$ (inventory at the end of month $i$)
+    \end{itemize}
+\end{itemize}
+
+\section*{Objective Function}
+The objective is to minimize the total cost, which consists of storage costs and switching costs:
+\[
+\text{Minimize} \quad \sum_{i=1}^T (storage\_cost \cdot inv_i + switch\_cost \cdot |x_{i+1} - x_i| )
+\]
+
+\section*{Constraints}
+1. Inventory balance equation for each month:
+\[
+inv_i = inv_{i-1} + x_i - deliver_i \quad \forall i = 1, 2, \ldots, T
+\]
+with the initial condition \( inv_0 = 0 \).
+
+2. Non-negativity constraints for production and inventory:
+\[
+x_i \geq 0 \quad \forall i = 1, 2, \ldots, T
+\]
+\[
+inv_i \geq 0 \quad \forall i = 1, 2, \ldots, T
+\]
+
+3. The last month's inventory has no storage cost:
+\[
+inv_T = 0
+\]
+
+\end{document}

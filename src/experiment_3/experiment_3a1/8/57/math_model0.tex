@@ -1,0 +1,87 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Seaport Operations}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $t$: Index for months, where $t = 1, 2, \ldots, T$
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $demand_{t}$: Demand for containers by ships in month $t$
+    \item $unload\_cost_{t}$: Unloading cost per container in month $t$
+    \item $unload\_capacity_{t}$: Maximum number of containers that can be unloaded in month $t$
+    \item $holding\_cost$: Holding cost per container
+    \item $max\_container$: Maximum number of containers that can be stored in the yard
+    \item $init\_container$: Initial number of containers at the start of month 1
+    \item $num\_cranes$: Maximum number of cranes that can be rented each month
+    \item $crane\_capacity$: Capacity of each crane
+    \item $crane\_cost$: Cost for renting one crane
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $amount_{t}$: Number of containers unloaded in month $t$
+    \item $crane_{t}$: Number of cranes rented in month $t$
+    \item $inventory_{t}$: Number of containers in the yard at the end of month $t$
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize total costs:
+\[
+\text{minimize } Z = \sum_{t=1}^{T} (unload\_cost_{t} \cdot amount_{t} + holding\_cost \cdot inventory_{t} + crane\_cost \cdot crane_{t})
+\]
+
+\subsection*{Constraints}
+
+1. **Demand Fulfillment**:
+\[
+inventory_{t-1} + amount_{t} - crane_{t} \cdot crane\_capacity \geq demand_{t}, \quad \forall t \in \{1, \ldots, T\}
+\]
+
+2. **Unloading Capacity**:
+\[
+amount_{t} \leq unload\_capacity_{t}, \quad \forall t \in \{1, \ldots, T\}
+\]
+
+3. **Initial Inventory**:
+\[
+inventory_{1} = init\_container + amount_{1} - crane_{1} \cdot crane\_capacity
+\]
+
+4. **Inventory Update**:
+\[
+inventory_{t} = inventory_{t-1} + amount_{t} - crane_{t} \cdot crane\_capacity, \quad \forall t \in \{2, \ldots, T\}
+\]
+
+5. **Maximum Inventory**:
+\[
+inventory_{t} \leq max\_container, \quad \forall t \in \{1, \ldots, T\}
+\]
+
+6. **Final Inventory**:
+\[
+inventory_{T} = 0
+\]
+
+7. **Crane Constraints**:
+\[
+crane_{t} \leq num\_cranes, \quad \forall t \in \{1, \ldots, T\}
+\]
+
+8. **Non-negativity**:
+\[
+amount_{t} \geq 0, \quad crane_{t} \geq 0, \quad inventory_{t} \geq 0, \quad \forall t \in \{1, \ldots, T\}
+\]
+
+\subsection*{Output Variables}
+\begin{itemize}
+    \item $containers\_unloaded = [amount_{1}, amount_{2}, \ldots, amount_{T}]$
+    \item $cranes\_rented = [crane_{1}, crane_{2}, \ldots, crane_{T}]$
+    \item $total\_cost = Z$
+\end{itemize}
+
+\end{document}

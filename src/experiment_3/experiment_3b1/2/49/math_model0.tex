@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\subsection*{Decision Variables}
+Let \( batches_p \) represent the number of batches produced of part \( p \) for \( p = 1, 2, \ldots, P \).
+
+\subsection*{Parameters}
+\begin{align*}
+time_{m,p} & : \text{hours required on machine } m \text{ for part } p, \quad m = 1, \ldots, M, \; p = 1, \ldots, P \\
+cost_m & : \text{cost per hour for using machine } m, \quad m = 1, \ldots, M \\
+available_m & : \text{availability of machine } m \text{ in hours per month}, \quad m = 1, \ldots, M \\
+price_p & : \text{price per batch sold for part } p, \quad p = 1, \ldots, P \\
+min\_batches_p & : \text{minimum batches required for part } p, \quad p = 1, \ldots, P \\
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} (price_p \cdot batches_p) - \sum_{m=1}^{M} (cost_m \cdot \sum_{p=1}^{P} (time_{m,p} \cdot batches_p))
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+\text{1. Production Constraints:} \quad & batches_p \geq min\_batches_p \quad \forall p = 1, \ldots, P \\
+\text{2. Machine Availability Constraints:} \quad & \sum_{p=1}^{P} (time_{m,p} \cdot batches_p) \leq available_m \quad \forall m = 1, \ldots, M \\
+\text{3. Shared Availability for Machine } M \text{ and } M-1: \quad & \sum_{p=1}^{P} (time_{M,p} \cdot batches_p) + \sum_{p=1}^{P} (time_{M-1,p} \cdot batches_p) \leq available_{M} + available_{M-1} \\
+\text{4. Non-negativity Constraints:} \quad & batches_p \geq 0 \quad \forall p = 1, \ldots, P 
+\end{align*}
+
+\subsection*{Output}
+\text{The solution will provide:}
+\begin{align*}
+batches & : [batches_p \text{ for } p = 1, \ldots, P] \\
+total\_profit & : \text{ Total profit obtained for the month }
+\end{align*}
+
+\end{document}

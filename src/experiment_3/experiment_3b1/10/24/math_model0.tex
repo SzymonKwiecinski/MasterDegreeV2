@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Mining Operations}
+
+\subsection*{Parameters}
+
+\begin{itemize}
+    \item Let \( n_mines \) be the total number of mines.
+    \item Let \( n_{maxwork} \) be the maximum number of mines that can operate in any one year.
+    \item Let \( royalty_k \) be the yearly royalty payable on mine \( k \).
+    \item Let \( limit_k \) be the upper limit of ore that can be extracted from mine \( k \) in a year.
+    \item Let \( quality_k \) be the quality of the ore from mine \( k \).
+    \item Let \( requiredquality_i \) be the required quality of blended ore in year \( i \).
+    \item Let \( price \) be the selling price per ton of blended ore each year.
+    \item Let \( discount \) be the discount rate per annum.
+\end{itemize}
+
+\subsection*{Variables}
+
+\begin{itemize}
+    \item Let \( isoperated_{k,i} \) be a binary variable that indicates whether mine \( k \) is operated in year \( i \) (1 if operated, 0 otherwise).
+    \item Let \( amount_{k,i} \) be the amount of ore produced by mine \( k \) in year \( i \).
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Maximize the total profit over the planning horizon:
+
+\[
+\text{Maximize } Z = \sum_{i=1}^{I} \left( \frac{price \cdot \sum_{k=1}^{n_{mines}} amount_{k,i}}{(1 + discount)^{i-1}} - \sum_{k=1}^{n_{mines}} royalty_k \cdot isoperated_{k,i} \right)
+\]
+
+\subsection*{Constraints}
+
+1. **Operating Mines Limit**:
+\[
+\sum_{k=1}^{n_{mines}} isoperated_{k,i} \leq n_{maxwork}, \quad \forall i \in \{1, \ldots, I\}
+\]
+
+2. **Quality Constraint**:
+\[
+\sum_{k=1}^{n_{mines}} \frac{quality_k \cdot amount_{k,i}}{\sum_{k=1}^{n_{mines}} amount_{k,i}} = requiredquality_i, \quad \forall i \in \{1, \ldots, I\}
+\]
+
+3. **Production Limits**:
+\[
+amount_{k,i} \leq limit_k \cdot isoperated_{k,i}, \quad \forall k \in \{1, \ldots, n_{mines}\}, \forall i \in \{1, \ldots, I\}
+\]
+
+4. **Open Mines Condition**:
+\[
+isoperated_{k,i} \in \{0, 1\}, \quad \forall k \in \{1, \ldots, n_{mines}\}, \forall i \in \{1, \ldots, I\}
+\]
+
+5. **Non-negativity**:
+\[
+amount_{k,i} \geq 0, \quad \forall k \in \{1, \ldots, n_{mines}\}, \forall i \in \{1, \ldots, I\}
+\]
+
+\end{document}

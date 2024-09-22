@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\subsection*{Variables}
+Let \( b_p \) be the number of batches produced for part \( p \), where \( p = 1, 2, \ldots, P \).
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} \left( \text{price}_p \cdot b_p - \sum_{m=1}^{M} \text{cost}_m \cdot \left(\frac{\text{time}_{m,p}}{100}\right) b_p \right) - \text{LaborCosts}
+\]
+
+Where the labor costs are given by:
+\[
+\text{LaborCosts} = 
+\begin{cases} 
+\text{standard\_cost} \cdot (b_1 \cdot \frac{\text{time}_{1,1}}{100} \text{ if } (b_1 \cdot \frac{\text{time}_{1,1}}{100} \leq \text{overtime\_hour}) \\ 
+\text{overtime\_cost} \cdot (b_1 \cdot \frac{\text{time}_{1,1}}{100} - \text{overtime\_hour}) + \text{standard\_cost} \cdot \text{overtime\_hour} \text{ otherwise}
+\end{cases}
+\]
+
+\subsection*{Constraints}
+
+1. **Production Requirement**:
+   \[
+   b_p \geq \text{min\_batches}_p \quad \forall p
+   \]
+
+2. **Machine Availability**:
+   For \( m = 1, 2, \ldots, M \):
+   \[
+   \sum_{p=1}^{P} \left(\frac{\text{time}_{m,p}}{100} \cdot b_p\right) \leq \text{available}_m \quad \forall m
+   \]
+
+3. **Non-negativity**:
+   \[
+   b_p \geq 0 \quad \forall p
+   \]
+
+\subsection*{Output Format}
+The solution provides the number of batches of each part produced:
+\[
+\text{Output: } \{ b_p \, \text{for } p = 1, \ldots, P, \, \text{total\_profit} = Z \}
+\]
+
+\end{document}

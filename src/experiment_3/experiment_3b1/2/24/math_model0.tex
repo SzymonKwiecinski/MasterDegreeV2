@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Mining Operations}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $n_mines$: Total number of mines
+    \item $n_{maxwork}$: Maximum number of mines that can operate in a year
+    \item $royalty_k$: Yearly royalty payable for keeping mine $k$ open
+    \item $limit_k$: Maximum amount of ore that can be extracted from mine $k$ in a year
+    \item $quality_k$: Quality of the ore from mine $k$
+    \item $requiredquality_i$: Required quality of the blended ore in year $i$
+    \item $price$: Selling price per ton of the blended ore
+    \item $discount$: Discount rate per annum
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $isoperated_{k,i}$: Binary variable, 1 if mine $k$ is operated in year $i$, 0 otherwise
+    \item $amount_{k,i}$: Amount of ore produced by mine $k$ in year $i$
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{i=1}^{I} \left( \sum_{k=1}^{K} (price \cdot amount_{k,i}) - \sum_{k=1}^{K} (royalty_k \cdot (1 - isoperated_{k,i})) \right) \cdot \frac{1}{(1 + discount)^i}
+\]
+
+\textbf{Constraints:}
+\begin{itemize}
+    \item \textbf{Production and Quality Constraint:}
+    \[
+    \sum_{k=1}^{K} \frac{quality_k \cdot amount_{k,i}}{\sum_{j=1}^{K} amount_{j,i}} = requiredquality_i \quad \forall i
+    \]
+    
+    \item \textbf{Extraction Limit Constraint:}
+    \[
+    amount_{k,i} \leq limit_k \cdot isoperated_{k,i} \quad \forall k, \forall i
+    \]
+    
+    \item \textbf{Operating Mines Limit Constraint:}
+    \[
+    \sum_{k=1}^{K} isoperated_{k,i} \leq n_{maxwork} \quad \forall i
+    \]
+
+    \item \textbf{Non-negativity Constraint:}
+    \[
+    amount_{k,i} \geq 0 \quad \forall k, \forall i
+    \]
+    
+    \item \textbf{Binary Constraint:}
+    \[
+    isoperated_{k,i} \in \{0, 1\} \quad \forall k, \forall i
+    \]
+\end{itemize}
+
+\textbf{Output Variables:}
+\begin{itemize}
+    \item $isoperated$: Operation status of each mine in each year
+    \item $amount$: Amount of ore produced by each mine in each year
+\end{itemize}
+
+\end{document}

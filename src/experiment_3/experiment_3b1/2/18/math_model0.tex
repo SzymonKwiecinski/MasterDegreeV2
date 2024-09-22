@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Oil Refining and Blending}
+
+\subsection*{Decision Variables}
+\begin{align*}
+& \text{buyquantity}_{i,m} \quad \text{(amount of buying quantity of oil } i \text{ in month } m) \\
+& \text{refine}_{i,m} \quad \text{(amount of refined quantity of oil } i \text{ in month } m) \\
+& \text{storage}_{i,m} \quad \text{(storage of oil } i \text{ in month } m)
+\end{align*}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $price_{i,m}$: buying price of oil $i$ in month $m$
+    \item $sell\_price$: selling price per ton of the final product
+    \item $is\_vegetable_i$: binary indicator for oil type ($1$ if vegetable, $0$ otherwise)
+    \item $max\_vegetable\_refining\_per\_month$: maximum tons of vegetable oils refined per month
+    \item $max\_non\_vegetable\_refining\_per\_month$: maximum tons of non-vegetable oils refined per month
+    \item $storage\_size$: maximum tons of each raw oil that can be stored
+    \item $storage\_cost$: storage cost per ton per month
+    \item $max\_hardness$: maximum allowable hardness of the final product
+    \item $min\_hardness$: minimum allowable hardness of the final product
+    \item $hardness_i$: hardness of oil $i$
+    \item $init\_amount$: initial amount of each type of raw oil in storage
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize profit:
+\begin{align*}
+\text{Maximize} \quad Z = \sum_{m=1}^{M} \left( sell\_price \cdot \sum_{i=1}^{I} \text{refine}_{i,m} - \sum_{i=1}^{I} price_{i,m} \cdot \text{buyquantity}_{i,m} - storage\_cost \cdot \sum_{i=1}^{I} \text{storage}_{i,m} \right)
+\end{align*}
+
+\subsection*{Constraints}
+1. Refining Limitations:
+\begin{align*}
+\sum_{i \in \text{vegetable}} \text{refine}_{i,m} & \leq max\_vegetable\_refining\_per\_month, & \forall m \\
+\sum_{i \in \text{non-vegetable}} \text{refine}_{i,m} & \leq max\_non\_vegetable\_refining\_per\_month, & \forall m 
+\end{align*}
+
+2. Storage Dynamics:
+\begin{align*}
+\text{storage}_{i,m} & = \text{storage}_{i,m-1} + \text{buyquantity}_{i,m} - \text{refine}_{i,m}, & \forall i, m \\
+\text{storage}_{i,0} & = init\_amount, & \forall i \\
+\text{storage}_{i,M} & = init\_amount, & \forall i
+\end{align*}
+
+3. Storage Capacity:
+\begin{align*}
+0 \leq \text{storage}_{i,m} & \leq storage\_size, & \forall i, m
+\end{align*}
+
+4. Hardness Constraints:
+\begin{align*}
+min\_hardness & \leq \frac{\sum_{i=1}^{I} hardness_i \cdot \text{refine}_{i,m}}{\sum_{i=1}^{I} \text{refine}_{i,m}} \leq max\_hardness, & \forall m
+\end{align*}
+
+\end{document}

@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{MILP Model for Profit Maximization}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Formulation}
+
+Let:
+\begin{itemize}
+    \item \( N \): number of product types
+    \item \( assemblyHour_i \): hours of assembly labor required for product \( i \)
+    \item \( testingHour_i \): hours of testing required for product \( i \)
+    \item \( materialCost_i \): cost of raw materials for product \( i \)
+    \item \( maxAssembly \): maximum hours of assembly labor available per day
+    \item \( maxTesting \): maximum hours of testing available per day
+    \item \( price_i \): selling price of product \( i \)
+    \item \( maxOvertimeAssembly \): maximum hours of overtime assembly labor
+    \item \( overtimeAssemblyCost \): cost per hour of overtime assembly labor
+    \item \( materialDiscount \): percentage discount on materials if above threshold
+    \item \( discountThreshold \): threshold for material discount
+\end{itemize}
+
+Define binary decision variables:
+\begin{itemize}
+    \item \( x_i \): number of units produced of product \( i \)
+    \item \( y \): hours of overtime assembly labor scheduled
+\end{itemize}
+
+The objective function is to maximize the daily profit:
+\[
+\text{Maximize } Z = \sum_{i=1}^{N} (price_i \cdot x_i) - \left( \sum_{i=1}^{N} (materialCost_i \cdot x_i) - \text{discount} + y \cdot overtimeAssemblyCost \right)
+\]
+
+Where the discount is calculated as:
+\[
+\text{discount} = 
+\begin{cases}
+0 & \text{if } \sum_{i=1}^{N} materialCost_i \cdot x_i \leq discountThreshold \\
+\frac{materialDiscount}{100} \cdot \sum_{i=1}^{N} materialCost_i \cdot x_i & \text{if } \sum_{i=1}^{N} materialCost_i \cdot x_i > discountThreshold
+\end{cases}
+\]
+
+Subject to the following constraints:
+
+1. Assembly labor constraint:
+\[
+\sum_{i=1}^{N} (assemblyHour_i \cdot x_i) + y \leq maxAssembly + maxOvertimeAssembly
+\]
+
+2. Testing labor constraint:
+\[
+\sum_{i=1}^{N} (testingHour_i \cdot x_i) \leq maxTesting
+\]
+
+3. Non-negativity constraints:
+\[
+x_i \geq 0 \quad \forall i = 1, \ldots, N
+\]
+\[
+y \geq 0
+\]
+
+\section*{Output Variables}
+The output variables are defined as:
+\begin{itemize}
+    \item \( dailyProfit = Z \)
+    \item \( unitsProduced = [x_1, x_2, \ldots, x_N] \)
+    \item \( overtimeAssembly = y \)
+    \item \( materialBought = \sum_{i=1}^{N} materialCost_i \cdot x_i \)
+\end{itemize}
+
+\end{document}

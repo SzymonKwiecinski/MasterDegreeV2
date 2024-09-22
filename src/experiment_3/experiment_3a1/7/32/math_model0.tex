@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Parameters}
+Let:
+\begin{itemize}
+    \item $K$: Number of products
+    \item $S$: Number of stages
+    \item $produce\_time_{k,s}$: Time required to produce 1 unit of product $k$ at stage $s$ (in hours)
+    \item $time_{s}$: Available working hours at stage $s$
+    \item $profit_{k}$: Unit profit for product $k$
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let:
+\begin{itemize}
+    \item $quantity_{k}$: Quantity of product $k$ to be produced
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize} \quad Z = \sum_{k=1}^{K} profit_{k} \cdot quantity_{k}
+\]
+
+\subsection*{Constraints}
+For each stage $s$, the total time spent must not exceed the available time:
+\[
+\sum_{k=1}^{K} produce\_time_{k,s} \cdot quantity_{k} \leq time_{s}, \quad \forall s = 1, \ldots, S
+\]
+
+\subsection*{Non-negativity Constraints}
+\[
+quantity_{k} \geq 0, \quad \forall k = 1, \ldots, K
+\]
+
+\subsection*{Formulation}
+Combining the above, the linear programming model can be summarized as:
+
+\begin{align*}
+\text{Maximize} \quad & Z = \sum_{k=1}^{K} profit_{k} \cdot quantity_{k} \\
+\text{Subject to} \quad & \sum_{k=1}^{K} produce\_time_{k,s} \cdot quantity_{k} \leq time_{s}, \quad \forall s = 1, \ldots, S \\
+& quantity_{k} \geq 0, \quad \forall k = 1, \ldots, K
+\end{align*}
+
+\end{document}

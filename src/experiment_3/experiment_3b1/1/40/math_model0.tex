@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Steel Production}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $n_{steel\_quant}$: Total tons of steel to be produced
+    \item $mn_{percent}$: Minimum percentage of manganese (Mn) required
+    \item $si_{min}$: Minimum percentage of silicon (Si) required
+    \item $si_{max}$: Maximum percentage of silicon (Si) allowed
+    \item $contsi_k$: Percentage of silicon in mineral $k$
+    \item $contmn_k$: Percentage of manganese in mineral $k$
+    \item $mang\_price$: Cost of manganese (in million euros per ton)
+    \item $cost_k$: Cost of mineral $k$ (in million euros per thousand tons)
+    \item $sell\_price$: Selling price of the produced steel (in million euros per ton)
+    \item $melt\_price$: Cost of smelting a ton of mineral (in million euros)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $amount_k$: Amount of mineral $k$ melted (in tons)
+    \item $num\_mang$: Amount of manganese added (in tons)
+\end{itemize}
+
+\textbf{Objective Function:} \\
+Maximize Profit $Z$:
+\[
+Z = (sell\_price - mang\_price - melt\_price - \sum_{k=1}^{K} \left( \frac{cost_k}{1000} \cdot amount_k \right)) \cdot n_{steel\_quant}
+\]
+
+\textbf{Constraints:}
+\begin{itemize}
+    \item Silicon content constraint:
+    \[
+    \sum_{k=1}^{K} (contsi_k \cdot amount_k) + \frac{si_{min}}{100} \cdot n_{steel\_quant} \leq n_{steel\_quant} \cdot si_{max}
+    \]
+    
+    \item Manganese content constraint:
+    \[
+    \sum_{k=1}^{K} (contmn_k \cdot amount_k) + num\_mang \geq \frac{mn_{percent}}{100} \cdot n_{steel\_quant}
+    \]
+    
+    \item Non-negativity constraints:
+    \[
+    amount_k \geq 0, \quad \forall k \in \{1, \ldots, K\}
+    \]
+    \[
+    num\_mang \geq 0
+    \]
+    
+\end{itemize}
+
+\textbf{Output:}
+The optimal amounts of each mineral melted and the amount of manganese added can be represented as:
+\[
+\text{Output: } \{amount: [amount_k \text{ for } k \in \{1,\ldots,K\}], num\_mang: num\_mang\}
+\]
+
+\end{document}

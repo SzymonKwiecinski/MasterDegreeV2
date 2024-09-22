@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Mining Company Operations}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let $isoperated_{k,i}$ be a binary variable equal to 1 if mine $k$ is operated in year $i$, and 0 otherwise, for $k=1,\ldots,n_{mines}$ and $i=1,\ldots,I$.
+    \item Let $amount_{k,i}$ be the amount of ore produced by mine $k$ in year $i$, for $k=1,\ldots,n_{mines}$ and $i=1,\ldots,I$.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let $n_{mines}$ be the total number of mines.
+    \item Let $n_{maxwork}$ be the maximum number of mines that can operate in any one year.
+    \item Let $royalty_k$ be the yearly royalty payable for keeping mine $k$ open.
+    \item Let $limit_k$ be the upper limit of ore that can be extracted from mine $k$ in a year.
+    \item Let $quality_k$ be the quality of ore from mine $k$.
+    \item Let $requiredquality_i$ be the required quality of blended ore in year $i$.
+    \item Let $price$ be the selling price per ton of the final blended ore.
+    \item Let $discount$ be the discount rate per annum.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit over the planning horizon:
+\[
+\text{Maximize } Z = \sum_{i=1}^{I} \sum_{k=1}^{n_{mines}} \left( price \cdot amount_{k,i} \cdot isoperated_{k,i} - royalty_k \cdot isoperated_{k,i} \right) \cdot (1 + discount)^{-i}
+\]
+
+\subsection*{Constraints}
+1. **Operating Limit Per Year:**
+\[
+\sum_{k=1}^{n_{mines}} isoperated_{k,i} \leq n_{maxwork}, \quad \forall i=1,\ldots,I
+\]
+
+2. **Ore Production Limit:**
+\[
+amount_{k,i} \leq limit_k \cdot isoperated_{k,i}, \quad \forall k=1,\ldots,n_{mines}, \forall i=1,\ldots,I
+\]
+
+3. **Quality Requirement:**
+\[
+\sum_{k=1}^{n_{mines}} \frac{quality_k \cdot amount_{k,i}}{\sum_{j=1}^{n_{mines}} amount_{j,i}} = requiredquality_i , \quad \text{if } \sum_{k=1}^{n_{mines}} amount_{k,i} > 0, \quad \forall i=1,\ldots,I
+\]
+
+4. **Non-negativity and Binary Constraints:**
+\[
+amount_{k,i} \geq 0, \quad \forall k=1,\ldots,n_{mines}, \forall i=1,\ldots,I
+\]
+\[
+isoperated_{k,i} \in \{0, 1\}, \quad \forall k=1,\ldots,n_{mines}, \forall i=1,\ldots,I
+\]
+
+\end{document}

@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Communication Network Optimization}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item Let \( N \) be the set of nodes, where \( N = \{1, 2, \ldots, n\} \).
+    \item Let \( A \) be the set of links, where \( A = \{(i, j) \,|\, i, j \in N\} \).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( U_{i,j} \): Maximum capacity of the link from node \( i \) to node \( j \) (in bits/second).
+    \item \( C_{i,j} \): Cost per bit transmitted along the link from node \( i \) to node \( j \).
+    \item \( B_{k,l} \): Data generation rate from node \( k \) to node \( l \) (in bits/second).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_{i,j} \): Flow of bits from node \( i \) to node \( j \) (in bits/second).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{(i,j) \in A} C_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+1. Capacity constraints:
+\[
+0 \leq x_{i,j} \leq U_{i,j}, \quad \forall (i,j) \in A
+\]
+
+2. Flow conservation constraints for each node \( k \):
+\[
+\sum_{j \,:\, (k,j) \in A} x_{k,j} - \sum_{i \,:\, (i,k) \in A} x_{i,k} = 
+\begin{cases}
+B_{k,l}, & \text{if } k \text{ is source} \\
+0, & \text{if } k \text{ is intermediate} \\
+-B_{k,l}, & \text{if } k \text{ is sink}
+\end{cases}, \quad \forall k \in N
+\]
+
+3. Non-negativity constraints:
+\[
+x_{i,j} \geq 0, \quad \forall (i,j) \in A
+\]
+
+\subsection*{Output}
+The output will include the optimized paths, their flow, costs, and the total cost:
+\begin{verbatim}
+{
+    "optimized_paths": {
+        "paths": [
+            {
+                "source": k,
+                "destination": l,
+                "route": [k, i_1, i_2, ..., l],
+                "path_flow": path_flow,
+                "path_cost": path_cost
+            },
+            ...
+        ],
+    "total_cost": total_cost
+}
+\end{verbatim}
+
+\end{document}

@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Wild Sports}
+
+\textbf{Decision Variables:} \\
+Let \( x_j \) be the amount of product \( j \) produced, for \( j = 1, \ldots, M \).
+
+\textbf{Objective Function:} \\
+Maximize profit:
+\[
+\text{Maximize } Z = \sum_{j=1}^{M} (price_j - cost_j) \cdot x_j
+\]
+
+\textbf{Subject to:} \\
+Resource constraints:
+\[
+\sum_{j=1}^{M} req_{i,j} \cdot x_j \leq available_i, \quad \text{for } i = 1, \ldots, N
+\]
+
+Demand constraints:
+\[
+x_j \leq demand_j, \quad \text{for } j = 1, \ldots, M
+\]
+
+\textbf{Non-negativity Constraints:} \\
+\[
+x_j \geq 0, \quad \text{for } j = 1, \ldots, M
+\]
+
+\textbf{Output:} \\
+The solution will provide:
+\begin{itemize}
+    \item Amount of each product produced: \( x_j \) for \( j = 1, \ldots, M \)
+    \item Total profit: \( Z \)
+\end{itemize}
+
+\end{document}

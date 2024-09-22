@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Maximizing Profit in Spare Part Production}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item \( k \): Index for spare parts (\( k = 1, \ldots, K \))
+    \item \( s \): Index for shops (\( s = 1, \ldots, S \))
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{time}_{k,s} \): Required worker-hours for part \( k \) in shop \( s \)
+    \item \( \text{profit}_{k} \): Profit from part \( k \)
+    \item \( \text{capacity}_{s} \): Capacity of shop \( s \) in working hours
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{quantity}_{k} \): Amount of spare part \( k \) to be made
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} \text{profit}_{k} \cdot \text{quantity}_{k}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Capacity constraints for each shop:
+\end{itemize}
+\[
+\sum_{k=1}^{K} \text{time}_{k,s} \cdot \text{quantity}_{k} \leq \text{capacity}_{s}, \quad \forall s \in \{1, \ldots, S\}
+\]
+\begin{itemize}
+    \item Non-negativity constraints:
+\end{itemize}
+\[
+\text{quantity}_{k} \geq 0, \quad \forall k \in \{1, \ldots, K\}
+\]
+
+\subsection*{Output}
+The solution will provide the optimal quantities of each spare part to be produced:
+\[
+\text{quantity} = [\text{quantity}_{1}, \text{quantity}_{2}, \ldots, \text{quantity}_{K}]
+\]
+
+\end{document}

@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_i$: Number of units produced of product $i$, for $i = 1, \ldots, P$.
+    \item $u$: Boolean variable indicating whether the company should upgrade its machine capacity (1 if upgrade, 0 otherwise).
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $hour_i$: Machine hours required for each unit of product $i$.
+    \item $availableHours$: Total available machine hours in the current production period.
+    \item $cost_i$: Production cost per unit of product $i$.
+    \item $price_i$: Selling price per unit of product $i$.
+    \item $investPercentage_i$: Percentage of sales revenue from product $i$ that is reinvested.
+    \item $cash$: Total available cash.
+    \item $upgradeHours$: Additional machine hours obtained by upgrading.
+    \item $upgradeCost$: Cost of upgrading the machine capacity.
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{i=1}^P \left( x_i \cdot (price_i - cost_i - investPercentage_i \cdot price_i) \right) - upgradeCost \cdot u
+\]
+
+\textbf{Subject to:}
+\[
+\sum_{i=1}^P hour_i \cdot x_i \leq availableHours + upgradeHours \cdot u
+\]
+
+\[
+\sum_{i=1}^P cost_i \cdot x_i \leq cash
+\]
+
+\[
+x_i \geq 0 \quad \text{and integer for } i = 1, \ldots, P
+\]
+
+\[
+u \in \{0, 1\}
+\]
+
+\textbf{Output:}
+\begin{itemize}
+    \item $\text{net\_income} = Z$
+    \item $\text{production} = [x_1, x_2, \ldots, x_P]$
+    \item $\text{upgrade} = u$
+\end{itemize}
+
+\end{document}

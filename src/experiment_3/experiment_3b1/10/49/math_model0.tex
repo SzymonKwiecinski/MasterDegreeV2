@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item Let \( batches_p \) be the number of batches produced for part \( p \) where \( p = 1, 2, \ldots, P \).
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+    \text{Maximize } & \quad total\_profit = \sum_{p=1}^{P} (price_p \cdot batches_p) - \sum_{m=1}^{M} (cost_m \cdot \sum_{p=1}^{P} (time_{m,p} \cdot batches_p))
+\end{align*}
+
+\textbf{Constraints:}
+\begin{align*}
+    & \sum_{p=1}^{P} (time_{m,p} \cdot batches_p) \leq available_m \quad \forall m = 1, \ldots, M \\
+    & \sum_{p=1}^{P} (time_{M-1,p} \cdot batches_p) + \sum_{p=1}^{P} (time_{M,p} \cdot batches_p) \leq available_M \\
+    & batches_p \geq min\_batches_p \quad \forall p = 1, \ldots, P \\
+    & batches_p \geq 0 \quad \forall p = 1, \ldots, P \\
+\end{align*}
+
+\textbf{Output:}
+\begin{itemize}
+    \item \( batches_p \) for \( p = 1, \ldots, P \)
+    \item \( total\_profit \)
+\end{itemize}
+
+\end{document}

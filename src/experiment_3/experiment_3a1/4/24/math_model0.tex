@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Mining Operations}
+
+\textbf{Parameters:}
+
+\begin{itemize}
+    \item $n_mines$: Number of mines
+    \item $n_{maxwork}$: Maximum number of mines that can be operated per year
+    \item $royalty_{k}$: Yearly royalties for mine $k$ (for $k = 1, \ldots, n_mines$)
+    \item $limit_{k}$: Upper limit of ore extractable from mine $k$ per year
+    \item $quality_{k}$: Quality of ore from mine $k$
+    \item $requiredquality_{i}$: Required quality of blended ore in year $i$ (for $i = 1, \ldots, I$)
+    \item $price$: Price per ton of the final blended ore
+    \item $discount$: Discount rate per annum
+\end{itemize}
+
+\textbf{Decision Variables:}
+
+\begin{itemize}
+    \item $isoperated_{k,i} \in \{0, 1\}$: Whether mine $k$ is operated in year $i$
+    \item $amount_{k,i} \geq 0$: Amount of ore produced from mine $k$ in year $i$
+\end{itemize}
+
+\textbf{Objective Function:}
+
+Maximize Profit:
+\[
+\text{Profit} = \sum_{i=1}^{I} \left( \frac{price \cdot \sum_{k=1}^{n_mines} amount_{k,i}}{(1 + discount)^{i}} - \sum_{k=1}^{n_mines} royalty_{k} \cdot isoperated_{k,i} \right)
+\]
+
+\textbf{Constraints:}
+
+1. Upper limit of ore extraction:
+\[
+amount_{k,i} \leq limit_{k} \cdot isoperated_{k,i}, \quad \forall k, \forall i
+\]
+
+2. Quality of blended ore:
+\[
+\sum_{k=1}^{n_mines} \frac{quality_{k} \cdot amount_{k,i}}{\sum_{k=1}^{n_mines} amount_{k,i}} = requiredquality_{i}, \quad \forall i
+\]
+
+3. Maximum number of mines operated:
+\[
+\sum_{k=1}^{n_mines} isoperated_{k,i} \leq n_{maxwork}, \quad \forall i
+\]
+
+4. Maintain 'open' status for future operation:
+\[
+isoperated_{k,i} \in \{0, 1\}, \quad \forall k, \forall i
+\]
+
+5. Non-negativity of production:
+\[
+amount_{k,i} \geq 0, \quad \forall k, \forall i
+\]
+
+\end{document}

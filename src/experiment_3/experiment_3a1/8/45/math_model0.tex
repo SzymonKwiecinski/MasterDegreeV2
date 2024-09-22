@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Custom Tees Advertising Campaign}
+
+\textbf{Parameters:}
+
+\begin{itemize}
+    \item Let $A$ = Number of different ad types
+    \item $goal\_young$ = Target clicks from visitors aged 18-25 (in thousands)
+    \item $goal\_old$ = Target clicks from visitors older than 25 (in thousands)
+    \item $goal\_unique\_young$ = Target unique clicks from visitors aged 18-25 (in thousands)
+    \item $goal\_unique\_old$ = Target unique clicks from visitors older than 25 (in thousands)
+    \item $young\_click_a$ = Percentage of clicks from 18-25 age range for ad type $a$
+    \item $old\_click_a$ = Percentage of clicks from older visitors for ad type $a$
+    \item $cost_a$ = Cost of ad type $a$ per 1000 clicks
+    \item $max\_click_a$ = Maximum allowable clicks for ad type $a$ (in thousands)
+    \item $unique\_click_a$ = Estimated percentage of unique visitors for ad type $a$
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item Let $click_a$ = Number of clicks purchased for ad type $a$ (in thousands)
+\end{itemize}
+
+\textbf{Objective:}
+\[
+\text{Minimize } total\_cost = \sum_{a=1}^{A} cost_a \cdot click_a
+\]
+
+\textbf{Subject to:}
+\[
+\sum_{a=1}^{A} young\_click_a \cdot click_a \geq goal\_young
+\]
+\[
+\sum_{a=1}^{A} old\_click_a \cdot click_a \geq goal\_old
+\]
+\[
+\sum_{a=1}^{A} unique\_click_a \cdot click_a \geq goal\_unique\_young
+\]
+\[
+\sum_{a=1}^{A} unique\_click_a \cdot click_a \geq goal\_unique\_old
+\]
+\[
+click_a \leq max\_click_a \quad \forall a \in \{1, 2, \ldots, A\}
+\]
+\[
+click_a \geq 0 \quad \forall a \in \{1, 2, \ldots, A\}
+\]
+
+\textbf{Output:}
+\begin{itemize}
+    \item $clicks = [click_a \text{ for } a = 1, \ldots, A]$
+    \item $total\_cost$
+\end{itemize}
+
+\end{document}

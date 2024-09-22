@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Custom Tees Advertising Campaign}
+
+\subsection*{Variables}
+Let \( x_a \) represent the number of clicks purchased for ad type \( a \) (in thousands) for \( a = 1, 2, \ldots, A \).
+
+\subsection*{Objective Function}
+Maximize the total number of unique clicks:
+\[
+\text{Maximize } Z = \sum_{a=1}^{A} \text{unique\_click}_{a} \cdot x_a
+\]
+
+\subsection*{Constraints}
+
+\paragraph{Budget Constraint}
+The total cost of the ads should not exceed the advertising budget:
+\[
+\sum_{a=1}^{A} \text{cost}_{a} \cdot x_a \leq \text{budget}
+\]
+
+\paragraph{Click Constraints for Young Visitors}
+The total clicks from the 18-25 age range should meet the goal:
+\[
+\sum_{a=1}^{A} \text{young\_click}_{a} \cdot x_a \geq \text{goal\_young}
+\]
+
+\paragraph{Click Constraints for Older Visitors}
+The total clicks from visitors older than 25 should meet the goal:
+\[
+\sum_{a=1}^{A} \text{old\_click}_{a} \cdot x_a \geq \text{goal\_old}
+\]
+
+\paragraph{Unique Click Constraints for Young Visitors}
+The total unique clicks from visitors aged 18-25 should meet the goal:
+\[
+\sum_{a=1}^{A} \text{unique\_click}_{a} \cdot x_a \geq \text{goal\_unique\_young}
+\]
+
+\paragraph{Unique Click Constraints for Older Visitors}
+The total unique clicks from visitors older than 25 should meet the goal:
+\[
+\sum_{a=1}^{A} \text{unique\_click}_{a} \cdot x_a \geq \text{goal\_unique\_old}
+\]
+
+\paragraph{Maximum Clicks Constraints}
+Each ad type has a maximum allowable clicks:
+\[
+x_a \leq \text{max\_click}_{a} \quad \forall a = 1, 2, \ldots, A
+\]
+
+\paragraph{Non-negativity Constraints}
+The number of clicks purchased must be non-negative:
+\[
+x_a \geq 0 \quad \forall a = 1, 2, \ldots, A
+\]
+
+\subsection*{Output}
+The solution will provide:
+\begin{itemize}
+    \item A list of the number of clicks purchased for each ad type: \( clicks = [x_{1}, x_{2}, \ldots, x_{A}] \)
+    \item The total number of unique clicks: \( total\_unique\_clicks = Z \)
+\end{itemize}
+
+\end{document}

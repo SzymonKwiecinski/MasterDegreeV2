@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Custom Tees Advertising Campaign}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( A \) be the number of different ad types.
+    \item \( \text{goal\_young} \) is the goal of clicks from visitors aged 18-25 (in thousands).
+    \item \( \text{goal\_old} \) is the goal of clicks from visitors older than 25 (in thousands).
+    \item \( \text{goal\_unique\_young} \) is the goal of unique clicks from visitors aged 18-25 (in thousands).
+    \item \( \text{goal\_unique\_old} \) is the goal of unique clicks from visitors older than 25 (in thousands).
+    \item \( \text{young\_click}_{a} \) is the estimated percentage of clicks from the 18-25 age range for ad type \( a \).
+    \item \( \text{old\_click}_{a} \) is the estimated percentage of clicks from visitors older than 25 for ad type \( a \).
+    \item \( \text{cost}_{a} \) is the cost per 1000 clicks for ad type \( a \).
+    \item \( \text{max\_click}_{a} \) is the maximum allowable clicks in thousands for ad type \( a \).
+    \item \( \text{unique\_click}_{a} \) is the estimated percentage of unique visitors for ad type \( a \).
+    \item \( \text{budget} \) is the total advertising budget.
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let \( x_{a} \) be the number of clicks purchased for ad type \( a \) (in thousands), where \( a = 1, 2, \ldots, A \).
+
+\subsection*{Objective Function}
+Maximize the total number of unique clicks:
+\[
+\text{maximize } Z = \sum_{a=1}^{A} \text{unique\_click}_{a} \cdot x_{a}
+\]
+
+\subsection*{Constraints}
+1. **Click Goals from Age Groups**:
+    \[
+    \sum_{a=1}^{A} \text{young\_click}_{a} \cdot x_{a} \geq \text{goal\_young}
+    \]
+    \[
+    \sum_{a=1}^{A} \text{old\_click}_{a} \cdot x_{a} \geq \text{goal\_old}
+    \]
+
+2. **Unique Click Goals**:
+    \[
+    \sum_{a=1}^{A} \text{unique\_click}_{a} \cdot x_{a} \geq \text{goal\_unique\_young} + \text{goal\_unique\_old}
+    \]
+
+3. **Maximum Clicks**:
+    \[
+    x_{a} \leq \text{max\_click}_{a}, \quad \forall a = 1, 2, \ldots, A
+    \]
+
+4. **Budget Constraint**:
+    \[
+    \sum_{a=1}^{A} \text{cost}_{a} \cdot x_{a} \leq \text{budget}
+    \]
+
+5. **Non-negativity**:
+    \[
+    x_{a} \geq 0, \quad \forall a = 1, 2, \ldots, A
+    \]
+
+\subsection*{Output}
+The solution will provide:
+\begin{itemize}
+    \item The optimal number of clicks purchased for each ad type: \( x_{a} \) for \( a = 1, \ldots, A \).
+    \item The total number of unique clicks obtained: \( Z \).
+\end{itemize}
+
+\end{document}

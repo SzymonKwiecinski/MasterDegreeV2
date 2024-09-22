@@ -1,0 +1,89 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for DEC Production Problem}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item $N$: Number of computer systems
+    \item $i$: Index for each system, $i = 1, \ldots, N$
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $is\_workstation_i \in \{0, 1\}$: Indicator for if system $i$ is a workstation
+    \item $price_i$: Price of system $i$ in dollars
+    \item $disk_i$: Average number of disk drives requested by customers for system $i$
+    \item $mem_i$: Average number of 256K memory boards requested by customers for system $i$
+    \item $max\_cpu$: Maximum number of CPUs available
+    \item $min\_disk$: Minimum supply of disk drives
+    \item $max\_disk$: Maximum supply of disk drives
+    \item $min\_mem$: Minimum supply of 256K memory boards
+    \item $max\_mem$: Maximum supply of 256K memory boards
+    \item $demand_i$: Maximum demand for system $i$
+    \item $demand\_GP$: Maximum demand for the whole GP family
+    \item $demand\_WS$: Maximum demand for the whole WS family
+    \item $preorder_i$: Preorders received for system $i$
+    \item $alt\_mem$: Available alternative memory boards
+    \item $alt\_compatible_i \in \{0, 1\}$: Indicator if alternative memory can be used in system $i$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_i$: Number of systems $i$ to produce
+    \item $alt\_used_i$: Number of alternative memory boards used in system $i$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize profit:
+\[
+\text{Profit} = \sum_{i=1}^{N} (price_i \cdot x_i) - \text{Costs}
+\]
+
+\subsection*{Constraints}
+1. CPU constraint:
+\[
+\sum_{i=1}^{N} x_i \leq max\_cpu
+\]
+
+2. Disk drive supply limit:
+\[
+\sum_{i=1}^{N} disk_i \cdot x_i \geq min\_disk
+\]
+\[
+\sum_{i=1}^{N} disk_i \cdot x_i \leq max\_disk
+\]
+
+3. Memory board supply limit:
+\[
+\sum_{i=1}^{N} mem_i \cdot x_i + \sum_{i=1}^{N} alt\_used_i \leq max\_mem
+\]
+\[
+\sum_{i=1}^{N} mem_i \cdot x_i + \sum_{i=1}^{N} alt\_used_i \geq min\_mem
+\]
+
+4. Demand constraints for each system:
+\[
+x_i \leq demand_i \quad \forall i
+\]
+
+5. Demand constraints for GP and WS:
+\[
+\sum_{i: is\_workstation_i=0} x_i \leq demand\_GP
+\]
+\[
+\sum_{i: is\_workstation_i=1} x_i \leq demand\_WS
+\]
+
+6. Preorder fulfillment:
+\[
+x_i \geq preorder_i \quad \forall i
+\]
+
+7. Alternative memory board usage:
+\[
+alt\_used_i \leq alt\_mem \cdot alt\_compatible_i \quad \forall i
+\]
+
+\end{document}

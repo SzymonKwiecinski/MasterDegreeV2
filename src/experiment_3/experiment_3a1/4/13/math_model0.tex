@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for the Chebyshev Center}
+
+Given a set \( P \) defined by the constraints:
+\[
+P = \{ \mathbf{x} \in \mathbb{R}^N \mid \mathbf{a_i}^T \mathbf{x} \leq b_i, \; i = 1, \ldots, m \}
+\]
+where \( \mathbf{a_i} \in \mathbb{R}^N \) and \( b_i \in \mathbb{R} \), we aim to find the Chebyshev center of the set \( P \), which is a ball centered at \( \mathbf{y} \in \mathbb{R}^N \) with the largest possible radius \( r \).
+
+The model can be formulated as follows:
+
+\subsection*{Variables}
+\begin{itemize}
+    \item \( \mathbf{y} \in \mathbb{R}^N \): The center of the ball.
+    \item \( r \in \mathbb{R} \): The radius of the ball.
+\end{itemize}
+
+\subsection*{Objective}
+Maximize the radius \( r \):
+\[
+\text{Maximize } r
+\]
+
+\subsection*{Constraints}
+The ball must be contained within the set \( P \). This leads to the following constraints for all \( i = 1, \ldots, m \):
+\[
+\mathbf{a_i}^T \mathbf{y} + r \cdot \|\mathbf{a_i}\| \leq b_i
+\]
+\[
+\mathbf{a_i}^T \mathbf{y} - r \cdot \|\mathbf{a_i}\| \leq b_i
+\]
+
+This can be simplified to:
+\[
+\mathbf{a_i}^T \mathbf{y} \leq b_i - r \cdot \|\mathbf{a_i}\| \quad \text{and} \quad \mathbf{a_i}^T \mathbf{y} \geq b_i + r \cdot \|\mathbf{a_i}\| 
+\]
+
+Hence, we define the full set of constraints as:
+\[
+b_i - r \cdot \|\mathbf{a_i}\| \geq \mathbf{a_i}^T \mathbf{y} \geq b_i + r \cdot \|\mathbf{a_i}\|
+\]
+
+\subsection*{Final Model}
+The final linear programming model is:
+\[
+\begin{align*}
+\text{Maximize} & \quad r \\
+\text{subject to} & \quad \mathbf{a_i}^T \mathbf{y} + r \cdot \|\mathbf{a_i}\| \leq b_i, \; i = 1, \ldots, m \\
+& \quad \mathbf{a_i}^T \mathbf{y} - r \cdot \|\mathbf{a_i}\| \leq b_i, \; i = 1, \ldots, m \\
+& \quad r \geq 0
+\end{align*}
+\]
+
+\subsection*{Output}
+After the resolution of this optimization problem, the output shall provide:
+\begin{itemize}
+    \item \textbf{center} (list): The center of the ball as a list of floats of length \( N \).
+    \item \textbf{radius} (float): The radius of the ball as a float.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,69 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Intervention Strategy}
+
+Let \( N \) be the number of clusters in the network. We define decision variables for each intervention in each cluster as follows:
+
+\[
+x_{i,j,k} =
+\begin{cases}
+1 & \text{if intervention type } j \text{ is performed on cluster } i \text{ using method } k \\
+0 & \text{otherwise}
+\end{cases}
+\]
+where:
+- \( i \in \{1, 2, \ldots, N\} \): cluster index,
+- \( j \in \{ \text{isolate, scan} \} \): type of intervention,
+- \( k \in \{ \text{central, distributed} \} \): processing method.
+
+The cost associated with each intervention is given by:
+
+\[
+c_{i,j,k} =
+\begin{cases}
+\text{central\_cost} \cdot \frac{\text{processing\_time}}{h} & \text{if } k = \text{central} \\
+\text{distributed\_cost} \cdot \frac{\text{processing\_time}}{h} & \text{if } k = \text{distributed}
+\end{cases}
+\]
+
+The objective function to minimize the total cost is given by:
+
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} \sum_{j \in \{ \text{isolate, scan} \}} \sum_{k \in \{ \text{central, distributed} \}} c_{i,j,k} \cdot x_{i,j,k}
+\]
+
+Subject to the following constraints:
+
+1. **Single Intervention Type per Cluster**:
+   \[
+   \sum_{j \in \{ \text{isolate, scan} \}} \sum_{k \in \{ \text{central, distributed} \}} x_{i,j,k} = 1, \quad \forall i \in \{1, 2, \ldots, N\}
+   \]
+
+2. **Central Processing Time Constraint**:
+   \[
+   \sum_{i=1}^{N} \sum_{j \in \{ \text{isolate, scan} \}} \text{processing\_time}_{i,j,\text{central}} \cdot x_{i,j,\text{central}} \leq \text{max\_central}
+   \]
+
+3. **Distributed Processing Time Constraint**:
+   \[
+   \sum_{i=1}^{N} \sum_{j \in \{ \text{isolate, scan} \}} \text{processing\_time}_{i,j,\text{distributed}} \cdot x_{i,j,\text{distributed}} \leq \text{max\_distributed}
+   \]
+
+4. **Binary Decision Variables**:
+   \[
+   x_{i,j,k} \in \{0, 1\}, \quad \forall i, j, k
+   \]
+
+The output of the model will detail the types of interventions chosen for each cluster and the corresponding total cost:
+
+\[
+\text{Output} =
+\begin{cases}
+\text{"interventions":} \{ \{ \text{"cluster\_id": } i, \text{"type": } j, \text{"method": } k, \text{"amount": } \text{amount}_i \} \} \\
+\text{"total\_cost": } Z
+\end{cases}
+\]
+
+\end{document}

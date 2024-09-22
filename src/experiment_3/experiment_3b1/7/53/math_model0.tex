@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Transportation Problem Model}
+
+Let \( n \) represent the number of cities in the transportation network. The objective is to determine the optimal quantity of soybeans to ship from source terminal cities \( k \) to destination cities \( l \) while minimizing the transportation costs.
+
+\subsection*{Sets}
+\begin{itemize}
+    \item \( A \): Set of all routes, where each route is defined by a start city \( i \) and an end city \( j \).
+    \item \( K \): Set of terminal cities \( k \).
+    \item \( L \): Set of destination cities \( l \).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( C_{i,j} \): Cost per metric ton of shipping soybeans along the route from city \( i \) to city \( j \).
+    \item \( supply_{k} \): Supply of soybeans available at terminal city \( k \).
+    \item \( demand_{l} \): Demand for soybeans at destination city \( l \).
+\end{itemize}
+
+\subsection*{Variables}
+Let \( amount_{i,j} \) be the amount of soybeans shipped from city \( i \) to city \( j \).
+
+\subsection*{Objective Function}
+The objective is to minimize the total transportation cost:
+\[
+\text{Minimize } Z = \sum_{(i,j) \in A} C_{i,j} \cdot amount_{i,j}
+\]
+
+\subsection*{Constraints}
+1. Supply constraints for each terminal city:
+\[
+\sum_{j | (k,j) \in A} amount_{k,j} \leq supply_{k}, \quad \forall k \in K
+\]
+
+2. Demand constraints for each destination city:
+\[
+\sum_{i | (i,l) \in A} amount_{i,l} \geq demand_{l}, \quad \forall l \in L
+\]
+
+3. Non-negativity constraints:
+\[
+amount_{i,j} \geq 0, \quad \forall (i,j) \in A
+\]
+
+\subsection*{Output Format}
+The solution will provide the distribution of soybeans along with the total cost:
+\begin{itemize}
+    \item \textbf{Distribution:} A list containing amounts shipped from \( i \) to \( j \):
+    \[
+    \text{distribution} = \{(i, j, amount_{i,j}) \, | \, \text{for } i,j \text{ in routes}\}
+    \]
+    \item \textbf{Total Cost:} 
+    \[
+    total\_cost = Z
+    \]
+\end{itemize}
+
+\end{document}

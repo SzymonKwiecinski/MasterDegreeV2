@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Oil Refining and Blending}
+
+\subsection*{Parameters}
+\begin{align*}
+& I: \text{Number of different oils} \\
+& M: \text{Number of months} \\
+& price_{i,m}: \text{Purchase price of oil } i \text{ in month } m \\
+& sell\_price: \text{Selling price of the final product per ton} \\
+& max\_veg: \text{Maximum refining capacity for vegetable oils per month} \\
+& max\_veg: \text{Maximum refining capacity for non-vegetable oils per month} \\
+& storage\_size: \text{Maximum storage size for each oil} \\
+& storage\_cost: \text{Storage cost per ton per month} \\
+& max\_hardness: \text{Maximum hardness of the final product} \\
+& min\_hardness: \text{Minimum hardness of the final product} \\
+& hardness_{i}: \text{Hardness of oil } i \\
+& init\_amount: \text{Initial amount of each type of raw oil in storage}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+& buyquantity_{i,m}: \text{Amount of oil } i \text{ bought in month } m \\
+& refine_{i,m}: \text{Amount of oil } i \text{ refined in month } m \\
+& storage_{i,m}: \text{Amount of oil } i \text{ stored in month } m
+\end{align*}
+
+\subsection*{Objective Function}
+\[
+\text{Maximize Profit} = \sum_{m=1}^{M} \left( sell\_price \cdot \sum_{i=1}^{I} refine_{i,m} - \sum_{i=1}^{I} price_{i,m} \cdot buyquantity_{i,m} - storage\_cost \cdot \sum_{i=1}^{I} storage_{i,m} \right)
+\]
+
+\subsection*{Constraints}
+
+1. **Refining Capacity Constraints:**
+   \[
+   \sum_{i \in \text{veg}} refine_{i,m} \leq max\_veg, \quad \forall m = 1,\ldots,M
+   \]
+   \[
+   \sum_{i \in \text{non-veg}} refine_{i,m} \leq max\_veg, \quad \forall m = 1,\ldots,M
+   \]
+
+2. **Storage Constraints:**
+   \[
+   storage_{i,m} = storage_{i,m-1} + buyquantity_{i,m} - refine_{i,m}, \quad \forall i = 1,\ldots,I, \, \forall m = 1,\ldots,M
+   \]
+   \[
+   0 \leq storage_{i,m} \leq storage\_size, \quad \forall i = 1,\ldots,I, \, \forall m = 1,\ldots,M
+   \]
+
+3. **Hardness Constraints:**
+   \[
+   min\_hardness \leq \frac{\sum_{i=1}^{I} hardness_{i} \cdot refine_{i,m}}{\sum_{i=1}^{I} refine_{i,m}} \leq max\_hardness, \quad \forall m = 1,\ldots,M
+   \]
+
+4. **Initial and Final Storage Constraints:**
+   \[
+   storage_{i,0} = init\_amount, \quad \forall i = 1,\ldots,I
+   \]
+   \[
+   storage_{i,M} = init\_amount, \quad \forall i = 1,\ldots,I
+   \]
+
+\end{document}

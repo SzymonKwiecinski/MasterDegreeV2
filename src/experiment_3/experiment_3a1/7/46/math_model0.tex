@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item Let \( alloy\_amount_{a,s} \) be the amount of alloy \( a \) used in producing steel type \( s \) (in tons).
+    \item Let \( total\_steel_{s} \) be the total amount of steel type \( s \) produced (in tons).
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } total\_profit = \sum_{s=1}^{S} (steel\_price_{s} \cdot total\_steel_{s}) - \sum_{a=1}^{A} (alloy\_price_{a} \cdot \sum_{s=1}^{S} alloy\_amount_{a,s})
+\]
+
+\textbf{Subject to:}
+
+\textit{Alloy Availability Constraints:}
+\[
+\sum_{s=1}^{S} alloy\_amount_{a,s} \leq available_{a}, \quad \forall a = 1, \ldots, A
+\]
+
+\textit{Carbon Requirement Constraints:}
+\[
+\sum_{a=1}^{A} (carbon_{a} \cdot alloy\_amount_{a,s}) \geq carbon\_min_{s} \cdot total\_steel_{s}, \quad \forall s = 1, \ldots, S
+\]
+
+\textit{Nickel Requirement Constraints:}
+\[
+\sum_{a=1}^{A} (nickel_{a} \cdot alloy\_amount_{a,s}) \leq nickel\_max_{s} \cdot total\_steel_{s}, \quad \forall s = 1, \ldots, S
+\]
+
+\textit{Alloy 1 Limitation:}
+\[
+\sum_{s=1}^{S} alloy\_amount_{1,s} \leq 0.4 \cdot \sum_{s=1}^{S} total\_steel_{s}
+\]
+
+\textit{Non-negativity Constraints:}
+\[
+alloy\_amount_{a,s} \geq 0, \quad \forall a = 1, \ldots, A, \quad s = 1, \ldots, S
+\]
+\[
+total\_steel_{s} \geq 0, \quad \forall s = 1, \ldots, S
+\]
+
+\end{document}

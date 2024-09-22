@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Daily Profit Maximization}
+
+Let:
+\begin{itemize}
+    \item \( N \): number of product types
+    \item \( \text{assemblyHour}_i \): hours of assembly labor required for product \( i \)
+    \item \( \text{testingHour}_i \): hours of testing required for product \( i \)
+    \item \( \text{materialCost}_i \): cost of raw materials for product \( i \) (in dollars)
+    \item \( \text{maxAssembly} \): maximum hours of assembly labor available (per day)
+    \item \( \text{maxTesting} \): maximum hours of testing available (per day)
+    \item \( \text{price}_i \): selling price of product \( i \) (in dollars)
+    \item \( \text{maxOvertimeAssembly} \): maximum hours of overtime assembly labor available
+    \item \( \text{overtimeAssemblyCost} \): cost per hour of overtime assembly labor
+    \item \( \text{materialDiscount} \): percentage discount on materials if the daily bill exceeds the discount threshold
+    \item \( \text{discountThreshold} \): threshold amount for receiving a material discount (in dollars)
+\end{itemize}
+
+Let:
+\[
+x_i \quad \text{= number of units of product } i \text{ produced}
+\]
+\[
+o \quad \text{= number of hours of overtime assembly labor scheduled}
+\]
+
+\subsection*{Objective Function}
+We want to maximize the daily profit, defined as:
+\[
+\text{dailyProfit} = \sum_{i=1}^{N} (\text{price}_i \cdot x_i) - \left( \sum_{i=1}^{N} (\text{materialCost}_i \cdot x_i) + \text{overtimeAssemblyCost} \cdot o \right)
+\]
+
+\subsection*{Constraints}
+1. Assembly labor constraint:
+\[
+\sum_{i=1}^{N} (\text{assemblyHour}_i \cdot x_i) + o \leq \text{maxAssembly} + \text{maxOvertimeAssembly}
+\]
+
+2. Testing labor constraint:
+\[
+\sum_{i=1}^{N} (\text{testingHour}_i \cdot x_i) \leq \text{maxTesting}
+\]
+
+3. Non-negativity constraints:
+\[
+x_i \geq 0 \quad \forall i \in \{1, 2, \ldots, N\}
+\]
+\[
+o \geq 0
+\]
+
+4. Material cost constraint for discount:
+Let \( C \) be the total material cost:
+\[
+C = \sum_{i=1}^{N} (\text{materialCost}_i \cdot x_i)
+\]
+If \( C > \text{discountThreshold} \), the effective cost is reduced by \( \frac{\text{materialDiscount}}{100} \cdot C \).
+
+\end{document}

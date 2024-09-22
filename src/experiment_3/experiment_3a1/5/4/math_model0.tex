@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{MILP Model for Nurse Scheduling}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+Let \( n \) be the total number of nurses needed, and let \( \text{period} \) be the number of days each nurse works consecutively. Let \( d_j \) be the demand for nurses on day \( j \) for \( j = 1, \ldots, 7 \).
+
+\section*{Variables}
+Define the decision variables:
+\begin{itemize}
+    \item \( x_j \): the number of nurses that start their shift on day \( j \) for \( j = 1, \ldots, 7 \).
+    \item \( n \): the total number of nurses hired.
+\end{itemize}
+
+\section*{Objective Function}
+The goal is to minimize the total number of nurses hired:
+\[
+\text{Minimize } n = \sum_{j=1}^{7} x_j
+\]
+
+\section*{Constraints}
+Each nurse works for \( \text{period} \) days and has \( 7 - \text{period} \) days off. We need to ensure that the demand for nurses is met on each day \( j \):
+
+For each day \( j \):
+\[
+\sum_{k=0}^{\text{period}-1} x_{(j-k) \mod 7} \geq d_j \quad \text{for } j = 1, \ldots, 7
+\]
+
+Where \( x_{(j-k) \mod 7} \) represents the nurses starting their shift on day \( (j-k) \). The calculation ensures that the demand \( d_j \) is met by the nurses who started on the previous \( \text{period} \) days.
+
+\section*{Final Model}
+The full Mixed Integer Linear Programming (MILP) formulation is as follows:
+
+\begin{align*}
+\text{Minimize } & \quad n = \sum_{j=1}^{7} x_j \\
+\text{subject to } & \quad \sum_{k=0}^{\text{period}-1} x_{(j-k) \mod 7} \geq d_j, & \quad j = 1, \ldots, 7 \\
+& \quad x_j \geq 0 \quad \text{and integer for } j = 1, \ldots, 7
+\end{align*}
+
+\end{document}

@@ -1,0 +1,69 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for DEC Production Optimization}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( N \): Total number of computer systems
+    \item \( \text{is\_workstation}_i \): Boolean indicating if system \( i \) is a workstation
+    \item \( \text{price}_i \): Price of system \( i \)
+    \item \( \text{disk}_i \): Average number of disk drives requested for system \( i \)
+    \item \( \text{mem}_i \): Average number of 256K memory boards used for system \( i \)
+    \item \( \text{max\_cpu} \): Maximum number of CPUs available
+    \item \( \text{min\_disk} \): Minimum disk drives available
+    \item \( \text{max\_disk} \): Maximum disk drives available
+    \item \( \text{min\_mem} \): Minimum 256K memory boards available
+    \item \( \text{max\_mem} \): Maximum 256K memory boards available
+    \item \( \text{demand}_i \): Maximum demand for system \( i \)
+    \item \( \text{demand\_GP} \): Maximum demand for the GP family
+    \item \( \text{demand\_WS} \): Maximum demand for the WS family
+    \item \( \text{preorder}_i \): Preorder quantity for system \( i \)
+    \item \( \text{alt\_mem} \): Available alternative memory boards
+    \item \( \text{alt\_compatible}_i \): Boolean indicating if alternative memory can be used in system \( i \)
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_i \): Number of system \( i \) produced (real number)
+    \item \( y_i \): Number of alternative memory boards used for system \( i \) (non-negative integer)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+\text{Profit} = \sum_{i=1}^{N} \text{price}_i \cdot x_i - \text{costs}
+\]
+
+\subsection*{Constraints}
+
+\begin{align}
+    & \text{CPU Constraint:} \quad \sum_{i=1}^{N} x_i \leq \text{max\_cpu} \\
+    & \text{Disk Drives Constraint:} \quad \sum_{i=1}^{N} \text{disk}_i \cdot x_i \geq \text{min\_disk} \\
+    & \quad \sum_{i=1}^{N} \text{disk}_i \cdot x_i \leq \text{max\_disk} \\
+    & \text{Memory Constraint:} \quad \sum_{i=1}^{N} \text{mem}_i \cdot x_i + \sum_{i=1}^{N} y_i \leq \text{max\_mem} \\
+    & \quad \sum_{i=1}^{N} \text{mem}_i \cdot x_i + \sum_{i=1}^{N} y_i \geq \text{min\_mem} \\
+    & \text{Demand Constraints:} \quad x_i \geq \text{preorder}_i \quad \forall i \in [1, N] \\
+    & \quad \sum_{i \text{ is GP}} x_i \leq \text{demand\_GP} \\
+    & \quad \sum_{i \text{ is WS}} x_i \leq \text{demand\_WS} \\
+    & \text{Alternative Memory Constraint:} \quad y_i \leq \text{alt\_mem} \cdot \text{alt\_compatible}_i \quad \forall i \in [1, N]
+\end{align}
+
+\subsection*{Output}
+The output will be structured as follows:
+\begin{verbatim}
+{
+    "system_output": [
+        {
+            "num_produced": x_i,
+            "total_256K_boards_used": \sum_{i=1}^{N} \text{mem}_i \cdot x_i,
+            "total_alt_boards_used": y_i,
+            "total_disk_drives_used": \sum_{i=1}^{N} \text{disk}_i \cdot x_i
+        } for i in 1, ..., T
+    ],
+    "profit": Profit
+}
+\end{verbatim}
+
+\end{document}

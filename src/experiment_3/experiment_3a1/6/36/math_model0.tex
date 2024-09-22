@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Alloy Production}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( A \) be the total amount of alloy to be produced, \( A = \text{alloy\_quant} \).
+    \item Let \( M \) be the number of different metals.
+    \item Let \( K \) be the number of different alloys available.
+    \item Let \( T_m \) be the target quantity of metal \( m \), \( T_m = \text{target}_{m} \).
+    \item Let \( R_{k,m} \) be the ratio of metal \( m \) in alloy \( k \), where \( R_{k,m} = \text{ratio}_{k,m} \).
+    \item Let \( P_k \) be the price of alloy \( k \), where \( P_k = \text{price}_{k} \).
+    \item Let \( x_k \) be the amount of alloy \( k \) purchased.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost of the alloys purchased:
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} P_k x_k
+\]
+
+\subsection*{Constraints}
+1. The total weight of the alloys must be equal to the desired alloy weight:
+\[
+\sum_{k=1}^{K} x_k = A
+\]
+
+2. The amount of each metal in the produced alloy must meet the target:
+\[
+\sum_{k=1}^{K} R_{k,m} x_k = T_m \quad \forall m = 1, \ldots, M
+\]
+
+3. Non-negativity constraints:
+\[
+x_k \geq 0 \quad \forall k = 1, \ldots, K
+\]
+
+\subsection*{Output}
+The solution will provide the quantities of each alloy to be purchased:
+\[
+\text{amount} = [x_1, x_2, \ldots, x_K]
+\]
+
+\end{document}

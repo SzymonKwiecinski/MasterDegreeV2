@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Variables}
+Let \( x_k \) be the quantity of spare part \( k \) produced, where \( k = 1, 2, \ldots, K \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( time_{k,s} \): Required worker-hours for part \( k \) in shop \( s \).
+    \item \( profit_k \): Profit for producing part \( k \).
+    \item \( capacity_s \): Capacity of shop \( s \) in working hours.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} profit_k \cdot x_k
+\]
+
+\subsection*{Constraints}
+For each shop \( s \):
+\[
+\sum_{k=1}^{K} time_{k,s} \cdot x_k \leq capacity_s, \quad \text{for } s = 1, 2, \ldots, S
+\]
+
+\subsection*{Non-negativity Constraints}
+\[
+x_k \geq 0, \quad \text{for } k = 1, 2, \ldots, K
+\]
+
+\subsection*{Output Format}
+The output will be:
+\[
+\text{{quantity}} = [x_k \text{ for } k = 1, \ldots, K]
+\]
+
+\end{document}

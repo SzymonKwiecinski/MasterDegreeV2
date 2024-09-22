@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Line Fitting}
+
+We aim to fit the best straight line of the form \( y = bx + a \) to a set of observed values \( (x_k, y_k) \) for \( k = 1, \ldots, K \). The objective is to minimize the maximum deviation of all observed values from the predicted values.
+
+\subsection*{Variables}
+- Let \( a \) be the intercept of the fitted line.
+- Let \( b \) be the slope of the fitted line.
+- Let \( d_k \) be the deviation for the \( k \)-th observation, defined as:
+
+\[
+d_k = y_k - (bx_k + a)
+\]
+
+\subsection*{Objective}
+We want to minimize the maximum deviation, which can be expressed mathematically as:
+
+\[
+\text{Minimize } D
+\]
+
+subject to the constraints:
+
+\[
+d_k \leq D \quad \forall k
+\]
+\[
+-d_k \leq D \quad \forall k
+\]
+
+This leads to the following constraints:
+
+\[
+y_k - (bx_k + a) \leq D \quad \forall k
+\]
+\[
+-(y_k - (bx_k + a)) \leq D \quad \forall k
+\]
+
+\subsection*{Linear Programming Formulation}
+
+The complete linear programming problem can be formulated as follows:
+
+\[
+\begin{aligned}
+& \text{Minimize} && D \\
+& \text{Subject to} && y_k - (bx_k + a) \leq D, \quad \forall k \\
+& && -(y_k - (bx_k + a)) \leq D, \quad \forall k \\
+& && D \geq 0 \\
+& && a \text{ and } b \text{ are real numbers.}
+\end{aligned}
+\]
+
+\subsection*{Output}
+The output of the model will provide the estimated values for the intercept and slope of the fitted line:
+
+\begin{itemize}
+    \item intercept: \( a \)
+    \item slope: \( b \)
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Police Officer Shift Assignment}
+
+\subsection*{Parameters}
+\begin{align*}
+S & : \text{Number of shifts} \\
+officers\_needed_{s} & : \text{Number of police officers needed during shift } s, \quad s = 1, \ldots, S \\
+shift\_cost_{s} & : \text{Cost incurred when starting shift } s, \quad s = 1, \ldots, S \\
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+officers\_assigned_{s} & : \text{Number of police officers assigned to shift } s, \quad s = 1, \ldots, S \\
+\end{align*}
+
+\subsection*{Objective Function}
+\begin{align*}
+\text{Minimize } Z & = \sum_{s=1}^{S} shift\_cost_{s} \cdot \left\lfloor \frac{officers\_assigned_{s} + officers\_assigned_{s+1}}{2} \right\rfloor 
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+officers\_assigned_{s} + officers\_assigned_{s+1} & \geq officers\_needed_{s}, \quad s = 1, \ldots, S-1 \\
+officers\_assigned_{s} & \geq 0 \quad \forall s \\
+\end{align*}
+
+\end{document}

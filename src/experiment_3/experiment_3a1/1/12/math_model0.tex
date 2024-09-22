@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+Consider the following linear programming formulation for the currency exchange problem. 
+
+Define the variables:
+
+\begin{align*}
+x_{i,j} & : \text{ the amount of currency } i \text{ exchanged to currency } j \\
+y_i & : \text{ the final amount of currency } i \text{ we have at the end of the day}
+\end{align*}
+
+The objective is to maximize the total amount of currency \( N \):
+
+\[
+\text{Maximize } y_N
+\]
+
+Subject to the following constraints:
+
+1. **Initial Amount Constraint**:
+   \[
+   y_i = \text{start}_i + \sum_{j=1}^{N} x_{j,i} - \sum_{j=1}^{N} x_{i,j} \quad \forall i = 1, \ldots, N
+   \]
+
+   This represents the final amount of each currency after considering the amounts exchanged in and out.
+
+2. **Limit Constraints**:
+   \[
+   \sum_{j=1}^{N} x_{i,j} + \sum_{j=1}^{N} x_{j,i} \leq \text{limit}_i \quad \forall i = 1, \ldots, N
+   \]
+
+   This ensures that the total amount of currency \( i \) exchanged does not exceed the given limits.
+
+3. **Exchange Rate Constraints**:
+   \[
+   x_{i,j} \leq \text{start}_i \cdot \text{rate}_{i,j} \quad \forall i, j = 1, \ldots, N
+   \]
+
+   This ensures that the amount exchanged does not exceed the amount of currency available and adheres to the exchange rates.
+
+4. **Non-negativity Constraints**:
+   \[
+   x_{i,j} \geq 0 \quad \forall i, j = 1, \ldots, N
+   \]
+
+   The exchanged amounts cannot be negative.
+
+This linear programming model provides a structured way to analyze the best currency exchanges to maximize the amount of currency \( N \) at the end of the day under the given constraints.
+
+\end{document}

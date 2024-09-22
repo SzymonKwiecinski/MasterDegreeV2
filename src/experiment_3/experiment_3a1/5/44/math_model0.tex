@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\textbf{Definitions:}
+\begin{itemize}
+    \item $P$: Number of different parts
+    \item $M$: Number of different machines
+    \item $batches_p$: Number of batches of part $p$ produced (for $p = 1, \ldots, P$)
+    \item $time_{m,p}$: Time in hours required on machine $m$ to produce one batch of part $p$
+    \item $cost_{m}$: Cost per hour for using machine $m$
+    \item $available_{m}$: Availability of machine $m$ in hours per month
+    \item $price_{p}$: Selling price per batch of part $p$
+    \item $min\_batches_{p}$: Minimum batches of part $p$ that must be produced each month
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+    \text{Maximize } Z = \sum_{p=1}^{P} (price_p \cdot batches_p) - \sum_{m=1}^{M} \left( cost_m \cdot \sum_{p=1}^{P} (time_{m,p} \cdot batches_p) \right)
+\end{align*}
+
+\textbf{Subject to:}
+\begin{align*}
+    & \text{Machine Time Constraints:} \\
+    & \sum_{p=1}^{P} (time_{m,p} \cdot batches_p) \leq available_m \quad \forall m \in \{1, \ldots, M\} \\
+    & \\
+    & \text{Minimum Production Requirements:} \\
+    & batches_p \geq min\_batches_p \quad \forall p \in \{1, \ldots, P\} \\
+    & \\
+    & \text{Non-negativity:} \\
+    & batches_p \geq 0 \quad \forall p \in \{1, \ldots, P\}
+\end{align*}
+
+\textbf{Output:}
+\begin{itemize}
+    \item $batches = [batches_p \text{ for } p = 1, \ldots, P]$
+    \item $total\_profit = Z$
+\end{itemize}
+
+\end{document}

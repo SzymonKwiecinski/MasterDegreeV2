@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Production Optimization}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+We are tasked with maximizing the profit from the production of several products that pass through multiple stages of production. 
+
+\subsection*{Parameters}
+Let:
+\begin{itemize}
+    \item \( K \): number of products
+    \item \( S \): number of stages
+    \item \( \text{produce\_time}_{k,s} \): time required to produce 1 unit of product \( k \) at stage \( s \) (in hours)
+    \item \( \text{time}_{s} \): available working hours for stage \( s \) 
+    \item \( \text{profit}_{k} \): unit profit from product \( k \)
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let:
+\begin{itemize}
+    \item \( q_{k} \): quantity of product \( k \) to be produced for \( k = 1, 2, \ldots, K \)
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to maximize the total profit, which can be expressed mathematically as:
+
+\[
+\text{Maximize} \quad Z = \sum_{k=1}^{K} \text{profit}_{k} \cdot q_{k}
+\]
+
+\subsection*{Constraints}
+The constraints arise from the production times and availability of time in each stage. For each stage \( s \), the total time used must not exceed the available time:
+
+\[
+\sum_{k=1}^{K} \text{produce\_time}_{k,s} \cdot q_{k} \leq \text{time}_{s}, \quad \forall s = 1, 2, \ldots, S
+\]
+
+Additionally, the production quantities must be non-negative:
+
+\[
+q_{k} \geq 0, \quad \forall k = 1, 2, \ldots, K
+\]
+
+\subsection*{Summary of the Model}
+The complete linear programming model can be summarized as follows:
+
+\begin{align*}
+\text{Maximize} \quad & Z = \sum_{k=1}^{K} \text{profit}_{k} \cdot q_{k} \\
+\text{Subject to} \quad & \sum_{k=1}^{K} \text{produce\_time}_{k,s} \cdot q_{k} \leq \text{time}_{s}, \quad \forall s = 1, 2, \ldots, S \\
+& q_{k} \geq 0, \quad \forall k = 1, 2, \ldots, K
+\end{align*}
+
+\end{document}

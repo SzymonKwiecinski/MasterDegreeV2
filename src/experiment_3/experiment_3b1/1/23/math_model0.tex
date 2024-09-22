@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item \( k \in \{1, 2, \ldots, K\} \) : Categories of manpower
+    \item \( i \in \{1, 2, \ldots, I\} \) : Years
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{requirement}_{k, i} \) : Manpower requirements for category \( k \) in year \( i \)
+    \item \( \text{strength}_{k} \) : Current strength of manpower category \( k \)
+    \item \( \text{lessonewaste}_{k} \) : Wastage rate of manpower \( k \) with less than one year's service
+    \item \( \text{moreonewaste}_{k} \) : Wastage rate of manpower \( k \) with more than one year's service
+    \item \( \text{recruit}_{k} \) : Number of workers that can be recruited for manpower \( k \)
+    \item \( \text{costredundancy}_{k} \) : Redundancy payment for manpower \( k \)
+    \item \( \text{num\_overman} \) : Maximum allowable overman
+    \item \( \text{costoverman}_{k} \) : Extra costs per employee per year for manpower \( k \)
+    \item \( \text{num\_shortwork} \) : Maximum number of workers in each category that can be put on short-time working
+    \item \( \text{costshort}_{k} \) : Cost per employee per year for short-time working in manpower \( k \)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( \text{recruit}_{k, i} \) : Number of recruits for manpower \( k \) in year \( i \)
+    \item \( \text{overmanning}_{k, i} \) : Number of overmanned workers for manpower \( k \) in year \( i \)
+    \item \( \text{short}_{k, i} \) : Number of workers on short-time working for manpower \( k \) in year \( i \)
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} \sum_{i=1}^{I} \left( \text{costredundancy}_{k} \cdot (\text{strength}_{k} - \text{requirement}_{k, i})^+ + \text{costoverman}_{k} \cdot \text{overmanning}_{k, i} + \text{costshort}_{k} \cdot \text{short}_{k, i} \right)
+\]
+
+\textbf{Subject to:}
+\begin{align*}
+\text{Employment Constraint:} & \quad \text{strength}_{k} + \text{recruit}_{k, i} - \text{lessonewaste}_{k} \cdot \text{recruit}_{k, i} - \text{moreonewaste}_{k} \cdot \text{strength}_{k} - \text{short}_{k, i} = \text{requirement}_{k, i} + \text{overmanning}_{k, i} \\
+& \quad \forall k, i \\
+\text{Recruitment Limit:} & \quad \text{recruit}_{k, i} \leq \text{recruit}_{k} \\
+& \quad \forall k, i \\
+\text{Overmanning Limit:} & \quad \sum_{k=1}^{K} \sum_{i=1}^{I} \text{overmanning}_{k, i} \leq \text{num\_overman} \\
+\text{Short-Time Working Limit:} & \quad \text{short}_{k, i} \leq \text{num\_shortwork} \\
+& \quad \forall k, i \\
+\text{Non-negativity Constraints:} & \quad \text{recruit}_{k, i} \geq 0, \quad \text{overmanning}_{k, i} \geq 0, \quad \text{short}_{k, i} \geq 0 \\
+& \quad \forall k, i
+\end{align*}
+
+\end{document}

@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Lamp Power Optimization}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( N \): Number of road segments
+    \item \( M \): Number of lamps
+    \item \( \text{coeff}_{i,j} \): Coefficient representing the contribution of the \( j \)-th lamp to the illumination of the \( i \)-th segment
+    \item \( \text{desired}_i \): Desired illumination for segment \( i \)
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{power}_j \): Power of the \( j \)-th lamp, for \( j = 1, \ldots, M \)
+\end{itemize}
+
+\subsection*{Illumination Calculation}
+The illumination of the \( i \)-th segment can be expressed as:
+\[
+\text{ill}_i = \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j \quad \text{for } i = 1, \ldots, N
+\]
+
+\subsection*{Objective Function}
+We aim to minimize the total absolute error between the actual illumination and the desired illumination:
+\[
+\text{Minimize} \quad \sum_{i=1}^{N} |\text{ill}_i - \text{desired}_i|
+\]
+
+\subsection*{Linear Programming Model}
+We will introduce auxiliary variables to handle the absolute value in the objective function. Let \( e_i \) represent the error for each segment, defined as follows:
+\[
+\text{ill}_i - \text{desired}_i \leq e_i \quad \text{and} \quad \text{desired}_i - \text{ill}_i \leq e_i
+\]
+
+Thus, we will reformulate the objective function as:
+\[
+\text{Minimize} \quad \sum_{i=1}^{N} e_i
+\]
+
+\subsection*{Constraints}
+The constraints for our model will be:
+\[
+\text{ill}_i = \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j \quad \text{for } i = 1, \ldots, N
+\]
+\[
+e_i \geq \text{ill}_i - \text{desired}_i \quad \text{for } i = 1, \ldots, N
+\]
+\[
+e_i \geq \text{desired}_i - \text{ill}_i \quad \text{for } i = 1, \ldots, N
+\]
+
+\subsection*{Solution Output}
+The solution will provide:
+\begin{itemize}
+    \item \( \text{power} = [\text{power}_j \text{ for } j = 1, \ldots, M] \)
+    \item \( \text{error} = \sum_{i=1}^{N} e_i \)
+\end{itemize}
+
+\end{document}

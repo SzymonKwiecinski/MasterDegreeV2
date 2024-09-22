@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Spare Automobile Parts Production}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item Let \( x_k \) be the quantity of spare part \( k \) produced, for \( k = 1, 2, \ldots, K \).
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+\text{Maximize} \quad Z &= \sum_{k=1}^{K} profit_k \cdot x_k
+\end{align*}
+
+\textbf{Constraints:}
+\begin{itemize}
+    \item Capacity constraints for each shop \( s \):
+    \begin{align*}
+    \sum_{k=1}^{K} time_{k, s} \cdot x_k &\leq capacity_s, \quad \text{for } s = 1, 2, \ldots, S
+    \end{align*}
+    \item Non-negativity constraints:
+    \begin{align*}
+    x_k &\geq 0, \quad \text{for } k = 1, 2, \ldots, K
+    \end{align*}
+\end{itemize}
+
+\textbf{Input Format:}
+\begin{itemize}
+    \item \( time \): A matrix where \( time_{k,s} \) denotes the required worker-hours for part \( k \) in shop \( s \).
+    \item \( profit \): A vector where \( profit_k \) denotes the profit of part \( k \).
+    \item \( capacity \): A vector where \( capacity_s \) denotes the capacity of shop \( s \) in working hours.
+\end{itemize}
+
+\textbf{Output Format:}
+\begin{itemize}
+    \item \( quantity \): A vector where \( quantity_k \) denotes the amount of spare part \( k \) to be made during the month.
+\end{itemize}
+
+\end{document}

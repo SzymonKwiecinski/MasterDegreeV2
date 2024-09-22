@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Container Transportation}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+
+An Italian transport company must send empty containers from its depots to ports while minimizing transportation costs. 
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item \( numdepot_i \) represent the number of containers available in depot \( i \) for \( i = 1, \ldots, I \).
+    \item \( numport_j \) represent the container requirement in port \( j \) for \( j = 1, \ldots, J \).
+    \item \( distance_{i,j} \) represent the distance from depot \( i \) to port \( j \).
+    \item \( price \) represent the cost of transport per distance unit (Euros/km).
+    \item \( number_{i,j} \) represent the number of containers sent from depot \( i \) to port \( j \).
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the total transportation cost:
+
+\[
+\text{Minimize } Z = \sum_{i=1}^{I} \sum_{j=1}^{J} \left( \frac{number_{i,j}}{2} \cdot distance_{i,j} \cdot price \right)
+\]
+
+where \( \frac{number_{i,j}}{2} \) accounts for the fact that each barge can contain two containers.
+
+\subsection*{Constraints}
+
+1. The total containers sent from each depot cannot exceed the available containers in the depot:
+\[
+\sum_{j=1}^{J} number_{i,j} \leq numdepot_i \quad \forall i = 1, \ldots, I
+\]
+
+2. The total containers received at each port must meet the demand of the port:
+\[
+\sum_{i=1}^{I} number_{i,j} \geq numport_j \quad \forall j = 1, \ldots, J
+\]
+
+3. The number of containers sent from each depot to each port must be non-negative:
+\[
+number_{i,j} \geq 0 \quad \forall i = 1, \ldots, I, \; j = 1, \ldots, J
+\]
+
+\end{document}

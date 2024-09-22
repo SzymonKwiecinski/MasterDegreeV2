@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Variables}
+Let \( b_p \) be the number of batches produced for part \( p \) where \( p = 1, \ldots, P \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( time_{m,p} \): Time required on machine \( m \) to produce a batch of part \( p \) (in hours).
+    \item \( cost_m \): Cost per hour of using machine \( m \).
+    \item \( available_m \): Available hours on machine \( m \) per month.
+    \item \( price_p \): Sale price per batch of part \( p \).
+    \item \( min\_batches_p \): Minimum number of batches required for part \( p \).
+    \item \( standard\_cost \): Standard labor cost per hour.
+    \item \( overtime\_cost \): Overtime labor cost per hour.
+    \item \( overtime\_hour \): Maximum hours before overtime applies.
+    \item \( min\_profit \): Minimum desired profit.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit \( Z \):
+\[
+Z = \sum_{p=1}^{P} \left( price_p \cdot b_p \right) - \sum_{m=1}^{M} \left( cost_m \cdot h_m \right) - \text{Labor Cost}
+\]
+where \( h_m \) is the total hours used on machine \( m \).
+
+\subsection*{Constraints}
+
+\begin{itemize}
+    \item \textbf{Production Constraints:}
+    \[
+    b_p \geq min\_batches_p, \quad \forall p = 1, \ldots, P
+    \]
+
+    \item \textbf{Machine Availability Constraints:}
+    \[
+    \sum_{p=1}^{P} (time_{m,p} \cdot b_p) \leq available_m, \quad \forall m = 1, \ldots, M
+    \]
+
+    \item \textbf{Total Hour Constraints for Machine 1:}
+    \[
+    h_1 \leq available_1 \quad \text{(Individual availability condition can be disregarded)}
+    \]
+
+    \item \textbf{Profit Constraint:}
+    \[
+    \sum_{p=1}^{P} \left( price_p \cdot b_p \right) - \sum_{m=1}^{M} (cost_m \cdot h_m) - \text{Labor Cost} \geq min\_profit
+    \]
+
+    \item \textbf{Labor Cost Calculation:}
+    \[
+    \text{Labor Cost} = 
+    \begin{cases} 
+      standard\_cost \cdot h_1 & \text{if } h_1 \leq overtime\_hour \\ 
+      standard\_cost \cdot overtime\_hour + overtime\_cost \cdot (h_1 - overtime\_hour) & \text{if } h_1 > overtime\_hour 
+    \end{cases}
+    \]
+
+\end{itemize}
+
+\subsection*{Output}
+The outputs will be:
+\begin{itemize}
+    \item \( batches = [b_1, b_2, \ldots, b_P] \)
+    \item \( total\_profit \)
+\end{itemize}
+
+\end{document}

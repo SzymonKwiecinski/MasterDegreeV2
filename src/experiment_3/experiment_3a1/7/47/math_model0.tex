@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Police Shift Assignment}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( S \) be the number of different shifts.
+    \item Let \( officers\_needed_s \) be the number of police officers needed for shift \( s \) for \( s = 1, \ldots, S \).
+    \item Let \( shift\_cost_s \) be the cost incurred for starting shift \( s \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( officers\_assigned_s \) be the number of police officers assigned to shift \( s \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Total Cost} = \sum_{s=1}^{S} shift\_cost_s \cdot x_s
+\]
+where \( x_s \) is a binary variable indicating if shift \( s \) is started (1) or not (0).
+
+\subsection*{Constraints}
+\begin{align}
+    & officers\_assigned_s \geq officers\_needed_s \quad \forall s \in \{1, \ldots, S\} \\
+    & officers\_assigned_s = officers\_assigned_{s-1} + officers\_assigned_s \quad \forall s \in \{2, \ldots, S\} \\
+    & officers\_assigned_s \geq 0 \quad \forall s \in \{1, \ldots, S\}
+\end{align}
+
+\subsection*{Output}
+The solution will return:
+\begin{itemize}
+    \item \( officers\_assigned \): A list of the number of officers assigned to each shift.
+    \item \( total\_cost \): The total cost incurred by the town.
+\end{itemize}
+
+\end{document}

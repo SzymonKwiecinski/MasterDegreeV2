@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Stock Selling Decision}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( N \): Number of different stocks
+    \item \( bought_i \): Number of shares bought of stock \( i \)
+    \item \( buyPrice_i \): Purchase price per share of stock \( i \)
+    \item \( currentPrice_i \): Current price per share of stock \( i \)
+    \item \( futurePrice_i \): Expected future price per share of stock \( i \)
+    \item \( transactionRate \): Transaction cost rate (in percentage)
+    \item \( taxRate \): Tax rate on capital gains (in percentage)
+    \item \( K \): Desired net amount of money to raise
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( sell_i \): Number of shares of stock \( i \) to sell
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } \sum_{i=1}^{N} futurePrice_i \times (bought_i - sell_i)
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+    \sum_{i=1}^{N} \left( currentPrice_i \times sell_i \times (1 - \frac{transactionRate}{100}) - (sell_i \times (currentPrice_i - buyPrice_i)) \times \frac{taxRate}{100} \right) & \geq K \\
+    0 \leq sell_i & \leq bought_i, \quad \text{for } i = 1, \ldots, N
+\end{align*}
+
+\textbf{Output:}
+\begin{itemize}
+    \item \( sell = [sell_1, sell_2, \ldots, sell_N] \)
+\end{itemize}
+
+\end{document}

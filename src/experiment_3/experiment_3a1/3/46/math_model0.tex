@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Steel Production}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item Let $x_{a,s}$ be the amount of alloy $a$ used in producing steel type $s$.
+    \item Let $y_s$ be the total amount of steel type $s$ produced.
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+\text{Maximize } Z &= \sum_{s=1}^{S} (steel\_price_s \cdot y_s) - \sum_{a=1}^{A} (alloy\_price_a \cdot \sum_{s=1}^{S} x_{a,s}) \\
+&= \sum_{s=1}^{S} (steel\_price_s \cdot y_s) - \sum_{a=1}^{A} alloy\_price_a \cdot \sum_{s=1}^{S} x_{a,s}
+\end{align*}
+
+\textbf{Subject to:}
+
+\textbf{1. Alloy Availability Constraints:}
+\begin{align*}
+\sum_{s=1}^{S} x_{a,s} &\leq available_a \quad \forall a = 1, \ldots, A
+\end{align*}
+
+\textbf{2. Carbon Content Constraints:}
+\begin{align*}
+\frac{\sum_{a=1}^{A} (carbon_a \cdot x_{a,s})}{y_s} &\geq carbon\_min_s \quad \forall s = 1, \ldots, S
+\end{align*}
+
+\textbf{3. Nickel Content Constraints:}
+\begin{align*}
+\frac{\sum_{a=1}^{A} (nickel_a \cdot x_{a,s})}{y_s} &\leq nickel\_max_s \quad \forall s = 1, \ldots, S
+\end{align*}
+
+\textbf{4. Alloy 1 Constraint:}
+\begin{align*}
+\sum_{s=1}^{S} x_{1,s} &\leq 0.4 \cdot \sum_{s=1}^{S} y_s
+\end{align*}
+
+\textbf{5. Non-negativity Constraints:}
+\begin{align*}
+x_{a,s} &\geq 0 \quad \forall a = 1, \ldots, A, \; s = 1, \ldots, S \\
+y_s &\geq 0 \quad \forall s = 1, \ldots, S
+\end{align*}
+
+\end{document}

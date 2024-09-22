@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Wild Sports Production Problem}
+
+\subsection*{Variables}
+Let \( x_j \) be the amount of product \( j \) produced, where \( j = 1, 2, \ldots, M \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( available_i \): Amount of raw material \( i \) available, where \( i = 1, 2, \ldots, N \).
+    \item \( req_{i,j} \): Units of raw material \( i \) required per unit of product \( j \).
+    \item \( price_j \): Selling price per unit of product \( j \).
+    \item \( cost_j \): Production cost per unit of product \( j \).
+    \item \( demand_j \): Maximum forecasted demand for product \( j \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit \( P \):
+
+\[
+P = \sum_{j=1}^{M} (price_j - cost_j) \cdot x_j
+\]
+
+\subsection*{Constraints}
+1. Raw material constraints:
+\[
+\sum_{j=1}^{M} req_{i,j} \cdot x_j \leq available_i, \quad \text{for } i = 1, 2, \ldots, N
+\]
+
+2. Demand constraints:
+\[
+x_j \leq demand_j, \quad \text{for } j = 1, 2, \ldots, M
+\]
+
+3. Non-negativity constraints:
+\[
+x_j \geq 0, \quad \text{for } j = 1, 2, \ldots, M
+\]
+
+\end{document}

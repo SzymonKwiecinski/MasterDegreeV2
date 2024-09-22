@@ -1,0 +1,87 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Oil Refining and Blending}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item \( buyquantity_{i,m} \) be the amount of oil \( i \) bought in month \( m \).
+    \item \( refine_{i,m} \) be the amount of oil \( i \) refined in month \( m \).
+    \item \( storage_{i,m} \) be the amount of oil \( i \) stored at the end of month \( m \).
+\end{itemize}
+
+\subsection*{Parameters}
+Define the following parameters:
+\begin{itemize}
+    \item \( price_{i,m} \): Price of oil \( i \) in month \( m \).
+    \item \( sell\_price \): Selling price per ton of the final product.
+    \item \( max\_veg \): Maximum tons of vegetable oils refined per month.
+    \item \( max\_non\_veg \): Maximum tons of non-vegetable oils refined per month.
+    \item \( storage\_size \): Maximum tons of each raw oil that can be stored.
+    \item \( storage\_cost \): Cost of storage per ton per month.
+    \item \( max\_hardness \): Maximum allowable hardness of the final product.
+    \item \( min\_hardness \): Minimum allowable hardness of the final product.
+    \item \( hardness_{i} \): Hardness of oil \( i \).
+    \item \( init\_amount \): Initial amount of each type of raw oil in storage.
+    \item \( min\_usage \): Minimum tons of each oil that must be used if the oil is selected.
+    \item \( dependency_{i,j} \): Dependency matrix indicating oil usage relations.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the profit given by:
+\[
+\text{Profit} = \sum_{m=1}^{M} \left( sell\_price \cdot \sum_{i=1}^{I} refine_{i,m} - \sum_{i=1}^{I} (price_{i,m} \cdot buyquantity_{i,m} + storage\_cost \cdot storage_{i,m}) \right)
+\]
+
+\subsection*{Constraints}
+
+\textbf{1. Storage Balance:}
+\[
+storage_{i,m} = storage_{i,m-1} + buyquantity_{i,m} - refine_{i,m} \quad \forall i, m
+\]
+\[
+storage_{i,0} = init\_amount \quad \forall i
+\]
+\[
+storage_{i,M} = init\_amount \quad \forall i
+\]
+
+\textbf{2. Refining Limits:}
+\[
+\sum_{i \in \text{veg}} refine_{i,m} \leq max\_veg \quad \forall m
+\]
+\[
+\sum_{i \in \text{non-veg}} refine_{i,m} \leq max\_non\_veg \quad \forall m
+\]
+
+\textbf{3. Hardness Constraints:}
+\[
+min\_hardness \leq \frac{\sum_{i=1}^{I} hardness_{i} \cdot refine_{i,m}}{\sum_{i=1}^{I} refine_{i,m}} \leq max\_hardness \quad \forall m
+\]
+
+\textbf{4. Usage Minimum:}
+If oil \( i \) is used (\( refine_{i,m} > 0 \)), then:
+\[
+refine_{i,m} \geq min\_usage \quad \forall i, m
+\]
+
+\textbf{5. Dependency Constraints:}
+If \( dependency_{i,j} = 1 \) and \( refine_{i,m} > 0 \), then:
+\[
+refine_{j,m} \geq min\_usage \quad \forall j \text{ such that } dependency_{i,j} = 1, m
+\]
+
+\textbf{6. Oil Selection Limit:}
+At most three different oils can be used in any month:
+\[
+\sum_{i=1}^{I} \text{if } refine_{i,m} > 0 \leq 3 \quad \forall m
+\]
+
+\subsection*{Non-negativity Constraints:}
+\[
+buyquantity_{i,m} \geq 0, \quad refine_{i,m} \geq 0, \quad storage_{i,m} \geq 0 \quad \forall i, m
+\]
+
+\end{document}

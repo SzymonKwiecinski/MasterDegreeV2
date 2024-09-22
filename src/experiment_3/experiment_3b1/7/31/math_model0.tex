@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Power Generation Optimization}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( T \) be the number of time periods in one day.
+    \item Let \( K \) be the number of different types of generating units.
+    \item \( demand_t \): electricity demand at time period \( t \) for \( t = 1, \ldots, T \).
+    \item \( num_k \): number of available generators of type \( k \) for \( k = 1, \ldots, K \).
+    \item \( minlevel_k \): minimum output level of generator type \( k \).
+    \item \( maxlevel_k \): maximum output level of generator type \( k \).
+    \item \( runcost_k \): cost of running each generator of type \( k \) at minimum output level.
+    \item \( extracost_k \): additional cost per megawatt of operating generator type \( k \) above minimum level.
+    \item \( startcost_k \): cost incurred to start up one unit of generator type \( k \).
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item \( numon_{k,t} \): number of generators of type \( k \) that are on at time period \( t \).
+    \item \( output_{k,t} \): total output of generator type \( k \) at time period \( t \).
+    \item \( start_{k,t} \): binary variable indicating whether at least one generator of type \( k \) is started at time \( t \) (1 if started, 0 otherwise).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+
+\[
+\text{Minimize} \quad Z = \sum_{t=1}^{T} \sum_{k=1}^{K} \left( runcost_k \cdot numon_{k,t} + startcost_k \cdot start_{k,t} + extracost_k \cdot \max(0, output_{k,t} - minlevel_k) \right)
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    \sum_{k=1}^{K} output_{k,t} & \geq demand_t \quad \forall t \in \{1, \ldots, T\} \\
+    output_{k,t} & = minlevel_k \cdot numon_{k,t} + \sum_{m=1}^{maxlevel_k - minlevel_k} m \cdot numon_{k,t} \quad \forall k \in \{1, \ldots, K\}, \forall t \in \{1, \ldots, T\} \\
+    numon_{k,t} & \leq num_k \quad \forall k \in \{1, \ldots, K\}, \forall t \in \{1, \ldots, T\} \\
+    numon_{k,t} & \in \mathbb{Z}_{\geq 0} \quad \forall k \in \{1, \ldots, K\}, \forall t \in \{1, \ldots, T\} \\
+    start_{k,t} & \in \{0,1\} \quad \forall k \in \{1, \ldots, K\}, \forall t \in \{1, \ldots, T\} \\
+    output_{k,t} & \leq maxlevel_k \cdot numon_{k,t} \quad \forall k \in \{1, \ldots, K\}, \forall t \in \{1, \ldots, T\}
+\end{align}
+
+\subsection*{Output}
+The output of the model will provide:
+
+\[
+\{ "numon": [[numon_{k,t} \text{ for } t \in \{1,\ldots,T\}] \text{ for } k \in \{1,\ldots,K\}] \} 
+\]
+
+\end{document}

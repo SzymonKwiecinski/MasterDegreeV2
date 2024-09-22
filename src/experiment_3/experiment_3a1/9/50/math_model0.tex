@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Auto Parts Manufacturer}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( P \) be the number of different parts.
+    \item Let \( M \) be the number of different machines.
+    \item Let \( \text{time}_{m,p} \) be the time required on machine \( m \) to produce a batch of part \( p \) (in hours).
+    \item Let \( \text{cost}_{m} \) be the cost per hour for using machine \( m \).
+    \item Let \( \text{available}_{m} \) be the available hours for machine \( m \) per month.
+    \item Let \( \text{price}_{p} \) be the selling price for a batch of part \( p \).
+    \item Let \( \text{min\_batches}_{p} \) be the minimum number of batches of part \( p \) required to fulfill the contract.
+    \item Let \( \text{extra\_cost}_{m} \) be the cost per hour for extra time on machine \( m \).
+    \item Let \( \text{max\_extra}_{m} \) be the maximum extra hours that can be purchased for machine \( m \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( \text{batches}_{p} \) be the number of batches produced for part \( p \).
+    \item Let \( \text{extra\_time}_{m} \) be the additional hours purchased for machine \( m \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{total\_profit} = \sum_{p=1}^{P} \left( \text{price}_{p} \cdot \text{batches}_{p} \right) - \sum_{m=1}^{M} \left( \text{cost}_{m} \cdot \left( \sum_{p=1}^{P} \text{time}_{m,p} \cdot \text{batches}_{p} + \text{extra\_time}_{m} \right) \right) - \sum_{m=1}^{M} \left( \text{extra\_cost}_{m} \cdot \text{extra\_time}_{m} \right)
+\]
+
+\subsection*{Constraints}
+1. Machine Availability:
+\[
+\sum_{p=1}^{P} \text{time}_{m,p} \cdot \text{batches}_{p} + \text{extra\_time}_{m} \leq \text{available}_{m} + \text{max\_extra}_{m}, \quad \forall m \in \{1, \ldots, M\}
+\]
+
+2. Minimum Production Requirement:
+\[
+\text{batches}_{p} \geq \text{min\_batches}_{p}, \quad \forall p \in \{1, \ldots, P\}
+\]
+
+3. Non-negativity:
+\[
+\text{batches}_{p} \geq 0, \quad \forall p \in \{1, \ldots, P\}
+\]
+\[
+\text{extra\_time}_{m} \geq 0, \quad \forall m \in \{1, \ldots, M\}
+\]
+
+\end{document}

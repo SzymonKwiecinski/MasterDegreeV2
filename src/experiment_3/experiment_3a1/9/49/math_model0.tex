@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item Let \( batches_{p} \) be the number of batches produced for part \( p \) where \( p = 1, 2, \ldots, P \).
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} \left( price_{p} \cdot batches_{p} - \sum_{m=1}^{M} cost_{m} \cdot \frac{time_{m,p}}{100} \cdot batches_{p} \right)
+\]
+
+\textbf{Subject to:}
+
+\begin{enumerate}
+    \item \textbf{Machine Availability Constraints:}
+    \[
+    \sum_{p=1}^{P} \sum_{m=1}^{M} time_{m,p} \cdot batches_{p} \leq \sum_{m=1}^{M} available_{m}
+    \]
+
+    \item \textbf{Minimum Batch Production:}
+    \[
+    batches_{p} \geq min\_batches_{p}, \quad \forall p = 1, 2, \ldots, P
+    \]
+
+    \item \textbf{Non-negativity Constraints:}
+    \[
+    batches_{p} \geq 0, \quad \forall p = 1, 2, \ldots, P
+    \]
+\end{enumerate}
+
+\textbf{Output:}
+\begin{itemize}
+    \item The number of batches of each part produced: \( batches_{p} \) for \( p = 1, 2, \ldots, P \).
+    \item The total profit obtained for the month: \( total\_profit \).
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Maximizing Revenue}
+
+\subsection*{Sets and Parameters}
+\begin{itemize}
+    \item Let \( M \) be the number of different goods.
+    \item Let \( N \) be the number of different raw materials.
+    \item Let \( \text{available}_i \) be the available amount of raw material \( i \) for \( i = 1, \ldots, N \).
+    \item Let \( \text{req}_{i,j} \) be the requirement of raw material \( i \) for good \( j \) for \( j = 1, \ldots, M \).
+    \item Let \( \text{price}_j \) be the revenue per unit produced of good \( j \).
+\end{itemize}
+
+\subsection*{Decision Variable}
+Let \( \text{amount}_j \) be the amount of good \( j \) produced for \( j = 1, \ldots, M \).
+
+\subsection*{Objective Function}
+The objective is to maximize total revenue, given by:
+\[
+\text{Maximize} \quad Z = \sum_{j=1}^{M} \text{price}_j \cdot \text{amount}_j
+\]
+
+\subsection*{Constraints}
+1. Material constraints for each raw material \( i \):
+\[
+\sum_{j=1}^{M} \text{req}_{i,j} \cdot \text{amount}_j \leq \text{available}_i \quad \text{for } i = 1, \ldots, N
+\]
+
+2. Non-negativity constraints:
+\[
+\text{amount}_j \geq 0 \quad \text{for } j = 1, \ldots, M
+\]
+
+\subsection*{Summary of the Model}
+The complete linear programming model can be summarized as follows:
+
+\begin{align*}
+\text{Maximize} \quad & Z = \sum_{j=1}^{M} \text{price}_j \cdot \text{amount}_j \\
+\text{subject to} \quad & \sum_{j=1}^{M} \text{req}_{i,j} \cdot \text{amount}_j \leq \text{available}_i, \quad i = 1, \ldots, N \\
+& \text{amount}_j \geq 0, \quad j = 1, \ldots, M
+\end{align*}
+
+\end{document}

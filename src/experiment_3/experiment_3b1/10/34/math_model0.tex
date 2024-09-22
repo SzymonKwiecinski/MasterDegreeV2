@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Nutritional Diet}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item Let $K$ be the set of foods, indexed by $k = 1, \ldots, K$.
+    \item Let $M$ be the set of nutrients, indexed by $m = 1, \ldots, M$.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $price_k$: price per unit of food $k$.
+    \item $demand_m$: minimum required units of nutrient $m$ per day.
+    \item $nutri_{k,m}$: units of nutrient $m$ contained in one unit of food $k$.
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item $quantity_k$: quantity of food $k$ to purchase.
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} price_k \cdot quantity_k
+\]
+
+\textbf{Subject to:}
+\[
+\sum_{k=1}^{K} nutri_{k,m} \cdot quantity_k \geq demand_m \quad \forall m \in M
+\]
+
+\textbf{Non-negativity Constraints:}
+\[
+quantity_k \geq 0 \quad \forall k \in K
+\]
+
+\end{document}

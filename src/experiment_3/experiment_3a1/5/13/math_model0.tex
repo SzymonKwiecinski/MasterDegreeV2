@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Chebychev Center}
+
+Given a set \( P \) described by the linear inequality constraints:
+
+\[
+P = \{ \mathbf{x} \in \mathbb{R}^{N} \mid \mathbf{a}_{i}^{T} \mathbf{x} \leq b_{i}, \; i = 1, \ldots, m \}
+\]
+
+where \( \mathbf{a}_{i} \in \mathbb{R}^{N} \) and \( b_{i} \in \mathbb{R} \), we want to find a ball with center \( \mathbf{y} \in \mathbb{R}^{N} \) and radius \( r \) that is entirely contained within the set \( P \).
+
+The ball centered at \( \mathbf{y} \) with radius \( r \) is defined as:
+
+\[
+B(\mathbf{y}, r) = \{ \mathbf{x} \in \mathbb{R}^{N} \mid \|\mathbf{x} - \mathbf{y}\|_2 \leq r \}
+\]
+
+Our objective is to maximize the radius \( r \) while ensuring that the ball \( B(\mathbf{y}, r) \) is contained in \( P \). This leads to the following linear programming formulation:
+
+\[
+\text{Maximize } r
+\]
+
+Subject to the constraints:
+
+\[
+\|\mathbf{a}_{i}^{T} \mathbf{y} - b_{i}\| + r \leq 0, \quad \text{for } i = 1, \ldots, m
+\]
+
+This can be expressed in linear form using auxiliary variables. We reformulate the absolute value constraints:
+
+\[
+\begin{aligned}
+\mathbf{a}_{i}^{T} \mathbf{y} - b_{i} + r & \leq 0, \\
+-b_{i} + \mathbf{a}_{i}^{T} \mathbf{y} + r & \leq 0.
+\end{aligned}
+\]
+
+Thus the complete model is:
+
+\[
+\begin{aligned}
+\text{Maximize } & r \\
+\text{Subject to } & \mathbf{a}_{i}^{T} \mathbf{y} - b_{i} + r \leq 0, \quad i = 1, \ldots, m, \\
+& -b_{i} + \mathbf{a}_{i}^{T} \mathbf{y} + r \leq 0, \quad i = 1, \ldots, m.
+\end{aligned}
+\]
+
+The output will be:
+
+\[
+\text{Output: } \{ \text{center: } [y_{j} \text{ for } j = 1, \ldots, N], \, \text{radius: } r \}
+\]
+
+\end{document}

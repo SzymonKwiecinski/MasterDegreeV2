@@ -1,0 +1,88 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for DEC's Production Problem}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item Let \( N \) be the total number of computer systems.
+    \item Let \( i \in \{1, 2, \ldots, N\} \) represent each system.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( is\_workstation[i] \): Boolean indicating if system \( i \) is a workstation (true) or general-purpose (false).
+    \item \( price[i] \): Price of system \( i \).
+    \item \( disk[i] \): Average number of disk drives requested for system \( i \).
+    \item \( mem[i] \): Average number of 256K memory boards requested for system \( i \).
+    \item \( max\_cpu \): Maximum available CPUs.
+    \item \( min\_disk \): Minimum available disk drives.
+    \item \( max\_disk \): Maximum available disk drives.
+    \item \( min\_mem \): Minimum available 256K memory boards.
+    \item \( max\_mem \): Maximum available 256K memory boards.
+    \item \( demand[i] \): Maximum demand for system \( i \).
+    \item \( demand\_GP \): Maximum demand for the GP family.
+    \item \( demand\_WS \): Maximum demand for the WS family.
+    \item \( preorder[i] \): Preorders for system \( i \).
+    \item \( alt\_mem \): Available alternative memory boards.
+    \item \( alt\_compatible[i] \): Boolean indicating if alternative memory can be used in system \( i \).
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item Let \( x[i] \): Number of systems produced of type \( i \).
+    \item Let \( alt[i] \): Number of alternative memory boards used for system \( i \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the profit:
+\[
+\text{Maximize } Z = \sum_{i=1}^{N} (price[i] \cdot x[i]) - \text{cost\_of\_resources}
+\]
+
+\subsection*{Constraints}
+1. CPU Constraints:
+\[
+\sum_{i=1}^{N} x[i] \leq max\_cpu
+\]
+
+2. Disk Drive Constraints:
+\[
+\sum_{i=1}^{N} disk[i] \cdot x[i] \geq min\_disk
+\]
+\[
+\sum_{i=1}^{N} disk[i] \cdot x[i] \leq max\_disk
+\]
+
+3. Memory Board Constraints:
+\[
+\sum_{i=1}^{N} mem[i] \cdot x[i] + \sum_{i=1}^{N} alt[i] \leq min\_mem
+\]
+\[
+\sum_{i=1}^{N} mem[i] \cdot x[i] + \sum_{i=1}^{N} alt[i] \leq max\_mem
+\]
+
+4. Demand Constraints:
+\[
+x[i] \geq preorder[i] \quad \forall i
+\]
+\[
+\sum_{i \text{ s.t. } is\_workstation[i]} x[i] \leq demand\_WS
+\]
+\[
+\sum_{i \text{ s.t. } !is\_workstation[i]} x[i] \leq demand\_GP
+\]
+\[
+x[i] \leq demand[i] \quad \forall i
+\]
+
+5. Alternative Memory Board Usage:
+\[
+alt[i] \leq alt\_mem \quad \text{if } alt\_compatible[i]
+\]
+
+\subsection*{Output}
+The output should be structured in JSON format containing the produced systems and profit calculation as described in the problem statement.
+
+\end{document}

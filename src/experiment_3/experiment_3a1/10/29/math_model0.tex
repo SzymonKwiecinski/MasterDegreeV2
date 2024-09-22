@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Linear Regression}
+
+We want to fit a line of the form \( y = bx + a \) to minimize the maximum deviation of the observed values from the predicted values. Let us define the following:
+
+- Let \( y_k \) be the observed values for \( k = 1, 2, \ldots, K \)
+- Let \( x_k \) be the corresponding values for \( k = 1, 2, \ldots, K \)
+- Let \( a \) be the intercept of the fitted line
+- Let \( b \) be the slope of the fitted line
+- Let \( d_k \) be the deviation for each observation, defined as \( d_k = y_k - (bx_k + a) \)
+
+We aim to minimize the maximum deviation \( D \) across all observations. Thus, we formulate the following linear programming model:
+
+\subsection*{Objective Function}
+
+\[
+\text{Minimize } D
+\]
+
+\subsection*{Subject to}
+
+\[
+d_k \leq D, \quad \forall k \in \{1, 2, \ldots, K\}
+\]
+\[
+-d_k \leq D, \quad \forall k \in \{1, 2, \ldots, K\}
+\]
+\[
+d_k = y_k - (bx_k + a), \quad \forall k \in \{1, 2, \ldots, K\}
+\]
+
+This leads to the following set of inequalities:
+
+1. \( y_k - (bx_k + a) \leq D, \quad \forall k \)
+2. \( -(y_k - (bx_k + a)) \leq D, \quad \forall k \)
+
+Thus, rewriting these inequalities, we have:
+
+1. \( y_k - bx_k - a \leq D, \quad \forall k \)
+2. \( -y_k + bx_k + a \leq D, \quad \forall k \)
+
+\subsection*{Variables}
+
+The decision variables are:
+- \( a \) (intercept)
+- \( b \) (slope)
+- \( D \) (maximum deviation)
+
+\subsection*{Output}
+
+The result of this optimization will yield the values of \( a \) and \( b \):
+\[
+\text{Output:} \quad \{ \text{intercept}: a, \text{ slope}: b \}
+\]
+
+\end{document}

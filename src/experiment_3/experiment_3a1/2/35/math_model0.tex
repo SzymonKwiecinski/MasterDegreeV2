@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Warehouse Operations}
+
+\subsection*{Indices}
+Let \( n \) be the index for the time periods, where \( n = 1, 2, \ldots, N \).
+
+\subsection*{Parameters}
+\begin{align*}
+& \text{capacity} \quad \text{(maximum stock capacity)} \\
+& \text{holding\_cost} \quad \text{(cost per unit of stock held for one period)} \\
+& \text{price}_{n} \quad \text{(selling price of the commodity in period } n\text{)} \\
+& \text{cost}_{n} \quad \text{(purchase cost of the commodity in period } n\text{)}
+\end{align*}
+
+\subsection*{Decision Variables}
+Let:
+\begin{align*}
+& \text{buyquantity}_{n} \quad \text{(amount of commodity bought in period } n\text{)} \\
+& \text{sellquantity}_{n} \quad \text{(amount of commodity sold in period } n\text{)} \\
+& \text{stock}_{n} \quad \text{(amount of stock at the end of period } n\text{)}
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total profit over the \( N \) periods:
+\[
+\text{Maximize } Z = \sum_{n=1}^{N} \left( \text{price}_{n} \cdot \text{sellquantity}_{n} - \text{cost}_{n} \cdot \text{buyquantity}_{n} - \text{holding\_cost} \cdot \text{stock}_{n} \right)
+\]
+
+\subsection*{Constraints}
+1. Stock balance constraint:
+\[
+\text{stock}_{n} = \text{stock}_{n-1} + \text{buyquantity}_{n} - \text{sellquantity}_{n}, \quad n = 1, 2, \ldots, N
+\]
+2. Capacity constraint:
+\[
+\text{stock}_{n} \leq \text{capacity}, \quad n = 1, 2, \ldots, N
+\]
+3. Non-negativity constraints:
+\[
+\text{buyquantity}_{n} \geq 0, \quad \text{sellquantity}_{n} \geq 0, \quad \text{stock}_{n} \geq 0, \quad n = 1, 2, \ldots, N
+\]
+4. Initial and final stock conditions:
+\[
+\text{stock}_{0} = 0 \quad \text{and} \quad \text{stock}_{N} = 0
+\]
+
+\end{document}

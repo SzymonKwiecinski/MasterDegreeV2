@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Traveling Salesman Problem (TSP)}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item \( C \): Set of cities including the start city and \( N \) towns.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( d_{i,j} \): Distance between city \( i \) and city \( j \).
+    \item \( N \): Total number of towns to visit.
+    \item \( start\_city \): The starting city of the traveler.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_{i,j} \): Binary variable that equals 1 if the traveler travels directly from city \( i \) to city \( j \), and 0 otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total distance traveled:
+\[
+\text{Minimize } Z = \sum_{i \in C} \sum_{j \in C} d_{i,j} x_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Each city must be visited exactly once:
+    \[
+    \sum_{j \in C} x_{start\_city,j} = 1
+    \]
+    \[
+    \sum_{j \in C} x_{j,start\_city} = 1
+    \]
+    \item For each town:
+    \[
+    \sum_{j \in C} x_{i,j} = 1, \quad \forall i \in C \setminus \{start\_city\}
+    \]
+    \[
+    \sum_{i \in C} x_{i,j} = 1, \quad \forall j \in C \setminus \{start\_city\}
+    \]
+    \item Subtour elimination constraints (to prevent visiting cities in loops):
+    \[
+    u_i - u_j + N \cdot x_{i,j} \leq N-1, \quad \forall i,j \in C, i \neq j
+    \]
+    \[
+    u_i \geq 1, \quad \forall i \in C \setminus \{start\_city\}
+    \]
+\end{itemize}
+
+\subsection*{Output}
+The solution will provide:
+\begin{itemize}
+    \item \texttt{visit\_order}: Sequence of cities visited after \texttt{start\_city}.
+    \item \texttt{total\_distance}: The total distance traveled on the optimal journey.
+\end{itemize}
+
+\end{document}

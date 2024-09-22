@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Warehouse Operation Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( C \) be the warehouse capacity.
+    \item Let \( h \) be the holding cost per unit for one period.
+    \item Let \( p_n \) be the selling price of the commodity in period \( n \).
+    \item Let \( c_n \) be the purchase cost in period \( n \).
+    \item Let \( N \) be the total number of periods.
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item Let \( b_n \) be the amount bought in period \( n \).
+    \item Let \( s_n \) be the amount sold in period \( n \).
+    \item Let \( x_n \) be the stock at the end of period \( n \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Our objective is to maximize the profit over the periods, which can be represented as:
+\[
+\text{Maximize } Z = \sum_{n=1}^{N} (p_n \cdot s_n - c_n \cdot b_n - h \cdot x_n)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+1. & \quad x_n = x_{n-1} + b_n - s_n \quad \text{for } n = 1, \ldots, N \\
+2. & \quad 0 \leq x_n \leq C \quad \text{for } n = 1, \ldots, N \\
+3. & \quad b_n \geq 0 \quad \text{for } n = 1, \ldots, N \\
+4. & \quad s_n \geq 0 \quad \text{for } n = 1, \ldots, N \\
+5. & \quad x_N = 0 \quad \text{(warehouse must be empty at the end)}
+\end{align*}
+
+\subsection*{Output}
+The output should include:
+\begin{itemize}
+    \item \( \text{buyquantity} = [b_1, b_2, \ldots, b_N] \)
+    \item \( \text{sellquantity} = [s_1, s_2, \ldots, s_N] \)
+    \item \( \text{stock} = [x_1, x_2, \ldots, x_N] \)
+\end{itemize}
+
+\end{document}

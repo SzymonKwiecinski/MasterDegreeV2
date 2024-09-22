@@ -1,0 +1,142 @@
+# START: OnePrompt 
+## START ROLE MESSAGE | Role.SYSTEM 
+Background: You are a expert at Operations Research and Linear Programming and Python. Based on description you solve given problem using Pulp python library. Python code place between ```python and ```. You receive the data in json format between: <DATA></DATA>. Do not change data format! Do not use `while` loop in python code! Do not include 'pip install' in script. Assume every python package is installed Print at the end the objective between <OBJ></OBJ> `print(f' (Objective Value): <OBJ>{pulp.value(problem.objective)}</OBJ>')`  
+## START MESSAGE 0 
+### ROLE: Role.USER
+<DESCRIPTION>
+PROBLEM TYPE: LP
+
+PROBLEM INFO:
+
+- US soybean suppliers ship soybeans to different destinations using various routes.
+- Consider a transportation network consisting of \var{n} cities.
+- Soybeans are sent from a terminal city \var{k} to a port city \var{p}.
+- Subsequently, Soybeans are transported from a port city \var{p} to a destination city \var{l}
+- Let \var{A} be the set of all routes. 
+- There is a positive transport cost \var{C_{i,j}} per metric ton along that route.
+- Each source terminal \var{k} has a soybean supply of \var{supply_{k}}. 
+- Each destination \var{l} has a demand for soybeans of \var{demand_{l}}.
+
+INPUT FORMAT: 
+
+{
+    "routes": [
+       {
+        "start": i,
+        "end": j,
+        "C": C_{i,j},
+       }
+    ],
+    "demand": [
+        {
+            "destination": l,
+            "D": demand_{l}
+        }
+    ],
+    "supply": [
+        {
+            "terminal": k,
+            "S": supply_{k}
+        }
+    ]
+}
+
+OBJECTIVE: What quantity of soybeans should they from source to destination to minimize transportation costs?
+
+OUTPUT INFO:
+
+- the amount of soybeans shipped from \var{i} to \var{j} is \var{amount_{i,j}}.
+- \var{total_cost} represents the total transportation cost.
+
+OUTPUT FORMAT:
+
+{
+    "distribution": [
+        {"from": i,
+         "to": j,
+         "amount": amount_{i,j}
+        }
+        for id in 1, ..., m
+    ],
+    "total_cost": total_cost
+}
+
+
+</DESCRIPTION>
+<DATA>
+{'NumTerminals': 3, 'NumDestinations': 4, 'Cost': [[34, 49, 17, 26], [52, 64, 23, 14], [20, 28, 12, 17]], 'Demand': [65, 70, 50, 45], 'Supply': [150, 100, 100]}</DATA>
+
+
+## START MESSAGE 1 
+### ROLE: Role.ASSISTANT
+To solve this transportation problem using linear programming, we will use the PuLP library. We'll formulate the problem as follows:
+
+1. Define the variables representing the amount of soybeans to be transported between each terminal and destination.
+2. Ensure supply constraints are not violated.
+3. Ensure demand requirements are met.
+4. Minimize the total transportation cost.
+
+Here’s the complete Python code using PuLP:
+
+```python
+import pulp
+
+#### Parse input data
+data = {
+    'NumTerminals': 3,
+    'NumDestinations': 4,
+    'Cost': [
+        [34, 49, 17, 26],
+        [52, 64, 23, 14],
+        [20, 28, 12, 17]
+    ],
+    'Demand': [65, 70, 50, 45],
+    'Supply': [150, 100, 100]
+}
+
+#### Extract data
+NumTerminals = data['NumTerminals']
+NumDestinations = data['NumDestinations']
+Costs = data['Cost']
+Demands = data['Demand']
+Supplies = data['Supply']
+
+#### Indices
+terminals = range(NumTerminals)
+destinations = range(NumDestinations)
+
+#### Create LP problem
+problem = pulp.LpProblem("Soybean_Transportation", pulp.LpMinimize)
+
+#### Decision variables
+amount = pulp.LpVariable.dicts("Amount", [(i, j) for i in terminals for j in destinations], lowBound=0, cat='Continuous')
+
+#### Objective function
+problem += pulp.lpSum(Costs[i][j] * amount[(i, j)] for i in terminals for j in destinations), "Total_Transportation_Cost"
+
+#### Supply constraints
+for i in terminals:
+    problem += pulp.lpSum(amount[(i, j)] for j in destinations) <= Supplies[i], f"Supply_Constraint_{i}"
+
+#### Demand constraints
+for j in destinations:
+    problem += pulp.lpSum(amount[(i, j)] for i in terminals) >= Demands[j], f"Demand_Constraint_{j}"
+
+#### Solve the problem
+problem.solve()
+
+#### Prepare the output data
+distribution = [{"from": i, "to": j, "amount": pulp.value(amount[(i, j)])} for i in terminals for j in destinations]
+
+#### Output the result
+output = {
+    "distribution": distribution,
+    "total_cost": pulp.value(problem.objective)
+}
+
+print(output)
+print(f' (Objective Value): <OBJ>{pulp.value(problem.objective)}</OBJ>')
+```
+
+This code sets up a linear programming model to minimize transportation cost subject to supply and demand constraints. We utilize PuLP's `LpVariable` to create decision variables representing the flow of soybeans and add constraints to ensure supply and demand are respected. Finally, we solve the problem and print the distribution amounts and total cost.
+

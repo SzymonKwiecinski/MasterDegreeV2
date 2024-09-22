@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Motion Linear Programming Model}
+
+Let \( x_t \), \( v_t \), and \( a_t \) represent the position, velocity, and acceleration of the rocket at time \( t \), respectively. The discrete-time model is defined as follows:
+
+\[
+x_{t+1} = x_t + v_t
+\]
+
+\[
+v_{t+1} = v_t + a_t
+\]
+
+We assume that the acceleration \( a_t \) is controlled by the rocket thrust, and its magnitude \( |a_t| \) is proportional to the rate of fuel consumption at time \( t \). Given the initial conditions:
+
+\[
+x_0, \quad v_0
+\]
+
+we aim to reach a target position \( x_T \) with a target velocity \( v_T \) at time \( T \). Our objective is to minimize the maximum thrust required:
+
+\[
+\text{Objective:} \quad \min \max_{t} |a_t|
+\]
+
+The constraints for the problem can be formulated as follows:
+
+1. State update equations for position and velocity:
+   \[
+   x_{t+1} - x_t - v_t = 0 \quad \text{for } t = 0, 1, \dots, T-1
+   \]
+   \[
+   v_{t+1} - v_t - a_t = 0 \quad \text{for } t = 0, 1, \dots, T-1
+   \]
+
+2. Initial conditions:
+   \[
+   x_0 = x_0, \quad v_0 = v_0
+   \]
+
+3. Target conditions:
+   \[
+   x_T = x_T, \quad v_T = v_T
+   \]
+
+4. Thrust limitation:
+   \[
+   -M \leq a_t \leq M \quad \text{for } t = 0, 1, \dots, T-1
+   \]
+   where \( M \) is the maximum allowable thrust.
+
+The output format consists of lists for positions, velocities, accelerations, and total fuel spent:
+
+\[
+\text{Output:}
+\]
+
+\[
+\{ 
+\text{"x"}: [x_i \text{ for } i = 0, 1, \ldots, T], 
+\text{"v"}: [v_i \text{ for } i = 0, 1, \ldots, T], 
+\text{"a"}: [a_i \text{ for } i = 0, 1, \ldots, T], 
+\text{"fuel\_spend"}: \text{fuel\_spent}
+\}
+\]
+
+\end{document}

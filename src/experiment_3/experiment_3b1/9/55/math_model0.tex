@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Decision Variables:}
+
+Let \( b_p \) be the number of batches produced for part \( p \) where \( p = 1, 2, \ldots, P \).
+
+\textbf{Objective Function:}
+
+Maximize the total profit:
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} (price_p \cdot b_p) - \sum_{m=1}^{M} (cost_m \cdot \sum_{p=1}^{P} (time_{m,p} \cdot b_p))
+\]
+where \( Z \) must be greater than or equal to \( \text{min\_profit} \).
+
+\textbf{Constraints:}
+
+1. Machine availability constraints for each machine \( m \):
+\[
+\sum_{p=1}^{P} (time_{m,p} \cdot b_p) \leq available_m \quad \text{for } m = 2, 3, \ldots, M
+\]
+
+2. Minimum batch production requirements for each part \( p \):
+\[
+b_p \geq min\_batches_p \quad \text{for } p = 1, 2, \ldots, P
+\]
+
+3. For machine 1 which is outsourced:
+\[
+\text{If } \sum_{p=1}^{P} (time_{1,p} \cdot b_p) > available_1 \text{, then labor cost applies:}
+\]
+\[
+\text{Labor cost} = standard\_cost \cdot \min\left(\sum_{p=1}^{P} (time_{1,p} \cdot b_p), overtime\_hour\right) + \left(\sum_{p=1}^{P} (time_{1,p} \cdot b_p) - overtime\_hour\right) \cdot overtime\_cost
+\]
+
+4. Overall profit constraint:
+\[
+Z \geq min\_profit
+\]
+
+\textbf{Variable Restrictions:}
+\[
+b_p \geq 0 \quad \text{and integer for } p = 1, 2, \ldots, P
+\]
+
+\textbf{Output:}
+
+The output will provide the number of batches produced for each part and the total profit:
+\[
+\text{Output} = 
+\begin{cases}
+batches = [b_1, b_2, \ldots, b_P] \\
+total\_profit = Z
+\end{cases}
+\]
+
+\end{document}

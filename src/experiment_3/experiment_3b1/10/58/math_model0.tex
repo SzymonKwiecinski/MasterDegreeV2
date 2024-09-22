@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Auto Parts Manufacturer}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item Let \( P \): Set of parts, where \( p = 1, 2, \ldots, P \)
+    \item Let \( M \): Set of machines, where \( m = 1, 2, \ldots, M \)
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{time}_{m,p} \): Time required on machine \( m \) for part \( p \) (in hours)
+    \item \( \text{cost}_{m} \): Cost per hour for using machine \( m \)
+    \item \( \text{available}_{m} \): Available hours for machine \( m \) per month
+    \item \( \text{price}_{p} \): Selling price per batch of part \( p \)
+    \item \( \text{setup\_time}_{p} \): Setup time required for machine 1 to produce part \( p \) (in hours)
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{batches}_{p} \): Number of batches produced of part \( p \)
+    \item \( \text{setup\_flag}_{p} \): Binary variable indicating whether part \( p \) is set up (1 if set up, 0 otherwise)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+\text{total\_profit} = \sum_{p=1}^{P} \text{price}_{p} \cdot \text{batches}_{p} - \sum_{m=1}^{M} \text{cost}_{m} \cdot \left( \sum_{p=1}^{P} \text{time}_{m,p} \cdot \text{batches}_{p} + \sum_{p=1}^{P} \text{setup\_flag}_{p} \cdot \text{setup\_time}_{p} \cdot (1 - \delta_{m,1}) \right)
+\]
+where \( \delta_{m,1} \) is a Kronecker delta that is 1 if \( m=1 \) and 0 otherwise.
+
+\subsection*{Constraints}
+1. Machine time constraints:
+\[
+\sum_{p=1}^{P} \text{time}_{m,p} \cdot \text{batches}_{p} + \sum_{p=1}^{P} \text{setup\_flag}_{p} \cdot \text{setup\_time}_{p} \cdot (1 - \delta_{m,1}) \leq \text{available}_{m}, \quad \forall m \in M
+\]
+
+2. Non-negativity and binary constraints:
+\[
+\text{batches}_{p} \geq 0, \quad \forall p \in P
+\]
+\[
+\text{setup\_flag}_{p} \in \{0, 1\}, \quad \forall p \in P
+\]
+
+\end{document}

@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Cafeteria Employee Scheduling Model}
+
+\subsection*{Parameters}
+Let:
+\begin{itemize}
+    \item \( num_n \): the number of desired employees on day \( n \) for \( n = 1, \ldots, N \)
+    \item \( n_{\text{working}} \): the number of consecutive working days for each employee 
+    \item \( n_{\text{resting}} \): the number of consecutive days off for each employee
+\end{itemize}
+
+\subsection*{Decision Variables}
+Define \( x \): the total number of employees to hire, and let \( is\_work_{n,i} \) be a binary variable that indicates whether employee \( i \) is working on day \( n \):
+\[
+is\_work_{n,i} = 
+\begin{cases} 
+1 & \text{if employee } i \text{ is working on day } n \\
+0 & \text{otherwise} 
+\end{cases}
+\]
+
+\subsection*{Objective Function}
+The objective is to minimize the total number of employees hired:
+\[
+\text{Minimize } x
+\]
+
+\subsection*{Constraints}
+For each day \( n \) from \( 1 \) to \( N \), the following constraint ensures that the number of employees working on that day meets the required number:
+\[
+\sum_{i=1}^{x} is\_work_{n,i} \geq num_n \quad \forall n \in \{1, \ldots, N\}
+\]
+
+Additionally, to account for the working and resting days of each employee, we need to ensure that employees adhere to their schedule. For each employee \( i \):
+\[
+is\_work_{n,i} = 1 \quad \text{for } n \in \{j, j+1, \ldots, j+n_{\text{working}}-1\} \text{ and } 0 \text{ for } n \in \{j+n_{\text{working}}, j+n_{\text{working}}+1, \ldots, j+n_{\text{working}}+n_{\text{resting}}-1\}
+\]
+for suitable \( j \).
+
+\subsection*{Output Variables}
+The output variables will be:
+\begin{itemize}
+    \item \( total\_number = x \): the total number of employees hired.
+    \item \( is\_work \): a matrix where \( is\_work[n][i] \) indicates whether employee \( i \) works on day \( n \).
+\end{itemize}
+
+\end{document}

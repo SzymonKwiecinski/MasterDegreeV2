@@ -1,0 +1,81 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Milp Problem}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item $x_i$: Number of units of product type $i$ produced, where $i = 1, \ldots, N$.
+    \item $o$: Hours of overtime assembly labor scheduled.
+    \item $m$: Total amount of raw materials bought.
+\end{itemize}
+
+\subsection*{Parameters}
+Given:
+\begin{itemize}
+    \item $assemblyHour_i$: Hours of assembly labor required for product $i$.
+    \item $testingHour_i$: Hours of testing required for product $i$.
+    \item $materialCost_i$: Cost of raw materials for product $i$.
+    \item $maxAssembly$: Maximum hours of assembly labor available per day.
+    \item $maxTesting$: Maximum hours of testing available per day.
+    \item $price_i$: Selling price of product $i$.
+    \item $maxOvertimeAssembly$: Maximum hours of overtime assembly labor allowed.
+    \item $overtimeAssemblyCost$: Cost per hour of overtime assembly labor.
+    \item $materialDiscount$: Percentage of discount on raw materials if the total cost exceeds $discountThreshold$.
+    \item $discountThreshold$: Threshold for applying the material discount.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the daily profit:
+\[
+\text{maximize } Z = \sum_{i=1}^{N} \left( price_i \cdot x_i \right) - \left( \sum_{i=1}^{N} materialCost_i \cdot x_i - \text{discount} \right) - (o \cdot overtimeAssemblyCost)
+\]
+where the discount is given by:
+\[
+\text{discount} = 
+\begin{cases} 
+0 & \text{if } m \leq \text{discountThreshold} \\
+\frac{materialDiscount}{100} \cdot \sum_{i=1}^{N} materialCost_i \cdot x_i & \text{if } m > \text{discountThreshold}
+\end{cases}
+\]
+
+\subsection*{Constraints}
+1. Assembly labor constraint:
+\[
+\sum_{i=1}^{N} (assemblyHour_i \cdot x_i) + o \leq maxAssembly + maxOvertimeAssembly
+\]
+
+2. Testing labor constraint:
+\[
+\sum_{i=1}^{N} (testingHour_i \cdot x_i) \leq maxTesting
+\]
+
+3. Material bought:
+\[
+m = \sum_{i=1}^{N} (materialCost_i \cdot x_i)
+\]
+
+4. Non-negativity:
+\[
+x_i \geq 0 \quad \text{for all } i
+\]
+\[
+o \geq 0
+\]
+
+5. Overtime constraint:
+\[
+o \leq maxOvertimeAssembly
+\]
+
+\subsection*{Output}
+\begin{itemize}
+    \item $dailyProfit = Z$
+    \item $unitsProduced = [x_1, x_2, \ldots, x_N]$
+    \item $overtimeAssembly = o$
+    \item $materialBought = m$
+\end{itemize}
+
+\end{document}

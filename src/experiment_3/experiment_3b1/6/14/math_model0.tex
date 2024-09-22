@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $P$: Number of different products
+    \item $cash$: Available cash
+    \item $hour_i$: Machine hours required for product $i$ ($i = 1, \ldots, P$)
+    \item $cost_i$: Production cost per unit of product $i$ ($i = 1, \ldots, P$)
+    \item $price_i$: Selling price per unit of product $i$ ($i = 1, \ldots, P$)
+    \item $investPercentage_i$: Investment percentage of the sales revenues from product $i$ ($i = 1, \ldots, P$)
+    \item $upgradeHours$: Additional machine hours after upgrade
+    \item $upgradeCost$: Cost of upgrading the machine
+    \item $availableHours$: Current available machine hours
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_i$: Production quantity of product $i$ ($i = 1, \ldots, P$)
+    \item $upgrade$: A binary variable indicating if machine upgrade should occur ($upgrade \in \{0, 1\}$)
+\end{itemize}
+
+\textbf{Objective:}
+\[
+\text{Maximize } Z = \sum_{i=1}^{P} (price_i \cdot x_i - cost_i \cdot x_i - investPercentage_i \cdot (price_i \cdot x_i)) 
+\]
+
+\textbf{Subject to:}
+\begin{align*}
+\sum_{i=1}^{P} hour_i \cdot x_i & \leq availableHours + upgrade \cdot upgradeHours \quad \text{(Machine hour constraint)} \\
+\sum_{i=1}^{P} (cost_i \cdot x_i + investPercentage_i \cdot (price_i \cdot x_i)) & \leq cash + (upgrade \cdot upgradeCost) \quad \text{(Cash constraint)} \\
+x_i & \geq 0 \quad \text{(Non-negativity constraint)} \\
+upgrade & \in \{0, 1\} \quad \text{(Binary variable)}
+\end{align*}
+
+\textbf{Output:}
+\begin{itemize}
+    \item $net\_income$: Total net income of the company
+    \item $production$: Production quantities $[production_1, production_2, \ldots, production_P]$
+    \item $upgrade$: Whether the company should upgrade its machine capacity (true/false)
+\end{itemize}
+
+\end{document}

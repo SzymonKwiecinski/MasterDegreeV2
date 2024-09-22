@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Oil Refinery Production}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item Let $O$ be the number of crude oil types.
+    \item Let $P$ be the number of products.
+    \item Let $L$ be the number of production processes.
+    \item Let $allocated_i$ be the number of million barrels of crude oil type $i$ allocated for production.
+    \item Let $price_p$ be the selling price per barrel for product $p$.
+    \item Let $input_{l,i}$ be the number of barrels of crude oil type $i$ needed for process $l$.
+    \item Let $output_{l,p}$ be the number of barrels of product $p$ produced from process $l$.
+    \item Let $cost_l$ be the cost per barrel of product produced from process $l$.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item Let $execute_l$ be the number of times process $l$ is executed.
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{equation}
+    \text{Maximize } revenue = \sum_{p=1}^{P} price_p \cdot \sum_{l=1}^{L} output_{l,p} \cdot execute_l
+\end{equation}
+
+\textbf{Subject to:}
+\begin{equation}
+    \sum_{l=1}^{L} input_{l,i} \cdot execute_l \leq allocated_i \quad \forall i = 1, \ldots, O
+\end{equation}
+\begin{equation}
+    revenue - \sum_{l=1}^{L} cost_l \cdot \sum_{p=1}^{P} output_{l,p} \cdot execute_l \geq 0
+\end{equation}
+\begin{equation}
+    execute_l \geq 0 \quad \forall l = 1, \ldots, L
+\end{equation}
+
+\textbf{Output:}
+\begin{itemize}
+    \item $revenue$: The total revenue for the month.
+    \item $execute$: The optimal number of times each process should be executed, represented as $[execute_1, execute_2, \ldots, execute_L]$.
+\end{itemize}
+
+\end{document}

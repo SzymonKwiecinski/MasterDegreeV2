@@ -1,0 +1,85 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Lamp Power Optimization}
+
+\subsection*{Problem Description}
+
+Consider a road divided into \( N \) segments illuminated by \( M \) lamps. Let \( \text{power}_j \) be the power of the \( j \)-th lamp. The illumination \( \text{ill}_i \) of the \( i \)-th segment is given by:
+
+\[
+\text{ill}_i = \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j
+\]
+
+where \( \text{coeff}_{i,j} \) are known coefficients that define how much light each lamp contributes to each segment.
+
+The goal is to find the lamp powers \( \text{power}_j \) such that the illuminations \( \text{ill}_i \) are as close as possible to the desired illuminations \( \text{desired}_i \).
+
+\subsection*{Objective Function}
+
+We aim to minimize the total absolute error between the actual illuminations and the desired illuminations. The objective function can be expressed as:
+
+\[
+\text{Minimize} \quad \sum_{i=1}^{N} \left| \text{ill}_i - \text{desired}_i \right|
+\]
+
+\subsection*{Mathematical Formulation}
+
+Let \( \text{error}_i = \text{ill}_i - \text{desired}_i \). We need to ensure:
+
+\[
+\text{error}_i = \text{ill}_i - \text{desired}_i
+\]
+
+To handle the absolute value, we introduce two new variables \( z_i \) and \( w_i \) to represent the positive and negative parts of the error:
+
+\[
+\text{error}_i = z_i - w_i
+\]
+
+with the constraints:
+
+\[
+\begin{align*}
+z_i & \geq \text{ill}_i - \text{desired}_i \\
+w_i & \geq -(\text{ill}_i - \text{desired}_i)
+\end{align*}
+\]
+
+Thus, the complete objective can be reformulated as:
+
+\[
+\text{Minimize} \quad \sum_{i=1}^{N} z_i + w_i
+\]
+
+\subsection*{Constraints}
+
+The illumination can be defined in terms of lamp power:
+
+\[
+\text{ill}_i = \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j, \quad \forall i = 1, \ldots, N
+\]
+
+\subsection*{Final Linear Programming Model}
+
+The complete linear programming model can be summarized as follows:
+
+\begin{align*}
+\text{Minimize} \quad & \sum_{i=1}^{N} (z_i + w_i) \\
+\text{s.t.} \quad & z_i - w_i = \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j - \text{desired}_i, \quad \forall i = 1, \ldots, N \\
+& z_i \geq \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j - \text{desired}_i, \quad \forall i = 1, \ldots, N \\
+& w_i \geq -\left(\sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j - \text{desired}_i\right), \quad \forall i = 1, \ldots, N \\
+& \text{power}_j \geq 0, \quad \forall j = 1, \ldots, M
+\end{align*}
+
+\section*{Output}
+
+The output of the model will include:
+
+\begin{itemize}
+    \item \( \text{power}_j \): the optimal power of the \( j \)-th lamp.
+    \item \( \text{error} \): the total absolute error between the illuminations \( \text{ill}_i \) and the desired illuminations \( \text{desired}_i \).
+\end{itemize}
+
+\end{document}

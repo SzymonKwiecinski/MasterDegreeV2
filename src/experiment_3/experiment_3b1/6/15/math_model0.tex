@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Company Profit Maximization Problem}
+
+\subsection*{Sets and Parameters}
+\begin{itemize}
+    \item Let \( N \) be the number of different products.
+    \item Let \( \text{assemblyHour}_i \) be the assembly hours required for product \( i \) (for \( i = 1, \ldots, N \)).
+    \item Let \( \text{testingHour}_i \) be the testing hours required for product \( i \) (for \( i = 1, \ldots, N \)).
+    \item Let \( \text{materialCost}_i \) be the material cost for product \( i \) (for \( i = 1, \ldots, N \)).
+    \item Let \( \text{maxAssembly} \) be the maximum available assembly hours per day.
+    \item Let \( \text{maxTesting} \) be the maximum available testing hours per day.
+    \item Let \( \text{price}_i \) be the selling price for product \( i \) (for \( i = 1, \ldots, N \)).
+    \item Let \( \text{maxOvertimeAssembly} \) be the maximum allowable overtime assembly hours.
+    \item Let \( \text{overtimeAssemblyCost} \) be the cost of overtime assembly per hour.
+    \item Let \( \text{materialDiscount} \) be the percentage discount for materials if the total exceeds the threshold.
+    \item Let \( \text{discountThreshold} \) be the minimum expenditure on materials to qualify for a discount.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( x_i \) be the number of units produced of product \( i \) (for \( i = 1, \ldots, N \)).
+    \item Let \( \text{overtimeAssembly} \) be the number of overtime hours scheduled.
+\end{itemize}
+
+\subsection*{Objective Function}
+We aim to maximize the daily profit, defined as:
+
+\[
+\text{dailyProfit} = \sum_{i=1}^{N} (price_i \cdot x_i) - \left( \sum_{i=1}^{N} (materialCost_i \cdot x_i) \cdot \left(1 - \frac{materialDiscount}{100}\mathbb{1}_{\{\sum_{i=1}^{N} (materialCost_i \cdot x_i) > discountThreshold\}}\right) + \text{overtimeAssemblyCost} \cdot overtimeAssembly \right)
+\]
+
+\subsection*{Constraints}
+1. **Assembly Time Constraint**:
+\[
+\sum_{i=1}^{N} (assemblyHour_i \cdot x_i) + overtimeAssembly \leq \text{maxAssembly} + \text{maxOvertimeAssembly}
+\]
+
+2. **Testing Time Constraint**:
+\[
+\sum_{i=1}^{N} (testingHour_i \cdot x_i) \leq \text{maxTesting}
+\]
+
+3. **Non-negativity and Integrality**:
+\[
+x_i \geq 0 \quad \text{and integer} \quad (i = 1, \ldots, N)
+\]
+\[
+overtimeAssembly \geq 0
+\]
+
+\subsection*{Output Variables}
+\begin{itemize}
+    \item \( \text{dailyProfit} \)
+    \item \( \text{unitsProduced} = [x_1, x_2, \ldots, x_N] \)
+    \item \( \text{overtimeAssembly} \)
+    \item \( \text{materialBought} = \sum_{i=1}^{N} (materialCost_i \cdot x_i) \)
+\end{itemize}
+
+\end{document}

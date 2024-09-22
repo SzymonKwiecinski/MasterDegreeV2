@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Electricity Capacity Planning}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $T$: Number of years
+    \item $demand_t$: Demand for electricity in year $t$
+    \item $oil_t$: Existing oil capacity in year $t$
+    \item $coal\_cost$: Capital cost per megawatt of coal-fired capacity
+    \item $nuke\_cost$: Capital cost per megawatt of nuclear power capacity
+    \item $max\_nuke$: Maximum percentage of total capacity that can be nuclear
+    \item $coal\_life$: Lifespan of coal plants
+    \item $nuke\_life$: Lifespan of nuclear plants
+\end{itemize}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item $coal_t$: Capacity added for coal in year $t$
+    \item $nuke_t$: Capacity added for nuclear in year $t$
+    \item $total\_cost$: Total cost of the capacity expansion
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{t=1}^{T} (coal\_cost \cdot coal_t + nuke\_cost \cdot nuke_t)
+\]
+
+\subsection*{Constraints}
+1. Capacity must meet demand:
+\[
+oil_t + \sum_{s=1}^{t} coal_s \cdot I_{s,t} + \sum_{s=1}^{t} nuke_s \cdot I_{s,t} \geq demand_t \quad \forall t = 1, \ldots, T
+\]
+where \(I_{s,t}\) is an indicator function that is 1 if the capacity added in year \(s\) is still operational in year \(t\).
+
+2. Nuclear capacity constraint:
+\[
+\sum_{t=1}^{T} nuke_t \leq \frac{max\_nuke}{100} \cdot \left( oil_t + \sum_{s=1}^{T} coal_s + \sum_{s=1}^{T} nuke_s \right) \quad \forall t
+\]
+
+3. Capacity lifespan:
+\[
+coal_t = 0 \quad \text{for } t < coal\_life
+\]
+\[
+nuke_t = 0 \quad \text{for } t < nuke\_life
+\]
+
+4. Non-negativity constraints:
+\[
+coal_t \geq 0, \quad nuke_t \geq 0 \quad \forall t
+\]
+
+\end{document}

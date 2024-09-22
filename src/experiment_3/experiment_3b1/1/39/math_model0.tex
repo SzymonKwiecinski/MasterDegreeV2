@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Cafeteria Staffing Optimization}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Formulation}
+
+Let:
+\begin{itemize}
+    \item \( N \) be the total number of days in the planning horizon.
+    \item \( num_n \) be the number of employees required on day \( n \) for \( n = 1, 2, \ldots, N \).
+    \item \( n\_working\_days \) be the number of consecutive days an employee works.
+    \item \( n\_resting\_days \) be the number of consecutive days an employee rests.
+    \item \( total\_number \) be the total number of employees to hire.
+    \item \( is\_work_{n,i} \) be a binary variable indicating whether employee \( i \) works on day \( n \).
+\end{itemize}
+
+\subsection*{Variables}
+
+Define binary decision variables \( is\_work_{n,i} \):
+\[
+is\_work_{n,i} =
+\begin{cases}
+1 & \text{if employee } i \text{ is working on day } n \\
+0 & \text{otherwise}
+\end{cases}
+\]
+
+\subsection*{Objective Function}
+
+Minimize the total number of employees hired:
+\[
+\text{Minimize } total\_number = \sum_{i=1}^{total\_number} 1
+\]
+
+\subsection*{Constraints}
+
+For each day \( n \):
+\[
+\sum_{i=1}^{total\_number} is\_work_{n,i} \geq num_n \quad \forall n \in \{1, 2, \ldots, N\}
+\]
+
+To ensure that each employee works for \( n\_working\_days \) and then rests for \( n\_resting\_days \):
+\[
+is\_work_{n,i} + is\_work_{n+1,i} + \cdots + is\_work_{n+n\_working\_days-1,i} = n\_working\_days  \quad \forall n \text{ such that } n + n\_working\_days - 1 \leq N
+\]
+\[
+is\_work_{n+i,i} = 0 \quad \text{for } i = 1, \ldots, n\_resting\_days
+\]
+
+\subsection*{Output}
+
+The solution will yield:
+\begin{itemize}
+    \item \( total\_number \) - the minimum number of employees to hire.
+    \item \( is\_work \) - a matrix where each row represents an employee's working schedule across the \( N \) days.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Communication Network}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( n \) be the number of nodes in the network.
+    \item Let \( A \) be the set of all links where each link is represented as an ordered pair \( (i, j) \).
+    \item Let \( U_{i,j} \) be the maximum capacity (in bits per second) of the link from node \( i \) to node \( j \).
+    \item Let \( C_{i,j} \) be the cost per bit transmitted over the link from node \( i \) to node \( j \).
+    \item Let \( B_{k,l} \) be the data generation rate (in bits per second) from node \( k \) to node \( l \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( x_{i,j} \) be the flow of data through the link from node \( i \) to node \( j \) (in bits per second).
+\end{itemize}
+
+\subsection*{Objective Function}
+\[
+\text{Minimize } Z = \sum_{(i,j) \in A} C_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+1. \textbf{Flow Conservation:} For each node \( k \) (except for source and destination nodes):
+   \[
+   \sum_{j: (k,j) \in A} x_{k,j} - \sum_{i: (i,k) \in A} x_{i,k} = 0
+   \]
+
+2. \textbf{Data Requirement:} For each data source \( (k, l) \):
+   \[
+   \sum_{j: (k,j) \in A} x_{k,j} - \sum_{i: (i,k) \in A} x_{i,k} = B_{k,l}
+   \]
+
+3. \textbf{Capacity Constraints:} For each link \( (i,j) \):
+   \[
+   x_{i,j} \leq U_{i,j}
+   \]
+
+4. \textbf{Non-negativity Constraints:}
+   \[
+   x_{i,j} \geq 0 \quad \forall (i,j) \in A
+   \]
+
+\subsection*{Output}
+The solution will provide the optimized paths as follows:
+\begin{itemize}
+    \item {\bf optimized\_paths}:
+    \begin{itemize}
+        \item {\bf paths}:
+        \begin{itemize}
+            \item For each \( (k,l) \):
+            \begin{itemize}
+                \item {\bf source:} \( k \)
+                \item {\bf destination:} \( l \)
+                \item {\bf route:} \( [k, i_1, i_2, \ldots, l] \)
+                \item {\bf path\_flow:} \( x_{i,j} \)
+                \item {\bf path\_cost:} \( C_{i,j} \cdot x_{i,j} \)
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+    \item {\bf total\_cost:} \( Z \)
+\end{itemize}
+
+\end{document}

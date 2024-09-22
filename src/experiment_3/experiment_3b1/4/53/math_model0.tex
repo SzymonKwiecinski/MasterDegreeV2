@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Transportation Problem Model}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item Let \( n \) be the number of cities.
+    \item Let \( A \) be the set of all routes.
+    \item Transport cost per metric ton along route \( (i,j) \) is denoted as \( C_{i,j} \).
+    \item Supply at terminal city \( k \) is denoted as \( supply_k \).
+    \item Demand at destination city \( l \) is denoted as \( demand_l \).
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( amount_{i,j} \) be the amount of soybeans shipped from city \( i \) to city \( j \).
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } Z = \sum_{(i,j) \in A} C_{i,j} \cdot amount_{i,j}
+\]
+
+\textbf{Constraints:}
+
+1. Supply Constraints:
+\[
+\sum_{j} amount_{k,j} \leq supply_k \quad \forall k
+\]
+
+2. Demand Constraints:
+\[
+\sum_{i} amount_{i,l} \geq demand_l \quad \forall l
+\]
+
+3. Non-negativity Constraints:
+\[
+amount_{i,j} \geq 0 \quad \forall (i,j) \in A
+\]
+
+\textbf{Output:}
+\begin{itemize}
+    \item The distribution of amounts is given by:
+    \[
+    \text{distribution} = \{ (i, j, amount_{i,j}) \,|\, (i,j) \in A \}
+    \]
+    \item The total transportation cost is given by:
+    \[
+    \text{total\_cost} = Z
+    \]
+\end{itemize}
+
+\end{document}

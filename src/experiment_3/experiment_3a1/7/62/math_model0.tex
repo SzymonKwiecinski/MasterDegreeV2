@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Traveling Salesman Problem (TSP)}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item $C$: Set of cities, where $C = \{0, 1, 2, \ldots, N\}$.
+    \item $N$: Total number of towns to visit.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $distance_{i,j}$: Distance between city $i$ and city $j$.
+    \item $start\_city$: The starting city of the traveler (denoted as city 0).
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item $x_{i,j}$: Binary variable, where $x_{i,j} = 1$ if the traveler travels directly from city $i$ to city $j$, and $0$ otherwise.
+    \end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total distance:
+\[
+\text{Minimize} \quad Z = \sum_{i \in C} \sum_{j \in C} distance_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Each city must be entered and exited exactly once:
+    \[
+    \sum_{j \in C} x_{i,j} = 1, \quad \forall i \in C \setminus \{0\}
+    \]
+    \[
+    \sum_{i \in C} x_{i,j} = 1, \quad \forall j \in C \setminus \{0\}
+    \]
+
+    \item Subtour elimination (Miller-Tucker-Zemlin formulation):
+    \[
+    u_i - u_j + N \cdot x_{i,j} \leq N-1, \quad \forall i,j \in C \setminus \{0\}, i \neq j
+    \]
+    where $u_i$ is the number of cities visited before city $i$.
+    
+    \item Binary constraints:
+    \[
+    x_{i,j} \in \{0, 1\}, \quad \forall i,j \in C
+    \]
+\end{itemize}
+
+\subsection*{Output}
+The output will provide:
+\begin{itemize}
+    \item $visit\_order$: The sequence of cities visited after $start\_city$.
+    \item $total\_distance$: The total distance traveled on the optimal journey.
+\end{itemize}
+
+\end{document}

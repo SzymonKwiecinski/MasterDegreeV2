@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Maximizing Profit in Spare Parts Production}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Formulation}
+
+Let \( K \) be the number of different spare parts, and \( S \) be the number of shops. We define the following variables and parameters:
+
+\begin{itemize}
+    \item \( time_{k,s} \): Required worker-hours for part \( k \) in shop \( s \).
+    \item \( profit_{k} \): Profit from producing one unit of part \( k \).
+    \item \( capacity_{s} \): Capacity of shop \( s \) in working hours.
+    \item \( quantity_{k} \): Quantity of part \( k \) to be produced.
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to maximize the total profit from the production of all spare parts:
+
+\[
+\text{Maximize} \quad Z = \sum_{k=1}^{K} profit_{k} \cdot quantity_{k}
+\]
+
+\subsection*{Constraints}
+The production of spare parts is constrained by the capacity of the shops. The total worker-hours used in each shop cannot exceed its capacity:
+
+\[
+\sum_{k=1}^{K} time_{k,s} \cdot quantity_{k} \leq capacity_{s} \quad \text{for all } s = 1, 2, \ldots, S
+\]
+
+Additionally, the quantity of each spare part produced must be non-negative:
+
+\[
+quantity_{k} \geq 0 \quad \text{for all } k = 1, 2, \ldots, K
+\]
+
+\subsection*{Complete Model}
+The complete linear programming model is as follows:
+
+\[
+\begin{align*}
+\text{Maximize} \quad & Z = \sum_{k=1}^{K} profit_{k} \cdot quantity_{k} \\
+\text{subject to} \quad & \sum_{k=1}^{K} time_{k,s} \cdot quantity_{k} \leq capacity_{s} \quad \text{for all } s = 1, 2, \ldots, S \\
+& quantity_{k} \geq 0 \quad \text{for all } k = 1, 2, \ldots, K
+\end{align*}
+\]
+
+\end{document}

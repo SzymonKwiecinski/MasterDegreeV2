@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Mining Company Operations}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $n_mines$: Number of mines
+    \item $n_{maxwork}$: Maximum mines that can operate in any one year
+    \item $royalty_k$: Yearly royalties for mine $k$, for $k = 1, \ldots, n_{mines}$
+    \item $limit_k$: Upper limit of ore that can be extracted from mine $k$, for $k = 1, \ldots, n_{mines}$
+    \item $quality_k$: Quality of ore from mine $k$, for $k = 1, \ldots, n_{mines}$
+    \item $requiredquality_i$: Required blended quality in year $i$, for $i = 1, \ldots, n_{years}$
+    \item $price$: Selling price of blended ore per ton
+    \item $discount$: Discount rate per annum
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $isoperated_{k, i}$: Binary variable that indicates whether mine $k$ operates in year $i$ ($1$ if operated, $0$ otherwise)
+    \item $amount_{k, i}$: Amount of ore produced by mine $k$ in year $i$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the profit:
+\[
+\text{Maximize} \sum_{i=1}^{n_{years}} \left( \sum_{k=1}^{n_{mines}} (price \cdot amount_{k, i}) - \sum_{k=1}^{n_{mines}} (royalty_k \cdot isoperated_{k,i}) \right) (1 + discount)^{-i}
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    & \sum_{k=1}^{n_{mines}} isoperated_{k, i} \leq n_{maxwork}, \quad \forall i \in \{1, \ldots, n_{years}\} \tag{1} \\
+    & \sum_{k=1}^{n_{mines}} quality_k \cdot \frac{amount_{k, i}}{\sum_{j=1}^{n_{mines}} amount_{j, i}} = requiredquality_i, \quad \forall i \in \{1, \ldots, n_{years}\} \tag{2} \\
+    & amount_{k, i} \leq limit_k \cdot isoperated_{k, i}, \quad \forall k \in \{1, \ldots, n_{mines}\}, \forall i \in \{1, \ldots, n_{years}\} \tag{3} \\
+    & isoperated_{k, i} \in \{0, 1\}, \quad \forall k \in \{1, \ldots, n_{mines}\}, \forall i \in \{1, \ldots, n_{years}\} \tag{4} \\
+    & amount_{k, i} \geq 0, \quad \forall k \in \{1, \ldots, n_{mines}\}, \forall i \in \{1, \ldots, n_{years}\} \tag{5}
+\end{align}
+
+\end{document}

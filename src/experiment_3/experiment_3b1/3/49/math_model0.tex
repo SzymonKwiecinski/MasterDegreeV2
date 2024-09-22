@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\subsection*{Variables}
+Let \( b_p \) be the number of batches produced for part \( p \) where \( p = 1, \ldots, P \).
+
+\subsection*{Objective Function}
+To maximize profit, we define the objective function as:
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} (price_p \cdot b_p) - \sum_{m=1}^{M} (cost_m \cdot \sum_{p=1}^{P} (time_{m,p} \cdot b_p))
+\]
+
+\subsection*{Constraints}
+1. **Time Availability Constraints**:
+   \[
+   \sum_{p=1}^{P} (time_{m,p} \cdot b_p) \leq available_m \quad \text{for each } m = 1, \ldots, M
+   \]
+   Note: For machines \( M \) and \( M-1 \), these two machines can share their availability:
+   \[
+   \sum_{p=1}^{P} (time_{M,p} \cdot b_p) + \sum_{p=1}^{P} (time_{M-1,p} \cdot b_p) \leq available_M + available_{M-1}
+   \]
+
+2. **Minimum Production Requirements**:
+   \[
+   b_p \geq min\_batches_p \quad \text{for each } p = 1, \ldots, P
+   \]
+
+3. **Non-Negativity Constraints**:
+   \[
+   b_p \geq 0 \quad \text{for each } p = 1, \ldots, P
+   \]
+
+\subsection*{Output}
+The solution will provide:
+\begin{itemize}
+    \item The number of batches of each part produced: \( batches = [b_1, b_2, \ldots, b_P] \)
+    \item The total profit: \( total\_profit = Z \)
+\end{itemize}
+
+\end{document}

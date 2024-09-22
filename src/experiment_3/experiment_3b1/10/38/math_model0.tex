@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Production Scheduling}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item \( reg\_quant_n \): the quantity of products produced using regular production in month \( n \) (for \( n = 1, \ldots, N \))
+    \item \( over\_quant_n \): the quantity of products produced using overtime production in month \( n \) (for \( n = 1, \ldots, N \))
+    \item \( inventory_n \): the inventory of products at the end of month \( n \) (for \( n = 1, \ldots, N \))
+\end{itemize}
+
+\subsection*{Parameters}
+Let:
+\begin{itemize}
+    \item \( demand_n \): forecasted demand in month \( n \)
+    \item \( max\_regular\_amount \): maximum number of units producible using regular production in any month
+    \item \( cost\_regular \): cost per unit for regular production
+    \item \( cost\_overtime \): cost per unit for overtime production
+    \item \( store\_cost \): storage cost per unit per month
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the total cost, represented by:
+\[
+\text{Minimize } Z = \sum_{n=1}^{N} \left( cost\_regular \cdot reg\_quant_n + cost\_overtime \cdot over\_quant_n + store\_cost \cdot inventory_n \right)
+\]
+
+\subsection*{Constraints}
+1. **Demand Satisfaction**:
+   \[
+   reg\_quant_n + over\_quant_n + inventory_{n-1} \geq demand_n \quad \forall n = 1, \ldots, N
+   \]
+   where \( inventory_0 = 0 \).
+
+2. **Regular Production Capacity**:
+   \[
+   reg\_quant_n \leq max\_regular\_amount \quad \forall n = 1, \ldots, N
+   \]
+
+3. **Inventory Balance**:
+   \[
+   inventory_n = inventory_{n-1} + reg\_quant_n + over\_quant_n - demand_n \quad \forall n = 1, \ldots, N
+   \]
+
+4. **Non-negativity**:
+   \[
+   reg\_quant_n \geq 0, \quad over\_quant_n \geq 0, \quad inventory_n \geq 0 \quad \forall n = 1, \ldots, N
+   \]
+
+\end{document}

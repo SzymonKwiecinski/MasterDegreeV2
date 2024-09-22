@@ -1,0 +1,96 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Linear Regression}
+
+Given a set of observations for quantities \( x \) and \( y \), we aim to fit a linear model of the form:
+
+\[
+y = bx + a
+\]
+
+where \( b \) is the slope and \( a \) is the intercept. The objective is to minimize the maximum deviation of the observed values of \( y \) from the predicted values based on the linear relationship.
+
+\subsection*{Data Input}
+
+Let:
+
+\[
+y_k \quad \text{for } k = 1, \ldots, K \quad \text{(observed values)}
+\]
+
+\[
+x_k \quad \text{for } k = 1, \ldots, K \quad \text{(corresponding values)}
+\]
+
+Define the deviation variables:
+
+\[
+d_k = y_k - (bx_k + a) \quad \text{for } k = 1, \ldots, K
+\]
+
+The objective is to minimize the maximum absolute deviation:
+
+\[
+\text{Minimize } t
+\]
+
+subject to:
+
+\[
+d_k \leq t \quad \text{for each } k
+\]
+
+\[
+-d_k \leq t \quad \text{for each } k
+\]
+
+which leads to:
+
+\[
+y_k - (bx_k + a) \leq t \quad \text{and} \quad -(y_k - (bx_k + a)) \leq t
+\]
+
+This results in the constraints:
+
+\[
+y_k - bx_k - a \leq t \quad \text{for each } k
+\]
+
+\[
+bx_k + a - y_k \leq t \quad \text{for each } k
+\]
+
+\subsection*{Objective Function and Constraints}
+
+Thus, our Linear Programming model can be summarized as follows:
+
+\[
+\begin{align*}
+\text{Objective:} \quad & \text{Minimize } t \\
+\text{Subject to:} \quad & y_k - bx_k - a \leq t, \quad k = 1, \ldots, K \\
+& bx_k + a - y_k \leq t, \quad k = 1, \ldots, K \\
+& b, a \text{ are unrestricted}
+\end{align*}
+\]
+
+\subsection*{Output}
+
+The output of the model will provide:
+
+\begin{itemize}
+    \item \( \text{intercept} = a \)
+    \item \( \text{slope} = b \)
+\end{itemize}
+
+The final output format will be:
+
+\[
+\{
+    \text{"intercept"}: a,
+    \text{"slope"}: b
+\}
+\]
+
+\end{document}

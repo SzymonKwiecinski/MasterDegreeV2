@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $P$: Number of different parts
+    \item $M$: Number of different machines
+    \item $time_{m,p}$: Time in hours required on machine $m$ to produce a batch of 100 part $p$
+    \item $cost_{m}$: Hourly cost for using machine $m$
+    \item $available_{m}$: Available hours per month for machine $m$
+    \item $price_{p}$: Selling price per batch of part $p$
+    \item $min\_batches_{p}$: Minimum batches of part $p$ required to fulfill a contract
+    \item $standard\_cost$: Cost per hour for standard labor
+    \item $overtime\_cost$: Cost per hour for overtime labor
+    \item $overtime\_hour$: Number of hours after which overtime cost applies
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item $batches_{p}$: Number of batches of part $p$ produced each month
+    \item $total\_profit$: Total profit obtained for the month
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} (price_{p} \cdot batches_{p}) - \sum_{m=1}^{M} (cost_{m} \cdot \sum_{p=1}^{P} (time_{m,p} \cdot batches_{p}))
+\]
+
+\subsection*{Constraints}
+1. Machine availability constraints:
+\[
+\sum_{p=1}^{P} (time_{m,p} \cdot batches_{p}) \leq available_{m} \quad \forall m = 1, \ldots, M
+\]
+2. Minimum production requirements:
+\[
+batches_{p} \geq min\_batches_{p} \quad \forall p = 1, \ldots, P
+\]
+3. Overtime labor cost consideration for machine 1:
+\[
+\text{If } \sum_{p=1}^{P} (time_{1,p} \cdot batches_{p}) > available_{1}, \text{ then additional cost:}
+\]
+\[
+\text{Extra hours} = \sum_{p=1}^{P} (time_{1,p} \cdot batches_{p}) - available_{1}
+\]
+\[
+\text{Total labor cost} = (standard\_cost \cdot \min(overtime\_hour, extra\_hours)) + (overtime\_cost \cdot \max(0, extra\_hours - overtime\_hour))
+\]
+4. Non-negativity constraints:
+\[
+batches_{p} \geq 0 \quad \forall p = 1, \ldots, P
+\]
+
+\subsection*{Output}
+The output will consist of:
+\begin{itemize}
+    \item Number of batches for each part: $batches = [batches_{p} \text{ for } p = 1, \ldots, P]$
+    \item Total profit for the month: $total\_profit = Z$
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Balanced Diet}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Formulation}
+
+We want to minimize the total cost of purchasing food while satisfying nutritional requirements.
+
+\subsection*{Variables}
+Let \( x_k \) be the quantity of food \( k \) purchased, where \( k = 1, 2, \ldots, K \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{price}_k \): price per unit of food \( k \)
+    \item \( \text{demand}_m \): minimum units of nutrient \( m \) required per day
+    \item \( \text{nutri}_{k,m} \): units of nutrient \( m \) contained in one unit of food \( k \)
+\end{itemize}
+
+\subsection*{Objective Function}
+We want to minimize the total cost of food:
+\[
+\text{Minimize} \quad Z = \sum_{k=1}^{K} \text{price}_k \cdot x_k
+\]
+
+\subsection*{Constraints}
+We need to ensure that the nutritional demands are met for each nutrient \( m \):
+\[
+\sum_{k=1}^{K} \text{nutri}_{k,m} \cdot x_k \geq \text{demand}_m, \quad \forall m = 1, 2, \ldots, M
+\]
+
+\subsection*{Non-negativity Constraints}
+\[
+x_k \geq 0, \quad \forall k = 1, 2, \ldots, K
+\]
+
+\subsection*{Model Summary}
+The complete linear programming model is as follows:
+\begin{align*}
+\text{Minimize} & \quad Z = \sum_{k=1}^{K} \text{price}_k \cdot x_k \\
+\text{subject to} & \quad \sum_{k=1}^{K} \text{nutri}_{k,m} \cdot x_k \geq \text{demand}_m, \quad \forall m = 1, 2, \ldots, M \\
+& \quad x_k \geq 0, \quad \forall k = 1, 2, \ldots, K
+\end{align*}
+
+\end{document}

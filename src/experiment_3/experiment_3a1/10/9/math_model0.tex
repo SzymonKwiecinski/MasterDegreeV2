@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Lamp Power Optimization}
+
+Let \( N \) be the number of segments of the road, and \( M \) be the number of lamps. Define the following variables:
+
+\begin{itemize}
+    \item \( \text{power}_j \): power of the \( j \)-th lamp, where \( j = 1, 2, \ldots, M \).
+    \item \( \text{ill}_i \): illumination of the \( i \)-th segment, given by:
+    \[
+    \text{ill}_i = \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j
+    \]
+    \item \( \text{desired}_i \): desired illumination for the \( i \)-th segment.
+    \item \( \text{error} \): total absolute error defined as:
+    \[
+    \text{error} = \sum_{i=1}^{N} |\text{ill}_i - \text{desired}_i|
+    \end{itemize}
+\]
+
+\subsection*{Objective Function}
+
+We aim to minimize the total absolute error:
+
+\[
+\text{Minimize} \quad \text{error} = \sum_{i=1}^{N} |\sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j - \text{desired}_i|
+\]
+
+\subsection*{Constraints}
+
+Define \( \text{ill}_i - \text{desired}_i = d_i \) for \( i = 1, \ldots, N \), where \( d_i \) represents the difference between the actual and the desired illumination for each segment. We can reformulate the absolute error as:
+
+\[
+|\text{ill}_i - \text{desired}_i| = \begin{cases} 
+d_i & \text{if } d_i \geq 0 \\ 
+-d_i & \text{if } d_i < 0 
+\end{cases}
+\]
+
+To avoid dealing directly with absolute values, introduce auxiliary variables \( u_i \) such that:
+
+\[
+u_i \geq \text{ill}_i - \text{desired}_i \quad \text{and} \quad u_i \geq -(\text{ill}_i - \text{desired}_i) 
+\]
+
+Thus, we set up the new objective function:
+
+\[
+\text{Minimize} \quad \sum_{i=1}^{N} u_i
+\]
+
+\subsection*{Complete Mathematical Formulation}
+
+The complete linear programming model is as follows:
+
+\[
+\text{Minimize } \sum_{i=1}^{N} u_i
+\]
+subject to
+\[
+\begin{align*}
+\text{ill}_i & = \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j, \quad \forall i \in \{1, \ldots, N \} \\
+u_i & \geq \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j - \text{desired}_i, \quad \forall i \\
+u_i & \geq -(\sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j - \text{desired}_i), \quad \forall i \\
+\text{power}_j & \geq 0, \quad \forall j \in \{1, \ldots, M\}
+\end{align*}
+\]
+
+\end{document}

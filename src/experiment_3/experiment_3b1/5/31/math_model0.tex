@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Power Generation Optimization}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item \( t \): index for time periods (where \( t = 1, \ldots, T \))
+    \item \( k \): index for generator types (where \( k = 1, \ldots, K \))
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( demand_t \): electricity demand at time \( t \)
+    \item \( num_k \): number of generators of type \( k \)
+    \item \( minlevel_k \): minimum operating level of type \( k \)
+    \item \( maxlevel_k \): maximum operating level of type \( k \)
+    \item \( runcost_k \): hourly cost to run a type \( k \) generator at minimum level
+    \item \( extracost_k \): extra cost per MWh for operating a type \( k \) generator above minimum level
+    \item \( startcost_k \): startup cost for a type \( k \) generator
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( numon_{k,t} \): number of type \( k \) generators that are on at time \( t \)
+    \item \( level_{k,t} \): operating level of type \( k \) generators at time \( t \) (if they are on)
+    \item \( y_{k,t} \): binary variable indicating whether at least one generator of type \( k \) is on at time \( t \) (1 if on, 0 otherwise)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{t=1}^{T} \sum_{k=1}^{K} \left( startcost_k \cdot y_{k,t} + runcost_k \cdot numon_{k,t} + extracost_k \cdot (level_{k,t} - minlevel_k) \cdot numon_{k,t} \right)
+\]
+
+\subsection*{Constraints}
+
+1. **Demand satisfaction**:
+\[
+\sum_{k=1}^{K} level_{k,t} \geq demand_t \quad \forall t = 1, \ldots, T
+\]
+
+2. **Operating level constraints**:
+\[
+minlevel_k \cdot numon_{k,t} \leq level_{k,t} \leq maxlevel_k \cdot numon_{k,t} \quad \forall k = 1, \ldots, K, \quad \forall t = 1, \ldots, T
+\]
+
+3. **Generator availability**:
+\[
+numon_{k,t} \leq num_k \cdot y_{k,t} \quad \forall k = 1, \ldots, K, \quad \forall t = 1, \ldots, T
+\]
+
+4. **Binary variable formulation**:
+\[
+y_{k,t} \in \{0, 1\} \quad \forall k = 1, \ldots, K, \quad \forall t = 1, \ldots, T
+\]
+
+5. **Level definition**:
+\[
+level_{k,t} = 0 \text{ if } y_{k,t} = 0 \quad \forall k = 1, \ldots, K, \quad \forall t = 1, \ldots, T
+\]
+
+\subsection*{Output}
+The output is the number of generators of each type that are on during each period of the day:
+\[
+\text{Output: } numon = [[numon_{k,t} \text{ for } t = 1,\ldots,T] \text{ for } k = 1,\ldots,K]
+\]
+
+\end{document}

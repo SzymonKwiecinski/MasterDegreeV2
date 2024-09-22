@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item $i, j \in \{1, 2, \ldots, N\}$ \text{ (currencies)}
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $start_i$: initial amount of currency $i$
+    \item $limit_i$: limit on the amount of currency $i$ that can be exchanged
+    \item $rate_{i,j}$: exchange rate from currency $i$ to currency $j$ (where $rate_{i,j} > 0$)
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item $x_{i,j}$: amount of currency $i$ exchanged for currency $j$
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+    \text{Maximize } Z = \sum_{j=1}^{N} x_{N,j}
+\end{align*}
+\text{(Total amount of currency $N$ at the end of the day)}
+
+\textbf{Subject to:}
+\begin{align*}
+    \sum_{j=1}^{N} x_{i,j} \leq limit_i \quad & \forall i \in \{1, 2, \ldots, N\} \quad \text{(Limit on exchanges)} \\
+    x_{i,j} \leq start_i \cdot rate_{i,j} \quad & \forall i,j \in \{1, 2, \ldots, N\} \quad \text{(Exchange condition)} \\
+    x_{i,j} \geq 0 \quad & \forall i,j \in \{1, 2, \ldots, N\} \quad \text{(Non-negativity)}
+\end{align*}
+
+\textbf{Additional Constraints:}
+To ensure that wealth cannot be multiplied through cycles:
+\begin{align*}
+    rate_{i_1,i_2}, rate_{i_2,i_3}, \ldots, rate_{i_k,i_1} & \leq 1 \quad \text{for any cycle } i_1, \ldots, i_k
+\end{align*}
+
+\textbf{Output Information:}
+The solution will yield a series of transactions in the following format:
+\begin{verbatim}
+{
+    "transactions": [
+        {
+            "from": i,
+            "to": j,
+            "amount": amount_{i,j}
+        }
+    ],
+    "final_amount_of_currency_N": final_amount_of_currency_N
+}
+\end{verbatim}
+
+\end{document}

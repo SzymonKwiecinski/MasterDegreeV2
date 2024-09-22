@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model of the Rocket Problem}
+
+\subsection*{Variables}
+Let:
+\begin{align*}
+x_t & : \text{Position of the rocket at time } t \\
+v_t & : \text{Velocity of the rocket at time } t \\
+a_t & : \text{Acceleration of the rocket at time } t \\
+\end{align*}
+
+\subsection*{Parameters}
+Given:
+\begin{align*}
+x_0 & : \text{Initial position of the rocket} \\
+v_0 & : \text{Initial velocity of the rocket} \\
+x_T & : \text{Target position of the rocket at time } T \\
+v_T & : \text{Target velocity of the rocket at time } T \\
+T & : \text{Total time steps} \\
+\end{align*}
+
+\subsection*{Dynamic Equations}
+The dynamics of the rocket is described by the following equations:
+\begin{align}
+x_{t+1} &= x_t + v_t \label{eq:position} \\
+v_{t+1} &= v_t + a_t \label{eq:velocity}
+\end{align}
+
+\subsection*{Objective Function}
+The objective is to minimize the maximum thrust required, which can be expressed as:
+\begin{equation}
+\min \max_{t} |a_t| \label{eq:objective}
+\end{equation}
+
+\subsection*{Constraints}
+The final conditions we wish to achieve are:
+\begin{align}
+x_T &= x_T \label{eq:final_position} \\
+v_T &= v_T \label{eq:final_velocity}
+\end{align}
+
+\subsection*{Fuel Consumption}
+The fuel consumption is related to the acceleration as follows:
+\begin{equation}
+\text{Fuel Spent} = \sum_{t=0}^{T-1} |a_t| \label{eq:fuel}
+\end{equation}
+
+\subsection*{Output Variables}
+The output should contain:
+\begin{align*}
+x & : [x_i \text{ for } i = 0, ..., T] \\
+v & : [v_i \text{ for } i = 0, ..., T] \\
+a & : [a_i \text{ for } i = 0, ..., T] \\
+\text{fuel\_spend} & : \text{Total fuel spent by the rocket}
+\end{align*}
+
+\end{document}

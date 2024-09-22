@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Seaport Container Management}
+
+\subsection*{Parameters}
+\begin{align*}
+& T \text{ : Number of months} \\
+& demand_{t} \text{ : Demand for containers by ships in month } t \text{ for } t = 1, \ldots, T \\
+& unload\_cost_{t} \text{ : Unloading cost per container in month } t \\
+& unload\_capacity_{t} \text{ : Maximum containers that can be unloaded in month } t \\
+& holding\_cost \text{ : Holding cost per container per month} \\
+& max\_container \text{ : Maximum number of containers that can be stored in the yard} \\
+& init\_container \text{ : Initial number of containers in the yard} \\
+& num\_cranes \text{ : Maximum number of cranes that can be rented} \\
+& crane\_capacity \text{ : Capacity of each crane to load containers} \\
+& crane\_cost \text{ : Cost for renting each crane}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+& amount_{t} \text{ : Number of containers unloaded in month } t \text{ for } t = 1, \ldots, T \\
+& crane_{t} \text{ : Number of cranes rented in month } t \text{ for } t = 1, \ldots, T \\
+& held_{t} \text{ : Number of containers held in the yard at the end of month } t \text{ for } t = 1, \ldots, T
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\begin{align*}
+\text{total\_cost} = & \sum_{t=1}^{T} (unload\_cost_{t} \cdot amount_{t}) + \sum_{t=1}^{T} (holding\_cost \cdot held_{t}) \\
+& + \sum_{t=1}^{T} (crane\_cost \cdot crane_{t})
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+1. & \quad amount_{t} \leq unload\_capacity_{t} \quad \forall t \in \{1, \ldots, T\} \\
+2. & \quad held_{t} = held_{t-1} + amount_{t} - demand_{t} \quad \forall t \in \{1, \ldots, T\} \\
+3. & \quad held_{t} \leq max\_container \quad \forall t \in \{1, \ldots, T\} \\
+4. & \quad held_{1} = init\_container \\
+5. & \quad \sum_{t=1}^{T} crane_{t} \cdot crane\_capacity \geq \sum_{t=1}^{T} demand_{t} \\
+6. & \quad crane_{t} \leq num\_cranes \quad \forall t \in \{1, \ldots, T\} \\
+7. & \quad held_{T} = 0
+\end{align*}
+
+\subsection*{Output Variables}
+\begin{align*}
+& \text{containers\_unloaded} = [amount_{t} \text{ for } t = 1, \ldots, T] \\
+& \text{cranes\_rented} = [crane_{t} \text{ for } t = 1, \ldots, T] \\
+& \text{total\_cost} = \text{total\_cost}
+\end{align*}
+
+\end{document}

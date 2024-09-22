@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Transportation Problem Model}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item $i$: index for terminal cities
+    \item $j$: index for port cities
+    \item $l$: index for destination cities
+    \item $k$: terminal city
+    \item $p$: port city
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $A$: set of all routes $(i,j)$
+    \item $C_{i,j}$: cost per metric ton for route $(i,j)$
+    \item $supply_{k}$: soybean supply at terminal city $k$
+    \item $demand_{l}$: soybean demand at destination city $l$
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $amount_{i,j}$: amount of soybeans shipped from route $(i,j)$
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+    \text{Minimize } Z = \sum_{(i,j) \in A} C_{i,j} \cdot amount_{i,j}
+\end{align*}
+
+\textbf{Constraints:}
+\begin{align*}
+    \sum_{j} amount_{k,j} & \leq supply_{k} \quad \forall k \\
+    \sum_{i} amount_{i,l} & \geq demand_{l} \quad \forall l \\
+    amount_{i,j} & \geq 0 \quad \forall (i,j) \in A
+\end{align*}
+
+\textbf{Output:}
+\begin{itemize}
+    \item Distribution of soybeans: $\{(i, j, amount_{i,j}) \text{ for all } (i,j) \in A\}$
+    \item Total cost: $total\_cost = Z$
+\end{itemize}
+
+\end{document}

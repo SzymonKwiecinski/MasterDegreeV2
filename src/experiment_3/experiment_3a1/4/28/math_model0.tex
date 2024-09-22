@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Best Fit Line}
+
+Given a set of observations with corresponding values \( y_k \) and \( x_k \) for \( k = 1, \ldots, K \), we aim to fit a linear model of the form:
+
+\[
+y = bx + a
+\]
+
+where \( a \) is the intercept and \( b \) is the slope of the fitted line. 
+
+The objective is to minimize the sum of the absolute deviations of the observed values of \( y \) from the values predicted by this linear relationship. This can be expressed mathematically as:
+
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} |y_k - (bx_k + a)|
+\]
+
+To facilitate the optimization process, we introduce auxiliary variables \( d_k \) to represent the absolute deviations:
+
+\[
+d_k \geq y_k - (bx_k + a) \quad \forall k
+\]
+\[
+d_k \geq -(y_k - (bx_k + a)) \quad \forall k
+\]
+
+This leads to the following linear programming formulation:
+
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} d_k
+\]
+
+subject to:
+
+\[
+d_k \geq y_k - (bx_k + a) \quad \forall k
+\]
+\[
+d_k \geq -(y_k - (bx_k + a)) \quad \forall k
+\]
+
+The output will be:
+
+\[
+\{ \text{intercept} = a, \text{slope} = b \}
+\]
+
+\end{document}

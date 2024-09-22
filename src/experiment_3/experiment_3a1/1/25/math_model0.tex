@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Economic Production}
+
+\subsection*{Sets}
+Let $K$ be the set of industries, and $T$ be the time horizon (years), where $t = 0, 1, \ldots, T$.
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $inputone_{k,j}$: Input from industry $j$ required by industry $k$ for each unit produced.
+    \item $manpowerone_{k}$: Manpower required by industry $k$ for each unit produced.
+    \item $inputtwo_{k,j}$: Input from industry $j$ required by industry $k$ to build productive capacity.
+    \item $manpowertwo_{k}$: Manpower required by industry $k$ to build productive capacity.
+    \item $stock_{k}$: Initial stock of industry $k$ at year $0$.
+    \item $capacity_{k}$: Current productive capacity of industry $k$.
+    \item $manpower\_limit$: Maximum yearly manpower available.
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item $produce_{k,t}$: Amount of units produced by industry $k$ in year $t$.
+    \item $buildcapa_{k,t}$: Amount of units used to build productive capacity for industry $k$ in year $t$.
+    \item $stock_{k,t}$: Amount of stock of industry $k$ held at the end of year $t$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total production in the last two years:
+\[
+\text{Maximize } \sum_{k=1}^{K} \left( produce_{k,T-1} + produce_{k,T} \right)
+\]
+
+\subsection*{Constraints}
+
+\textbf{Production Constraints:}
+For each industry $k$ and year $t$:
+\[
+produce_{k,t} \leq capacity_{k} + stock_{k,t-1} \quad \forall k \in K, \forall t \in \{1, \ldots, T\}
+\]
+
+\textbf{Input Constraints:}
+\[
+\sum_{j=1}^{K} inputone_{k,j} \cdot produce_{j,t-1} + \sum_{j=1}^{K} inputtwo_{k,j} \cdot buildcapa_{j,t-1} \leq capacity_{k} + stock_{k,t-1} \quad \forall k \in K, \forall t \in \{1, \ldots, T\}
+\]
+
+\textbf{Manpower Constraints:}
+\[
+\sum_{k=1}^{K} manpowerone_{k} \cdot produce_{k,t} + \sum_{k=1}^{K} manpowertwo_{k} \cdot buildcapa_{k,t} \leq manpower\_limit \quad \forall t \in \{1, \ldots, T\}
+\]
+
+\textbf{Stock Balance Constraints:}
+\[
+stock_{k,t} = stock_{k,t-1} + produce_{k,t-1} - \sum_{j=1}^{K} inputone_{j,k} \cdot produce_{j,t-1} \quad \forall k \in K, \forall t \in \{1, \ldots, T\}
+\]
+
+\textbf{Capacity Building Constraints:}
+\[
+capacity_{k,t+2} \geq capacity_{k,t} + buildcapa_{k,t} \quad \forall k \in K, \forall t \in \{1, \ldots, T-2\}
+\]
+
+\subsection*{Variable Definitions}
+\[
+produce_{k,t} \geq 0,\quad buildcapa_{k,t} \geq 0,\quad stock_{k,t} \geq 0 \quad \forall k \in K, \forall t \in \{1, \ldots, T\}
+\]
+
+\end{document}

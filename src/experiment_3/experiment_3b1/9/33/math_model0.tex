@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Knapsack Problem Formulation}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item Let \( C \) be the maximum capacity of the container.
+    \item Let \( K \) be the total number of items.
+    \item Let \( value_k \) be the value of item \( k \) for \( k = 1, \ldots, K \).
+    \item Let \( size_k \) be the size of item \( k \) for \( k = 1, \ldots, K \).
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item Let \( x_k \) be a binary variable that indicates whether item \( k \) is included in the container (\( x_k = 1 \)) or not (\( x_k = 0 \)).
+\end{itemize}
+
+\textbf{Objective:}
+\begin{align*}
+\text{Maximize} \quad & Z = \sum_{k=1}^{K} value_k \cdot x_k
+\end{align*}
+
+\textbf{Subject to:}
+\begin{align*}
+\sum_{k=1}^{K} size_k \cdot x_k & \leq C \quad \text{(Capacity constraint)} \\
+x_k & \in \{0, 1\} \quad \forall k \in \{1, \ldots, K\} \quad \text{(Binary constraint)}
+\end{align*}
+
+\textbf{Output:}
+The output will be a binary list \( \text{isincluded} \), where 
+\[
+\text{isincluded}_k = x_k \quad \text{for } k = 1, \ldots, K
+\]
+
+\end{document}

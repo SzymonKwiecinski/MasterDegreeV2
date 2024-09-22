@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Communication Network}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item \(x_{i,j}\) be the flow of data along the link \((i,j)\) where \((i,j) \in A\).
+    \item \(y_{k,l}\) be the amount of data that needs to be transmitted from node \(k\) to node \(l\).
+\end{itemize}
+
+\subsection*{Parameters}
+Let:
+\begin{itemize}
+    \item \(U_{i,j}\) be the maximum capacity of the link from node \(i\) to node \(j\) (in bits per second).
+    \item \(C_{i,j}\) be the cost per bit transmitted along the link from node \(i\) to node \(j\).
+    \item \(B_{k,l}\) be the rate of data generation from node \(k\) to node \(l\) (in bits per second).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{(i,j) \in A} C_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+1. Flow balance constraint for each node:
+\[
+\sum_{j: (i,j) \in A} x_{i,j} - \sum_{j: (j,i) \in A} x_{j,i} = 
+\begin{cases}
+B_{k,l} & \text{if } i = k \text{ (source node)} \\
+-B_{k,l} & \text{if } i = l \text{ (destination node)} \\
+0 & \text{otherwise}
+\end{cases}
+\]
+for all nodes \(k, l\).
+
+2. Capacity constraint for each link:
+\[
+x_{i,j} \leq U_{i,j} \quad \forall (i,j) \in A
+\]
+
+3. Non-negativity constraints:
+\[
+x_{i,j} \geq 0 \quad \forall (i,j) \in A
+\]
+
+\subsection*{Output Information}
+The output will consist of:
+\begin{itemize}
+    \item A list of optimized paths along with:
+    \begin{itemize}
+        \item Source node \(k\) 
+        \item Destination node \(l\)
+        \item Route taken from \(k\) to \(l\)
+        \item Path flow \(x_{i,j}\)
+        \item Path cost corresponding to the flow
+    \end{itemize}
+    \item The total cost \(Z\) of all paths.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Rocket Trajectory Optimization}
+
+Let \( x_t \), \( v_t \), and \( a_t \) represent the position, velocity, and acceleration of the rocket at time \( t \), respectively. The discrete-time dynamics of the rocket can be expressed as follows:
+
+\begin{align}
+    x_{t+1} &= x_t + v_t \\
+    v_{t+1} &= v_t + a_t
+\end{align}
+
+Given the problem parameters:
+- Initial position: \( x_0 \)
+- Initial velocity: \( v_0 \)
+- Target position: \( x_T \)
+- Target velocity: \( v_T \)
+- Time horizon: \( T \)
+
+The goal is to minimize the maximum thrust required, denoted as \( \max_t |a_t| \).
+
+\subsection*{Objective Function}
+The objective is to minimize the maximum absolute acceleration:
+
+\[
+\text{Minimize } Z = \max_{t=0, \ldots, T} |a_t|
+\]
+
+\subsection*{Constraints}
+The evolution of the rocket's state can be constrained as follows:
+1. For each time step \( t \) from \( 0 \) to \( T-1 \):
+   \begin{align}
+       x_{t+1} &= x_t + v_t \\
+       v_{t+1} &= v_t + a_t
+   \end{align}
+   
+2. At the final time step \( T \):
+   \begin{align}
+       x_T &= x_T \\
+       v_T &= v_T
+   \end{align}
+
+3. The thrust constraints can be modeled as:
+   \[
+   -Z \leq a_t \leq Z, \quad \forall t = 0, 1, \ldots, T
+   \]
+
+\subsection*{Output Variables}
+The output variables are defined as:
+\begin{itemize}
+    \item \( \text{"x"}: [x_i \text{ for } i = 0, \ldots, T] \)
+    \item \( \text{"v"}: [v_i \text{ for } i = 0, \ldots, T] \)
+    \item \( \text{"a"}: [a_i \text{ for } i = 0, \ldots, T] \)
+    \item \( \text{"fuel\_spend"}: \text{total fuel spent} \)
+\end{itemize}
+
+\end{document}

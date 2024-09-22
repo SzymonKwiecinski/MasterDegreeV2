@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Manufacturing Optimization}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item Let \( sell_{k,i} \) be the amount of product \( k \) sold in month \( i \).
+    \item Let \( manufacture_{k,i} \) be the amount of product \( k \) manufactured in month \( i \).
+    \item Let \( storage_{k,i} \) be the amount of product \( k \) stored at the end of month \( i \).
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( num_{m} \): Number of machines in the factory.
+    \item \( profit_{k} \): Profit for product \( k \) per unit.
+    \item \( time_{k,m} \): Time required to produce one unit of product \( k \) on machine \( m \).
+    \item \( maintain_{i,m} \): Number of machines that will be down for maintenance in month \( i \).
+    \item \( limit_{k,i} \): Marketing limitations on product \( k \) in month \( i \).
+    \item \( store\_price \): Cost of storing one unit of product per month.
+    \item \( keep\_quantity \): Required stock of each product at the end of subsequent months.
+    \item \( n\_workhours \): Total working hours in a month.
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{i=1}^{I} \sum_{k=1}^{K} \left( profit_{k} \cdot sell_{k,i} - store\_price \cdot storage_{k,i} \right)
+\]
+
+\textbf{Constraints:}
+
+1. \textbf{Production time constraint:}
+\[
+\sum_{k=1}^{K} \sum_{m=1}^{M} time_{k,m} \cdot manufacture_{k,i} \leq n\_workhours \cdot (num_{m} - \sum_{m=1}^{M} maintain_{i,m}) \quad \forall i
+\]
+
+2. \textbf{Selling constraints:}
+\[
+sell_{k,i} \leq limit_{k,i} \quad \forall k, \forall i
+\]
+
+3. \textbf{Inventory balance constraints:}
+\[
+storage_{k,i} = storage_{k,i-1} + manufacture_{k,i} - sell_{k,i} \quad \forall k, \forall i
+\]
+\[
+storage_{k,i} \leq 100 \quad \forall k, \forall i
+\]
+\[
+storage_{k,I} \geq keep\_quantity \quad \forall k
+\]
+
+4. \textbf{Non-negativity constraints:}
+\[
+sell_{k,i} \geq 0, \quad manufacture_{k,i} \geq 0, \quad storage_{k,i} \geq 0 \quad \forall k, \forall i
+\]
+
+\textbf{Output Format:}
+\begin{itemize}
+    \item \( sell \): Selling quantities for each product in each month.
+    \item \( manufacture \): Manufactured quantities for each product in each month.
+    \item \( storage \): Storage levels for each product in each month.
+\end{itemize}
+
+\end{document}

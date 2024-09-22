@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for the Chebyshev Center}
+
+We want to find the Chebyshev center of a set \( P \) defined by the linear inequality constraints:
+
+\[
+P = \{ \mathbf{x} \in \mathbb{R}^{N} \mid \mathbf{a_i}^T \mathbf{x} \leq b_i, \quad i = 1, \ldots, m \}
+\]
+
+where \( \mathbf{a_i} \in \mathbb{R}^{N} \) and \( b_i \in \mathbb{R} \).
+
+We define a ball with center \( \mathbf{y} \in \mathbb{R}^{N} \) and radius \( r \) as follows:
+
+\[
+B(\mathbf{y}, r) = \{ \mathbf{x} \in \mathbb{R}^{N} \mid \|\mathbf{x} - \mathbf{y}\|_2 \leq r \}
+\]
+
+Our objective is to maximize the radius \( r \) such that the ball \( B(\mathbf{y}, r) \) is entirely contained within the feasible region \( P \). This leads us to the following optimization problem:
+
+\[
+\begin{align*}
+\text{Maximize} & \quad r \\
+\text{subject to} & \quad \|\mathbf{a_i}^T \mathbf{y} - b_i\|_2 \leq r, \quad i = 1, \ldots, m \\
+& \quad r \geq 0
+\end{align*}
+\]
+
+We can reformulate the constraints as follows:
+
+For each \( i \), \( r \) must satisfy:
+
+\[
+\mathbf{a_i}^T \mathbf{y} - b_i \leq r \\
+b_i - \mathbf{a_i}^T \mathbf{y} \leq r
+\]
+
+Thus, we can define the complete set of constraints for the optimization problem:
+
+\[
+\begin{align*}
+-r & \leq \mathbf{a_i}^T \mathbf{y} - b_i, \quad i = 1, \ldots, m \\
+-r & \leq b_i - \mathbf{a_i}^T \mathbf{y}, \quad i = 1, \ldots, m \\
+\end{align*}
+\]
+
+The resulting linear programming problem can be summarized as:
+
+\[
+\begin{align*}
+\text{Maximize} & \quad r \\
+\text{subject to} & \quad \mathbf{a_i}^T \mathbf{y} - r \leq b_i, \quad i = 1, \ldots, m \\
+& \quad -\mathbf{a_i}^T \mathbf{y} + r \leq b_i, \quad i = 1, \ldots, m \\
+& \quad r \geq 0
+\end{align*}
+\]
+
+The solution will yield the center of the largest ball \( (y_1, y_2, \ldots, y_N) \) as:
+
+\[
+\text{center} = [y_j \text{ for } j = 1, \ldots, N]
+\]
+
+And the radius as:
+
+\[
+\text{radius} = r
+\]
+
+\end{document}

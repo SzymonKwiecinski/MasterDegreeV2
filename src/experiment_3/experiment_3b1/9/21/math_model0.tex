@@ -1,0 +1,75 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Manufacturing Optimization}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item $k$: index for products ($k = 1, \ldots, K$)
+    \item $m$: index for machines ($m = 1, \ldots, M$)
+    \item $i$: index for months ($i = 1, \ldots, I$)
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $num_{m}$: number of machines
+    \item $profit_{k}$: profit per unit of product $k$
+    \item $time_{k, m}$: production time required for product $k$ on machine $m$
+    \item $down_{m}$: downtime for machine $m$ 
+    \item $limit_{k, i}$: sales limit for product $k$ in month $i$
+    \item $store\_price$: storage cost per unit per month
+    \item $keep\_quantity$: desired ending inventory for each product
+    \item $n\_workhours$: total working hours available per month
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $sell_{k, i}$: quantity sold of product $k$ in month $i$
+    \item $manufacture_{k, i}$: quantity manufactured of product $k$ in month $i$
+    \item $storage_{k, i}$: quantity stored of product $k$ at the end of month $i$
+    \item $maintain_{m, i}$: binary variable indicating if machine $m$ is under maintenance in month $i$
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize: } Z = \sum_{i=1}^{I} \sum_{k=1}^{K} profit_{k} \cdot sell_{k, i} - \sum_{i=1}^{I} \sum_{k=1}^{K} store\_price \cdot storage_{k, i}
+\]
+
+\textbf{Constraints:}
+
+1. \textbf{Production Time Constraint:}
+\[
+\sum_{k=1}^{K} time_{k, m} \cdot manufacture_{k, i} \leq (n\_workhours \cdot (24 - \sum_{j=1}^{i} down_{m})) \cdot (1 - maintain_{m, i}), \quad \forall m, i
+\]
+
+2. \textbf{Sales Limit Constraint:}
+\[
+sell_{k, i} \leq limit_{k, i}, \quad \forall k, i
+\]
+
+3. \textbf{Storage Constraints:}
+\[
+storage_{k, i} = storage_{k, i-1} + manufacture_{k, i} - sell_{k, i}, \quad \forall k, i > 1
+\]
+\[
+storage_{k, 1} = 0, \quad \forall k
+\]
+\[
+storage_{k, i} \leq 100, \quad \forall k, i
+\]
+
+4. \textbf{Ending Inventory Constraint:}
+\[
+storage_{k, I} \geq keep\_quantity, \quad \forall k
+\]
+
+5. \textbf{Non-negativity and Binary Constraints:}
+\[
+sell_{k, i} \geq 0, \quad manufacture_{k, i} \geq 0, \quad storage_{k, i} \geq 0, \quad \forall k, i
+\]
+\[
+maintain_{m, i} \in \{0, 1\}, \quad \forall m, i
+\]
+
+\end{document}

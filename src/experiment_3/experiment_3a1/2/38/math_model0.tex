@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Production Schedule}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let $reg\_quant_n$ be the quantity of products produced using regular production in month $n$.
+    \item Let $over\_quant_n$ be the quantity of products produced using overtime production in month $n$.
+    \item Let $inventory_n$ be the quantity of products stored at the end of month $n$.
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } Z = \sum_{n=1}^{N} \left( cost\_regular \cdot reg\_quant_n + cost\_overtime \cdot over\_quant_n + store\_cost \cdot inventory_n \right)
+\]
+
+\textbf{Constraints:}
+
+1. \textbf{Demand Satisfaction:}
+\[
+reg\_quant_n + over\_quant_n + inventory_{n-1} - inventory_n = demand_n \quad \forall n = 1, 2, \ldots, N
+\]
+Where we define $inventory_0 = 0$ (no initial inventory).
+
+2. \textbf{Regular Production Capacity:}
+\[
+reg\_quant_n \leq max\_regular\_amount \quad \forall n = 1, 2, \ldots, N
+\]
+
+3. \textbf{Non-negativity Constraints:}
+\[
+reg\_quant_n \geq 0, \quad over\_quant_n \geq 0, \quad inventory_n \geq 0 \quad \forall n = 1, 2, \ldots, N
+\]
+
+\textbf{Output Variables:}
+\begin{itemize}
+    \item $reg\_quant = [reg\_quant_1, reg\_quant_2, \ldots, reg\_quant_N]$
+    \item $over\_quant = [over\_quant_1, over\_quant_2, \ldots, over\_quant_N]$
+\end{itemize}
+
+\end{document}

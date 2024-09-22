@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Steel Production}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $n\_steel\_quant$: tons of steel required
+    \item $mn\_percent$: minimum percentage of manganese (Mn)
+    \item $si\_min$: minimum percentage of silicon (Si)
+    \item $si\_max$: maximum percentage of silicon (Si)
+    \item $contsi_k$: percentage of silicon in mineral $k$
+    \item $contmn_k$: percentage of manganese in mineral $k$
+    \item $mang\_price$: price of manganese in million euros per ton
+    \item $cost_k$: cost of mineral $k$ in million euros per thousand tons
+    \item $sell\_price$: selling price of steel in million euros per ton
+    \item $melt\_price$: cost of melting one ton of mineral in million euros
+    \item $K$: number of different minerals available
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $amount_k$: amount of mineral $k$ melted (in thousands of tons)
+    \item $num\_mang$: amount of manganese directly added (in tons)
+\end{itemize}
+
+\textbf{Objective Function:}
+Maximize profit:
+\[
+Z = sell\_price \cdot n\_steel\_quant - \sum_{k=1}^{K} \left( cost_k \cdot amount_k + melt\_price \cdot amount_k \right) - mang\_price \cdot num\_mang
+\]
+
+\textbf{Constraints:}
+\begin{align}
+    \text{Manganese Constraint:} & \quad \frac{\sum_{k=1}^{K} (contmn_k \cdot amount_k) + num\_mang}{n\_steel\_quant} \geq \frac{mn\_percent}{100} \\
+    \text{Silicon Minimum Constraint:} & \quad \frac{\sum_{k=1}^{K} (contsi_k \cdot amount_k)}{n\_steel\_quant} \geq \frac{si\_min}{100} \\
+    \text{Silicon Maximum Constraint:} & \quad \frac{\sum_{k=1}^{K} (contsi_k \cdot amount_k)}{n\_steel\_quant} \leq \frac{si\_max}{100} \\
+    \text{Non-negativity Constraints:} & \quad amount_k \geq 0 \quad \forall k \in \{1, \ldots, K\} \\
+    & \quad num\_mang \geq 0 
+\end{align}
+
+\textbf{Output:}
+\begin{itemize}
+    \item $amount = [amount_1, amount_2, \ldots, amount_K]$
+    \item $num\_mang$
+\end{itemize}
+
+\end{document}

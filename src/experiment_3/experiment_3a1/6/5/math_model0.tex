@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Communication Network}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( n \) be the number of nodes.
+    \item Let \( A \) be the set of all links, where a link is defined as an ordered pair \( (i, j) \).
+    \item For each link \( (i, j) \in A \):
+    \begin{itemize}
+        \item \( U_{i,j} \): Maximum capacity of link \( (i, j) \) in bits per second.
+        \item \( C_{i,j} \): Cost per bit transmitted along link \( (i, j) \).
+    \end{itemize}
+    \item For each node \( k \) and destination \( l \):
+    \begin{itemize}
+        \item \( B_{k,l} \): Data generation rate at node \( k \) destined for node \( l \) in bits per second.
+    \end{itemize}
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let \( x_{i,j} \) be the flow of data transmitted along link \( (i, j) \).
+
+\subsection*{Objective Function}
+Minimize the total cost of data transmission:
+\[
+\text{Minimize } Z = \sum_{(i,j) \in A} C_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Capacity constraint for each link:
+    \[
+    x_{i,j} \leq U_{i,j} \quad \forall (i,j) \in A
+    \]
+    
+    \item Flow conservation for each node \( k \):
+    \[
+    \sum_{j: (k,j) \in A} x_{k,j} - \sum_{i: (i,k) \in A} x_{i,k} = B_{k,l} \quad \forall k 
+    \]
+    where the summation runs over all \( l \) that \( k \) sends data to.
+
+    \item Non-negativity constraint:
+    \[
+    x_{i,j} \geq 0 \quad \forall (i,j) \in A
+    \]
+\end{itemize}
+
+\subsection*{Output}
+The optimization will yield:
+\begin{itemize}
+    \item \( \text{optimized\_paths} \):
+    \begin{itemize}
+        \item \( \text{paths} \):
+        \[
+        \begin{aligned}
+            &\{ (k, l, \text{route}, \text{path\_flow}, \text{path\_cost}) \\
+            &| \text{route} = [k, i_1, i_2, \ldots, l], \text{ for each path from } k \text{ to } l \}
+        \end{aligned}
+        \]
+        \item \( \text{total\_cost} = Z \)
+    \end{itemize}
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Consultant Assignment Problem}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item $I$: Set of projects, indexed by $i = 1, \ldots, I$
+    \item $J$: Set of consultants, indexed by $j = 1, \ldots, J$
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $f_j$: Fixed cost for hiring consultant $j$, for $j \in J$
+    \item $c_{i,j}$: Additional cost of assigning project $i$ to consultant $j$, for $i \in I$, $j \in J$
+    \item $K$: Maximum number of projects that can be assigned to a consultant
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_{i,j}$: Binary variable, where $x_{i,j} = 1$ if project $i$ is assigned to consultant $j$, and $0$ otherwise
+    \item $y_j$: Binary variable, where $y_j = 1$ if consultant $j$ is hired, and $0$ otherwise
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } Z = \sum_{j=1}^J f_j y_j + \sum_{i=1}^I \sum_{j=1}^J c_{i,j} x_{i,j}
+\]
+
+\textbf{Constraints:}
+1. Each project must be assigned to exactly one consultant:
+\[
+\sum_{j=1}^J x_{i,j} = 1, \quad \forall i \in I
+\]
+2. A consultant can only take projects if they are hired:
+\[
+x_{i,j} \leq y_j, \quad \forall i \in I, \quad \forall j \in J
+\]
+3. A consultant can take at most $K$ projects:
+\[
+\sum_{i=1}^I x_{i,j} \leq K y_j, \quad \forall j \in J
+\]
+4. Binary constraints for decision variables:
+\[
+x_{i,j} \in \{0, 1\}, \quad \forall i \in I, \forall j \in J
+\]
+\[
+y_j \in \{0, 1\}, \quad \forall j \in J
+\]
+
+\textbf{Output:}
+The assignment of projects to consultants and the total cost will be represented as:
+\[
+\text{Output} = \{ \text{"assignments"}: [x_{j,i}] \text{ for } j \in J, i \in I, \text{"total\_cost"}: Z \}
+\]
+
+\end{document}

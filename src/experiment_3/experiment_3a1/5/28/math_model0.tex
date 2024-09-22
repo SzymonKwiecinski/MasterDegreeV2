@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Line Fitting}
+
+Given the data points $(x_k, y_k)$ for \( k = 1, \ldots, K \), we want to fit a line defined by the equation: 
+
+\[
+y = bx + a
+\]
+
+where \( b \) is the slope and \( a \) is the intercept of the line. The objective is to minimize the sum of absolute deviations between the observed values \( y_k \) and the predicted values from the linear equation:
+
+\[
+\text{Minimize } \sum_{k=1}^{K} |y_k - (bx_k + a)|
+\]
+
+This can be reformulated into a linear programming form by introducing auxiliary variables \( d_k \) for the absolute deviations:
+
+\[
+d_k \geq y_k - (bx_k + a) \quad \text{for } k = 1, \ldots, K
+\]
+\[
+d_k \geq -(y_k - (bx_k + a)) \quad \text{for } k = 1, \ldots, K
+\]
+
+The objective now becomes:
+
+\[
+\text{Minimize } \sum_{k=1}^{K} d_k
+\]
+
+subject to the constraints:
+
+\[
+d_k \geq y_k - (bx_k + a) \quad \forall k
+\]
+\[
+d_k \geq -(y_k - (bx_k + a)) \quad \forall k
+\]
+
+The final Linear Programming formulation can be stated as:
+
+\begin{align*}
+\text{Minimize } & \sum_{k=1}^{K} d_k \\
+\text{subject to } & d_k \geq y_k - bx_k - a \quad \forall k \\
+                   & d_k \geq -(y_k - bx_k - a) \quad \forall k \\
+                   & b, a \text{ are free variables} \\
+                   & d_k \geq 0 \quad \forall k
+\end{align*}
+
+\end{document}

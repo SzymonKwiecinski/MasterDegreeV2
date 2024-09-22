@@ -1,0 +1,69 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item \( r_{k,i} \): Number of recruits for manpower \( k \) in year \( i \)
+    \item \( o_{k,i} \): Number of overmanned employees for manpower \( k \) in year \( i \)
+    \item \( s_{k,i} \): Number of employees on short-time working for manpower \( k \) in year \( i \)
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( requirement_{k,i} \): Manpower requirement for category \( k \) in year \( i \)
+    \item \( strength_{k} \): Current number of manpower in category \( k \)
+    \item \( lessonewaste_{k} \): Wastage rate for less than one year of service for manpower \( k \)
+    \item \( moreonewaste_{k} \): Wastage rate for more than one year of service for manpower \( k \)
+    \item \( recruit_{k} \): Maximum recruits allowable for manpower \( k \)
+    \item \( costredundancy_{k} \): Redundancy payment for manpower \( k \)
+    \item \( num\_overman \): Maximum number of extra workers allowed overall
+    \item \( costoverman_{k} \): Extra cost per employee for overmanning manpower \( k \)
+    \item \( num\_shortwork \): Maximum number of workers that can be on short-time for each category
+    \item \( costshort_{k} \): Cost of short-time working per employee for manpower \( k \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total redundancy cost:
+\[
+\text{Minimize} \quad Z = \sum_{k=1}^{K} \sum_{i=1}^{I} costredundancy_{k} \cdot (o_{k,i} - requirement_{k,i})^+ 
+\]
+
+Where \((x)^+ = \max(0, x)\).
+
+\subsection*{Constraints}
+
+1. **Manpower Requirement Constraint**:
+   \[
+   strength_{k} - \sum_{i=1}^{I} (r_{k,i} + s_{k,i}) + \sum_{j=1}^{i} (strength_{k} \cdot moreonewaste_{k}) \geq requirement_{k,i} - o_{k,i} \quad \forall k, \forall i
+   \]
+
+2. **Recruitment Limit**:
+   \[
+   r_{k,i} \leq recruit_{k} \quad \forall k, \forall i
+   \]
+
+3. **Overmanning Limit**:
+   \[
+   o_{k,i} \leq num\_overman \quad \forall k, \forall i
+   \]
+
+4. **Short-time Working Limit**:
+   \[
+   s_{k,i} \leq num\_shortwork \quad \forall k, \forall i
+   \]
+
+5. **Short-time Equivalent**:
+   \[
+   \frac{s_{k,i}}{2} + strength_{k} - \sum_{j=1}^{i} (strength_{k} \cdot moreonewaste_{k}) \geq requirement_{k,i} - o_{k,i} \quad \forall k, \forall i
+   \]
+
+6. **Non-negativity Constraints**:
+   \[
+   r_{k,i}, o_{k,i}, s_{k,i} \geq 0 \quad \forall k, \forall i
+   \]
+
+\end{document}

@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item $k$: Index for products ($k = 1, \ldots, K$)
+    \item $m$: Index for machines ($m = 1, \ldots, M$)
+    \item $i$: Index for months ($i = 1, \ldots, I$)
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $profit_k$: Profit from product $k$
+    \item $time_{k, m}$: Production time of product $k$ on machine $m$
+    \item $down_m$: Maintenance downtime for machine $m$ (in months)
+    \item $limit_{k, i}$: Marketing limit for product $k$ in month $i$
+    \item $store\_price$: Cost of storing one unit of product per month
+    \item $keep\_quantity$: Desired stock level at the end of each month for each product
+    \item $n\_workhours$: Total working hours available in one month
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $sell_{k, i}$: Amount of product $k$ sold in month $i$
+    \item $manufacture_{k, i}$: Amount of product $k$ manufactured in month $i$
+    \item $storage_{k, i}$: Amount of product $k$ stored at the end of month $i$
+    \item $maintain_{m, i}$: Binary variable indicating if machine $m$ is under maintenance in month $i$ (1 if under maintenance, 0 otherwise)
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+\text{Maximize } Z &= \sum_{i=1}^{I} \sum_{k=1}^{K} \left( profit_k \cdot sell_{k, i} - store\_price \cdot storage_{k, i} \right)
+\end{align*}
+
+\textbf{Subject to:}
+
+\begin{align}
+    \sum_{k=1}^{K} manufacture_{k,i} \cdot time_{k,m} &\leq n\_workhours \cdot (6 \cdot 2 \cdot (24 - down_m)) \quad \forall m, \, i \\
+    sell_{k, i} &\leq limit_{k, i} \quad \forall k, \, i \\
+    storage_{k, i} &= storage_{k, i-1} + manufacture_{k, i} - sell_{k, i} \quad \forall k, \, i \\
+    storage_{k, i} &\leq 100 \quad \forall k, \, i \\
+    storage_{k, I} &\geq keep\_quantity \quad \forall k \\
+    maintain_{m, i} &\in \{0, 1\} \quad \forall m, \, i \\
+    \sum_{m=1}^{M} maintain_{m,i} &\leq \text{Max machines under maintenance} \quad \forall i
+\end{align}
+
+\textbf{Bounds:}
+\begin{align*}
+    sell_{k, i} &\geq 0 \quad \forall k, \, i \\
+    manufacture_{k, i} &\geq 0 \quad \forall k, \, i \\
+    storage_{k, i} &\geq 0 \quad \forall k, \, i \\
+\end{align*}
+
+\end{document}

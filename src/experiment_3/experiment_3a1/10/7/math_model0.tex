@@ -1,0 +1,82 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Motion Linear Programming Model}
+
+Let \( x_t \), \( v_t \), and \( a_t \) be the position, velocity, and acceleration of the rocket at time \( t \). The dynamical equations governing the motion of the rocket are defined as follows:
+
+\[
+x_{t+1} = x_t + v_t
+\]
+
+\[
+v_{t+1} = v_t + a_t
+\]
+
+We aim to control the acceleration \( a_t \), which is related to the fuel consumption. Our goal is to minimize the maximum thrust required, represented as \( \max_t |a_t| \).
+
+Given the initial conditions and target specifications, we define the following parameters:
+
+- Initial position: \( x_0 \)
+- Initial velocity: \( v_0 \)
+- Target position: \( x_T \)
+- Target velocity: \( v_T \)
+- Total time: \( T \)
+
+We can summarize the linear programming model as follows:
+
+\subsection*{Objective Function}
+
+Minimize the maximum thrust:
+
+\[
+\text{Minimize} \quad M
+\]
+
+where:
+
+\[
+M \geq |a_t| \quad \forall t = 0, 1, \ldots, T
+\]
+
+\subsection*{Constraints}
+
+1. Initial conditions:
+    \[
+    x_0 \text{ (given)}, \quad v_0 \text{ (given)}
+    \]
+
+2. State update equations for each time step \( t \):
+    \[
+    x_{t+1} = x_t + v_t \quad \forall t = 0, 1, \ldots, T-1
+    \]
+
+    \[
+    v_{t+1} = v_t + a_t \quad \forall t = 0, 1, \ldots, T-1
+    \]
+
+3. Final conditions:
+    \[
+    x_T = x_T \text{ (given)}, \quad v_T = v_T \text{ (given)}
+    \]
+
+4. Control variable bounds:
+    \[
+    -M \leq a_t \leq M \quad \forall t = 0, 1, \ldots, T
+    \]
+
+\subsection*{Output Specification}
+
+The outputs of the model will be:
+
+\[
+\begin{align*}
+\text{"x"} &: [x_i \text{ for } i = 0, \ldots, T] \\
+\text{"v"} &: [v_i \text{ for } i = 0, \ldots, T] \\
+\text{"a"} &: [a_i \text{ for } i = 0, \ldots, T] \\
+\text{"fuel\_spend"} &: \text{Total fuel spent}
+\end{align*}
+\]
+
+\end{document}

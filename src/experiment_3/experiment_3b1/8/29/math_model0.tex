@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Best Fit Line}
+
+Let us denote the observed values of \( y \) and \( x \) as follows:
+
+\[
+y = \{ y_{1}, y_{2}, \ldots, y_{K} \} \quad \text{and} \quad x = \{ x_{1}, x_{2}, \ldots, x_{K} \}
+\]
+
+We aim to fit the best straight line of the form:
+
+\[
+y = bx + a
+\]
+
+where \( b \) is the slope and \( a \) is the intercept.
+
+The objective is to minimize the maximum deviation between the observed values of \( y \) and the predictions of the linear model. We will define the deviations as follows:
+
+\[
+d_{k} = y_{k} - (bx_{k} + a) \quad \text{for } k = 1, 2, \ldots, K
+\]
+
+To transform this into a linear programming problem, we introduce a new variable \( D \) to represent the maximum deviation:
+
+\[
+D \geq d_{k} \quad \text{for all } k = 1, 2, \ldots, K
+\]
+\[
+D \geq -d_{k} \quad \text{for all } k = 1, 2, \ldots, K
+\]
+
+Thus, we can reformulate the constraints as:
+
+\[
+D \geq y_{k} - (bx_{k} + a) \quad \text{for } k = 1, 2, \ldots, K
+\]
+\[
+D \geq -(y_{k} - (bx_{k} + a)) \quad \text{for } k = 1, 2, \ldots, K
+\]
+
+Now, the objective function can be formally stated as:
+
+\[
+\text{Minimize } D
+\]
+
+The complete linear programming formulation is as follows:
+
+\[
+\begin{align*}
+\text{Minimize} \quad & D \\
+\text{subject to} \quad & y_{k} - (bx_{k} + a) \leq D, \quad k = 1, 2, \ldots, K \\
+& -(y_{k} - (bx_{k} + a)) \leq D, \quad k = 1, 2, \ldots, K \\
+& b, a \text{ are unrestricted}
+\end{align*}
+\]
+
+The solution to this linear programming model will yield the values of \( a \) (intercept) and \( b \) (slope) that minimize the maximum deviation from the fitted line.
+
+\end{document}

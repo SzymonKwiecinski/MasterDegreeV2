@@ -1,0 +1,74 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Factory Production and Profit Maximization}
+
+\subsection*{Parameters}
+
+\begin{align*}
+& num_m \text{ : Number of machines} \\
+& profit_k \text{ : Profit from product } k \\
+& time_{k,m} \text{ : Production time for product } k \text{ on machine } m \\
+& maintain_{i,m} \text{ : Number of machines down in month } i \\
+& limit_{k,i} \text{ : Marketing limitation for product } k \text{ in month } i \\
+& store\_price \text{ : Cost of storing per unit per month} \\
+& keep\_quantity \text{ : Required quantity to keep in storage} \\
+& n\_workhours \text{ : Number of work hours in a day} \\
+& I \text{ : Total months} \\
+& K \text{ : Total products}
+\end{align*}
+
+\subsection*{Decision Variables}
+
+\begin{align*}
+& sell_{k,i} \text{ : Amount of product } k \text{ sold in month } i \\
+& manufacture_{k,i} \text{ : Amount of product } k \text{ manufactured in month } i \\
+& storage_{k,i} \text{ : Amount of product } k \text{ stored at the end of month } i
+\end{align*}
+
+\subsection*{Objective Function}
+
+Maximize the total profit:
+\[
+Z = \sum_{i=1}^{I} \sum_{k=1}^{K} (profit_k \cdot sell_{k,i} - store\_price \cdot storage_{k,i})
+\]
+
+\subsection*{Constraints}
+
+1. \textbf{Production Time Constraint:}
+\[
+\sum_{k=1}^{K} \sum_{m=1}^{num_m} time_{k,m} \cdot manufacture_{k,i} \leq (n\_workhours \cdot 6 \cdot 24) - \sum_{m=1}^{num_m} maintain_{i,m} \text{ for all } i
+\]
+
+2. \textbf{Marketing Limitation:}
+\[
+sell_{k,i} \leq limit_{k,i} \text{ for all } k \text{ and } i
+\]
+
+3. \textbf{Storage Limits:}
+\[
+storage_{k,i} \leq 100 \text{ for all } k \text{ and } i
+\]
+
+4. \textbf{Storage Balance:}
+\[
+storage_{k,i-1} + manufacture_{k,i} - sell_{k,i} = storage_{k,i} \text{ for all } k \text{ and } i > 1
+\]
+
+5. \textbf{Initial Storage Condition:}
+\[
+storage_{k,1} = 0 \text{ for all } k
+\]
+
+6. \textbf{End Storage Requirement:}
+\[
+storage_{k,I} \geq keep\_quantity \text{ for all } k
+\]
+
+7. \textbf{Non-negativity Constraints:}
+\[
+sell_{k,i} \geq 0, \quad manufacture_{k,i} \geq 0, \quad storage_{k,i} \geq 0 \text{ for all } k, i
+\]
+
+\end{document}

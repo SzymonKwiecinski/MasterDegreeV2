@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mixed Integer Linear Programming Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $C$: capacity of each floppy disk (in GB)
+    \item $N$: number of files
+    \item $size_j$: size of file $j$ (in GB) for $j = 1, \ldots, N$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_{ij}$: binary variable that equals 1 if file $j$ is placed on disk $i$, 0 otherwise.
+    \item $y_i$: binary variable that equals 1 if disk $i$ is used, 0 otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total number of disks used:
+\[
+\text{Minimize } Z = \sum_{i=1}^{M} y_i
+\]
+where $M$ is the maximum number of disks available.
+
+\subsection*{Constraints}
+1. Each file must be assigned to exactly one disk:
+\[
+\sum_{i=1}^{M} x_{ij} = 1 \quad \forall j = 1, \ldots, N
+\]
+
+2. The total size of files on each disk cannot exceed its capacity:
+\[
+\sum_{j=1}^{N} size_j \cdot x_{ij} \leq C \cdot y_i \quad \forall i = 1, \ldots, M
+\]
+
+3. Binary constraints:
+\[
+x_{ij} \in \{0, 1\} \quad \forall i = 1, \ldots, M, \, j = 1, \ldots, N
+\]
+\[
+y_i \in \{0, 1\} \quad \forall i = 1, \ldots, M
+\]
+
+\subsection*{Output}
+\begin{itemize}
+    \item $n\_disks$: total number of disks used, given by:
+    \[
+    n\_disks = \sum_{i=1}^{M} y_i
+    \]
+    \item $whichdisk$: an array representing the disk on which each file is distributed, given by:
+    \[
+    whichdisk[j] = i \text{ if } x_{ij} = 1
+    \]
+\end{itemize}
+
+\end{document}

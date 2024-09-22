@@ -1,0 +1,69 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Communication Network}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item Let $A$ be the set of all links $(i,j)$ where $i, j \in \{1, 2, \ldots, n\}$.
+    \item Let $D$ be the set of all data requests $(k,l)$ where $k, l \in \{1, 2, \ldots, n\}$.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $U_{i,j}$: capacity of link $(i,j)$ in bits per second.
+    \item $C_{i,j}$: cost per bit transmitted along link $(i,j)$.
+    \item $B_{k,l}$: data generation rate from node $k$ to node $l$ in bits per second.
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let $x_{i,j,k,l}$ be the flow of data from node $k$ to node $l$ through link $(i,j)$.
+
+\subsection*{Objective}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{(i,j) \in A} C_{i,j} \cdot \sum_{(k,l) \in D} x_{i,j,k,l}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Flow conservation at each node:
+    \[
+    \sum_{(i,j) \in A} x_{i,j,k,l} - \sum_{(j,i) \in A} x_{j,i,k,l} = 
+    \begin{cases}
+        B_{k,l} & \text{if } k=l \\
+        0 & \text{otherwise}
+    \end{cases}
+    \]
+    \item Capacity constraints for each link:
+    \[
+    \sum_{(k,l) \in D} x_{i,j,k,l} \leq U_{i,j}, \quad \forall (i,j) \in A
+    \]
+    \item Non-negativity constraints:
+    \[
+    x_{i,j,k,l} \geq 0, \quad \forall (i,j) \in A, (k,l) \in D
+    \]
+\end{itemize}
+
+\subsection*{Output Information}
+- Optimized paths with the following structure:
+\begin{verbatim}
+{
+    "optimized_paths": {
+        "paths": [
+            {
+                "source": k,
+                "destination": l,
+                "route": [k, i_1, i_2, ..., l],
+                "path_flow": path_flow,
+                "path_cost": path_cost
+            },
+            ...
+        ],
+        "total_cost": total_cost
+    }
+}
+\end{verbatim}
+
+\end{document}

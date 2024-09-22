@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Warehouse Operations}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item Let \( C \) be the capacity of the warehouse.
+    \item Let \( h \) be the holding cost per unit for one period.
+    \item Let \( p_n \) be the selling price of the commodity in period \( n \) for \( n = 1, 2, \ldots, N \).
+    \item Let \( c_n \) be the purchase cost of the commodity in period \( n \) for \( n = 1, 2, \ldots, N \).
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item Let \( x_n \) be the amount of buying in period \( n \).
+    \item Let \( y_n \) be the amount of selling in period \( n \).
+    \item Let \( s_n \) be the stock at the end of period \( n \) (excluding initial stock).
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{n=1}^{N} (p_n y_n - c_n x_n - h s_n)
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+    s_n &= s_{n-1} + x_n - y_n, & \text{for } n = 1, 2, \ldots, N \\
+    s_n &\leq C, & \text{for } n = 1, 2, \ldots, N \\
+    s_N &= 0, & \text{(final stock must be zero)} \\
+    x_n &\geq 0, & \text{(buying must be non-negative)} \\
+    y_n &\geq 0, & \text{(selling must be non-negative)} \\
+\end{align*}
+
+\textbf{Initial Condition:}
+\[
+s_0 = 0 \quad \text{(the warehouse starts empty)}
+\]
+
+\end{document}

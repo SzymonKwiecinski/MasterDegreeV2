@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Motion Optimization Model}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item $x_t$: Position of the rocket at time $t$
+    \item $v_t$: Velocity of the rocket at time $t$
+    \item $a_t$: Acceleration of the rocket at time $t$
+\end{itemize}
+
+\subsection*{Initial Conditions}
+The initial conditions of the rocket are given by:
+\begin{align*}
+    x_0 & \text{ (initial position)} \\
+    v_0 & \text{ (initial velocity)} 
+\end{align*}
+
+\subsection*{Target Conditions}
+The target conditions to be achieved at time $T$ are:
+\begin{align*}
+    x_T & \text{ (target position)} \\
+    v_T & \text{ (target velocity)} 
+\end{align*}
+
+\subsection*{Discrete-Time Model}
+The rocket's motion can be described by the following recursive equations:
+\begin{align*}
+    x_{t+1} &= x_t + v_t \\
+    v_{t+1} &= v_t + a_t
+\end{align*}
+
+\subsection*{Fuel Consumption}
+The total fuel spent is represented as:
+\[
+\text{Total Fuel} = \sum_{t=0}^{T-1} |a_t|
+\]
+
+\subsection*{Objective}
+The objective is to minimize the total fuel spent:
+\[
+\min \sum_{t=0}^{T-1} |a_t|
+\]
+
+\subsection*{Constraints}
+The model is subject to the following constraints:
+\begin{align*}
+    x_0 & = \text{initial position} \\
+    v_0 & = \text{initial velocity} \\
+    x_T & = \text{target position} \\
+    v_T & = \text{target velocity}
+\end{align*}
+
+\subsection*{Output}
+The desired output format is as follows:
+\begin{itemize}
+    \item $x = [x_i \text{ for } i = 1, \ldots, T]$
+    \item $v = [v_i \text{ for } i = 1, \ldots, T]$
+    \item $a = [a_i \text{ for } i = 1, \ldots, T]$
+    \item $\text{fuel\_spend} = \text{total fuel spent}$
+\end{itemize}
+
+\end{document}

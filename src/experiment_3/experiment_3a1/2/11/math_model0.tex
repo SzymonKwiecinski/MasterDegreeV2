@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Production and Inventory Scheduling}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( T \) be the total number of months.
+    \item Let \( \text{deliver}_i \) be the demand for month \( i \) for \( i = 1, \ldots, T \).
+    \item Let \( c_s \) be the storage cost per unit per month.
+    \item Let \( c_w \) be the switch cost per unit change in production level.
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item Let \( x_i \) be the number of units produced in month \( i \) for \( i = 1, \ldots, T \).
+    \item Let \( I_i \) be the inventory at the end of month \( i \) for \( i = 1, \ldots, T \).
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the total cost, which includes storage costs and switching costs:
+\[
+\text{Minimize } Z = \sum_{i=1}^{T} (c_s I_i + c_w |x_{i+1} - x_i|) \text{ for } i = 1, \ldots, T-1
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+    I_0 & = 0 \quad \text{(initial inventory)} \\
+    I_i & = I_{i-1} + x_i - \text{deliver}_i \quad \text{for } i = 1, \ldots, T \\
+    I_i & \geq 0 \quad \text{for } i = 1, \ldots, T \\
+\end{align*}
+The inventory must be non-negative, and the production and inventory must meet the demand.
+
+\end{document}

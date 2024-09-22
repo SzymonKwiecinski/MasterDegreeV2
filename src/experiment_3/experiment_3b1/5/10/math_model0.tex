@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for School Assignment Problem}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item $n \in \{1, 2, \ldots, N\}$: Index for neighborhoods
+    \item $s \in \{1, 2, \ldots, S\}$: Index for schools
+    \item $g \in \{1, 2, \ldots, G\}$: Index for grades
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $capacity_{s,g}$: Capacity of school $s$ for grade $g$
+    \item $population_{n,g}$: Student population of neighborhood $n$ for grade $g$
+    \item $d_{n,s}$: Distance from neighborhood $n$ to school $s$
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_{n,s,g}$: Number of students of grade $g$ from neighborhood $n$ assigned to school $s$
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+\text{Minimize } Z &= \sum_{n=1}^{N} \sum_{s=1}^{S} \sum_{g=1}^{G} d_{n,s} \cdot x_{n,s,g}
+\end{align*}
+
+\textbf{Subject to:}
+
+\textbf{1. Capacity Constraints:}
+\begin{align*}
+\sum_{n=1}^{N} x_{n,s,g} &\leq capacity_{s,g} \quad \forall s, g \\
+\end{align*}
+
+\textbf{2. Demand Constraints:}
+\begin{align*}
+\sum_{s=1}^{S} x_{n,s,g} &\leq population_{n,g} \quad \forall n, g \\
+\end{align*}
+
+\textbf{3. Non-negativity Constraints:}
+\begin{align*}
+x_{n,s,g} &\geq 0 \quad \forall n, s, g
+\end{align*}
+
+\end{document}

@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Network Intrusion Intervention}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item \( i \in \{1, 2, \ldots, N\} \) : Index for clusters
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{isolate\_central}_i \) : Processing time for isolating cluster \( i \) using central processing
+    \item \( \text{scan\_central}_i \) : Processing time for scanning cluster \( i \) using central processing
+    \item \( \text{isolate\_distributed}_i \) : Processing time for isolating cluster \( i \) using distributed processing
+    \item \( \text{scan\_distributed}_i \) : Processing time for scanning cluster \( i \) using distributed processing
+    \item \( c_c \) : Central processing cost per hour
+    \item \( c_d \) : Distributed processing cost per hour
+    \item \( H_c \) : Maximum hours for central processing
+    \item \( H_d \) : Maximum hours for distributed processing
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_{i,j,k} \) : Amount of intervention for cluster \( i \) where \( j \) is the type of intervention (1 for isolate, 2 for scan) and \( k \) is the method (1 for central, 2 for distributed)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} \left( c_c \cdot (x_{i,1,1} \cdot \text{isolate\_central}_i + x_{i,2,1} \cdot \text{scan\_central}_i) + c_d \cdot (x_{i,1,2} \cdot \text{isolate\_distributed}_i + x_{i,2,2} \cdot \text{scan\_distributed}_i) \right)
+\]
+
+\subsection*{Constraints}
+1. Time constraints for central processing:
+\[
+\sum_{i=1}^{N} (x_{i,1,1} \cdot \text{isolate\_central}_i + x_{i,2,1} \cdot \text{scan\_central}_i) \leq H_c
+\]
+
+2. Time constraints for distributed processing:
+\[
+\sum_{i=1}^{N} (x_{i,1,2} \cdot \text{isolate\_distributed}_i + x_{i,2,2} \cdot \text{scan\_distributed}_i) \leq H_d
+\]
+
+3. Intervention type consistency:
+\[
+x_{i,1,k} + x_{i,2,k} = 1 \quad \forall i, k \in \{1, 2\} \quad \text{(if cluster } i \text{ is treated with method } k\text{)}
+\]
+
+4. Non-negativity constraints:
+\[
+x_{i,j,k} \geq 0 \quad \forall i,j,k
+\]
+
+\subsection*{Output}
+\begin{itemize}
+    \item Output information includes:
+    \begin{itemize}
+        \item Interventions for each cluster including cluster\_id, type, method, and amount
+        \item Total cost of all interventions
+    \end{itemize}
+\end{itemize}
+
+\end{document}

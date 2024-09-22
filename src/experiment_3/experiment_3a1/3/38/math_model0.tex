@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Production Scheduling}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( \text{reg\_quant}_{n} \) be the quantity of products produced using regular production in month \( n \).
+    \item Let \( \text{over\_quant}_{n} \) be the quantity of products produced using overtime production in month \( n \).
+    \item Let \( \text{inventory}_{n} \) be the quantity of products stored in inventory at the end of month \( n \).
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{demand}_{n} \): Demand in month \( n \).
+    \item \( \text{max\_regular\_amount} \): Maximum quantity that can be produced using regular production in a month.
+    \item \( \text{cost\_regular} \): Cost per unit for regular production.
+    \item \( \text{cost\_overtime} \): Cost per unit for overtime production.
+    \item \( \text{store\_cost} \): Cost per unit for storing inventory per month.
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } Z = \sum_{n=1}^{N} \left( \text{cost\_regular} \cdot \text{reg\_quant}_{n} + \text{cost\_overtime} \cdot \text{over\_quant}_{n} + \text{store\_cost} \cdot \text{inventory}_{n} \right)
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+\text{1. Demand Satisfaction:} & \quad \text{reg\_quant}_{n} + \text{over\_quant}_{n} + \text{inventory}_{n-1} \geq \text{demand}_{n} \quad \forall n \in \{1, \ldots, N\} \\
+\text{2. Regular Production Limit:} & \quad \text{reg\_quant}_{n} \leq \text{max\_regular\_amount} \quad \forall n \in \{1, \ldots, N\} \\
+\text{3. Inventory Balance:} & \quad \text{inventory}_{n} = \text{inventory}_{n-1} + \text{reg\_quant}_{n} + \text{over\_quant}_{n} - \text{demand}_{n} \quad \forall n \in \{1, \ldots, N\} \\
+\text{4. Non-negativity:} & \quad \text{reg\_quant}_{n} \geq 0, \quad \text{over\_quant}_{n} \geq 0, \quad \text{inventory}_{n} \geq 0 \quad \forall n \in \{1, \ldots, N\}
+\end{align*}
+
+\end{document}

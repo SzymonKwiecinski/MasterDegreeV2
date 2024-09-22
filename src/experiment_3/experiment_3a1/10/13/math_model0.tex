@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Chebyshev Center}
+
+Given the set \( P \) defined by the constraints:
+
+\[
+P = \{ x \in \mathbb{R}^N \mid a_i^T x \leq b_i, \, i = 1, \ldots, m \}
+\]
+
+We want to find the center \( y \in \mathbb{R}^N \) and the radius \( r \) of the largest ball centered at \( y \) that is entirely contained within \( P \). The ball is defined as:
+
+\[
+B(y, r) = \{ x \in \mathbb{R}^N \mid \| x - y \|_2 \leq r \}
+\]
+
+To establish the linear programming model, we need to maximize the radius \( r \) subject to the constraints of the set \( P \):
+
+\begin{align*}
+\text{Maximize} \quad & r \\
+\text{subject to} \quad & a_i^T y - r \cdot \| a_i \|_2 \leq b_i, \quad i = 1, \ldots, m \\
+& r \geq 0
+\end{align*}
+
+Where \( a_i \) is the coefficient vector corresponding to constraint \( i \), and \( \| a_i \|_2 \) is the Euclidean norm of \( a_i \), which takes into account the maximum distance that the radius \( r \) can extend in the direction of \( a_i \).
+
+Thus, the outputs from the model are:
+
+\begin{itemize}
+    \item Center: \( \text{center} = [y_j \text{ for } j = 1, \ldots, N] \)
+    \item Radius: \( \text{radius} = r \)
+\end{itemize}
+
+\end{document}

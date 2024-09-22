@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Network Intrusion Problem}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item Let \( N \) be the total number of clusters.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{isolate\_central}_i \): Processing time for isolation intervention in central processing for cluster \( i \).
+    \item \( \text{scan\_central}_i \): Processing time for scanning intervention in central processing for cluster \( i \).
+    \item \( \text{isolate\_distributed}_i \): Processing time for isolation intervention in distributed processing for cluster \( i \).
+    \item \( \text{scan\_distributed}_i \): Processing time for scanning intervention in distributed processing for cluster \( i \).
+    \item \( C_c \): Cost of central processing per hour.
+    \item \( C_d \): Cost of distributed processing per hour.
+    \item \( H_c \): Maximum hours allocated for central processing.
+    \item \( H_d \): Maximum hours allocated for distributed processing.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( x_{i,j,k} \) be a binary variable where:
+    \[
+    x_{i,j,k} = 
+    \begin{cases} 
+    1 & \text{if intervention type } j \text{ is applied to cluster } i \text{ using method } k \\
+    0 & \text{otherwise}
+    \end{cases}
+    \]
+    where \( j \in \{\text{isolate, scan}\} \) and \( k \in \{\text{central, distributed}\} \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost of interventions:
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} \left( C_c \cdot \text{isolate\_central}_i \cdot x_{i,\text{isolate, central}} + C_c \cdot \text{scan\_central}_i \cdot x_{i,\text{scan, central}} + C_d \cdot \text{isolate\_distributed}_i \cdot x_{i,\text{isolate, distributed}} + C_d \cdot \text{scan\_distributed}_i \cdot x_{i,\text{scan, distributed}} \right)
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Intervention type consistency for each cluster:
+    \[
+    \sum_{j,k} x_{i,j,k} = 1, \quad \forall i \in \{1, \ldots, N\}
+    \]
+
+    \item Maximum hours for central processing:
+    \[
+    \sum_{i=1}^{N} \left( \text{isolate\_central}_i \cdot x_{i,\text{isolate, central}} + \text{scan\_central}_i \cdot x_{i,\text{scan, central}} \right) \leq H_c
+    \]
+
+    \item Maximum hours for distributed processing:
+    \[
+    \sum_{i=1}^{N} \left( \text{isolate\_distributed}_i \cdot x_{i,\text{isolate, distributed}} + \text{scan\_distributed}_i \cdot x_{i,\text{scan, distributed}} \right) \leq H_d
+    \]
+
+    \item Binary constraints for decision variables:
+    \[
+    x_{i,j,k} \in \{0, 1\}, \quad \forall i \in \{1, \ldots, N\}, \, j \in \{\text{isolate, scan}\}, \, k \in \{\text{central, distributed}\}
+    \]
+\end{itemize}
+
+\subsection*{Output}
+\begin{itemize}
+    \item The output will detail the type of intervention, processing method, and their respective amounts for each cluster as well as the total cost.
+\end{itemize}
+
+\end{document}

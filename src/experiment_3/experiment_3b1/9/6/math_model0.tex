@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Motion Optimization Model}
+
+Let \( x_t \), \( v_t \), and \( a_t \) represent the position, velocity, and acceleration of the rocket at time \( t \) respectively. 
+
+The discrete-time dynamics of the rocket are given by:
+\[
+x_{t+1} = x_t + v_t
+\]
+\[
+v_{t+1} = v_t + a_t
+\]
+
+We control the acceleration \( a_t \) at each time step, and it is assumed that the magnitude \( |a_t| \) of the acceleration is proportional to the rate of fuel consumption.
+
+### Problem Formulation
+
+Given:
+- Initial position \( x_0 \)
+- Initial velocity \( v_0 \)
+- Target position \( x_T \)
+- Target velocity \( v_T \)
+- Total time \( T \)
+
+We need to minimize the total fuel cost:
+\[
+\text{Minimize } \sum_{t=0}^{T-1} |a_t|
+\]
+
+### Constraints
+The constraints based on the dynamics of motion are:
+1. Initial conditions:
+   \[
+   x_0 \text{ and } v_0
+   \]
+2. Dynamics at each time step:
+   \[
+   x_{t+1} = x_t + v_t \quad \forall t = 0, 1, \ldots, T-1
+   \]
+   \[
+   v_{t+1} = v_t + a_t \quad \forall t = 0, 1, \ldots, T-1
+   \]
+3. Final conditions:
+   \[
+   x_T \text{ and } v_T
+   \]
+
+### Output
+The solution will provide the following:
+\[
+\begin{align*}
+\text{Let } \text{output} &= \{ \\
+&\quad "x": [x_i \text{ for } i = 0, 1, \ldots, T], \\
+&\quad "v": [v_i \text{ for } i = 0, 1, \ldots, T], \\
+&\quad "a": [a_i \text{ for } i = 0, 1, \ldots, T], \\
+&\quad "fuel\_spend": \text{total fuel spent} \\
+\}
+\end{align*}
+\]
+
+\end{document}

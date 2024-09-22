@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item $batches_p$ be the number of batches produced of part $p$, for $p = 1, 2, \ldots, P$.
+\end{itemize}
+
+\subsection*{Parameters}
+Given:
+\begin{itemize}
+    \item $time_{m,p}$: time required in hours on machine $m$ to produce one batch of part $p$.
+    \item $cost_m$: cost per hour for using machine $m$.
+    \item $available_m$: availability in hours per month for machine $m$.
+    \item $price_p$: selling price per batch of part $p$.
+    \item $min\_batches_p$: minimum number of batches of part $p$ that must be produced.
+    \item $standard\_cost$: cost per hour for standard labor.
+    \item $overtime\_cost$: cost per hour for overtime labor.
+    \item $overtime\_hour$: maximum hours of standard labor before overtime rates apply.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} \left( price_p \cdot batches_p - \sum_{m=1}^{M} (time_{m,p} \cdot batches_p \cdot cost_m) \right) - \text{Labor Costs}
+\]
+
+Where Labor Costs for machine 1 can be calculated as:
+
+\[
+\text{Labor Costs} = 
+\begin{cases}
+standard\_cost \cdot hours & \text{if } hours \leq overtime\_hour \\
+standard\_cost \cdot overtime\_hour + overtime\_cost \cdot (hours - overtime\_hour) & \text{if } hours > overtime\_hour
+\end{cases}
+\]
+
+with \( hours = time_{1,p} \cdot batches_p \).
+
+\subsection*{Constraints}
+1. Capacity constraints for each machine \( m \):
+
+\[
+\sum_{p=1}^{P} (time_{m,p} \cdot batches_p) \leq available_m, \quad \forall m = 1, \ldots, M
+\]
+
+2. Minimum production requirements for each part:
+
+\[
+batches_p \geq min\_batches_p, \quad \forall p = 1, \ldots, P
+\]
+
+3. Non-negativity constraints:
+
+\[
+batches_p \geq 0, \quad \forall p = 1, \ldots, P
+\]
+
+\subsection*{Output}
+The output will be:
+
+\begin{itemize}
+    \item \( batches_p \): number of batches produced for each part \( p \).
+    \item \( total\_profit = Z \): total profit obtained for the month.
+\end{itemize}
+
+\end{document}

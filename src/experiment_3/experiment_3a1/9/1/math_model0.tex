@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Decision Variables:}
+\begin{align*}
+x_j & : \text{ Amount of good } j \text{ produced}, \quad j = 1, 2, \ldots, M
+\end{align*}
+
+\textbf{Objective Function:}
+\begin{align*}
+\text{Maximize } Z &= \sum_{j=1}^{M} \text{price}_j \cdot x_j
+\end{align*}
+
+\textbf{Constraints:}
+\begin{align*}
+\sum_{j=1}^{M} \text{req}_{i,j} \cdot x_j & \leq \text{available}_i, \quad \text{for } i = 1, 2, \ldots, N \\
+x_j & \geq 0, \quad \text{for } j = 1, 2, \ldots, M
+\end{align*}
+
+\textbf{Output:}
+The amount of each good produced is represented by the vector:
+\begin{align*}
+\text{amount} = [x_1, x_2, \ldots, x_M]
+\end{align*}
+
+\end{document}

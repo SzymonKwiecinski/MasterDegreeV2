@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Steel Production}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $s$: Index for steel types ($s = 1, \ldots, S$)
+    \item $a$: Index for alloys ($a = 1, \ldots, A$)
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $available_a$: Available tons of alloy $a$
+    \item $carbon_{a}$: Percentage of carbon in alloy $a$
+    \item $nickel_{a}$: Percentage of nickel in alloy $a$
+    \item $alloy\_price_{a}$: Price per ton of alloy $a$
+    \item $steel\_price_{s}$: Selling price per ton of steel type $s$
+    \item $carbon\_min_{s}$: Minimum required percentage of carbon in steel type $s$
+    \item $nickel\_max_{s}$: Maximum allowable percentage of nickel in steel type $s$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $alloy\_amount_{a,s}$: Amount of alloy $a$ used in steel type $s$ (in tons)
+    \item $total\_steel_{s}$: Total amount of steel type $s$ produced (in tons)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+\text{Maximize } total\_profit = \sum_{s=1}^{S} (steel\_price_{s} \cdot total\_steel_{s}) - \sum_{a=1}^{A} (alloy\_price_{a} \cdot \sum_{s=1}^{S} alloy\_amount_{a,s})
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Material constraints for alloys:
+    \[
+    \sum_{s=1}^{S} alloy\_amount_{a,s} \leq available_a \quad \forall a
+    \]
+
+    \item Carbon percentage constraints for each type of steel:
+    \[
+    \frac{\sum_{a=1}^{A} (carbon_{a} \cdot alloy\_amount_{a,s})}{total\_steel_{s}} \geq carbon\_min_{s} \cdot 100 \quad \forall s
+    \]
+
+    \item Nickel percentage constraints for each type of steel:
+    \[
+    \frac{\sum_{a=1}^{A} (nickel_{a} \cdot alloy\_amount_{a,s})}{total\_steel_{s}} \leq nickel\_max_{s} \cdot 100 \quad \forall s
+    \]
+
+    \item Alloy 1 usage limit for all steel types:
+    \[
+    \sum_{s=1}^{S} alloy\_amount_{1,s} \leq 0.4 \cdot \sum_{s=1}^{S} total\_steel_{s}
+    \]
+
+    \item Non-negativity constraints:
+    \[
+    alloy\_amount_{a,s} \geq 0, \quad total\_steel_{s} \geq 0 \quad \forall a, s
+    \]
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Manpower Optimization}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item $k$: Manpower categories ($k = 1,\ldots,K$)
+    \item $i$: Years ($i = 1,\ldots,I$)
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $requirement_{k,i}$: Estimated manpower requirements for category $k$ in year $i$
+    \item $strength_k$: Current strength of manpower category $k$
+    \item $lessonewaste_k$: Wastage rate of category $k$ manpower with less than one year's service
+    \item $moreonewaste_k$: Wastage rate of category $k$ manpower with more than one year's service
+    \item $recruit_k$: Maximum number of recruitments allowed for manpower category $k$ each year
+    \item $costredundancy_k$: Redundancy payment for manpower category $k$
+    \item $num\_overman$: Maximum allowable overman
+    \item $costoverman_k$: Extra cost per employee per year for overmanning category $k$
+    \item $num\_shortwork$: Maximum number of short-time workers allowed in each category
+    \item $costshort_k$: Cost of short-time working per employee per year for category $k$
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $recruit_{k,i}$: Number of recruits for manpower category $k$ in year $i$
+    \item $overmanning_{k,i}$: Number of overmanning for manpower category $k$ in year $i$
+    \item $short_{k,i}$: Number of short-time workers for manpower category $k$ in year $i$
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+\text{Minimize } Z = \sum_{k=1}^K \sum_{i=1}^I \left( costredundancy_k \cdot redundant_{k,i} + costoverman_k \cdot overmanning_{k,i} + costshort_k \cdot short_{k,i} \right)
+\end{align*}
+
+\textbf{Constraints:}
+\begin{align*}
+    \text{Workforce balance:}\quad & strength_k + \sum_{i=1}^I recruit_{k,i} - \sum_{i=1}^I redundant_{k,i} - \sum_{i=1}^I overmanning_{k,i} - \sum_{i=1}^I short_{k,i} = \sum_{i=1}^I requirement_{k,i} \quad \forall k \\
+    & \sum_{i=1}^I recruit_{k,i} \leq recruit_k \quad \forall k \\
+    & \sum_{i=1}^I overmanning_{k,i} \leq num\_overman \quad \forall k \\
+    & \sum_{i=1}^I short_{k,i} \leq num\_shortwork \quad \forall k \\
+    & recruit_{k,i}, overmanning_{k,i}, short_{k,i} \geq 0 \quad \forall k, i
+\end{align*}
+
+\end{document}

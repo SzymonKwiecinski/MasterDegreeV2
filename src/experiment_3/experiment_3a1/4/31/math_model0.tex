@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Power Generation Optimization}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $T$: Number of time periods in a day
+    \item $K$: Number of generator types
+    \item $demand_t$: Electricity load demand for period $t$ (for $t = 1, \ldots, T$)
+    \item $num_k$: Number of generators of type $k$ available (for $k = 1, \ldots, K$)
+    \item $minlevel_k$: Minimum operating level for generator type $k$ (for $k = 1, \ldots, K$)
+    \item $maxlevel_k$: Maximum operating level for generator type $k$ (for $k = 1, \ldots, K$)
+    \item $runcost_k$: Hourly cost of running type $k$ generator at minimum level (for $k = 1, \ldots, K$)
+    \item $extracost_k$: Extra hourly cost per megawatt operated above minimum level for type $k$ generator (for $k = 1, \ldots, K$)
+    \item $startcost_k$: Starting cost for type $k$ generator (for $k = 1, \ldots, K$)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $numon_{k,t}$: Number of generators of type $k$ that are on in period $t$ (for $k = 1, \ldots, K$ and $t = 1, \ldots, T$)
+    \item $level_{k,t}$: Operating level of generator type $k$ in period $t$ (for $k = 1, \ldots, K$ and $t = 1, \ldots, T$)
+    \item $start_{k,t}$: Binary variable indicating if type $k$ generator is started in period $t$ (1 if started, 0 otherwise)
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } Z = \sum_{t=1}^{T} \sum_{k=1}^{K} \left( runcost_k \cdot numon_{k,t} + startcost_k \cdot start_{k,t} + extracost_k \cdot \max(0, level_{k,t} - minlevel_k) \cdot numon_{k,t} \right)
+\]
+
+\textbf{Constraints:}
+\begin{itemize}
+    \item Demand satisfaction:
+    \[
+    \sum_{k=1}^{K} level_{k,t} \geq demand_t \quad \forall t = 1, \ldots, T
+    \]
+
+    \item Generator capacity:
+    \[
+    minlevel_k \cdot numon_{k,t} \leq level_{k,t} \leq maxlevel_k \cdot numon_{k,t} \quad \forall k = 1, \ldots, K, \forall t = 1, \ldots, T
+    \]
+
+    \item Generator availability:
+    \[
+    numon_{k,t} \leq num_k \quad \forall k = 1, \ldots, K, \forall t = 1, \ldots, T
+    \]
+
+    \item Startup decision:
+    \[
+    level_{k,t} \leq maxlevel_k \cdot start_{k,t} \quad \forall k = 1, \ldots, K, \forall t = 1, \ldots, T
+    \]
+
+    \item Binary restriction:
+    \[
+    start_{k,t} \in \{0, 1\} \quad \forall k = 1, \ldots, K, \forall t = 1, \ldots, T
+    \]
+\end{itemize}
+
+\textbf{Output:}
+\[
+\text{numon} = [[numon_{k,t} \text{ for } t=1,\ldots,T] \text{ for } k=1,\ldots,K]
+\]
+
+\end{document}

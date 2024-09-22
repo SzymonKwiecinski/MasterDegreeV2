@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Stock Selling Problem}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item $N$: Number of different stocks
+    \item $bought_i$: Number of shares bought of stock $i$
+    \item $buyPrice_i$: Price at which stock $i$ was bought
+    \item $currentPrice_i$: Current price of stock $i$
+    \item $futurePrice_i$: Expected price of stock $i$ in one year
+    \item $transactionRate$: Transaction cost rate (in percentage)
+    \item $taxRate$: Tax rate on capital gains (in percentage)
+    \item $K$: Target net amount to raise
+    \item $sell_i$: Number of shares to sell of stock $i$
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to maximize the expected value of the portfolio next year, while ensuring that the net amount raised is at least $K$:
+
+\[
+\text{maximize} \quad \sum_{i=1}^{N} (futurePrice_i \cdot (bought_i - sell_i)) - \sum_{i=1}^{N} (sell_i \cdot currentPrice_i)
+\]
+
+\subsection*{Constraints}
+The constraints include the need to raise a net amount of at least $K$ after transaction costs and taxes:
+
+The amount raised from selling shares $i$ is given by:
+
+\[
+\text{Amount\_Raised}_i = sell_i \cdot currentPrice_i
+\]
+
+The capital gains from selling shares is given by:
+
+\[
+\text{Capital\_Gains}_i = (currentPrice_i - buyPrice_i) \cdot sell_i
+\]
+
+The transaction cost for selling shares is:
+
+\[
+\text{Transaction\_Cost}_i = transactionRate \cdot \text{Amount\_Raised}_i
+\]
+
+The net amount raised after considering transaction costs and taxes on capital gains can be expressed as:
+
+\[
+\text{Net\_Amount} = \sum_{i=1}^{N} \left( \text{Amount\_Raised}_i - \text{Transaction\_Cost}_i - (taxRate \cdot \text{Capital\_Gains}_i) \right)
+\]
+
+Thus, the constraint can be formulated as:
+
+\[
+\sum_{i=1}^{N} \left( sell_i \cdot currentPrice_i - transactionRate \cdot (sell_i \cdot currentPrice_i) - taxRate \cdot ((currentPrice_i - buyPrice_i) \cdot sell_i) \right) \geq K
+\]
+
+\subsection*{Non-negativity Constraints}
+Additionally, we impose that the number of shares to sell cannot be negative:
+
+\[
+sell_i \geq 0 \quad \text{for all } i \in \{1, 2, \ldots, N\}
+\]
+
+\end{document}

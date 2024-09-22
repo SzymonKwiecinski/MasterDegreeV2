@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Variables}
+Let \( x_{a,s} \) represent the amount of alloy \( a \) used in steel type \( s \) (in tons).  
+Let \( y_s \) represent the total amount of steel type \( s \) produced (in tons).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Available alloys: \( \text{available}_a \) for \( a = 1, \ldots, A \)
+    \item Carbon content of alloys: \( \text{carbon}_a \) for \( a = 1, \ldots, A \)
+    \item Nickel content of alloys: \( \text{nickel}_a \) for \( a = 1, \ldots, A \)
+    \item Prices of alloys: \( \text{alloy\_price}_a \) for \( a = 1, \ldots, A \)
+    \item Prices of steel: \( \text{steel\_price}_s \) for \( s = 1, \ldots, S \)
+    \item Minimum carbon percentage for steel: \( \text{carbon\_min}_s \) for \( s = 1, \ldots, S \)
+    \item Maximum nickel percentage for steel: \( \text{nickel\_max}_s \) for \( s = 1, \ldots, S \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+\text{total\_profit} = \sum_{s=1}^{S} (\text{steel\_price}_s \cdot y_s) - \sum_{a=1}^{A} (\text{alloy\_price}_a \cdot \sum_{s=1}^{S} x_{a,s})
+\]
+
+\subsection*{Constraints}
+
+\textbf{1. Alloy Availability:}
+\[
+\sum_{s=1}^{S} x_{a,s} \leq \text{available}_a, \quad \forall a = 1, \ldots, A
+\]
+
+\textbf{2. Carbon Content:}
+\[
+\frac{\sum_{a=1}^{A} x_{a,s} \cdot \text{carbon}_a}{y_s} \geq \text{carbon\_min}_s, \quad \forall s = 1, \ldots, S
+\]
+
+\textbf{3. Nickel Content:}
+\[
+\frac{\sum_{a=1}^{A} x_{a,s} \cdot \text{nickel}_a}{y_s} \leq \text{nickel\_max}_s, \quad \forall s = 1, \ldots, S
+\]
+
+\textbf{4. Alloy 1 Restriction:}
+\[
+\sum_{s=1}^{S} x_{1,s} \leq 0.4 \cdot \sum_{s=1}^{S} y_s
+\]
+
+\textbf{5. Non-negativity:}
+\[
+x_{a,s} \geq 0, \quad y_s \geq 0, \quad \forall a, s
+\]
+
+\end{document}

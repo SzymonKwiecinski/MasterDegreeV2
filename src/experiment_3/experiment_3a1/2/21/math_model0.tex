@@ -1,0 +1,93 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Engineering Factory Problem}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $m$: Index for machines, $m \in \{1, 2, \ldots, M\}$
+    \item $k$: Index for products, $k \in \{1, 2, \ldots, K\}$
+    \item $i$: Index for months, $i \in \{1, 2, \ldots, I\}$
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $num_m$: Number of machines
+    \item $profit_k$: Profit per unit of product $k$
+    \item $time_{k,m}$: Time (in hours) required to produce product $k$ on machine $m$
+    \item $down_m$: Number of months machine $m$ is down for maintenance
+    \item $limit_{k,i}$: Marketing limitation for product $k$ in month $i$
+    \item $store\_price$: Cost of storing one unit of product per month
+    \item $keep\_quantity$: Desired end stock of each product
+    \item $n\_workhours$: Total working hours in a month
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $sell_{k,i}$: Amount of product $k$ sold in month $i$
+    \item $manufacture_{k,i}$: Amount of product $k$ manufactured in month $i$
+    \item $storage_{k,i}$: Amount of product $k$ stored at the end of month $i$
+    \item $maintain_{m,i}$: Binary variable indicating whether machine $m$ is under maintenance in month $i$ (1 if under maintenance, 0 otherwise)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+
+\[
+\text{Maximize } Z = \sum_{i=1}^{I} \sum_{k=1}^{K} profit_k \cdot sell_{k,i} - \sum_{i=1}^{I} \sum_{k=1}^{K} store\_price \cdot storage_{k,i}
+\]
+
+\subsection*{Constraints}
+
+\subsubsection*{Production Time Constraint}
+The total production time must not exceed the available working time in a month, adjusted for maintenance:
+
+\[
+\sum_{k=1}^{K} time_{k,m} \cdot manufacture_{k,i} \leq n\_workhours \cdot (24 \cdot 6) \cdot (1 - maintain_{m,i}) \quad \forall m, i
+\]
+
+\subsubsection*{Sales Limitation Constraint}
+The amount sold must not exceed the marketing limitations:
+
+\[
+sell_{k,i} \leq limit_{k,i} \quad \forall k, i
+\]
+
+\subsubsection*{Storage Constraint}
+The storage for each product must be calculated correctly:
+
+\[
+storage_{k,i} = storage_{k,i-1} + manufacture_{k,i} - sell_{k,i} \quad \forall k, i \geq 2
+\]
+
+\subsubsection*{Initial Storage Condition}
+Assuming no initial stock:
+
+\[
+storage_{k,1} = 0 \quad \forall k
+\]
+
+\subsubsection*{End-of-Month Stock Requirement}
+The final storage must meet the desired quantity:
+
+\[
+storage_{k,I} \geq keep\_quantity \quad \forall k
+\]
+
+\subsubsection*{Maintenance Schedule}
+Each machine can only be maintained for specified months:
+
+\[
+\sum_{i=1}^{I} maintain_{m,i} \leq down_m \quad \forall m
+\]
+
+\subsection*{Non-negativity and Binary Constraints}
+\[
+sell_{k,i} \geq 0, \quad manufacture_{k,i} \geq 0, \quad storage_{k,i} \geq 0 \quad \forall k,i
+\]
+\[
+maintain_{m,i} \in \{0, 1\} \quad \forall m,i
+\]
+
+\end{document}

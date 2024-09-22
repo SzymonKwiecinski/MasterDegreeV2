@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Steel Production}
+
+\subsection*{Parameters}
+\begin{align*}
+& n_{\text{steel\_quant}} \text{ : tons of steel required} \\
+& mn_{\text{percent}} \text{ : minimum percentage of Manganese (Mn)} \\
+& si_{\text{min}} \text{ : minimum percentage of Silicon (Si)} \\
+& si_{\text{max}} \text{ : maximum percentage of Silicon (Si)} \\
+& contsi_k \text{ : percentage of Silicon in mineral } k \\
+& contmn_k \text{ : percentage of Manganese in mineral } k \\
+& mang_{\text{price}} \text{ : price of Manganese in million euros per ton} \\
+& cost_k \text{ : cost of mineral } k \text{ in million euros per thousand tons} \\
+& sell_{\text{price}} \text{ : selling price of steel in million euros per ton} \\
+& melt_{\text{price}} \text{ : cost of melting a ton of mineral in million euros}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+& \text{amount}_k \text{ : amount of mineral } k \text{ to melt (in tons)} \\
+& num_{\text{mang}} \text{ : amount of Manganese added (in tons)}
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize profit:
+\[
+Z = \left( sell_{\text{price}} - \frac{1}{1000} \sum_{k=1}^{K} cost_k \cdot \text{amount}_k - mang_{\text{price}} \cdot num_{\text{mang}} - melt_{\text{price}} \sum_{k=1}^{K} \text{amount}_k \right) n_{\text{steel\_quant}}
+\]
+
+\subsection*{Constraints}
+1. Ensure the required weight of steel:
+\[
+\sum_{k=1}^{K} contsi_k \cdot \text{amount}_k + num_{\text{mang}} \geq mn_{\text{percent}} \cdot n_{\text{steel\_quant}}
+\]
+
+2. Ensure Silicon content is within bounds:
+\[
+si_{\text{min}} \cdot n_{\text{steel\_quant}} \leq \sum_{k=1}^{K} contsi_k \cdot \text{amount}_k \leq si_{\text{max}} \cdot n_{\text{steel\_quant}}
+\]
+
+3. Non-negativity constraints:
+\[
+\text{amount}_k \geq 0 \quad \forall k \in \{1, 2, \ldots, K\}
+\]
+\[
+num_{\text{mang}} \geq 0
+\]
+
+\end{document}

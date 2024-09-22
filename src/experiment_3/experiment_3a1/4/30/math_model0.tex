@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Quadratic Curve Fitting Using Linear Programming}
+
+Let us define the problem mathematically. We are given a set of values for \( y \) and \( x \) such that:
+
+\[
+y = [y_1, y_2, \ldots, y_K]
+\]
+\[
+x = [x_1, x_2, \ldots, x_K]
+\]
+
+We aim to fit a quadratic equation of the form:
+
+\[
+y = c \cdot x^2 + b \cdot x + a
+\]
+
+Where \( c \), \( b \), and \( a \) are the coefficients we want to determine.
+
+To achieve the best fit, we will minimize the sum of absolute deviations of observed values of \( y \) from the predicted values given by the quadratic equation. The absolute deviation for each observation can be expressed as:
+
+\[
+d_k = |y_k - (c \cdot x_k^2 + b \cdot x_k + a)|
+\]
+
+Our objective is to minimize:
+
+\[
+\sum_{k=1}^{K} d_k
+\]
+
+To convert this into a linear programming format, we introduce auxiliary variables \( z_k \) for each \( k \):
+
+\[
+z_k \geq y_k - (c \cdot x_k^2 + b \cdot x_k + a)
+\]
+\[
+z_k \geq -(y_k - (c \cdot x_k^2 + b \cdot x_k + a))
+\]
+
+This leads to the following linear programming formulation:
+
+\textbf{Objective Function:}
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} z_k
+\]
+
+\textbf{Subject to:}
+\[
+z_k \geq y_k - (c \cdot x_k^2 + b \cdot x_k + a), \quad k = 1, 2, \ldots, K
+\]
+\[
+z_k \geq -(y_k - (c \cdot x_k^2 + b \cdot x_k + a)), \quad k = 1, 2, \ldots, K
+\]
+
+The solution of this linear programming problem will provide us with the coefficients \( c \), \( b \), and \( a \) which represent:
+
+\[
+\text{Output:} \quad
+\begin{align*}
+\text{quadratic} & = c \\
+\text{linear} & = b \\
+\text{constant} & = a
+\end{align*}
+\]
+
+\end{document}

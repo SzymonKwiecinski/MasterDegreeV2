@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+Let 
+\begin{align*}
+x_{k,i} & = \text{number of recruits for manpower category } k \text{ in year } i \\
+y_{k,i} & = \text{number of overmanning workers for manpower category } k \text{ in year } i \\
+z_{k,i} & = \text{number of workers on short-time working for manpower category } k \text{ in year } i
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+\text{requirement}_{k,i} & = \text{manpower requirement for category } k \text{ in year } i \\
+\text{strength}_{k} & = \text{current strength of category } k \\
+\text{lessonewaste}_{k} & = \text{wastage rate for category } k \text{ with less than one year's service} \\
+\text{moreonewaste}_{k} & = \text{wastage rate for category } k \text{ with more than one year's service} \\
+\text{recruit}_{k} & = \text{maximum recruits for category } k \\
+\text{costredundancy}_{k} & = \text{redundancy cost for category } k \\
+\text{num\_overman} & = \text{maximum number of overmanning workers allowed} \\
+\text{costoverman}_{k} & = \text{cost of overmanning for category } k \\
+\text{num\_shortwork} & = \text{maximum number of short-time workers allowed} \\
+\text{costshort}_{k} & = \text{cost of short-time working for category } k
+\end{align*}
+
+\subsection*{Objective Function}
+The objective is to minimize the total redundancy cost:
+\begin{equation}
+\text{Minimize} \quad Z = \sum_{k=1}^{K} \sum_{i=1}^{I} \text{costredundancy}_{k} \cdot \max(0, \text{strength}_{k} + x_{k,i} - z_{k,i} - y_{k,i} - \text{requirement}_{k,i})
+\end{equation}
+
+\subsection*{Constraints}
+1. Manpower requirement constraint:
+\begin{equation}
+\text{strength}_{k} + x_{k,i} - z_{k,i} - y_{k,i} \geq \text{requirement}_{k,i}, \quad \forall k, \forall i
+\end{equation}
+
+2. Recruitment constraint:
+\begin{equation}
+x_{k,i} \leq \text{recruit}_{k}, \quad \forall k, \forall i
+\end{equation}
+
+3. Overmanning constraint:
+\begin{equation}
+y_{k,i} \leq \text{num\_overman}, \quad \forall k, \forall i
+\end{equation}
+
+4. Short-time working constraint:
+\begin{equation}
+z_{k,i} \leq \text{num\_shortwork}, \quad \forall k, \forall i
+\end{equation}
+
+5. Wastage considerations:
+\begin{equation}
+\text{strength}_{k} \cdot \text{lessonewaste}_{k} + \text{strength}_{k} \cdot \text{moreonewaste}_{k} \quad \text{adjusted based on employment duration}
+\end{equation}
+
+\subsection*{Non-negativity Constraints}
+\begin{align*}
+x_{k,i} & \geq 0 \quad \forall k, \forall i \\
+y_{k,i} & \geq 0 \quad \forall k, \forall i \\
+z_{k,i} & \geq 0 \quad \forall k, \forall i
+\end{align*}
+
+\end{document}

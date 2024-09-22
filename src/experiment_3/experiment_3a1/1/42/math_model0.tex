@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Transporting Containers}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $I$: Number of depots
+    \item $J$: Number of ports
+    \item $numdepot_i$: Number of containers available in depot $i$, for $i = 1, \ldots, I$
+    \item $numport_j$: Container requirement in port $j$, for $j = 1, \ldots, J$
+    \item $price$: Cost of transport per kilometer 
+    \item $distance_{i,j}$: Distance between depot $i$ and port $j$ 
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $number_{i,j}$: Number of containers sent from depot $i$ to port $j$
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } Z = \sum_{i=1}^{I} \sum_{j=1}^{J} \left( \frac{number_{i,j}}{2} \cdot distance_{i,j} \cdot price \right)
+\]
+where the factor of $\frac{1}{2}$ accounts for the fact that each barge can carry 2 containers.
+
+\textbf{Subject to:}
+\begin{itemize}
+    \item \textbf{Supply Constraint:} The number of containers sent from each depot cannot exceed the available number at that depot:
+    \[
+    \sum_{j=1}^{J} number_{i,j} \leq numdepot_i, \quad \forall i \in \{1, \ldots, I\}
+    \]
+
+    \item \textbf{Demand Constraint:} The total number of containers sent to each port must meet the demand:
+    \[
+    \sum_{i=1}^{I} number_{i,j} \geq numport_j, \quad \forall j \in \{1, \ldots, J\}
+    \]
+
+    \item \textbf{Non-negativity Constraint:}
+    \[
+    number_{i,j} \geq 0, \quad \forall i \in \{1, \ldots, I\}, \forall j \in \{1, \ldots, J\}
+    \]
+\end{itemize}
+
+\textbf{Output:}
+The solution will provide the matrix:
+\[
+number = \begin{bmatrix}
+number_{1,1} & number_{1,2} & \cdots & number_{1,J} \\
+number_{2,1} & number_{2,2} & \cdots & number_{2,J} \\
+\vdots & \vdots & \ddots & \vdots \\
+number_{I,1} & number_{I,2} & \cdots & number_{I,J}
+\end{bmatrix}
+\]
+where each entry represents the number of containers sent from depot $i$ to port $j$.
+
+\end{document}

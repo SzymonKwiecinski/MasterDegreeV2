@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Motion Optimization Problem}
+
+\textbf{Variables:}
+\begin{align*}
+x_t & : \text{Position of the rocket at time } t \\
+v_t & : \text{Velocity of the rocket at time } t \\
+a_t & : \text{Acceleration of the rocket at time } t 
+\end{align*}
+
+\textbf{Discretized Model:}
+\begin{align*}
+x_{t+1} & = x_t + v_t \\
+v_{t+1} & = v_t + a_t 
+\end{align*}
+
+\textbf{Parameters:}
+\begin{align*}
+x_0 & : \text{Initial position} \\
+v_0 & : \text{Initial velocity} \\
+x_T & : \text{Target position} \\
+v_T & : \text{Target velocity} \\
+T & : \text{Time duration}
+\end{align*}
+
+\textbf{Objective:} 
+Minimize the maximum thrust required, which is represented as:
+\[
+\min \max_{t} |a_t|
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+x_0 & = \text{initial position} \\
+v_0 & = \text{initial velocity} \\
+x_T & = \text{final position} \\
+v_T & = \text{final velocity} \\
+\end{align*}
+
+Additionally, for all time steps \( t \):
+\begin{align*}
+x_{t+1} & = x_t + v_t \\
+v_{t+1} & = v_t + a_t 
+\end{align*}
+
+\textbf{Output Variables:}
+\begin{align*}
+\text{"x"} & : [x_i \text{ for } i = 0, 1, \ldots, T] \\
+\text{"v"} & : [v_i \text{ for } i = 0, 1, \ldots, T] \\
+\text{"a"} & : [a_i \text{ for } i = 0, 1, \ldots, T] \\
+\text{"fuel\_spend"} & : \text{total fuel spent}
+\end{align*}
+
+\end{document}

@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation for Currency Exchange Problem}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( x_{i,j} \) be the amount exchanged from currency \( i \) to currency \( j \).
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( N \): Total number of currencies
+    \item \( \text{start}_i \): Initial amount of currency \( i \) (for \( i = 1, \ldots, N \))
+    \item \( \text{limit}_i \): Limit on the amount of currency \( i \) that can be exchanged (for \( i = 1, \ldots, N \))
+    \item \( \text{rate}_{i,j} \): Rate of exchange from currency \( i \) to currency \( j \) (for \( i, j = 1, \ldots, N \))
+\end{itemize}
+
+\textbf{Objective:}
+\[
+\text{Maximize } Z = \sum_{j=1}^{N} x_{N,j} \cdot \text{rate}_{N,j}
+\]
+This objective aims to maximize the total amount of currency \( N \) at the end of the day.
+
+\textbf{Constraints:}
+1. For each currency \( i \):
+\[
+\sum_{j=1}^{N} x_{i,j} \leq \text{limit}_i \quad \forall i = 1, \ldots, N
+\]
+
+2. For each currency \( i \):
+\[
+\sum_{j=1}^{N} x_{j,i} \leq \text{start}_i \quad \forall i = 1, \ldots, N
+\]
+
+3. Non-negativity constraint:
+\[
+x_{i,j} \geq 0 \quad \forall i,j = 1, \ldots, N
+\]
+
+4. Balance of transactions (flow conservation):
+\[
+\sum_{j=1}^{N} x_{i,j} - \sum_{j=1}^{N} x_{j,i} = 0 \quad \forall i = 1, \ldots, N
+\]
+
+5. Cycle constraint:
+\[
+\text{rate}_{i_1,i_2}, \text{rate}_{i_2,i_3}, \ldots, \text{rate}_{i_{k-1}, i_k}, \text{rate}_{i_k,i_1} \leq 1
+\]
+
+\end{document}

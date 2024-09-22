@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Problem Formulation}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item \( N \) = number of streets (north direction)
+    \item \( W \) = number of avenues (west direction)
+    \item \( west\_time_{n,w} \) = time to move from intersection \( (w, n) \) to \( (w+1, n) \)
+    \item \( north\_time_{n,w} \) = time to move from intersection \( (w, n) \) to \( (w, n+1) \)
+    \item \( x_{n,w} \) = binary variable indicating whether the path goes through intersection \( (w,n) \) (1 if yes, 0 if no)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total travel time:
+\[
+\text{minimize} \quad Z = \sum_{n=1}^{N-1} \sum_{w=1}^{W-1} \left( west\_time_{n,w} \cdot x_{n,w} + north\_time_{n,w} \cdot x_{n,w} \right)
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item The delivery person must start at the intersection \( (1,1) \):
+
+    \[
+    \sum_{w=1}^{W-1} x_{1,1} = 1
+    \]
+
+    \item The delivery person must end at the intersection \( (W,N) \):
+
+    \[
+    \sum_{n=1}^{N} x_{W-1,N-1} = 1
+    \]
+
+    \item Flow conservation constraints for each intersection:
+
+    \[
+    \sum_{w=1}^{W-1} x_{n,w} - \sum_{n=1}^{N-1} x_{n,w} = 0 \quad \forall n, w
+    \]
+
+    \item Non-negativity and binary requirements:
+
+    \[
+    x_{n,w} \in \{0, 1\} 
+    \]
+\end{itemize}
+
+\subsection*{Output}
+The output is defined as follows:
+
+\begin{itemize}
+    \item \( \text{total\_time} \) represents the total time taken to travel through the optimal path.
+    \item \( \text{paths} \) represents the sequence of intersections traversed.
+\end{itemize}
+
+\[
+\text{Output:} \quad \{
+    \text{"paths": } \{ (street_{n}, avenue_{w}) \} \quad \text{for } id = 1, \ldots, m,
+    \text{"total\_time": } total\_travel\_time
+\}
+\]
+
+\end{document}

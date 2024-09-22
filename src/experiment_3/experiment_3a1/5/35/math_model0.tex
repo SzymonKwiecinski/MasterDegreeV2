@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Warehouse Operation Linear Programming Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( C \) denote the warehouse capacity.
+    \item Let \( h \) denote the holding cost per unit per period.
+    \item Let \( p_n \) denote the selling price of the commodity in period \( n \).
+    \item Let \( c_n \) denote the cost of purchasing the commodity in period \( n \).
+    \item Let \( N \) denote the total number of periods.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( b_n \) be the buying quantity in period \( n \).
+    \item Let \( s_n \) be the selling quantity in period \( n \).
+    \item Let \( x_n \) be the stock level at the end of period \( n \).
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to maximize the total profit over all periods, given by:
+\[
+\text{Maximize } Z = \sum_{n=1}^{N} (p_n s_n - c_n b_n - h x_n)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+1. & \quad x_n = x_{n-1} + b_n - s_n, \quad \forall n = 1, 2, \ldots, N \\
+2. & \quad 0 \leq x_n \leq C, \quad \forall n = 1, 2, \ldots, N \\
+3. & \quad x_0 = 0 \quad \text{(initial stock is empty)} \\
+4. & \quad x_N = 0 \quad \text{(require warehouse to be empty at the end)}
+\end{align*}
+
+\subsection*{Output Variables}
+The output will consist of:
+\begin{itemize}
+    \item Buying quantities: \( \{ b_n \}_{n=1}^N \)
+    \item Selling quantities: \( \{ s_n \}_{n=1}^N \)
+    \item Stock levels: \( \{ x_n \}_{n=1}^N \)
+\end{itemize}
+
+\subsection*{Output Format}
+The solution will be formatted as:
+\[
+\{
+    "buyquantity": [b_1, b_2, \ldots, b_N],
+    "sellquantity": [s_1, s_2, \ldots, s_N],
+    "stock": [x_1, x_2, \ldots, x_N]
+\}
+\]
+
+\end{document}

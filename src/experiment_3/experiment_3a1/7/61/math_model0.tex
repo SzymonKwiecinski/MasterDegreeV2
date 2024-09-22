@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Intrusion Intervention Problem}
+
+\subsection*{Sets and Indices}
+Let \( N \) be the set of clusters indexed by \( i \) where \( i = 1, 2, \ldots, N \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{isolate\_central}_{i} \): Processing time for isolation intervention at cluster \( i \) using central processing.
+    \item \( \text{scan\_central}_{i} \): Processing time for scanning intervention at cluster \( i \) using central processing.
+    \item \( \text{isolate\_distributed}_{i} \): Processing time for isolation intervention at cluster \( i \) using distributed processing.
+    \item \( \text{scan\_distributed}_{i} \): Processing time for scanning intervention at cluster \( i \) using distributed processing.
+    \item \( \text{central\_cost} \): Cost per hour for central processing.
+    \item \( \text{distributed\_cost} \): Cost per hour for distributed processing.
+    \item \( \text{max\_central} \): Maximum allowable hours for central processing.
+    \item \( \text{max\_distributed} \): Maximum allowable hours for distributed processing.
+\end{itemize}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item \( x_{i} \in \{0, 1\} \): Binary variable indicating if cluster \( i \) is being isolated (1) or scanned (0).
+    \item \( y_{i}^{c} \in \{0, 1\} \): Binary variable indicating if intervention for cluster \( i \) is processed centrally (1) or not (0).
+    \item \( y_{i}^{d} \in \{0, 1\} \): Binary variable indicating if intervention for cluster \( i \) is processed distributed (1) or not (0).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{total\_cost} = \sum_{i=1}^{N} \left( x_{i} \cdot y_{i}^{c} \cdot \text{central\_cost} \cdot \text{isolate\_central}_{i} + x_{i} \cdot y_{i}^{d} \cdot \text{distributed\_cost} \cdot \text{isolate\_distributed}_{i} + (1 - x_{i}) \cdot y_{i}^{c} \cdot \text{central\_cost} \cdot \text{scan\_central}_{i} + (1 - x_{i}) \cdot y_{i}^{d} \cdot \text{distributed\_cost} \cdot \text{scan\_distributed}_{i} \right)
+\]
+
+\subsection*{Constraints}
+1. Each cluster must have exactly one intervention processed:
+\[
+y_{i}^{c} + y_{i}^{d} = 1, \quad \forall i
+\]
+
+2. The total processing time for central processing must not exceed the maximum hours:
+\[
+\sum_{i=1}^{N} \left( x_{i} \cdot \text{isolate\_central}_{i} \cdot y_{i}^{c} + (1 - x_{i}) \cdot \text{scan\_central}_{i} \cdot y_{i}^{c} \right) \leq \text{max\_central}
+\]
+
+3. The total processing time for distributed processing must not exceed the maximum hours:
+\[
+\sum_{i=1}^{N} \left( x_{i} \cdot \text{isolate\_distributed}_{i} \cdot y_{i}^{d} + (1 - x_{i}) \cdot \text{scan\_distributed}_{i} \cdot y_{i}^{d} \right) \leq \text{max\_distributed}
+\]
+
+\end{document}

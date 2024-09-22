@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Nursing Shift Scheduling}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $period$: Number of consecutive days a nurse works the night shift.
+    \item $d_j$: Demand for nurses on day $j$ for $j = 1, \ldots, 7$.
+    \item $N$: Total number of nurses hired.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $start_j$: Number of nurses starting their shift on day $j$ for $j = 1, \ldots, 7$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total number of nurses hired:
+
+\[
+\text{Minimize } N = \sum_{j=1}^{7} start_j
+\]
+
+\subsection*{Constraints}
+For each day $j$, the demand must be satisfied by the nurses starting their shifts that day and the ones from the previous $period - 1$ days:
+
+\[
+\sum_{i=0}^{\min(period-1, j-1)} start_{j-i} \geq d_j \quad \forall j \in \{1, 2, \ldots, 7\}
+\]
+
+This ensures that the number of nurses available on each day meets the required demand.
+
+\subsection*{Output}
+The model will output:
+\begin{itemize}
+    \item $start_j$ for each day $j = 1, \ldots, 7$.
+    \item The total number of nurses hired $N$.
+\end{itemize}
+
+\end{document}

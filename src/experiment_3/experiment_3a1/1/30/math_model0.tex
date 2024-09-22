@@ -1,0 +1,75 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Quadratic Curve Fitting using Linear Programming}
+
+We want to fit a quadratic curve of the form 
+
+\[
+y = c \cdot x^2 + b \cdot x + a
+\]
+
+to a set of data points \((x_k, y_k)\) for \(k = 1, 2, \ldots, K\). The objective is to minimize the sum of absolute deviations between the observed values of \(y\) and the predicted values based on the quadratic relationship.
+
+Let \(y_k\) be the observed value and \(\hat{y_k} = c \cdot x_k^2 + b \cdot x_k + a\) be the predicted value. The absolute deviation can be expressed as 
+
+\[
+d_k = |y_k - \hat{y_k}|
+\]
+
+We aim to minimize the total absolute deviation:
+
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} d_k
+\]
+
+We introduce auxiliary variables \(u_k\) and \(v_k\) to represent the positive and negative deviations:
+
+\[
+y_k - \hat{y_k} = u_k - v_k
+\]
+
+with the constraints:
+
+\[
+d_k = u_k + v_k
+\]
+
+Thus, we can rewrite our objective function as:
+
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} (u_k + v_k)
+\]
+
+The complete optimization problem can be formulated as:
+
+\[
+\begin{align*}
+\text{Minimize} \quad & \sum_{k=1}^{K} (u_k + v_k) \\
+\text{Subject to} \quad & u_k - v_k = y_k - (c \cdot x_k^2 + b \cdot x_k + a), \quad k = 1, 2, \ldots, K \\
+& u_k \geq 0, \quad v_k \geq 0, \quad k = 1, 2, \ldots, K
+\end{align*}
+\]
+
+After solving the above linear programming problem, we can extract the coefficients:
+
+\[
+\begin{align*}
+\text{quadratic} & : c \\
+\text{linear} & : b \\
+\text{constant} & : a
+\end{align*}
+\]
+
+The final output format will be:
+
+\[
+\{
+    "quadratic": c,
+    "linear": b,
+    "constant": a
+\}
+\]
+
+\end{document}

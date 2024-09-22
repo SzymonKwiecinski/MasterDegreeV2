@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( N \): Number of segments of the road.
+    \item \( M \): Number of lamps.
+    \item \( \text{coeff}_{i,j} \): Coefficient indicating the contribution of lamp \( j \) to the illumination of segment \( i \).
+    \item \( \text{desired}_i \): Desired illumination for segment \( i \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{power}_j \): Power of the \( j \)-th lamp.
+    \item \( \text{ill}_i \): Illumination of the \( i \)-th segment.
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the total absolute error between the actual illumination and the desired illumination:
+
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} | \text{ill}_i - \text{desired}_i |
+\]
+
+\subsection*{Constraints}
+The illumination for each segment is calculated as follows:
+
+\[
+\text{ill}_i = \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j, \quad \forall i = 1, \ldots, N
+\]
+
+Additionally, we need to ensure that the errors are defined. To handle the absolute values in the objective function, we introduce auxiliary variables:
+
+Let \( e_i \) be the error for each segment \( i \):
+
+\[
+e_i \geq \text{ill}_i - \text{desired}_i, \quad \forall i = 1, \ldots, N
+\]
+\[
+e_i \geq \text{desired}_i - \text{ill}_i, \quad \forall i = 1, \ldots, N
+\]
+
+The objective can then be rewritten in terms of \( e_i \):
+
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} e_i
+\]
+
+\subsection*{Final Model}
+\begin{align*}
+\text{Minimize } & \sum_{i=1}^{N} e_i \\
+\text{Subject to } & \text{ill}_i = \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j, \quad \forall i = 1, \ldots, N \\
+& e_i \geq \text{ill}_i - \text{desired}_i, \quad \forall i = 1, \ldots, N \\
+& e_i \geq \text{desired}_i - \text{ill}_i, \quad \forall i = 1, \ldots, N \\
+& \text{power}_j \geq 0, \quad \forall j = 1, \ldots, M
+\end{align*}
+
+\end{document}

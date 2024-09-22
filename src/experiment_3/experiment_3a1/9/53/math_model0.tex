@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Soybean Transportation}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item Let \( A \) be the set of all routes.
+    \item Let \( k \) be the terminal city (source).
+    \item Let \( p \) be the port city.
+    \item Let \( l \) be the destination city.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( C_{i,j} \): Cost per metric ton to transport soybeans along route \( (i, j) \).
+    \item \( supply_k \): Supply of soybeans at terminal city \( k \).
+    \item \( demand_l \): Demand for soybeans at destination city \( l \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( amount_{i,j} \): Amount of soybeans shipped from city \( i \) to city \( j \).
+\end{itemize}
+
+\subsection*{Objective Function}
+\[
+\text{Minimize } Z = \sum_{(i,j) \in A} C_{i,j} \cdot amount_{i,j}
+\]
+
+\subsection*{Constraints}
+
+\textbf{Supply Constraints:}
+\[
+\sum_{j} amount_{k,j} \leq supply_k \quad \forall k
+\]
+
+\textbf{Demand Constraints:}
+\[
+\sum_{i} amount_{i,l} \geq demand_l \quad \forall l
+\]
+
+\textbf{Non-negativity Constraints:}
+\[
+amount_{i,j} \geq 0 \quad \forall (i,j) \in A
+\]
+
+\subsection*{Output}
+The final output will consist of:
+\begin{itemize}
+    \item A distribution of soybeans shipped from each source to each destination represented as:
+    \[
+    \text{distribution} = \{ \{from: i, to: j, amount: amount_{i,j}\} \mid (i,j) \in A \}
+    \]
+    \item Total transportation cost:
+    \[
+    total\_cost = Z
+    \]
+\end{itemize}
+
+\end{document}

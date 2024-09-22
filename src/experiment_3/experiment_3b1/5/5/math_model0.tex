@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Communication Network}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( n \) be the number of nodes in the communication network.
+    \item Let \( A \) be the set of all directed links, where each link is defined as \( (i, j) \).
+    \item Let \( U_{i,j} \) be the maximum capacity (in bits per second) of the link \( (i, j) \).
+    \item Let \( C_{i,j} \) be the cost per bit for transmitting data along the link \( (i, j) \).
+    \item Let \( B_{k,l} \) be the data generation rate (in bits per second) from node \( k \) to node \( l \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let \( x_{i,j} \) be the flow of data through the link \( (i,j) \).
+
+\subsection*{Objective Function}
+The goal is to minimize the total cost of all paths:
+\[
+\text{Minimize} \quad Z = \sum_{(i,j) \in A} C_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Flow conservation:
+    \[
+    \sum_{(j,i) \in A} x_{j,i} - \sum_{(i,j) \in A} x_{i,j} = 
+    \begin{cases}
+    B_{k,l} & \text{if } i = k \\
+    -B_{k,l} & \text{if } i = l \\
+    0 & \text{otherwise}
+    \end{cases}
+    \]
+    for all nodes \( i \).
+    
+    \item Capacity constraints:
+    \[
+    x_{i,j} \leq U_{i,j} \quad \forall (i,j) \in A
+    \]
+
+    \item Non-negativity constraints:
+    \[
+    x_{i,j} \geq 0 \quad \forall (i,j) \in A
+    \]
+\end{itemize}
+
+\subsection*{Output Variables}
+\begin{itemize}
+    \item \( \text{path\_flow} \): the flow of data along a specific path from \( k \) to \( l \).
+    \item \( \text{path\_cost} \): the cost incurred for transmitting data along the path.
+    \item \( \text{total\_cost} \): the overall cost for transmitting all data across the network.
+\end{itemize}
+
+\subsection*{Output Format}
+The output will include the optimized paths with their respective source, destination, route, path flow, and path cost:
+\[
+\text{optimized\_paths} = 
+\begin{cases}
+\text{paths:} \{(k, l, [k, i_1, i_2, \ldots, l], \text{path\_flow}, \text{path\_cost})\} \\
+\text{total\_cost: } total\_cost
+\end{cases}
+\]
+
+\end{document}

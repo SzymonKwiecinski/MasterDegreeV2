@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Nurse Scheduling}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( d_j \): Demand for nurses on day \( j \) where \( j = 1, \ldots, 7 \).
+    \item \( \text{period} \): Number of consecutive days a nurse works.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_j \): Number of nurses that start their shift on day \( j \) where \( j = 1, \ldots, 7 \).
+    \item \( N \): Total number of nurses hired.
+\end{itemize}
+
+\subsection*{Objective}
+\[
+\text{Minimize } N = \sum_{j=1}^{7} x_j
+\]
+
+\subsection*{Constraints}
+The demand for nurses must be satisfied for each day \( j \):
+\[
+\sum_{k=1}^{7} x_{(j-k+1) \text{ mod } 7 + 1} \geq d_j \quad \text{for } j = 1, \ldots, 7
+\]
+
+Where \( x_{(j-k+1) \text{ mod } 7 + 1} \) accounts for the \( \text{period} \) of consecutive shifts.
+
+\subsection*{Non-negativity Constraints}
+\[
+x_j \geq 0 \quad \text{for } j = 1, \ldots, 7
+\]
+
+\end{document}

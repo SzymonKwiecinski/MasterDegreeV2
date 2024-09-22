@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( x_k \) be the quantity of food \( k \) to purchase, where \( k = 1, 2, \ldots, K \).
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{price}_k \): the price per unit of food \( k \).
+    \item \( \text{demand}_m \): the minimum required units of nutrient \( m \) per day.
+    \item \( \text{nutri}_{k,m} \): the units of nutrient \( m \) contained in one unit of food \( k \).
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize} \quad Z = \sum_{k=1}^{K} \text{price}_k \cdot x_k
+\]
+
+\textbf{Constraints:}
+\[
+\sum_{k=1}^{K} \text{nutri}_{k,m} \cdot x_k \geq \text{demand}_m, \quad \forall m = 1, 2, \ldots, M
+\]
+\[
+x_k \geq 0, \quad \forall k = 1, 2, \ldots, K
+\]
+
+\textbf{Output:}
+\begin{itemize}
+    \item The quantity of each food to purchase is given by \( x_k \).
+\end{itemize}
+
+\end{document}

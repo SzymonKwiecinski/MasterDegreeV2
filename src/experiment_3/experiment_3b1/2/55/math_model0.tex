@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $P$: Number of different parts
+    \item $M$: Number of different machines
+    \item $time_{m,p}$: Time required on machine $m$ to produce a batch of part $p$ (in hours)
+    \item $cost_{m}$: Cost per hour for using machine $m$
+    \item $available_{m}$: Availability of machine $m$ (in hours per month)
+    \item $price_{p}$: Price for selling one batch of part $p$
+    \item $min\_batches_{p}$: Minimum number of batches of part $p$ to produce
+    \item $standard\_cost$: Standard labor cost per hour (for Machine 1)
+    \item $overtime\_cost$: Overtime labor cost per hour (for Machine 1)
+    \item $overtime\_hour$: Maximum standard hours before overtime applies
+    \item $min\_profit$: Minimum desired profit
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $batches_p$: Number of batches produced for part $p$ (for $p = 1, \ldots, P$)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} (price_{p} \cdot batches_{p}) - \sum_{m=1}^{M} (cost_{m} \cdot \sum_{p=1}^{P} (time_{m,p} \cdot batches_{p})) - \text{Labor Cost for Machine 1}
+\]
+
+Where the labor cost for Machine 1 can be expressed as:
+\[
+\text{Labor Cost for Machine 1} =
+\begin{cases} 
+standard\_cost \cdot hours & \text{if } hours \leq overtime\_hour \\
+standard\_cost \cdot overtime\_hour + overtime\_cost \cdot (hours - overtime\_hour) & \text{if } hours > overtime\_hour 
+\end{cases}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Time constraints for each machine:
+    \[
+    \sum_{p=1}^{P} (time_{m,p} \cdot batches_{p}) \leq available_{m} \quad \forall m = 1, \ldots, M
+    \]
+    
+    \item Minimum production requirement for each part:
+    \[
+    batches_{p} \geq min\_batches_{p} \quad \forall p = 1, \ldots, P
+    \]
+
+    \item Minimum profit requirement:
+    \[
+    Z \geq min\_profit
+    \end{itemize}
+
+\subsection*{Non-negativity Constraints}
+\[
+batches_{p} \geq 0 \quad \forall p = 1, \ldots, P
+\]
+
+\end{document}

@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item $p$: Index for parts where $p = 1, \ldots, P$
+    \item $m$: Index for machines where $m = 1, \ldots, M$
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $time_{m,p}$: Time required (in hours) on machine $m$ to produce one batch of part $p$
+    \item $cost_{m}$: Cost per hour for using machine $m$
+    \item $available_{m}$: Available hours per month for machine $m$
+    \item $price_{p}$: Selling price per batch of part $p$
+    \item $min\_batches_{p}$: Minimum number of batches of part $p$ to be produced each month
+    \item $extra\_cost_{m}$: Cost per hour for extra machine time for machine $m$
+    \item $max\_extra_{m}$: Maximum extra hours that can be purchased for machine $m$
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $batches_{p}$: Number of batches of part $p$ produced each month
+    \item $extra\_time_{m}$: Additional hours purchased for machine $m$
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} (price_{p} \cdot batches_{p}) - \sum_{m=1}^{M} (cost_{m} \cdot (available_{m} + extra\_time_{m})) - \sum_{m=1}^{M} (extra\_cost_{m} \cdot extra\_time_{m})
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+1. & \quad \text{Production time constraint for each machine } m: \\
+   & \quad \sum_{p=1}^{P} (time_{m,p} \cdot batches_{p}) \leq available_{m} + extra\_time_{m}, \quad \forall m \in \{1, \ldots, M\} \\
+2. & \quad \text{Minimum batches constraint for each part } p: \\
+   & \quad batches_{p} \geq min\_batches_{p}, \quad \forall p \in \{1, \ldots, P\} \\
+3. & \quad \text{Extra time limit for each machine } m: \\
+   & \quad 0 \leq extra\_time_{m} \leq max\_extra_{m}, \quad \forall m \in \{1, \ldots, M\} \\
+4. & \quad \text{Non-negativity constraints:} \\
+   & \quad batches_{p} \geq 0, \quad \forall p \in \{1, \ldots, P\} \\
+   & \quad extra\_time_{m} \geq 0, \quad \forall m \in \{1, \ldots, M\}
+\end{align*}
+
+\end{document}

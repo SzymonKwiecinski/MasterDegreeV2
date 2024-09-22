@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Electricity Capacity Expansion}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( T \) be the planning horizon (number of years).
+    \item \( d_t \): demand for electricity in year \( t \) (in megawatts).
+    \item \( oil_t \): existing oil-fired capacity available in year \( t \).
+    \item \( coal\_cost \): capital cost per megawatt of coal-fired capacity.
+    \item \( nuke\_cost \): capital cost per megawatt of nuclear power capacity.
+    \item \( max\_nuke \): maximum percentage of total capacity that can be nuclear.
+    \item \( coal\_life \): lifespan of coal plants (in years).
+    \item \( nuke\_life \): lifespan of nuclear plants (in years).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( coal_t \): capacity of coal-fired plants added in year \( t \).
+    \item \( nuke_t \): capacity of nuclear plants added in year \( t \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Total Cost} = \sum_{t=1}^{T} (coal\_cost \cdot coal_t + nuke\_cost \cdot nuke_t)
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item \textbf{Capacity Constraint:} The total capacity in year \( t \) must meet the demand:
+    \[
+    oil_t + \sum_{j=\max(1,t-coal\_life+1)}^{t} coal_j + \sum_{j=\max(1,t-nuke\_life+1)}^{t} nuke_j \geq d_t, \quad \forall t \in \{1, 2, \ldots, T\}
+    \]
+    
+    \item \textbf{Nuclear Capacity Constraint:} No more than \( max\_nuke\% \) of total capacity can be nuclear:
+    \[
+    \sum_{j=\max(1,t-coal\_life+1)}^{t} coal_j + \sum_{j=\max(1,t-nuke\_life+1)}^{t} nuke_j \times \frac{max\_nuke}{100} \geq \sum_{j=\max(1,t-coal\_life+1)}^{t} coal_j, \quad \forall t \in \{1, 2, \ldots, T\}
+    \]
+\end{itemize}
+
+\subsection*{Output}
+The output will be a dictionary containing:
+\begin{itemize}
+    \item \( \text{"coal\_cap\_added"} \): List of coal capacity added each year.
+    \item \( \text{"nuke\_cap\_added"} \): List of nuclear capacity added each year.
+    \item \( \text{"total\_cost"} \): Total cost of the capacity expansion.
+\end{itemize}
+
+\end{document}

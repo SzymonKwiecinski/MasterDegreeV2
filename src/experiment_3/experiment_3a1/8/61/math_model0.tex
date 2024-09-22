@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for MILP Problem}
+
+\subsection*{Sets}
+Let \( N \) be the total number of clusters.
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{isolate\_central}_{i} \): Processing time for isolating cluster \( i \) using central processing.
+    \item \( \text{scan\_central}_{i} \): Processing time for scanning cluster \( i \) using central processing.
+    \item \( \text{isolate\_distributed}_{i} \): Processing time for isolating cluster \( i \) using distributed processing.
+    \item \( \text{scan\_distributed}_{i} \): Processing time for scanning cluster \( i \) using distributed processing.
+    \item \( C_c \): Central processing cost per hour.
+    \item \( C_d \): Distributed processing cost per hour.
+    \item \( \text{max\_central} \): Maximum hours available for central processing.
+    \item \( \text{max\_distributed} \): Maximum hours available for distributed processing.
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let \( x_{i,j,k} \) be a binary variable where:
+\[
+x_{i,j,k} = \begin{cases}
+1 & \text{if intervention type } j \text{ (isolate or scan) is chosen for cluster } i \text{ with method } k \text{ (central or distributed)} \\
+0 & \text{otherwise}
+\end{cases}
+\]
+where \( j \in \{ \text{isolate}, \text{scan} \} \) and \( k \in \{ \text{central}, \text{distributed} \} \).
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Total Cost} = \sum_{i=1}^{N} \sum_{j \in \{ \text{isolate}, \text{scan} \}} \sum_{k \in \{ \text{central}, \text{distributed} \}} C_k \cdot x_{i,j,k} \cdot \text{processing\_time}_{i,j,k}
+\]
+
+\subsection*{Constraints}
+
+\textbf{1. Processing Time Constraints:}
+\begin{align*}
+\sum_{j \in \{ \text{isolate}, \text{scan} \}} \sum_{k \in \{ \text{central} \}} \text{processing\_time}_{i,j,k} \cdot x_{i,j,k} & \leq \text{max\_central} \quad \forall i \\
+\sum_{j \in \{ \text{isolate}, \text{scan} \}} \sum_{k \in \{ \text{distributed} \}} \text{processing\_time}_{i,j,k} \cdot x_{i,j,k} & \leq \text{max\_distributed} \quad \forall i
+\end{align*}
+
+\textbf{2. Intervention Type Consistency:}
+\[
+\sum_{j \in \{ \text{isolate}, \text{scan} \}} \sum_{k \in \{ \text{central}, \text{distributed} \}} x_{i,j,k} = 1 \quad \forall i
+\]
+
+\textbf{3. Binary Constraints:}
+\[
+x_{i,j,k} \in \{0, 1\} \quad \forall i, \forall j, \forall k
+\]
+
+\subsection*{Output}
+\textbf{Interventions:}
+\[
+\text{interventions} = \{ (i, j, k, \text{amount}) \; \text{for} \; i \in 1, \ldots, N \}
+\]
+
+\textbf{Total Cost:}
+\[
+\text{total\_cost} = \text{Total Cost}
+\]
+
+\end{document}

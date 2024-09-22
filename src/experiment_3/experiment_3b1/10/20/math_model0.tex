@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Manufacturing Optimization}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let $M$ be the number of machines, where $m = 1, 2, ..., M$.
+    \item Let $K$ be the number of products, where $k = 1, 2, ..., K$.
+    \item Let $I$ be the number of months, where $i = 1, 2, ..., I$.
+    \item Let $\text{num}_m$ be the total number of machines.
+    \item Let $\text{profit}_k$ be the profit per unit of product $k$.
+    \item Let $\text{time}_{k,m}$ be the unit production time of product $k$ on machine $m$ (in hours).
+    \item Let $\text{maintain}_{i,m}$ be the number of machines down for maintenance in month $i$.
+    \item Let $\text{limit}_{k,i}$ be the marketing limitation for product $k$ in month $i$.
+    \item Let $\text{store\_price}$ be the storage cost per unit per month.
+    \item Let $\text{keep\_quantity}$ be the required stock of each product at the end of the month.
+    \item Let $\text{n\_workhours}$ be the number of working hours in a day.
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item Let $\text{sell}_{k,i}$ be the amount sold of product $k$ in month $i$.
+    \item Let $\text{manufacture}_{k,i}$ be the amount manufactured of product $k$ in month $i$.
+    \item Let $\text{storage}_{k,i}$ be the amount stored of product $k$ in month $i$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+
+\[
+\text{Maximize} \quad Z = \sum_{i=1}^{I} \sum_{k=1}^{K} \left( \text{profit}_k \cdot \text{sell}_{k,i} - \text{store\_price} \cdot \text{storage}_{k,i} \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+\text{1.} & \quad \sum_{m=1}^{M} \left( \text{n\_workhours} \cdot 6 \cdot 24 - \sum_{m=1}^{M} \text{maintain}_{i,m} \right) \geq \sum_{k=1}^{K} \text{time}_{k,m} \cdot \text{manufacture}_{k,i} \quad \forall i \\
+\text{2.} & \quad \text{sell}_{k,i} + \text{storage}_{k,i-1} \geq \text{manufacture}_{k,i} + \text{storage}_{k,i} + \text{keep\_quantity} \quad \forall k, \, \forall i \\
+\text{3.} & \quad \text{sell}_{k,i} \leq \text{limit}_{k,i} \quad \forall k, \, \forall i \\
+\text{4.} & \quad \text{manufacture}_{k,i} \geq 0, \quad \text{sell}_{k,i} \geq 0, \quad \text{storage}_{k,i} \geq 0 \quad \forall k, \, \forall i
+\end{align*}
+
+\end{document}

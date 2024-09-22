@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Steel Production}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $n_{\text{steel\_quant}}$: tons of steel to be produced
+    \item $mn_{\text{percent}}$: minimum percentage of Manganese (Mn)
+    \item $si_{\text{min}}$: minimum permissible percentage of Silicon (Si)
+    \item $si_{\text{max}}$: maximum permissible percentage of Silicon (Si)
+    \item $contsi_k$: percentage of Silicon in mineral $k$
+    \item $contmn_k$: percentage of Manganese in mineral $k$
+    \item $mang_{\text{price}}$: price of Manganese in million euros per ton
+    \item $cost_k$: cost of mineral $k$ in million euros per thousand tons
+    \item $sell_{\text{price}}$: selling price of the produced steel in million euros per ton
+    \item $melt_{\text{price}}$: processing cost of melting a ton of mineral in million euros
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $amount_k$: amount of mineral $k$ melted (in tons)
+    \item $num_{\text{mang}}$: amount of Manganese added (in tons)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize profit:
+\[
+Z = sell_{\text{price}} \cdot n_{\text{steel\_quant}} - \sum_{k=1}^{K} (cost_k \cdot \frac{amount_k}{1000} + melt_{\text{price}} \cdot amount_k) - mang_{\text{price}} \cdot num_{\text{mang}}
+\]
+
+\subsection*{Constraints}
+1. Total steel production:
+\[
+\sum_{k=1}^{K} \left( contsi_k \cdot amount_k \right) + num_{\text{mang}} \cdot 0 = n_{\text{steel\_quant}} \cdot \left( \frac{si_{\text{min}}}{100} \right) \quad \text{(from Si)}
+\]
+
+2. Minimum percentage of Manganese:
+\[
+\sum_{k=1}^{K} \left( contmn_k \cdot amount_k \right) + num_{\text{mang}} \cdot 1 \geq n_{\text{steel\_quant}} \cdot \left( \frac{mn_{\text{percent}}}{100} \right)
+\]
+
+3. Silicon percentage constraints:
+\[
+n_{\text{steel\_quant}} \cdot \left( \frac{si_{\text{min}}}{100} \right) \leq \sum_{k=1}^{K} \left( contsi_k \cdot amount_k \right) + num_{\text{mang}} \cdot 0 \leq n_{\text{steel\_quant}} \cdot \left( \frac{si_{\text{max}}}{100} \right)
+\]
+
+4. Non-negativity constraints:
+\[
+amount_k \geq 0 \quad \forall k
+\]
+\[
+num_{\text{mang}} \geq 0
+\]
+
+\end{document}

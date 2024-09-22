@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mixed Integer Linear Programming (MILP) Model for Network Interventions}
+
+\subsection*{Parameters}
+Let:
+\begin{itemize}
+    \item \( N \): Number of clusters
+    \item \( \text{isolate\_central}_{i} \): Processing time for isolation in cluster \( i \) using central processing
+    \item \( \text{scan\_central}_{i} \): Processing time for scanning in cluster \( i \) using central processing
+    \item \( \text{isolate\_distributed}_{i} \): Processing time for isolation in cluster \( i \) using distributed processing
+    \item \( \text{scan\_distributed}_{i} \): Processing time for scanning in cluster \( i \) using distributed processing
+    \item \( \text{central\_cost} \): Opportunity cost of central processing per hour
+    \item \( \text{distributed\_cost} \): Opportunity cost of distributed processing per hour
+    \item \( \text{max\_central} \): Maximum allowed hours for central processing
+    \item \( \text{max\_distributed} \): Maximum allowed hours for distributed processing
+\end{itemize}
+
+\subsection*{Decision Variables}
+Define binary decision variables:
+\begin{itemize}
+    \item \( x_{i}^{\text{isolate,central}} \): 1 if intervention in cluster \( i \) is isolation using central processing, 0 otherwise
+    \item \( x_{i}^{\text{scan,central}} \): 1 if intervention in cluster \( i \) is scanning using central processing, 0 otherwise
+    \item \( x_{i}^{\text{isolate,distributed}} \): 1 if intervention in cluster \( i \) is isolation using distributed processing, 0 otherwise
+    \item \( x_{i}^{\text{scan,distributed}} \): 1 if intervention in cluster \( i \) is scanning using distributed processing, 0 otherwise
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Total Cost} = \sum_{i=1}^{N} \left( \text{isolate\_central}_{i} \cdot x_{i}^{\text{isolate,central}} \cdot \text{central\_cost} + \text{scan\_central}_{i} \cdot x_{i}^{\text{scan,central}} \cdot \text{central\_cost} + \text{isolate\_distributed}_{i} \cdot x_{i}^{\text{isolate,distributed}} \cdot \text{distributed\_cost} + \text{scan\_distributed}_{i} \cdot x_{i}^{\text{scan,distributed}} \cdot \text{distributed\_cost} \right)
+\]
+
+\subsection*{Constraints}
+1. Each cluster must have exactly one intervention type and one processing method:
+\[
+x_{i}^{\text{isolate,central}} + x_{i}^{\text{scan,central}} + x_{i}^{\text{isolate,distributed}} + x_{i}^{\text{scan,distributed}} = 1, \quad \forall i = 1, \ldots, N
+\]
+
+2. Central processing time constraint:
+\[
+\sum_{i=1}^{N} \left( \text{isolate\_central}_{i} \cdot x_{i}^{\text{isolate,central}} + \text{scan\_central}_{i} \cdot x_{i}^{\text{scan,central}} \right) \leq \text{max\_central}
+\]
+
+3. Distributed processing time constraint:
+\[
+\sum_{i=1}^{N} \left( \text{isolate\_distributed}_{i} \cdot x_{i}^{\text{isolate,distributed}} + \text{scan\_distributed}_{i} \cdot x_{i}^{\text{scan,distributed}} \right) \leq \text{max\_distributed}
+\]
+
+\end{document}

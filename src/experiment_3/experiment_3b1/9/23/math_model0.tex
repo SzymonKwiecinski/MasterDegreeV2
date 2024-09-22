@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Manpower Optimization}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( K \): Number of manpower categories
+    \item \( I \): Number of years
+    \item \( \text{requirement}_{k,i} \): Estimated manpower requirement for category \( k \) in year \( i \)
+    \item \( \text{strength}_{k} \): Current strength of manpower category \( k \)
+    \item \( \text{lessonewaste}_{k} \): Wastage rate of manpower \( k \) with less than one year's service
+    \item \( \text{moreonewaste}_{k} \): Wastage rate of manpower \( k \) with more than one year's service
+    \item \( \text{recruit}_{k} \): Maximum number of recruits for manpower category \( k \) per year
+    \item \( \text{costredundancy}_{k} \): Redundancy cost for manpower category \( k \)
+    \item \( \text{num\_overman} \): Maximum allowable overmanning across the company
+    \item \( \text{costoverman}_{k} \): Extra cost per employee per year for overmanning in category \( k \)
+    \item \( \text{num\_shortwork} \): Maximum number of workers eligible for short-time working in each category
+    \item \( \text{costshort}_{k} \): Cost per employee per year for short-time working in category \( k \)
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{recruit}_{k,i} \): Number of recruits for manpower category \( k \) in year \( i \)
+    \item \( \text{overmanning}_{k,i} \): Number of overmanned employees for category \( k \) in year \( i \)
+    \item \( \text{short}_{k,i} \): Number of employees on short-time working for category \( k \) in year \( i \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize total cost:
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} \sum_{i=1}^{I} \left( \text{costredundancy}_{k} \times \text{redundancy}_{k,i} + \text{costoverman}_{k} \times \text{overmanning}_{k,i} + \text{costshort}_{k} \times \text{short}_{k,i} \right)
+\]
+
+\subsection*{Constraints}
+1. Meeting manpower requirements:
+\[
+\text{strength}_{k} + \sum_{i=1}^{I} \text{recruit}_{k,i} - \sum_{j=1}^{i} \left( \text{lessonewaste}_{k} \times \text{recruit}_{k,j} + \text{moreonewaste}_{k} \times (\text{strength}_{k} + \sum_{m=1}^{j-1} \text{recruit}_{k,m}) \right) + \sum_{i=1}^{I} \text{overmanning}_{k,i} - \sum_{i=1}^{I} \text{short}_{k,i} \geq \text{requirement}_{k,i}
+\]
+
+2. Recruitment Limit:
+\[
+\sum_{i=1}^{I} \text{recruit}_{k,i} \leq \text{recruit}_{k} \quad \forall k
+\]
+
+3. Overmanning Limit:
+\[
+\sum_{k=1}^{K} \sum_{i=1}^{I} \text{overmanning}_{k,i} \leq \text{num\_overman}
+\]
+
+4. Short-time working Limit:
+\[
+\sum_{i=1}^{I} \text{short}_{k,i} \leq \text{num\_shortwork} \quad \forall k
+\]
+
+5. Non-negativity:
+\[
+\text{recruit}_{k,i} \geq 0, \quad \text{overmanning}_{k,i} \geq 0, \quad \text{short}_{k,i} \geq 0 \quad \forall k, i
+\]
+
+\end{document}

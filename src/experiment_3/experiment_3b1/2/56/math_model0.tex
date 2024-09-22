@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Delivery Path Optimization}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+
+Let a delivery person start at the intersection of the 1st Avenue and 1st Street and reach the intersection of the Wth Avenue and Nth Street on an $N-1 \times W-1$ grid.
+
+\subsection*{Variables}
+
+Define the following variables:
+\begin{itemize}
+    \item $x_{n,w} = 1$ if the delivery person moves north from intersection $(w,n)$ to $(w,n+1)$; 0 otherwise.
+    \item $y_{n,w} = 1$ if the delivery person moves west from intersection $(w,n)$ to $(w+1,n)$; 0 otherwise.
+\end{itemize}
+
+\subsection*{Parameters}
+
+Let:
+\begin{itemize}
+    \item $west\_time_{n,w}$ be the time to move from $(w,n)$ to $(w+1,n)$.
+    \item $north\_time_{n,w}$ be the time to move from $(w,n)$ to $(w,n+1)$.
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Minimize the total time taken:
+\[
+\text{minimize } Z = \sum_{n=1}^{N} \sum_{w=1}^{W-1} (west\_time_{n,w} \cdot y_{n,w} + north\_time_{n,w} \cdot x_{n,w})
+\]
+
+\subsection*{Constraints}
+
+1. The flow conservation at each intersection:
+\[
+\sum_{w=1}^{W-1} y_{n,w} = 1 \quad \forall n \quad (1 \leq n \leq N)
+\]
+\[
+\sum_{n=1}^{N} x_{n,w} = 1 \quad \forall w \quad (1 \leq w \leq W)
+\]
+
+2. The delivery person can only move either north or west:
+\[
+x_{n,w} + y_{n,w} \leq 1 \quad \forall n, w
+\]
+
+3. Non-negativity constraints:
+\[
+x_{n,w} \geq 0, \quad y_{n,w} \geq 0 \quad \forall n, w
+\]
+
+\subsection*{Output}
+
+The output will be:
+\begin{itemize}
+    \item \textit{paths}: The specific intersections taken on the optimal path.
+    \item \textit{total\_time}: The minimum total time taken to deliver the package.
+\end{itemize}
+
+\end{document}

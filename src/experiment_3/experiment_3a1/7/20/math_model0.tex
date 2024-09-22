@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item $m$: Index for machines, $m = 1, 2, \ldots, M$
+    \item $k$: Index for products, $k = 1, 2, \ldots, K$
+    \item $i$: Index for months, $i = 1, 2, \ldots, I$
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $num_{m}$: Number of machines
+    \item $profit_{k}$: Profit for product $k$
+    \item $time_{k, m}$: Unit production time for product $k$ on machine $m$
+    \item $maintain_{i, m}$: Number of machines down in month $i$
+    \item $limit_{k, i}$: Marketing limitation for product $k$ in month $i$
+    \item $store\_price$: Cost of storing one unit per month
+    \item $keep\_quantity$: Required stock of each product at the end of the month
+    \item $n\_workhours$: Number of working hours per day
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $sell_{k, i}$: Amount sold of product $k$ in month $i$
+    \item $manufacture_{k, i}$: Amount manufactured of product $k$ in month $i$
+    \item $storage_{k, i}$: Amount stored of product $k$ at the end of month $i$
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{i=1}^{I} \sum_{k=1}^{K} \left( profit_{k} \cdot sell_{k, i} - store\_price \cdot storage_{k, i} \right)
+\]
+
+\textbf{Subject to:}
+\begin{itemize}
+    \item \textbf{Production Time Constraint:}
+    \[
+    \sum_{k=1}^{K} \sum_{m=1}^{M} (time_{k, m} \cdot manufacture_{k, i}) \leq n\_workhours \cdot (6 \text{ days}) \cdot (num_{m} - maintain_{i, 1})
+    \]
+    \item \textbf{Sales Limit Constraint:}
+    \[
+    sell_{k, i} \leq limit_{k, i} \quad \forall k, i
+    \]
+    \item \textbf{Storage Balance Equation:}
+    \[
+    storage_{k, i} = storage_{k, i-1} + manufacture_{k, i} - sell_{k, i} \quad \forall k, i
+    \]
+    \item \textbf{Stock Requirement:}
+    \[
+    storage_{k, I} \geq keep\_quantity \quad \forall k
+    \]
+    \item \textbf{Non-negativity Constraints:}
+    \[
+    sell_{k, i} \geq 0, \quad manufacture_{k, i} \geq 0, \quad storage_{k, i} \geq 0 \quad \forall k, i
+    \]
+\end{itemize}
+
+\end{document}

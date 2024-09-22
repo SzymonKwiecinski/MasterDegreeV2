@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+Let:
+\begin{itemize}
+    \item \( N \): total number of currencies
+    \item \( \text{start}_i \): initial amount of currency \( i \) for \( i = 1, 2, \ldots, N \)
+    \item \( \text{limit}_i \): limit on the amount of currency \( i \) that can be exchanged
+    \item \( \text{rate}_{i,j} \): rate at which currency \( i \) can be exchanged for currency \( j \)
+    \item \( x_{i,j} \): amount of currency \( i \) exchanged for currency \( j \)
+    \item \( y_i \): final amount of currency \( i \) after exchanges
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to maximize the final amount of currency \( N \):
+\[
+\text{maximize } y_N
+\]
+
+\subsection*{Constraints}
+
+1. **Initial amount of currency**:
+   \[
+   y_i = \text{start}_i + \sum_{j=1}^{N} x_{j,i} - \sum_{j=1}^{N} x_{i,j}, \quad \forall i = 1, 2, \ldots, N
+   \]
+
+2. **Exchange limits**:
+   \[
+   \sum_{j=1}^{N} x_{i,j} \leq \text{limit}_i, \quad \forall i = 1, 2, \ldots, N
+   \]
+   \[
+   \sum_{j=1}^{N} x_{j,i} \leq \text{limit}_i, \quad \forall i = 1, 2, \ldots, N
+   \]
+
+3. **Transaction rates**:
+   \[
+   x_{i,j} \leq \text{start}_i \cdot \text{rate}_{i,j}, \quad \forall i, j = 1, 2, \ldots, N
+   \]
+
+4. **Non-negativity**:
+   \[
+   x_{i,j} \geq 0, \quad \forall i, j = 1, 2, \ldots, N
+   \]
+
+\end{document}

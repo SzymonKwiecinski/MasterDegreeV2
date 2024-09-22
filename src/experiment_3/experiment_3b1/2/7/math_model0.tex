@@ -1,0 +1,79 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Rocket Motion}
+
+Let:
+\begin{itemize}
+    \item \( x_t \): Position of the rocket at time \( t \)
+    \item \( v_t \): Velocity of the rocket at time \( t \)
+    \item \( a_t \): Acceleration of the rocket at time \( t \)
+    \item \( T \): Total time for the journey
+    \item \( x_0 \): Initial position
+    \item \( v_0 \): Initial velocity
+    \item \( x_T \): Target position
+    \item \( v_T \): Target velocity
+\end{itemize}
+
+The discrete-time model is defined by the following equations:
+\[
+x_{t+1} = x_t + v_t
+\]
+\[
+v_{t+1} = v_t + a_t
+\]
+
+We need to find the acceleration \( a_t \) for \( t = 0, 1, \ldots, T-1 \), under the constraints given below, while minimizing the maximum thrust required.
+
+\subsection*{Objective Function}
+The objective is to minimize the maximum thrust required, which is expressed as:
+\[
+\text{Minimize } \max_{t} |a_t|
+\]
+
+\subsection*{Constraints}
+The constraints based on initial conditions and final targets are:
+\[
+x_0 = x_0 \quad \text{(initial position)}
+\]
+\[
+v_0 = v_0 \quad \text{(initial velocity)}
+\]
+\[
+x_T = x_T \quad \text{(target position)}
+\]
+\[
+v_T = v_T \quad \text{(target velocity)}
+\]
+
+The evolution of the states gives us these implicit constraints:
+\[
+x_{t+1} - x_t - v_t = 0, \quad \forall t \in \{0, 1, \ldots, T-1\}
+\]
+\[
+v_{t+1} - v_t - a_t = 0, \quad \forall t \in \{0, 1, \ldots, T-1\}
+\]
+
+\subsection*{Fuel Consumption}
+Assuming fuel consumption is proportional to the magnitude of acceleration:
+\[
+\text{Fuel spent} = \sum_{t=0}^{T-1} |a_t|
+\]
+
+\subsection*{Decision Variables}
+The decision variables are:
+\begin{itemize}
+    \item \( a_t \) for \( t = 0, 1, \ldots, T-1 \)
+\end{itemize}
+
+\subsection*{Summary of Output}
+The output will consist of:
+\begin{itemize}
+    \item A list of positions \( x_i \) for \( i = 0, 1, \ldots, T \)
+    \item A list of velocities \( v_i \) for \( i = 0, 1, \ldots, T \)
+    \item A list of accelerations \( a_i \) for \( i = 0, 1, \ldots, T \)
+    \item Total fuel spent
+\end{itemize}
+
+\end{document}

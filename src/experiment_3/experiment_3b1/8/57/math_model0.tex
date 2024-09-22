@@ -1,0 +1,73 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Seaport Container Management}
+
+\subsection*{Parameters}
+\begin{align*}
+T & : \text{Total number of months} \\
+demand_t & : \text{Demand for containers by ships in month } t, \; t = 1, \ldots, T \\
+unload\_cost_t & : \text{Cost to unload a container in month } t \\
+unload\_capacity_t & : \text{Maximum containers that can be unloaded in month } t \\
+holding\_cost & : \text{Holding cost per container per month} \\
+max\_container & : \text{Maximum containers that can be stored in the yard} \\
+init\_container & : \text{Initial number of containers at the start of the first month} \\
+num\_cranes & : \text{Maximum number of cranes that can be rented per month} \\
+crane\_capacity & : \text{Loading capacity of each crane} \\
+crane\_cost & : \text{Cost of renting one crane}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+amount_t & : \text{Number of containers unloaded in month } t, \; t = 1, \ldots, T \\
+crane_t & : \text{Number of cranes rented in month } t, \; t = 1, \ldots, T \\
+storage_t & : \text{Number of containers in the yard at the end of month } t, \; t = 1, \ldots, T
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost over the period:
+\begin{align*}
+\text{Minimize } \quad total\_cost & = \sum_{t=1}^{T} \left( unload\_cost_t \cdot amount_t + holding\_cost \cdot storage_t + crane\_cost \cdot crane_t \right)
+\end{align*}
+
+\subsection*{Constraints}
+1. **Demand Satisfaction:**
+\begin{align*}
+amount_t + storage_{t-1} - storage_t & = demand_t, \quad t = 1, \ldots, T \\
+storage_0 & = init\_container
+\end{align*}
+
+2. **Unloading Capacity:**
+\begin{align*}
+amount_t & \leq unload\_capacity_t, \quad t = 1, \ldots, T
+\end{align*}
+
+3. **Storage Capacity:**
+\begin{align*}
+storage_t & \leq max\_container, \quad t = 1, \ldots, T
+\end{align*}
+
+4. **Non-negativity:**
+\begin{align*}
+amount_t & \geq 0, \quad t = 1, \ldots, T \\
+crane_t & \geq 0, \quad t = 1, \ldots, T \\
+storage_t & \geq 0, \quad t = 1, \ldots, T
+\end{align*}
+
+5. **Crane Loading Capacity:**
+\begin{align*}
+crane_t \cdot crane\_capacity & \geq amount_t, \quad t = 1, \ldots, T
+\end{align*}
+
+6. **Cranes Rental Limit:**
+\begin{align*}
+crane_t & \leq num\_cranes, \quad t = 1, \ldots, T
+\end{align*}
+
+7. **Final Storage Condition:**
+\begin{align*}
+storage_T & = 0
+\end{align*}
+
+\end{document}

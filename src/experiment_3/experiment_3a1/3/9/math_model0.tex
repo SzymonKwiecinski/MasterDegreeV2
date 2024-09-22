@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Road Illumination}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $N$: Number of segments of the road
+    \item $M$: Number of lamps
+    \item $coeff_{i,j}$: Coefficient representing the contribution of the $j$-th lamp to the $i$-th segment's illumination
+    \item $desired_i$: Desired illumination for the $i$-th segment
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $power_j$: Power of the $j$-th lamp, for $j = 1, \ldots, M$
+    \item $error_i$: Absolute error for the $i$-th segment, for $i = 1, \ldots, N$
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} error_i
+\]
+
+\textbf{Subject to:}
+\[
+ill_i = \sum_{j=1}^{M} coeff_{i,j} \cdot power_j, \quad \forall i = 1, \ldots, N
+\]
+\[
+error_i \geq ill_i - desired_i, \quad \forall i = 1, \ldots, N
+\]
+\[
+error_i \geq desired_i - ill_i, \quad \forall i = 1, \ldots, N
+\]
+\[
+power_j \geq 0, \quad \forall j = 1, \ldots, M
+\]
+
+\textbf{Output:}
+\begin{itemize}
+    \item $power_j$: Optimal power of the $j$-th lamp
+    \item $error$: Total absolute error
+\end{itemize}
+
+\end{document}

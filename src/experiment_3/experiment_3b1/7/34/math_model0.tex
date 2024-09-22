@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Nutritional Diet}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Formulation}
+
+Let:
+\begin{itemize}
+    \item \( K \) be the number of different types of food available in the market.
+    \item \( M \) be the number of different nutritional ingredients.
+    \item \( price_k \) be the price per unit of food \( k \) for \( k = 1, \ldots, K \).
+    \item \( demand_m \) be the minimum required units of nutrient \( m \) per day for \( m = 1, \ldots, M \).
+    \item \( nutri_{k,m} \) be the amount of nutrient \( m \) contained in one unit of food \( k \).
+    \item \( quantity_k \) be the quantity of food \( k \) to purchase.
+\end{itemize}
+
+\subsection*{Objective Function}
+
+We aim to minimize the total cost of purchasing the foods:
+
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} price_k \cdot quantity_k
+\]
+
+\subsection*{Constraints}
+
+To ensure that the diet meets the nutritional demands, we have the following constraints:
+
+\[
+\sum_{k=1}^{K} nutri_{k, m} \cdot quantity_k \geq demand_m, \quad \forall m = 1, \ldots, M
+\]
+
+Additionally, we have non-negativity constraints on the quantities:
+
+\[
+quantity_k \geq 0, \quad \forall k = 1, \ldots, K
+\]
+
+\subsection*{Input Format}
+
+The inputs to this linear programming model are given in the following format:
+
+\begin{verbatim}
+{
+    "price": [price_{k} for k in 1,...,K],
+    "demand": [demand_{m} for m in 1,...,M],
+    "nutrition": [[nutri_{k, m} for m in 1,...,M] for k in 1,...,K]
+}
+\end{verbatim}
+
+\subsection*{Output Format}
+
+The output, representing the quantity of each food to purchase, is structured as follows:
+
+\begin{verbatim}
+{
+    "quantity": [quantity_{k} for k in 1,...,K]
+}
+\end{verbatim}
+
+\end{document}

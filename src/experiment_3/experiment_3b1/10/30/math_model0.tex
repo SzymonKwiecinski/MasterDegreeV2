@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Quadratic Curve Fitting}
+
+Given a set of corresponding values \( x_k \) and \( y_k \) for \( k = 1, \ldots, K \), we aim to fit the quadratic curve defined by the equation:
+
+\[
+y = c \cdot x^2 + b \cdot x + a
+\]
+
+Our objective is to minimize the sum of absolute deviations between the observed values \( y_k \) and the values predicted by the quadratic model. This can be expressed mathematically as:
+
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} |y_k - (c \cdot x_k^2 + b \cdot x_k + a)|
+\]
+
+Where:
+- \( c \) is the coefficient of the quadratic term,
+- \( b \) is the coefficient of the linear term,
+- \( a \) is the constant term.
+
+We can define the absolute deviations with auxiliary variables \( d_k \) for \( k = 1, \ldots, K \):
+
+\[
+d_k \geq y_k - (c \cdot x_k^2 + b \cdot x_k + a)
+\]
+
+\[
+d_k \geq -(y_k - (c \cdot x_k^2 + b \cdot x_k + a))
+\]
+
+Our linear program thus becomes:
+
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} d_k
+\]
+
+Subject to:
+
+\[
+d_k \geq y_k - (c \cdot x_k^2 + b \cdot x_k + a), \quad \forall k
+\]
+
+\[
+d_k \geq -(y_k - (c \cdot x_k^2 + b \cdot x_k + a)), \quad \forall k
+\]
+
+\begin{itemize}
+    \item The output of the model will provide us with the coefficients:
+    \begin{itemize}
+        \item \( \text{quadratic} = c \)
+        \item \( \text{linear} = b \)
+        \item \( \text{constant} = a \)
+    \end{itemize}
+\end{itemize}
+
+\end{document}

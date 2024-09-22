@@ -1,0 +1,75 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Linear Regression}
+
+Given a set of observed values for \( x \) and \( y \):
+
+- Let \( y_k \) be the \( k \)-th observed value of \( y \)
+- Let \( x_k \) be the \( k \)-th observed value of \( x \) for \( k = 1, 2, \ldots, K \)
+
+We want to fit the best straight line \( y = bx + a \) such that the maximum deviation of the observed values of \( y \) from the predicted values \( \hat{y_k} = bx_k + a \) is minimized.
+
+\subsection*{Objective Function}
+
+We define the maximum deviation as:
+
+\[
+d_k = y_k - (bx_k + a)
+\]
+
+Our goal is to minimize the maximum absolute deviation:
+
+\[
+\text{Minimize } M
+\]
+
+subject to the constraints:
+
+\[
+d_k \leq M \quad \forall k
+\]
+\[
+-d_k \leq M \quad \forall k
+\]
+
+This leads to the following formulation:
+
+\[
+\text{Minimize } M
+\]
+
+subject to:
+
+\[
+y_k - (bx_k + a) \leq M \quad \forall k
+\]
+\[
+-(y_k - (bx_k + a)) \leq M \quad \forall k
+\]
+
+\subsection*{Linear Programming Formulation}
+
+To summarize, the linear programming model can be expressed as follows:
+
+\begin{align*}
+\text{Minimize} & \quad M \\
+\text{subject to} & \quad y_k - (bx_k + a) \leq M \quad \forall k \\
+& \quad -(y_k - (bx_k + a)) \leq M \quad \forall k \\
+& \quad a, b \text{ unrestricted} \\
+& \quad M \geq 0
+\end{align*}
+
+\subsection*{Output}
+
+The output will be:
+
+\[
+\{
+\text{"intercept"}: a,
+\text{"slope"}: b
+\}
+\]
+
+\end{document}

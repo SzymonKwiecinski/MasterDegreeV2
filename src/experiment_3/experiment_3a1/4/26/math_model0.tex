@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item \( produce_{k,t} \): amount produced by industry \( k \) in year \( t \)
+    \item \( buildcapa_{k,t} \): amount used to build capacity in industry \( k \) in year \( t \)
+    \item \( stock_{k,t} \): amount of stock held by industry \( k \) in year \( t \)
+\end{itemize}
+
+\subsection*{Parameters}
+Given the following parameters:
+\begin{itemize}
+    \item \( inputone_{k,j} \): input required from industry \( j \) by industry \( k \)
+    \item \( manpowerone_{k} \): manpower required by industry \( k \)
+    \item \( inputtwo_{k,j} \): input required from industry \( j \) to increase productive capacity of industry \( k \)
+    \item \( manpowertwo_{k} \): manpower required by industry \( k \) to increase capacity
+    \item \( stock_{k} \): initial stock of industry \( k \) at year 0
+    \item \( capacity_{k} \): initial capacity of industry \( k \)
+    \item \( demand_{k} \): consumption requirement of industry \( k \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total manpower requirement over five years:
+\[
+\text{Maximize } Z = \sum_{t=1}^{5} \sum_{k=1}^{K} manpowerone_{k} \cdot produce_{k,t} + \sum_{k=1}^{K} manpowertwo_{k} \cdot buildcapa_{k,t}
+\]
+
+\subsection*{Constraints}
+
+\textbf{Production Constraints:}
+\[
+produce_{k,t} + stock_{k,t-1} - stock_{k,t} = \sum_{j=1}^{K} inputone_{k,j} \cdot produce_{j,t-1} + stock_{k,t-1} \quad \forall k, \quad t = 1,...,5
+\]
+
+\textbf{Capacity Building Constraints:}
+\[
+capacity_{k} + \sum_{t=1}^{5} buildcapa_{k,t} \leq capacity_{k} + 2 \cdot \sum_{t=1}^{5} \sum_{j=1}^{K} inputtwo_{k,j} \cdot buildcapa_{j,t-1} \quad \forall k
+\]
+
+\textbf{Demand Constraints:}
+\[
+produce_{k,t} + stock_{k,t-1} - stock_{k,t} \geq demand_{k} \quad \forall k, \quad t = 1,...,5
+\]
+
+\textbf{Stock Constraints:}
+\[
+stock_{k,t} \geq 0 \quad \forall k, \quad t = 1,...,5
+\]
+
+\textbf{Initial Stock:}
+\[
+stock_{k,0} = stock_{k} \quad \forall k
+\]
+
+\textbf{Initial Capacity:}
+\[
+capacity_{k} \text{ is given for each } k
+\end{document}

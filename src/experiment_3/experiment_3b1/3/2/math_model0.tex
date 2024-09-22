@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for DEC Production Optimization}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $i \in \{1, \ldots, N\}$: Index for different computer systems.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $is\_workstation_i$: Boolean indicating if system $i$ is a workstation.
+    \item $price_i$: Price of system $i$ (in dollars).
+    \item $disk_i$: Average number of disk drives requested per system $i$.
+    \item $mem_i$: Average number of 256K memory boards requested per system $i$.
+    \item $max\_cpu$: Maximum number of CPUs available.
+    \item $min\_disk$: Minimum available disk drives.
+    \item $max\_disk$: Maximum available disk drives.
+    \item $min\_mem$: Minimum available 256K memory boards.
+    \item $max\_mem$: Maximum available 256K memory boards.
+    \item $demand_i$: Maximum demand for system $i$.
+    \item $demand\_GP$: Maximum demand for the whole GP family.
+    \item $demand\_WS$: Maximum demand for the whole WS family.
+    \item $preorder_i$: Preorders for system $i$.
+    \item $alt\_mem$: Available alternative memory boards.
+    \item $alt\_compatible_i$: Boolean indicating compatibility of alternative memory for system $i$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_i$: Number of systems produced for system $i$.
+    \item $y_i$: Number of alternative memory boards used for system $i$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the profit:
+\[
+\text{Maximize} \quad Z = \sum_{i=1}^{N} (price_i \cdot x_i) - \text{Cost}
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+\text{CPU Constraint:} & \quad \sum_{i=1}^{N} x_i \leq max\_cpu \\
+\text{Disk Drive Demand:} & \quad \sum_{i=1}^{N} disk_i \cdot x_i \leq max\_disk \\
+\text{Memory Board Demand:} & \quad \sum_{i=1}^{N} mem_i \cdot x_i + \sum_{i=1}^{N} y_i \leq max\_mem \\
+\text{Minimum Disk Supply:} & \quad \sum_{i=1}^{N} disk_i \cdot x_i \geq min\_disk \\
+\text{Minimum Memory Supply:} & \quad \sum_{i=1}^{N} mem_i \cdot x_i + \sum_{i=1}^{N} y_i \geq min\_mem \\
+\text{Demand Satisfaction for System } i: & \quad x_i \leq demand_i \\
+\text{Demand Satisfaction for GP Family:} & \quad \sum_{i: is\_workstation_i = false} x_i \leq demand\_GP \\
+\text{Demand Satisfaction for WS Family:} & \quad \sum_{i: is\_workstation_i = true} x_i \leq demand\_WS \\
+\text{Preorder Constraint for System } i: & \quad x_i \geq preorder_i \\
+\text{Alternative Memory Usage:} & \quad y_i \leq alt\_mem \quad (alt\_compatible_i = true)
+\end{align*}
+
+\end{document}

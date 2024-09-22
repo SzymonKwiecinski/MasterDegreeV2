@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Production and Inventory Scheduling}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+
+A company must deliver \( d_i \) units of its product at the end of the \( i \)-th month, where \( i = 1, 2, \ldots, T \). The company can produce \( x_i \) units in month \( i \). The storage cost is given by \( c_s \) dollars per month for each unit held in inventory, and there is a switching cost of \( c_{sw} |x_{i+1} - x_i| \) dollars incurred when changing production levels from month \( i \) to month \( i+1 \). The objective is to minimize the total cost over \( T \) months.
+
+\section*{Mathematical Model}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item \( x_i \): Number of units produced in month \( i \)
+    \item \( I_i \): Inventory at the end of month \( i \)
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( d_i \): Units to deliver at the end of month \( i \)
+    \item \( c_s \): Storage cost per unit per month
+    \item \( c_{sw} \): Switching cost per unit change in production level
+    \item \( T \): Total number of months
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{i=1}^T \left( c_s I_i + c_{sw} |x_{i+1} - x_i| \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+I_0 & = 0 \quad \text{(Initial inventory)} \\
+I_i & = I_{i-1} + x_i - d_i \quad \text{for } i = 1, 2, \ldots, T \\
+I_i & \geq 0 \quad \text{for } i = 1, 2, \ldots, T \quad \text{(Non-negative inventory)} \\
+x_i & \geq 0 \quad \text{for } i = 1, 2, \ldots, T \quad \text{(Non-negative production)} \\
+\end{align*}
+\end{document}

@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Food Selection}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( K \) be the number of different foods available.
+    \item Let \( M \) be the number of different nutrients.
+    \item Let \( \text{price}_k \) be the price per unit of food \( k \) for \( k = 1, \ldots, K \).
+    \item Let \( \text{demand}_m \) be the minimum required units of nutrient \( m \) for \( m = 1, \ldots, M \).
+    \item Let \( \text{nutri}_{k,m} \) be the amount of nutrient \( m \) contained in food \( k \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( \text{quantity}_k \) be the quantity of food \( k \) to purchase for \( k = 1, \ldots, K \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost of the foods purchased:
+\[
+\text{Minimize} \quad Z = \sum_{k=1}^{K} \text{price}_k \cdot \text{quantity}_k
+\]
+
+\subsection*{Constraints}
+Ensure that the nutritional demands are met:
+\[
+\sum_{k=1}^{K} \text{nutri}_{k,m} \cdot \text{quantity}_k \geq \text{demand}_m \quad \forall m = 1, \ldots, M
+\]
+
+\subsection*{Non-negativity Constraints}
+\[
+\text{quantity}_k \geq 0 \quad \forall k = 1, \ldots, K
+\]
+
+\end{document}

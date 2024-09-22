@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Production}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item Let \( b_p \) = Number of batches produced for part \( p \) (for \( p = 1, \ldots, P \))
+    \item Let \( extra_m \) = Additional hours purchased for machine \( m \) (for \( m = 1, \ldots, M \))
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( time_{m,p} \) = Time required on machine \( m \) to produce a batch of part \( p \)
+    \item \( cost_m \) = Cost per hour for using machine \( m \)
+    \item \( available_m \) = Available hours per month for machine \( m \)
+    \item \( price_p \) = Selling price per batch of part \( p \)
+    \item \( min\_batches_p \) = Minimum batches required for part \( p \) to fulfill contract
+    \item \( extra\_cost_m \) = Cost per hour for extra time on machine \( m \)
+    \item \( max\_extra_m \) = Maximum extra hours that can be purchased for machine \( m \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+\text{Total Profit} = \sum_{p=1}^{P} \left( price_p \cdot b_p \right) - \sum_{m=1}^{M} \left( (cost_m \cdot \sum_{p=1}^{P} time_{m,p} \cdot b_p) + extra\_cost_m \cdot extra_m \right)
+\]
+
+\subsection*{Constraints}
+1. Machine availability:
+\[
+\sum_{p=1}^{P} time_{m,p} \cdot b_p + extra_m \leq available_m + max\_extra_m \quad \text{for } m = 1, \ldots, M
+\]
+
+2. Minimum production requirements:
+\[
+b_p \geq min\_batches_p \quad \text{for } p = 1, \ldots, P
+\]
+
+3. Extra time constraints:
+\[
+0 \leq extra_m \leq max\_extra_m \quad \text{for } m = 1, \ldots, M
+\]
+
+4. Non-negativity constraints:
+\[
+b_p \geq 0 \quad \text{for } p = 1, \ldots, P
+\]
+\[
+extra_m \geq 0 \quad \text{for } m = 1, \ldots, M
+\]
+
+\end{document}

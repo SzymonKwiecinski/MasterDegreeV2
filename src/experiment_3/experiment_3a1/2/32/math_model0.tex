@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Sets}
+Let:
+\begin{itemize}
+    \item \( K \) be the set of products, where \( k = 1, 2, \ldots, K \).
+    \item \( S \) be the set of stages, where \( s = 1, 2, \ldots, S \).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{produce\_time}_{k,s} \): Time required to produce 1 unit of product \( k \) at stage \( s \) (in hours).
+    \item \( \text{time}_s \): Available time at stage \( s \) (in hours).
+    \item \( \text{profit}_k \): Profit from producing 1 unit of product \( k \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let:
+\[
+\text{quantity}_k \quad \text{for } k = 1, 2, \ldots, K
+\]
+be the quantity of product \( k \) to be produced.
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} \text{profit}_k \cdot \text{quantity}_k
+\]
+
+\subsection*{Constraints}
+For each stage \( s \):
+\[
+\sum_{k=1}^{K} \text{produce\_time}_{k,s} \cdot \text{quantity}_k \leq \text{time}_s \quad \text{for } s = 1, 2, \ldots, S
+\]
+
+\subsection*{Non-negativity Constraints}
+\[
+\text{quantity}_k \geq 0 \quad \text{for } k = 1, 2, \ldots, K
+\]
+
+\end{document}

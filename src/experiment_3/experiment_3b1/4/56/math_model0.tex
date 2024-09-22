@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Delivery Person's Path}
+
+Let:
+\begin{itemize}
+    \item \( N \) be the total number of streets.
+    \item \( W \) be the total number of avenues.
+    \item \( n \in \{1, \ldots, N\} \) represent streets.
+    \item \( w \in \{1, \ldots, W\} \) represent avenues.
+    \item \( west\_time_{n,w} \) be the time taken to move west from intersection \((w,n)\) to \((w+1,n)\).
+    \item \( north\_time_{n,w} \) be the time taken to move north from intersection \((w,n)\) to \((w,n+1)\).
+\end{itemize}
+
+The objective is to minimize the total walking time represented as:
+\[
+\text{Minimize } Z = \sum_{n=1}^{N-1} \sum_{w=1}^{W-1} (x_{n,w} \cdot west\_time_{n,w} + y_{n,w} \cdot north\_time_{n,w}) 
+\]
+where:
+\begin{itemize}
+    \item \( x_{n,w} \) is the binary variable indicating whether the path moves west from intersection \((w,n)\) to \((w+1,n)\) (1 if chosen, 0 otherwise).
+    \item \( y_{n,w} \) is the binary variable indicating whether the path moves north from intersection \((w,n)\) to \((w,n+1)\) (1 if chosen, 0 otherwise).
+\end{itemize}
+
+Subject to the following constraints:
+
+1. Flow conservation constraints (ensuring that the path starts at \((1,1)\) and ends at \((W,N)\)):
+   \[
+   \sum_{w=1}^{W-1} x_{1,w} + \sum_{n=1}^{N-1} y_{n,1} = 1 \quad (\text{start at } (1,1))
+   \]
+   \[
+   \sum_{n=1}^{N-1} y_{n,W} + \sum_{w=1}^{W-1} x_{N,w} = 1 \quad (\text{end at } (W,N))
+   \]
+
+2. Intermediate intersections:
+   \[
+   \sum_{w=1}^{W-1} x_{n,w} + \sum_{n=1}^{N-1} y_{n,w} = \sum_{n=1}^{N-1} y_{n,w+1} + \sum_{w=1}^{W-1} x_{n+1,w} \quad \forall n \in \{1, \ldots, N-1\}, \forall w \in \{1, \ldots, W-1\}
+   \]
+
+3. Binary constraints:
+   \[
+   x_{n,w} \in \{0, 1\}, \quad y_{n,w} \in \{0, 1\} \quad \forall n, w
+   \]
+
+The output includes:
+- The selected path through intersections given by \texttt{paths} of the form \((street_{n}, avenue_{w})\) for \( id \in \{1, \ldots, m\} \)
+- The total time taken represented by \texttt{total\_time}
+
+\end{document}

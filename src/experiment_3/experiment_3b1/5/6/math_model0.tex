@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Motion Optimization Problem}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item $x_t$: Position of the rocket at time $t$
+    \item $v_t$: Velocity of the rocket at time $t$
+    \item $a_t$: Acceleration of the rocket at time $t$
+\end{itemize}
+
+\textbf{Given:}
+\begin{itemize}
+    \item Initial position: $x_0$
+    \item Initial velocity: $v_0$
+    \item Target position: $x_T$
+    \item Target velocity: $v_T$
+    \item Total time: $T$
+\end{itemize}
+
+\textbf{Model:}
+The discrete-time motion model of the rocket can be expressed as:
+\[
+\begin{align*}
+x_{t+1} &= x_t + v_t \\
+v_{t+1} &= v_t + a_t
+\end{align*}
+\]
+
+\textbf{Objective:}
+Minimize the total fuel consumed, which is proportional to the total acceleration over time:
+\[
+\text{Minimize } Z = \sum_{t=0}^{T-1} |a_t|
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+x_0 &= x_0 \\
+v_0 &= v_0 \\
+x_T &= x_T \\
+v_T &= v_T \\
+\end{align*}
+The relationship between position, velocity, and acceleration must hold for each time step:
+\[
+\begin{align*}
+x_{t+1} - x_t &= v_t \\
+v_{t+1} - v_t &= a_t
+\end{align*}
+\]
+
+The fuel consumption must be non-negative and can be expressed as:
+\[
+|a_t| \geq 0
+\]
+
+\textbf{Output:}
+The output will consist of:
+\begin{itemize}
+    \item A list of positions: $x = [x_i \text{ for } i = 0, \ldots, T]$
+    \item A list of velocities: $v = [v_i \text{ for } i = 0, \ldots, T]$
+    \item A list of accelerations: $a = [a_i \text{ for } i = 0, \ldots, T]$
+    \item Total fuel spent: $\text{fuel\_spend} = Z$
+\end{itemize}
+
+\end{document}

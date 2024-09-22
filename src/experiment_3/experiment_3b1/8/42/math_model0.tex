@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Transportation of Containers}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( I \) be the number of depots.
+    \item Let \( J \) be the number of ports.
+    \item Let \( \text{numdepot}_i \) be the number of containers available at depot \( i \), for \( i = 1, \ldots, I \).
+    \item Let \( \text{numport}_j \) be the number of containers required at port \( j \), for \( j = 1, \ldots, J \).
+    \item Let \( \text{price} \) be the transportation cost per kilometer per barge.
+    \item Let \( \text{distance}_{i,j} \) be the distance from depot \( i \) to port \( j \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let \( x_{i,j} \) be the number of containers sent from depot \( i \) to port \( j \).
+
+\subsection*{Objective Function}
+We want to minimize the total transportation cost, which can be expressed as:
+\[
+\text{Minimize} \quad Z = \sum_{i=1}^{I} \sum_{j=1}^{J} \left( \frac{x_{i,j}}{2} \cdot \text{distance}_{i,j} \cdot \text{price} \right)
+\]
+where the factor \( \frac{x_{i,j}}{2} \) accounts for the fact that each barge can carry two containers.
+
+\subsection*{Constraints}
+1. Supply Constraints (number of containers available at each depot):
+\[
+\sum_{j=1}^{J} x_{i,j} \leq \text{numdepot}_i, \quad \forall i \in \{1, \ldots, I\}
+\]
+
+2. Demand Constraints (number of containers required at each port):
+\[
+\sum_{i=1}^{I} x_{i,j} \geq \text{numport}_j, \quad \forall j \in \{1, \ldots, J\}
+\]
+
+3. Non-negativity Constraints:
+\[
+x_{i,j} \geq 0, \quad \forall i \in \{1, \ldots, I\}, \quad j \in \{1, \ldots, J\}
+\]
+
+\subsection*{Output}
+The solution will provide the number of containers sent from each depot to each port in the following format:
+\[
+\text{number} = \begin{bmatrix}
+x_{1,1} & x_{1,2} & \cdots & x_{1,J} \\
+x_{2,1} & x_{2,2} & \cdots & x_{2,J} \\
+\vdots & \vdots & \ddots & \vdots \\
+x_{I,1} & x_{I,2} & \cdots & x_{I,J}
+\end{bmatrix}
+\]
+
+\end{document}

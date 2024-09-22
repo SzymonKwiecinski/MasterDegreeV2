@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Industry Production}
+
+\subsection*{Parameters}
+
+Let:
+\begin{itemize}
+    \item \( K \) = Number of industries 
+    \item \( T \) = Planning horizon (5 years)
+    \item \( \text{inputone}_{k,j} \) = Input from industry \( j \) required by industry \( k \)
+    \item \( \text{manpowerone}_{k} \) = Manpower required by industry \( k \)
+    \item \( \text{inputtwo}_{k,j} \) = Input from industry \( j \) needed to build capacity for industry \( k \)
+    \item \( \text{manpowertwo}_{k} \) = Manpower required to build capacity for industry \( k \)
+    \item \( \text{stock}_{k} \) = Initial stock of industry \( k \)
+    \item \( \text{capacity}_{k} \) = Initial capacity of industry \( k \)
+    \item \( \text{demand}_{k} \) = Exogenous demand from industry \( k \)
+\end{itemize}
+
+\subsection*{Variables}
+
+Define:
+\begin{itemize}
+    \item \( \text{produce}_{k,t} \) = Amount produced by industry \( k \) in year \( t \)
+    \item \( \text{buildcapa}_{k,t} \) = Amount used to build productive capacity for industry \( k \) in year \( t \)
+    \item \( \text{stockhold}_{k,t} \) = Amount of stock held by industry \( k \) in year \( t \)
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Maximize the total manpower requirement over five years:
+
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} \sum_{t=1}^{T} \left( \text{manpowerone}_{k} \cdot \text{produce}_{k,t} + \text{manpowertwo}_{k} \cdot \text{buildcapa}_{k,t} \right)
+\]
+
+\subsection*{Constraints}
+
+1. **Demand constraint for each industry** (for \( t = 1, \ldots, T \)):
+   \[
+   \text{produce}_{k,t} + \text{stockhold}_{k,t-1} - \text{stockhold}_{k,t} \geq \text{demand}_{k}, \quad \forall k, t
+   \]
+
+2. **Production capacity constraint**:
+   \[
+   \text{produce}_{k,t} \leq \text{capacity}_{k} + \text{capacity\_increase}_{k,t-2}, \quad \forall k, t \text{ (for } t \geq 2\text{)}
+   \]
+   
+   where \( \text{capacity\_increase}_{k,t-2} = \sum_{j=1}^{K} \text{buildcapa}_{j,t-2} \cdot \text{inputtwo}_{j,k} \)
+
+3. **Stock balance**:
+   \[
+   \text{stockhold}_{k,t} = \text{stockhold}_{k,t-1} + \text{produce}_{k,t} - \text{demand}_{k}, \quad \forall k, t
+   \]
+
+4. **Initial conditions**:
+   \[
+   \text{stockhold}_{k,0} = \text{stock}_{k}, \quad \text{capacity}_{k,0} = \text{capacity}_{k}, \quad \forall k
+   \]
+
+5. **Non-negativity**:
+   \[
+   \text{produce}_{k,t} \geq 0, \quad \text{buildcapa}_{k,t} \geq 0, \quad \text{stockhold}_{k,t} \geq 0, \quad \forall k, t
+   \]
+
+\end{document}

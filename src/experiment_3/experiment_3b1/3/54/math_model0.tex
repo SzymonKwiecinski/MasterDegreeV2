@@ -1,0 +1,69 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item $P$: Set of different parts, indexed by $p \in \{1, 2, \ldots, P\}$
+    \item $M$: Set of different machines, indexed by $m \in \{1, 2, \ldots, M\}$
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $time_{m,p}$: Time (in hours) required on machine $m$ to produce a batch of part $p$
+    \item $cost_m$: Cost (in $/hour$) for using machine $m$
+    \item $available_m$: Available hours per month for machine $m$
+    \item $price_p$: Selling price (in $) per batch of part $p$
+    \item $min\_batches_p$: Minimum number of batches to produce for part $p$
+    \item $standard\_cost$: Standard labor cost (in $/hour$) for machine 1
+    \item $overtime\_cost$: Overtime labor cost (in $/hour$) for machine 1
+    \item $overtime\_hour$: Number of hours before overtime starts
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $batches_p$: Number of batches produced of part $p$
+\end{itemize}
+
+\textbf{Objective:}
+Maximize total profit:
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} (price_p \times batches_p) - \sum_{m=1}^{M} \left( cost_m \times \sum_{p=1}^{P} (time_{m,p} \times batches_p) \right) - \text{Labor Cost}
+\]
+
+\textbf{Subject to:}
+
+\textbf{1. Production Time Constraints for each machine:}
+\[
+\sum_{p=1}^{P} (time_{m,p} \times batches_p) \leq available_m, \quad \forall m \in \{1, 2, \ldots, M\}
+\]
+
+\textbf{2. Minimum production requirements:}
+\[
+batches_p \geq min\_batches_p, \quad \forall p \in \{1, 2, \ldots, P\}
+\]
+
+\textbf{3. Labor Cost Calculation for Machine 1:}
+\[
+\text{Labor Cost} = 
+\begin{cases} 
+standard\_cost \times \sum_{p=1}^{P} (time_{1,p} \times batches_p) & \text{if } \sum_{p=1}^{P} (time_{1,p} \times batches_p) \leq overtime\_hour \\
+standard\_cost \times overtime\_hour + overtime\_cost \times \left(\sum_{p=1}^{P} (time_{1,p} \times batches_p) - overtime\_hour\right) & \text{otherwise}
+\end{cases}
+\]
+
+\textbf{4. Non-negativity constraints:}
+\[
+batches_p \geq 0, \quad \forall p
+\]
+
+\textbf{Output:}
+The output will consist of:
+\begin{itemize}
+    \item $batches = [batches_p \text{ for } p = 1, \ldots, P]$
+    \item $total\_profit = Z$
+\end{itemize}
+
+\end{document}

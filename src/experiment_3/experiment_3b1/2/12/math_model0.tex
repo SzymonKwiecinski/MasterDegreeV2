@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+Given the problem, we define the following variables and constants:
+
+\begin{itemize}
+    \item Let \( x_{i,j} \) be the amount of currency \( i \) exchanged for currency \( j \).
+    \item Let \( start_i \) be the initial amount of currency \( i \).
+    \item Let \( limit_i \) be the limit on the total amount of currency \( i \) that can be exchanged.
+    \item Let \( rate_{i,j} \) be the exchange rate from currency \( i \) to currency \( j \).
+    \item Let \( N \) be the total number of currencies.
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to maximize the amount of currency \( N \) we end up with at the end of the day. Thus, the objective function can be formulated as:
+
+\[
+\text{Maximize } Z = \sum_{j=1}^{N} x_{N,j}
+\]
+
+where \( x_{N,j} \) is the amount of currency \( N \) exchanged for currency \( j \).
+
+\subsection*{Constraints}
+
+1. **Currency Exchange Limits**:
+   For each currency \( i \), the total amount of currency exchanged cannot exceed the limit:
+
+   \[
+   \sum_{j=1}^{N} x_{i,j} \leq limit_i, \quad \forall i \in \{1, 2, \ldots, N\}
+   \]
+
+2. **Initial Amounts**:
+   The amount of each currency after transactions must not exceed the initially available amount. For currency \( i \):
+
+   \[
+   start_i - \sum_{j=1}^{N} x_{i,j} + \sum_{j=1}^{N} x_{j,i} \geq 0, \quad \forall i \in \{1, 2, \ldots, N\}
+   \]
+
+3. **Exchange Rates**:
+    The amount exchanged must respect the exchange rates:
+
+   \[
+   x_{i,j} \leq start_i \cdot rate_{i,j}, \quad \forall i,j \in \{1, 2, \ldots, N\}
+   \]
+
+4. **Non-negativity**:
+   All exchange amounts must be non-negative:
+
+   \[
+   x_{i,j} \geq 0, \quad \forall i,j \in \{1, 2, \ldots, N\}
+   \]
+
+\end{document}

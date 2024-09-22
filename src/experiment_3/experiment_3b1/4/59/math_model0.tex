@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Translator Selection Problem}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $i$: Index for translators, where $i = 1, 2, \ldots, N$.
+    \item $m$: Index for required languages, where $m = 1, 2, \ldots, M$.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $cost_i$: Cost of hiring translator $i$.
+    \item $languages_i$: Set of languages that translator $i$ can translate into.
+    \item $required\_languages_m$: Set of required languages to be translated.
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let $x_i$ be a binary decision variable defined as:
+\[
+x_i =
+\begin{cases}
+1 & \text{if translator } i \text{ is selected} \\
+0 & \text{otherwise}
+\end{cases}
+\]
+
+\subsection*{Objective Function}
+Minimize the total cost of hiring translators:
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} cost_i \cdot x_i
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Ensure all required languages are covered:
+\end{itemize}
+\[
+\sum_{i: language_m \in languages_i} x_i \geq 1 \quad \forall m = 1, 2, \ldots, M
+\]
+
+\subsection*{Formulation Summary}
+The mixed-integer linear programming (MILP) model can be summarized as:
+
+\begin{align*}
+\text{Minimize} \quad & Z = \sum_{i=1}^{N} cost_i \cdot x_i \\
+\text{subject to} \quad & \sum_{i: language_m \in languages_i} x_i \geq 1, \quad \forall m = 1, 2, \ldots, M \\
+& x_i \in \{0, 1\}, \quad \forall i = 1, 2, \ldots, N
+\end{align*}
+
+\end{document}

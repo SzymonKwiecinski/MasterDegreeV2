@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Auto Parts Manufacturing Problem}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item Let \( P \) be the total number of parts.
+    \item Let \( M \) be the total number of machines.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{time}_{m,p} \): hours required on machine \( m \) to produce one batch of part \( p \).
+    \item \( \text{cost}_{m} \): cost per hour of using machine \( m \).
+    \item \( \text{available}_{m} \): available hours per month for machine \( m \).
+    \item \( \text{price}_{p} \): selling price per batch of part \( p \).
+    \item \( \text{setup\_time}_{p} \): setup time required for machine 1 for part \( p \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{batches}_{p} \): number of batches produced for part \( p \).
+    \item \( \text{setup\_flag}_{p} \): binary variable indicating whether part \( p \) is set up on machine 1 (1 if set up, 0 otherwise).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Total Profit} = \sum_{p=1}^{P} \left( \text{price}_{p} \cdot \text{batches}_{p} \right) - \sum_{m=1}^{M} \left( \text{cost}_{m} \cdot \sum_{p=1}^{P} \text{time}_{m,p} \cdot \text{batches}_{p} \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+\text{Machine Availability Constraints:} \\
+\sum_{p=1}^{P} \text{time}_{m,p} \cdot \text{batches}_{p} \leq \text{available}_{m}, & \quad \forall m \in \{1, 2, \ldots, M\} \\
+\\
+\text{Setup Time Constraint for Machine 1:} \\
+\text{setup\_flag}_{p} \cdot \text{setup\_time}_{p} + \sum_{p=1}^{P} \text{time}_{1,p} \cdot \text{batches}_{p} \leq \text{available}_{1}, & \quad \text{for each } p \in \{1, 2, \ldots, P\} \\
+\\
+\text{Non-negativity and binary constraints:} \\
+\text{batches}_{p} \geq 0, & \quad \forall p \in \{1, 2, \ldots, P\} \\
+\text{setup\_flag}_{p} \in \{0, 1\}, & \quad \forall p \in \{1, 2, \ldots, P\}
+\end{align*}
+
+\end{document}

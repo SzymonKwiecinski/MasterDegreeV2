@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Custom Tees Advertising Campaign}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let $x_a$ be the number of clicks purchased from ad type $a$ (in thousands), for $a = 1, 2, \ldots, A$.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $goal\_young$: Goal for clicks from visitors aged 18-25 (in thousands).
+    \item $goal\_old$: Goal for clicks from visitors older than 25 (in thousands).
+    \item $goal\_unique\_young$: Goal for unique clicks from visitors aged 18-25 (in thousands).
+    \item $goal\_unique\_old$: Goal for unique clicks from visitors older than 25 (in thousands).
+    \item $young\_click_a$: Estimated percentage of clicks from the 18-25 age range for ad type $a$.
+    \item $old\_click_a$: Estimated percentage of clicks from older visitors for ad type $a$.
+    \item $cost_a$: Cost of ad type $a$ per 1000 clicks.
+    \item $max\_click_a$: Maximum allowable clicks for ad type $a$ (in thousands).
+    \item $unique\_click_a$: Estimated percentage of unique visitors for ad type $a$.
+    \item $budget$: Advertising budget.
+\end{itemize}
+
+\textbf{Objective Function:}
+Maximize the total unique clicks:
+\[
+\text{Maximize } Z = \sum_{a=1}^{A} unique\_click_a \cdot x_a
+\]
+
+\textbf{Subject to:}
+1. Total clicks from young visitors must meet the goal:
+\[
+\sum_{a=1}^{A} young\_click_a \cdot x_a \geq goal\_young
+\]
+2. Total clicks from old visitors must meet the goal:
+\[
+\sum_{a=1}^{A} old\_click_a \cdot x_a \geq goal\_old
+\]
+3. Total unique clicks from young visitors must meet the goal:
+\[
+\sum_{a=1}^{A} unique\_click_a \cdot x_a \geq goal\_unique\_young
+\]
+4. Total unique clicks from old visitors must meet the goal:
+\[
+\sum_{a=1}^{A} unique\_click_a \cdot x_a \geq goal\_unique\_old
+\]
+5. Clicks for each ad type should not exceed the maximum allowable clicks:
+\[
+x_a \leq max\_click_a \quad \forall a
+\]
+6. The total cost of the campaign must not exceed the budget:
+\[
+\sum_{a=1}^{A} cost_a \cdot x_a \leq budget
+\]
+7. Non-negativity constraints:
+\[
+x_a \geq 0 \quad \forall a
+\]
+
+\end{document}

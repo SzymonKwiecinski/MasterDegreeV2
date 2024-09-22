@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Maximizing Profit}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( K \) be the number of different spare parts.
+    \item Let \( S \) be the number of shops.
+    \item \( \text{time}_{k,s} \): the required worker-hours for part \( k \) in shop \( s \).
+    \item \( \text{profit}_{k} \): the profit obtained from part \( k \).
+    \item \( \text{capacity}_{s} \): the capacity of shop \( s \) in working hours.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( \text{quantity}_{k} \) be the quantity of spare part \( k \) to be produced.
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to maximize the total profit:
+\[
+\text{Maximize} \quad Z = \sum_{k=1}^{K} \text{profit}_{k} \cdot \text{quantity}_{k}
+\]
+
+\subsection*{Constraints}
+The total worker-hours required for each shop should not exceed the shop's capacity. This can be formulated as follows:
+\[
+\text{subject to} \quad \sum_{k=1}^{K} \text{time}_{k,s} \cdot \text{quantity}_{k} \leq \text{capacity}_{s}, \quad \forall s = 1,2,\ldots,S
+\]
+
+Additionally, the quantities of the spare parts must be non-negative:
+\[
+\text{quantity}_{k} \geq 0, \quad \forall k = 1,2,\ldots,K
+\]
+
+\end{document}

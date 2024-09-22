@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $P$: Number of different parts
+    \item $M$: Number of different machines
+    \item $time_{m,p}$: Time required on machine $m$ to produce one batch of part $p$ (in hours)
+    \item $cost_{m}$: Cost per hour for using machine $m$
+    \item $available_{m}$: Availability of machine $m$ (in hours per month)
+    \item $price_{p}$: Selling price per batch of part $p$
+    \item $setup\_time_{p}$: Setup time required for part $p$ on machine 1 (in hours)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $batches_{p}$: Number of batches produced for part $p$
+    \item $setup\_flag_{p} \in \{0, 1\}$: Indicates whether part $p$ is set up (1) or not (0)
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+    \text{Maximize } \quad & total\_profit = \sum_{p=1}^{P} (price_{p} \cdot batches_{p}) - \sum_{m=1}^{M} (cost_{m} \cdot \text{hours\_used}_{m}) \\
+    \text{where } & hours\_used_{m} = \sum_{p=1}^{P} (time_{m,p} \cdot batches_{p} \cdot setup\_flag_{p}) + \sum_{p=1}^{P} (time_{m,p} \cdot batches_{p}) \text{ (for $m=1$ only)} 
+\end{align*}
+
+\textbf{Constraints:}
+\begin{align*}
+    \text{1. Machine Availability:} \quad & \sum_{p=1}^{P} (time_{m,p} \cdot batches_{p}) \leq available_{m}, \quad \forall m \in \{1, 2, \ldots, M\} \\
+    \text{2. Setup Time for Machine 1:} \quad & setup\_flag_{p} \cdot setup\_time_{p} + \sum_{p=1}^{P} (time_{1,p} \cdot batches_{p}) \leq available_{1} \\
+    \text{3. Non-negativity:} \quad & batches_{p} \geq 0, \quad \forall p \in \{1, 2, \ldots, P\} \\
+    \text{4. Setup Flag Binary:} \quad & setup\_flag_{p} \in \{0, 1\}, \quad \forall p \in \{1, 2, \ldots, P\}
+\end{align*}
+
+\textbf{Output:}
+\begin{itemize}
+    \item $batches$: The number of batches of each part produced
+    \item $setup\_flags$: Indicates whether part $p$ is set up or not
+    \item $total\_profit$: The total profit obtained for the month
+\end{itemize}
+
+\end{document}

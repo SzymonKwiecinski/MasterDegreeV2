@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model of the Communication Network Optimization Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( n \) be the number of nodes in the network.
+    \item Let \( A \) be the set of all links in the network, where a link is represented as an ordered pair \( (i, j) \).
+    \item For each link \( (i, j) \in A \), let:
+        \begin{itemize}
+            \item \( U_{i,j} \) be the maximum capacity of the link in bits per second.
+            \item \( C_{i,j} \) be the cost per bit transmitted along that link.
+        \end{itemize}
+    \item Let \( B_{k,l} \) be the rate at which node \( k \) generates data to be transmitted to node \( l \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( x_{i,j} \) be the amount of data (in bits) transmitted through link \( (i, j) \).
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the total cost of transmitting data through the network, which can be formulated as:
+\[
+\text{Minimize } Z = \sum_{(i,j) \in A} C_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Capacity constraints for each link:
+    \[
+    x_{i,j} \leq U_{i,j} \quad \forall (i, j) \in A
+    \]
+    
+    \item Flow conservation for each node \( k \):
+    \[
+    \sum_{(k,j) \in A} x_{k,j} - \sum_{(i,k) \in A} x_{i,k} = B_{k,l} \quad \forall k \text{ such that } k \text{ generates data}
+    \]
+    
+    \item Non-negativity constraints:
+    \[
+    x_{i,j} \geq 0 \quad \forall (i, j) \in A
+    \]
+\end{itemize}
+
+\subsection*{Output Information}
+\begin{itemize}
+    \item Let \( \text{total\_cost} \) be the total cost of all the paths:
+    \[
+    \text{total\_cost} = Z
+    \]
+    
+    \item Let \( \text{optimized\_paths} \) contain the paths taken for transmission:
+    \begin{itemize}
+        \item Each path includes the source \( k \), destination \( l \), the sequence of nodes traversed, \( \text{route} = [k, i_1, i_2, \ldots, l] \), the flow through that path \( \text{path\_flow} \), and the cost of the path \( \text{path\_cost} \).
+    \end{itemize}
+\end{itemize}
+
+\end{document}

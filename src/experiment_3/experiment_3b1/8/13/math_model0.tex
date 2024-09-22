@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for the Chebyshev Center of a Polyhedron}
+
+We want to find the Chebyshev center of a set \( P \) defined by the constraints:
+
+\[
+P = \{ \mathbf{x} \in \mathbb{R}^N \mid \mathbf{a}_i^T \mathbf{x} \leq b_i, \; i = 1, \ldots, m \}
+\]
+
+where \( \mathbf{a}_i \in \mathbb{R}^N \) and \( b_i \in \mathbb{R} \).
+
+Let \( \mathbf{y} \) be the center of the ball and \( r \) be the radius of the ball. The objective is to maximize the radius \( r \) such that the ball of radius \( r \) centered at \( \mathbf{y} \) is contained in the set \( P \).
+
+The ball can be represented as:
+
+\[
+\{ \mathbf{x} \in \mathbb{R}^N \mid \|\mathbf{x} - \mathbf{y}\|_2 \leq r \}
+\]
+
+This means that for each constraint \( i \):
+
+\[
+\mathbf{a}_i^T \mathbf{y} - r \|\mathbf{a}_i\|_2 \leq b_i
+\]
+
+Rearranging gives us:
+
+\[
+r \geq \frac{\mathbf{a}_i^T \mathbf{y} - b_i}{\|\mathbf{a}_i\|_2}
+\]
+
+We need to maximize \( r \) subject to the above constraints for all \( i \):
+
+\[
+\begin{align*}
+\text{Maximize} \quad & r \\
+\text{Subject to} \quad & r \leq \frac{\mathbf{a}_i^T \mathbf{y} - b_i}{\|\mathbf{a}_i\|_2}, \quad i = 1, \ldots, m \\
+& r \geq 0 \\
+& \mathbf{y} \in \mathbb{R}^N
+\end{align*}
+\]
+
+The final output will be:
+
+\[
+\text{Output} = \{ \text{center: } \mathbf{y}, \text{ radius: } r \}
+\]
+
+\end{document}

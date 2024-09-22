@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Employee Scheduling}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( N \) be the total number of days.
+    \item Let \( \text{num}_{n} \) be the desired number of employees on day \( n \) for \( n = 1, \ldots, N \).
+    \item Let \( n_{\text{working}} \) be the number of consecutive working days for each employee.
+    \item Let \( n_{\text{resting}} \) be the number of consecutive resting days for each employee.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( \text{total\_number} \) be the total number of employees to hire.
+    \item Let \( \text{is\_work}_{n, i} \) be a binary variable, where \( \text{is\_work}_{n, i} = 1 \) if employee \( i \) is working on day \( n \) and \( 0 \) otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total number of employees:
+\[
+\text{minimize} \quad \text{total\_number}
+\]
+
+\subsection*{Constraints}
+1. Ensure that the number of employees working on each day meets the requirement:
+\[
+\sum_{i=1}^{\text{total\_number}} \text{is\_work}_{n, i} \geq \text{num}_{n}, \quad \forall n \in \{1, \ldots, N\}
+\]
+
+2. Define the working and resting cycle for each employee:
+\[
+\text{is\_work}_{n, i} = 1 \quad \text{for } n = k(n_{\text{working}} + n_{\text{resting}}) + j, \quad \text{with } j = 0, \ldots, n_{\text{working}} - 1
+\]
+\[
+\text{is\_work}_{n, i} = 0 \quad \text{for } n = k(n_{\text{working}} + n_{\text{resting}}) + j, \quad \text{with } j = n_{\text{working}}, \ldots, n_{\text{working}} + n_{\text{resting}} - 1
+\]
+where \( k \) is a non-negative integer determined by the employee's work cycle.
+
+\end{document}

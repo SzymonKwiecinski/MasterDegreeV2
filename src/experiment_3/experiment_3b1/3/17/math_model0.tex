@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Investor's Stock Sale}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item $i = 1, 2, \ldots, N$ (the index for different stocks)
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $bought_i$: Number of shares bought of stock $i$
+    \item $buyPrice_i$: Purchase price of stock $i$
+    \item $currentPrice_i$: Current price of stock $i$
+    \item $futurePrice_i$: Expected future price of stock $i$ in one year
+    \item $transactionRate$: Transaction cost rate (in percent)
+    \item $taxRate$: Tax rate on capital gains (in percent)
+    \item $K$: Amount of money to be raised net of capital gains and transaction costs
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item $sell_i$: Number of shares of stock $i$ to sell
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+    \text{Maximize} \quad & \sum_{i=1}^{N} \left( futurePrice_i \cdot (bought_i - sell_i) \right) \\
+\end{align*}
+
+\textbf{Constraints:}
+\begin{align*}
+    \sum_{i=1}^{N} \left( (currentPrice_i \cdot sell_i) \cdot (1 - \frac{transactionRate}{100}) - (sell_i \cdot buyPrice_i \cdot (1 - \frac{taxRate}{100})) \right) & \geq K \\
+    0 \leq sell_i & \leq bought_i \quad \forall i \\
+\end{align*}
+
+\textbf{Output:}
+\begin{itemize}
+    \item $sell = [sell_1, sell_2, \ldots, sell_N]$
+\end{itemize}
+
+\end{document}

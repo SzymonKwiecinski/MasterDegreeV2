@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item Let \( b_p \) be the number of batches produced for part \( p \) where \( p = 1, 2, \ldots, P \).
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( time_{m,p} \): hours required on machine \( m \) to produce a batch of part \( p \).
+    \item \( cost_m \): cost per hour of using machine \( m \).
+    \item \( available_m \): total available hours of machine \( m \) per month.
+    \item \( price_p \): selling price per batch of part \( p \).
+    \item \( min\_batches_p \): minimum batches that must be produced for part \( p \).
+    \item \( standard\_cost \): cost per hour for standard labor.
+    \item \( overtime\_cost \): cost per hour for overtime labor.
+    \item \( overtime\_hour \): threshold hours for paying overtime.
+    \item \( min\_profit \): minimum desired profit for the month.
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+    \text{Maximize} \quad Z &= \sum_{p=1}^P \left( price_p \cdot b_p \right) - \sum_{m=1}^M \left( cost_m \cdot \sum_{p=1}^P \left( time_{m,p} \cdot b_p \right) \right) - \text{Labor Costs}
+\end{align*}
+
+\textbf{Labor Costs:}
+\begin{align*}
+    \text{Labor Costs} &= \begin{cases} 
+    standard\_cost \cdot \text{Total Hours} & \text{if Total Hours} \leq overtime\_hour \\
+    standard\_cost \cdot overtime\_hour + overtime\_cost \cdot (\text{Total Hours} - overtime\_hour) & \text{if Total Hours} > overtime\_hour 
+    \end{cases}
+\end{align*}
+
+Where Total Hours is the total time spent on machine 1, calculated as:
+\[
+\text{Total Hours} = \sum_{p=1}^P (time_{1,p} \cdot b_p)
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+    1. & \quad b_p \geq min\_batches_p, \quad \forall p = 1, \ldots, P \\
+    2. & \quad \sum_{p=1}^P (time_{m,p} \cdot b_p) \leq available_m, \quad \forall m = 1, \ldots, M \\
+    3. & \quad Z \geq min\_profit
+\end{align*}
+
+\textbf{Output:}
+\begin{itemize}
+    \item \( batches = [b_1, b_2, \ldots, b_P] \)
+    \item \( total\_profit = Z \)
+\end{itemize}
+
+\end{document}

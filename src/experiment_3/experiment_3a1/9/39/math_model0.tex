@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Cafeteria Staffing Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( N \) be the total number of days.
+    \item Let \( num_n \) denote the required number of employees on day \( n \) for \( n = 1, 2, \ldots, N \).
+    \item Let \( n_{\text{working}} \) be the number of consecutive working days an employee has.
+    \item Let \( n_{\text{resting}} \) be the number of consecutive resting days an employee has.
+    \item Let \( total\_number \) be the total number of employees to hire.
+    \item Let \( is\_work_{n,i} \) be a binary decision variable indicating whether employee \( i \) is working on day \( n \) (1 if working, 0 if resting).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( total\_number \): total number of employees to hire.
+    \item \( is\_work_{n,i} \) for \( n = 1, \ldots, N \) and \( i = 1, \ldots, total\_number \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total number of employees:
+\[
+\text{Minimize } total\_number
+\]
+
+\subsection*{Constraints}
+For each day \( n \), the sum of employees working must meet the requirement:
+\[
+\sum_{i=1}^{total\_number} is\_work_{n,i} \geq num_n, \quad \forall n = 1, \ldots, N
+\]
+
+Additionally, for each employee \( i \), the working and resting schedule must follow the constraints:
+\[
+is\_work_{n,i} = 1 \quad \text{for } n \in [k, k+n_{\text{working}} - 1] \text{ and } 0 \text{ for } n \in [k+n_{\text{working}}, k+n_{\text{working}} + n_{\text{resting}} - 1]
+\]
+for \( k \) indicating any starting day where employee \( i \) starts their cycle.
+
+This implies that the pattern of work and rest for each employee is cyclic with a length of \( n_{\text{working}} + n_{\text{resting}} \).
+
+\subsection*{Output}
+The output format will be:
+\[
+\{ 
+  "total\_number": total\_number, 
+  "is\_work": [[is\_work_{n,i} \text{ for } n = 1,\ldots,N] \text{ for } i = 1,\ldots,total\_number] 
+\}
+\]
+
+\end{document}

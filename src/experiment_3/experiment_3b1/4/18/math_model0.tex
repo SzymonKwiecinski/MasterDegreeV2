@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Oil Manufacturing}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item $buyquantity_{i,m}$ = amount of oil $i$ purchased in month $m$
+    \item $refine_{i,m}$ = amount of oil $i$ refined in month $m$
+    \item $storage_{i,m}$ = amount of oil $i$ in storage at the end of month $m$
+\end{itemize}
+for $i = 1, \ldots, I$ and $m = 1, \ldots, M$.
+
+\subsection*{Parameters}
+Given:
+\begin{itemize}
+    \item $price_{i,m}$ = purchase price of oil $i$ in month $m$
+    \item $sell\_price$ = selling price of the final product per ton
+    \item $is\_vegetable_{i}$ = binary indicator, 1 if oil $i$ is vegetable, 0 otherwise
+    \item $max\_veg$ = max refining capacity for vegetable oils per month
+    \item $max\_veg$ = max refining capacity for non-vegetable oils per month
+    \item $storage\_size$ = maximum storage capacity for each oil
+    \item $storage\_cost$ = cost of storage per ton per month
+    \item $max\_hardness$ = maximum allowable hardness for the final product
+    \item $min\_hardness$ = minimum allowable hardness for the final product
+    \item $hardness_{i}$ = hardness of oil $i$
+    \item $init\_amount$ = initial amount of each type of raw oil in storage
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize profit:
+\[
+Z = \sum_{m=1}^{M}\left( sell\_price \cdot \sum_{i=1}^{I} refine_{i,m} - \sum_{i=1}^{I} price_{i,m} \cdot buyquantity_{i,m} - storage\_cost \cdot \sum_{i=1}^{I} storage_{i,m} \right)
+\]
+
+\subsection*{Constraints}
+1. \textbf{Storage Dynamics}:
+\[
+storage_{i,m} = storage_{i,m-1} + buyquantity_{i,m} - refine_{i,m}, \quad \forall i, m
+\]
+2. \textbf{Initial Storage}:
+\[
+storage_{i,0} = init\_amount, \quad \forall i
+\]
+3. \textbf{Final Storage}:
+\[
+storage_{i,M} = init\_amount, \quad \forall i
+\]
+4. \textbf{Refining Capacity}:
+\[
+\sum_{i \,|\, is\_vegetable_{i}=1} refine_{i,m} \leq max\_veg, \quad \forall m
+\]
+\[
+\sum_{i \,|\, is\_vegetable_{i}=0} refine_{i,m} \leq max\_veg, \quad \forall m
+\]
+5. \textbf{Storage Capacity}:
+\[
+storage_{i,m} \leq storage\_size, \quad \forall i, m
+\]
+6. \textbf{Hardness Constraint}:
+\[
+min\_hardness \leq \frac{\sum_{i=1}^{I} hardness_{i} \cdot refine_{i,m}}{\sum_{i=1}^{I} refine_{i,m}} \leq max\_hardness, \quad \forall m
+\]
+7. \textbf{Non-negativity}:
+\[
+buyquantity_{i,m} \geq 0, \quad refine_{i,m} \geq 0, \quad storage_{i,m} \geq 0, \quad \forall i, m
+\]
+
+\end{document}

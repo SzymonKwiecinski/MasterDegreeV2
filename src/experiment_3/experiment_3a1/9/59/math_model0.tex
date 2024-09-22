@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Translator Selection Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( N \): Total number of translators available.
+    \item \( M \): Total number of required languages.
+    \item \( \text{cost}_i \): Cost of hiring translator \( i \) (for \( i = 1, \ldots, N \)).
+    \item \( \text{languages}_i \): Set of languages translator \( i \) can translate into.
+    \item \( \text{required\_languages} = \{language_1, language_2, \ldots, language_M\} \): Set of languages that need to be translated.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_i \): Binary variable indicating whether translator \( i \) is hired (\( x_i = 1 \)) or not (\( x_i = 0 \)).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost of hiring translators:
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} \text{cost}_i \cdot x_i
+\]
+
+\subsection*{Constraints}
+1. Ensure all required languages are covered:
+\[
+\sum_{i=1}^{N} x_i \cdot \mathbb{1}_{\text{language}_j \in \text{languages}_i} \geq 1 \quad \forall j = 1, \ldots, M
+\]
+where \( \mathbb{1}_{\text{language}_j \in \text{languages}_i} \) is an indicator function that equals 1 if language \( j \) is included in the languages translated by translator \( i \), and 0 otherwise.
+
+2. Binary decision variables:
+\[
+x_i \in \{0, 1\} \quad \forall i = 1, \ldots, N
+\]
+
+\subsection*{Output}
+The output will include:
+\begin{itemize}
+    \item \( \text{selected\_translators} \): List of translator IDs selected.
+    \item \( \text{total\_cost} \): Total cost for hiring the selected translators.
+\end{itemize}
+
+\end{document}

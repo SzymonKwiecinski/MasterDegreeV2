@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Custom Tees Advertising Campaign}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $A$: Number of different ad types
+    \item $goal\_young$: Target clicks from visitors aged 18-25 (in thousands)
+    \item $goal\_old$: Target clicks from visitors older than 25 (in thousands)
+    \item $goal\_unique\_young$: Target unique clicks from visitors aged 18-25 (in thousands)
+    \item $goal\_unique\_old$: Target unique clicks from visitors older than 25 (in thousands)
+    \item $young\_click_{a}$: Percentage of clicks from age 18-25 for ad type $a$
+    \item $old\_click_{a}$: Percentage of clicks from older visitors for ad type $a$
+    \item $cost_{a}$: Cost per 1000 clicks for ad type $a$
+    \item $max\_click_{a}$: Maximum allowable clicks for ad type $a$ (in thousands)
+    \item $unique\_click_{a}$: Estimated percentage of unique visitors for ad type $a$
+    \item $budget$: Total advertising budget
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $clicks_{a}$: Number of clicks purchased for ad type $a$ (in thousands), for $a = 1, \ldots, A$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total number of unique clicks:
+\[
+\text{Maximize } Z = \sum_{a=1}^{A} unique\_click_{a} \cdot clicks_{a}
+\]
+
+\subsection*{Constraints}
+1. Total clicks from age group 18-25:
+\[
+\sum_{a=1}^{A} young\_click_{a} \cdot clicks_{a} \geq goal\_young
+\]
+
+2. Total clicks from age group older than 25:
+\[
+\sum_{a=1}^{A} old\_click_{a} \cdot clicks_{a} \geq goal\_old
+\]
+
+3. Total unique clicks from age group 18-25:
+\[
+\sum_{a=1}^{A} unique\_click_{a} \cdot clicks_{a} \geq goal\_unique\_young
+\]
+
+4. Total unique clicks from age group older than 25:
+\[
+\sum_{a=1}^{A} unique\_click_{a} \cdot clicks_{a} \geq goal\_unique\_old
+\]
+
+5. Budget constraint:
+\[
+\sum_{a=1}^{A} cost_{a} \cdot clicks_{a} \leq budget
+\]
+
+6. Maximum clicks per ad type:
+\[
+0 \leq clicks_{a} \leq max\_click_{a}, \quad \forall a \in \{1, \ldots, A\}
+\]
+
+\subsection*{Output}
+\begin{itemize}
+    \item \textbf{Clicks Requested}: $[clicks_{1}, clicks_{2}, \ldots, clicks_{A}]$
+    \item \textbf{Total Unique Clicks}: $total\_unique\_clicks$
+\end{itemize}
+
+\end{document}

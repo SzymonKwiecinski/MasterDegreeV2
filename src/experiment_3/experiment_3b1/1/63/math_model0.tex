@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Paper Cutting Problem}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $L$: Large roll width (in inches)
+    \item $M$: Number of different types of smaller rolls
+    \item $N$: Number of different cutting patterns
+    \item $d_j$: Demand for rolls of width $j$, for $j = 1, \ldots, M$
+    \item $p_{i,j}$: Number of rolls of width $j$ produced by pattern $i$, for $i = 1, \ldots, N$ and $j = 1, \ldots, M$
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_i$: Number of large rolls cut according to pattern $i$, for $i = 1, \ldots, N$
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+    \text{Minimize } & \sum_{i=1}^{N} x_i
+\end{align*}
+
+\textbf{Constraints:}
+\begin{align*}
+    \sum_{i=1}^{N} p_{i,j} x_i & \geq d_j && \text{for } j = 1, \ldots, M \quad \text{(Demand constraints)} \\
+    \sum_{j=1}^{M} p_{i,j} & \leq L && \text{for } i = 1, \ldots, N \quad \text{(Cutting pattern constraints)} \\
+    x_i & \geq 0 && \text{for } i = 1, \ldots, N \quad \text{(Non-negativity constraints)} \\
+\end{align*}
+
+\textbf{Output:}
+\begin{itemize}
+    \item Patterns used and their amounts: 
+    \[
+    \text{patterns} = \{ (pattern_i, amount_i) \mid i = 1, \ldots, N \}
+    \]
+    \item Total number of large rolls used:
+    \[
+    \text{total\_large\_rolls\_used} = \sum_{i=1}^{N} x_i
+    \]
+\end{itemize}
+
+\end{document}

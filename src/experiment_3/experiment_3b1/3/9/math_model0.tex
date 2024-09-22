@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Road Illumination}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item Let \( power_j \) be the power of the \( j \)-th lamp, for \( j = 1, \ldots, M \).
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item Let \( coeff_{i,j} \) be the coefficient that represents the contribution of the \( j \)-th lamp to the illumination of the \( i \)-th segment, for \( i = 1, \ldots, N \) and \( j = 1, \ldots, M \).
+    \item Let \( desired_i \) be the desired illumination level for segment \( i \), for \( i = 1, \ldots, N \).
+\end{itemize}
+
+\textbf{Objective:}
+Minimize the total absolute error between the actual illumination \( ill_i \) and the desired illumination \( desired_i \):
+\[
+\text{minimize } \sum_{i=1}^{N} |ill_i - desired_i|
+\]
+
+\textbf{Where:}
+\[
+ill_i = \sum_{j=1}^{M} coeff_{i,j} \cdot power_j
+\]
+
+This can be transformed into a linear programming problem by introducing auxiliary variables \( e_i \) for the absolute errors:
+\[
+\text{minimize } \sum_{i=1}^{N} e_i
+\]
+
+Subject to:
+\[
+ill_i - desired_i \leq e_i, \quad i = 1, \ldots, N
+\]
+\[
+desired_i - ill_i \leq e_i, \quad i = 1, \ldots, N
+\]
+
+Additionally, we will have the following constraints on the decision variables:
+\[
+power_j \geq 0, \quad j = 1, \ldots, M
+\]
+
+\textbf{Output:}
+\begin{itemize}
+    \item \( power_j \): the optimal power of the \( j \)-th lamp.
+    \item \( error \): the total absolute error between the actual illuminations and the desired illuminations.
+\end{itemize}
+
+\end{document}

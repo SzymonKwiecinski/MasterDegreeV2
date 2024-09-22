@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Best Fit Line}
+
+Given observed values of \( y \) and \( x \) represented as:
+\[
+y = [y_k \text{ for } k = 1, \ldots, K] \quad \text{and} \quad x = [x_k \text{ for } k = 1, \ldots, K]
+\]
+
+we need to fit the best straight line of the form:
+\[
+y = bx + a
+\]
+where \( b \) is the slope and \( a \) is the intercept.
+
+\subsection*{Objective}
+The objective is to minimize the maximum deviation of the observed values \( y_k \) from the predicted values \( \hat{y_k} = bx_k + a \) for each \( k \). 
+
+Let \( d_k \) be the deviation for each observed value:
+\[
+d_k = y_k - (bx_k + a)
+\]
+
+We want to minimize:
+\[
+\text{max }\{ d_k \} \quad \text{for } k = 1, \ldots, K
+\]
+
+This leads to the following linear programming formulation:
+
+\subsection*{Decision Variables}
+- \( a \): Intercept of the fitted line
+- \( b \): Slope of the fitted line
+- \( M \): A non-negative variable representing the maximum deviation
+
+\subsection*{Constraints}
+The deviations must be bounded by \( M \):
+\[
+y_k - (bx_k + a) \leq M \quad \text{for } k = 1, \ldots, K
+\]
+\[
+-(y_k - (bx_k + a)) \leq M \quad \text{for } k = 1, \ldots, K
+\]
+
+\subsection*{Objective Function}
+The objective function is to minimize \( M \):
+\[
+\text{Minimize } M
+\]
+
+\subsection*{Final Model}
+The complete linear programming model can be summarized as follows:
+
+\[
+\begin{align*}
+\text{Minimize } & M \\
+\text{Subject to } & \\
+& y_k - (bx_k + a) \leq M, \quad k = 1, \ldots, K \\
+& -(y_k - (bx_k + a)) \leq M, \quad k = 1, \ldots, K \\
+& M \geq 0 \\
+& a, b \text{ free}
+\end{align*}
+\]
+
+\subsection*{Output}
+The output will be:
+\[
+\{
+    \text{"intercept"}: a,
+    \text{"slope"}: b
+\}
+\]
+
+\end{document}

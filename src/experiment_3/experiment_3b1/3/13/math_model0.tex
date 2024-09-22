@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+We are given a set \( P \) defined by the following linear inequality constraints:
+\[
+P = \{ \mathbf{x} \in \mathbb{R}^N \mid \mathbf{a}_i^T \mathbf{x} \leq b_i, \; i = 1, \ldots, m \}
+\]
+where \( \mathbf{a}_i \in \mathbb{R}^N \) and \( b_i \in \mathbb{R} \).
+
+Our goal is to find a ball centered at \( \mathbf{y} \) with radius \( r \) such that the ball is entirely contained within the set \( P \). Formally, we define the ball as:
+\[
+B(\mathbf{y}, r) = \{ \mathbf{x} \in \mathbb{R}^N \mid \|\mathbf{x} - \mathbf{y}\|_2 \leq r \}
+\]
+where \( \|\cdot\|_2 \) denotes the Euclidean norm.
+
+The center of the largest possible ball entirely within \( P \) is known as the Chebyshev center of \( P \).
+
+The optimization problem can be stated as:
+\[
+\begin{align*}
+\text{maximize} \quad & r \\
+\text{subject to} \quad & \mathbf{a}_i^T \mathbf{y} + r \|\mathbf{a}_i\|_2 \leq b_i, \; i = 1, \ldots, m \\
+& r \geq 0
+\end{align*}
+\]
+
+The input format consists of:
+\[
+\text{Input} = \{
+    "A": [[a_{i,j} \text{ for } j=1, \ldots, N] \text{ for } i=1, \ldots, m],
+    "b": [b_i \text{ for } i=1, \ldots, m]
+\}
+\]
+
+The output should specify:
+\[
+\text{Output} = \{
+    "center": [y_j \text{ for } j=1, \ldots, N],
+    "radius": r
+\}
+\]
+
+\end{document}

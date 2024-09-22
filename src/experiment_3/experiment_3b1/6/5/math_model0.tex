@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Communication Network Optimization}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let $n$ be the number of nodes in the network.
+    \item Let $A$ be the set of all communication links $(i,j)$ where $i,j \in \{1,\ldots,n\}$.
+    \item Let $U_{i,j}$ be the maximum capacity of the link $(i,j)$ in bits per second.
+    \item Let $C_{i,j}$ be the cost per bit transmitted along the link $(i,j)$.
+    \item Let $B_{k,l}$ be the data generation rate from node $k$ to node $l$ in bits per second.
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let $x_{i,j}$ be the flow of data on link $(i,j)$ in bits per second.
+
+\subsection*{Objective Function}
+Minimize the total cost of transmitting data through the network:
+\[
+\text{Minimize } Z = \sum_{(i,j) \in A} C_{i,j} x_{i,j}
+\]
+
+\subsection*{Constraints}
+1. Flow conservation for each node (except source and destination):
+\[
+\sum_{j: (i,j) \in A} x_{i,j} - \sum_{j: (j,i) \in A} x_{j,i} = 
+\begin{cases}
+B_{k,l} & \text{if } i = k \text{ (source)} \\
+-B_{k,l} & \text{if } i = l \text{ (destination)} \\
+0 & \text{otherwise}
+\end{cases}
+\quad \forall i \in \{1,\ldots,n\}
+\]
+
+2. Capacity constraints for each link:
+\[
+x_{i,j} \leq U_{i,j} \quad \forall (i,j) \in A
+\]
+
+3. Non-negativity constraints:
+\[
+x_{i,j} \geq 0 \quad \forall (i,j) \in A
+\]
+
+\subsection*{Output Variables}
+Let:
+- $\text{path\_flow}$ be the flow going through each path.
+- $\text{path\_cost}$ be the cost of the corresponding path.
+- $\text{total\_cost}$ represent the total cost of all the paths.
+
+\subsection*{Output Format}
+The optimization problem results in an output formatted as follows:
+\begin{verbatim}
+{
+    "optimized_paths": {
+        "paths": [
+            {
+                "source": k,
+                "destination": l,
+                "route": [k, i_1, i_2, ..., l],
+                "path_flow": path_flow,
+                "path_cost": path_cost
+            }
+        ],
+    "total_cost": total_cost
+}
+\end{verbatim}
+
+\end{document}

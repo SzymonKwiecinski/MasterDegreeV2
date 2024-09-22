@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Parameters}
+\begin{align*}
+& M: \text{Number of machines} \\
+& K: \text{Number of products} \\
+& I: \text{Number of months} \\
+& \text{profit}_{k}: \text{Profit from product } k \quad (k = 1, \ldots, K) \\
+& \text{time}_{k, m}: \text{Production time for product } k \text{ on machine } m \quad (k = 1, \ldots, K; \, m = 1, \ldots, M) \\
+& \text{maintain}_{i, m}: \text{Number of machines down in month } i \quad (i = 1, \ldots, I; \, m = 1, \ldots, M) \\
+& \text{limit}_{k, i}: \text{Marketing limitation for product } k \text{ in month } i \quad (k = 1, \ldots, K; \, i = 1, \ldots, I) \\
+& \text{store\_price}: \text{Storage cost per unit per month} \\
+& \text{keep\_quantity}: \text{Desired stock of each product at the end of the month} \\
+& n_{\text{workhours}}: \text{Hours of work per day} \\
+& N: 24 \text{ days in a month} \\
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+& \text{sell}_{k, i}: \text{Quantity sold of product } k \text{ in month } i \quad (k = 1, \ldots, K; \, i = 1, \ldots, I) \\
+& \text{manufacture}_{k, i}: \text{Quantity manufactured of product } k \text{ in month } i \quad (k = 1, \ldots, K; \, i = 1, \ldots, I) \\
+& \text{storage}_{k, i}: \text{Quantity stored of product } k \text{ in month } i \quad (k = 1, \ldots, K; \, i = 1, \ldots, I) \\
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\begin{align}
+\max Z = \sum_{i=1}^{I}\sum_{k=1}^{K} \left( \text{profit}_{k} \cdot \text{sell}_{k, i} - \text{store\_price} \cdot \text{storage}_{k, i} \right)
+\end{align}
+
+\subsection*{Constraints}
+1. Production time constraint:
+\begin{align}
+\sum_{k=1}^{K} \text{time}_{k, m} \cdot \text{manufacture}_{k, i} \leq (n_{\text{workhours}} \cdot 6 \cdot (24 - \text{maintain}_{i, m})) \quad \forall m, i
+\end{align}
+
+2. Marketing limitation:
+\begin{align}
+\text{sell}_{k, i} \leq \text{limit}_{k, i} \quad \forall k, i
+\end{align}
+
+3. Relation between sell, manufacture and storage:
+\begin{align}
+\text{storage}_{k, i-1} + \text{manufacture}_{k, i} - \text{sell}_{k, i} = \text{storage}_{k, i} \quad \forall k, i
+\end{align}
+
+4. End of month storage requirement:
+\begin{align}
+\text{storage}_{k, I} \geq \text{keep\_quantity} \quad \forall k
+\end{align}
+
+5. Non-negativity constraints:
+\begin{align}
+\text{sell}_{k, i} \geq 0, \quad \text{manufacture}_{k, i} \geq 0, \quad \text{storage}_{k, i} \geq 0 \quad \forall k, i
+\end{align}
+
+\end{document}

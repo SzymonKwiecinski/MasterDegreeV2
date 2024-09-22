@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Production and Inventory Scheduling}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( T \): Total number of months
+    \item \( \text{deliver}_i \): Units to deliver at the end of month \( i \) for \( i = 1, \ldots, T \)
+    \item \( \text{storage\_cost} \): Cost for storing one unit of inventory for one month
+    \item \( \text{switch\_cost} \): Cost incurred for switching production levels between months
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_i \): Units produced in month \( i \) for \( i = 1, \ldots, T \)
+    \item \( I_i \): Inventory at the end of month \( i \) for \( i = 1, \ldots, T \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Cost} = \sum_{i=1}^{T} \left(\text{storage\_cost} \cdot I_i + \text{switch\_cost} \cdot |x_{i+1} - x_i|\right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+    I_0 & = 0 \quad \text{(Initial inventory is zero)} \\
+    I_i & = I_{i-1} + x_i - \text{deliver}_i \quad \text{for } i = 1, \ldots, T \\
+    I_i & \geq 0 \quad \text{(No negative inventory)} \\
+    x_i & \geq 0 \quad \text{for } i = 1, \ldots, T \\
+\end{align*}
+
+\subsection*{Output}
+The solution should provide:
+\begin{itemize}
+    \item \( x = [x_1, x_2, \ldots, x_T] \): Production schedule
+    \item \(\text{cost}\): Total cost incurred
+\end{itemize}
+
+\end{document}

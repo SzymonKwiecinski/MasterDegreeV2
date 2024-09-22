@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Cafeteria Staffing}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( N \) be the total number of days.
+    \item Let \( \text{num}_{n} \) be the number of required employees on day \( n \) for \( n = 1, \ldots, N \).
+    \item Let \( n_{\text{working}} \) be the number of consecutive working days for each employee.
+    \item Let \( n_{\text{resting}} \) be the number of consecutive resting days for each employee.
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item Let \( total\_number \) be the total number of employees to hire.
+    \item Let \( is\_work_{n,i} \) be a binary variable that equals 1 if employee \( i \) is working on day \( n \), and 0 otherwise, for \( n = 1, \ldots, N \) and \( i = 1, \ldots, total\_number \).
+\end{itemize}
+
+\subsection*{Objective}
+Minimize the total number of employees:
+\[
+\text{Minimize} \quad total\_number
+\]
+
+\subsection*{Constraints}
+For each day \( n \):
+\[
+\sum_{i=1}^{total\_number} is\_work_{n,i} \geq \text{num}_{n} \quad \forall n = 1, \ldots, N
+\]
+
+Each employee \( i \) can work for \( n_{\text{working}} \) days and must rest for \( n_{\text{resting}} \) days:
+\[
+is\_work_{n,i} + is\_work_{n+1,i} + \ldots + is\_work_{n+n_{\text{working}}-1,i} \leq n_{\text{working}} \quad \forall n = 1, \ldots, N - n_{\text{working}} + 1
+\]
+\[
+is\_work_{n+n_{\text{working}},i} + is\_work_{n+n_{\text{working}}+1,i} + \ldots + is\_work_{n+n_{\text{working}}+n_{\text{resting}}-1,i} = 0 \quad \forall n = 1, \ldots, N - n_{\text{working}} - n_{\text{resting}} + 1
+\]
+
+\subsection*{Output}
+The output will consist of:
+\begin{itemize}
+    \item \( total\_number \): the total number of employees hired.
+    \item \( is\_work \): a matrix where each entry \( is\_work_{n,i} \) indicates whether employee \( i \) works on day \( n \).
+\end{itemize}
+
+\end{document}

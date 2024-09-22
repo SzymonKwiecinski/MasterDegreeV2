@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Paper Cutting Problem}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $L$: Width of the large roll (inches)
+    \item $M$: Number of different types of smaller rolls
+    \item $d_j$: Demand for rolls of width $j$ (for $j = 1, \ldots, M$)
+    \item $P_{i,j}$: Number of rolls of width $j$ produced by cutting pattern $i$ (for $i = 1, \ldots, N$, $j = 1, \ldots, M$)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_i$: Number of large rolls used with cutting pattern $i$ (for $i = 1, \ldots, N$)
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} x_i
+\]
+where $Z$ is the total number of large rolls used.
+
+\textbf{Constraints:}
+\begin{itemize}
+    \item Demand satisfaction:
+    \[
+    \sum_{i=1}^{N} P_{i,j} x_i \geq d_j \quad \forall j = 1, 2, \ldots, M
+    \]
+    
+    \item Non-negativity:
+    \[
+    x_i \geq 0 \quad \forall i = 1, 2, \ldots, N
+    \]
+\end{itemize}
+
+\end{document}

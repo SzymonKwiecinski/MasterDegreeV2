@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Quadratic Curve Fitting using Linear Programming}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+
+Given a set of observed values for \( y \) and corresponding values for \( x \):
+
+\[
+y = [y_{k} \text{ for } k = 1,\ldots,K], \quad x = [x_{k} \text{ for } k = 1,\ldots,K]
+\]
+
+We want to fit the best quadratic curve of the form:
+
+\[
+y = c \cdot x^2 + b \cdot x + a
+\]
+
+The objective is to minimize the sum of absolute deviations of each observed value of \( y \) from the value predicted by the quadratic relationship. This can be mathematically formulated as:
+
+\[
+\text{Minimize} \quad Z = \sum_{k=1}^{K} |y_{k} - (c \cdot x_{k}^2 + b \cdot x_{k} + a)|
+\]
+
+\section*{Mathematical Model}
+
+To handle the absolute value, we introduce auxiliary variables \( d_{k} \) for each \( k \) such that:
+
+\[
+d_{k} \geq y_{k} - (c \cdot x_{k}^2 + b \cdot x_{k} + a)
+\]
+\[
+d_{k} \geq -(y_{k} - (c \cdot x_{k}^2 + b \cdot x_{k} + a))
+\]
+
+Thus, the linear programming formulation becomes:
+
+\[
+\text{Minimize} \quad Z = \sum_{k=1}^{K} d_{k}
+\]
+
+Subject to the constraints:
+
+\[
+d_{k} \geq y_{k} - (c \cdot x_{k}^2 + b \cdot x_{k} + a), \quad \forall k
+\]
+\[
+d_{k} \geq -(y_{k} - (c \cdot x_{k}^2 + b \cdot x_{k} + a)), \quad \forall k
+\]
+\[
+d_{k} \geq 0, \quad \forall k
+\]
+
+\section*{Output}
+
+The output will consist of the coefficients obtained from the optimization:
+
+\[
+\text{Output: } \{ 
+\text{"quadratic"} : c, 
+\text{"linear"} : b, 
+\text{"constant"} : a 
+\}
+\]
+
+\end{document}

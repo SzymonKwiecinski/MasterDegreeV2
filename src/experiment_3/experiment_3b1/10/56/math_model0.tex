@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Problem Formulation}
+
+We want to optimize the delivery path for a person starting from the intersection of the 1st Avenue and 1st Street to reach the intersection of the Wth Avenue and Nth Street in a N-1 × W-1 grid. The criterion is to minimize the total travel time.
+
+\subsection*{Variables}
+
+Let:
+\begin{itemize}
+    \item \( x_{n,w} \) = time taken to travel either north or west from the intersection of the \( w \)th Avenue and \( n \)th Street.
+    \item \( \text{west\_time}_{n,w} \) = time taken to move from the intersection of \( w \)th Avenue and \( n \)th Street to the intersection of \( (w+1) \)th Avenue and \( n \)th Street.
+    \item \( \text{north\_time}_{n,w} \) = time taken to move from the intersection of \( w \)th Avenue and \( n \)th Street to the intersection of \( w \)th Avenue and \( (n+1) \)th Street.
+\end{itemize}
+
+\subsection*{Objective Function}
+
+The objective is to minimize the total travel time \( T \):
+
+\[
+\min T = \sum_{i=1}^{m} x_{n_i, w_i}
+\]
+
+Where \( m \) is the number of stages (or steps taken).
+
+\subsection*{Constraints}
+
+The movement is restricted to going north or west:
+
+1. From the intersection of \( (w, n) \):
+   \[
+   x_{n,w} = \begin{cases}
+   \text{west\_time}_{n,w} + x_{n,w+1}, & \text{if moving west} \\
+   \text{north\_time}_{n,w} + x_{n+1,w}, & \text{if moving north}
+   \end{cases}
+   \]
+
+2. The boundary conditions are:
+   \[
+   x_{N-1, W} = 0 \quad \text{(destination)}
+   \]
+   \[
+   x_{N, W-1} = 0 \quad \text{(destination)}
+   \]
+
+\subsection*{Output}
+
+The solution will yield:
+\begin{itemize}
+    \item \( \text{paths} \): A sequence of intersections representing the optimal path taken.
+    \item \( \text{total\_time} \): Total time spent to complete the path.
+\end{itemize}
+
+\end{document}

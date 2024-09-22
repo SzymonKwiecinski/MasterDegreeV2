@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Quadratic Curve Fitting}
+
+Let the set of observed pairs be defined as:  
+\[
+\{(x_k, y_k) \mid k = 1, \ldots, K\}
+\]
+
+The objective is to find the coefficients \( c \), \( b \), and \( a \) such that the quadratic function 
+\[
+y = c x^2 + b x + a
+\]
+best fits the data points by minimizing the sum of absolute deviations between the observed values \( y_k \) and the predicted values from the model. 
+
+This leads to the optimization problem:
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} |y_k - (c x_k^2 + b x_k + a)|
+\]
+
+Let \( d_k = y_k - (c x_k^2 + b x_k + a) \). We can rewrite the minimization of absolute deviations as:
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} d_k
+\]
+subject to:
+\[
+d_k \geq y_k - (c x_k^2 + b x_k + a), \quad \forall k
+\]
+\[
+d_k \geq -(y_k - (c x_k^2 + b x_k + a)), \quad \forall k
+\]
+
+Thus, the complete linear programming formulation is:
+\[
+\begin{aligned}
+& \text{Minimize} && \sum_{k=1}^{K} d_k \\
+& \text{subject to} && d_k \geq y_k - (c x_k^2 + b x_k + a), \quad \forall k \\
+& & & d_k \geq -(y_k - (c x_k^2 + b x_k + a)), \quad \forall k \\
+\end{aligned}
+\]
+
+The final output parameters representing the coefficients of the quadratic, linear, and constant terms are as follows:
+\[
+\begin{aligned}
+& \text{quadratic} = c, \\
+& \text{linear} = b, \\
+& \text{constant} = a.
+\end{aligned}
+\]
+
+\end{document}

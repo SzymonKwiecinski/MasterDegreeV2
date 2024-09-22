@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let $x_s$ be the number of police officers assigned to shift $s$ for $s = 1, \ldots, S$.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $officers\_needed_{s}$: Number of officers needed for shift $s$.
+    \item $shift\_cost_{s}$: Cost incurred by starting shift $s$.
+\end{itemize}
+
+\textbf{Objective:}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{s=1}^{S} shift\_cost_{s} \cdot x_s
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+x_s & \geq officers\_needed_{s} \quad \forall s = 1, \ldots, S \\
+x_s & = x_{s-1} \quad \text{if shift } s \text{ starts before shift } s - 1 \quad \forall s = 2, \ldots, S \\
+x_1 & \geq officers\_needed_{1} \\
+\end{align*}
+
+\textbf{Output:}
+\begin{itemize}
+    \item $officers\_assigned = [x_1, x_2, \ldots, x_S]$
+    \item $total\_cost = Z$
+\end{itemize}
+
+\end{document}

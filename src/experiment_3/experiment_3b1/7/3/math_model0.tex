@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Electricity Capacity Expansion}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item \( t \): year, where \( t = 1, 2, \ldots, T \)
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( d_t \): demand for electricity in year \( t \) (megawatts)
+    \item \( oil_t \): existing oil capacity in year \( t \) (megawatts)
+    \item \( coal\_cost \): capital cost per megawatt of coal-fired capacity
+    \item \( nuke\_cost \): capital cost per megawatt of nuclear power capacity
+    \item \( max\_nuke \): maximum percentage of total capacity that can be nuclear
+    \item \( coal\_life \): lifespan of coal plants (years)
+    \item \( nuke\_life \): lifespan of nuclear plants (years)
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item \( coal_t \): coal capacity added in year \( t \) (megawatts)
+    \item \( nuke_t \): nuclear capacity added in year \( t \) (megawatts)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total capital cost:
+\[
+\text{Minimize } Z = \sum_{t=1}^{T} (coal\_cost \cdot coal_t + nuke\_cost \cdot nuke_t)
+\]
+
+\subsection*{Constraints}
+1. Demand must be met:
+\[
+oil_t + \sum_{s=1}^{t} coal_s + \sum_{s=1}^{t} nuke_s \geq d_t \quad \forall t \in \{1, 2, \ldots, T\}
+\]
+
+2. Nuclear capacity constraint:
+\[
+\sum_{s=1}^{t} nuke_s \leq \frac{max\_nuke}{100} \left( oil_t + \sum_{s=1}^{t} coal_s + \sum_{s=1}^{t} nuke_s \right) \quad \forall t \in \{1, 2, \ldots, T\}
+\]
+
+3. Lifetime constraints:
+\[
+coal_s = 0 \quad \text{for } s < t - coal\_life + 1 \quad \forall t \in \{1, 2, \ldots, T\}
+\]
+\[
+nuke_s = 0 \quad \text{for } s < t - nuke\_life + 1 \quad \forall t \in \{1, 2, \ldots, T\}
+\]
+
+4. Non-negativity constraints:
+\[
+coal_t \geq 0, \quad nuke_t \geq 0 \quad \forall t \in \{1, 2, \ldots, T\}
+\]
+
+\subsection*{Output}
+The output of the model will be:
+\begin{itemize}
+    \item \texttt{coal\_cap\_added}: List of coal capacity added in each year
+    \item \texttt{nuke\_cap\_added}: List of nuclear capacity added in each year
+    \item \texttt{total\_cost}: Total cost of the system
+\end{itemize}
+
+\end{document}

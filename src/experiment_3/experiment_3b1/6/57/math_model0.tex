@@ -1,0 +1,73 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Seaport Container Management Problem}
+
+\subsection*{Parameters}
+\begin{align*}
+T & : \text{Number of months} \\
+demand_{t} & : \text{Demand for containers in month } t \quad (t = 1, \ldots, T) \\
+unload\_cost_{t} & : \text{Cost to unload a container in month } t \\
+unload\_capacity_{t} & : \text{Maximum containers that can be unloaded in month } t \\
+holding\_cost & : \text{Holding cost per container per month} \\
+max\_container & : \text{Maximum number of containers that can be stored in the yard} \\
+init\_container & : \text{Initial number of containers in the yard} \\
+num\_cranes & : \text{Maximum number of cranes that can be rented per month} \\
+crane\_capacity & : \text{Capacity of each crane (containers loaded)} \\
+crane\_cost & : \text{Cost to rent a crane per month}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+amount_{t} & : \text{Number of containers unloaded in month } t \quad (t = 1, \ldots, T) \\
+crane_{t} & : \text{Number of cranes rented in month } t \quad (t = 1, \ldots, T) \\
+hold_{t} & : \text{Number of containers held in the yard at the end of month } t \quad (t = 1, \ldots, T)
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{total\_cost} = \sum_{t=1}^{T} (unload\_cost_{t} \cdot amount_{t} + holding\_cost \cdot hold_{t} + crane\_cost \cdot crane_{t})
+\]
+
+\subsection*{Constraints}
+1. Demand Fulfillment:
+\[
+amount_{t} + hold_{t-1} - hold_{t} = demand_{t} \quad (t = 1, \ldots, T)
+\]
+where \( hold_{0} = init\_container \)
+
+2. Unloading Capacity:
+\[
+amount_{t} \leq unload\_capacity_{t} \quad (t = 1, \ldots, T)
+\]
+
+3. Maximum Containers in Yard:
+\[
+hold_{t} \leq max\_container \quad (t = 1, \ldots, T)
+\]
+
+4. Crane Loading Capacity:
+\[
+crane_{t} \cdot crane\_capacity \geq amount_{t} \quad (t = 1, \ldots, T)
+\]
+
+5. Crane Rental Limit:
+\[
+crane_{t} \leq num\_cranes \quad (t = 1, \ldots, T)
+\]
+
+6. No Remaining Containers After Last Month:
+\[
+hold_{T} = 0
+\]
+
+\subsection*{Output Variables}
+\begin{align*}
+\text{containers\_unloaded} & : [amount_{t} \text{ for } t = 1, \ldots, T] \\
+\text{cranes\_rented} & : [crane_{t} \text{ for } t = 1, \ldots, T] \\
+\text{total\_cost} & : \text{total\_cost}
+\end{align*}
+
+\end{document}

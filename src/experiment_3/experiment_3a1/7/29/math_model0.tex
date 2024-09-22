@@ -1,0 +1,77 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Best Fit Line}
+
+Given a set of observations, where the \textit{k}-th value of \( y \) is denoted as \( y_k \) and the \textit{k}-th value of \( x \) is denoted as \( x_k \), the objective is to fit a straight line in the form of \( y = bx + a \) while minimizing the maximum deviation of the observed \( y \) values from the predicted values.
+
+Let:
+
+\[
+y_k = b x_k + a + e_k
+\]
+
+where \( e_k \) represents the deviation for each observation. The goal is to minimize the maximum of these deviations:
+
+\[
+\min \max_{k=1, \ldots, K} |e_k|
+\]
+
+This can be formulated using the following constraints:
+
+1. Define \( e_k^+ \) and \( e_k^- \) such that:
+   \[
+   e_k = e_k^+ - e_k^-
+   \]
+   with \( e_k^+, e_k^- \geq 0 \).
+
+2. The deviations can be expressed as:
+   \[
+   e_k^+ \geq y_k - (b x_k + a) \quad \forall k
+   \]
+   \[
+   e_k^- \geq -(y_k - (b x_k + a)) \quad \forall k
+   \]
+
+The optimization problem can now be stated as:
+
+\[
+\text{Minimize } M
+\]
+
+subject to:
+
+\[
+e_k^+ \leq M \quad \forall k
+\]
+
+\[
+e_k^- \leq M \quad \forall k
+\]
+
+\[
+e_k^+ \geq y_k - (b x_k + a) \quad \forall k
+\]
+
+\[
+e_k^- \geq -(y_k - (b x_k + a)) \quad \forall k
+\]
+
+\[
+M \geq 0
+\]
+
+\noindent where \( a \) is the intercept and \( b \) is the slope of the fitted line.
+
+\subsection*{Output}
+The output will be:
+
+\[
+\{
+    \text{"intercept"}: a,
+    \text{"slope"}: b
+\}
+\]
+
+\end{document}

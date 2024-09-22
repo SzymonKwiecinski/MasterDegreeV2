@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{MILP Model for Night Shift Nurse Scheduling}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+
+Let:
+\begin{itemize}
+    \item \( \text{period} \): The number of consecutive days a nurse works on the night shift.
+    \item \( d_j \): The demand for nurses on day \( j \) where \( j = 1, \ldots, 7 \).
+    \item \( n \): Total number of nurses hired.
+    \item \( x_j \): Number of nurses starting their shift on day \( j \), where \( j = 1, \ldots, 7 \).
+\end{itemize}
+
+\section*{Objective Function}
+
+The objective is to minimize the total number of nurses hired:
+\[
+\text{Minimize } n = \sum_{j=1}^7 x_j
+\]
+
+\section*{Constraints}
+
+For each day \( j \) (where \( j = 1, \ldots, 7 \)), the demand must be satisfied:
+\[
+\sum_{i=0}^{\text{period}-1} x_{(j-i) \mod 7} \geq d_j \quad \forall j = 1, \ldots, 7
+\]
+
+Where \( x_{(j-i) \mod 7} \) represents the number of nurses starting their shift on day \( (j-i) \) modulo 7, ensuring that the schedule wraps around the week.
+
+\section*{Variable Definition}
+
+The variables \( x_j \) are non-negative integers:
+\[
+x_j \geq 0 \quad \forall j = 1, \ldots, 7
+\]
+
+\section*{Output Format}
+
+The output will consist of:
+\begin{itemize}
+    \item A list \( \text{start} = [x_1, x_2, x_3, x_4, x_5, x_6, x_7] \) indicating how many nurses start their shifts on each day.
+    \item The total number of nurses hired, \( n \).
+\end{itemize}
+
+\end{document}

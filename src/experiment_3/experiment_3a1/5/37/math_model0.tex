@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Spare Automobile Parts Production}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Statement}
+A small firm specializes in making some types of spare automobile parts. Each part must go through several shops, and we want to determine the quantities of each spare part to maximize the profit.
+
+\section*{Variables}
+Let:
+\begin{itemize}
+    \item \( K \): Number of different spare parts.
+    \item \( S \): Number of different shops.
+    \item \( x_k \): Quantity of part \( k \) to be produced, for \( k = 1, \ldots, K \).
+\end{itemize}
+
+\section*{Parameters}
+Given:
+\begin{itemize}
+    \item \( time_{k,s} \): Required worker-hours for part \( k \) in shop \( s \).
+    \item \( profit_k \): Profit for part \( k \).
+    \item \( capacity_s \): Capacity of shop \( s \) in working hours.
+\end{itemize}
+
+\section*{Objective Function}
+The objective is to maximize the total profit, which can be expressed as:
+\[
+\text{Maximize} \quad Z = \sum_{k=1}^{K} profit_k \cdot x_k
+\]
+
+\section*{Constraints}
+The constraints ensure that the total worker-hours used in each shop does not exceed its capacity. For each shop \( s \), the constraint is given by:
+\[
+\sum_{k=1}^{K} time_{k,s} \cdot x_k \leq capacity_s \quad \forall s = 1, \ldots, S
+\]
+
+Additionally, we have non-negativity constraints for all parts produced:
+\[
+x_k \geq 0 \quad \forall k = 1, \ldots, K
+\]
+
+\section*{Complete Formulation}
+Putting it all together, the linear programming model can be formulated as follows:
+
+\begin{align*}
+\text{Maximize} & \quad Z = \sum_{k=1}^{K} profit_k \cdot x_k \\
+\text{subject to} & \quad \sum_{k=1}^{K} time_{k,s} \cdot x_k \leq capacity_s \quad \forall s = 1, \ldots, S \\
+& \quad x_k \geq 0 \quad \forall k = 1, \ldots, K
+\end{align*}
+
+\section*{Output}
+The output of this model will be the quantities of each spare part to be made:
+\[
+\text{Output: } \{ "quantity": [x_k \text{ for } k = 1, \ldots, K] \}
+\]
+
+\end{document}

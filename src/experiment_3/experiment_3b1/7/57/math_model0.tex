@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $T$: Total number of months
+    \item $demand_t$: Demand for containers by ships in month $t$, for $t = 1, \ldots, T$
+    \item $unload\_cost_t$: Cost to unload a single container in month $t$, for $t = 1, \ldots, T$
+    \item $unload\_capacity_t$: Maximum number of containers that can be unloaded in month $t$, for $t = 1, \ldots, T$
+    \item $holding\_cost$: Cost to hold a container in the yard
+    \item $max\_container$: Maximum number of containers that can be stored in the yard
+    \item $init\_container$: Initial number of containers in the yard at the start of month 1
+    \item $num\_cranes$: Maximum number of cranes that can be rented each month
+    \item $crane\_capacity$: Capacity of each crane to load containers
+    \item $crane\_cost$: Cost to rent each crane
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $amount_t$: Number of containers unloaded in month $t$, for $t = 1, \ldots, T$
+    \item $crane_t$: Number of cranes rented in month $t$, for $t = 1, \ldots, T$
+    \item $containers_t$: Number of containers in the yard at the end of month $t$, for $t = 1, \ldots, T$
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{minimize } total\_cost = \sum_{t=1}^{T} \left( unload\_cost_t \cdot amount_t + holding\_cost \cdot containers_t + crane\_cost \cdot crane_t \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+    &\text{Container Balance} \\
+    & containers_t = containers_{t-1} + amount_t - demand_t, \quad t = 1, \ldots, T \\
+    & \text{Initial Condition: } containers_0 = init\_container \\
+    & \text{Final Condition: } containers_T = 0 \\
+    & \\
+    &\text{Unloading Constraints} \\
+    & amount_t \leq unload\_capacity_t \quad \forall t \\
+    & \\
+    &\text{Storage Constraints} \\
+    & containers_t \leq max\_container \quad \forall t \\
+    & \\
+    &\text{Crane Constraints} \\
+    & crane_t \cdot crane\_capacity \geq demand_t \quad \forall t \\
+    & crane_t \leq num\_cranes \quad \forall t
+\end{align*}
+
+\end{document}

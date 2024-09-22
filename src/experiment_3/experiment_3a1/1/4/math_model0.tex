@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mixed Integer Linear Programming (MILP) Model}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item Let $J = \{1, 2, 3, 4, 5, 6, 7\}$ be the set of days in a week.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $d_j$: Demand for nurses on day $j$, where $j \in J$.
+    \item $period$: The number of consecutive days a nurse works.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $start_j$: The number of nurses that start their period on day $j$, where $j \in J$.
+    \item $N$: Total number of nurses hired.
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+    \text{Minimize } N
+\end{align*}
+
+\textbf{Constraints:}
+\begin{align}
+    \sum_{j=1}^{7} start_j & = N \quad \text{(total nurses hired)} \\
+    \sum_{j=i}^{i + period - 1} start_j & \geq d_i, \quad \forall i \in J \quad \text{(demand satisfaction for each day)} \\
+    start_j & \geq 0 \quad \forall j \in J \\
+    N & \in \mathbb{Z}^{+} \\
+    start_j & \in \mathbb{Z}^{+} \quad \forall j \in J
+\end{align}
+
+\textbf{Output:}
+\begin{itemize}
+    \item $start = [start_1, start_2, start_3, start_4, start_5, start_6, start_7]$
+    \item $total = N$
+\end{itemize}
+
+\end{document}

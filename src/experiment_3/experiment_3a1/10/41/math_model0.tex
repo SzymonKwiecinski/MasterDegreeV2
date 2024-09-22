@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for File Distribution on Floppy Disks}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $C$: Capacity of each floppy disk (in GB)
+    \item $N$: Total number of files
+    \item $size_j$: Size of file $j$ (for $j = 1, \ldots, N$)
+    \item $M$: A large constant (to be used in constraints)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_{ij}$: Binary variable which equals 1 if file $j$ is assigned to disk $i$, and 0 otherwise.
+    \item $y_i$: Binary variable which equals 1 if disk $i$ is used, and 0 otherwise.
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+\text{Minimize } Z &= \sum_{i=1}^M y_i
+\end{align*}
+
+\textbf{Constraints:}
+1. Each file must be assigned to exactly one disk:
+\begin{align*}
+\sum_{i=1}^M x_{ij} &= 1, \quad \forall j \in \{1, \ldots, N\}
+\end{align*}
+
+2. The total size of files on each disk must not exceed its capacity:
+\begin{align*}
+\sum_{j=1}^N size_j \cdot x_{ij} &\leq C \cdot y_i, \quad \forall i \in \{1, \ldots, M\}
+\end{align*}
+
+3. A disk can only be used if at least one file is assigned to it:
+\begin{align*}
+\sum_{j=1}^N x_{ij} &\leq M \cdot y_i, \quad \forall i \in \{1, \ldots, M\}
+\end{align*}
+
+\textbf{Variable Domains:}
+\begin{align*}
+x_{ij} &\in \{0, 1\}, \quad \forall i \in \{1, \ldots, M\}, \forall j \in \{1, \ldots, N\} \\
+y_i &\in \{0, 1\}, \quad \forall i \in \{1, \ldots, M\}
+\end{align*}
+
+\end{document}

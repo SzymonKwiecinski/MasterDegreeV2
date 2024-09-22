@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item Let \( b_p \) be the number of batches produced for part \( p \) where \( p = 1, \ldots, P \).
+    \item Let \( extra_m \) be the extra hours purchased for machine \( m \) where \( m = 1, \ldots, M \).
+\end{itemize}
+
+\subsection*{Objective Function}
+We want to maximize the total profit, defined as:
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} (price_p \cdot b_p) - \sum_{m=1}^{M} (cost_m \cdot \left( \sum_{p=1}^{P} (time_{m,p} \cdot b_p) + extra_m \right)) - \sum_{m=1}^{M} (extra\_cost_m \cdot extra_m)
+\]
+
+\subsection*{Constraints}
+1. **Machine Availability Constraint**:
+   For each machine \( m \):
+   \[
+   \sum_{p=1}^{P} (time_{m,p} \cdot b_p) \leq available_m + extra_m \quad \forall m = 1, \ldots, M
+   \]
+
+2. **Minimum Production Requirement**:
+   For each part \( p \):
+   \[
+   b_p \geq min\_batches_p \quad \forall p = 1, \ldots, P
+   \]
+
+3. **Extra Time Limit**:
+   For each machine \( m \):
+   \[
+   extra_m \leq max\_extra_m \quad \forall m = 1, \ldots, M
+   \]
+
+4. **Non-negativity**:
+   \[
+   b_p \geq 0 \quad \forall p = 1, \ldots, P
+   \]
+   \[
+   extra_m \geq 0 \quad \forall m = 1, \ldots, M
+   \]
+
+\subsection*{Output Variables}
+The solution will yield:
+\begin{itemize}
+    \item \( batches = [b_1, b_2, \ldots, b_P] \) - the number of batches of each part produced.
+    \item \( extra\_time = [extra_1, extra_2, \ldots, extra_M] \) - additional hours purchased for each machine.
+    \item \( total\_profit = Z \) - total profit obtained for the month.
+\end{itemize}
+
+\end{document}

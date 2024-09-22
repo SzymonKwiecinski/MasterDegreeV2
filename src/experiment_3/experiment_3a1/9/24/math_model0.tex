@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Mining Operations}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item $K = \{1, 2, \ldots, n_{mines}\}$: Set of mines
+    \item $I = \{1, 2, \ldots, T\}$: Set of years
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $n_{mines}$: Total number of mines
+    \item $n_{maxwork}$: Maximum number of mines that can be operated in any one year
+    \item $royalty_k$: Yearly royalties payable for mine $k$
+    \item $limit_k$: Upper limit of ore that can be extracted from mine $k$ in a year
+    \item $quality_k$: Quality of ore from mine $k$
+    \item $requiredquality_i$: Required quality of ore in year $i$
+    \item $price$: Selling price of the blended ore per ton
+    \item $discount$: Discount rate for future revenue and expenditure
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $isoperated_{k,i} \in \{0,1\}$: Indicates whether mine $k$ is operated in year $i$ (1 if operated, 0 otherwise)
+    \item $amount_{k,i} \geq 0$: Amount of ore produced by mine $k$ in year $i$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the discounted profit:
+
+\[
+\text{Maximize } Z = \sum_{i=1}^{T} \frac{(price \cdot \sum_{k=1}^{n_{mines}} amount_{k,i}) - \sum_{k=1}^{n_{mines}} (royalty_k \cdot isoperated_{k,i})}{(1 + discount)^{i-1}}
+\]
+
+\subsection*{Constraints}
+
+1. Total amount of ore quality constraint:
+\[
+\sum_{k=1}^{n_{mines}} \frac{quality_k \cdot amount_{k,i}}{\sum_{j=1}^{n_{mines}} amount_{j,i}} = requiredquality_i \quad \forall i \in I
+\]
+
+2. Maximum number of mines that can be operated:
+\[
+\sum_{k=1}^{n_{mines}} isoperated_{k,i} \leq n_{maxwork} \quad \forall i \in I
+\]
+
+3. Ore production limit for each mine:
+\[
+amount_{k,i} \leq limit_k \cdot isoperated_{k,i} \quad \forall k \in K, \forall i \in I
+\]
+
+4. Non-negativity of produced ore:
+\[
+amount_{k,i} \geq 0 \quad \forall k \in K, \forall i \in I
+\]
+
+\subsection*{Output Information}
+The output will provide:
+\begin{itemize}
+    \item $isoperated$: A matrix representing whether each mine is operated in each year.
+    \item $amount$: A matrix representing the amount of ore produced by each mine in each year.
+\end{itemize}
+
+\end{document}

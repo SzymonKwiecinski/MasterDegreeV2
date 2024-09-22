@@ -1,0 +1,403 @@
+# START: OR_C 
+## START ROLE MESSAGE | Role.SYSTEM 
+Background: You are a expert at Operations Research and Linear Programming and Latex. You create mathematical model of given problem in LATEX format. Latex code place between ```latex and ``` Remember to add 'documentclass{article},usepackage{amsmath},begin{document}, end{document} in latex file. 
+## START MESSAGE 0 
+### ROLE: Role.USER
+<DESCRIPTION>
+PROBLEM TYPE: LP
+
+PROBLEM INFO: 
+
+- A state wants to plan its electricity capacity for the next \var{T} years. 
+- The state has a forecast of \var{demand_t} megawatts, presumed accurate, of the demand for electricity during year \var{t}.
+- The existing capacity, which is in oil-fired plants, that will not be retired and will be available during year \var{t}, is \var{oil_t}.
+- There are two alternatives for expanding electric capacity: coal­ fired or nuclear power plants.
+- There is a capital cost of \var{coal_cost} per megawatt of coal-fired capacity that becomes operational at the beginning of year \var{t}.
+- There is a capital cost of \var{nuke_cost} per megawatt of nuclear power capacity that becomes operational at the beginning of year \var{t}.
+- For various political and safety reasons, it has been decided that no more than \var{max_nuke}% of the total capacity should ever be nuclear (\var{max_nuke} is a number between 0 and 100).
+- Coal plants last for \var{coal_life} years, while nuclear plants last for \var{nuke_life} years.
+
+INPUT FORMAT: 
+
+{
+    "demand": [demand_t for t in 1, ..., T],
+    "oil_cap": [oil_t for t in 1, ..., T],
+    "coal_cost": coal_cost,
+    "nuke_cost": nuke_cost,
+    "max_nuke": max_nuke,
+    "coal_life": coal_life,
+    "nuke_life": nuke_life,
+}
+
+
+OBJECTIVE: What is the capacity expansion plan that results in the minimum cost?
+
+
+OUTPUT INFO:
+
+- the output should represent how much coal and nuclear capacity should be added in each year, and how much the total cost is.
+- the output should be a dictionary with three keys: "coal_cap_added", "nuke_cap_added", and "total_cost".
+- the value of "coal_cap_added" should be a list of the coal capacity added in each year.
+- the value of "nuke_cap_added" should be a list of the nuclear capacity added in each year.
+- the value of "total_cost" should be a single floating point number showing the total cost of the system.
+
+
+OUTPUT FORMAT:
+
+{
+    "coal_cap_added": [coal_t for t in 1, ..., T],
+    "nuke_cap_added": [nuke_t for t in 1, ..., T],
+    "total_cost": total_cost,
+}
+
+
+</DESCRIPTION>
+
+
+## START MESSAGE 1 
+### ROLE: Role.ASSISTANT
+```latex
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Electricity Capacity Expansion}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item \( t \): year, where \( t = 1, 2, \ldots, T \)
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( d_t \): demand for electricity in year \( t \) (megawatts)
+    \item \( oil_t \): existing oil capacity in year \( t \) (megawatts)
+    \item \( coal\_cost \): capital cost per megawatt of coal-fired capacity
+    \item \( nuke\_cost \): capital cost per megawatt of nuclear power capacity
+    \item \( max\_nuke \): maximum percentage of total capacity that can be nuclear
+    \item \( coal\_life \): lifespan of coal plants (years)
+    \item \( nuke\_life \): lifespan of nuclear plants (years)
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item \( coal_t \): coal capacity added in year \( t \) (megawatts)
+    \item \( nuke_t \): nuclear capacity added in year \( t \) (megawatts)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total capital cost:
+\[
+\text{Minimize } Z = \sum_{t=1}^{T} (coal\_cost \cdot coal_t + nuke\_cost \cdot nuke_t)
+\]
+
+\subsection*{Constraints}
+1. Demand must be met:
+\[
+oil_t + \sum_{s=1}^{t} coal_s + \sum_{s=1}^{t} nuke_s \geq d_t \quad \forall t \in \{1, 2, \ldots, T\}
+\]
+
+2. Nuclear capacity constraint:
+\[
+\sum_{s=1}^{t} nuke_s \leq \frac{max\_nuke}{100} \left( oil_t + \sum_{s=1}^{t} coal_s + \sum_{s=1}^{t} nuke_s \right) \quad \forall t \in \{1, 2, \ldots, T\}
+\]
+
+3. Lifetime constraints:
+\[
+coal_s = 0 \quad \text{for } s < t - coal\_life + 1 \quad \forall t \in \{1, 2, \ldots, T\}
+\]
+\[
+nuke_s = 0 \quad \text{for } s < t - nuke\_life + 1 \quad \forall t \in \{1, 2, \ldots, T\}
+\]
+
+4. Non-negativity constraints:
+\[
+coal_t \geq 0, \quad nuke_t \geq 0 \quad \forall t \in \{1, 2, \ldots, T\}
+\]
+
+\subsection*{Output}
+The output of the model will be:
+\begin{itemize}
+    \item \texttt{coal\_cap\_added}: List of coal capacity added in each year
+    \item \texttt{nuke\_cap\_added}: List of nuclear capacity added in each year
+    \item \texttt{total\_cost}: Total cost of the system
+\end{itemize}
+
+\end{document}
+```
+
+# START: PY_C 
+## START ROLE MESSAGE | Role.SYSTEM 
+Background: You are a python programmer in deep knowledge at Pulp python library and Linear Programming. Python code place between ```python and ```. Based on mathematical model provided in Latex format you are creating a python script in Pulp library. You get also data in json format between: <DATA></DATA> Do not include 'pip install' in script. Assume every python package is installed. Do not use `while` loop in python code! Print at the end the objective between <OBJ></OBJ> `print(f' (Objective Value): <OBJ>{pulp.value(problem.objective)}</OBJ>')` 
+## START MESSAGE 0 
+### ROLE: Role.USER
+<MATH_MODEL>
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Electricity Capacity Expansion}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item \( t \): year, where \( t = 1, 2, \ldots, T \)
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( d_t \): demand for electricity in year \( t \) (megawatts)
+    \item \( oil_t \): existing oil capacity in year \( t \) (megawatts)
+    \item \( coal\_cost \): capital cost per megawatt of coal-fired capacity
+    \item \( nuke\_cost \): capital cost per megawatt of nuclear power capacity
+    \item \( max\_nuke \): maximum percentage of total capacity that can be nuclear
+    \item \( coal\_life \): lifespan of coal plants (years)
+    \item \( nuke\_life \): lifespan of nuclear plants (years)
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item \( coal_t \): coal capacity added in year \( t \) (megawatts)
+    \item \( nuke_t \): nuclear capacity added in year \( t \) (megawatts)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total capital cost:
+\[
+\text{Minimize } Z = \sum_{t=1}^{T} (coal\_cost \cdot coal_t + nuke\_cost \cdot nuke_t)
+\]
+
+\subsection*{Constraints}
+1. Demand must be met:
+\[
+oil_t + \sum_{s=1}^{t} coal_s + \sum_{s=1}^{t} nuke_s \geq d_t \quad \forall t \in \{1, 2, \ldots, T\}
+\]
+
+2. Nuclear capacity constraint:
+\[
+\sum_{s=1}^{t} nuke_s \leq \frac{max\_nuke}{100} \left( oil_t + \sum_{s=1}^{t} coal_s + \sum_{s=1}^{t} nuke_s \right) \quad \forall t \in \{1, 2, \ldots, T\}
+\]
+
+3. Lifetime constraints:
+\[
+coal_s = 0 \quad \text{for } s < t - coal\_life + 1 \quad \forall t \in \{1, 2, \ldots, T\}
+\]
+\[
+nuke_s = 0 \quad \text{for } s < t - nuke\_life + 1 \quad \forall t \in \{1, 2, \ldots, T\}
+\]
+
+4. Non-negativity constraints:
+\[
+coal_t \geq 0, \quad nuke_t \geq 0 \quad \forall t \in \{1, 2, \ldots, T\}
+\]
+
+\subsection*{Output}
+The output of the model will be:
+\begin{itemize}
+    \item \texttt{coal\_cap\_added}: List of coal capacity added in each year
+    \item \texttt{nuke\_cap\_added}: List of nuclear capacity added in each year
+    \item \texttt{total\_cost}: Total cost of the system
+\end{itemize}
+
+\end{document}</MATH_MODEL>
+<DATA>
+{'T': 12, 'Demand': [10, 15, 17, 20, 13, 19, 10, 25, 30, 33, 30, 35], 'OilCap': [15, 14, 13, 10, 10, 7, 5, 5, 5, 5, 5, 5], 'CoalCost': 10, 'NukeCost': 5, 'MaxNuke': 20, 'CoalLife': 5, 'NukeLife': 10}</DATA>
+
+
+## START MESSAGE 1 
+### ROLE: Role.ASSISTANT
+```python
+import pulp
+import json
+
+#### Given data in JSON format
+data = json.loads("{'T': 12, 'Demand': [10, 15, 17, 20, 13, 19, 10, 25, 30, 33, 30, 35], 'OilCap': [15, 14, 13, 10, 10, 7, 5, 5, 5, 5, 5, 5], 'CoalCost': 10, 'NukeCost': 5, 'MaxNuke': 20, 'CoalLife': 5, 'NukeLife': 10}")
+
+T = data['T']
+demand = data['Demand']
+oil_cap = data['OilCap']
+coal_cost = data['CoalCost']
+nuke_cost = data['NukeCost']
+max_nuke = data['MaxNuke']
+coal_life = data['CoalLife']
+nuke_life = data['NukeLife']
+
+#### Define the problem
+problem = pulp.LpProblem("Electricity_Capacity_Expansion", pulp.LpMinimize)
+
+#### Define decision variables
+coal_capacity = pulp.LpVariable.dicts("Coal", range(1, T+1), lowBound=0)
+nuke_capacity = pulp.LpVariable.dicts("Nuke", range(1, T+1), lowBound=0)
+
+#### Objective function
+problem += pulp.lpSum(coal_cost * coal_capacity[t] + nuke_cost * nuke_capacity[t] for t in range(1, T+1))
+
+#### Demand constraints
+for t in range(1, T+1):
+    problem += (oil_cap[t-1] + pulp.lpSum(coal_capacity[s] for s in range(1, t+1)) +
+                 pulp.lpSum(nuke_capacity[s] for s in range(1, t+1)) >= demand[t-1])
+
+#### Nuclear capacity constraint
+for t in range(1, T+1):
+    problem += (pulp.lpSum(nuke_capacity[s] for s in range(1, t+1)) <= 
+                 (max_nuke / 100) * (oil_cap[t-1] + pulp.lpSum(coal_capacity[s] for s in range(1, t+1)) +
+                 pulp.lpSum(nuke_capacity[s] for s in range(1, t+1))))
+
+#### Lifetime constraints
+for t in range(1, T+1):
+    for s in range(1, t - coal_life + 1):
+        problem += coal_capacity[s] == 0
+    for s in range(1, t - nuke_life + 1):
+        problem += nuke_capacity[s] == 0
+
+#### Solve the problem
+problem.solve()
+
+#### Output results
+coal_cap_added = [coal_capacity[t].varValue for t in range(1, T+1)]
+nuke_cap_added = [nuke_capacity[t].varValue for t in range(1, T+1)]
+total_cost = pulp.value(problem.objective)
+
+print(f' (Objective Value): <OBJ>{total_cost}</OBJ>')
+print("Coal Capacity Added:", coal_cap_added)
+print("Nuclear Capacity Added:", nuke_cap_added)
+```
+
+# START: PY_F 
+## START ROLE MESSAGE | Role.SYSTEM 
+Background: You are a python programmer in deep knowledge at Pulp python library and Linear Programming. Python code place between ```python and ```. Fix syntax error in python code which is implementation of matematical model. You receive wrong code between: <WRONG_CODE></WRONG_CODE> You receive error messages between: <CODE_ERROR></CODE_ERROR> Do not change data format! Do not use `while` loop in python code! Do not change code business logic, fix only syntax errors! Print at the end the objective between <OBJ></OBJ> `print(f' (Objective Value): <OBJ>{pulp.value(problem.objective)}</OBJ>')` 
+## START MESSAGE 0 
+### ROLE: Role.USER
+<WRONG_CODE>
+```python
+import pulp
+import json
+
+#### Given data in JSON format
+data = json.loads("{'T': 12, 'Demand': [10, 15, 17, 20, 13, 19, 10, 25, 30, 33, 30, 35], 'OilCap': [15, 14, 13, 10, 10, 7, 5, 5, 5, 5, 5, 5], 'CoalCost': 10, 'NukeCost': 5, 'MaxNuke': 20, 'CoalLife': 5, 'NukeLife': 10}")
+
+T = data['T']
+demand = data['Demand']
+oil_cap = data['OilCap']
+coal_cost = data['CoalCost']
+nuke_cost = data['NukeCost']
+max_nuke = data['MaxNuke']
+coal_life = data['CoalLife']
+nuke_life = data['NukeLife']
+
+#### Define the problem
+problem = pulp.LpProblem("Electricity_Capacity_Expansion", pulp.LpMinimize)
+
+#### Define decision variables
+coal_capacity = pulp.LpVariable.dicts("Coal", range(1, T+1), lowBound=0)
+nuke_capacity = pulp.LpVariable.dicts("Nuke", range(1, T+1), lowBound=0)
+
+#### Objective function
+problem += pulp.lpSum(coal_cost * coal_capacity[t] + nuke_cost * nuke_capacity[t] for t in range(1, T+1))
+
+#### Demand constraints
+for t in range(1, T+1):
+    problem += (oil_cap[t-1] + pulp.lpSum(coal_capacity[s] for s in range(1, t+1)) +
+                 pulp.lpSum(nuke_capacity[s] for s in range(1, t+1)) >= demand[t-1])
+
+#### Nuclear capacity constraint
+for t in range(1, T+1):
+    problem += (pulp.lpSum(nuke_capacity[s] for s in range(1, t+1)) <= 
+                 (max_nuke / 100) * (oil_cap[t-1] + pulp.lpSum(coal_capacity[s] for s in range(1, t+1)) +
+                 pulp.lpSum(nuke_capacity[s] for s in range(1, t+1))))
+
+#### Lifetime constraints
+for t in range(1, T+1):
+    for s in range(1, t - coal_life + 1):
+        problem += coal_capacity[s] == 0
+    for s in range(1, t - nuke_life + 1):
+        problem += nuke_capacity[s] == 0
+
+#### Solve the problem
+problem.solve()
+
+#### Output results
+coal_cap_added = [coal_capacity[t].varValue for t in range(1, T+1)]
+nuke_cap_added = [nuke_capacity[t].varValue for t in range(1, T+1)]
+total_cost = pulp.value(problem.objective)
+
+print(f' (Objective Value): <OBJ>{total_cost}</OBJ>')
+print("Coal Capacity Added:", coal_cap_added)
+print("Nuclear Capacity Added:", nuke_cap_added)```
+</WRONG_CODE>
+<CODE_ERROR>
+Traceback (most recent call last):
+  File "/Users/kwiecs01/PrivProjects/MasterDegreeV2/src/experiment_3/experiment_3b1/7/3/python_code0.py", line 5, in <module>
+    data = json.loads("{'T': 12, 'Demand': [10, 15, 17, 20, 13, 19, 10, 25, 30, 33, 30, 35], 'OilCap': [15, 14, 13, 10, 10, 7, 5, 5, 5, 5, 5, 5], 'CoalCost': 10, 'NukeCost': 5, 'MaxNuke': 20, 'CoalLife': 5, 'NukeLife': 10}")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kwiecs01/.pyenv/versions/3.11.8/lib/python3.11/json/__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kwiecs01/.pyenv/versions/3.11.8/lib/python3.11/json/decoder.py", line 337, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kwiecs01/.pyenv/versions/3.11.8/lib/python3.11/json/decoder.py", line 353, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ^^^^^^^^^^^^^^^^^^^^^^
+json.decoder.JSONDecodeError: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+</CODE_ERROR>
+
+
+## START MESSAGE 1 
+### ROLE: Role.ASSISTANT
+```python
+import pulp
+import json
+
+#### Given data in JSON format
+data = json.loads('{"T": 12, "Demand": [10, 15, 17, 20, 13, 19, 10, 25, 30, 33, 30, 35], "OilCap": [15, 14, 13, 10, 10, 7, 5, 5, 5, 5, 5, 5], "CoalCost": 10, "NukeCost": 5, "MaxNuke": 20, "CoalLife": 5, "NukeLife": 10}')
+
+T = data['T']
+demand = data['Demand']
+oil_cap = data['OilCap']
+coal_cost = data['CoalCost']
+nuke_cost = data['NukeCost']
+max_nuke = data['MaxNuke']
+coal_life = data['CoalLife']
+nuke_life = data['NukeLife']
+
+#### Define the problem
+problem = pulp.LpProblem("Electricity_Capacity_Expansion", pulp.LpMinimize)
+
+#### Define decision variables
+coal_capacity = pulp.LpVariable.dicts("Coal", range(1, T+1), lowBound=0)
+nuke_capacity = pulp.LpVariable.dicts("Nuke", range(1, T+1), lowBound=0)
+
+#### Objective function
+problem += pulp.lpSum(coal_cost * coal_capacity[t] + nuke_cost * nuke_capacity[t] for t in range(1, T+1))
+
+#### Demand constraints
+for t in range(1, T+1):
+    problem += (oil_cap[t-1] + pulp.lpSum(coal_capacity[s] for s in range(1, t+1)) +
+                 pulp.lpSum(nuke_capacity[s] for s in range(1, t+1)) >= demand[t-1])
+
+#### Nuclear capacity constraint
+for t in range(1, T+1):
+    problem += (pulp.lpSum(nuke_capacity[s] for s in range(1, t+1)) <= 
+                 (max_nuke / 100) * (oil_cap[t-1] + pulp.lpSum(coal_capacity[s] for s in range(1, t+1)) +
+                 pulp.lpSum(nuke_capacity[s] for s in range(1, t+1))))
+
+#### Lifetime constraints
+for t in range(1, T+1):
+    for s in range(1, t - coal_life + 1):
+        problem += coal_capacity[s] == 0
+    for s in range(1, t - nuke_life + 1):
+        problem += nuke_capacity[s] == 0
+
+#### Solve the problem
+problem.solve()
+
+#### Output results
+coal_cap_added = [coal_capacity[t].varValue for t in range(1, T+1)]
+nuke_cap_added = [nuke_capacity[t].varValue for t in range(1, T+1)]
+total_cost = pulp.value(problem.objective)
+
+print(f' (Objective Value): <OBJ>{total_cost}</OBJ>')
+print("Coal Capacity Added:", coal_cap_added)
+print("Nuclear Capacity Added:", nuke_cap_added)
+```
+

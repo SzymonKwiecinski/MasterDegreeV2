@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Communication Network}
+
+\subsection*{Sets and Parameters}
+\begin{itemize}
+    \item Let $N$ be the set of nodes in the network.
+    \item Let $A$ be the set of ordered pairs $(i, j)$ representing the directed links between nodes.
+    \item Let $U_{i,j}$ be the maximum capacity of link $(i, j)$ in bits per second.
+    \item Let $C_{i,j}$ be the cost per bit transmitted along link $(i, j)$.
+    \item Let $B_{k,l}$ be the rate of data generated from node $k$ to node $l$ in bits per second.
+\end{itemize}
+
+\subsection*{Decision Variables}
+Define $x_{i,j}^{k,l}$ as the flow of data transmitted from node $k$ to node $l$ along link $(i,j)$.
+
+\subsection*{Objective Function}
+\begin{align*}
+\text{Minimize} \quad & \text{Total Cost} = \sum_{(i,j) \in A} C_{i,j} \cdot \sum_{k,l} x_{i,j}^{k,l}
+\end{align*}
+
+\subsection*{Constraints}
+1. \textbf{Flow Conservation:} For each node $k \in N$ and for each destination $l$, we need to ensure that the flow balance is maintained:
+\[
+\sum_{(i,j) \in A} x_{i,j}^{k,l} - \sum_{(j,i) \in A} x_{j,i}^{k,l} = 
+\begin{cases}
+B_{k,l} & \text{if } k \text{ is the source} \\
+0 & \text{if } k \text{ is neither the source nor the destination} \\
+-B_{k,l} & \text{if } k \text{ is the destination}
+\end{cases}
+\]
+
+2. \textbf{Capacity Constraints:} The flow on each link cannot exceed its capacity:
+\[
+\sum_{k,l} x_{i,j}^{k,l} \leq U_{i,j}, \quad \forall (i,j) \in A
+\]
+
+3. \textbf{Non-negativity Constraints:} The flows must be non-negative:
+\[
+x_{i,j}^{k,l} \geq 0, \quad \forall (i,j) \in A, \forall k,l
+\]
+
+\subsection*{Output Information}
+The output will include:
+\begin{itemize}
+    \item Optimized paths for data transmission, including the route, path flow, and path cost.
+    \item Total cost of all paths.
+\end{itemize}
+
+\subsection*{Output Format}
+The output format will be structured as follows:
+\begin{verbatim}
+{
+    "optimized_paths": {
+        "paths": [
+            {
+                "source": k,
+                "destination": l,
+                "route": [k, i_1, i_2, ..., l],
+                "path_flow": path_flow,
+                "path_cost": path_cost
+            },
+            ...
+        ],
+    "total_cost": "total_cost"
+}
+\end{verbatim}
+
+\end{document}

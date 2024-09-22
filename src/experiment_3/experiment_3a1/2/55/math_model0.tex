@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Variables}
+Let \( b_p \) represent the number of batches produced for part \( p \) where \( p = 1, 2, \ldots, P \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{time}_{m,p} \): time required on machine \( m \) for producing a batch of part \( p \) (in hours)
+    \item \( \text{cost}_m \): cost per hour of machine \( m \)
+    \item \( \text{available}_m \): availability of machine \( m \) (in hours)
+    \item \( \text{price}_p \): selling price of a batch of part \( p \)
+    \item \( \text{min\_batches}_p \): minimum required batches of part \( p \)
+    \item \( \text{standard\_cost} \): standard labor cost per hour for machine 1
+    \item \( \text{overtime\_cost} \): overtime labor cost per hour for machine 1
+    \item \( \text{overtime\_hour} \): number of hours before overtime applies
+    \item \( \text{min\_profit} \): minimum required profit per month
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit, which can be defined as:
+
+\[
+\text{total\_profit} = \sum_{p=1}^{P} \left( \text{price}_p \cdot b_p \right) - \sum_{m=1}^{M} \left( \text{cost}_m \cdot \text{hours\_used}_m \right) - \text{labor\_cost}
+\]
+
+where the labor cost for machine 1 is calculated based on the total hours used:
+
+\[
+\text{hours\_used}_1 = \sum_{p=1}^{P} \left( \text{time}_{1,p} \cdot b_p \right)
+\]
+
+and 
+
+\[
+\text{labor\_cost} = 
+\begin{cases} 
+    \text{standard\_cost} \cdot \text{hours\_used}_1 & \text{if } \text{hours\_used}_1 \leq \text{overtime\_hour} \\
+    \text{standard\_cost} \cdot \text{overtime\_hour} + \text{overtime\_cost} \cdot (\text{hours\_used}_1 - \text{overtime\_hour}) & \text{otherwise}
+\end{cases}
+\]
+
+\subsection*{Constraints}
+
+\begin{itemize}
+    \item Availability constraints for each machine \( m \):
+    \[
+    \sum_{p=1}^{P} \left( \text{time}_{m,p} \cdot b_p \right) \leq \text{available}_m \quad \forall m = 1, \ldots, M
+    \]
+
+    \item Minimum production requirements for each part \( p \):
+    \[
+    b_p \geq \text{min\_batches}_p \quad \forall p = 1, \ldots, P
+    \]
+
+    \item Profit requirement:
+    \[
+    \text{total\_profit} \geq \text{min\_profit}
+    \end{itemize}
+\]
+
+\subsection*{Non-negativity Constraints}
+\[
+b_p \geq 0 \quad \forall p = 1, \ldots, P
+\]
+
+\end{document}

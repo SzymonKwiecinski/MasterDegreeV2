@@ -1,0 +1,69 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Daily Profit Maximization}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( N \) be the number of different products.
+    \item Let \( \text{assemblyHour}_i \) be the assembly hours required for product \( i \).
+    \item Let \( \text{testingHour}_i \) be the testing hours required for product \( i \).
+    \item Let \( \text{materialCost}_i \) be the material cost for product \( i \).
+    \item Let \( \text{maxAssembly} \) be the maximum assembly hours available per day.
+    \item Let \( \text{maxTesting} \) be the maximum testing hours available per day.
+    \item Let \( \text{price}_i \) be the selling price of product \( i \).
+    \item Let \( \text{maxOvertimeAssembly} \) be the maximum allowable overtime assembly hours.
+    \item Let \( \text{overtimeAssemblyCost} \) be the cost per hour of overtime.
+    \item Let \( \text{materialDiscount} \) be the percentage discount on material costs if certain threshold is exceeded.
+    \item Let \( \text{discountThreshold} \) be the threshold amount for the material discount.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( x_i \) be the number of units produced of product \( i \).
+    \item Let \( y \) be the total hours of overtime assembly scheduled.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the daily profit:
+\[
+\text{dailyProfit} = \sum_{i=1}^{N} ( \text{price}_i \cdot x_i ) - \left( \sum_{i=1}^{N} ( \text{materialCost}_i \cdot x_i ) - d + \text{overtimeAssemblyCost} \cdot y \right)
+\]
+where \( d \) is the discount applied to materials if the condition is met.
+
+\subsection*{Constraints}
+1. Assembly hours constraint:
+\[
+\sum_{i=1}^{N} (\text{assemblyHour}_i \cdot x_i) + y \leq \text{maxAssembly} + \text{maxOvertimeAssembly}
+\]
+2. Testing hours constraint:
+\[
+\sum_{i=1}^{N} (\text{testingHour}_i \cdot x_i) \leq \text{maxTesting}
+\]
+3. Non-negativity constraints:
+\[
+x_i \geq 0 \quad \forall i \in \{1, 2, \ldots, N\}
+\]
+4. Overtime hours must not exceed max allowed:
+\[
+y \leq \text{maxOvertimeAssembly}
+\]
+5. Material discount condition:
+\[
+\text{if } \sum_{i=1}^{N} (\text{materialCost}_i \cdot x_i) > \text{discountThreshold}, \text{ then } d = \sum_{i=1}^{N} (\text{materialCost}_i \cdot x_i) \cdot \frac{\text{materialDiscount}}{100}
+\]
+\[
+\text{else } d = 0
+\]
+
+\subsection*{Output}
+The solution will provide:
+\begin{itemize}
+    \item \( \text{dailyProfit} \)
+    \item \( \text{unitsProduced}_i \) for each product \( i \)
+    \item \( \text{overtimeAssembly} \)
+    \item \( \text{materialBought} = \sum_{i=1}^{N} (\text{materialCost}_i \cdot x_i)
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Decision Variables:} \\
+Let \( x_i \) be the number of units produced in month \( i \) for \( i = 1, 2, \ldots, T \). \\
+Let \( I_i \) be the inventory at the end of month \( i \) for \( i = 1, 2, \ldots, T \).
+
+\textbf{Objective Function:} \\
+Minimize the total cost, given by:
+\[
+\text{Cost} = \sum_{i=1}^{T} \text{storage\_cost} \cdot I_i + \sum_{i=1}^{T-1} \text{switch\_cost} \cdot |x_{i+1} - x_i| 
+\]
+
+\textbf{Constraints:} \\
+
+1. Inventory Balance:
+\[
+I_i = I_{i-1} + x_i - \text{deliver}_i \quad \text{for } i = 1, 2, \ldots, T
+\]
+with initial condition:
+\[
+I_0 = 0
+\]
+
+2. Non-negativity of Production and Inventory:
+\[
+x_i \geq 0 \quad \text{for } i = 1, 2, \ldots, T
+\]
+\[
+I_i \geq 0 \quad \text{for } i = 1, 2, \ldots, T
+\]
+
+3. The inventory at the end of the year has no value:
+\[
+I_T = 0
+\]
+
+\textbf{Final Output:}
+The output will provide the production schedule \( x_i \) for each month and the total cost incurred:
+
+\begin{itemize}
+    \item \( x = [x_1, x_2, \ldots, x_T] \)
+    \item cost = Total Cost
+\end{itemize}
+
+\end{document}

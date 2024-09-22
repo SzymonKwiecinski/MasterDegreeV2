@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Trajectory Linear Programming Model}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item $x_t$: position of the rocket at time $t$,
+    \item $v_t$: velocity of the rocket at time $t$,
+    \item $a_t$: acceleration of the rocket at time $t$.
+\end{itemize}
+
+\subsection*{Initial Conditions}
+Given:
+\begin{itemize}
+    \item Initial position: $x_0$,
+    \item Initial velocity: $v_0$,
+    \item Target position: $x_T$,
+    \item Target velocity: $v_T$,
+    \item Total time: $T$.
+\end{itemize}
+
+\subsection*{Discrete-Time Model}
+The discrete-time equations governing the motion of the rocket are:
+\begin{align}
+    x_{t+1} &= x_t + v_t, \quad t = 0, 1, \ldots, T-1, \\
+    v_{t+1} &= v_t + a_t, \quad t = 0, 1, \ldots, T-1.
+\end{align}
+
+\subsection*{Objective Function}
+We want to minimize the total fuel spent, which can be represented as:
+\[
+\text{Minimize} \quad \sum_{t=0}^{T-1} |a_t|.
+\]
+
+\subsection*{Constraints}
+The following constraints must be satisfied:
+\begin{align}
+    x_0 & = \text{initial position}, \\
+    v_0 & = \text{initial velocity}, \\
+    x_T & = \text{target position}, \\
+    v_T & = \text{target velocity}.
+\end{align}
+
+\subsection*{Output Format}
+The outputs should be structured as follows:
+\begin{itemize}
+    \item $x$: list of positions of the rocket at each time step from 0 to $T$,
+    \item $v$: list of velocities of the rocket at each time step from 0 to $T$,
+    \item $a$: list of accelerations of the rocket at each time step from 0 to $T$,
+    \item fuel\_spend: total fuel spent by the rocket.
+\end{itemize}
+
+\subsection*{Final Output Structure}
+\[
+\text{Output} = \{
+    "x": [x_i \text{ for } i = 1, \ldots, T],
+    "v": [v_i \text{ for } i = 1, \ldots, T],
+    "a": [a_i \text{ for } i = 1, \ldots, T],
+    "fuel\_spend": \text{fuel\_spent},
+\}
+\]
+
+\end{document}

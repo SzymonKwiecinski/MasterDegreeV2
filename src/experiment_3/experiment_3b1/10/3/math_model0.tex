@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Electricity Capacity Expansion}
+
+\subsection*{Definitions}
+\begin{itemize}
+    \item \( T \): Total number of years
+    \item \( d_t \): Demand for electricity in year \( t \)
+    \item \( oil_t \): Existing oil-fired capacity in year \( t \)
+    \item \( coal\_cost \): Capital cost per megawatt for coal-fired capacity
+    \item \( nuke\_cost \): Capital cost per megawatt for nuclear capacity
+    \item \( max\_nuke \): Maximum percentage of total capacity that can be nuclear
+    \item \( coal\_life \): Lifespan of coal plants in years
+    \item \( nuke\_life \): Lifespan of nuclear plants in years
+    \item \( coal_t \): Capacity added in year \( t \) for coal
+    \item \( nuke_t \): Capacity added in year \( t \) for nuclear
+\end{itemize}
+
+\subsection*{Variables}
+Let \( C_t \) be the total capacity in year \( t \):
+\[
+C_t = oil_t + \sum_{j=1}^{t} coal_j + \sum_{k=1}^{t} nuke_k
+\]
+
+\subsection*{Constraints}
+1. Capacity must meet demand:
+\[
+C_t \geq d_t \quad \forall t \in \{1, \ldots, T\}
+\]
+2. Nuclear capacity constraint:
+\[
+nuke_t \leq \frac{max\_nuke}{100} \cdot C_t \quad \forall t \in \{1, \ldots, T\}
+\]
+3. Lifetime constraints for coal and nuclear:
+\[
+coal_t = 0, \forall t < coal\_life
+\]
+\[
+nuke_t = 0, \forall t < nuke\_life
+\]
+
+\subsection*{Objective Function}
+Minimize total cost:
+\[
+\text{Total Cost} = \sum_{t=1}^{T} (coal\_cost \cdot coal_t + nuke\_cost \cdot nuke_t)
+\]
+
+\subsection*{Output Format}
+The output should be structured as follows:
+\begin{itemize}
+    \item \texttt{"coal\_cap\_added"}: List of coal capacities added in each year
+    \item \texttt{"nuke\_cap\_added"}: List of nuclear capacities added in each year
+    \item \texttt{"total\_cost"}: Total cost of the capacity expansion plan
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mixed Integer Linear Programming Model}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let $x_i$ be the number of units of product $i$ produced, for $i = 1, \ldots, N$.
+    \item Let $o$ be the number of hours of overtime assembly labor scheduled.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $assemblyHour_i$: hours of assembly labor required for product $i$.
+    \item $testingHour_i$: hours of testing required for product $i$.
+    \item $materialCost_i$: cost of raw materials for product $i$.
+    \item $maxAssembly$: maximum available assembly hours per day.
+    \item $maxTesting$: maximum available testing hours per day.
+    \item $price_i$: selling price of product $i$.
+    \item $maxOvertimeAssembly$: maximum available overtime assembly hours.
+    \item $overtimeAssemblyCost$: cost per hour of overtime assembly labor.
+    \item $materialDiscount$: percentage discount on raw materials.
+    \item $discountThreshold$: minimum amount for discount eligibility.
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+\text{Maximize } Z &= \sum_{i=1}^{N} (price_i \cdot x_i) - \left( \sum_{i=1}^{N} (materialCost_i \cdot x_i) \cdot (1 - \frac{materialDiscount}{100}) + overtimeAssemblyCost \cdot o \right)
+\end{align*}
+
+\textbf{Constraints:}
+\begin{align*}
+\sum_{i=1}^{N} (assemblyHour_i \cdot x_i) + o &\leq maxAssembly + maxOvertimeAssembly \\
+\sum_{i=1}^{N} (testingHour_i \cdot x_i) &\leq maxTesting \\
+\sum_{i=1}^{N} (materialCost_i \cdot x_i) &\geq discountThreshold \\
+x_i &\geq 0 \quad \text{(integer for all } i\text{)} \\
+o &\geq 0 \quad \text{(non-negative)}
+\end{align*}
+
+\textbf{Output:}
+\begin{itemize}
+    \item $dailyProfit$: the maximum daily profit of the company.
+    \item $unitsProduced$: the array of number of units produced for each product $i$.
+    \item $overtimeAssembly$: the total hours of overtime assembly labor scheduled.
+    \item $materialBought$: the total amount of raw materials bought.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturing}
+
+\subsection*{Variables}
+Let \( b_p \) be the number of batches produced for part \( p \) where \( p = 1, \dots, P \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( time_{m,p} \): time required on machine \( m \) to produce one batch of part \( p \) (in hours)
+    \item \( cost_{m} \): cost per hour for using machine \( m \)
+    \item \( available_{m} \): available hours per month for machine \( m \)
+    \item \( price_{p} \): selling price for one batch of part \( p \)
+    \item \( min\_batches_{p} \): minimum batches required to produce for part \( p \)
+    \item \( standard\_cost \): standard labor cost per hour
+    \item \( overtime\_cost \): labor cost per hour in overtime
+    \item \( overtime\_hour \): hours after which the overtime cost applies
+    \item \( min\_profit \): minimum profit required
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} (price_{p} \cdot b_{p} - \sum_{m=1}^{M} (time_{m,p} \cdot cost_{m} \cdot b_{p}))
+\]
+
+\subsection*{Constraints}
+
+\textbf{1. Resource Availability Constraints:} \\
+For each machine \( m \):
+
+\[
+\sum_{p=1}^{P} (time_{m,p} \cdot b_{p}) \leq available_{m}, \quad \forall m = 1, \dots, M
+\]
+
+\textbf{2. Minimum Production Requirements:} \\
+For each part \( p \):
+
+\[
+b_{p} \geq min\_batches_{p}, \quad \forall p = 1, \dots, P
+\]
+
+\textbf{3. Profit Constraint:} \\
+The profit must be greater than or equal to the minimum profit required:
+
+\[
+Z \geq min\_profit
+\]
+
+\textbf{4. Labor Costs for Machine 1:} \\
+Let \( h \) be the total hours worked on machine 1:
+
+\[
+h = \sum_{p=1}^{P} (time_{1,p} \cdot b_{p})
+\]
+
+- If \( h \leq overtime\_hour \):
+\[
+\text{Total Labor Cost} = standard\_cost \cdot h
+\]
+
+- If \( h > overtime\_hour \):
+\[
+\text{Total Labor Cost} = standard\_cost \cdot overtime\_hour + overtime\_cost \cdot (h - overtime\_hour)
+\]
+
+\end{document}

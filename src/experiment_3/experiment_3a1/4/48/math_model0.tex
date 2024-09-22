@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Gift Basket Production}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( \text{regular\_used}_w \) be the hours of regular labor used in week \( w \).
+    \item Let \( \text{overtime\_used}_w \) be the hours of overtime labor used in week \( w \).
+    \item Let \( \text{regular\_basket}_w \) be the number of baskets assembled with regular labor in week \( w \).
+    \item Let \( \text{overtime\_basket}_w \) be the number of baskets assembled with overtime labor in week \( w \).
+    \item Let \( \text{inventory}_w \) be the number of baskets on hand at the end of week \( w \).
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( W \): Total number of weeks
+    \item \( \text{demand}_w \): Demand for week \( w \)
+    \item \( \text{regular\_labor}_w \): Available regular labor hours in week \( w \)
+    \item \( \text{overtime\_labor}_w \): Available overtime labor hours in week \( w \)
+    \item \( \text{assembly\_time} \): Time required to assemble one basket
+    \item \( \text{regular\_cost} \): Cost of regular labor per hour
+    \item \( \text{overtime\_cost} \): Cost of overtime labor per hour
+    \item \( \text{material\_cost} \): Material cost for each basket
+    \item \( \text{selling\_price} \): Selling price of each basket
+    \item \( \text{holding\_cost} \): Holding cost per unsold basket
+    \item \( \text{salvage\_value} \): Salvage value of unsold baskets at the end of week \( W \)
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{w=1}^{W} \left( \text{selling\_price} \cdot (\text{regular\_basket}_w + \text{overtime\_basket}_w) - \text{regular\_cost} \cdot \text{regular\_used}_w - \text{overtime\_cost} \cdot \text{overtime\_used}_w - \text{material\_cost} \cdot (\text{regular\_basket}_w + \text{overtime\_basket}_w) - \text{holding\_cost} \cdot \text{inventory}_w \right) + \text{salvage\_value} \cdot \text{inventory}_W
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+    & \text{Regular Labor:} \quad \text{regular\_used}_w \leq \text{regular\_labor}_w, \quad \forall w \\
+    & \text{Overtime Labor:} \quad \text{overtime\_used}_w \leq \text{overtime\_labor}_w, \quad \forall w \\
+    & \text{Assembly Time Constraint:} \quad \text{regular\_used}_w + \text{overtime\_used}_w \geq \text{assembly\_time} \cdot (\text{regular\_basket}_w + \text{overtime\_basket}_w), \quad \forall w \\
+    & \text{Demand Constraint:} \quad \text{regular\_basket}_w + \text{overtime\_basket}_w + \text{inventory}_{w-1} = \text{demand}_w + \text{inventory}_w, \quad \forall w \text{ where } w > 1 \\
+    & \text{Initial Inventory:} \quad \text{inventory}_1 = 0 \\
+    & \text{Final Inventory Salvage:} \quad \text{inventory}_W \geq 0 \\
+    & \text{Non-negativity Constraints:} \quad \text{regular\_used}_w, \text{overtime\_used}_w, \text{regular\_basket}_w, \text{overtime\_basket}_w, \text{inventory}_w \geq 0, \quad \forall w
+\end{align*}
+
+\textbf{Output Variables:}
+\begin{itemize}
+    \item \( \text{regular\_used} = [\text{regular\_used}_w \text{ for } w = 1, \ldots, W] \)
+    \item \( \text{overtime\_used} = [\text{overtime\_used}_w \text{ for } w = 1, \ldots, W] \)
+    \item \( \text{regular\_baskets} = [\text{regular\_basket}_w \text{ for } w = 1, \ldots, W] \)
+    \item \( \text{overtime\_baskets} = [\text{overtime\_basket}_w \text{ for } w = 1, \ldots, W] \)
+    \item \( \text{inventory} = [\text{inventory}_w \text{ for } w = 1, \ldots, W] \)
+    \item \( \text{total\_profit} = Z \)
+\end{itemize}
+
+\end{document}

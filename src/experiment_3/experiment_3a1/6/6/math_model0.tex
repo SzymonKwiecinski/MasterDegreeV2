@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Motion Optimization Model}
+
+We consider a rocket travelling along a straight path, where:
+\begin{itemize}
+    \item \( x_t \) is the position of the rocket at time \( t \)
+    \item \( v_t \) is the velocity of the rocket at time \( t \)
+    \item \( a_t \) is the acceleration of the rocket at time \( t \)
+\end{itemize}
+
+The discrete-time model for the rocket's motion is defined as:
+\[
+x_{t+1} = x_t + v_t
+\]
+\[
+v_{t+1} = v_t + a_t
+\]
+
+We assume that the acceleration \( a_t \) is under our control and its magnitude \( |a_t| \) is proportional to the rate of fuel consumption at time \( t \).
+
+Given the initial conditions:
+\begin{itemize}
+    \item \( x_0 \): initial position
+    \item \( v_0 \): initial velocity
+\end{itemize}
+
+The objective is to guide the rocket to a target position \( x_T \) with speed \( v_T \) at time \( T \).
+
+We aim to minimize the total fuel consumed, expressed as:
+\[
+\text{Minimize } Z = \sum_{t=0}^{T-1} |a_t|
+\]
+
+Subject to the constraints:
+\[
+x_{t+1} = x_t + v_t \quad \forall t = 0, 1, \ldots, T-1 
+\]
+\[
+v_{t+1} = v_t + a_t \quad \forall t = 0, 1, \ldots, T-1 
+\]
+\[
+x_T = x_T \quad (target \, position)
+\]
+\[
+v_T = v_T \quad (target \, velocity)
+\]
+
+The output format will be:
+\[
+\{
+    "x": [x_i \text{ for } i=1, \ldots, T],
+    "v": [v_i \text{ for } i=1, \ldots, T],
+    "a": [a_i \text{ for } i=1, \ldots, T],
+    "fuel\_spend": fuel\_spent,
+\}
+\]
+
+\end{document}

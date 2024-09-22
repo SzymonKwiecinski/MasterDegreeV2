@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Online Advertising Campaign}
+
+Let \( A \) be the number of different ad types.
+
+Define the variables:
+\[
+x_a \quad \text{for } a = 1, \ldots, A \quad \text{(the number of clicks purchased for each ad type in thousands)}
+\]
+
+Given parameters:
+\begin{align*}
+\text{goal\_young} & \quad \text{(thousand clicks from visitors aged 18-25)} \\
+\text{goal\_old} & \quad \text{(thousand clicks from visitors older than 25)} \\
+\text{goal\_unique\_young} & \quad \text{(thousand unique clicks from visitors aged 18-25)} \\
+\text{goal\_unique\_old} & \quad \text{(thousand unique clicks from visitors older than 25)} \\
+\text{young\_click}_a & \quad \text{(percentage of clicks from age 18-25 for ad type } a) \\
+\text{old\_click}_a & \quad \text{(percentage of clicks from age >25 for ad type } a) \\
+\text{cost}_a & \quad \text{(cost per 1000 clicks for ad type } a) \\
+\text{max\_click}_a & \quad \text{(maximum allowable clicks for ad type } a \text{ in thousands)} \\
+\text{unique\_click}_a & \quad \text{(estimated percentage of unique visitors for ad type } a)
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Total Cost} = \sum_{a=1}^{A} \text{cost}_a \cdot x_a
+\]
+
+\subsection*{Subject to Constraints}
+1. Total clicks from young visitors:
+\[
+\sum_{a=1}^{A} \text{young\_click}_a \cdot x_a \geq \text{goal\_young}
+\]
+2. Total clicks from older visitors:
+\[
+\sum_{a=1}^{A} \text{old\_click}_a \cdot x_a \geq \text{goal\_old}
+\]
+3. Total unique clicks from young visitors:
+\[
+\sum_{a=1}^{A} \text{unique\_click}_a \cdot x_a \geq \text{goal\_unique\_young}
+\]
+4. Total unique clicks from older visitors:
+\[
+\sum_{a=1}^{A} \text{unique\_click}_a \cdot x_a \geq \text{goal\_unique\_old}
+\]
+5. Maximum clicks limitation for each ad type:
+\[
+x_a \leq \text{max\_click}_a \quad \text{for all } a
+\]
+6. Non-negativity constraint:
+\[
+x_a \geq 0 \quad \text{for all } a
+\]
+
+\subsection*{Output}
+The output will provide:
+\begin{align*}
+\text{clicks} & : [x_a \text{ for } a = 1, \ldots, A] \\
+\text{total\_cost} & : \text{Total Cost}
+\end{align*}
+
+\end{document}

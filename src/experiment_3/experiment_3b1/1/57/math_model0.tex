@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Mathematical Model for Container Management at a Seaport}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+
+Let \( T \) be the total number of months. We define the following variables and parameters:
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( demand_{t} \): Demand for containers by ships in month \( t \) (for \( t = 1, \ldots, T \)).
+    \item \( unload\_cost_{t} \): Cost to unload a single container in month \( t \).
+    \item \( unload\_capacity_{t} \): Maximum number of containers that can be unloaded in month \( t \).
+    \item \( holding\_cost \): Cost to hold a container in the yard for one month.
+    \item \( max\_container \): Maximum number of containers that can be stored in the yard at the end of any month.
+    \item \( init\_container \): Initial number of containers in the yard at the start of month 1.
+    \item \( num\_cranes \): Maximum number of cranes that can be rented each month.
+    \item \( crane\_capacity \): Capacity of each crane in terms of containers loaded.
+    \item \( crane\_cost \): Cost for renting one crane.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( amount_{t} \): Number of containers unloaded in month \( t \) (for \( t = 1, \ldots, T \)).
+    \item \( crane_{t} \): Number of cranes rented in month \( t \) (for \( t = 1, \ldots, T \)).
+    \item \( total\_cost \): Total cost incurred over the entire period.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+total\_cost = \sum_{t=1}^{T} (unload\_cost_{t} \cdot amount_{t} + holding\_cost \cdot (C_{t-1} - demand_{t}) + crane\_cost \cdot crane_{t})
+\]
+Where \( C_{t} \) is the number of containers in the yard at the end of month \( t \).
+
+\subsection*{Constraints}
+\begin{align}
+    & C_{t} = C_{t-1} + amount_{t} - demand_{t}, \quad \forall t = 1, \ldots, T \\
+    & C_{t} \leq max\_container, \quad \forall t = 1, \ldots, T \\
+    & C_{1} = init\_container \\
+    & amount_{t} \leq unload\_capacity_{t}, \quad \forall t = 1, \ldots, T \\
+    & amount_{t} \leq crane_{t} \cdot crane\_capacity, \quad \forall t = 1, \ldots, T \\
+    & crane_{t} \leq num\_cranes, \quad \forall t = 1, \ldots, T \\
+    & C_{T} = 0 \\
+    & amount_{t} \geq 0, \quad crane_{t} \geq 0, \quad \forall t = 1, \ldots, T
+\end{align}
+
+\end{document}

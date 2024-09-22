@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Variables}
+Let \( b_p \) be the number of batches produced for part \( p \), where \( p = 1, \ldots, P \).
+
+\subsection*{Objective Function}
+The objective is to maximize the total profit:
+
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} (price_p \cdot b_p) - \sum_{m=1}^{M} (cost_m \cdot \text{hours\_used}_m) - \text{labor\_cost}
+\]
+
+where \( \text{hours\_used}_m = \sum_{p=1}^{P} (time_{m,p} \cdot b_p / 100) \) for \( m = 1, \ldots, M \).
+
+The labor cost for machine 1 (outsourced) is calculated as:
+
+\[
+\text{labor\_cost} = 
+\begin{cases} 
+standard\_cost \cdot \text{hours\_used}_1 & \text{if } \text{hours\_used}_1 \leq overtime\_hour \\
+standard\_cost \cdot overtime\_hour + overtime\_cost \cdot (\text{hours\_used}_1 - overtime\_hour) & \text{if } \text{hours\_used}_1 > overtime\_hour 
+\end{cases}
+\]
+
+\subsection*{Constraints}
+1. **Batch Production Requirements**:
+   \[
+   b_p \geq min\_batches_p \quad \forall p \in \{1, \ldots, P\}
+   \]
+
+2. **Machine Availability**:
+   \[
+   \sum_{p=1}^{P} \left( \frac{time_{m,p}}{100} b_p \right) \leq available_m \quad \forall m \in \{1, \ldots, M\}
+   \]
+
+3. **Minimum Profit Requirement**:
+   \[
+   Z \geq min\_profit
+   \]
+
+4. **Non-negativity**:
+   \[
+   b_p \geq 0 \quad \forall p \in \{1, \ldots, P\}
+   \]
+
+\subsection*{Output}
+The output will consist of:
+- The number of batches of each part produced \( b_p \) for \( p = 1, \ldots, P \).
+- The total profit \( Z \).
+
+\end{document}

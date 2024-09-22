@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Alloy Production}
+
+\textbf{Decision Variables:}
+Let \( x_k \) be the amount of alloy \( k \) to purchase, for \( k = 1, \ldots, K \).
+
+\textbf{Objective Function:}
+Minimize the total cost of the purchased alloys:
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} \text{price}_k \cdot x_k
+\]
+
+\textbf{Constraints:}
+
+1. The total weight of the alloy must equal the desired quantity:
+\[
+\sum_{k=1}^{K} x_k = \text{alloy\_quant}
+\]
+
+2. The alloy must contain the target quantity of each metal \( m \):
+\[
+\sum_{k=1}^{K} \text{ratio}_{k,m} \cdot x_k \geq \text{target}_m, \quad \forall m = 1, 2, \ldots, M
+\]
+
+\textbf{Non-negativity Constraints:}
+\[
+x_k \geq 0, \quad \forall k = 1, 2, \ldots, K
+\]
+
+\textbf{Model Summary:}
+\begin{align*}
+\text{Minimize } & Z = \sum_{k=1}^{K} \text{price}_k \cdot x_k \\
+\text{subject to:} & \\
+& \sum_{k=1}^{K} x_k = \text{alloy\_quant} \\
+& \sum_{k=1}^{K} \text{ratio}_{k,m} \cdot x_k \geq \text{target}_m, \quad \forall m = 1, 2, \ldots, M \\
+& x_k \geq 0, \quad \forall k = 1, 2, \ldots, K
+\end{align*}
+
+\end{document}

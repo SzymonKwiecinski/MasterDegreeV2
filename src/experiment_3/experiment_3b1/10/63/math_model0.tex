@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Paper Cutting Problem}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item $j \in \{1, 2, \ldots, M\}$: index for the width of smaller rolls
+    \item $i \in \{1, 2, \ldots, N\}$: index for the cutting patterns
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $L$: large roll width (inches)
+    \item $demand_j$: demand for rolls of width $j$ (units)
+    \item $pattern_{i,j}$: number of rolls of width $j$ produced by cutting pattern $i$
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item $x_i$: number of times cutting pattern $i$ is used (non-negative integer)
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{equation}
+\text{Minimize } Z = \sum_{i=1}^{N} x_i
+\end{equation}
+
+\textbf{Constraints:}
+\begin{equation}
+\sum_{i=1}^{N} x_i \cdot pattern_{i,j} \geq demand_j \quad \forall j \in \{1, 2, \ldots, M\}
+\end{equation}
+
+\begin{equation}
+\sum_{j=1}^{M} pattern_{i,j} \leq L \quad \forall i \in \{1, 2, \ldots, N\}
+\end{equation}
+
+\textbf{Non-negativity:}
+\begin{equation}
+x_i \geq 0 \quad \text{and integer} \quad \forall i \in \{1, 2, \ldots, N\}
+\end{equation}
+
+\end{document}

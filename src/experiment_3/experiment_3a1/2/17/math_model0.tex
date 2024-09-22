@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Investor's Portfolio}
+
+Let:
+\begin{itemize}
+    \item \( N \): Number of different stocks.
+    \item \( bought_i \): Number of shares bought of stock \( i \).
+    \item \( buyPrice_i \): Price per share at which stock \( i \) was bought.
+    \item \( currentPrice_i \): Current price per share of stock \( i \).
+    \item \( futurePrice_i \): Expected future price per share of stock \( i \).
+    \item \( transactionRate \): Transaction cost rate (in percentage).
+    \item \( taxRate \): Tax rate on capital gains (in percentage).
+    \item \( K \): Desired net amount of money to raise.
+    \item \( sell_i \): Number of shares of stock \( i \) to sell.
+\end{itemize}
+
+The objective of the investor is to determine the number of shares to sell such that the net amount raised, after considering transaction costs and taxes, meets or exceeds \( K \).
+
+\subsection*{Objective Function}
+Maximize the expected future value of the portfolio:
+
+\[
+\text{Maximize } Z = \sum_{i=1}^{N} (futurePrice_i \cdot (bought_i - sell_i)) 
+\]
+
+\subsection*{Constraints}
+To ensure that the net money raised is at least \( K \):
+\[
+\sum_{i=1}^{N} \left( (currentPrice_i \cdot sell_i) - transactionRate \cdot (currentPrice_i \cdot sell_i) - taxRate \cdot \left( (currentPrice_i \cdot sell_i - buyPrice_i \cdot sell_i) \right) \right) \geq K
+\]
+
+Breaking this down, we simplify the net amount raised to:
+\[
+\sum_{i=1}^{N} \left( (1 - transactionRate - taxRate)(currentPrice_i \cdot sell_i) + (taxRate \cdot buyPrice_i \cdot sell_i) \right) \geq K
+\]
+
+Also, ensuring that the number of shares sold does not exceed the number owned:
+\[
+0 \leq sell_i \leq bought_i \quad \text{for all } i \in \{1, 2, \ldots, N\}
+\]
+
+\subsection*{Variables}
+Define \( sell_i \) as the decision variable for the number of shares to sell for stock \( i \).
+
+\subsection*{Output}
+The solution will yield:
+\[
+\text{Output: } \{ "sell": [sell_1, sell_2, \ldots, sell_N] \}
+\]
+
+\end{document}

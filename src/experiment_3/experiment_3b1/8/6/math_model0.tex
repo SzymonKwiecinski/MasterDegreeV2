@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Trajectory Optimal Control Problem}
+
+Let \( x_t \), \( v_t \), and \( a_t \) denote the position, velocity, and acceleration of the rocket at time \( t \), respectively. The dynamics of the rocket can be modeled using the following discrete-time equations:
+
+\begin{align}
+    x_{t+1} &= x_t + v_t, \\
+    v_{t+1} &= v_t + a_t.
+\end{align}
+
+Given the initial conditions \( x_0 \) and \( v_0 \), the goal is to reach a target position \( x_T \) with a target speed \( v_T \) at time \( T \), while minimizing the total fuel consumption, represented by the acceleration \( a_t \).
+
+\subsection*{Inputs}
+
+The problem takes the following input parameters:
+
+\begin{itemize}
+    \item Initial position: \( x_0 \)
+    \item Initial velocity: \( v_0 \)
+    \item Target position: \( x_T \)
+    \item Target velocity: \( v_T \)
+    \item Time horizon: \( T \)
+\end{itemize}
+
+\subsection*{Objective Function}
+
+The objective is to minimize the total fuel spent, defined as follows:
+
+\[
+\text{Minimize } \sum_{t=0}^{T-1} |a_t|
+\]
+
+\subsection*{Constraints}
+
+The model is subject to the following constraints:
+
+\begin{align}
+    x_{T} &= x_T, \\
+    v_{T} &= v_T, \\
+    x_{t+1} &= x_t + v_t, \quad \forall t \in [0, T-1], \\
+    v_{t+1} &= v_t + a_t, \quad \forall t \in [0, T-1].
+\end{align}
+
+Thus, the complete optimization problem can be formulated as follows:
+
+\[
+\begin{array}{ll}
+\text{Minimize} & \sum_{t=0}^{T-1} |a_t| \\
+\text{subject to} & x_{0} = x_0, \\
+                  & v_{0} = v_0, \\
+                  & x_{T} = x_T, \\
+                  & v_{T} = v_T, \\
+                  & x_{t+1} = x_t + v_t, \quad \forall t \in [0, T-1], \\
+                  & v_{t+1} = v_t + a_t, \quad \forall t \in [0, T-1].
+\end{array}
+\]
+
+\subsection*{Outputs}
+
+The solution provides the following outputs:
+
+\begin{itemize}
+    \item \( x \): List of positions of the rocket at each time step from \( 0 \) to \( T \).
+    \item \( v \): List of velocities of the rocket at each time step from \( 0 \) to \( T \).
+    \item \( a \): List of accelerations of the rocket at each time step from \( 0 \) to \( T \).
+    \item \( \text{fuel\_spend} \): Total fuel spent by the rocket.
+\end{itemize}
+
+\end{document}

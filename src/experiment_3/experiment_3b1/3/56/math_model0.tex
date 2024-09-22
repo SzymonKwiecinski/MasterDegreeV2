@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Delivery Time Optimization}
+
+\subsection*{Parameters}
+\begin{align*}
+& N \text{ : Number of streets} \\
+& W \text{ : Number of avenues} \\
+& west\_time_{n,w} \text{ : Time to move west from intersection } (w,n) \text{ to }(w+1,n) \\
+& north\_time_{n,w} \text{ : Time to move north from intersection } (w,n) \text{ to }(w,n+1)
+\end{align*}
+
+\subsection*{Variables}
+Let:
+\begin{align*}
+x_{n,w} & = \text{ binary variable indicating if the path goes through } (w,n) \\
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total travel time:
+\[
+\text{Total Time} = \sum_{n=1}^{N-1} \sum_{w=1}^{W-1} (west\_time_{n,w} \cdot x_{n,w} + north\_time_{n,w} \cdot x_{n,w})
+\]
+
+\subsection*{Constraints}
+1. The delivery person must arrive at the destination:
+\[
+\sum_{w=1}^{W-1} x_{N,w} = 1 \quad (1)
+\]
+
+2. Each intersection can only be entered from the west or north:
+\[
+\sum_{w=1}^{W-1} x_{n,w} \leq 1 \quad \forall n \in [1, N-1] \quad (2) 
+\]
+\[
+\sum_{n=1}^{N-1} x_{n,w} \leq 1 \quad \forall w \in [1, W-1] \quad (3)
+\]
+
+3. Non-negativity of variables:
+\[
+x_{n,w} \in \{0, 1\} \quad \forall n \in [1, N-1], w \in [1, W-1] \quad (4)
+\]
+
+\subsection*{Output}
+The solution will yield:
+\begin{align*}
+\text{paths} & = \{(street_{n}, avenue_{w}) \mid x_{n,w} = 1\} \\
+\text{total\_time} & = \text{Total Time}
+\end{align*}
+
+\end{document}

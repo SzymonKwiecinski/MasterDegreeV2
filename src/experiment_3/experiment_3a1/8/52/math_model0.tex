@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Power Distribution}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( P \) be the number of power plants.
+    \item Let \( C \) be the number of cities.
+    \item Let \( supply_{p} \) be the supply capacity of power plant \( p \) in million kwh.
+    \item Let \( demand_{c} \) be the peak demand of city \( c \) in million kwh.
+    \item Let \( transmission_{p,c} \) be the transmission cost from power plant \( p \) to city \( c \) in $/million kwh.
+\end{itemize}
+
+\subsection*{Decision Variables}
+Define the decision variable \( send_{p,c} \):
+\begin{itemize}
+    \item \( send_{p,c} \) = amount of electricity sent from power plant \( p \) to city \( c \) in million kwh.
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the total transmission cost:
+\[
+\text{Minimize } Z = \sum_{p=1}^{P} \sum_{c=1}^{C} transmission_{p,c} \cdot send_{p,c}
+\]
+
+\subsection*{Constraints}
+1. Supply Constraints:
+\[
+\sum_{c=1}^{C} send_{p,c} \leq supply_{p} \quad \forall p \in \{1, \ldots, P\}
+\]
+
+2. Demand Constraints:
+\[
+\sum_{p=1}^{P} send_{p,c} = demand_{c} \quad \forall c \in \{1, \ldots, C\}
+\]
+
+3. Non-negativity Constraints:
+\[
+send_{p,c} \geq 0 \quad \forall p \in \{1, \ldots, P\}, \forall c \in \{1, \ldots, C\}
+\]
+
+\subsection*{Output}
+The output will consist of:
+\begin{itemize}
+    \item \( send_{p,c} \): amount of electricity sent from power plant \( p \) to city \( c \).
+    \item \( total\_cost \): total transmission cost of the utility.
+\end{itemize}
+
+\end{document}

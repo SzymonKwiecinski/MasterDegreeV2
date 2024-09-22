@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+  \item Let $W$ be the width of the large roll: $W = \text{large\_roll\_width}$.
+  \item Let $M$ be the number of different types of smaller rolls.
+  \item Let $N$ be the number of cutting patterns.
+  \item Let $j \in \{1, 2, \ldots, M\}$ represent the index for the smaller roll widths.
+  \item Let $d_j$ be the demand for rolls of width $j$: $d_j = \text{demand}_j$.
+  \item Let $p_{i,j}$ be the number of rolls of width $j$ produced with pattern $i$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+  \item Let $x_i$ be the number of times pattern $i$ is used, where $i \in \{1, 2, \ldots, N\}$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total number of large rolls used:
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} x_i
+\]
+
+\subsection*{Constraints}
+The demand for each type of smaller roll must be met:
+\[
+\sum_{i=1}^{N} p_{i,j} x_i \geq d_j \quad \forall j \in \{1, 2, \ldots, M\}
+\]
+
+The total width used by each cutting pattern must not exceed the width of the large roll:
+\[
+\sum_{j=1}^{M} p_{i,j} \cdot j \leq W \quad \forall i \in \{1, 2, \ldots, N\}
+\]
+
+\subsection*{Non-negativity Constraints}
+\[
+x_i \geq 0 \quad \text{and integer} \quad \forall i \in \{1, 2, \ldots, N\}
+\]
+
+\end{document}

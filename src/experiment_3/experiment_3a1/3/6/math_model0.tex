@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Trajectory Optimization Problem}
+
+We define the variables involved in the rocket's motion as follows:
+
+Let \( x_t \), \( v_t \), and \( a_t \) represent the position, velocity, and acceleration of the rocket at time \( t \), respectively. The discrete-time model governing the rocket's motion is given by:
+
+\[
+x_{t+1} = x_t + v_t
+\]
+
+\[
+v_{t+1} = v_t + a_t
+\]
+
+We assume that the acceleration \( a_t \) is under our control and is proportional to the rate of fuel consumption at time \( t \). Given the initial conditions, we have:
+
+\[
+x_0, \quad v_0
+\]
+
+Our goal is to reach a target position \( x_T \) with a final speed \( v_T \) at time \( T \). Therefore, the constraints can be formulated as:
+
+\[
+x_T = x_0 + \sum_{t=0}^{T-1} v_t
+\]
+
+\[
+v_T = v_0 + \sum_{t=0}^{T-1} a_t
+\]
+
+The objective of the optimization problem is to minimize the total fuel consumption, expressed as:
+
+\[
+\text{Minimize} \quad \sum_{t=0}^{T-1} |a_t|
+\]
+
+\subsection*{Input Format}
+
+The input to the problem is given by:
+
+\[
+\begin{aligned}
+&\text{Input} = \{ \\
+&\quad x_0, \\
+&\quad v_0, \\
+&\quad x_T, \\
+&\quad v_T, \\
+&\quad T \\
+&\}
+\end{aligned}
+\]
+
+\subsection*{Output Information}
+
+The output should provide the following information:
+
+\[
+\begin{aligned}
+&\text{Output} = \{ \\
+&\quad "x": [x_i \text{ for } i = 0, 1, \ldots, T], \\
+&\quad "v": [v_i \text{ for } i = 0, 1, \ldots, T], \\
+&\quad "a": [a_i \text{ for } i = 0, 1, \ldots, T], \\
+&\quad "fuel\_spend": \text{fuel\_spent} \\
+&\}
+\end{aligned}
+\]
+
+\end{document}

@@ -1,0 +1,69 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mixed Integer Linear Programming (MILP) Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $M$: Number of machines, $m \in \{1, \ldots, M\}$
+    \item $K$: Number of products, $k \in \{1, \ldots, K\}$
+    \item $I$: Number of months, $i \in \{1, \ldots, I\}$
+    \item $profit_k$: Profit from product $k$
+    \item $time_{k,m}$: Unit production time for product $k$ on machine $m$
+    \item $down_m$: Down time for machine $m$ (months)
+    \item $limit_{k,i}$: Marketing limitation for product $k$ in month $i$
+    \item $store\_price$: Cost of storing each product per unit per month
+    \item $keep\_quantity$: Desired stock of each product at the end of the month
+    \item $n\_workhours$: Total working hours in a month
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $sell_{k,i}$: Amount of product $k$ sold in month $i$
+    \item $manufacture_{k,i}$: Amount of product $k$ manufactured in month $i$
+    \item $storage_{k,i}$: Amount of product $k$ stored at the end of month $i$
+    \item $maintain_{m,i}$: Number of machines under maintenance in month $i$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+\text{Maximize } Z = \sum_{i=1}^{I} \sum_{k=1}^{K} (profit_k \cdot sell_{k,i}) - \sum_{k=1}^{K} \sum_{i=1}^{I} (store\_price \cdot storage_{k,i})
+\]
+
+\subsection*{Constraints}
+
+\textbf{1. Production Time Constraints:}
+\[
+\sum_{k=1}^{K} \sum_{m=1}^{M} time_{k,m} \cdot manufacture_{k,i} \leq n\_workhours \cdot (M - \sum_{m=1}^{M} maintain_{m,i})
+\]
+for all months $i$.
+
+\textbf{2. Market Limitations:}
+\[
+sell_{k,i} \leq limit_{k,i} \quad \forall k, i
+\]
+
+\textbf{3. Storage Constraints:}
+\[
+storage_{k,i} = storage_{k,i-1} + manufacture_{k,i} - sell_{k,i} \quad \forall k, i
+\]
+with $storage_{k,0} = 0$ for initial month.
+
+\textbf{4. Desired Stock:}
+\[
+storage_{k,I} \geq keep\_quantity \quad \forall k
+\]
+
+\textbf{5. Machine Maintenance Constraints:}
+\[
+\sum_{m=1}^{M} maintain_{m,i} \leq \sum_{m=1}^{M} down_m \quad \forall i
+\]
+
+\textbf{6. Non-negativity and Integer Constraints:}
+\[
+manufacture_{k,i} \geq 0, \quad sell_{k,i} \geq 0, \quad storage_{k,i} \geq 0, \quad maintain_{m,i} \in \mathbb{Z}_{\geq 0} \quad \forall k, m, i
+\]
+
+\end{document}

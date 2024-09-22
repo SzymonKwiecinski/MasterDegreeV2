@@ -1,0 +1,74 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Industry Production}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item \( produce_{k,t} \): Amount produced by industry \( k \) in year \( t \)
+    \item \( buildcapa_{k,t} \): Amount used to build productive capacity for industry \( k \) in year \( t \)
+    \item \( stockhold_{k,t} \): Amount of stock held by industry \( k \) in year \( t \)
+\end{itemize}
+
+\subsection*{Parameters}
+Given:
+\begin{itemize}
+    \item \( inputone_{k,j} \): Inputs required from industry \( j \) by industry \( k \)
+    \item \( manpowerone_k \): Manpower required by industry \( k \)
+    \item \( inputtwo_{k,j} \): Inputs required to build productive capacity from industry \( j \) by industry \( k \)
+    \item \( manpowertwo_k \): Manpower required to build productive capacity for industry \( k \)
+    \item \( stock_k \): Initial stock of industry \( k \) 
+    \item \( capacity_k \): Initial capacity of industry \( k \)
+    \item \( demand_k \): Exogenous consumption requirement of industry \( k \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total manpower requirement over five years:
+
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} \sum_{t=1}^{5} manpowerone_k \cdot produce_{k,t} + \sum_{k=1}^{K} manpowertwo_k \cdot buildcapa_{k,t}
+\]
+
+\subsection*{Constraints}
+
+1. **Production Capacity Constraint for Year 1 to Year 5**:
+\[
+produce_{k,t} + stockhold_{k,t-1} = demand_k + stockhold_{k,t} \quad \forall k, \quad t = 1, 2, 3, 4, 5
+\]
+
+2. **Stock Holding Constraint**:
+\[
+stockhold_{k,t} = stockhold_{k,t-1} + produce_{k,t} - demand_k \quad \forall k, \quad t = 1, 2, 3, 4, 5
+\]
+
+3. **Input Constraint for Production**:
+\[
+\sum_{j=1}^{K} inputone_{k,j} \cdot produce_{j,t-1} + stockhold_{k,t-1} \geq produce_{k,t} \quad \forall k, \quad t = 1, 2, 3, 4, 5
+\]
+
+4. **Input Constraint for Building Capacity**:
+\[
+\sum_{j=1}^{K} inputtwo_{k,j} \cdot buildcapa_{j,t-1} + stockhold_{k,t-1} \geq buildcapa_{k,t} \quad \forall k, \quad t = 1, 2, 3, 4, 5
+\]
+
+5. **Initial Stock Conditions for Year 0**:
+\[
+stockhold_{k,0} = stock_k \quad \forall k
+\]
+
+6. **Capacity Constraint**:
+\[
+produce_{k,t} + buildcapa_{k,t} \leq capacity_k + stockhold_{k,t} \quad \forall k, \quad t = 1, 2, 3, 4, 5
+\]
+
+\subsection*{Output Format}
+The output will be structured as follows:
+\begin{itemize}
+    \item \( produce \): A matrix where \( produce[k][t] \) represents the amount produced by industry \( k \) in year \( t \).
+    \item \( buildcapa \): A matrix where \( buildcapa[k][t] \) represents the units used to build productive capacity for industry \( k \) in year \( t \).
+    \item \( stockhold \): A matrix where \( stockhold[k][t] \) represents the stock held by industry \( k \) in year \( t \).
+\end{itemize}
+
+\end{document}

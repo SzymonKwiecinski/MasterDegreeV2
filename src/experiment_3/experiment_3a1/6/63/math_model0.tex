@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $L$: large roll width (inches)
+    \item $M$: number of different roll widths
+    \item $d_j$: demand for roll width $j$ (units), for $j = 1, \ldots, M$
+    \item $N$: number of available cutting patterns
+    \item $p_{i,j}$: number of rolls of width $j$ produced by cutting pattern $i$, for $i = 1, \ldots, N$ and $j = 1, \ldots, M$
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_i$: number of times cutting pattern $i$ is used, for $i = 1, \ldots, N$
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize} \quad \sum_{i=1}^{N} x_i
+\]
+Minimize the total number of large rolls used.
+
+\textbf{Constraints:}
+\[
+\sum_{i=1}^{N} p_{i,j} x_i \geq d_j \quad \forall j = 1, \ldots, M
+\]
+Ensure that the demand for each roll width $j$ is satisfied.
+
+\[
+x_i \geq 0 \quad \forall i = 1, \ldots, N
+\]
+Ensure that the number of times each cutting pattern is used is non-negative.
+
+\textbf{Formulation:}
+The complete MILP formulation can be summarized as follows:
+
+\[
+\begin{align*}
+\text{Minimize} & \quad \sum_{i=1}^{N} x_i \\
+\text{Subject to} & \\
+& \sum_{i=1}^{N} p_{i,j} x_i \geq d_j, \quad \forall j \in \{1, \ldots, M\} \\
+& x_i \geq 0, \quad \forall i \in \{1, \ldots, N\}
+\end{align*}
+\]
+
+\end{document}

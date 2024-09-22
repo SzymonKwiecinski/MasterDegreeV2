@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Mixed Integer Programming Model for Container Handling at a Seaport}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Formulation}
+
+Let:
+\begin{itemize}
+    \item $T$: Total number of months
+    \item $demand_{t}$: Demand for containers by ships in month $t$
+    \item $unload\_cost_{t}$: Unloading cost per container in month $t$
+    \item $unload\_capacity_{t}$: Maximum containers that can be unloaded in month $t$
+    \item $holding\_cost$: Holding cost per container
+    \item $max\_container$: Maximum containers that can be stored in the yard at the end of any month
+    \item $init\_container$: Initial number of containers at the start of month 1
+    \item $num\_cranes$: Maximum number of cranes that can be rented per month
+    \item $crane\_capacity$: Number of containers each crane can load
+    \item $crane\_cost$: Cost to rent each crane
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $amount_{t}$: Number of containers unloaded in month $t$, for $t=1,\ldots,T$
+    \item $crane_{t}$: Number of cranes rented in month $t$, for $t=1,\ldots,T$
+    \item $containers_{t}$: Number of containers in the yard at the end of month $t$, for $t=1,\ldots,T$
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost over the period:
+\[
+\text{Total Cost} = \sum_{t=1}^{T} \left( unload\_cost_{t} \cdot amount_{t} + holding\_cost \cdot containers_{t} + crane\_cost \cdot crane_{t} \right)
+\]
+
+\subsection*{Constraints}
+\begin{align}
+1. & \quad containers_{t} = init\_container + \sum_{i=1}^{t} amount_{i} - \sum_{j=1}^{t} crane_{j} \cdot crane\_capacity \quad \forall t \\
+2. & \quad containers_{t} \leq max\_container \quad \forall t \\
+3. & \quad amount_{t} \leq unload\_capacity_{t}  \quad \forall t \\
+4. & \quad amount_{t} \geq demand_{t} \quad \forall t \\
+5. & \quad crane_{t} \leq num\_cranes \quad \forall t \\
+6. & \quad containers_{T} = 0 \\ 
+\end{align}
+
+\subsection*{Output}
+The outputs of the model will be:
+\begin{itemize}
+    \item $containers\_unloaded = [amount_{t} \text{ for } t=1,\ldots,T]$
+    \item $cranes\_rented = [crane_{t} \text{ for } t=1,\ldots,T]$
+    \item $total\_cost = \text{Total Cost}$
+\end{itemize}
+
+\end{document}

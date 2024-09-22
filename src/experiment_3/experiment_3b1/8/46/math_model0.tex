@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Steel Production}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( A \): Number of different alloys
+    \item \( S \): Number of different steel types
+    \item \( \text{available}_{a} \): Available tons of alloy \( a \) for \( a = 1, \ldots, A \)
+    \item \( \text{carbon}_{a} \): Carbon percentage in alloy \( a \) for \( a = 1, \ldots, A \)
+    \item \( \text{nickel}_{a} \): Nickel percentage in alloy \( a \) for \( a = 1, \ldots, A \)
+    \item \( \text{alloy\_price}_{a} \): Purchase price of alloy \( a \) per ton for \( a = 1, \ldots, A \)
+    \item \( \text{steel\_price}_{s} \): Selling price of steel \( s \) per ton for \( s = 1, \ldots, S \)
+    \item \( \text{carbon\_min}_{s} \): Minimum carbon percentage required for steel \( s \) for \( s = 1, \ldots, S \)
+    \item \( \text{nickel\_max}_{s} \): Maximum nickel percentage allowed for steel \( s \) for \( s = 1, \ldots, S \)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( x_{a,s} \): Amount of alloy \( a \) used in steel type \( s \)
+    \item \( y_{s} \): Total amount of steel type \( s \) produced
+\end{itemize}
+
+\textbf{Objective:} Maximize total profit
+
+\[
+\text{Maximize } Z = \sum_{s=1}^{S} (\text{steel\_price}_{s} \cdot y_{s}) - \sum_{a=1}^{A} \sum_{s=1}^{S} (\text{alloy\_price}_{a} \cdot x_{a,s})
+\]
+
+\textbf{Subject to:}
+\begin{align*}
+    & \sum_{a=1}^{A} x_{a,s} = y_{s}, \quad \forall s \in \{1, \ldots, S\} \quad \text{(Steel Production Constraint)} \\
+    & \sum_{s=1}^{S} x_{a,s} \leq \text{available}_{a}, \quad \forall a \in \{1, \ldots, A\} \quad \text{(Alloy Availability Constraint)} \\
+    & \sum_{a=1}^{A} x_{a,s} \cdot \text{carbon}_{a} \geq \text{carbon\_min}_{s} \cdot y_{s}, \quad \forall s \in \{1, \ldots, S\} \quad \text{(Carbon Requirement)} \\
+    & \sum_{a=1}^{A} x_{a,s} \cdot \text{nickel}_{a} \leq \text{nickel\_max}_{s} \cdot y_{s}, \quad \forall s \in \{1, \ldots, S\} \quad \text{(Nickel Constraint)} \\
+    & x_{1,s} \leq 0.4 \cdot y_{s}, \quad \forall s \in \{1, \ldots, S\} \quad \text{(Alloy 1 Constraint)} \\
+    & x_{a,s} \geq 0, \quad \forall a \in \{1, \ldots, A\}, s \in \{1, \ldots, S\} \\
+    & y_{s} \geq 0, \quad \forall s \in \{1, \ldots, S\}
+\end{align*}
+
+\textbf{Output:}
+\begin{itemize}
+    \item \( \text{alloy\_use} \): Amount of each alloy used in each type of steel \( [x_{a,s}] \)
+    \item \( \text{total\_steel} \): Total amount of steel produced \( [y_{s}] \)
+    \item \( \text{total\_profit} \): Total profit \( Z \)
+\end{itemize}
+
+\end{document}

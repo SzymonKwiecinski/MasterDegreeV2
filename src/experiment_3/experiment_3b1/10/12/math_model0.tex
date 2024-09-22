@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+Let \( N \) be the number of available currencies. We denote the currencies as \( C_1, C_2, \ldots, C_N \).
+
+Define:
+\begin{itemize}
+    \item \( start_i \): the initial amount of currency \( C_i \).
+    \item \( limit_i \): the limit on the amount of currency \( C_i \) that can be exchanged.
+    \item \( rate_{i,j} \): the exchange rate from currency \( C_i \) to currency \( C_j \).
+\end{itemize}
+
+Let \( x_{i,j} \) be the amount of currency \( C_i \) that is exchanged for currency \( C_j \).
+
+\subsection*{Objective Function}
+The objective is to maximize the amount of currency \( C_N \) at the end of the day:
+\[
+\text{Maximize } z = x_{N,N} + \sum_{j=1}^{N} x_{N,j}
+\]
+
+\subsection*{Constraints}
+1. **Exchange Limits**:
+   For each currency \( C_i \):
+   \[
+   \sum_{j=1}^{N} x_{i,j} \leq limit_i \quad \forall i \in \{1, 2, \ldots, N\}
+   \]
+
+2. **Initial Constraints**:
+   For each currency \( C_i \):
+   \[
+   x_{i,i} + \sum_{j=1}^{N} x_{j,i} \leq start_i \quad \forall i \in \{1, 2, \ldots, N\}
+   \]
+
+3. **Exchange Rate Constraints**:
+   The amount of currency exchanged must adhere to the exchange rates:
+   \[
+   x_{i,j} \leq rate_{i,j} \cdot \sum_{k=1}^{N} x_{k,i} \quad \forall i,j \in \{1, 2, \ldots, N\}
+   \]
+
+4. **Non-negativity Constraints**:
+   All exchanges must be non-negative:
+   \[
+   x_{i,j} \geq 0 \quad \forall i,j \in \{1, 2, \ldots, N\}
+   \]
+
+\subsection*{Conclusion}
+This linear programming formulation captures the constraints and objectives involved in maximizing the amount of currency \( C_N \) at the end of the day while respecting the limits and exchange rates.
+
+\end{document}

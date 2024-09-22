@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\subsection*{Variables}
+Let \( b_p \) be the number of batches produced for part \( p \) where \( p = 1, \ldots, P \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( time_{m,p} \) = time required on machine \( m \) to produce one batch of part \( p \)
+    \item \( cost_m \) = cost per hour for using machine \( m \)
+    \item \( available_m \) = availability hours per month for machine \( m \)
+    \item \( price_p \) = selling price of one batch of part \( p \)
+    \item \( min\_batches_p \) = minimum batches of part \( p \) required per month
+    \item \( standard\_cost \) = standard labor cost per hour
+    \item \( overtime\_cost \) = overtime labor cost per hour
+    \item \( overtime\_hour \) = maximum standard hours before overtime applies
+    \item \( min\_profit \) = minimum desired profit
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+
+\[
+\text{Maximize} \quad Z = \sum_{p=1}^{P} (price_p \cdot b_p) - \sum_{m=1}^{M} \left( cost_m \cdot \sum_{p=1}^{P} (time_{m,p} \cdot b_p) \right) - \text{Labor Costs}
+\]
+
+where the labor costs are defined based on the total hours used on machine 1.
+
+\subsection*{Constraints}
+1. **Machine availability constraints**:
+\[
+\sum_{p=1}^{P} (time_{m,p} \cdot b_p) \leq available_m \quad \forall m = 1, \ldots, M
+\]
+
+2. **Minimum production constraints**:
+\[
+b_p \geq min\_batches_p \quad \forall p = 1, \ldots, P
+\]
+
+3. **Profit constraint**:
+\[
+Z \geq min\_profit
+\]
+
+4. **Labor Cost Calculation for Machine 1**:
+Let \( H_1 = \sum_{p=1}^{P} (time_{1,p} \cdot b_p) \):
+\begin{itemize}
+    \item If \( H_1 \leq overtime\_hour \):
+    \[
+    \text{Labor Costs} = standard\_cost \cdot H_1
+    \]
+    \item If \( H_1 > overtime\_hour \):
+    \[
+    \text{Labor Costs} = standard\_cost \cdot overtime\_hour + overtime\_cost \cdot (H_1 - overtime\_hour)
+    \end{itemize}
+\end{itemize}
+
+\subsection*{Solution Output}
+The solution will yield:
+\begin{itemize}
+    \item \( b_p \): the number of batches of each part produced
+    \item \( total\_profit \): the total profit obtained for the month
+\end{itemize}
+
+\end{document}

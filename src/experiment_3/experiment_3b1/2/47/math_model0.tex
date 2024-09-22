@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Problem Formulation}
+
+We want to minimize the total cost of assigning police officers to shifts while ensuring that the required number of officers during each shift is met. 
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item $S$: Total number of shifts.
+    \item $officers\_needed_{s}$: Number of officers needed during shift $s$, for $s = 1, 2, \ldots, S$.
+    \item $shift\_cost_{s}$: Cost incurred when starting a shift at $s$.
+    \item $officers\_assigned_{s}$: Number of officers assigned to shift $s$.
+\end{itemize}
+
+\subsection*{Objective Function}
+We aim to minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{s=1}^{S} shift\_cost_{s} \cdot \left\lceil \frac{officers\_needed_{s}}{2} \right\rceil
+\]
+
+\subsection*{Constraints}
+Each officer works for two consecutive shifts. Hence, we set up the constraints for each shift:
+
+\[
+officers\_assigned_{s} + officers\_assigned_{s-1} \geq officers\_needed_{s}, \quad \forall s = 2, 3, \ldots, S
+\]
+
+For the first shift:
+\[
+officers\_assigned_{1} \geq officers\_needed_{1}
+\]
+
+And for the last shift, we need to ensure we account for the wrap-around:
+\[
+officers\_assigned_{S} + officers\_assigned_{S-1} \geq officers\_needed_{S}
+\]
+
+\subsection*{Non-negativity Constraints}
+\[
+officers\_assigned_{s} \geq 0, \quad \forall s = 1, 2, \ldots, S
+\]
+
+\subsection*{Output}
+The final output should consist of:
+\begin{itemize}
+    \item $officers\_assigned$: List of officers assigned to each shift.
+    \item $total\_cost$: The total cost incurred by the town.
+\end{itemize}
+
+\end{document}

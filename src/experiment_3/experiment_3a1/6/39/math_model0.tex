@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Employee Scheduling in a Cafeteria}
+
+\subsection*{Definitions}
+Let:
+\begin{itemize}
+    \item $N$ be the total number of days.
+    \item $num_n$ be the number of employees required on day $n$ where $n = 1, \ldots, N$.
+    \item $n_{working}$ be the number of consecutive working days for each employee.
+    \item $n_{resting}$ be the number of days off for each employee.
+    \item $total\_number$ be the total number of employees to hire.
+    \item $is\_work_{n, i}$ be a binary variable that indicates whether employee $i$ is working on day $n$.
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item $is\_work_{n, i} \in \{0, 1\}$ for all $n \in \{1, \ldots, N\}$ and $i \in \{1, \ldots, total\_number\}$
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total number of employees:
+\[
+\text{Minimize } total\_number
+\]
+
+\subsection*{Constraints}
+1. Ensure that the required number of employees is met for each day:
+\[
+\sum_{i=1}^{total\_number} is\_work_{n, i} \geq num_n \quad \forall n \in \{1, \ldots, N\}
+\]
+
+2. Each employee works for $n_{working}$ days followed by $n_{resting}$ days. This can be enforced by using a block of variables:
+\[
+is\_work_{n, i} = 
+\begin{cases} 
+1 & \text{if } n \mod (n_{working} + n_{resting}) < n_{working} \\
+0 & \text{otherwise}
+\end{cases}
+\]
+
+3. Ensure that the binary variable does not exceed the working limit:
+\[
+\sum_{n=1}^{N} is\_work_{n, i} \leq n_{working} \quad \forall i \in \{1, \ldots, total\_number\}
+\]
+
+4. Ensure an employee rests for $n_{resting}$ days after $n_{working}$ days:
+\[
+is\_work_{n, i} + is\_work_{n + d, i} \leq 1 \quad \forall i, d \text{ where } d \in \{1, \ldots, n_{resting}\}, n + d \leq N
+\]
+
+\subsection*{Output}
+The solution includes:
+\begin{itemize}
+    \item The value of $total\_number$ representing the total number of employees to employ.
+    \item A matrix $is\_work$ where $is\_work_{n, i}$ indicates whether employee $i$ works on day $n$.
+\end{itemize}
+
+\end{document}

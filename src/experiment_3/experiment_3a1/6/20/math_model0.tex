@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $sell_{k,i}$: Quantity of product $k$ sold in month $i$.
+    \item $manufacture_{k,i}$: Quantity of product $k$ manufactured in month $i$.
+    \item $storage_{k,i}$: Quantity of product $k$ stored at the end of month $i$.
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{equation}
+    \text{Maximize} \quad Z = \sum_{i=1}^{I} \sum_{k=1}^{K} (profit_k \cdot sell_{k,i} - store\_price \cdot storage_{k,i})
+\end{equation}
+
+\textbf{Subject to:}
+
+\begin{itemize}
+
+    \item \textbf{Production Capacity Constraints:}
+    \begin{equation}
+        \sum_{k=1}^{K} \sum_{m=1}^{M} time_{k,m} \cdot manufacture_{k,i} \leq n\_workhours \cdot (24 \cdot 6 - \sum_{m=1}^{M} maintain_{i,m}), \quad \forall i
+    \end{equation}
+    
+    \item \textbf{Marketing Limitations:}
+    \begin{equation}
+        sell_{k,i} \leq limit_{k,i}, \quad \forall k, \forall i
+    \end{equation}
+    
+    \item \textbf{Storage Constraints:}
+    \begin{equation}
+        storage_{k,i} \leq 100, \quad \forall k, \forall i
+    \end{equation}
+    
+    \item \textbf{Inventory Balance:}
+    \begin{equation}
+        storage_{k,i} = storage_{k,i-1} + manufacture_{k,i} - sell_{k,i}, \quad \forall k, \forall i \, (i > 1)
+    \end{equation}
+    
+    \item \textbf{Final Inventory Requirement:}
+    \begin{equation}
+        storage_{k,I} \geq keep\_quantity, \quad \forall k
+    \end{equation}
+
+    \item \textbf{Non-negativity Constraints:}
+    \begin{equation}
+        sell_{k,i} \geq 0, \quad manufacture_{k,i} \geq 0, \quad storage_{k,i} \geq 0, \quad \forall k, \forall i
+    \end{equation}
+
+\end{itemize}
+
+\end{document}

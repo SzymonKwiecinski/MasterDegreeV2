@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+Let \( N \) be the number of available currencies, indexed by \( i \) where \( i = 1, 2, \ldots, N \). 
+
+Define the following variables:
+\begin{itemize}
+    \item \( x_{i,j} \): Amount of currency \( i \) exchanged to currency \( j \).
+    \item \( y_i \): Total amount of currency \( i \) held at the end of the day.
+\end{itemize}
+
+Given parameters:
+\begin{itemize}
+    \item \( \text{start}_i \): Initial amount of currency \( i \).
+    \item \( \text{limit}_i \): Limit on the exchanged amount of currency \( i \).
+    \item \( \text{rate}_{i,j} \): Exchange rate from currency \( i \) to currency \( j \) (where \( \text{rate}_{i,j} > 0 \)).
+\end{itemize}
+
+The objective is to maximize the total amount of currency \( N \) held at the end of the day:
+\[
+\text{Maximize } y_N
+\]
+
+Subject to the following constraints:
+
+1. **Balance equations** for each currency:
+\[
+y_i = \text{start}_i - \sum_{j=1}^{N} x_{i,j} + \sum_{j=1}^{N} x_{j,i}, \quad \forall i = 1, 2, \ldots, N
+\]
+
+2. **Exchange limits** for each currency:
+\[
+\sum_{j=1}^{N} x_{i,j} \leq \text{limit}_i, \quad \forall i = 1, 2, \ldots, N
+\]
+
+3. **Non-negativity constraints**:
+\[
+x_{i,j} \geq 0, \quad \forall i, j = 1, 2, \ldots, N
+\]
+
+4. **Cycle constraints** (to ensure we do not multiply wealth through cycles):
+\[
+\text{rate}_{i_1,i_2} \cdot \text{rate}_{i_2,i_3} \cdots \text{rate}_{i_{k-1},i_k} \cdot \text{rate}_{i_k,i_1} \leq 1, \quad \text{for any cycle } i_1, i_2, \ldots, i_k
+\]
+
+The optimal solution of the linear program will yield the transactions and the maximum amount of currency \( N \) that can be held by the end of the day.
+
+\end{document}

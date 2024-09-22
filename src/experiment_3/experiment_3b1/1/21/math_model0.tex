@@ -1,0 +1,79 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Engineering Factory Problem}
+
+\subsection*{Parameters}
+
+\begin{itemize}
+    \item $M$: Number of machines ($num_{m}$)
+    \item $K$: Number of products
+    \item $I$: Number of months
+    \item $profit_k$: Profit for product $k$ (£/unit)
+    \item $time_{k,m}$: Time (hours) required for product $k$ on machine $m$
+    \item $down_m$: Number of months machine $m$ is down for maintenance
+    \item $limit_{k,i}$: Marketing limitation for product $k$ in month $i$
+    \item $store\_price$: Cost of storing each unit per month
+    \item $keep\_quantity$: Desired stock of each product at end of months
+    \item $n\_workhours$: Number of working hours per day
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $sell_{k,i}$: Amount of product $k$ sold in month $i$
+    \item $manufacture_{k,i}$: Amount of product $k$ manufactured in month $i$
+    \item $storage_{k,i}$: Storage of product $k$ at the end of month $i$
+    \item $maintain_{m,i}$: Number of machines of type $m$ that are under maintenance in month $i$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+
+\[
+\text{Maximize } Z = \sum_{i=1}^{I} \sum_{k=1}^{K} (profit_k \cdot sell_{k,i}) - \sum_{k=1}^{K} (store\_price \cdot storage_{k,i}) 
+\]
+
+\subsection*{Constraints}
+
+1. **Production Time Constraint**: 
+   Each product cannot exceed the available time on machines:
+   \[
+   \sum_{k=1}^{K} (time_{k,m} \cdot manufacture_{k,i}) \leq n\_workhours \cdot (24 \text{ days} - down_m) \text{ for all } m \text{ and } i
+   \]
+
+2. **Sales Limit Constraint**:
+   Sales must respect marketing limitations:
+   \[
+   sell_{k,i} \leq limit_{k,i} \text{ for all } k \text{ and } i
+   \]
+  
+3. **Storage Balance**:
+   The storage balance must reflect manufacturing and sales:
+   \[
+   storage_{k,i} = storage_{k,i-1} + manufacture_{k,i} - sell_{k,i} \text{ for all } k \text{ and } i
+   \]
+
+4. **Desired Ending Stock**:
+   Ensure the desired stock is kept:
+   \[
+   storage_{k,I} \geq keep\_quantity \text{ for all } k
+   \]
+
+5. **Non-negativity Constraints**:
+   All variables must be non-negative:
+   \[
+   sell_{k,i}, manufacture_{k,i}, storage_{k,i}, maintain_{m,i} \geq 0 \text{ for all } k, m, i
+   \]
+
+\subsection*{Output Format}
+The output format will include:
+
+\begin{itemize}
+    \item $sell$: $\{sell_{k,i}\}$ for all $k, i$ 
+    \item $manufacture$: $\{manufacture_{k,i}\}$ for all $k, i$ 
+    \item $storage$: $\{storage_{k,i}\}$ for all $k, i$ 
+    \item $maintain$: $\{maintain_{m,i}\}$ for all $m, k$ 
+\end{itemize}
+
+\end{document}

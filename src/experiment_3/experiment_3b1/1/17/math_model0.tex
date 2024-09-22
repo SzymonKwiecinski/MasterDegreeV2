@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Stock Selling Problem}
+
+\subsection*{Indices}
+Let \( i \) denote the index for stocks where \( i = 1, 2, \ldots, N \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{bought}_i \): Number of shares bought of stock \( i \)
+    \item \( \text{buyPrice}_i \): Purchase price of stock \( i \)
+    \item \( \text{currentPrice}_i \): Current price of stock \( i \)
+    \item \( \text{futurePrice}_i \): Expected future price of stock \( i \)
+    \item \( \text{transactionRate} \): Transaction cost percentage (as a fraction)
+    \item \( \text{taxRate} \): Tax percentage on capital gains (as a fraction)
+    \item \( K \): Net amount of money the investor wants to raise
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let \( \text{sell}_i \) represent the number of shares of stock \( i \) that the investor sells.
+
+\subsection*{Objective Function}
+We aim to maximize the expected value of the portfolio next year, considering the future price of the stocks, which can be expressed as:
+
+\[
+\text{Maximize } Z = \sum_{i=1}^{N} \left( \text{futurePrice}_i \cdot \left( \text{bought}_i - \text{sell}_i \right) \right)
+\]
+
+\subsection*{Constraints}
+1. The amount raised from selling stocks must cover the desired amount \( K \) net of transaction costs and taxes:
+
+\[
+\sum_{i=1}^{N} \left( \text{currentPrice}_i \cdot \text{sell}_i \cdot (1 - \text{transactionRate}) - \text{taxRate} \cdot \left( \text{currentPrice}_i \cdot \text{sell}_i - \text{buyPrice}_i \cdot \text{sell}_i \right) \right) \geq K
+\]
+
+2. The number of shares sold must not exceed the number of shares bought:
+
+\[
+\text{sell}_i \leq \text{bought}_i \quad \forall i
+\]
+
+3. Non-negativity constraints:
+
+\[
+\text{sell}_i \geq 0 \quad \forall i
+\]
+
+\subsection*{Output}
+The output will be the optimal number of shares to sell for each stock \( i \):
+
+\[
+\text{Output: } \{\text{sell} = [\text{sell}_1, \text{sell}_2, \ldots, \text{sell}_N]\}
+\]
+
+\end{document}

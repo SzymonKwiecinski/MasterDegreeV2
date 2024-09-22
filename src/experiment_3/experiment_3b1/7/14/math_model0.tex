@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $P$: Number of different products
+    \item $cash$: Total available cash
+    \item $hour_i$: Machine hours required for producing one unit of product $i$ (for $i = 1, \ldots, P$)
+    \item $cost_i$: Production cost per unit of product $i$ (for $i = 1, \ldots, P$)
+    \item $price_i$: Selling price per unit of product $i$ (for $i = 1, \ldots, P$)
+    \item $investPercentage_i$: Investment percentage of the sales revenues from product $i$ (for $i = 1, \ldots, P$)
+    \item $upgradeHours$: Additional machine hours available from upgrades
+    \item $upgradeCost$: Cost for upgrading the machine
+    \item $availableHours$: Total available machine hours before upgrades
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $production_i$: Production quantity of product $i$ (for $i = 1, \ldots, P$)
+    \item $upgrade$: A binary variable indicating whether the company should upgrade its machine capacity
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total net income:
+\[
+\text{Net Income} = \sum_{i=1}^{P} (price_i \cdot production_i - cost_i \cdot production_i - investPercentage_i \cdot (price_i \cdot production_i)) - upgradeCost \cdot upgrade
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+1. & \quad \sum_{i=1}^{P} (hour_i \cdot production_i) \leq availableHours + upgradeHours \cdot upgrade \\
+2. & \quad \sum_{i=1}^{P} (cost_i \cdot production_i) + \sum_{i=1}^{P} (investPercentage_i \cdot (price_i \cdot production_i)) \leq cash \\
+3. & \quad production_i \geq 0 \quad \text{for } i=1,\ldots,P \\
+4. & \quad upgrade \in \{0, 1\}
+\end{align*}
+
+\subsection*{Output}
+The output consists of:
+\begin{itemize}
+    \item $net\_income$: The net income of the company
+    \item $production$: An array containing $production_i$ for $i = 1, \ldots, P$
+    \item $upgrade$: A boolean variable indicating whether to upgrade or not
+\end{itemize}
+
+\end{document}

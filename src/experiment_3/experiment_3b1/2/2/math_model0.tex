@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for DEC Production Problem}
+
+\subsection*{Variables}
+Let \( x_i \) be the number of systems produced for system \( i \) where \( i = 1, \ldots, N \).
+
+Let \( m_i \) be the number of 256K memory boards used for system \( i \).
+
+Let \( a_i \) be the number of alternative memory boards used for system \( i \).
+
+Let \( d_i \) be the number of disk drives used for system \( i \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{is\_workstation}[i] \): indicates if system \( i \) is a workstation (true) or a general-purpose system (false).
+    \item \( \text{price}[i] \): price of system \( i \).
+    \item \( \text{disk\_drives}[i] \): average number of disk drives requested for system \( i \).
+    \item \( \text{256K\_boards}[i] \): average number of 256K memory boards requested for system \( i \).
+    \item \( \text{max\_cpu} \): maximum number of CPUs available.
+    \item \( \text{min\_disk} \): minimum supply of disk drives.
+    \item \( \text{max\_disk} \): maximum supply of disk drives.
+    \item \( \text{min\_mem} \): minimum supply of 256K memory boards.
+    \item \( \text{max\_mem} \): maximum supply of 256K memory boards.
+    \item \( \text{demand}[i] \): maximum demand for system \( i \).
+    \item \( \text{demand\_GP} \): maximum demand for the GP family.
+    \item \( \text{demand\_WS} \): maximum demand for the WS family.
+    \item \( \text{preorder}[i] \): pre-orders received for system \( i \).
+    \item \( \text{alt\_mem} \): total units of alternative memory boards available.
+    \item \( \text{alt\_compatible}[i] \): indicates if system \( i \) can use alternative memory boards.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Profit} = \sum_{i=1}^{N} \left( \text{price}[i] \cdot x_i - \text{cost\_mem}[i] - \text{cost\_disk}[i] \right)
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    & \sum_{i=1}^{N} x_i \leq \text{max\_cpu} \quad \text{(CPU constraint)} \\
+    & \sum_{i=1}^{N} \text{disk\_drives}[i] \cdot x_i \geq \text{min\_disk} \\
+    & \sum_{i=1}^{N} \text{disk\_drives}[i] \cdot x_i \leq \text{max\_disk} \\
+    & \sum_{i=1}^{N} \text{256K\_boards}[i] \cdot x_i \geq \text{min\_mem} \\
+    & \sum_{i=1}^{N} \text{256K\_boards}[i] \cdot x_i \leq \text{max\_mem} \\
+    & x_i \geq \text{preorder}[i] \quad \text{(for all } i\text{)} \\
+    & x_i \leq \text{demand}[i] \quad \text{(for all } i\text{)} \\
+    & \sum_{\text{is\_workstation}[i] = \text{true}} x_i \leq \text{demand\_WS} \\
+    & \sum_{\text{is\_workstation}[i] = \text{false}} x_i \leq \text{demand\_GP} \\
+    & a_i \leq \text{alt\_mem} \quad \text{(if alt\_compatible[i] is true)} 
+\end{align}
+
+\end{document}

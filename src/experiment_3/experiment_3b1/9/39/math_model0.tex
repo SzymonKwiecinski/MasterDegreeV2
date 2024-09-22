@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Cafeteria Staffing Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $N$: Total number of days.
+    \item $num_n$: Number of desired employees on day $n$, where $n \in \{1, 2, \ldots, N\}$.
+    \item $n_{\text{working\_days}}$: Number of consecutive days an employee works.
+    \item $n_{\text{resting\_days}}$: Number of consecutive days an employee rests.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $total\_number$: Total number of employees to hire.
+    \item $is\_work_{n,i}$: Binary variable indicating if employee $i$ is working on day $n$ ($is\_work_{n,i} = 1$) or resting ($is\_work_{n,i} = 0$), where $i \in \{1, 2, \ldots, total\_number\}$ and $n \in \{1, 2, \ldots, N\}$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the number of employees hired:
+\[
+\text{Minimize } total\_number
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item For each day $n$, the total number of employees working must be at least $num_n$:
+    \[
+    \sum_{i=1}^{total\_number} is\_work_{n,i} \geq num_n \quad \forall n \in \{1, 2, \ldots, N\}
+    \]
+    
+    \item Each employee works for $n_{\text{working\_days}}$ days and then rests for $n_{\text{resting\_days}}$ days. For an employee $i$ working on day $n$, the following condition holds for their cycle:
+    \[
+    is\_work_{k,i} = 
+    \begin{cases} 
+      1 & \text{if } k \text{ mod } (n_{\text{working\_days}} + n_{\text{resting\_days}}) < n_{\text{working\_days}} \\
+      0 & \text{otherwise}
+    \end{cases}
+    \quad \forall i \in \{1, 2, \ldots, total\_number\}, \, \forall k \in \{1, 2, \ldots, N\}
+    \]
+\end{itemize}
+
+\end{document}

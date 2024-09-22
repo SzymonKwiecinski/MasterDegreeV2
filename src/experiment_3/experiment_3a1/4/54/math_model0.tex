@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Auto Parts Manufacturer}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+
+Let \( P \) be the number of different parts produced and \( M \) be the number of different machines used. 
+
+\subsection*{Parameters}
+
+\begin{itemize}
+    \item \( \text{time}_{m,p} \): Time required on machine \( m \) to produce a batch of part \( p \) (in hours).
+    \item \( \text{cost}_{m} \): Cost per hour of using machine \( m \).
+    \item \( \text{available}_{m} \): Total available hours for machine \( m \) per month.
+    \item \( \text{price}_{p} \): Selling price per batch of part \( p \).
+    \item \( \text{min\_batches}_{p} \): Minimum number of batches of part \( p \) that must be produced.
+    \item \( \text{standard\_cost} \): Standard labor cost per hour.
+    \item \( \text{overtime\_cost} \): Overtime labor cost per hour.
+    \item \( \text{overtime\_hour} \): Number of hours at standard cost before overtime applies.
+\end{itemize}
+
+\subsection*{Decision Variables}
+
+Let \( batches_{p} \) be the number of batches produced for part \( p \) each month.
+
+\subsection*{Objective Function}
+
+The objective is to maximize the total profit, defined as:
+
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} \left( \text{price}_p \cdot batches_p \right) - \sum_{m=1}^{M} \left( \text{cost}_m \cdot \sum_{p=1}^{P} \text{time}_{m,p} \cdot batches_p \right) - \text{Labor\_Cost}
+\]
+
+where:
+
+\[
+\text{Labor\_Cost} =
+\begin{cases} 
+\text{standard\_cost} \cdot \text{total\_time} & \text{if } \text{total\_time} \leq \text{overtime\_hour} \\ 
+\text{standard\_cost} \cdot \text{overtime\_hour} + \text{overtime\_cost} \cdot (\text{total\_time} - \text{overtime\_hour}) & \text{if } \text{total\_time} > \text{overtime\_hour} 
+\end{cases}
+\]
+
+with \( \text{total\_time} = \sum_{m=1}^{M} \sum_{p=1}^{P} \text{time}_{m,p} \cdot batches_p \).
+
+\subsection*{Constraints}
+
+1. Machine availability constraints:
+\[
+\sum_{p=1}^{P} \text{time}_{m,p} \cdot batches_p \leq \text{available}_{m} \quad \forall m = 1, \ldots, M
+\]
+
+2. Minimum production requirements:
+\[
+batches_p \geq \text{min\_batches}_{p} \quad \forall p = 1, \ldots, P
+\]
+
+3. Non-negativity:
+\[
+batches_p \geq 0 \quad \forall p = 1, \ldots, P
+\]
+
+\end{document}

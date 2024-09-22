@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item $b_p$ = number of batches produced of part $p$ for $p = 1, \ldots, P$.
+    \item $extra_m$ = additional hours purchased for machine $m$ for $m = 1, \ldots, M$.
+\end{itemize}
+
+\subsection*{Parameters}
+The parameters are as follows:
+\begin{itemize}
+    \item $time_{m,p}$ = time required (in hours) for machine $m$ to produce a batch of part $p$.
+    \item $cost_m$ = cost per hour for using machine $m$.
+    \item $available_m$ = available hours per month for machine $m$.
+    \item $price_p$ = price per batch for part $p$.
+    \item $min\_batches_p$ = minimum number of batches required for part $p$.
+    \item $extra\_costs_m$ = cost per hour for extra time on machine $m$.
+    \item $max\_extra_m$ = maximum extra hours that can be purchased for machine $m$.
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to maximize the total profit:
+\[
+\text{Maximize } Z = \sum_{p=1}^P \left( price_p \cdot b_p - \sum_{m=1}^M (cost_m \cdot time_{m,p} \cdot b_p + extra\_costs_m \cdot extra_m) \right)
+\]
+
+\subsection*{Constraints}
+1. **Production Requirement**: Each part must satisfy the minimum batch requirement:
+\[
+b_p \geq min\_batches_p \quad \forall p = 1, \ldots, P
+\]
+
+2. **Machine Time Availability**: The total time used on each machine must not exceed the available time plus any extra time purchased. For each machine $m$:
+\[
+\sum_{p=1}^P time_{m,p} \cdot b_p \leq available_m + extra_m \quad \forall m = 1, \ldots, M
+\]
+
+3. **Extra Time Limit**: The extra time purchased for each machine must not exceed the maximum extra hours allowed:
+\[
+extra_m \leq max\_extra_m \quad \forall m = 1, \ldots, M
+\]
+
+4. **Non-negativity**: The number of batches produced and extra time must be non-negative:
+\[
+b_p \geq 0 \quad \text{and} \quad extra_m \geq 0 \quad \forall p = 1, \ldots, P \text{ and } m = 1, \ldots, M
+\]
+
+\end{document}

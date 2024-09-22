@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Steel Production}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+
+Let:
+\begin{itemize}
+    \item $S$: Number of different types of steel
+    \item $A$: Number of different alloys
+    \item $available_{a}$: Available tons of alloy $a$, for $a = 1, \ldots, A$
+    \item $carbon_{a}$: Percentage of carbon in alloy $a$, for $a = 1, \ldots, A$
+    \item $nickel_{a}$: Percentage of nickel in alloy $a$, for $a = 1, \ldots, A$
+    \item $alloy\_price_{a}$: Purchase price of alloy $a$ per ton, for $a = 1, \ldots, A$
+    \item $steel\_price_{s}$: Selling price of steel type $s$ per ton, for $s = 1, \ldots, S$
+    \item $carbon\_min_{s}$: Minimum required percentage of carbon in steel type $s$, for $s = 1, \ldots, S$
+    \item $nickel\_max_{s}$: Maximum allowable percentage of nickel in steel type $s$, for $s = 1, \ldots, S$
+    \item $alloy\_amount_{a,s}$: Amount of alloy $a$ used in steel type $s$, for $a = 1, \ldots, A$ and $s = 1, \ldots, S$
+    \item $total\_steel_{s}$: Total amount of steel type $s$ produced, for $s = 1, \ldots, S$
+    \item $total\_profit$: Total profit from steel sales
+\end{itemize}
+
+\section*{Objective Function}
+
+Maximize the total profit:
+\[
+\text{Maximize } Z = \sum_{s=1}^{S} (steel\_price_{s} \cdot total\_steel_{s}) - \sum_{a=1}^{A} (alloy\_price_{a} \cdot \sum_{s=1}^{S} alloy\_amount_{a,s})
+\]
+
+\section*{Constraints}
+
+1. Alloy usage constraint:
+\[
+\sum_{s=1}^{S} alloy\_amount_{a,s} \leq available_{a}, \quad \forall a = 1, \ldots, A
+\]
+
+2. Carbon content constraint for each steel type $s$:
+\[
+\sum_{a=1}^{A} (alloy\_amount_{a,s} \cdot carbon_{a}) \geq carbon\_min_{s} \cdot total\_steel_{s}, \quad \forall s = 1, \ldots, S
+\]
+
+3. Nickel content constraint for each steel type $s$:
+\[
+\sum_{a=1}^{A} (alloy\_amount_{a,s} \cdot nickel_{a}) \leq nickel\_max_{s} \cdot total\_steel_{s}, \quad \forall s = 1, \ldots, S
+\]
+
+4. Alloy 1 usage constraint:
+\[
+\sum_{s=1}^{S} alloy\_amount_{1,s} \leq 0.4 \cdot \sum_{s=1}^{S} total\_steel_{s}
+\]
+
+5. Non-negativity constraints:
+\[
+alloy\_amount_{a,s} \geq 0, \quad total\_steel_{s} \geq 0, \quad \forall a = 1, \ldots, A, \; s = 1, \ldots, S
+\]
+
+\section*{Output Format}
+
+The solution will provide:
+\begin{itemize}
+    \item The amount of each alloy used in each type of steel: $alloy\_use = [[alloy\_amount_{a,s} \text{ for } a = 1, \ldots, A] \text{ for } s = 1, \ldots, S]$
+    \item Total amount of steel produced: $total\_steel = [total\_steel_{s} \text{ for } s = 1, \ldots, S]$
+    \item Total profit: $total\_profit$
+\end{itemize}
+
+\end{document}

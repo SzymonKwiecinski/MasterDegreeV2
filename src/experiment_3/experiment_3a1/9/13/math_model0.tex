@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Finding the Chebychev Center}
+
+Given the set \( P \) defined by the linear inequality constraints:
+
+\[
+P = \{ x \in \mathbb{R}^N \mid a_i^T x \leq b_i, \; i = 1, \ldots, m \}
+\]
+
+where \( a_i \in \mathbb{R}^N \) and \( b_i \in \mathbb{R} \), we aim to find a ball with the largest possible radius \( r \) that is entirely contained within the set \( P \). The ball is defined with center \( y \in \mathbb{R}^N \) and radius \( r \) as the set of points \( x \) such that:
+
+\[
+\| x - y \|_2 \leq r
+\]
+
+This leads to the following optimization problem:
+
+\subsection*{Objective Function}
+Maximize the radius \( r \):
+
+\[
+\text{maximize } r
+\]
+
+\subsection*{Constraints}
+The ball must be entirely contained within \( P \), which translates to the following constraints for every \( i = 1, \ldots, m \):
+
+\[
+a_i^T (y + r z) \leq b_i, \quad \forall z \in \mathbb{R}^N \text{ such that } \| z \|_2 = 1
+\]
+
+Since \( z \) is a unit vector, we can rewrite the constraints more conveniently. We can derive that the distance from the point \( y \) to the boundary defined by the constraints \( a_i^T x = b_i \) must be at least \( r \):
+
+1. For each \( i \):
+
+\[
+\frac{b_i - a_i^T y}{\| a_i \|_2} \geq r
+\]
+
+This yields the constraints:
+
+\[
+r \leq \frac{b_i - a_i^T y}{\| a_i \|_2}, \quad \forall i = 1, \ldots, m
+\]
+
+\subsection*{Final Formulation}
+Thus, the Linear Programming problem can be summarized as:
+
+\[
+\begin{align*}
+\text{maximize} & \quad r \\
+\text{subject to} & \quad r \leq \frac{b_i - a_i^T y}{\| a_i \|_2}, \quad \forall i = 1, \ldots, m \\
+                   & \quad y \in \mathbb{R}^N
+\end{align*}
+\]
+
+The output will provide the center \( y \) of the ball and the radius \( r \):
+
+\subsection*{Output Format}
+\[
+\text{Output} = \{ \text{center: } [y_j \text{ for } j = 1, \ldots, N], \; \text{radius: } r \}
+\]
+
+\end{document}

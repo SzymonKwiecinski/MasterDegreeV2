@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Trajectory Optimization Problem}
+
+\subsection*{Parameters}
+Let:
+\begin{align*}
+x_t & : \text{Position of the rocket at time } t \\
+v_t & : \text{Velocity of the rocket at time } t \\
+a_t & : \text{Acceleration of the rocket at time } t \\
+x_0 & : \text{Initial position} \\
+v_0 & : \text{Initial velocity} \\
+x_T & : \text{Target position} \\
+v_T & : \text{Target velocity} \\
+T & : \text{Time at which the rocket reaches the target}
+\end{align*}
+
+\subsection*{Discrete-time Model}
+The discrete-time model of the rocket's motion can be expressed as:
+\begin{align}
+x_{t+1} = x_t + v_t \\
+v_{t+1} = v_t + a_t
+\end{align}
+for \( t = 0, 1, \ldots, T-1 \).
+
+\subsection*{Objective}
+We aim to minimize the maximum thrust required, which can be formulated as:
+\[
+\text{Minimize } \max_{t} |a_t|
+\]
+
+\subsection*{Constraints}
+The constraints include:
+\begin{align}
+x_0 & = x_0 \\
+v_0 & = v_0 \\
+x_T & = x_T \\
+v_T & = v_T \\
+\end{align}
+
+For \( t = 0, 1, \ldots, T-1 \):
+\begin{align}
+x_{t+1} & = x_t + v_t \\
+v_{t+1} & = v_t + a_t \\
+\end{align}
+
+The acceleration \( a_t \) is subject to the maximum thrust constraint:
+\[
+|a_t| \leq M
+\]
+where \( M \) is the maximum allowable thrust.
+
+\subsection*{Output Variables}
+The output will consist of:
+\begin{align*}
+x & : [x_i \text{ for } i = 0, \ldots, T] \\
+v & : [v_i \text{ for } i = 0, \ldots, T] \\
+a & : [a_i \text{ for } i = 0, \ldots, T] \\
+\text{fuel\_spend} & : \text{Total fuel spent}
+\end{align*}
+
+\end{document}

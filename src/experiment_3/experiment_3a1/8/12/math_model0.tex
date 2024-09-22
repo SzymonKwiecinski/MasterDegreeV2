@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+Let:
+\begin{itemize}
+    \item \(N\) be the number of available currencies,
+    \item \(x_{i,j}\) be the amount of currency \(i\) exchanged for currency \(j\),
+    \item \(start_i\) be the starting amount of currency \(i\),
+    \item \(limit_i\) be the limit on the amount of currency \(i\) that can be exchanged,
+    \item \(rate_{i,j}\) be the exchange rate from currency \(i\) to currency \(j\).
+\end{itemize}
+
+We aim to maximize the total amount of currency \(N\) at the end of the day.
+
+\subsection*{Objective Function}
+
+The objective function to maximize is:
+\[
+\text{Maximize } z = x_{N, N} + \sum_{j=1}^{N} x_{N,j}
+\]
+where \(x_{N, N}\) represents the amount of currency \(N\) retained after transactions and \(\sum_{j=1}^{N} x_{N,j}\) is the total amount of currency \(N\) obtained through exchanges with other currencies.
+
+\subsection*{Subject to the following constraints:}
+
+1. \textbf{Exchange Amount Constraints}:
+   For each currency \(i\):
+   \[
+   \sum_{j=1}^{N} x_{i,j} \leq limit_i, \quad \forall i = 1, 2, \ldots, N
+   \]
+
+2. \textbf{Starting Amount Constraints}:
+   The amount exchanged from currency \(i\) must not exceed the starting amount:
+   \[
+   x_{i,j} \leq start_i, \quad \forall i = 1, 2, \ldots, N, \forall j = 1, 2, \ldots, N
+   \]
+
+3. \textbf{Exchange Rate Constraints}:
+   The converted amounts must respect the exchange rates:
+   \[
+   x_{i,j} \cdot rate_{i,j} \leq x_{j,i}, \quad \forall i,j \text{ such that } i \neq j
+   \]
+
+4. \textbf{Non-negativity Constraints}:
+   All exchanged amounts must be non-negative:
+   \[
+   x_{i,j} \geq 0, \quad \forall i, j
+   \]
+
+\subsection*{Final Amount of Currency N}
+
+At the end of the day, the total amount of currency \(N\) will be calculated as:
+\[
+final\_amount\_of\_currency\_N = x_{N,N} + \sum_{j=1}^{N} (x_{N,j} \cdot rate_{N,j})
+\]
+
+This formulation captures the optimization problem of maximizing the total amount of currency \(N\) through a series of transactions while adhering to the specified constraints.
+
+\end{document}

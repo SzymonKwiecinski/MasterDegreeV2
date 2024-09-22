@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Nurse Scheduling}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $period$: Number of days a nurse works in a row
+    \item $d_j$: Demand for nurses on day $j$, for $j = 1, \ldots, 7$
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $start_j$: Number of nurses that start their period on day $j$, for $j = 1, \ldots, 7$
+    \item $total$: Total number of nurses hired
+\end{itemize}
+
+\textbf{Objective:} 
+Minimize the total number of nurses hired:
+\[
+\text{Minimize } total = \sum_{j=1}^{7} start_j
+\]
+
+\textbf{Constraints:}
+For each day $j$:
+\[
+\sum_{i=0}^{period-1} start_{(j-i) \mod 7} \geq d_j \quad \forall j = 1, \ldots, 7
+\]
+This constraint ensures that the demand for nurses on each day $j$ is met by considering the nurses who started their shifts up to the last $period$ days.
+
+\textbf{Non-negativity:}
+\[
+start_j \geq 0 \quad \forall j = 1, \ldots, 7
+\]
+
+\textbf{Integer Constraints:}
+\[
+start_j \in \mathbb{Z}^+ \quad \forall j = 1, \ldots, 7
+\]
+
+\end{document}

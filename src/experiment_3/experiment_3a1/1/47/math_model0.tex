@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Police Shift Assignment}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( S \): Number of different shifts
+    \item \( \text{officers\_needed}_{s} \): Number of police officers needed during shift \( s \) (for \( s = 1, 2, \ldots, S \))
+    \item \( \text{shift\_cost}_{s} \): Cost incurred by starting shift \( s \) (for \( s = 1, 2, \ldots, S \))
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{officers\_assigned}_{s} \): Number of officers assigned to shift \( s \) (for \( s = 1, 2, \ldots, S \))
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+
+\[
+\text{Total Cost} = \sum_{s=1}^{S} \text{shift\_cost}_{s} \cdot y_s
+\]
+
+where \( y_s \) is a binary variable that equals 1 if shift \( s \) is staffed (i.e., \( \text{officers\_assigned}_{s} > 0 \)) and 0 otherwise.
+
+\subsection*{Constraints}
+\begin{align*}
+\text{officers\_assigned}_{s} & \geq \text{officers\_needed}_{s} && \text{for } s = 1, 2, \ldots, S \\
+\text{officers\_assigned}_{s} & = 0 && \text{if } y_s = 0 \text{ (non-staffed shifts)} \\
+\text{officers\_assigned}_{s} & + \text{officers\_assigned}_{s+1} \geq \text{officers\_needed}_{s} && \text{for } s = 1, 2, \ldots, S-1 \\
+\end{align*}
+
+\subsection*{Output}
+The solution will provide:
+\begin{itemize}
+    \item \( \text{officers\_assigned} = [\text{officers\_assigned}_{1}, \text{officers\_assigned}_{2}, \ldots, \text{officers\_assigned}_{S}] \)
+    \item \( \text{total\_cost} \)
+\end{itemize}
+
+\end{document}

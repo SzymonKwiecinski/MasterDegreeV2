@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Best Fit Line}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Description}
+We want to fit a 'best' straight line of the form \( y = bx + a \) to a set of observed data points \( (x_k, y_k) \) for \( k = 1, \ldots, K \). The goal is to minimize the sum of absolute deviations of each observed value of \( y_k \) from the predicted value given by the line.
+
+\section*{Modeling the Problem}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item Let \( a \) be the intercept of the fitted line.
+    \item Let \( b \) be the slope of the fitted line.
+    \item Let \( d_k \) be the absolute deviation for the \( k \)-th observation, defined as \( d_k = |y_k - (bx_k + a)| \) for \( k = 1, \ldots, K \).
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the total absolute deviations:
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} d_k
+\]
+
+\subsection*{Constraints}
+The absolute deviations can be expressed using auxiliary variables \( d_k \) as follows:
+\[
+d_k \geq y_k - (bx_k + a) \quad \forall k
+\]
+\[
+d_k \geq -(y_k - (bx_k + a)) \quad \forall k
+\]
+
+This ensures that \( d_k \) correctly represents the absolute deviation.
+
+\subsection*{Linear Programming Formulation}
+The complete linear programming model can be formulated as:
+
+\[
+\begin{align*}
+\text{Minimize} & \quad Z = \sum_{k=1}^{K} d_k \\
+\text{subject to} & \quad d_k \geq y_k - (bx_k + a) & \forall k \\
+& \quad d_k \geq -(y_k - (bx_k + a)) & \forall k \\
+& \quad d_k \geq 0 & \forall k \\
+& \quad a \text{ and } b \text{ are unrestricted}
+\end{align*}
+\]
+
+\section*{Output}
+After solving the above linear programming model, the output will provide the values of the intercept and slope:
+\[
+\begin{align*}
+\text{intercept} & : a \\
+\text{slope} & : b
+\end{align*}
+\]
+
+\end{document}

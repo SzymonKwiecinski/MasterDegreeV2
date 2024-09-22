@@ -1,0 +1,78 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $T$: Total number of months
+    \item $demand_{t}$: Demand for containers in month $t$, for $t = 1, \ldots, T$
+    \item $unload\_cost_{t}$: Cost to unload a single container in month $t$
+    \item $unload\_capacity_{t}$: Maximum containers that can be unloaded in month $t$
+    \item $holding\_cost$: Cost to hold one container per month
+    \item $max\_container$: Maximum containers that can be stored in the yard
+    \item $init\_container$: Initial number of containers in the yard
+    \item $num\_cranes$: Maximum number of cranes that can be rented in any month
+    \item $crane\_capacity$: Number of containers each crane can load in a month
+    \item $crane\_cost$: Cost to rent one crane
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item $amount_{t}$: Number of containers unloaded in month $t$
+    \item $crane_{t}$: Number of cranes rented in month $t$
+    \item $holding_{t}$: Number of containers held in the yard at the end of month $t$
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost over the period:
+\[
+\text{Total Cost} = \sum_{t=1}^{T} \left( unload\_cost_{t} \cdot amount_{t} + holding\_cost \cdot holding_{t} + crane\_cost \cdot crane_{t} \right)
+\]
+
+\subsection*{Constraints}
+1. Unloading Capacity:
+\[
+amount_{t} \leq unload\_capacity_{t}, \quad \forall t = 1, \ldots, T
+\]
+
+2. Demand Satisfaction:
+\[
+amount_{t} + holding_{t-1} \geq demand_{t}, \quad \forall t = 1, \ldots, T
+\]
+with $holding_{0} = init\_container$
+
+3. Maximum Containers in Storage:
+\[
+holding_{t} \leq max\_container, \quad \forall t = 1, \ldots, T
+\]
+
+4. Crane Capacity:
+\[
+crane_{t} \cdot crane\_capacity \geq amount_{t}, \quad \forall t = 1, \ldots, T
+\]
+
+5. Crane Rental Limit:
+\[
+crane_{t} \leq num\_cranes, \quad \forall t = 1, \ldots, T
+\]
+
+6. End of Period Constraint:
+\[
+holding_{T} = 0
+\]
+
+7. Non-negativity Constraints:
+\[
+amount_{t} \geq 0, \quad crane_{t} \geq 0, \quad holding_{t} \geq 0, \quad \forall t = 1, \ldots, T
+\]
+
+\subsection*{Output Variables}
+\begin{itemize}
+    \item $containers\_unloaded = [amount_{t} \text{ for } t=1, \ldots, T]$
+    \item $cranes\_rented = [crane_{t} \text{ for } t=1, \ldots, T]$
+    \item $total\_cost = \text{Total Cost}$
+\end{itemize}
+
+\end{document}

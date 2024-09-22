@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Traveling Salesman Problem}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item Let \( N \) be the total number of towns.
+    \item Let \( C \) represent the set of cities including the start city, where \( C = \{0, 1, 2, \ldots, N\} \). Here, city \( 0 \) is the \texttt{start\_city}.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( d_{i,j} \) : Distance between city \( i \) and city \( j \).
+    \item \( d_{i,j} = d_{j,i} \) for all \( i, j \in C \) (symmetric distances).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_{i,j} \) : Binary variable, where \( x_{i,j} = 1 \) if the traveler travels directly from city \( i \) to city \( j \); \( 0 \) otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total distance traveled:
+\[
+\text{Minimize } Z = \sum_{i \in C} \sum_{j \in C} d_{i,j} x_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Each city is visited exactly once:
+    \[
+    \sum_{j \in C} x_{0,j} = 1
+    \]
+    \[
+    \sum_{i \in C} x_{i,j} = 1, \quad \forall j \in \{1, 2, \ldots, N\}
+    \]
+    \item Returning to the start city:
+    \[
+    \sum_{j \in C} x_{j,0} = 1
+    \]
+    \item Subtour elimination constraints must be added to prevent sub-tours, which can be modeled using additional binary variables \( u_j \):
+    \[
+    u_i - u_j + N x_{i,j} \leq N - 1, \quad \forall i,j \in \{1, 2, \ldots, N\}, (i \neq j)
+    \]
+\end{itemize}
+
+\subsection*{Output}
+The solution will provide:
+\begin{itemize}
+    \item \( \texttt{visit\_order} \) : The sequence of towns visited after the \texttt{start\_city}.
+    \item \( \texttt{total\_distance} \) : The total distance traveled on this optimal journey.
+\end{itemize}
+
+\end{document}

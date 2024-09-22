@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Model for Engineering Factory Operations}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item Let \( M \) be the number of machines.
+    \item Let \( K \) be the number of products.
+    \item Let \( I \) be the number of months.
+    \item \( \text{profit}_k \): Profit per unit of product \( k \).
+    \item \( \text{time}_{k,m} \): Production time required for product \( k \) on machine \( m \).
+    \item \( \text{down}_m \): Number of months machine \( m \) is under maintenance.
+    \item \( \text{limit}_{k,i} \): Sales limit for product \( k \) in month \( i \).
+    \item \( \text{store\_price} \): Storage cost per unit per month.
+    \item \( \text{keep\_quantity} \): Desired stock of each product at the end of the planning period.
+    \item \( n_{\text{workhours}} \): Number of work hours available per day.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( \text{sell}_{k,i} \): Quantity of product \( k \) sold in month \( i \).
+    \item \( \text{manufacture}_{k,i} \): Quantity of product \( k \) manufactured in month \( i \).
+    \item \( \text{storage}_{k,i} \): Quantity of product \( k \) stored at the end of month \( i \).
+    \item \( \text{maintain}_{m,i} \): Binary variable indicating whether machine \( m \) is under maintenance in month \( i \) (1 if under maintenance, 0 otherwise).
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{i=1}^{I} \sum_{k=1}^{K} \left( \text{profit}_k \cdot \text{sell}_{k,i} - \text{store\_price} \cdot \text{storage}_{k,i} \right)
+\]
+
+\textbf{Subject to:}
+
+\begin{align*}
+\sum_{k=1}^{K} \text{manufacture}_{k,i} \cdot \text{time}_{k,m} & \leq n_{\text{workhours}} \cdot 12 \cdot (24 - \text{down}_m) \quad \forall m \in \{1, \ldots, M\}, i \in \{1, \ldots, I\} \\
+\text{sell}_{k,i} & \leq \text{limit}_{k,i} \quad \forall k \in \{1, \ldots, K\}, i \in \{1, \ldots, I\} \\
+\text{storage}_{k,i} & = \text{storage}_{k,i-1} + \text{manufacture}_{k,i} - \text{sell}_{k,i} \quad \forall k \in \{1, \ldots, K\}, i \in \{2, \ldots, I\} \\
+\text{storage}_{k,1} & = 0 \quad \forall k \in \{1, \ldots, K\} \\
+\text{storage}_{k,I} & \geq \text{keep\_quantity} \quad \forall k \in \{1, \ldots, K\} \\
+\sum_{i=1}^{I} \text{maintain}_{m,i} & \leq \text{down}_m \quad \forall m \in \{1, \ldots, M\} \\
+\text{manufacture}_{k,i}, \text{sell}_{k,i}, \text{storage}_{k,i} & \geq 0 \quad \forall k \in \{1, \ldots, K\}, i \in \{1, \ldots, I\} \\
+\text{maintain}_{m,i} & \in \{0, 1\} \quad \forall m \in \{1, \ldots, M\}, i \in \{1, \ldots, I\}
+\end{align*}
+
+\end{document}

@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Paper Cutting Problem}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( W \): Large roll width (inches) 
+    \item \( M \): Number of different types of smaller rolls 
+    \item \( d_j \): Demand for rolls of width \( j \) (for \( j = 1, \ldots, M \)) 
+    \item \( N \): Number of different cutting patterns 
+    \item \( p_{ij} \): Number of rolls of width \( j \) produced by cutting pattern \( i \) (for \( i = 1, \ldots, N \) and \( j = 1, \ldots, M \))
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( x_i \): Number of large rolls cut according to pattern \( i \) (for \( i = 1, \ldots, N \))
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+    \text{Minimize} \quad & \sum_{i=1}^{N} x_i
+\end{align*}
+
+\textbf{Constraints:}
+\begin{align*}
+    \sum_{i=1}^{N} p_{ij} x_i & \geq d_j \quad \text{for } j = 1, \ldots, M \\
+    x_i & \geq 0 \quad \text{and integer} \quad \text{for } i = 1, \ldots, N 
+\end{align*}
+
+\textbf{Output:}
+\begin{itemize}
+    \item The cutting patterns applied to the large rolls along with their amounts used 
+    \item Total number of large rolls used: \( \sum_{i=1}^{N} x_i \)
+\end{itemize}
+
+\end{document}

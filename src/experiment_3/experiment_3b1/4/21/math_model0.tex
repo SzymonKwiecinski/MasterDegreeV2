@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mixed Integer Linear Programming Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $M$: Number of machines, $m \in \{1, \ldots, M\}$
+    \item $K$: Number of products, $k \in \{1, \ldots, K\}$
+    \item $I$: Number of months, $i \in \{1, \ldots, I\}$
+    \item $\text{profit}_k$: Profit per unit sold of product $k$
+    \item $\text{time}_{k,m}$: Production time required for product $k$ on machine $m$
+    \item $\text{down}_m$: Months machine $m$ is down for maintenance
+    \item $\text{limit}_{k,i}$: Marketing limitation of product $k$ in month $i$
+    \item $\text{store\_price}$: Cost to store one unit of each product per month
+    \item $\text{keep\_quantity}$: Desired stock quantity of each product at the end of the month
+    \item $\text{n\_workhours}$: Number of working hours in a shift (2 shifts per day)
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item $\text{sell}_{k,i}$: Quantity of product $k$ sold in month $i$
+    \item $\text{manufacture}_{k,i}$: Quantity of product $k$ manufactured in month $i$
+    \item $\text{storage}_{k,i}$: Quantity of product $k$ stored in month $i$
+    \item $\text{maintain}_{m,i}$: Binary variable indicating whether machine $m$ is under maintenance in month $i$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize } Z = \sum_{i=1}^{I} \sum_{k=1}^{K} \text{profit}_k \cdot \text{sell}_{k,i} - \sum_{k=1}^{K} \sum_{i=1}^{I} \text{store\_price} \cdot \text{storage}_{k,i}
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    & \text{Production Time Constraint:} \\
+    & \sum_{k=1}^{K} \text{time}_{k,m} \cdot \text{manufacture}_{k,i} \leq \text{n\_workhours} \cdot (24 - \sum_{j=1}^{i} \text{down}_m) & \text{for } m \in \{1, \ldots, M\}, i \in \{1, \ldots, I\} \\
+    \\
+    & \text{Marketing Limitations:} \\
+    & \text{sell}_{k,i} \leq \text{limit}_{k,i} & \text{for } k \in \{1, \ldots, K\}, i \in \{1, \ldots, I\} \\
+    \\
+    & \text{Storage Dynamics:} \\
+    & \text{storage}_{k,i} = \text{storage}_{k,i-1} + \text{manufacture}_{k,i} - \text{sell}_{k,i} & \text{for } k \in \{1, \ldots, K\}, i \in \{1, \ldots, I\} \\
+    & \text{storage}_{k,0} = 0 & \text{for } k \in \{1, \ldots, K\} \\
+    \\
+    & \text{End-of-Month Stock Requirement:} \\
+    & \text{storage}_{k,I} \geq \text{keep\_quantity} & \text{for } k \in \{1, \ldots, K\} \\
+    \\
+    & \text{Maintenance Decision Variables:} \\
+    & \text{maintain}_{m,i} \in \{0, 1\} & \text{for } m \in \{1, \ldots, M\}, i \in \{1, \ldots, I\}
+\end{align}
+
+\end{document}

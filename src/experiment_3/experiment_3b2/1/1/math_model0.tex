@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Objective}
+Maximize the total revenue, given by:
+
+\[
+\text{Maximize} \quad Z = \sum_{j=1}^{M} \text{price}_j \cdot \text{amount}_j
+\]
+
+\subsection*{Constraints}
+Subject to the constraints on raw materials:
+
+\[
+\sum_{j=1}^{M} \text{req}_{i,j} \cdot \text{amount}_j \leq \text{available}_i, \quad \forall \, i = 1, \ldots, N
+\]
+
+\subsection*{Non-negativity}
+The production amounts cannot be negative:
+
+\[
+\text{amount}_j \geq 0, \quad \forall \, j = 1, \ldots, M
+\]
+
+\end{document}

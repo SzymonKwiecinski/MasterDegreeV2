@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Generator Scheduling Problem}
+
+\subsection*{Parameters}
+
+\begin{itemize}
+    \item $T$: Total number of time periods in a day.
+    \item $K$: Total number of generator types.
+    \item $demand_{t}$: Demand for electricity at period $t$, for $t = 1,\ldots,T$.
+    \item $num_{k}$: Number of generators of type $k$, for $k = 1,\ldots,K$.
+    \item $minlevel_{k}$: Minimum operational level of generator type $k$, for $k = 1,\ldots,K$.
+    \item $maxlevel_{k}$: Maximum operational level of generator type $k$, for $k = 1,\ldots,K$.
+    \item $runcost_{k}$: Cost of running generator type $k$ at minimum level per hour, for $k = 1,\ldots,K$.
+    \item $extracost_{k}$: Extra cost per megawatt for exceeding the minimum level of generator type $k$, for $k = 1,\ldots,K$.
+    \item $startcost_{k}$: Startup cost for generator type $k$, for $k = 1,\ldots,K$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+
+\begin{itemize}
+    \item $numon_{k,t}$: Number of generators of type $k$ that are on at period $t$, for $k = 1,\ldots,K$ and $t = 1,\ldots,T$.
+    \item $level_{k,t}$: Operational level of generator type $k$ at period $t$, for $k = 1,\ldots,K$ and $t = 1,\ldots,T$.
+    \item $is\_on_{k,t}$: Binary variable indicating if generator type $k$ is turned on at period $t$ ($1$ if on, $0$ if off).
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{t=1}^{T} \sum_{k=1}^{K} \left( runcost_{k} \cdot numon_{k,t} + extracost_{k} \cdot (level_{k,t} - minlevel_{k}) \cdot numon_{k,t} + startcost_{k} \cdot is\_on_{k,t} \right)
+\]
+
+\subsection*{Constraints}
+
+1. Demand satisfaction:
+\[
+\sum_{k=1}^{K} level_{k,t} \geq demand_{t}, \quad \forall t = 1,\ldots,T
+\]
+
+2. Operational level bounds:
+\[
+minlevel_{k} \cdot numon_{k,t} \leq level_{k,t} \leq maxlevel_{k} \cdot numon_{k,t}, \quad \forall k = 1,\ldots,K, \forall t = 1,\ldots,T
+\]
+
+3. Generators on/off:
+\[
+level_{k,t} \leq maxlevel_{k} \cdot is\_on_{k,t}, \quad \forall k = 1,\ldots,K, \forall t = 1,\ldots,T
+\]
+
+4. Minimum level enforcement:
+\[
+level_{k,t} \geq minlevel_{k} \cdot is\_on_{k,t}, \quad \forall k = 1,\ldots,K, \forall t = 1,\ldots,T
+\]
+
+5. Number of generators:
+\[
+numon_{k,t} \leq num_{k} \cdot is\_on_{k,t}, \quad \forall k = 1,\ldots,K, \forall t = 1,\ldots,T
+\]
+
+\end{document}

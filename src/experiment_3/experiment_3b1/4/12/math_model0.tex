@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation for Currency Exchange Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( N \) be the number of available currencies.
+    \item Let \( \text{start}_i \) be the initial amount of currency \( i \).
+    \item Let \( \text{limit}_i \) be the exchange limit for currency \( i \).
+    \item Let \( \text{rate}_{i,j} \) be the exchange rate from currency \( i \) to currency \( j \) (where \( \text{rate}_{i,j} > 0 \)).
+\end{itemize}
+
+\subsection*{Decision Variables}
+Define:
+\[
+x_{i,j} \geq 0 \quad \text{(amount of currency \( i \) exchanged for currency \( j \))}
+\]
+
+\subsection*{Objective Function}
+The goal is to maximize the total amount of currency \( N \) at the end of the day:
+\[
+\text{Maximize } z = \text{final\_amount\_of\_currency\_N}
+\]
+
+\subsection*{Constraints}
+
+1. **Exchange Limits**:
+   For each currency \( i \):
+   \[
+   \sum_{j=1}^{N} x_{i,j} \leq \text{limit}_i \quad \forall i
+   \]
+
+2. **Conservation of Currency**:
+   The amount of currency \( i \) that we have after all transactions must respect the limits:
+   \[
+   \text{start}_i - \sum_{j=1}^{N} x_{i,j} + \sum_{j=1}^{N} \text{rate}_{j,i} x_{j,i} = \text{final\_amount\_of\_currency}_i \quad \forall i
+   \]
+
+3. **Final Amount Calculation**:
+   Specifically for currency \( N \):
+   \[
+   \text{final\_amount\_of\_currency}_N = \text{start}_N + \sum_{i=1}^{N} \text{rate}_{i,N} x_{i,N} - \sum_{j=1}^{N} x_{N,j}
+   \]
+
+4. **Cycle Constraints**:
+   Ensure no cycle can increase wealth:
+   \[
+   \text{rate}_{i_1,i_2} \times \text{rate}_{i_2,i_3} \times \ldots \times \text{rate}_{i_k,i_1} \leq 1
+   \]
+
+\subsection*{Output}
+The output should comprise:
+\begin{itemize}
+    \item A list of transactions:
+    \[
+    \text{transactions} = \{(from: i, to: j, amount: x_{i,j})\}
+    \]
+    \item The final amount of currency \( N \):
+    \[
+    \text{final\_amount\_of\_currency\_N}
+    \]
+\end{itemize}
+
+\end{document}

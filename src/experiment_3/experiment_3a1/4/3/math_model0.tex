@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Electricity Capacity Expansion}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $T$: number of years
+    \item $demand_t$: electricity demand in megawatts for year $t$, for $t = 1, \ldots, T$
+    \item $oil_t$: existing oil-fired capacity available in year $t$, for $t = 1, \ldots, T$
+    \item $coal\_cost$: capital cost per megawatt for coal-fired capacity
+    \item $nuke\_cost$: capital cost per megawatt for nuclear capacity
+    \item $max\_nuke$: maximum percentage of total capacity that can be nuclear
+    \item $coal\_life$: lifespan of coal plants in years
+    \item $nuke\_life$: lifespan of nuclear plants in years
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $coal_t$: megawatts of coal-fired capacity added in year $t$, for $t = 1, \ldots, T$
+    \item $nuke_t$: megawatts of nuclear capacity added in year $t$, for $t = 1, \ldots, T$
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } Z = \sum_{t=1}^{T} (coal\_cost \cdot coal_t + nuke\_cost \cdot nuke_t)
+\]
+
+\textbf{Constraints:}
+
+1. \textbf{Demand Satisfaction:}
+   \[
+   \text{For each } t: \quad \sum_{s=t}^{\min(t + coal\_life - 1, T)} coal_s + \sum_{s=t}^{\min(t + nuke\_life - 1, T)} nuke_s + oil_t \geq demand_t
+   \]
+
+2. \textbf{Nuclear Capacity Limitation:}
+   \[
+   \text{For each } t: \quad \sum_{s=1}^{t} nuke_s \leq \frac{max\_nuke}{100} \cdot \left( \sum_{s=1}^{t} \left(oil_s + \sum_{u=1}^{s} coal_u + \sum_{v=1}^{s} nuke_v\right) \right)
+   \]
+
+3. \textbf{Non-negativity:}
+   \[
+   coal_t \geq 0, \quad nuke_t \geq 0 \quad \text{for } t = 1, \ldots, T
+   \]
+
+\textbf{Output:}
+The solution will provide:
+\begin{itemize}
+    \item $coal\_cap\_added$: list of coal capacity added in each year
+    \item $nuke\_cap\_added$: list of nuclear capacity added in each year
+    \item $total\_cost$: total cost of the system
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+Let \( N \) be the number of available currencies. We define the variables, parameters, and constraints for the linear programming model as follows:
+
+\subsection*{Variables}
+Let \( x_{i,j} \) be the amount of currency \( i \) exchanged for currency \( j \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{start}_i \): the starting amount of currency \( i \).
+    \item \( \text{limit}_i \): the limit on the total amount of currency \( i \) that can be exchanged.
+    \item \( \text{rate}_{i,j} \): the rate at which currency \( i \) can be exchanged for currency \( j \).
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to maximize the amount of currency \( N \) at the end of the day:
+\[
+\text{Maximize } Z = y_N
+\]
+where \( y_N \) represents the final amount of currency \( N \).
+
+\subsection*{Constraints}
+The constraints for the model are as follows:
+
+1. For each currency \( i \):
+\[
+\sum_{j=1}^{N} x_{i,j} \leq \text{limit}_i \quad \forall i \in \{1, 2, \ldots, N\}
+\]
+
+2. The amount of currency \( N \) at the end of the day can be expressed using the exchanged amounts:
+\[
+y_N = \text{start}_N + \sum_{j=1}^{N} x_{j,N} - \sum_{k=1}^{N} x_{N,k}
+\]
+
+3. The outflow of currency \( i \) cannot exceed the amount available after considering the limits:
+\[
+\sum_{j=1}^{N} x_{i,j} - \sum_{k=1}^{N} x_{k,i} \leq \text{start}_i \quad \forall i \in \{1, 2, \ldots, N\}
+\]
+
+4. The rate constraints define the conversion limits:
+\[
+x_{i,j} \leq \text{rate}_{i,j} \cdot \text{start}_i \quad \forall i,j \in \{1, 2, \ldots, N\}
+\]
+
+\subsection*{Non-negativity Constraints}
+All exchanged amounts must be non-negative:
+\[
+x_{i,j} \geq 0 \quad \forall i,j \in \{1, 2, \ldots, N\}
+\]
+
+\end{document}

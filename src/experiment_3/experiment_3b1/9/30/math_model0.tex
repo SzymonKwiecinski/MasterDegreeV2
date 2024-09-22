@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Quadratic Curve Fitting Problem}
+
+We want to fit a quadratic curve of the form:
+
+\[
+y = c \cdot x^2 + b \cdot x + a
+\]
+
+to a set of data points \((x_k, y_k)\) for \(k = 1, \ldots, K\). The objective is to minimize the sum of absolute deviations between the observed values of \(y\) and the values predicted by the quadratic relationship.
+
+Let:
+
+\[
+d_k = |y_k - (c \cdot x_k^2 + b \cdot x_k + a)|
+\]
+
+Our objective function can be expressed as:
+
+\[
+\min \sum_{k=1}^{K} d_k
+\]
+
+To enforce the absolute value in our optimization problem, we can introduce non-negative slack variables \(t_k\) such that:
+
+\[
+d_k = t_k
+\]
+
+and
+
+\[
+y_k - (c \cdot x_k^2 + b \cdot x_k + a) \leq t_k,
+\]
+
+\[
+-(y_k - (c \cdot x_k^2 + b \cdot x_k + a)) \leq t_k.
+\]
+
+This leads us to the following constraints:
+
+\[
+y_k - (c \cdot x_k^2 + b \cdot x_k + a) \leq t_k \quad \forall k
+\]
+
+\[
+-(y_k - (c \cdot x_k^2 + b \cdot x_k + a)) \leq t_k \quad \forall k
+\]
+
+The complete linear programming formulation can be summarized as follows:
+
+\begin{align*}
+\text{Minimize} & \quad \sum_{k=1}^{K} t_k \\
+\text{Subject to} & \quad y_k - (c \cdot x_k^2 + b \cdot x_k + a) \leq t_k \quad \forall k \\
+& \quad -(y_k - (c \cdot x_k^2 + b \cdot x_k + a)) \leq t_k \quad \forall k \\
+& \quad t_k \geq 0 \quad \forall k \\
+\end{align*}
+
+\noindent where:
+
+\begin{itemize}
+    \item \(c\) represents the coefficient of the quadratic term,
+    \item \(b\) represents the coefficient of the linear term,
+    \item \(a\) represents the coefficient of the constant term.
+\end{itemize}
+
+The solution will yield the values of \(c\), \(b\), and \(a\) that minimize the sum of absolute deviations.
+
+\end{document}

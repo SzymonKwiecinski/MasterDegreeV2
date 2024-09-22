@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Police Officer Shift Assignment}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let $S$ be the total number of shifts.
+    \item Let $officers\_needed_{s}$ be the number of police officers needed during shift $s$ for $s = 1, \ldots, S$.
+    \item Let $shift\_cost_{s}$ be the cost incurred when starting a shift at $s$ for $s = 1, \ldots, S$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let $officers\_assigned_{s}$ be the number of officers assigned to shift $s$ for $s = 1, \ldots, S$.
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Total Cost} = \sum_{s=1}^{S} shift\_cost_{s} \cdot officers\_assigned_{s}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Each officer works for two consecutive shifts. Thus, for each shift $s$, the following constraints must hold:
+    \[
+    officers\_assigned_{s} + officers\_assigned_{s-1} \geq officers\_needed_{s} \quad \text{for } s = 2, \ldots, S
+    \]
+    \[
+    officers\_assigned_{1} \geq officers\_needed_{1}
+    \]
+\end{itemize}
+
+\subsection*{Output}
+The model will yield:
+\begin{itemize}
+    \item $officers\_assigned$: array of assigned officers for each shift $s$.
+    \item $total\_cost$: the total cost incurred by the town.
+\end{itemize}
+
+\end{document}

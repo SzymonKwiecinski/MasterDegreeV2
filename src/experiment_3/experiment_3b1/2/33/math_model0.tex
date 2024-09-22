@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mixed Integer Programming Model for the Knapsack Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $C$: Maximum capacity of the container
+    \item $value_k$: Value of item $k$, where $k = 1, 2, \ldots, K$
+    \item $size_k$: Size of item $k$, where $k = 1, 2, \ldots, K$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_k$: Binary variable indicating whether item $k$ is included in the knapsack (1 if included, 0 otherwise), where $k = 1, 2, \ldots, K$
+\end{itemize}
+
+\subsection*{Objective Function}
+\begin{align*}
+\text{Maximize} \quad & \sum_{k=1}^{K} value_k \cdot x_k
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+\text{Subject to} \quad & \sum_{k=1}^{K} size_k \cdot x_k \leq C \\
+& x_k \in \{0, 1\}, \quad k = 1, 2, \ldots, K
+\end{align*}
+
+\subsection*{Output}
+The output will be represented as:
+\begin{itemize}
+    \item $isincluded_k$: Represents whether each item $k$ is included in the container.
+\end{itemize}
+The output format will be:
+\[
+\{ "isincluded": [isincluded_{1}, isincluded_{2}, \ldots, isincluded_{K}] \}
+\]
+
+\end{document}

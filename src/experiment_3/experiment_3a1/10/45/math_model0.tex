@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Custom Tees Advertising Campaign}
+
+\subsection*{Parameters}
+\begin{align*}
+& \text{let } A \text{ be the number of ad types} \\
+& \text{let } goal\_young \text{ be the target clicks from visitors aged 18-25 (in thousands)} \\
+& \text{let } goal\_old \text{ be the target clicks from visitors older than 25 (in thousands)} \\
+& \text{let } goal\_unique\_young \text{ be the target unique clicks from visitors aged 18-25 (in thousands)} \\
+& \text{let } goal\_unique\_old \text{ be the target unique clicks from visitors older than 25 (in thousands)} \\
+& \text{let } young\_click_{a} \text{ be the percentage of clicks from age 18-25 for ad type } a \\
+& \text{let } old\_click_{a} \text{ be the percentage of clicks from age >25 for ad type } a \\
+& \text{let } cost_{a} \text{ be the cost per 1000 clicks for ad type } a \\
+& \text{let } max\_click_{a} \text{ be the maximum allowable clicks for ad type } a \\
+& \text{let } unique\_click_{a} \text{ be the estimated percentage of unique visitors for ad type } a 
+\end{align*}
+
+\subsection*{Decision Variables}
+Let \( clicks_a \) represent the number of clicks purchased for ad type \( a \) (in thousands), for \( a = 1, \ldots, A \).
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } total\_cost = \sum_{a=1}^{A} cost_a \cdot clicks_a
+\]
+
+\subsection*{Constraints}
+1. Total clicks from young visitors:
+\[
+\sum_{a=1}^{A} young\_click_{a} \cdot clicks_a \geq goal\_young
+\]
+2. Total clicks from older visitors:
+\[
+\sum_{a=1}^{A} old\_click_{a} \cdot clicks_a \geq goal\_old
+\]
+3. Total unique clicks from young visitors:
+\[
+\sum_{a=1}^{A} unique\_click_{a} \cdot clicks_a \geq goal\_unique\_young
+\]
+4. Total unique clicks from older visitors:
+\[
+\sum_{a=1}^{A} unique\_click_{a} \cdot clicks_a \geq goal\_unique\_old
+\]
+5. Maximum clicks for each ad type:
+\[
+clicks_a \leq max\_click_a \quad \forall a = 1, \ldots, A
+\]
+6. Non-negativity constraints:
+\[
+clicks_a \geq 0 \quad \forall a = 1, \ldots, A
+\]
+
+\subsection*{Output}
+The solution will provide:
+\begin{align*}
+& clicks_a \text{ for } a = 1, \ldots, A \text{ (in thousands)} \\
+& total\_cost \text{ representing the total cost of the ad campaign}
+\end{align*}
+
+\end{document}

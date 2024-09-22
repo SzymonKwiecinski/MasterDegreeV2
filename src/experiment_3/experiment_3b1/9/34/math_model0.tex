@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Nutritional Optimization}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Description}
+We aim to minimize the total cost of purchasing food while satisfying nutritional demands.
+
+\subsection*{Inputs}
+Let:
+\begin{itemize}
+    \item $K$ = number of different food types
+    \item $M$ = number of nutritional ingredients
+    \item $\text{price}_k$ = price per unit of food $k$ for $k = 1, \ldots, K$
+    \item $\text{demand}_m$ = minimum required units of nutrient $m$ for $m = 1, \ldots, M$
+    \item $\text{nutri}_{k,m}$ = units of nutrient $m$ contained in food $k$
+\end{itemize}
+
+\subsection*{Decision Variables}
+Define $x_k$ as the quantity of food $k$ to purchase for $k = 1, \ldots, K$.
+
+\subsection*{Objective Function}
+The objective is to minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} \text{price}_k \cdot x_k
+\]
+
+\subsection*{Constraints}
+To ensure that each nutrient demand is met, we have the following constraints:
+\[
+\sum_{k=1}^{K} \text{nutri}_{k,m} \cdot x_k \geq \text{demand}_m \quad \forall m = 1, \ldots, M
+\]
+
+Additionally, we include non-negativity constraints on the decision variables:
+\[
+x_k \geq 0 \quad \forall k = 1, \ldots, K
+\]
+
+\subsection*{Output}
+\begin{itemize}
+    \item The solution will provide the quantities of each food to purchase, represented as:
+    \[
+    \text{quantity} = [x_1, x_2, \ldots, x_K]
+    \]
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,75 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Economic Production}
+
+\subsection*{Parameters}
+\begin{align*}
+K & : \text{Number of industries} \\
+\text{inputone}_{k,j} & : \text{Input from industry } j \text{ required by industry } k \\
+\text{manpowerone}_{k} & : \text{Manpower required by industry } k \\
+\text{inputtwo}_{k,j} & : \text{Input from industry } j \text{ required to build capacity for industry } k \\
+\text{manpowertwo}_{k} & : \text{Manpower required to build capacity for industry } k \\
+\text{stock}_{k} & : \text{Initial stock of industry } k \\
+\text{capacity}_{k} & : \text{Initial capacity of industry } k \\
+\text{manpower\_limit} & : \text{Total manpower available each year} \\
+T & : \text{Total number of years}
+\end{align*}
+
+\subsection*{Variables}
+\begin{align*}
+\text{produce}_{k,t} & : \text{Units produced by industry } k \text{ in year } t \\
+\text{buildcapa}_{k,t} & : \text{Units used to build productive capacity for industry } k \text{ in year } t \\
+\text{stockhold}_{k,t} & : \text{Stock of industry } k \text{ held at the end of year } t
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize total production in the last two years:
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} \left( \text{produce}_{k,T} + \text{produce}_{k,T-1} \right)
+\]
+
+\subsection*{Constraints}
+
+1. **Production Requirements:**
+\[
+\text{produce}_{k,t} \leq \text{capacity}_{k} + \text{stockhold}_{k,t-1} \quad \forall k, t
+\]
+
+2. **Input Requirements for Production:**
+\[
+\sum_{j=1}^{K} \text{inputone}_{k,j} \cdot \text{produce}_{j,t-1} + \text{stockhold}_{k,t-1} \geq \text{produce}_{k,t} \quad \forall k, t
+\]
+
+3. **Manpower Constraints for Production:**
+\[
+\sum_{k=1}^{K} \text{manpowerone}_{k} \cdot \text{produce}_{k,t} \leq \text{manpower\_limit} \quad \forall t
+\]
+
+4. **Capacity Building:**
+\[
+\text{buildcapa}_{k,t} \leq \text{capacity}_{k} + \text{stockhold}_{k,t-1} \quad \forall k, t
+\]
+
+5. **Input Requirements for Capacity Building:**
+\[
+\sum_{j=1}^{K} \text{inputtwo}_{k,j} \cdot \text{buildcapa}_{j,t-1} + \text{stockhold}_{k,t-1} \geq \text{buildcapa}_{k,t} \quad \forall k, t
+\]
+
+6. **Manpower Constraints for Capacity Building:**
+\[
+\sum_{k=1}^{K} \text{manpowertwo}_{k} \cdot \text{buildcapa}_{k,t} \leq \text{manpower\_limit} \quad \forall t
+\]
+
+7. **Stock Dynamics:**
+\[
+\text{stockhold}_{k,t} = \text{stockhold}_{k,t-1} + \text{produce}_{k,t-1} - \text{produce}_{k,t} \quad \forall k, t
+\]
+
+8. **Initial Conditions:**
+\[
+\text{stockhold}_{k,0} = \text{stock}_{k}, \quad \text{capacity}_{k} = \text{capacity}_{k} \quad \forall k
+\]
+
+\end{document}

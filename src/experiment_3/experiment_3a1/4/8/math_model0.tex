@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Maximizing Profit}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item Let \( K \) be the total number of spare parts.
+    \item Let \( S \) be the total number of shops.
+    \item Let \( time_{k,s} \) be the required worker-hours for part \( k \) in shop \( s \).
+    \item Let \( profit_{k} \) be the profit of part \( k \).
+    \item Let \( capacity_{s} \) be the capacity of shop \( s \) in working hours.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item Let \( quantity_{k} \) be the amount of spare part \( k \) to be made.
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} profit_{k} \cdot quantity_{k}
+\]
+
+\textbf{Constraints:}
+\[
+\sum_{k=1}^{K} time_{k,s} \cdot quantity_{k} \leq capacity_{s}, \quad \forall s \in \{1, 2, \ldots, S\}
+\]
+\[
+quantity_{k} \geq 0, \quad \forall k \in \{1, 2, \ldots, K\}
+\]
+
+\textbf{Output:}
+\begin{itemize}
+    \item The solution will provide the optimal quantities \( quantity_{k} \) for each spare part \( k \).
+\end{itemize}
+
+\end{document}

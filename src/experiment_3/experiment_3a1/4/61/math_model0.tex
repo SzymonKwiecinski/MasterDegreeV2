@@ -1,0 +1,79 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mixed Integer Linear Programming (MILP) Model for Network Intrusion Interventions}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item $N$: Number of clusters.
+    \item $C = \{1, 2, \ldots, N\}$: Set of cluster indices.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $isolate\_central_i$: Processing time for isolating cluster $i$ centrally.
+    \item $scan\_central_i$: Processing time for scanning cluster $i$ centrally.
+    \item $isolate\_distributed_i$: Processing time for isolating cluster $i$ through distributed nodes.
+    \item $scan\_distributed_i$: Processing time for scanning cluster $i$ through distributed nodes.
+    \item $central\_cost$: Opportunity cost for central processing (per hour).
+    \item $distributed\_cost$: Opportunity cost for distributed processing (per hour).
+    \item $max\_central$: Maximum hours allowed for central processing.
+    \item $max\_distributed$: Maximum hours allowed for distributed processing.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_{i}^{isolate} \in \{0, 1\}$: 1 if cluster $i$ is isolated, 0 otherwise.
+    \item $x_{i}^{scan} \in \{0, 1\}$: 1 if cluster $i$ is scanned, 0 otherwise.
+    \item $y_{i}^{central} \in \{0, 1\}$: 1 if intervention for cluster $i$ is centralized, 0 otherwise.
+    \item $y_{i}^{distributed} \in \{0, 1\}$: 1 if intervention for cluster $i$ is distributed, 0 otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} \left( (isolate\_central_i \cdot y_{i}^{central} + scan\_central_i \cdot y_{i}^{central} + isolate\_distributed_i \cdot y_{i}^{distributed} + scan\_distributed_i \cdot y_{i}^{distributed}) \cdot (central\_cost \cdot y_{i}^{central} + distributed\_cost \cdot y_{i}^{distributed}) \right)
+\]
+
+\subsection*{Constraints}
+
+\begin{itemize}
+    \item \textbf{Cluster Intervention Consistency:}
+    \[
+    x_{i}^{isolate} + x_{i}^{scan} = 1, \quad \forall i \in C
+    \]
+
+    \item \textbf{Central Processing Time Constraint:}
+    \[
+    \sum_{i=1}^{N} (isolate\_central_i \cdot y_{i}^{central} + scan\_central_i \cdot y_{i}^{central}) \leq max\_central
+    \]
+
+    \item \textbf{Distributed Processing Time Constraint:}
+    \[
+    \sum_{i=1}^{N} (isolate\_distributed_i \cdot y_{i}^{distributed} + scan\_distributed_i \cdot y_{i}^{distributed}) \leq max\_distributed
+    \]
+
+    \item \textbf{Intervention Type Selection:}
+    \[
+    x_{i}^{isolate} \cdot y_{i}^{central} + x_{i}^{isolate} \cdot y_{i}^{distributed} = x_{i}^{isolate}, \quad \forall i \in C
+    \]
+    \[
+    x_{i}^{scan} \cdot y_{i}^{central} + x_{i}^{scan} \cdot y_{i}^{distributed} = x_{i}^{scan}, \quad \forall i \in C
+    \]
+\end{itemize}
+
+\subsection*{Output}
+The output should specify for each cluster $i$:
+\begin{itemize}
+    \item \texttt{cluster\_id}: cluster $i$.
+    \item \texttt{type}: "isolate" or "scan".
+    \item \texttt{method}: "central" or "distributed".
+    \item \texttt{amount}: amount processed.
+\end{itemize}
+The total cost can be computed as:
+\[
+\text{total\_cost} = Z
+\]
+
+\end{document}

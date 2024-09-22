@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Nutritional Food Purchase}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( K \): Number of food types
+    \item \( M \): Number of nutritional ingredients
+    \item \( \text{price}_k \): Price per unit of food \( k \) (for \( k = 1, \ldots, K \))
+    \item \( \text{demand}_m \): Minimum required units of nutrient \( m \) (for \( m = 1, \ldots, M \))
+    \item \( \text{nutri}_{k,m} \): Nutritional units of nutrient \( m \) in food \( k \)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( \text{quantity}_k \): Quantity of food \( k \) to purchase (for \( k = 1, \ldots, K \))
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize} \quad Z = \sum_{k=1}^{K} \text{price}_k \cdot \text{quantity}_k
+\]
+
+\textbf{Constraints:}
+\[
+\sum_{k=1}^{K} \text{nutri}_{k,m} \cdot \text{quantity}_k \geq \text{demand}_m \quad \text{for each } m = 1, \ldots, M
+\]
+
+\textbf{Non-negativity Constraints:}
+\[
+\text{quantity}_k \geq 0 \quad \text{for each } k = 1, \ldots, K
+\]
+
+\end{document}

@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for DEC's Production Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $N$: Total number of computer systems
+    \item $is\_workstation[i]$: Boolean indicating if system $i$ is a workstation
+    \item $price[i]$: Price of system $i$
+    \item $disk[i]$: Average number of disk drives requested for system $i$
+    \item $mem[i]$: Average number of 256K memory boards requested for system $i$
+    \item $max\_cpu$: Maximum CPUs available
+    \item $min\_disk$: Minimum range of disk drives available
+    \item $max\_disk$: Maximum range of disk drives available
+    \item $min\_mem$: Minimum range of memory boards available
+    \item $max\_mem$: Maximum range of memory boards available
+    \item $demand[i]$: Maximum demand for system $i$
+    \item $demand\_GP$: Maximum demand for the GP family
+    \item $demand\_WS$: Maximum demand for the WS family
+    \item $preorder[i]$: Preorder units for system $i$
+    \item $alt\_mem$: Available alternative memory boards
+    \item $alt\_compatible[i]$: Boolean indicating if system $i$ is compatible with alternative memory boards
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x[i]$: Number of systems produced of type $i$ (continuous variable)
+    \item $y[i]$: Number of alternative memory boards used for system $i$ (integer variable)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the profit:
+\[
+\text{Profit} = \sum_{i=1}^{N} (price[i] \cdot x[i]) - (cost\_mem \cdot \sum_{i=1}^{N} (mem[i] \cdot x[i] - y[i])) - (cost\_disk \cdot \sum_{i=1}^{N} disk[i] \cdot x[i])
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+1. & \quad \sum_{i=1}^{N} x[i] \leq max\_cpu \quad \text{(CPU availability)} \\
+2. & \quad \sum_{i=1}^{N} disk[i] \cdot x[i] \geq min\_disk \quad \text{(Minimum disk drives)} \\
+3. & \quad \sum_{i=1}^{N} disk[i] \cdot x[i] \leq max\_disk \quad \text{(Maximum disk drives)} \\
+4. & \quad \sum_{i=1}^{N} mem[i] \cdot x[i] \geq min\_mem \quad \text{(Minimum memory boards)} \\
+5. & \quad \sum_{i=1}^{N} mem[i] \cdot x[i] \leq max\_mem \quad \text{(Maximum memory boards)} \\
+6. & \quad x[i] \geq preorder[i] \quad \forall i \quad \text{(Satisfy preorders)} \\
+7. & \quad \sum_{i \in GP} x[i] \leq demand\_GP \quad \text{(GP family demand)} \\
+8. & \quad \sum_{i \in WS} x[i] \leq demand\_WS \quad \text{(WS family demand)} \\
+9. & \quad y[i] \leq alt\_mem \quad \forall i \quad \text{(Alternative memory board limitation)} \\
+10. & \quad y[i] \leq \sum_{j=1}^{N} mem[j] \cdot x[j] \quad \text{if } alt\_compatible[i] \\
+\end{align*}
+
+\end{document}

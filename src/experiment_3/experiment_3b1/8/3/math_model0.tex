@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Electricity Capacity Expansion}
+
+\subsection*{Definitions and Variables}
+Let:
+\begin{itemize}
+    \item \( T \): Total number of years
+    \item \( d_t \): Forecasted demand in megawatts for year \( t \)
+    \item \( oil_t \): Existing oil-fired capacity available in year \( t \)
+    \item \( coal_t \): Capacity of coal-fired plants added in year \( t \)
+    \item \( nuke_t \): Capacity of nuclear plants added in year \( t \)
+    \item \( coal\_cost \): Capital cost per megawatt of coal-fired capacity
+    \item \( nuke\_cost \): Capital cost per megawatt of nuclear power capacity
+    \item \( max\_nuke \): Maximum percentage of total capacity that can be nuclear
+    \item \( coal\_life \): Lifespan of coal plants in years
+    \item \( nuke\_life \): Lifespan of nuclear plants in years
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost of capacity expansion:
+\[
+\text{Total Cost} = \sum_{t=1}^{T} (coal\_cost \cdot coal_t + nuke\_cost \cdot nuke_t)
+\]
+
+\subsection*{Constraints}
+1. **Demand Satisfaction**:
+   \[
+   \sum_{j=0}^{\min(t, coal\_life)} coal_{t-j} + \sum_{j=0}^{\min(t, nuke\_life)} nuke_{t-j} + oil_t \geq d_t \quad \forall t \in \{1, 2, \ldots, T\}
+   \]
+   
+2. **Capacity Limitations**:
+   \[
+   \sum_{j=0}^{min(t, coal\_life)} coal_{t-j} + \sum_{j=0}^{min(t, nuke\_life)} nuke_{t-j} \leq \frac{max\_nuke}{100} \cdot \left( \sum_{j=0}^{min(t, coal\_life)} coal_{t-j} + \sum_{j=0}^{min(t, nuke\_life)} nuke_{t-j} + oil_t \right) \quad \forall t \in \{1, 2, \ldots, T\}
+   \]
+
+3. **Non-negativity**:
+   \[
+   coal_t \geq 0, \quad nuke_t \geq 0 \quad \forall t \in \{1, 2, \ldots, T\}
+   \]
+
+\subsection*{Output}
+The output will include:
+- The coal capacity added in each year \( \{coal_t\} \)
+- The nuclear capacity added in each year \( \{nuke_t\} \)
+- The total cost of the system
+
+\begin{verbatim}
+{
+    "coal_cap_added": [coal_t for t in 1, ..., T],
+    "nuke_cap_added": [nuke_t for t in 1, ..., T],
+    "total_cost": total_cost,
+}
+\end{verbatim}
+
+\end{document}

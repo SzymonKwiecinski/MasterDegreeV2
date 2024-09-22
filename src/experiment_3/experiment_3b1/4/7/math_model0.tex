@@ -1,0 +1,75 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Motion Optimization Problem}
+
+\subsection*{Decision Variables}
+Let:
+\begin{align*}
+x_t & : \text{Position of the rocket at time } t \\
+v_t & : \text{Velocity of the rocket at time } t \\
+a_t & : \text{Acceleration of the rocket at time } t
+\end{align*}
+
+\subsection*{Model Formulation}
+The dynamics of the rocket are given by the following discrete-time relationships:
+\begin{align}
+x_{t+1} &= x_t + v_t \quad \text{(1)} \\
+v_{t+1} &= v_t + a_t \quad \text{(2)}
+\end{align}
+
+\subsection*{Objective Function}
+We aim to minimize the maximum thrust required, represented by the maximum magnitude of acceleration:
+\[
+\text{Minimize } Z = \max_{t} |a_t|
+\]
+
+\subsection*{Constraints}
+The rocket must satisfy the following boundary conditions:
+\begin{align}
+x_0 &= x_0 \quad \text{(Initial Position)} \\
+v_0 &= v_0 \quad \text{(Initial Velocity)} \\
+x_T &= x_T \quad \text{(Target Position)} \\
+v_T &= v_T \quad \text{(Target Velocity)} \\
+\end{align}
+
+In order to maintain a feasible solution, we also impose constraints on the accelerations:
+\[
+|a_t| \leq M \quad \forall t \in \{0, 1, \ldots, T\}
+\]
+where \( M \) is a predetermined maximum thrust capacity.
+
+\subsection*{Output Variables}
+The solution will provide:
+\begin{align*}
+x & : [x_i \text{ for } i = 0, 1, \ldots, T] \\
+v & : [v_i \text{ for } i = 0, 1, \ldots, T] \\
+a & : [a_i \text{ for } i = 0, 1, \ldots, T] \\
+\text{fuel\_spend} & : \text{Total fuel spent by the rocket}
+\end{align*}
+
+\subsection*{Input Format}
+The input to the model is defined as follows:
+\begin{verbatim}
+{
+    "x_0": x_0,
+    "v_0": v_0,
+    "x_T": x_T,
+    "v_T": v_T,
+    "T": T
+}
+\end{verbatim}
+
+\subsection*{Output Format}
+The output is structured as:
+\begin{verbatim}
+{
+    "x": [x_i for i in 0, ..., T],
+    "v": [v_i for i in 0, ..., T],
+    "a": [a_i for i in 0, ..., T],
+    "fuel_spend": fuel_spent,
+}
+\end{verbatim}
+
+\end{document}

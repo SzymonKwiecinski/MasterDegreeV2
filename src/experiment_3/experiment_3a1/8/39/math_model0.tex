@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Cafeteria Staff Scheduling}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $N$: Total number of days.
+    \item $num_n$: Required number of employees on day $n$, where $n = 1, 2, \ldots, N$.
+    \item $n_{working\_days}$: Number of consecutive days an employee works.
+    \item $n_{resting\_days}$: Number of consecutive days an employee has off.
+\end{itemize}
+
+Let $total\_number$ be the total number of employees to hire.
+
+\subsection*{Variables}
+Let $is\_work_{n, i}$ be a binary variable defined as follows:
+\[
+is\_work_{n, i} = 
+\begin{cases} 
+1 & \text{if employee } i \text{ is working on day } n \\
+0 & \text{if employee } i \text{ is resting on day } n 
+\end{cases}
+\]
+for $i = 1, 2, \ldots, total\_number$ and $n = 1, 2, \ldots, N$.
+
+\subsection*{Objective Function}
+Minimize the total number of employees:
+\[
+\text{Minimize } total\_number
+\]
+
+\subsection*{Constraints}
+
+1. Staff requirements for each day:
+\[
+\sum_{i=1}^{total\_number} is\_work_{n, i} \geq num_n \quad \forall n = 1, 2, \ldots, N
+\]
+
+2. Work-rest cycle for each employee:
+\[
+is\_work_{n, i} + is\_work_{n+1, i} + \ldots + is\_work_{n+n_{working\_days}-1, i} = n_{working\_days} \quad \text{for } n \text{ where } n + n_{working\_days} - 1 \leq N
+\]
+\[
+is\_work_{n+n_{working\_days}, i} + is\_work_{n+n_{working\_days}+1, i} + \ldots + is\_work_{n+n_{working\_days}+n_{resting\_days}-1, i} = 0 \quad \text{for } n+n_{working\_days} \text{ where } n+n_{working\_days}+n_{resting\_days}-1 \leq N
+\]
+
+3. Binary constraints:
+\[
+is\_work_{n, i} \in \{0, 1\} \quad \forall n = 1, 2, \ldots, N, \forall i = 1, 2, \ldots, total\_number
+\]
+
+\end{document}

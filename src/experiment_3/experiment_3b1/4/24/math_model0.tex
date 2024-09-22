@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Mining Company Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $n_mines$: Total number of mines
+    \item $n_{maxwork}$: Maximum number of mines that can be operated in any year
+    \item $\text{royalty}_k$: Yearly royalties payable on each mine $k$, for $k = 1, \ldots, n_mines$
+    \item $\text{limit}_k$: Upper limit of ore extracted from mine $k$ in a year, for $k = 1, \ldots, n_mines$
+    \item $\text{quality}_k$: Quality of ore from mine $k$, for $k = 1, \ldots, n_mines$
+    \item $\text{requiredquality}_i$: Required quality of blended ore in year $i$, for $i = 1, \ldots, I$
+    \item $price$: Selling price of the blended ore per ton
+    \item $discount$: Discount rate per annum
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $isoperated_{k,i} \in \{0, 1\}$: Indicator variable for whether mine $k$ is operated in year $i$
+    \item $amount_{k, i} \geq 0$: Amount of ore produced by mine $k$ in year $i$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize } Z = \sum_{i=1}^{I} \left( \frac{price \cdot \sum_{k=1}^{n_{mines}} amount_{k,i}}{(1 + discount)^{i}} - \sum_{k=1}^{n_{mines}} royalty_k \cdot isoperated_{k,i} \right)
+\]
+
+\subsection*{Constraints}
+1. **Quality Constraint**:
+\[
+\sum_{k=1}^{n_{mines}} \frac{quality_k \cdot amount_{k,i}}{\sum_{j=1}^{n_{mines}} amount_{j,i}} = requiredquality_i, \quad \forall i = 1, \ldots, I
+\]
+
+2. **Operational Limits**:
+\[
+\sum_{k=1}^{n_{mines}} isoperated_{k,i} \leq n_{maxwork}, \quad \forall i = 1, \ldots, I
+\]
+
+3. **Production Limits**:
+\[
+amount_{k,i} \leq limit_k \cdot isoperated_{k,i}, \quad \forall k = 1, \ldots, n_{mines}, \forall i = 1, \ldots, I
+\]
+
+4. **Non-negativity**:
+\[
+amount_{k,i} \geq 0, \quad \forall k = 1, \ldots, n_{mines}, \forall i = 1, \ldots, I
+\]
+
+5. **Indicator Constraints**:
+\[
+isoperated_{k,i} \in \{0, 1\}, \quad \forall k = 1, \ldots, n_{mines}, \forall i = 1, \ldots, I
+\]
+
+\end{document}

@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Alloy Production}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $A$: Total weight of the alloy to be produced (in lb)
+    \item $M$: Total number of metals
+    \item $K$: Total number of available alloys
+    \item $target_{m}$: Target quantity of metal $m$ in the alloy
+    \item $ratio_{k,m}$: Ratio of metal $m$ in alloy $k$
+    \item $price_{k}$: Price of alloy $k$
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item $amount_{k}$: Amount of alloy $k$ to be purchased
+\end{itemize}
+
+\textbf{Objective:}
+Minimize the total cost of the alloys:
+\begin{equation}
+\text{Minimize } Z = \sum_{k=1}^{K} price_{k} \cdot amount_{k}
+\end{equation}
+
+\textbf{Subject to:}
+\begin{itemize}
+    \item Total weight constraint:
+    \begin{equation}
+    \sum_{k=1}^{K} amount_{k} = A
+    \end{equation}
+
+    \item Metal composition constraints for each metal $m$:
+    \begin{equation}
+    \sum_{k=1}^{K} ratio_{k,m} \cdot amount_{k} = target_{m}, \quad \forall m = 1, 2, \ldots, M
+    \end{equation}
+
+    \item Non-negativity constraints:
+    \begin{equation}
+    amount_{k} \geq 0, \quad \forall k = 1, 2, \ldots, K
+    \end{equation}
+\end{itemize}
+
+\end{document}

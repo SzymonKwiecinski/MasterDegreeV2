@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\textbf{Variables:} \\
+Let \( reg\_quant_n \) be the quantity produced using regular production in month \( n \). \\
+Let \( over\_quant_n \) be the quantity produced using overtime production in month \( n \). \\
+Let \( inventory_n \) be the inventory carried over to month \( n \).
+
+\textbf{Parameters:} \\
+Let \( demand_n \) be the demand in month \( n \). \\
+Let \( max\_regular\_amount \) be the maximum quantity that can be produced using regular production in any month. \\
+Let \( cost\_regular \) be the cost of producing one unit using regular production. \\
+Let \( cost\_overtime \) be the cost of producing one unit using overtime production. \\
+Let \( store\_cost \) be the cost of storing one unit per month.
+
+\textbf{Objective:} \\
+Minimize the total cost:
+\[
+\text{Minimize} \quad Z = \sum_{n=1}^{N} \left( cost\_regular \cdot reg\_quant_n + cost\_overtime \cdot over\_quant_n + store\_cost \cdot inventory_n \right)
+\]
+
+\textbf{Constraints:} \\
+1. Demand satisfaction constraint:
+\[
+inventory_{n-1} + reg\_quant_n + over\_quant_n \geq demand_n \quad \forall n = 1, \ldots, N
+\]
+
+2. Regular production limit:
+\[
+reg\_quant_n \leq max\_regular\_amount \quad \forall n = 1, \ldots, N
+\]
+
+3. Inventory calculation:
+\[
+inventory_n = inventory_{n-1} + reg\_quant_n + over\_quant_n - demand_n \quad \forall n = 1, \ldots, N
+\]
+
+4. Non-negativity constraints:
+\[
+reg\_quant_n \geq 0, \quad over\_quant_n \geq 0, \quad inventory_n \geq 0 \quad \forall n = 1, \ldots, N
+\]
+
+\end{document}

@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Fine Foods Company}
+
+\textbf{Parameters:}
+\begin{align*}
+    W & : \text{Number of weeks} \\
+    demand_w & : \text{Demand for week } w \quad \forall w \in \{1, 2, \ldots, W\} \\
+    regular\_labor_w & : \text{Regular labor hours available in week } w \quad \forall w \in \{1, 2, \ldots, W\} \\
+    overtime\_labor_w & : \text{Overtime labor hours available in week } w \quad \forall w \in \{1, 2, \ldots, W\} \\
+    regular\_cost & : \text{Cost of regular labor per hour} \\
+    overtime\_cost & : \text{Cost of overtime labor per hour} \\
+    assembly\_time & : \text{Hours required to assemble one basket} \\
+    material\_cost & : \text{Material cost for each basket} \\
+    selling\_price & : \text{Selling price of each basket} \\
+    holding\_cost & : \text{Holding cost for unsold baskets} \\
+    salvage\_value & : \text{Salvage value for unsold baskets at the end of week } W
+\end{align*}
+
+\textbf{Variables:}
+\begin{align*}
+    regular\_used_w & : \text{Hours of regular labor used in week } w \quad \forall w \in \{1, 2, \ldots, W\} \\
+    overtime\_used_w & : \text{Hours of overtime labor used in week } w \quad \forall w \in \{1, 2, \ldots, W\} \\
+    regular\_basket_w & : \text{Number of baskets assembled with regular labor in week } w \quad \forall w \in \{1, 2, \ldots, W\} \\
+    overtime\_basket_w & : \text{Number of baskets assembled with overtime labor in week } w \quad \forall w \in \{1, 2, \ldots, W\} \\
+    inventory_w & : \text{Number of baskets on hand at the end of week } w \quad \forall w \in \{1, 2, \ldots, W\} \\
+    total\_profit & : \text{Total profit for the season}
+\end{align*}
+
+\textbf{Objective Function:}
+\begin{align*}
+    \text{Maximize } total\_profit = \sum_{w=1}^{W} \left( (selling\_price - material\_cost) \cdot (regular\_basket_w + overtime\_basket_w) - regular\_cost \cdot regular\_used_w - overtime\_cost \cdot overtime\_used_w - holding\_cost \cdot inventory_w \right) \\
+    + salvage\_value \cdot inventory_W
+\end{align*}
+
+\textbf{Constraints:}
+\begin{align*}
+    \text{Labor Constraints:} \\
+    regular\_used_w & \leq regular\_labor_w \quad \forall w \in \{1, 2, \ldots, W\} \\
+    overtime\_used_w & \leq overtime\_labor_w \quad \forall w \in \{1, 2, \ldots, W\} \\
+    \\
+    \text{Assembly Constraints:} \\
+    regular\_basket_w & = \frac{regular\_used_w}{assembly\_time} \quad \forall w \in \{1, 2, \ldots, W\} \\
+    overtime\_basket_w & = \frac{overtime\_used_w}{assembly\_time} \quad \forall w \in \{1, 2, \ldots, W\} \\
+    \\
+    \text{Demand Satisfaction:} \\
+    regular\_basket_w + overtime\_basket_w + inventory_{w-1} & \geq demand_w \quad \forall w \in \{1, 2, \ldots, W\}, \text{ where } inventory_0 = 0 \\
+    \\
+    \text{Inventory Balance:} \\
+    inventory_w & = inventory_{w-1} + regular\_basket_w + overtime\_basket_w - demand_w \quad \forall w \in \{2, 3, \ldots, W\} \\
+    inventory_W & \geq 0 \\
+    \\
+    \text{Non-negativity:} \\
+    regular\_used_w, overtime\_used_w, regular\_basket_w, overtime\_basket_w, inventory_w & \geq 0 \quad \forall w \in \{1, 2, \ldots, W\}
+\end{align*}
+
+\end{document}

@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for MILP Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $N$: Number of clusters
+    \item $isolate\_central_i$: Processing time for isolation using central processing for cluster $i$ (for $i = 1, ..., N$)
+    \item $scan\_central_i$: Processing time for scanning using central processing for cluster $i$ (for $i = 1, ..., N$)
+    \item $isolate\_distributed_i$: Processing time for isolation using distributed processing for cluster $i$ (for $i = 1, ..., N$)
+    \item $scan\_distributed_i$: Processing time for scanning using distributed processing for cluster $i$ (for $i = 1, ..., N$)
+    \item $central\_cost$: Opportunity cost for processing using central method per hour
+    \item $distributed\_cost$: Opportunity cost for processing using distributed method per hour
+    \item $max\_central$: Maximum allowable hours for central processing
+    \item $max\_distributed$: Maximum allowable hours for distributed processing
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let:
+\begin{itemize}
+    \item $x_{i,j,k}$: Binary variable representing the choice of intervention type ($j \in \{\text{isolate, scan}\}$) and processing method ($k \in \{\text{central, distributed}\}$) for cluster $i$, where $x_{i,j,k} = 1$ if chosen, 0 otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the total cost:
+
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} \left( central\_cost \cdot \sum_{j \in \{\text{isolate, scan}\}} \sum_{k \in \{\text{central}\}} x_{i,j,k} \cdot (isolate\_central_i \cdot \delta_{j,\text{isolate}} + scan\_central_i \cdot \delta_{j,\text{scan}}) + distributed\_cost \cdot \sum_{k \in \{\text{distributed}\}} x_{i,j,k} \cdot (isolate\_distributed_i \cdot \delta_{j,\text{isolate}} + scan\_distributed_i \cdot \delta_{j,\text{scan}}) \right)
+\]
+
+\subsection*{Constraints}
+1. Each cluster is assigned exactly one intervention type:
+\[
+\sum_{j \in \{\text{isolate, scan}\}} \sum_{k \in \{\text{central, distributed}\}} x_{i,j,k} = 1, \quad \forall i \in \{1, \ldots, N\}
+\]
+
+2. Central processing time constraint:
+\[
+\sum_{i=1}^{N} \left( \sum_{j \in \{\text{isolate}\}} x_{i,j,\text{central}} \cdot isolate\_central_i + \sum_{j \in \{\text{scan}\}} x_{i,j,\text{central}} \cdot scan\_central_i \right) \leq max\_central
+\]
+
+3. Distributed processing time constraint:
+\[
+\sum_{i=1}^{N} \left( \sum_{j \in \{\text{isolate}\}} x_{i,j,\text{distributed}} \cdot isolate\_distributed_i + \sum_{j \in \{\text{scan}\}} x_{i,j,\text{distributed}} \cdot scan\_distributed_i \right) \leq max\_distributed
+\]
+
+4. Binary constraints on decision variables:
+\[
+x_{i,j,k} \in \{0, 1\}, \quad \forall i \in \{1, \ldots, N\}, \, j \in \{\text{isolate, scan}\}, \, k \in \{\text{central, distributed}\}
+\]
+
+\end{document}

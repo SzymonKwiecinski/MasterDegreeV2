@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Motion Linear Programming Model}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item $\var{x_t}$: Position of the rocket at time $t$
+    \item $\var{v_t}$: Velocity of the rocket at time $t$
+    \item $\var{a_t}$: Acceleration of the rocket at time $t$
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $\var{x_0}$: Initial position of the rocket
+    \item $\var{v_0}$: Initial velocity of the rocket
+    \item $\var{x_T}$: Target position at time $T$
+    \item $\var{v_T}$: Target velocity at time $T$
+    \item $T$: Total time steps
+\end{itemize}
+
+\textbf{Model Equations:}
+\begin{align}
+    \var{x_{t+1}} &= \var{x_t} + \var{v_t}, \quad t = 0, 1, \ldots, T-1 \\
+    \var{v_{t+1}} &= \var{v_t} + \var{a_t}, \quad t = 0, 1, \ldots, T-1
+\end{align}
+
+\textbf{Objective Function:}
+\begin{align}
+    \text{Minimize} \quad Z = \sum_{t=0}^{T-1} |\var{a_t}|
+\end{align}
+
+\textbf{Constraints:}
+\begin{align}
+    \var{x_0} &= \text{initial position} \\
+    \var{v_0} &= \text{initial velocity} \\
+    \var{x_T} &= \var{x_T} \quad (\text{target position}) \\
+    \var{v_T} &= \var{v_T} \quad (\text{target velocity}) \\
+    \var{x_{T}} &= \var{x_{T-1}} + \var{v_{T-1}} \\
+    \var{v_{T}} &= \var{v_{T-1}} + \var{a_{T-1}}
+\end{align}
+
+\textbf{Output Variables:}
+\begin{align*}
+    \text{Output} &= \{ \\
+    &\quad "x": [x_i \text{ for } i = 0, 1, \ldots, T], \\
+    &\quad "v": [v_i \text{ for } i = 0, 1, \ldots, T], \\
+    &\quad "a": [a_i \text{ for } i = 0, 1, \ldots, T], \\
+    &\quad "fuel\_spend": Z \\
+    &\}
+\end{align*}
+
+\end{document}

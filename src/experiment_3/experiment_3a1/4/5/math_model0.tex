@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Communication Network}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item Let \( A \) be the set of all links in the communication network, where each link is represented as an ordered pair \( (i,j) \).
+    \item Let \( D \) be the set of all data requests, where each data request is represented as \( (k,l) \).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( U_{i,j} \): Maximum capacity (in bits per second) of link \( (i,j) \).
+    \item \( C_{i,j} \): Cost per bit transmitted along link \( (i,j) \).
+    \item \( B_{k,l} \): Data generation rate (in bits per second) from node \( k \) to node \( l \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_{i,j} \): Flow of data through link \( (i,j) \) (in bits per second).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost associated with transmitting data through the network:
+\[
+\text{Minimize } Z = \sum_{(i,j) \in A} C_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+
+\paragraph{Capacity Constraints:}
+For each link \( (i,j) \in A \):
+\[
+x_{i,j} \leq U_{i,j}
+\]
+
+\paragraph{Flow Conservation Constraints:}
+For each data request \( (k,l) \in D \):
+\begin{align*}
+    \text{Incoming flow to } l: & \quad \sum_{i: (i,l) \in A} x_{i,l} - \sum_{j: (l,j) \in A} x_{l,j} = 0 \\
+    \text{For all nodes } m \text{ except } k \text{ and } l: & \quad \sum_{i: (i,m) \in A} x_{i,m} - \sum_{j: (m,j) \in A} x_{m,j} = 0 \\
+    \text{Outgoing flow from } k: & \quad \sum_{j: (k,j) \in A} x_{k,j} = B_{k,l}
+\end{align*}
+
+\paragraph{Non-negativity Constraints:}
+\[
+x_{i,j} \geq 0 \quad \forall (i,j) \in A
+\]
+
+\subsection*{Output Variables}
+\begin{itemize}
+    \item \texttt{optimized\_paths}: Contains the optimized paths for each data request.
+    \item \texttt{total\_cost}: The total cost of all paths.
+    \item \texttt{path\_cost}: The cost of the corresponding path.
+    \item \texttt{path\_flow}: The flow going through the corresponding path.
+\end{itemize}
+
+\end{document}

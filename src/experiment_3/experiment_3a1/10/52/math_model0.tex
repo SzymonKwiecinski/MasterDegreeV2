@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Electricity Transmission Optimization Model}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item \( P \): Set of power plants \( \{1, 2, \ldots, P\} \)
+    \item \( C \): Set of cities \( \{1, 2, \ldots, C\} \)
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( supply_{p} \): Capacity of power plant \( p \) (in million kWh)
+    \item \( demand_{c} \): Peak demand of city \( c \) (in million kWh)
+    \item \( transmission_{p,c} \): Transmission cost from power plant \( p \) to city \( c \) (in $/million kWh)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( send_{p,c} \): Amount of electricity sent from power plant \( p \) to city \( c \) (in million kWh)
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } Z = \sum_{p \in P} \sum_{c \in C} transmission_{p,c} \cdot send_{p,c}
+\]
+
+\textbf{Constraints:}
+\begin{itemize}
+    \item Demand constraints for each city:
+    \[
+    \sum_{p \in P} send_{p,c} = demand_{c}, \quad \forall c \in C
+    \]
+    
+    \item Supply constraints for each power plant:
+    \[
+    \sum_{c \in C} send_{p,c} \leq supply_{p}, \quad \forall p \in P
+    \]
+    
+    \item Non-negativity constraints:
+    \[
+    send_{p,c} \geq 0, \quad \forall p \in P, \forall c \in C
+    \]
+\end{itemize}
+
+\end{document}

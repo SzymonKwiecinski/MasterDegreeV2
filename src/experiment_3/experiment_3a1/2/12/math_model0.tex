@@ -1,0 +1,78 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+Let \( N \) be the number of available currencies, indexed by \( i = 1, \ldots, N \). We define the following variables:
+
+\begin{itemize}
+    \item \( x_{i,j} \): amount of currency \( i \) exchanged for currency \( j \).
+\end{itemize}
+
+We start the day with \( \text{start}_i \) units of currency \( i \), and there are limitations on the amounts that can be exchanged due to regulations, represented by \( \text{limit}_i \).
+
+\subsection*{Objective Function}
+
+The objective is to maximize the amount of currency \( N \) at the end of the day:
+
+\[
+\text{Maximize} \quad z = \text{final\_amount\_of\_currency\_N}
+\]
+
+Where the final amount of currency \( N \) is given by:
+
+\[
+\text{final\_amount\_of\_currency\_N} = \text{start}_N + \sum_{j=1}^{N} x_{N,j} - \sum_{i=1}^{N} x_{j,N}
+\]
+
+\subsection*{Constraints}
+
+1. **Initial Amount Constraint:**
+   Each currency after transactions should respect the initial amount and transactions:
+   \[
+   \text{start}_i + \sum_{j=1}^{N} x_{i,j} - \sum_{j=1}^{N} x_{j,i} \geq 0 \quad \forall i
+   \]
+
+2. **Limit Constraint:**
+   Each currency exchange must not exceed the specified limit:
+   \[
+   \sum_{j=1}^{N} x_{i,j} + \sum_{j=1}^{N} x_{j,i} \leq \text{limit}_i \quad \forall i
+   \]
+
+3. **Exchange Rate Constraint:**
+   The amount exchanged must respect the exchange rates:
+   \[
+   x_{i,j} \leq \text{rate}_{i,j} \cdot \text{start}_i \quad \forall i,j
+   \]
+
+4. **Non-negativity Constraint:**
+   The amount exchanged must be non-negative:
+   \[
+   x_{i,j} \geq 0 \quad \forall i,j
+   \]
+
+5. **Cycle Wealth Constraint:**
+   To ensure that the wealth cannot be multiplied by going through a cycle of currencies:
+   \[
+   \text{rate}_{i_1,i_2}, \text{rate}_{i_2,i_3}, \ldots, \text{rate}_{i_{k-1},i_k}, \text{rate}_{i_k,i_1} \leq 1 \quad \forall \text{cycle }
+\]
+
+\subsection*{Final Output}
+
+The output will be structured as follows:
+
+\begin{verbatim}
+{
+    "transactions": [
+        {
+            "from": i,
+            "to": j,
+            "amount": x_{i,j}
+        }
+    ],
+    "final_amount_of_currency_N": z
+}
+\end{verbatim}
+
+\end{document}

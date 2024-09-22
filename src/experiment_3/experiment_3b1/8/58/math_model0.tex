@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item \( p \): Index for parts, where \( p = 1, \ldots, P \)
+    \item \( m \): Index for machines, where \( m = 1, \ldots, M \)
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{time}_{m,p} \): Time required on machine \( m \) to produce one batch of part \( p \) (in hours)
+    \item \( \text{cost}_{m} \): Cost per hour for machine \( m \)
+    \item \( \text{available}_{m} \): Availability of machine \( m \) in hours per month
+    \item \( \text{price}_{p} \): Selling price per batch of part \( p \)
+    \item \( \text{setup\_time}_{p} \): Setup time required for machine 1 to produce part \( p \) (in hours)
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{batches}_{p} \): Number of batches of part \( p \) to produce
+    \item \( \text{setup\_flag}_{p} \): Binary variable indicating whether part \( p \) is set up (\( \text{setup\_flag}_{p} = 1 \)) or not (\( \text{setup\_flag}_{p} = 0 \))
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Total\_Profit} = \sum_{p=1}^{P} \left( \text{price}_{p} \cdot \text{batches}_{p} \right) - \sum_{m=1}^{M} \left( \text{cost}_{m} \cdot \text{hours\_used}_{m} \right)
+\]
+
+where
+\[
+\text{hours\_used}_{m} = \sum_{p=1}^{P} \left( \text{time}_{m,p} \cdot \text{batches}_{p} \right) + \sum_{p=1}^{P} \left( \text{setup\_time}_{p} \cdot \text{setup\_flag}_{p} \right) \delta_{m,1}
+\]
+
+\subsection*{Constraints}
+1. Machine availability constraints:
+\[
+\sum_{p=1}^{P} \left( \text{time}_{m,p} \cdot \text{batches}_{p} \right) + \sum_{p=1}^{P} \left( \text{setup\_time}_{p} \cdot \text{setup\_flag}_{p} \right) \delta_{m,1} \leq \text{available}_{m} \quad \forall m = 1, \ldots, M
+\]
+
+2. Non-negativity and integer constraints:
+\[
+\text{batches}_{p} \geq 0 \quad \forall p = 1, \ldots, P
+\]
+\[
+\text{setup\_flag}_{p} \in \{0, 1\} \quad \forall p = 1, \ldots, P
+\]
+
+\end{document}

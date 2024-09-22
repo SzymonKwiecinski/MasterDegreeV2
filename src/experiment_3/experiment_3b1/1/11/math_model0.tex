@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $i$: month index, for $i = 1, 2, \ldots, T$
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $deliver_i$: units that must be delivered at the end of month $i$
+    \item $storage\_cost$: cost of storing one unit of the product for one month
+    \item $switch\_cost$: cost of switching production levels between two consecutive months
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_i$: number of units produced in month $i$
+    \item $I_i$: inventory at the end of month $i$
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the total cost, which includes production costs, storage costs, and switching costs:
+
+\[
+\text{Minimize } Z = \sum_{i=1}^{T} \left( storage\_cost \cdot I_i + switch\_cost \cdot |x_{i} - x_{i-1}| \right)
+\]
+with the understanding that $x_0 = 0$ (initial production level).
+
+\subsection*{Constraints}
+1. \textbf{Delivery Requirement:}
+   \[
+   I_{i-1} + x_i - deliver_i = I_i \quad \forall i = 1, 2, \ldots, T
+   \]
+   where $I_0 = 0$ (no initial inventory).
+
+2. \textbf{Non-negativity:}
+   \[
+   x_i \geq 0 \quad \forall i = 1, 2, \ldots, T
+   \]
+   \[
+   I_i \geq 0 \quad \forall i = 1, 2, \ldots, T
+   \]
+
+3. \textbf{No Inventory Cost at Year End:}
+   \[
+   I_T = 0
+   \]
+
+\end{document}

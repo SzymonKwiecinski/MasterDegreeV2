@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Mathematical Model for Translator Selection}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+
+We need to select a combination of translators to ensure that all required languages can be translated into at the minimum possible cost. Let us define the problem mathematically.
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $i \in \{1, 2, \ldots, N\}$: Index for translators
+    \item $m \in \{1, 2, \ldots, M\}$: Index for required languages
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $cost_i$: Cost of hiring translator $i$
+    \item $languages_i$: Set of languages that translator $i$ can translate
+    \item $required\_languages_m$: Set of required languages
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_i \in \{0, 1\}$: Binary variable that indicates whether translator $i$ is selected (1) or not (0)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost of hiring translators:
+
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} cost_i \cdot x_i
+\]
+
+\subsection*{Constraints}
+We must ensure that all required languages are covered:
+
+\[
+\sum_{i: language_m \in languages_i} x_i \geq 1, \quad \forall m \in \{1, 2, \ldots, M\}
+\]
+
+This constraint ensures that for each required language $m$, at least one translator who can translate that language is selected.
+
+\subsection*{Final Model}
+The complete mathematical model can be summarized as follows:
+
+\begin{align*}
+    & \text{Minimize } Z = \sum_{i=1}^{N} cost_i \cdot x_i \\
+    & \text{subject to:} \\
+    & \sum_{i: language_m \in languages_i} x_i \geq 1, \quad \forall m \in \{1, 2, \ldots, M\} \\
+    & x_i \in \{0, 1\}, \quad \forall i \in \{1, 2, \ldots, N\}
+\end{align*}
+
+\section*{Output}
+The output of this optimization problem will be:
+\begin{itemize}
+    \item $selected\_translators$: List of identifiers of the selected translators
+    \item $total\_cost$: Total cost for hiring the selected translators
+\end{itemize}
+
+\end{document}

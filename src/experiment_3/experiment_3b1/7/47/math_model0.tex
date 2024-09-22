@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Police Officer Shift Assignment}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( S \) be the total number of shifts.
+    \item Let \( officers\_needed_s \) be the number of police officers needed during shift \( s \) for \( s = 1, \ldots, S \).
+    \item Let \( shift\_cost_s \) be the cost for the town when starting a shift at \( s \) for \( s = 1, \ldots, S \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( officers\_assigned_s \) be the number of police officers assigned to shift \( s \).
+\end{itemize}
+
+\subsection*{Objective Function}
+We aim to minimize the total cost:
+\[
+\text{Minimize} \quad total\_cost = \sum_{s=1}^{S} shift\_cost_s \cdot x_s
+\]
+where \( x_s \) is a binary variable that equals 1 if at least one officer is assigned to shift \( s \) and 0 otherwise.
+
+\subsection*{Constraints}
+\begin{align}
+    \text{(1) Officer Assignment Constraint:} & \quad officers\_assigned_s \geq officers\_needed_s \quad \forall s = 1, \ldots, S \\
+    \text{(2) Shift Coverage Constraint:} & \quad officers\_assigned_s = officers\_assigned_{s-1} \quad \forall s = 2, \ldots, S \\
+    \text{(3) Non-negativity:} & \quad officers\_assigned_s \geq 0 \quad \forall s = 1, \ldots, S \\
+    \text{(4) Binary Shift Indicator:} & \quad x_s \in \{0, 1\} \quad \forall s = 1, \ldots, S
+\end{align}
+
+\subsection*{Output}
+The expected output consists of:
+\begin{itemize}
+    \item The number of officers assigned to each shift: \( officers\_assigned = [officers\_assigned_s \text{ for } s = 1, \ldots, S] \)
+    \item The total cost: \( total\_cost \)
+\end{itemize}
+
+\end{document}

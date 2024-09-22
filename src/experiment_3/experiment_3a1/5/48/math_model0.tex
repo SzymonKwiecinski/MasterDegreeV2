@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Basket Assembly Problem}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $w$: week index, where $w \in \{1, 2, \ldots, W\}$
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $demand_w$: demand for baskets in week $w$
+    \item $regular\_cost$: cost of regular labor per hour
+    \item $overtime\_cost$: cost of overtime labor per hour
+    \item $assembly\_time$: hours required to assemble one basket
+    \item $material\_cost$: cost of materials for one basket
+    \item $selling\_price$: selling price of one basket
+    \item $holding\_cost$: holding cost per unsold basket
+    \item $salvage\_value$: salvage value of unsold baskets at the end of week $W$
+    \item $regular\_labor_w$: available regular labor hours in week $w$
+    \item $overtime\_labor_w$: available overtime labor hours in week $w$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $regular\_used_w$: hours of regular labor used in week $w$
+    \item $overtime\_used_w$: hours of overtime labor used in week $w$
+    \item $regular\_basket_w$: number of baskets assembled using regular labor in week $w$
+    \item $overtime\_basket_w$: number of baskets assembled using overtime labor in week $w$
+    \item $inventory_w$: number of baskets on hand at the end of week $w$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+\text{Total Profit} = \sum_{w=1}^{W} \left( (selling\_price - material\_cost) \cdot (regular\_basket_w + overtime\_basket_w) - regular\_cost \cdot regular\_used_w - overtime\_cost \cdot overtime\_used_w - holding\_cost \cdot inventory_w \right) + salvage\_value \cdot inventory_W
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    \text{1. Labor Constraints:} & \quad regular\_used_w + overtime\_used_w \leq regular\_labor_w + overtime\_labor_w, \quad \forall w \\
+    \text{2. Assembly Time:} & \quad regular\_basket_w + overtime\_basket_w \leq \frac{regular\_used_w}{assembly\_time} + \frac{overtime\_used_w}{assembly\_time}, \quad \forall w \\
+    \text{3. Demand Satisfaction:} & \quad regular\_basket_w + overtime\_basket_w + inventory_{w-1} = demand_w + inventory_w, \quad \forall w \text{ with } w > 1 \\
+    & \quad regular\_basket_1 + overtime\_basket_1 = demand_1 + inventory_1 \\
+    \text{4. Non-negativity:} & \quad regular\_used_w \geq 0, \quad \forall w \\
+    & \quad overtime\_used_w \geq 0, \quad \forall w \\
+    & \quad regular\_basket_w \geq 0, \quad \forall w \\
+    & \quad overtime\_basket_w \geq 0, \quad \forall w \\
+    & \quad inventory_w \geq 0, \quad \forall w
+\end{align}
+
+\end{document}

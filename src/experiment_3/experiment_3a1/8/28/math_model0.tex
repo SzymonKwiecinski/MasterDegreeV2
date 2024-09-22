@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Line Fitting}
+
+Given a set of points \((x_k, y_k)\) for \(k = 1, \ldots, K\), we aim to fit a linear relationship of the form:
+
+\[
+y = bx + a
+\]
+
+where:
+- \(b\) is the slope,
+- \(a\) is the intercept.
+
+The objective is to minimize the sum of absolute deviations between the observed values \(y_k\) and the predicted values \((bx_k + a)\). This can be formulated as the following linear programming problem:
+
+\subsection*{Variables}
+Let:
+- \(a\) be the intercept,
+- \(b\) be the slope,
+- \(d_k\) be the absolute deviation for each point \(k\).
+
+\subsection*{Objective Function}
+We want to minimize the total absolute deviations:
+
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} d_k
+\]
+
+\subsection*{Constraints}
+For each data point, the absolute deviation can be expressed with the following constraints:
+
+\[
+d_k \geq y_k - (b x_k + a) \quad \forall k
+\]
+
+\[
+d_k \geq -(y_k - (b x_k + a)) \quad \forall k
+\]
+
+\subsection*{Complete Model}
+Putting everything together, the complete LP model can be expressed as:
+
+\[
+\begin{array}{rl}
+\text{Minimize} & Z = \sum_{k=1}^{K} d_k \\
+\text{subject to} & d_k \geq y_k - (b x_k + a), \quad \forall k \\
+& d_k \geq -(y_k - (b x_k + a)), \quad \forall k \\
+& a, b \text{ are free variables} \\
+& d_k \geq 0, \quad \forall k
+\end{array}
+\]
+
+\subsection*{Output}
+The output variables are defined as follows:
+
+\begin{itemize}
+    \item \textbf{intercept}: The value of \(a\)
+    \item \textbf{slope}: The value of \(b\)
+\end{itemize}
+
+\end{document}

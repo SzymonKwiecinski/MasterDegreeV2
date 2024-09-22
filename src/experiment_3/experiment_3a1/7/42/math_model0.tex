@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model for Container Transportation}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item $i$: index for depots, where $i = 1, \ldots, I$
+    \item $j$: index for ports, where $j = 1, \ldots, J$
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $numdepot_i$: number of containers available in depot $i$
+    \item $numport_j$: number of containers required at port $j$
+    \item $price$: cost per kilometer for transportation
+    \item $distance_{i,j}$: distance in kilometers from depot $i$ to port $j$
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $number_{i,j}$: number of containers sent from depot $i$ to port $j$
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize} \quad Z = \sum_{i=1}^{I} \sum_{j=1}^{J} \left( \frac{number_{i,j}}{2} \times price \times distance_{i,j} \right)
+\]
+
+\textbf{Constraints:}
+1. Container availability at depots:
+\[
+\sum_{j=1}^{J} number_{i,j} \leq numdepot_i, \quad \forall i \in \{1, \ldots, I\}
+\]
+
+2. Container requirement at ports:
+\[
+\sum_{i=1}^{I} number_{i,j} \geq numport_j, \quad \forall j \in \{1, \ldots, J\}
+\]
+
+3. Non-negativity:
+\[
+number_{i,j} \geq 0, \quad \forall i, j
+\]
+
+\textbf{Output Format:}
+\[
+\text{"number":} \quad \{number_{i,j} \,|\, i = 1,\ldots,I, j = 1,\ldots,J\}
+\]
+
+\end{document}

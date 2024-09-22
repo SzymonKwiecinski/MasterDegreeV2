@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Auto Parts Manufacturer}
+
+\subsection*{Variables}
+
+Let:
+\begin{itemize}
+    \item \( batches_{p} \) = number of batches of part \( p \) produced
+    \item \( setup\_flags_{p} \) = binary variable indicating whether part \( p \) is set up (1) or not (0)
+    \item \( total\_profit \) = total profit obtained for the month
+\end{itemize}
+
+\subsection*{Parameters}
+
+Given:
+\begin{itemize}
+    \item \( time_{m,p} \) = time required on machine \( m \) for part \( p \) (in hours)
+    \item \( cost_{m} \) = cost per hour for using machine \( m \)
+    \item \( available_{m} \) = available hours for machine \( m \) per month
+    \item \( price_{p} \) = price per batch of part \( p \)
+    \item \( setup\_time_{p} \) = setup time required for part \( p \) on machine 1 (in hours)
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Maximize the total profit:
+\[
+total\_profit = \sum_{p=1}^{P} (price_{p} \cdot batches_{p}) - \sum_{m=1}^{M} \left( cost_{m} \cdot \left( \sum_{p=1}^{P} (time_{m,p} \cdot batches_{p}) + \sum_{p=1}^{P} (setup\_flags_{p} \cdot setup\_time_{p}) \right) \right)
+\]
+
+\subsection*{Constraints}
+
+1. Machine Time Availability Constraints:
+\[
+\sum_{p=1}^{P} (time_{m,p} \cdot batches_{p}) + \sum_{p=1}^{P} (setup\_flags_{p} \cdot setup\_time_{p}) \leq available_{m}, \quad \forall m \in \{1, \ldots, M\}
+\]
+
+2. Setup Time for Machine 1:
+\[
+\begin{aligned}
+&setup\_flags_{p} = \begin{cases} 
+1 & \text{if } batches_{p} > 0 \\
+0 & \text{if } batches_{p} = 0 
+\end{cases}, \quad \forall p \in \{1, \ldots, P\}
+\end{aligned}
+\]
+
+3. Non-negativity and Integer Constraints:
+\[
+batches_{p} \geq 0, \quad \forall p \in \{1, \ldots, P\}
+\]
+\[
+setup\_flags_{p} \in \{0, 1\}, \quad \forall p \in \{1, \ldots, P\}
+\]
+
+\end{document}

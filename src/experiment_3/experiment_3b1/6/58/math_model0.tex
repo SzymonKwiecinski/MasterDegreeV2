@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Auto Parts Manufacturer}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $p$: index for part, where $p = 1, \ldots, P$
+    \item $m$: index for machine, where $m = 1, \ldots, M$
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $time_{m,p}$: time required on machine $m$ to produce a batch of part $p$ (in hours)
+    \item $cost_{m}$: cost per hour for using machine $m$
+    \item $available_{m}$: available hours per month on machine $m$
+    \item $price_{p}$: selling price of a batch of part $p$
+    \item $setup\_time_{p}$: setup time required for part $p$ on machine 1 (in hours)
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item $batches_{p}$: number of batches produced for part $p$
+    \item $setup\_flag_{p}$: binary variable indicating whether part $p$ is set up ($setup\_flag_{p} = 1$) or not ($setup\_flag_{p} = 0$)
+    \item $total\_profit$: total profit obtained for the month
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+total\_profit = \sum_{p=1}^{P} (price_{p} \cdot batches_{p}) - \sum_{m=1}^{M} \left( cost_{m} \cdot \sum_{p=1}^{P} (time_{m,p} \cdot batches_{p}) + (setup\_flag_{p} \cdot setup\_time_{p} \cdot cost_{m})) \right)
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Machine time availability constraint:
+    \[
+    \sum_{p=1}^{P} (time_{m,p} \cdot batches_{p}) + (setup\_flag_{p} \cdot setup\_time_{p}) \leq available_{m} \quad \forall m = 1, \ldots, M
+    \]
+
+    \item Non-negativity constraint for batches:
+    \[
+    batches_{p} \geq 0 \quad \forall p = 1, \ldots, P
+    \]
+
+    \item Binary constraint for setup flags:
+    \[
+    setup\_flag_{p} \in \{0, 1\} \quad \forall p = 1, \ldots, P
+    \]
+\end{itemize}
+
+\subsection*{Output}
+The output will consist of:
+\begin{itemize}
+    \item $batches$: number of batches produced for each part $p$
+    \item $setup\_flags$: indicates whether part $p$ is set up or not
+    \item $total\_profit$: the total profit obtained for the month
+\end{itemize}
+
+\end{document}

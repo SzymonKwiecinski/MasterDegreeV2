@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Finding the Chebyshev Center}
+
+Let \( P \) be defined as:
+\[
+P = \{ \mathbf{x} \in \mathbb{R}^N \mid \mathbf{a}_i^T \mathbf{x} \leq b_i, \, i = 1, \ldots, m \}
+\]
+where \( \mathbf{a}_i \in \mathbb{R}^N \) and \( b_i \in \mathbb{R} \).
+
+We want to find a ball centered at \( \mathbf{y} \in \mathbb{R}^N \) with radius \( r \) such that:
+
+\[
+B(\mathbf{y}, r) = \{ \mathbf{x} \in \mathbb{R}^N \mid ||\mathbf{x} - \mathbf{y}||_2 \leq r \}
+\]
+
+is entirely contained within the set \( P \). The objective is to maximize the radius \( r \).
+
+The optimization problem can be formulated as follows:
+
+\[
+\text{Maximize } r
+\]
+\[
+\text{subject to }
+\]
+\[
+\mathbf{a}_i^T \mathbf{y} - r \cdot ||\mathbf{a}_i||_2 \leq b_i, \quad i = 1, \ldots, m
+\]
+\[
+r \geq 0
+\]
+
+where \( ||\mathbf{a}_i||_2 \) is the Euclidean norm of the vector \( \mathbf{a}_i \).
+
+The output of the problem will be in the following format:
+\[
+\begin{aligned}
+\text{Output} = & \{ \\
+& \text{"center"}: [y_j \text{ for } j = 1, \ldots, N], \\
+& \text{"radius"}: r \\
+& \}
+\end{aligned}
+\]
+
+\end{document}

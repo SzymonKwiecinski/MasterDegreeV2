@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $j$: Day index, where $j = 1, \ldots, 7$
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $d_j$: Demand for nurses on day $j$, where $j = 1,\ldots,7$
+    \item $period$: Number of consecutive days a nurse works
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $start_j$: Number of nurses starting their period on day $j$, where $j = 1, \ldots, 7$
+    \item $total$: Total number of nurses hired
+\end{itemize}
+
+\subsection*{Objective}
+Minimize the total number of nurses hired:
+\[
+\text{Minimize } total = \sum_{j=1}^{7} start_j
+\]
+
+\subsection*{Constraints}
+For each day $j$, the demand must be met:
+\[
+\sum_{i=0}^{period-1} start_{(j-i) \mod 7} \geq d_j \quad \forall j \in \{1,\ldots, 7\}
+\]
+
+\subsection*{Non-negativity Constraints}
+\[
+start_j \geq 0 \quad \forall j \in \{1,\ldots, 7\}
+\]
+\[
+total \geq 0
+\]
+
+\end{document}

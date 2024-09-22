@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Electricity Capacity Expansion Problem}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item $t$: Year, where $t = 1, ..., T$
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $demand_t$: Forecasted demand for electricity in year $t$ (in megawatts)
+    \item $oil_t$: Existing oil-fired capacity available in year $t$ (in megawatts)
+    \item $coal\_cost$: Capital cost per megawatt of coal-fired capacity
+    \item $nuke\_cost$: Capital cost per megawatt of nuclear power capacity
+    \item $max\_nuke$: Maximum percentage of total capacity allowed to be nuclear (0 to 100)
+    \item $coal\_life$: Lifespan of coal-fired plants (in years)
+    \item $nuke\_life$: Lifespan of nuclear plants (in years)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $coal_t$: Coal capacity added in year $t$ (in megawatts)
+    \item $nuke_t$: Nuclear capacity added in year $t$ (in megawatts)
+\end{itemize}
+
+\textbf{Objective Function:}
+Minimize the total cost of capacity expansion:
+
+\[
+\text{Minimize } Z = \sum_{t=1}^{T} (coal\_cost \cdot coal_t + nuke\_cost \cdot nuke_t)
+\]
+
+\textbf{Constraints:}
+1. Capacity must meet the demand:
+\[
+oil_t + \sum_{j=\max(1, t - coal\_life + 1)}^{t} coal_j + \sum_{j=\max(1, t - nuke\_life + 1)}^{t} nuke_j \geq demand_t, \quad \forall t
+\]
+
+2. Nuclear capacity limit:
+\[
+\sum_{j=1}^{t} nuke_j \leq \frac{max\_nuke}{100} \left( oil_t + \sum_{j=1}^{t} coal_j + \sum_{j=1}^{t} nuke_j \right), \quad \forall t
+\]
+
+3. Non-negativity constraints:
+\[
+coal_t \geq 0, \quad nuke_t \geq 0, \quad \forall t
+\]
+
+\end{document}

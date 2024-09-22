@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item Let \( x_i \) be the number of units produced in month \( i \) for \( i = 1, \ldots, T \).
+    \item Let \( I_i \) be the inventory at the end of month \( i \).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{deliver}_i \): units that must be delivered at the end of month \( i \) for \( i = 1, \ldots, T \).
+    \item \( c_s \): storage cost per unit per month.
+    \item \( c_w \): switch cost factor.
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the total cost, which consists of storage costs and switch costs:
+
+\[
+\text{Minimize } Z = \sum_{i=1}^{T} \left( c_s \cdot I_i + c_w \cdot |x_{i+1} - x_i| \right)
+\]
+
+\subsection*{Constraints}
+1. Inventory Balance:
+\[
+I_i = I_{i-1} + x_i - \text{deliver}_i, \quad \forall i = 1, \ldots, T
+\]
+with \( I_0 = 0 \) (no initial inventory).
+
+2. Non-negativity of production and inventory:
+\[
+x_i \geq 0, \quad I_i \geq 0, \quad \forall i = 1, \ldots, T
+\]
+
+3. Last month inventory condition:
+\[
+I_T = 0
+\]
+
+\subsection*{Output}
+The output will include:
+\begin{itemize}
+    \item \( x = [x_1, x_2, \ldots, x_T] \): production schedule for each month.
+    \item \( \text{cost} = Z \): total cost of the production and inventory schedule.
+\end{itemize}
+
+\end{document}

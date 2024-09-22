@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\subsection*{Variables}
+Let \( x_k \) be the amount of alloy \( k \) to be purchased, for \( k = 1, \ldots, K \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{alloy\_quant} \): Total weight of alloy to be produced (in lbs).
+    \item \( \text{target}_{m} \): Target weight of metal \( m \) in the alloy (for \( m = 1, \ldots, M \)).
+    \item \( \text{ratio}_{k, m} \): Ratio of metal \( m \) in alloy \( k \).
+    \item \( \text{price}_{k} \): Price of alloy \( k \) per pound.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} \text{price}_{k} \cdot x_k
+\]
+
+\subsection*{Constraints}
+We need to ensure that the total weight of the alloy equals the desired weight and that we have the right amounts of each metal:
+\begin{align*}
+\sum_{k=1}^{K} x_k &= \text{alloy\_quant} \quad \text{(Total amount of alloys)} \\
+\sum_{k=1}^{K} \text{ratio}_{k, m} \cdot x_k &\geq \text{target}_{m} \quad \text{for } m = 1, \ldots, M \quad \text{(Metal requirements)}
+\end{align*}
+
+\subsection*{Non-negativity Constraints}
+\[
+x_k \geq 0 \quad \text{for } k = 1, \ldots, K
+\]
+
+\end{document}

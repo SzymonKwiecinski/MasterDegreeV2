@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mixed Integer Programming Model for the Knapsack Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $C$: Maximum capacity of the container
+    \item $value_k$: Value of item $k$, for $k = 1, \ldots, K$
+    \item $size_k$: Size of item $k$, for $k = 1, \ldots, K$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_k \in \{0, 1\}$: 1 if item $k$ is included in the container, 0 otherwise, for $k = 1, \ldots, K$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total value of the packed items:
+\[
+\text{Maximize} \quad Z = \sum_{k=1}^K value_k \cdot x_k
+\]
+
+\subsection*{Constraints}
+1. The total size of the selected items must not exceed the capacity of the container:
+\[
+\sum_{k=1}^K size_k \cdot x_k \leq C
+\]
+2. The decision variables must be binary:
+\[
+x_k \in \{0, 1\} \quad \forall k = 1, \ldots, K
+\]
+
+\subsection*{Output}
+The output will consist of:
+\[
+\text{isincluded} = [x_k \text{ for } k = 1, \ldots, K]
+\]
+
+\end{document}

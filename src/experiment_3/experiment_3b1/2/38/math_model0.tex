@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+Given the input parameters:
+
+\begin{itemize}
+    \item Demand for each month: \(demand_n\) for \(n = 1, \ldots, N\)
+    \item Maximum regular production per month: \(max\_regular\_amount\)
+    \item Cost of regular production per unit: \(cost\_regular\)
+    \item Cost of overtime production per unit: \(cost\_overtime\)
+    \item Storage cost per unit per month: \(store\_cost\)
+\end{itemize}
+
+Let:
+\begin{itemize}
+    \item \(reg\_quant_n\) = quantity produced using regular production in month \(n\)
+    \item \(over\_quant_n\) = quantity produced using overtime production in month \(n\)
+    \item \(inventory_n\) = inventory at the end of month \(n\)
+\end{itemize}
+
+The objective is to minimize the total cost given by:
+
+\[
+\text{Minimize: } Z = \sum_{n=1}^{N} \left( cost\_regular \cdot reg\_quant_n + cost\_overtime \cdot over\_quant_n + store\_cost \cdot inventory_n \right)
+\]
+
+Subject to the following constraints:
+
+1. **Demand Satisfaction** (for each month):
+\[
+reg\_quant_n + over\_quant_n + inventory_{n-1} \geq demand_n \quad \forall n = 1, \ldots, N
+\]
+
+2. **Regular Production Limits**:
+\[
+reg\_quant_n \leq max\_regular\_amount \quad \forall n = 1, \ldots, N
+\]
+
+3. **Inventory Balance** (for each month):
+\[
+inventory_n = inventory_{n-1} + reg\_quant_n + over\_quant_n - demand_n \quad \forall n = 1, \ldots, N
+\]
+
+4. **Non-negativity**:
+\[
+reg\_quant_n \geq 0, \quad over\_quant_n \geq 0, \quad inventory_n \geq 0 \quad \forall n = 1, \ldots, N
+\]
+
+The output will yield the quantities produced each month:
+
+\begin{itemize}
+    \item \texttt{"reg\_quant": } [\(reg\_quant_1, reg\_quant_2, \ldots, reg\_quant_N\)]
+    \item \texttt{"over\_quant": } [\(over\_quant_1, over\_quant_2, \ldots, over\_quant_N\)]
+\end{itemize}
+
+\end{document}

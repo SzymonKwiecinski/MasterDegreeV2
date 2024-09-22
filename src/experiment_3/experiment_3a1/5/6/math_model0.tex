@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Motion Optimization Problem}
+
+Consider a rocket that travels along a straight path. Let \( x_t \), \( v_t \), and \( a_t \) be the position, velocity, and acceleration, respectively, of the rocket at time \( t \). By discretizing time and by taking the time increment to be unity, we obtain an approximate discrete-time model of the form:
+
+\[
+x_{t+1} = x_t + v_t
+\]
+\[
+v_{t+1} = v_t + a_t
+\]
+
+We assume that the acceleration \( a_t \) is under our control, as it is determined by the rocket thrust. In a rough model, the magnitude \( |a_t| \) of the acceleration can be assumed to be proportional to the rate of fuel consumption at time \( t \). 
+
+Given the initial conditions \( x_0 \) and \( v_0 \) as the initial position and velocity of the rocket, we wish for the rocket to take off and reach a target position \( x_T \) with speed \( v_T \) at time \( T \). Furthermore, we want to accomplish this in an economical fashion, that is, by using as little fuel as possible.
+
+\subsection*{Input Format}
+
+The input is structured as follows:
+
+\[
+\{ 
+    "x_0": x_0, 
+    "v_0": v_0, 
+    "x_T": x_T, 
+    "v_T": v_T, 
+    "T": T 
+\}
+\]
+
+\subsection*{Objective}
+
+The objective is to minimize the total fuel spent, given by:
+
+\[
+\text{Minimize } \sum_{t=0}^{T-1} |a_t|
+\]
+
+\subsection*{Constraints}
+
+The following constraints must be satisfied:
+
+\[
+\begin{align*}
+x_{t+1} &= x_t + v_t \quad \text{for } t = 0, 1, \ldots, T-1 \\
+v_{t+1} &= v_t + a_t \quad \text{for } t = 0, 1, \ldots, T-1 \\
+x_0 &= \text{initial position} \\
+v_0 &= \text{initial velocity} \\
+x_T &= \text{target position} \\
+v_T &= \text{target velocity}
+\end{align*}
+\]
+
+\subsection*{Output Format}
+
+The expected output format is:
+
+\[
+\{ 
+    "x": [x_i \, \text{for } i = 1, \ldots, T], 
+    "v": [v_i \, \text{for } i = 1, \ldots, T], 
+    "a": [a_i \, \text{for } i = 1, \ldots, T], 
+    "fuel\_spend": \text{fuel\_spent} 
+\}
+\]
+
+\end{document}

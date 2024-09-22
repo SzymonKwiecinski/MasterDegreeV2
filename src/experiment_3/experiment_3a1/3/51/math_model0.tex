@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Online Advertising Campaign}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( x_a \) be the number of clicks purchased for ad type \( a \) in thousands, where \( a = 1, 2, \ldots, A \).
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{goal\_young} \): Goal of clicks from visitors aged 18-25 in thousands.
+    \item \( \text{goal\_old} \): Goal of clicks from visitors older than 25 in thousands.
+    \item \( \text{goal\_unique\_young} \): Goal of unique clicks from visitors aged 18-25 in thousands.
+    \item \( \text{goal\_unique\_old} \): Goal of unique clicks from visitors older than 25 in thousands.
+    \item \( \text{young\_click}_{a} \): Estimated percentage of clicks from 18-25 age range for ad type \( a \).
+    \item \( \text{old\_click}_{a} \): Estimated percentage of clicks from older visitors for ad type \( a \).
+    \item \( \text{cost}_{a} \): Cost per 1000 clicks for ad type \( a \).
+    \item \( \text{max\_click}_{a} \): Maximum allowable clicks for ad type \( a \) in thousands.
+    \item \( \text{unique\_click}_{a} \): Estimated percentage of unique visitors for ad type \( a \).
+    \item \( \text{budget} \): Total advertising budget.
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+    \text{maximize} \quad & \sum_{a=1}^{A} \text{unique\_click}_{a} \cdot x_a \\
+\end{align*}
+
+\textbf{Subject to:}
+\begin{align*}
+    \sum_{a=1}^{A} \text{young\_click}_{a} \cdot x_a & \geq \text{goal\_young} \quad \text{(total young clicks)} \\
+    \sum_{a=1}^{A} \text{old\_click}_{a} \cdot x_a & \geq \text{goal\_old} \quad \text{(total old clicks)} \\
+    \sum_{a=1}^{A} \text{unique\_click}_{a} \cdot x_a & \geq \text{goal\_unique\_young} + \text{goal\_unique\_old} \quad \text{(total unique clicks)} \\
+    \sum_{a=1}^{A} \text{cost}_{a} \cdot x_a & \leq \text{budget} \quad \text{(budget constraint)} \\
+    0 \leq x_a & \leq \text{max\_click}_{a} \quad \text{for all } a = 1, 2, \ldots, A \quad \text{(max clicks constraints)} 
+\end{align*}
+
+\textbf{Output:}
+\begin{itemize}
+    \item \( \text{clicks} = [x_{1}, x_{2}, \ldots, x_{A}] \)
+    \item \( \text{total\_unique\_clicks} = \sum_{a=1}^{A} \text{unique\_click}_{a} \cdot x_a \)
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Manpower Optimization}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item $k$: Index for manpower types ($k = 1, \ldots, K$)
+    \item $i$: Index for years ($i = 1, \ldots, I$)
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $requirement_{k, i}$: Estimated manpower requirement for type $k$ in year $i$
+    \item $strength_{k}$: Current strength of manpower type $k$
+    \item $lessonewaste_{k}$: Wastage rates for manpower type $k$ with less than one year's service
+    \item $moreonewaste_{k}$: Wastage rates for manpower type $k$ with more than one year's service
+    \item $recruit_{k}$: Maximum number of recruits for manpower type $k$
+    \item $costredundancy_{k}$: Redundancy payment for manpower type $k$
+    \item $num\_overman$: Maximum number of overmanning allowed
+    \item $costoverman_{k}$: Extra cost per overmanned employee for manpower type $k$
+    \item $num\_shortwork$: Maximum number of workers that can be put on short-time working for each category
+    \item $costshort_{k}$: Cost of short-time working per employee per year for manpower type $k$
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $recruit_{k, i}$: Number of recruits for manpower type $k$ in year $i$
+    \item $overmanning_{k, i}$: Number of overmanning for manpower type $k$ in year $i$
+    \item $short_{k, i}$: Number of short-time workers for manpower type $k$ in year $i$
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} \sum_{i=1}^{I} costredundancy_{k} \cdot (strength_{k} - requirement_{k, i} + overmanning_{k, i} - short_{k, i}/2)
+\]
+
+\textbf{Subject to:}
+\begin{align*}
+    \sum_{i=1}^{I} recruit_{k, i} & \leq recruit_{k}, & \forall k \\
+    \sum_{i=1}^{I} overmanning_{k, i} & \leq num\_overman, & \forall k \\
+    \sum_{i=1}^{I} short_{k, i} & \leq num\_shortwork, & \forall k \\
+    strength_{k} - lessonewaste_{k} \cdot strength_{k} - moreonewaste_{k} \cdot (strength_{k} - recruit_{k, i}) & = requirement_{k, i} + overmanning_{k, i} - short_{k, i}/2, & \forall k, i \\
+    recruit_{k, i} & \geq 0, & \forall k, i \\
+    overmanning_{k, i} & \geq 0, & \forall k, i \\
+    short_{k, i} & \geq 0, & \forall k, i 
+\end{align*}
+
+\end{document}

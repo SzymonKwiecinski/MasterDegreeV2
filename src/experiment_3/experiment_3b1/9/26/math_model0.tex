@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for the Economy}
+
+\subsection*{Decision Variables}
+Let:
+\begin{align*}
+\text{produce}_{k, t} & : \text{amount of units produced by industry } k \text{ in year } t, \\
+\text{buildcapa}_{k, t} & : \text{amount of units used to build productive capacity for industry } k \text{ in year } t, \\
+\text{stockhold}_{k, t} & : \text{amount of stock of industry } k \text{ held in year } t.
+\end{align*}
+
+\subsection*{Parameters}
+Given the following parameters:
+\begin{align*}
+\text{inputone}_{k, j} & : \text{input from industry } j \text{ required by industry } k, \\
+\text{manpowerone}_{k} & : \text{manpower required by industry } k \text{ for production,} \\
+\text{inputtwo}_{k, j} & : \text{input from industry } j \text{ used by industry } k \text{ for building capacity,} \\
+\text{manpowertwo}_{k} & : \text{manpower required by industry } k \text{ for building capacity,} \\
+\text{stock}_{k} & : \text{initial stock of industry } k, \\
+\text{capacity}_{k} & : \text{initial capacity of industry } k, \\
+\text{demand}_{k} & : \text{exogenous consumption requirement from industry } k.
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total manpower requirement over five years:
+\[
+\text{maximize} \quad \sum_{k=1}^{K} \sum_{t=1}^{5} \left( \text{manpowerone}_{k} \cdot \text{produce}_{k, t} + \text{manpowertwo}_{k} \cdot \text{buildcapa}_{k, t} \right)
+\]
+
+\subsection*{Constraints}
+\textbf{Production Constraints:} The production relation includes inputs, manpower, and stock:
+\[
+\text{produce}_{k, t} \leq \text{capacity}_{k} + \text{stockhold}_{k, t-1} \quad \forall k, \; t
+\]
+\[
+\text{produce}_{k, t} = \sum_{j=1}^{K} \text{inputone}_{k, j} \cdot \text{produce}_{j, t-1} + \text{stockhold}_{k, t-1} \quad \forall k, \; t
+\]
+
+\textbf{Capacity Building Constraints:} Relate required inputs and manpower for building capacity:
+\[
+\text{buildcapa}_{k, t} \leq \text{capacity}_{k} + \sum_{j=1}^{K} \text{inputtwo}_{k, j} \cdot \text{buildcapa}_{j, t-1} \quad \forall k, \; t
+\]
+\[
+\text{buildcapa}_{k, t} \leq \text{manpowertwo}_{k} \quad \forall k, \; t
+\]
+
+\textbf{Stock Constraints:} Update stock based on production and building capacity:
+\[
+\text{stockhold}_{k, t} = \text{stockhold}_{k, t-1} + \text{produce}_{k, t} - \text{demand}_{k} + \text{buildcapa}_{k, t-1} \quad \forall k, \; t
+\]
+
+\textbf{Initial Conditions:}
+\[
+\text{stockhold}_{k, 0} = \text{stock}_{k} \quad \forall k
+\]
+\[
+\text{capacity}_{k, 0} = \text{capacity}_{k} \quad \forall k
+\]
+
+\end{document}

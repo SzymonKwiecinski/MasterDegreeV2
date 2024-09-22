@@ -1,0 +1,73 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Production Schedule Optimization}
+
+Let:
+\begin{itemize}
+    \item $N$ be the total number of months.
+    \item $demand_n$ be the demand in month $n$.
+    \item $max\_regular\_amount$ be the maximum regular production in any month.
+    \item $cost\_regular$ be the cost of regular production per unit.
+    \item $cost\_overtime$ be the cost of overtime production per unit.
+    \item $store\_cost$ be the cost of storing units per unit per month.
+    \item $reg\_quant_n$ be the quantity of products produced using regular production in month $n$.
+    \item $over\_quant_n$ be the quantity of products produced using overtime production in month $n$.
+    \item $inventory_n$ be the inventory carried over to month $n$.
+\end{itemize}
+
+\subsection*{Objective Function}
+
+The objective is to minimize the total cost, which can be expressed as:
+
+\[
+\text{Minimize } Z = \sum_{n=1}^{N} \left( cost\_regular \cdot reg\_quant_n + cost\_overtime \cdot over\_quant_n + store\_cost \cdot inventory_n \right)
+\]
+
+\subsection*{Constraints}
+
+\begin{itemize}
+    \item Demand satisfaction:
+    \[
+    inventory_{n-1} + reg\_quant_n + over\_quant_n - demand_n = inventory_n \quad \text{for } n=1,\ldots,N
+    \]
+    with $inventory_0 = 0$ (initial inventory).
+
+    \item Regular production limit:
+    \[
+    reg\_quant_n \leq max\_regular\_amount \quad \text{for } n=1,\ldots,N
+    \]
+
+    \item Non-negativity constraints:
+    \[
+    reg\_quant_n \geq 0, \quad over\_quant_n \geq 0, \quad inventory_n \geq 0 \quad \text{for } n=1,\ldots,N
+    \]
+\end{itemize}
+
+\subsection*{Input Format}
+
+The model takes the following input:
+
+\[
+\{ 
+    "demand": [demand_{n} \text{ for } n = 1,\ldots,N], 
+    "max\_regular\_amount": max\_regular\_amount, 
+    "cost\_regular": cost\_regular, 
+    "cost\_overtime": cost\_overtime, 
+    "store\_cost": store\_cost 
+\}
+\]
+
+\subsection*{Output Format}
+
+The model outputs:
+
+\[
+\{ 
+    "reg\_quant": [reg\_quant_{n} \text{ for } n = 1,\ldots,N], 
+    "over\_quant": [over\_quant_{n} \text{ for } n = 1,\ldots,N] 
+\}
+\]
+
+\end{document}

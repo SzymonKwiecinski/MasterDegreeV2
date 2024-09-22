@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Manpower Management}
+
+\subsection*{Indices and Parameters}
+\begin{itemize}
+    \item $k$: index for manpower categories, where $k = 1, \ldots, K$
+    \item $i$: index for years, where $i = 1, \ldots, I$
+    \item $requirement_{k,i}$: estimated manpower requirement for category $k$ in year $i$
+    \item $strength_{k}$: current number of manpower in category $k$
+    \item $lessonewaste_{k}$: wastage rate for manpower in category $k$ with less than one year's service
+    \item $moreonewaste_{k}$: wastage rate for manpower in category $k$ with more than one year's service
+    \item $recruit_{k}$: maximum number of recruits possible for category $k$ in a year
+    \item $costredundancy_{k}$: redundancy payment for category $k$
+    \item $num\_overman$: maximum number of overmanned workers allowed
+    \item $costoverman_{k}$: extra cost per overmanning employee for category $k$
+    \item $num\_shortwork$: maximum number of workers in each category that can be put on short-time working
+    \item $costshort_{k}$: cost of short-time working per employee per year for category $k$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $recruit_{k,i}$: number of recruits for manpower category $k$ in year $i$
+    \item $overmanning_{k,i}$: number of overmanned workers for category $k$ in year $i$
+    \item $short_{k,i}$: number of workers on short-time working for category $k$ in year $i$
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the total redundancy costs:
+
+\[
+\text{Minimize} \quad Z = \sum_{k=1}^{K} \sum_{i=1}^{I} costredundancy_{k} \cdot \max(0, strength_{k} - requirement_{k,i} + overmanning_{k,i})
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+1. & \quad strength_{k} - (lessonewaste_{k} \cdot recruit_{k,i} + moreonewaste_{k} \cdot strength_{k}) + recruit_{k,i} - short_{k,i} + overmanning_{k,i} \geq requirement_{k,i} \quad \forall k, i \\
+2. & \quad \sum_{k=1}^{K} recruit_{k,i} \leq \text{num\_overman} \quad \forall i \\
+3. & \quad recruit_{k,i} \leq recruit_{k} \quad \forall k, i \\
+4. & \quad overmanning_{k,i} \leq num\_overman \quad \forall k, i \\
+5. & \quad short_{k,i} \leq num\_shortwork \quad \forall k, i \\
+6. & \quad short_{k,i} \leq \frac{1}{2} \cdot (strength_{k} - requirement_{k,i}) \quad \forall k, i
+\end{align*}
+
+\subsection*{Output}
+The output will consist of:
+
+\begin{itemize}
+    \item $recruit$: Number of recruits for each manpower category over the years
+    \item $overmanning$: Number of overmanned employees for each category over the years
+    \item $short$: Number of workers on short-time working for each manpower category over the years
+\end{itemize}
+
+\end{document}

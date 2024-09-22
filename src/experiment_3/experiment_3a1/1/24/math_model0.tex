@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Mining Operations}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $n_mines$: Number of mines
+    \item $n_{maxwork}$: Maximum number of mines that can be operated in any one year
+    \item $royalty_k$: Yearly royalties payable on mine $k$
+    \item $limit_k$: Upper limit of ore that can be extracted from mine $k$ in a year
+    \item $quality_k$: Quality of ore from mine $k$
+    \item $requiredquality_i$: Required quality of blended ore in year $i$
+    \item $price$: Selling price of blended ore per ton
+    \item $discount$: Discount rate per annum
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item $isoperated_{k,i}$: Binary variable indicating if mine $k$ is operated in year $i$ (1 if operated, 0 otherwise)
+    \item $amount_{k,i}$: Amount of ore produced by mine $k$ in year $i$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total discounted profit:
+\[
+\text{Maximize } Z = \sum_{i=1}^{I} \left( \sum_{k=1}^{K} (price \cdot \sum_{k=1}^{K} amount_{k,i}) - \sum_{k=1}^{K} (royalty_k \cdot isoperated_{k,i}) \right) \cdot (1 + discount)^{-i}
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+1. & \quad \sum_{k=1}^{K} isoperated_{k,i} \leq n_{maxwork}, \quad \forall i \in \{1, \ldots, I\} \\
+2. & \quad \sum_{k=1}^{K} amount_{k,i} \cdot quality_k = requiredquality_i, \quad \forall i \in \{1, \ldots, I\} \\
+3. & \quad amount_{k,i} \leq limit_k \cdot isoperated_{k,i}, \quad \forall k \in \{1, \ldots, K\}, \forall i \in \{1, \ldots, I\} \\
+4. & \quad isoperated_{k,i} \in \{0,1\}, \quad \forall k \in \{1, \ldots, K\}, \forall i \in \{1, \ldots, I\} \\
+5. & \quad amount_{k,i} \geq 0, \quad \forall k \in \{1, \ldots, K\}, \forall i \in \{1, \ldots, I\}
+\end{align*}
+
+\subsection*{Output}
+The output will consist of:
+\begin{itemize}
+    \item $isoperated$: A 2D array where $isoperated_{k,i}$ indicates if mine $k$ is operated in year $i$
+    \item $amount$: A 2D array where $amount_{k,i}$ indicates the amount of ore produced by mine $k$ in year $i$
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( N \): Number of product types
+    \item \( \text{assemblyHour}_i \): Hours of assembly labor required for product \( i \)
+    \item \( \text{testingHour}_i \): Hours of testing required for product \( i \)
+    \item \( \text{materialCost}_i \): Cost of raw materials for product \( i \) (in dollars)
+    \item \( \text{maxAssembly} \): Maximum available hours of assembly labor per day
+    \item \( \text{maxTesting} \): Maximum available hours of testing per day
+    \item \( \text{price}_i \): Selling price of product \( i \) (in dollars)
+    \item \( \text{maxOvertimeAssembly} \): Maximum allowable hours of overtime assembly labor
+    \item \( \text{overtimeAssemblyCost} \): Cost per hour of overtime assembly
+    \item \( \text{materialDiscount} \): Discount percentage on materials if the daily bill exceeds a threshold
+    \item \( \text{discountThreshold} \): Daily bill threshold for receiving the material discount
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_i \): Number of units produced of product \( i \) 
+    \item \( y \): Number of overtime assembly hours scheduled
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the daily profit:
+\[
+\text{dailyProfit} = \sum_{i=1}^{N} \text{price}_i \cdot x_i - \sum_{i=1}^{N} \text{materialCost}_i \cdot x_i - \text{overtimeAssemblyCost} \cdot y - \text{materialDiscount} \cdot \left( \sum_{i=1}^{N} \text{materialCost}_i \cdot x_i \geq \text{discountThreshold} \right)
+\]
+
+\subsection*{Constraints}
+1. Assembly labor constraint:
+\[
+\sum_{i=1}^{N} \text{assemblyHour}_i \cdot x_i + y \leq \text{maxAssembly} + \text{maxOvertimeAssembly}
+\]
+2. Testing labor constraint:
+\[
+\sum_{i=1}^{N} \text{testingHour}_i \cdot x_i \leq \text{maxTesting}
+\]
+3. Non-negativity constraints:
+\[
+x_i \geq 0, \quad \forall i \in \{1, \ldots, N\}
+\]
+\[
+y \geq 0
+\]
+
+\subsection*{Output Variables}
+\begin{itemize}
+    \item \text{dailyProfit}: Total daily profit of the company
+    \item \text{unitsProduced}: Array of \( [x_1, x_2, \ldots, x_N] \) indicating the units produced of each product
+    \item \text{overtimeAssembly}: Total hours of overtime assembly labor scheduled (variable \( y \))
+    \item \text{materialBought}: Total raw materials bought, calculated as \( \sum_{i=1}^{N} \text{materialCost}_i \cdot x_i \)
+\end{itemize}
+
+\end{document}

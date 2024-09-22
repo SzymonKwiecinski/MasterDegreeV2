@@ -1,0 +1,74 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Quadratic Curve Fitting using Linear Programming}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+
+Given a set of data points $(x_k, y_k)$ for $k = 1, 2, \ldots, K$, we want to fit a quadratic curve of the form:
+
+\[
+y = c \cdot x^2 + b \cdot x + a
+\]
+
+where \(c\), \(b\), and \(a\) are the coefficients we need to determine. The objective is to minimize the sum of absolute deviations between the observed values \(y_k\) and the predicted values \(\hat{y}_k = c \cdot x_k^2 + b \cdot x_k + a\).
+
+\section*{Mathematical Formulation}
+
+We introduce the variables:
+
+\[
+d_k = y_k - (c \cdot x_k^2 + b \cdot x_k + a)
+\]
+
+for each observation \(k\). The absolute deviation can be expressed using non-negative slack variables \(u_k\) and \(v_k\):
+
+\[
+d_k = u_k - v_k
+\]
+
+with the constraints:
+
+\[
+\begin{align*}
+u_k - v_k &= y_k - (c \cdot x_k^2 + b \cdot x_k + a), \quad k = 1, \ldots, K \\
+u_k, v_k &\geq 0
+\end{align*}
+\]
+
+Our goal is to minimize the sum of absolute deviations:
+
+\[
+\min \sum_{k=1}^{K} (u_k + v_k)
+\]
+
+\section*{Linear Programming Formulation}
+
+The linear programming formulation of our problem can be expressed as:
+
+\[
+\begin{align*}
+\text{minimize} \quad & \sum_{k=1}^{K} (u_k + v_k) \\
+\text{subject to} \quad & u_k - v_k = y_k - (c \cdot x_k^2 + b \cdot x_k + a), \quad k = 1, \ldots, K \\
+& u_k, v_k \geq 0 \\
+& c, b, a \text{ are real numbers}
+\end{align*}
+\]
+
+\section*{Output Format}
+
+The output of the optimization yields the coefficients:
+
+\[
+\begin{align*}
+\text{quadratic} & : c \\
+\text{linear} & : b \\
+\text{constant} & : a
+\end{align*}
+\]
+
+\end{document}

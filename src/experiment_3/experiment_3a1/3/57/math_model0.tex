@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Seaport Container Management}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $t$: Month index, where $t = 1, \ldots, T$
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $demand_t$: Demand for containers by ships in month $t$
+    \item $unload\_cost_t$: Cost to unload a single container in month $t$
+    \item $unload\_capacity_t$: Maximum containers that can be unloaded in month $t$
+    \item $holding\_cost$: Cost per container for holding in the yard
+    \item $max\_container$: Maximum containers that can be stored in the yard
+    \item $init\_container$: Initial number of containers in the yard
+    \item $num\_cranes$: Maximum number of cranes that can be rented each month
+    \item $crane\_capacity$: Capacity of each crane for loading containers
+    \item $crane\_cost$: Cost for renting one crane
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $amount_t$: Number of containers unloaded in month $t$
+    \item $crane_t$: Number of cranes rented in month $t$
+    \item $total\_cost$: Total cost incurred over the period
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } total\_cost = \sum_{t=1}^{T} (unload\_cost_t \cdot amount_t + holding\_cost \cdot (init\_container + \sum_{i=1}^{t-1} (amount_i - demand_i)) + crane\_cost \cdot crane_t)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+    & \text{1. Demand Satisfaction:} \quad \sum_{t=1}^{T} amount_t - \sum_{t=1}^{T} demand_t = - init\_container \\
+    & \text{2. Unloading Capacity:} \quad amount_t \leq unload\_capacity_t \quad \forall t \\
+    & \text{3. Maximum Storage:} \quad init\_container + \sum_{i=1}^{t} (amount_i - demand_i) \leq max\_container \quad \forall t \\
+    & \text{4. Crane Limitation:} \quad crane_t \cdot crane\_capacity \geq \sum_{i=1}^{t} demand_i \quad \forall t \\
+    & \text{5. Crane Rental:} \quad crane_t \leq num\_cranes \quad \forall t \\
+    & \text{6. Non-Negativity:} \quad amount_t \geq 0, \quad crane_t \geq 0 \quad \forall t
+\end{align*}
+
+\subsection*{Output}
+\begin{itemize}
+    \item $containers\_unloaded$: Array of $amount_t$ for $t = 1, \ldots, T$
+    \item $cranes\_rented$: Array of $crane_t$ for $t = 1, \ldots, T$
+    \item $total\_cost$: Total cost incurred over the period
+\end{itemize}
+
+\end{document}

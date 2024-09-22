@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Electricity Generation}
+
+\subsection*{Parameters}
+
+\begin{itemize}
+    \item $T$: Number of time periods in a day
+    \item $K$: Number of types of generating units
+    \item $demand_{t}$: Electricity demand at time period $t$, for $t = 1,\ldots,T$
+    \item $num_{k}$: Number of available generators of type $k$, for $k = 1,\ldots,K$
+    \item $minlevel_{k}$: Minimum operational level of generator type $k$, for $k = 1,\ldots,K$
+    \item $maxlevel_{k}$: Maximum operational level of generator type $k$, for $k = 1,\ldots,K$
+    \item $runcost_{k}$: Cost of running generator type $k$ at minimum level, for $k = 1,\ldots,K$
+    \item $extracost_{k}$: Additional cost for each megawatt above minimum level for generator type $k$, for $k = 1,\ldots,K$
+    \item $startcost_{k}$: Cost to start generator type $k$, for $k = 1,\ldots,K$
+\end{itemize}
+
+\subsection*{Decision Variables}
+
+\begin{itemize}
+    \item $numon_{k,t}$: Number of generators of type $k$ that are on during time period $t$, for $k = 1,\ldots,K$ and $t = 1,\ldots,T$
+    \item $level_{k,t}$: Operational level of generator type $k$ during time period $t$, for $k = 1,\ldots,K$ and $t = 1,\ldots,T$
+    \item $startup_{k,t}$: Binary variable indicating if generator type $k$ is started during time period $t$, for $k = 1,\ldots,K$ and $t = 1,\ldots,T$
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Minimize the total cost:
+
+\[
+\text{Minimize } Z = \sum_{t=1}^{T} \sum_{k=1}^{K} \left( startcost_{k} \cdot startup_{k,t} + runcost_{k} \cdot numon_{k,t} + extracost_{k} \cdot (level_{k,t} - minlevel_{k}) \cdot numon_{k,t} \right)
+\]
+
+\subsection*{Constraints}
+
+\begin{itemize}
+    \item Demand Constraint:
+    \[
+    \sum_{k=1}^{K} level_{k,t} = demand_{t} \quad \forall t = 1,\ldots,T
+    \]
+
+    \item Operational Level Constraints:
+    \[
+    minlevel_{k} \cdot numon_{k,t} \leq level_{k,t} \leq maxlevel_{k} \cdot numon_{k,t} \quad \forall k = 1,\ldots,K, \forall t = 1,\ldots,T
+    \]
+
+    \item Availability of Generators:
+    \[
+    numon_{k,t} \leq num_{k} \quad \forall k = 1,\ldots,K, \forall t = 1,\ldots,T
+    \]
+
+    \item Startup Binary Constraints:
+    \[
+    startup_{k,t} \leq numon_{k,t} \quad \forall k = 1,\ldots,K, \forall t = 1,\ldots,T
+    \]
+\end{itemize}
+
+\end{document}

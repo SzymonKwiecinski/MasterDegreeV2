@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for MILP Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $N$: Number of product types
+    \item $assemblyHour_i$: Hours of assembly labor required for product $i$ \\
+    \item $testingHour_i$: Hours of testing required for product $i$ \\
+    \item $materialCost_i$: Cost of raw materials for product $i$ \\
+    \item $maxAssembly$: Maximum hours of assembly labor available per day \\
+    \item $maxTesting$: Maximum hours of testing available per day \\
+    \item $price_i$: Selling price for product $i$ \\
+    \item $maxOvertimeAssembly$: Maximum hours of overtime assembly labor available \\
+    \item $overtimeAssemblyCost$: Cost per hour of overtime assembly labor \\
+    \item $materialDiscount$: Discount percentage on raw materials if daily bill exceeds threshold \\
+    \item $discountThreshold$: Minimum daily bill amount to qualify for material discount \\
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_i$: Number of units produced of product $i$ \\
+    \item $overtimeAssembly$: Hours of overtime assembly labor scheduled \\
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the daily profit:
+\[
+\text{dailyProfit} = \sum_{i=1}^{N} (price_i \cdot x_i) - \left( \sum_{i=1}^{N} (materialCost_i \cdot x_i) - \text{discount} \right) - (overtimeAssembly \cdot overtimeAssemblyCost)
+\]
+where \(\text{discount} = \begin{cases} 
+\frac{materialDiscount}{100} \cdot \sum_{i=1}^{N} (materialCost_i \cdot x_i) & \text{if } \sum_{i=1}^{N} (materialCost_i \cdot x_i) > discountThreshold \\
+0 & \text{otherwise}
+\end{cases}\)
+
+\subsection*{Constraints}
+1. Assembly labor constraint:
+\[
+\sum_{i=1}^{N} (assemblyHour_i \cdot x_i) + overtimeAssembly \leq maxAssembly + maxOvertimeAssembly
+\]
+
+2. Testing labor constraint:
+\[
+\sum_{i=1}^{N} (testingHour_i \cdot x_i) \leq maxTesting
+\]
+
+3. Non-negativity constraints:
+\[
+x_i \geq 0 \quad \forall i \in \{1, \ldots, N\}
+\]
+\[
+overtimeAssembly \geq 0
+\]
+
+\subsection*{Output Variables}
+\begin{itemize}
+    \item $\text{dailyProfit}$: Daily profit of the company \\
+    \item $unitsProduced_i$: Number of units produced of product $i$ \\
+    \item $overtimeAssembly$: Number of hours of overtime assembly labor scheduled \\
+    \item $materialBought$: Amount of raw materials bought, given by \( \sum_{i=1}^{N} (materialCost_i \cdot x_i) \) \\
+\end{itemize}
+
+\end{document}

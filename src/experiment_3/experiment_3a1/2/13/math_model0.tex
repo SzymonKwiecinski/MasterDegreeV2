@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for the Chebychev Center}
+
+Given a set \( P \) defined by the linear inequality constraints:
+
+\[
+P = \{ \mathbf{x} \in \mathbb{R}^N \ | \ \mathbf{a}_i^T \mathbf{x} \leq b_i, \ i = 1, ..., m \}
+\]
+
+where \( \mathbf{a}_i \in \mathbb{R}^N \) and \( b_i \in \mathbb{R} \), we aim to find the Chebychev center of \( P \).
+
+Let \( \mathbf{y} \in \mathbb{R}^N \) be the center of the ball, and \( r \) be its radius. The ball is defined as:
+
+\[
+B(\mathbf{y}, r) = \{ \mathbf{x} \in \mathbb{R}^N \ | \ \|\mathbf{x} - \mathbf{y}\|_2 \leq r \}
+\]
+
+To ensure that the ball is entirely contained within \( P \), we need the following conditions to hold for all \( i = 1, \ldots, m \):
+
+\[
+\mathbf{a}_i^T \mathbf{y} - r \|\mathbf{a}_i\|_2 \leq b_i
+\]
+
+This implies that we must maximize the radius \( r \) subject to the constraints provided by \( P \).
+
+The mathematical model can be formulated as:
+
+\begin{align*}
+\text{maximize} \quad & r \\
+\text{subject to} \quad & \mathbf{a}_i^T \mathbf{y} - r \|\mathbf{a}_i\|_2 \leq b_i, \quad i = 1, \ldots, m \\
+& r \geq 0
+\end{align*}
+
+The output will specify the center \( \mathbf{y} \) and the radius \( r \):
+
+\begin{itemize}
+    \item \textbf{Center:} \( [y_j \text{ for } j = 1, \ldots, N] \)
+    \item \textbf{Radius:} \( r \)
+\end{itemize}
+
+\end{document}

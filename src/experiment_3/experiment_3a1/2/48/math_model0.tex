@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Gift Basket Production}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Description}
+A fine foods company produces gift baskets for a season that lasts $W$ weeks. The company needs to meet the demand for each week while managing labor costs and inventory.
+
+\section*{Parameters}
+\begin{align*}
+& \text{Let } W = \text{number of weeks} \\
+& \text{Let } demand_w = \text{demand for week } w, \quad w = 1, \ldots, W \\
+& \text{Let } regular\_labor_w = \text{regular labor hours available for week } w \\
+& \text{Let } overtime\_labor_w = \text{overtime labor hours available for week } w \\
+& \text{Let } regular\_cost = \text{cost of regular labor per hour} \\
+& \text{Let } overtime\_cost = \text{cost of overtime labor per hour} \\
+& \text{Let } assembly\_time = \text{time to assemble one basket (hours)} \\
+& \text{Let } material\_cost = \text{material cost for one basket} \\
+& \text{Let } selling\_price = \text{selling price of one basket} \\
+& \text{Let } holding\_cost = \text{holding cost per unsold basket} \\
+& \text{Let } salvage\_value = \text{salvage value per unsold basket at week } W \\
+\end{align*}
+
+\section*{Decision Variables}
+\begin{align*}
+& regular\_used_w = \text{hours of regular labor used in week } w, \quad w = 1, \ldots, W \\
+& overtime\_used_w = \text{hours of overtime labor used in week } w, \quad w = 1, \ldots, W \\
+& regular\_basket_w = \text{number of baskets assembled with regular labor in week } w \\
+& overtime\_basket_w = \text{number of baskets assembled with overtime labor in week } w \\
+& inventory_w = \text{number of baskets on hand at the end of week } w \\
+& total\_profit = \text{total profit over the season} \\
+\end{align*}
+
+\section*{Objective Function}
+Maximize total profit:
+\begin{align*}
+\text{Maximize } Z = \sum_{w=1}^{W} \left( (selling\_price - material\_cost) \cdot (regular\_basket_w + overtime\_basket_w) - \left( regular\_used_w \cdot regular\_cost + overtime\_used_w \cdot overtime\_cost \right) - \sum_{w=1}^{W-1} holding\_cost \cdot inventory_w + salvage\_value \cdot inventory_W \right)
+\end{align*}
+
+\section*{Constraints}
+1. Labor hours constraint:
+\begin{align*}
+regular\_used_w + overtime\_used_w & \leq regular\_labor_w + overtime\_labor_w, \quad w = 1, \ldots, W \\
+\end{align*}
+
+2. Baskets production constraint:
+\begin{align*}
+regular\_basket_w & = \frac{regular\_used_w}{assembly\_time}, \quad w = 1, \ldots, W \\
+overtime\_basket_w & = \frac{overtime\_used_w}{assembly\_time}, \quad w = 1, \ldots, W \\
+\end{align*}
+
+3. Inventory balance constraint:
+\begin{align*}
+inventory_w & = inventory_{w-1} + regular\_basket_w + overtime\_basket_w - demand_w, \quad w = 2, \ldots, W \\
+inventory_1 & = regular\_basket_1 + overtime\_basket_1 - demand_1 \\
+inventory_W & \geq 0 \\
+\end{align*}
+
+4. Non-negativity constraints:
+\begin{align*}
+regular\_used_w, overtime\_used_w & \geq 0, \quad w = 1, \ldots, W \\
+regular\_basket_w, overtime\_basket_w & \geq 0, \quad w = 1, \ldots, W \\
+inventory_w & \geq 0, \quad w = 1, \ldots, W \\
+\end{align*}
+
+\end{document}

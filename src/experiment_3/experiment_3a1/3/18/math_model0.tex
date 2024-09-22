@@ -1,0 +1,69 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Oil Refining}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $I$: Number of different oils
+    \item $M$: Number of months
+    \item $price_{i,m}$: Buying price of oil $i$ in month $m$
+    \item $sell\_price$: Selling price of the final product per ton
+    \item $is\_vegetable_{i}$: Indicator if oil $i$ is vegetable (1) or non-vegetable (0)
+    \item $max\_veg$: Maximum refining capacity for vegetable oils per month
+    \item $max\_veg$: Maximum refining capacity for non-vegetable oils per month
+    \item $storage\_size$: Maximum storage capacity for each oil
+    \item $storage\_cost$: Cost of storage per ton per month
+    \item $max\_hardness$: Maximum allowed hardness for the final product
+    \item $min\_hardness$: Minimum allowed hardness for the final product
+    \item $hardness_{i}$: Hardness of oil $i$
+    \item $init\_amount$: Initial amount of each type of raw oil in storage
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item $buyquantity_{i,m}$: Amount of oil $i$ bought in month $m$
+    \item $refine_{i,m}$: Amount of oil $i$ refined in month $m$
+    \item $storage_{i,m}$: Amount of oil $i$ stored at the end of month $m$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize profit:
+\[
+\text{Profit} = \sum_{m=1}^{M} \left( sell\_price \cdot \sum_{i=1}^{I} refine_{i,m} - \sum_{i=1}^{I} price_{i,m} \cdot buyquantity_{i,m} - storage\_cost \cdot \sum_{i=1}^{I} storage_{i,m} \right)
+\]
+
+\subsection*{Constraints}
+
+\begin{enumerate}
+    \item \textbf{Refining Capacity Constraints:}
+    \begin{align*}
+    \sum_{i \in \text{Veg}} refine_{i,m} & \leq max\_veg, \quad \forall m \\
+    \sum_{i \in \text{Non-Veg}} refine_{i,m} & \leq max\_veg, \quad \forall m
+    \end{align*}
+
+    \item \textbf{Storage Constraints:}
+    \begin{align*}
+    storage_{i,m} & \leq storage\_size, \quad \forall i, \forall m \\
+    storage_{i,m} & \geq 0, \quad \forall i, \forall m
+    \end{align*}
+
+    \item \textbf{Hardness Constraint:}
+    \[
+    \frac{\sum_{i=1}^{I} (hardness_{i} \cdot refine_{i,m})}{\sum_{i=1}^{I} refine_{i,m}} \in [min\_hardness, max\_hardness], \quad \forall m
+    \]
+
+    \item \textbf{Storage Dynamics:}
+    \[
+    storage_{i,m} = storage_{i,m-1} + buyquantity_{i,m} - refine_{i,m}, \quad \forall i, \forall m
+    \]
+    with $storage_{i,0} = init\_amount$
+
+    \item \textbf{Final Storage Requirement:}
+    \[
+    storage_{i,M} = init\_amount, \quad \forall i
+    \]
+\end{enumerate}
+
+\end{document}

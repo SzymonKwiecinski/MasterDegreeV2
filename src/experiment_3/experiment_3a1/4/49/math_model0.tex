@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( P \) be the number of different parts.
+    \item Let \( M \) be the number of different machines.
+    \item Let \( \text{time}_{m,p} \) be the hours required on machine \( m \) to produce a batch of part \( p \).
+    \item Let \( \text{cost}_{m} \) be the cost per hour of using machine \( m \).
+    \item Let \( \text{available}_{m} \) be the availability of machine \( m \) in hours per month.
+    \item Let \( \text{price}_{p} \) be the selling price of a batch of part \( p \).
+    \item Let \( \text{min\_batches}_{p} \) be the minimum number of batches required for part \( p \) each month.
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let:
+\[
+\text{batches}_{p} \quad \text{(number of batches of part } p \text{ produced)}
+\]
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} (\text{price}_{p} \cdot \text{batches}_{p}) - \sum_{m=1}^{M} \left( \text{cost}_{m} \cdot \sum_{p=1}^{P} (\text{time}_{m,p} \cdot \text{batches}_{p}) \right)
+\]
+
+\subsection*{Constraints}
+
+\begin{itemize}
+    \item \textbf{Production requirements:}
+    \[
+    \text{batches}_{p} \geq \text{min\_batches}_{p} \quad \forall p = 1,\ldots,P
+    \]
+    
+    \item \textbf{Machine availability:}
+    \[
+    \sum_{p=1}^{P} (\text{time}_{m,p} \cdot \text{batches}_{p}) \leq \text{available}_{m} \quad \forall m = 1,\ldots,M
+    \]
+    
+    \item \textbf{Shared availability for Machine \( M \) and Machine \( M-1 \):}
+    \[
+    \sum_{p=1}^{P} (\text{time}_{M,p} \cdot \text{batches}_{p}) + \sum_{p=1}^{P} (\text{time}_{M-1,p} \cdot \text{batches}_{p}) \leq \text{available}_{M} + \text{available}_{M-1}
+    \]
+
+    \item \textbf{Non-negativity constraint:}
+    \[
+    \text{batches}_{p} \geq 0 \quad \forall p = 1,\ldots,P
+    \]
+\end{itemize}
+
+\subsection*{Output Format}
+The solution will yield:
+\begin{itemize}
+    \item \text{batches} = $[\text{batches}_{p} \text{ for } p = 1, \ldots, P]$
+    \item \text{total\_profit} = $Z$
+\end{itemize}
+
+\end{document}

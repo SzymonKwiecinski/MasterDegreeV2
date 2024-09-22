@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Electricity Capacity Expansion}
+
+\subsection*{Parameters}
+
+\begin{align*}
+T & : \text{Number of years} \\
+demand_t & : \text{Demand for electricity in year } t \\
+oil_t & : \text{Existing oil-fired capacity in year } t \\
+coal\_cost & : \text{Capital cost per megawatt of coal-fired capacity} \\
+nuke\_cost & : \text{Capital cost per megawatt of nuclear power capacity} \\
+max\_nuke & : \text{Maximum percentage of total capacity that can be nuclear} \\
+coal\_life & : \text{Lifetime of coal plants in years} \\
+nuke\_life & : \text{Lifetime of nuclear plants in years} \\
+\end{align*}
+
+\subsection*{Variables}
+
+Let \( coal_t \) be the capacity of coal-fired plants added in year \( t \), and \( nuke_t \) be the capacity of nuclear plants added in year \( t \).
+
+\subsection*{Objective Function}
+
+The objective is to minimize the total cost of the capacity expansion:
+
+\[
+\text{Minimize } Z = \sum_{t=1}^{T} (coal\_cost \cdot coal_t + nuke\_cost \cdot nuke_t)
+\]
+
+\subsection*{Constraints}
+
+1. **Demand Constraint**:
+   The total capacity available in year \( t \) must meet or exceed the demand:
+   \[
+   oil_t + \sum_{i=0}^{\min(t, coal\_life)-1} coal_{t-i} + \sum_{i=0}^{\min(t, nuke\_life)-1} nuke_{t-i} \geq demand_t, \quad \forall t = 1, \ldots, T
+   \]
+
+2. **Nuclear Capacity Constraint**:
+   No more than \( max\_nuke\% \) of the total capacity can be nuclear:
+   \[
+   \sum_{i=0}^{\min(t, coal\_life)-1} coal_{t-i} + \sum_{i=0}^{\min(t, nuke\_life)-1} nuke_{t-i} \geq \frac{max\_nuke}{100} \left( oil_t + \sum_{i=0}^{\min(t, coal\_life)-1} coal_{t-i} + \sum_{i=0}^{\min(t, nuke\_life)-1} nuke_{t-i} \right), \quad \forall t = 1, \ldots, T
+   \]
+
+3. **Non-negativity Constraints**:
+   \[
+   coal_t \geq 0, \quad nuke_t \geq 0, \quad \forall t = 1, \ldots, T
+   \]
+
+\subsection*{Output}
+
+The output will consist of:
+\begin{itemize}
+    \item A list of coal capacity added each year: \( coal\_cap\_added = [coal_1, coal_2, \ldots, coal_T] \)
+    \item A list of nuclear capacity added each year: \( nuke\_cap\_added = [nuke_1, nuke_2, \ldots, nuke_T] \)
+    \item The total cost incurred: \( total\_cost = Z \)
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Production Problem}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( N \): Number of product types
+    \item \( assemblyHour_i \): Assembly hours required for product \( i \)
+    \item \( testingHour_i \): Testing hours required for product \( i \)
+    \item \( materialCost_i \): Cost of raw materials for product \( i \) (in dollars)
+    \item \( maxAssembly \): Maximum assembly hours available per day
+    \item \( maxTesting \): Maximum testing hours available per day
+    \item \( price_i \): Selling price of product \( i \) (in dollars)
+    \item \( maxOvertimeAssembly \): Maximum overtime assembly hours allowed
+    \item \( overtimeAssemblyCost \): Cost per hour of overtime assembly
+    \item \( materialDiscount \): Discount percentage on materials if the daily bill exceeds the threshold
+    \item \( discountThreshold \): Threshold for receiving material discount (in dollars)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( x_i \): Number of units produced of product \( i \)
+    \item \( overtimeAssembly \): Hours of overtime assembly labor scheduled
+\end{itemize}
+
+\textbf{Objective Function:}
+Maximize daily profit:
+\[
+\text{maximize } Z = \sum_{i=1}^{N} (price_i \cdot x_i) - \left( \sum_{i=1}^{N} (materialCost_i \cdot x_i) - \left( \text{if } \sum_{i=1}^{N} (materialCost_i \cdot x_i) > discountThreshold \text{ then } \frac{materialDiscount}{100} \cdot \sum_{i=1}^{N} (materialCost_i \cdot x_i) \right) \right) - (overtimeAssembly \cdot overtimeAssemblyCost)
+\]
+
+\textbf{Subject to:}
+\begin{align*}
+\sum_{i=1}^{N} (assemblyHour_i \cdot x_i) + overtimeAssembly & \leq maxAssembly + maxOvertimeAssembly \\
+\sum_{i=1}^{N} (testingHour_i \cdot x_i) & \leq maxTesting \\
+x_i & \geq 0 \quad \text{(for all } i = 1, \ldots, N\text{)} \\
+overtimeAssembly & \geq 0
+\end{align*}
+
+\textbf{Output:}
+The following outputs are to be calculated:
+\begin{itemize}
+    \item \( dailyProfit \): Amount of daily profit
+    \item \( unitsProduced_i \): Number of units produced of product \( i \)
+    \item \( overtimeAssembly \): Hours of overtime assembly labor scheduled
+    \item \( materialBought \): Total amount of raw materials bought
+\end{itemize}
+
+\end{document}

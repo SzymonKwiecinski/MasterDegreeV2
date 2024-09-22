@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Motion Optimization Model}
+
+Let \( x_t \) be the position, \( v_t \) be the velocity, and \( a_t \) be the acceleration at time \( t \). The discrete-time model is given by:
+
+\[
+x_{t+1} = x_t + v_t
+\]
+
+\[
+v_{t+1} = v_t + a_t
+\]
+
+We aim to control the acceleration \( a_t \) to minimize fuel consumption, which is proportional to the magnitude of acceleration, hence we define the objective function as follows:
+
+\[
+\text{Minimize } \sum_{t=0}^{T-1} |a_t|
+\]
+
+\subsection*{Constraints}
+
+The following constraints must be satisfied:
+
+1. Initial Conditions:
+   \[
+   x_0 = x_0, \quad v_0 = v_0
+   \]
+
+2. Final State Requirements:
+   \[
+   x_T = x_T, \quad v_T = v_T
+   \]
+
+3. Discrete Dynamics:
+   For \( t = 0, 1, \ldots, T-1 \):
+   \[
+   x_{t+1} = x_t + v_t
+   \]
+   \[
+   v_{t+1} = v_t + a_t
+   \]
+
+\subsection*{Variables}
+
+Define the following variables:
+- \( a_t \) for \( t = 0, 1, \ldots, T-1 \) (acceleration at time \( t \))
+- \( x_t \) for \( t = 0, 1, \ldots, T \) (position at time \( t \))
+- \( v_t \) for \( t = 0, 1, \ldots, T \) (velocity at time \( t \))
+
+\subsection*{Output}
+
+The expected output format is as follows:
+
+\[
+\{
+    "x": [x_i \text{ for } i = 0, \ldots, T],
+    "v": [v_i \text{ for } i = 0, \ldots, T],
+    "a": [a_i \text{ for } i = 0, \ldots, T-1],
+    "fuel\_spend": \text{total fuel spent}
+\}
+\]
+
+Where:
+- \( x \) contains the list of positions of the rocket at each time step from 0 to \( T \)
+- \( v \) contains the list of velocities of the rocket at each time step from 0 to \( T \)
+- \( a \) contains the list of accelerations of the rocket at each time step from 0 to \( T-1 \)
+- \( \text{fuel\_spend} \) contains the total fuel spent by the rocket.
+
+\end{document}

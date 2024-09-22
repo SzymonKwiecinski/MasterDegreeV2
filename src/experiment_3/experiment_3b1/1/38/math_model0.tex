@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Production Scheduling Problem Formulation}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $N$: number of months
+    \item $demand_n$: demand in month $n$, for $n \in \{1, 2, \ldots, N\}$
+    \item $max\_regular\_amount$: maximum regular production capacity per month
+    \item $cost\_regular$: cost per unit for regular production
+    \item $cost\_overtime$: cost per unit for overtime production
+    \item $store\_cost$: cost per unit for storage per month
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $reg\_quant_n$: quantity produced using regular production in month $n$, for $n \in \{1, 2, \ldots, N\}$
+    \item $over\_quant_n$: quantity produced using overtime production in month $n$, for $n \in \{1, 2, \ldots, N\}$
+    \item $inventory_n$: inventory at the end of month $n$, for $n \in \{1, 2, \ldots, N\}$
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } Z = \sum_{n=1}^{N} \left( cost\_regular \cdot reg\_quant_n + cost\_overtime \cdot over\_quant_n + store\_cost \cdot inventory_n \right)
+\]
+
+\textbf{Constraints:}
+\begin{align}
+    inventory_n & = inventory_{n-1} + reg\_quant_n + over\_quant_n - demand_n, \quad n \in \{1, 2, \ldots, N\} \\
+    inventory_0 & = 0 \\
+    reg\_quant_n & \leq max\_regular\_amount, \quad n \in \{1, 2, \ldots, N\} \\
+    inventory_n & \geq 0, \quad n \in \{1, 2, \ldots, N\} \\
+    reg\_quant_n & \geq 0, \quad n \in \{1, 2, \ldots, N\} \\
+    over\_quant_n & \geq 0, \quad n \in \{1, 2, \ldots, N\}
+\end{align}
+
+\end{document}

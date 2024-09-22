@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Best Fit Line}
+
+Given a set of observed values \( y_k \) and \( x_k \) for \( k = 1, \ldots, K \), we aim to fit the best straight line described by the equation:
+
+\[
+y = bx + a
+\]
+
+where \( a \) is the intercept and \( b \) is the slope of the line. The objective is to minimize the maximum deviation of all the observed values of \( y \) from the predicted values based on the linear relationship.
+
+Let:
+
+- \( y_k \) be the observed values.
+- \( x_k \) be the corresponding values.
+- \( \epsilon_k \) be the deviation for each observed value, defined as:
+
+\[
+\epsilon_k = y_k - (bx_k + a)
+\]
+
+We then formulate the problem as follows:
+
+\subsection*{Objective Function}
+
+Minimize the maximum deviation:
+
+\[
+\min \, t
+\]
+
+subject to the constraints:
+
+\[
+y_k - (bx_k + a) \leq t \quad \forall k = 1, \ldots, K
+\]
+\[
+-(y_k - (bx_k + a)) \leq t \quad \forall k = 1, \ldots, K
+\]
+
+\subsection*{Linear Programming Formulation}
+
+We summarize the linear programming model:
+
+\begin{align*}
+\text{Minimize} \quad & t \\
+\text{Subject to} \quad & y_k - bx_k - a \leq t, \quad k = 1, \ldots, K \\
+& -y_k + bx_k + a \leq t, \quad k = 1, \ldots, K \\
+& b \in \mathbb{R}, \\
+& a \in \mathbb{R}, \\
+& t \geq 0.
+\end{align*}
+
+\subsection*{Output}
+
+The output of this optimization problem will yield the values for:
+
+\begin{align*}
+\text{intercept} & = a, \\
+\text{slope} & = b.
+\end{align*}
+
+\end{document}

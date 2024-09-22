@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item $\text{reg\_quant}_n$: Quantity of products produced using regular production in month $n$
+    \item $\text{over\_quant}_n$: Quantity of products produced using overtime production in month $n$
+    \item $I_n$: Inventory at the end of month $n$
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $demand_n$: Forecasted demand in month $n$
+    \item $max\_regular\_amount$: Maximum units that can be produced using regular production in any month
+    \item $cost\_regular$: Cost per unit using regular production
+    \item $cost\_overtime$: Cost per unit using overtime production
+    \item $store\_cost$: Cost per unit stored per month
+    \item $N$: Total number of months
+\end{itemize}
+
+\textbf{Objective:}
+\begin{align*}
+\text{Minimize } Z &= \sum_{n=1}^{N} \left( cost\_regular \cdot \text{reg\_quant}_n + cost\_overtime \cdot \text{over\_quant}_n + store\_cost \cdot I_n \right)
+\end{align*}
+
+\textbf{Subject to:}
+\begin{align*}
+I_0 &= 0 \quad \text{(Initial inventory)}\\
+I_n &= I_{n-1} + \text{reg\_quant}_n + \text{over\_quant}_n - demand_n \quad \forall n \in \{1, 2, \ldots, N\}\\
+I_n &\geq 0 \quad \forall n \in \{1, 2, \ldots, N\}\\
+\text{reg\_quant}_n &\leq max\_regular\_amount \quad \forall n \in \{1, 2, \ldots, N\}\\
+\text{reg\_quant}_n, \text{over\_quant}_n &\geq 0 \quad \forall n \in \{1, 2, \ldots, N\}
+\end{align*}
+
+\textbf{Output:}
+\begin{itemize}
+    \item $\text{reg\_quant} = [\text{reg\_quant}_1, \text{reg\_quant}_2, \ldots, \text{reg\_quant}_N]$
+    \item $\text{over\_quant} = [\text{over\_quant}_1, \text{over\_quant}_2, \ldots, \text{over\_quant}_N]$
+\end{itemize}
+
+\end{document}

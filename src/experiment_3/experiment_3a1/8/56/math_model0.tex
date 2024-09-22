@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Delivery Path Optimization}
+
+We define a grid where the delivery person navigates from the intersection of \(1\)th Avenue and \(1\)th Street to the intersection of \(W\)th Avenue and \(N\)th Street. The path taken is influenced by the walking times defined by two matrices: \(west\_time\) and \(north\_time\). The aim is to minimize the total walking time.
+
+\subsection*{Parameters}
+
+\begin{itemize}
+    \item \(N\): Total number of streets (vertical)
+    \item \(W\): Total number of avenues (horizontal)
+    \item \(west\_time_{n,w}\): Time to move from intersection \((w,n)\) to \((w+1,n)\)
+    \item \(north\_time_{n,w}\): Time to move from intersection \((w,n)\) to \((w,n+1)\)
+\end{itemize}
+
+\subsection*{Decision Variables}
+
+Let \(x_{n,w}\) represent the decision variable indicating whether the delivery person travels from intersection \((w,n)\) to \((w+1,n)\) (moves west) or from \((w,n)\) to \((w,n+1)\) (moves north).
+
+\begin{itemize}
+    \item \(x_{n,w} = 1\) if the path is taken from \((w,n)\) to \((w+1,n)\)
+    \item \(y_{n,w} = 1\) if the path is taken from \((w,n)\) to \((w,n+1)\)
+\end{itemize}
+
+\subsection*{Objective Function}
+
+We want to minimize the total time taken:
+
+\[
+\text{Minimize } Z = \sum_{n=1}^{N-1} \sum_{w=1}^{W-1} (west\_time_{n,w} \cdot x_{n,w} + north\_time_{n,w} \cdot y_{n,w})
+\]
+
+\subsection*{Constraints}
+
+The constraints ensure that from each intersection, the delivery person can only move either west or north:
+
+1. Flow conservation constraints
+   \[
+   \sum_{w=1}^{W-1} x_{n,w} + \sum_{w=1}^{W} y_{n,w} = 1 \quad \forall n \in \{1, 2, \ldots, N-1\}
+   \]
+   \[
+   \sum_{n=1}^{N-1} x_{n,w} + \sum_{n=1}^{N} y_{n,w} = 1 \quad \forall w \in \{1, 2, \ldots, W-1\}
+   \]
+
+2. Non-negativity constraints
+   \[
+   x_{n,w} \geq 0 \quad \forall n, w
+   \]
+   \[
+   y_{n,w} \geq 0 \quad \forall n, w
+   \]
+
+\subsection*{Output}
+
+The output of the optimization will yield:
+\begin{itemize}
+    \item Paths: \((street_{n}, avenue_{w})\) for \(id \in \{1, \ldots, m\}\)
+    \item Total time: \(total\_time\)
+\end{itemize}
+
+\end{document}

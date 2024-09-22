@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Steel Production}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Formulation}
+
+Let:
+\begin{itemize}
+    \item $n_{\text{steel\_quant}}$: Tons of steel to be produced.
+    \item $mn_{\text{percent}}$: Minimum percentage of Manganese (Mn) required.
+    \item $si_{\text{min}}$: Minimum percentage of Silicon (Si) required.
+    \item $si_{\text{max}}$: Maximum percentage of Silicon (Si) allowed.
+    \item $K$: Number of different minerals available.
+    \item $contsi_k$: Percentage of Silicon in mineral $k$.
+    \item $contmn_k$: Percentage of Manganese in mineral $k$.
+    \item $mang_{\text{price}}$: Price of Manganese in million euros per ton.
+    \item $cost_k$: Cost of mineral $k$ in million euros per thousand tons.
+    \item $sell_{\text{price}}$: Selling price of steel in million euros per ton.
+    \item $melt_{\text{price}}$: Cost of smelting a ton of mineral in million euros.
+\end{itemize}
+
+Define:
+\begin{itemize}
+    \item $amount_k$: Amount of mineral $k$ to be melted (in tons).
+    \item $num_{\text{mang}}$: Amount of Manganese directly added (in tons).
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Maximize the profit $P$:
+\[
+P = n_{\text{steel\_quant}} \cdot sell_{\text{price}} - \sum_{k=1}^{K} \left( \left( cost_k + melt_{\text{price}} \right) \cdot \frac{amount_k}{1000} \right) - num_{\text{mang}} \cdot mang_{\text{price}}
+\]
+
+\subsection*{Constraints}
+
+1. Manganese content constraint:
+\[
+\frac{\sum_{k=1}^{K} (amount_k \cdot contmn_k)}{n_{\text{steel\_quant}}} + \frac{num_{\text{mang}}}{n_{\text{steel\_quant}}} \geq \frac{mn_{\text{percent}}}{100}
+\]
+
+2. Silicon content constraints:
+\[
+si_{\text{min}} \leq \frac{\sum_{k=1}^{K} (amount_k \cdot contsi_k)}{n_{\text{steel\_quant}}} \leq si_{\text{max}}
+\]
+
+3. Non-negativity constraints:
+\[
+amount_k \geq 0 \quad \forall k \quad \text{and} \quad num_{\text{mang}} \geq 0
+\]
+
+\subsection*{Output}
+
+The output will provide:
+\begin{itemize}
+    \item "amount": an array containing $amount_k$ for $k = 1, \ldots, K$.
+    \item "num\_mang": the total amount of Manganese added.
+\end{itemize}
+
+\end{document}

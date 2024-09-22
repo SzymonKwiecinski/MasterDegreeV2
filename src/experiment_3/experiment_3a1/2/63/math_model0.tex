@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mixed Integer Linear Programming Model for Paper Cutting}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let $W$ denote the width of the large roll: $W = \text{large\_roll\_width}$
+    \item Let $M$ be the number of different types of smaller rolls
+    \item Let $j \in \{1, 2, \ldots, M\}$ represent the index of the roll widths where $w_j = \text{roll\_width\_options}[j]$ and $d_j = \text{demands}[j]$ is the demand for width $w_j$
+    \item Let $N$ be the number of different cutting patterns
+    \item Let $i \in \{1, 2, \ldots, N\}$ represent the index of the cutting patterns
+    \item Let $p_{i,j}$ be the number of rolls of width $w_j$ produced from cutting pattern $i$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let $x_i$ be the number of times pattern $i$ is applied (integer variable)
+\end{itemize}
+
+\subsection*{Objective Function}
+\begin{equation}
+\text{Minimize } Z = \sum_{i=1}^{N} x_i
+\end{equation}
+
+\subsection*{Constraints}
+
+\textbf{Demand Constraints:}
+\begin{equation}
+\sum_{i=1}^{N} p_{i,j} x_i \geq d_j \quad \forall j \in \{1, 2, \ldots, M\}
+\end{equation}
+
+\textbf{Roll Width Constraint:}
+\begin{equation}
+\sum_{j=1}^{M} p_{i,j} \cdot x_i \leq W \quad \forall i \in \{1, 2, \ldots, N\}
+\end{equation}
+
+\textbf{Non-negativity and Integer Constraints:}
+\begin{equation}
+x_i \geq 0 \quad \text{and integer} \quad \forall i \in \{1, 2, \ldots, N\}
+\end{equation}
+
+\subsection*{Output Format}
+The output will consist of the cutting patterns and the total number of large rolls used:
+\begin{itemize}
+    \item The patterns applied will be presented in the format:
+    \begin{verbatim}
+    {
+        "patterns": [
+            {
+                "pattern": [p_{i,j} \text{ for } j \in \{1, \ldots, M\}],
+                "amount": x_i
+            }
+            \text{ for } i \in \{1, \ldots, N\}
+        ],
+        "total_large_rolls_used": Z
+    }
+    \end{verbatim}
+    \item $Z$ represents the total number of large rolls used.
+\end{itemize}
+
+\end{document}

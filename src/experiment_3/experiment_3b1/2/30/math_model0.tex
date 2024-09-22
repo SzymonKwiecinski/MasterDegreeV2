@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Quadratic Curve Fitting via Linear Programming}
+
+Given a set of data points $(x_k, y_k)$ for $k = 1, 2, \ldots, K$, we aim to fit a quadratic curve of the form:
+
+\[
+y = c \cdot x^2 + b \cdot x + a
+\]
+
+where \( c \), \( b \), and \( a \) are coefficients that we need to determine.
+
+The objective is to minimize the sum of absolute deviations between the observed values \( y_k \) and the predicted values \( \hat{y}_k = c \cdot x_k^2 + b \cdot x_k + a \). We define the absolute deviations as follows:
+
+\[
+d_k = y_k - (c \cdot x_k^2 + b \cdot x_k + a)
+\]
+
+To handle the absolute values, we introduce auxiliary variables \( t_k \) such that:
+
+\[
+t_k \geq d_k \quad \text{and} \quad t_k \geq -d_k
+\]
+
+This leads to the following Linear Programming formulation:
+
+\begin{align*}
+\text{Minimize} \quad & \sum_{k=1}^{K} t_k \\
+\text{subject to} \quad & t_k \geq y_k - (c \cdot x_k^2 + b \cdot x_k + a), \quad \forall k \\
+& t_k \geq -(y_k - (c \cdot x_k^2 + b \cdot x_k + a)), \quad \forall k \\
+& c, b, a \text{ are free variables}
+\end{align*}
+
+After solving this linear program, the coefficients can be extracted as follows:
+
+\begin{align*}
+\text{Output:} \quad & \{ \text{"quadratic"}: c, \text{"linear"}: b, \text{"constant"}: a \}
+\end{align*}
+
+\end{document}

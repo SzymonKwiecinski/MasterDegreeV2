@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Traveling Salesman Problem (TSP)}
+
+\subsection*{Sets and Parameters}
+Let:
+\begin{itemize}
+    \item $N$: Number of towns to visit
+    \item $C$: Set of all cities, including the start city
+    \item $d_{i,j}$: Distance between cities $i$ and $j$, where $i, j \in C$
+    \item $start\_city$: The starting city for the traveler
+\end{itemize}
+
+\subsection*{Decision Variables}
+Define binary decision variable:
+\[
+x_{i,j} = 
+\begin{cases} 
+1 & \text{if the traveler visits city } j \text{ directly after city } i \\
+0 & \text{otherwise}
+\end{cases}
+\]
+for all \(i, j \in C\) with \(i \neq j\).
+
+\subsection*{Objective Function}
+Minimize the total travel distance:
+\[
+\text{Minimize } Z = \sum_{i \in C} \sum_{j \in C} d_{i,j} x_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Each city must be visited exactly once:
+    \[
+    \sum_{j \in C, j \neq start\_city} x_{start\_city,j} = 1
+    \]
+    \[
+    \sum_{j \in C, j \neq start\_city} x_{j,start\_city} = 1
+    \]
+    \item For each city $j \neq start\_city$, the sum of incoming and outgoing visits must equal 1:
+    \[
+    \sum_{i \in C, i \neq j} x_{i,j} = 1, \quad \forall j \in C, j \neq start\_city
+    \]
+    \[
+    \sum_{j \in C, j \neq i} x_{i,j} = 1, \quad \forall i \in C, i \neq start\_city
+    \]
+    \item Subtour elimination constraints (Miller-Tucker-Zemlin formulation):
+    \[
+    u_i - u_j + N \cdot x_{i,j} \leq N - 1, \quad \forall i,j \in C, i \neq j
+    \]
+    where \(u_i\) is the position of city \(i\) in the tour.
+\end{itemize}
+
+\subsection*{Solution}
+The output will provide:
+\begin{itemize}
+    \item \text{visit\_order}: The sequence of cities visited after the \text{start\_city}
+    \item \text{total\_distance}: The total distance traveled on the optimal journey.
+\end{itemize}
+
+\end{document}

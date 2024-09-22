@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Spare Automobile Parts Production}
+
+\textbf{Indices:}  
+\begin{itemize}
+    \item $k$: Index for each spare part ($k = 1, 2, \ldots, K$)
+    \item $s$: Index for each shop ($s = 1, 2, \ldots, S$)
+\end{itemize}
+
+\textbf{Parameters:}  
+\begin{itemize}
+    \item $time_{k,s}$: Worker-hours required for part $k$ in shop $s$
+    \item $profit_k$: Profit of part $k$
+    \item $capacity_s$: Capacity of shop $s$ in working hours
+\end{itemize}
+
+\textbf{Decision Variables:}  
+\begin{itemize}
+    \item $quantity_k$: Quantity of spare part $k$ to be produced
+\end{itemize}
+
+\textbf{Objective Function:}  
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} profit_k \cdot quantity_k
+\]
+
+\textbf{Subject to:}  
+\[
+\sum_{k=1}^{K} time_{k,s} \cdot quantity_k \leq capacity_s \quad \forall s = 1, 2, \ldots, S
+\]
+
+\textbf{Non-negativity constraints:}  
+\[
+quantity_k \geq 0 \quad \forall k = 1, 2, \ldots, K
+\]
+
+\end{document}

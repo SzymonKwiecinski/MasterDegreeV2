@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mixed Integer Linear Programming Model for Paper Cutting Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( W \) be the width of the large rolls (in inches), where \( W = \text{large\_roll\_width} \).
+    \item Let \( M \) be the number of different types of smaller rolls.
+    \item Let \( \text{demand}_j \) be the demand for rolls of width \( j \), where \( j \) ranges from 1 to \( M \).
+    \item Let \( N \) be the number of different cutting patterns available.
+    \item Let \( \text{pattern}_{i,j} \) be the number of rolls of width \( j \) produced by cutting pattern \( i \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( x_i \) be the number of times cutting pattern \( i \) is used, where \( i = 1, 2, \ldots, N \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total number of large rolls used:
+\[
+\text{minimize} \quad \sum_{i=1}^{N} x_i
+\]
+
+\subsection*{Constraints}
+1. Demand constraints for each roll width:
+\[
+\sum_{i=1}^{N} \text{pattern}_{i,j} \cdot x_i \geq \text{demand}_j \quad \forall j = 1, 2, \ldots, M
+\]
+
+2. Non-negativity and integer constraints:
+\[
+x_i \geq 0 \quad \text{and } x_i \in \mathbb{Z} \quad \forall i = 1, 2, \ldots, N
+\]
+
+\end{document}

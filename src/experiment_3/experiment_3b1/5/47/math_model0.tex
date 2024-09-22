@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Police Shift Assignment Problem}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( S \): Number of different shifts
+    \item \( officers\_needed_{s} \): Number of police officers needed during shift \( s \) for \( s = 1, \dots, S \)
+    \item \( shift\_cost_{s} \): Cost incurred for starting shift \( s \) for \( s = 1, \dots, S \)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( officers\_assigned_{s} \): Number of police officers assigned to shift \( s \) for \( s = 1, \dots, S \)
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } Z = \sum_{s=1}^{S} shift\_cost_{s} \cdot y_{s}
+\]
+where \( y_{s} \) is a binary variable that indicates whether shift \( s \) is started (1) or not (0).
+
+\textbf{Constraints:}
+\begin{align*}
+    officers\_assigned_{s} & \geq officers\_needed_{s} \quad \forall s \in \{1, \ldots, S\} \\
+    officers\_assigned_{s} & = officers\_assigned_{s-1} + officers\_assigned_{s-2} \quad \forall s \in \{3, \ldots, S\} \\
+    officers\_assigned_{1} & = officers\_assigned_{1} \\
+    officers\_assigned_{2} & = officers\_assigned_{2}
+\end{align*}
+
+\textbf{Output:}
+\begin{itemize}
+    \item \( officers\_assigned_{s} \) for \( s = 1, \ldots, S \)
+    \item \( total\_cost = Z \)
+\end{itemize}
+
+\end{document}

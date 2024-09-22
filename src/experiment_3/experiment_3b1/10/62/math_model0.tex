@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Traveling Salesman Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+  \item Let \( N \) be the number of towns.
+  \item Let \( \text{distance}_{i,j} \) be the distance between town \( i \) and town \( j \).
+  \item Let \( \text{start\_city} \) be the city where the traveler starts and returns.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+  \item \( x_{i,j} \in \{0, 1\} \): a binary variable that is 1 if the traveler goes directly from town \( i \) to town \( j \), and 0 otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total travel distance:
+\[
+\text{minimize} \quad Z = \sum_{i=1}^N \sum_{j=1}^N \text{distance}_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+  \item Each town is visited exactly once:
+  \[
+  \sum_{j=1}^N x_{i,j} = 1 \quad \forall i = 1, \ldots, N
+  \]
+  \[
+  \sum_{i=1}^N x_{i,j} = 1 \quad \forall j = 1, \ldots, N
+  \]
+
+  \item Subtour elimination constraints (using Miller-Tucker-Zemlin formulation):
+  \[
+  u_i - u_j + N \cdot x_{i,j} \leq N - 1 \quad \forall i,j = 2, \ldots, N; \quad i \neq j
+  \]
+  \[
+  u_i \geq 1 \quad \forall i = 2, \ldots, N
+  \]
+  \[
+  u_i \in \mathbb{Z}^+ \quad \forall i = 1, \ldots, N
+  \]
+\end{itemize}
+
+\subsection*{Output}
+The output should provide:
+\begin{itemize}
+  \item Visit order: the sequence of towns visited after the start city.
+  \item Total distance: the total distance traveled on the optimal journey.
+\end{itemize}
+
+\end{document}

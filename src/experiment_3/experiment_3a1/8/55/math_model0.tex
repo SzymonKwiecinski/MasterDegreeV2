@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\subsection*{Decision Variables}
+Let \( b_p \) be the number of batches produced for part \( p \) (for \( p = 1, \ldots, P \)).
+
+\subsection*{Objective Function}
+Maximize the total profit:
+
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} \left( \text{price}_p \cdot b_p \right) - \sum_{m=1}^{M} \left( \text{cost}_m \cdot \sum_{p=1}^{P} \left( \text{time}_{m,p} \cdot b_p \right) \right) - \text{Labor Costs}
+\]
+
+Where the labor costs can be calculated based on the hours worked on Machine 1 as follows:
+
+\[
+\text{Labor Costs} = 
+\begin{cases}
+\text{standard\_cost} \cdot \text{total\_hours} & \text{if } \text{total\_hours} \leq \text{overtime\_hour} \\
+\text{standard\_cost} \cdot \text{overtime\_hour} + \text{overtime\_cost} \cdot (\text{total\_hours} - \text{overtime\_hour}) & \text{if } \text{total\_hours} > \text{overtime\_hour}
+\end{cases}
+\]
+
+Where \( \text{total\_hours} = \sum_{p=1}^{P} \text{time}_{1,p} \cdot b_p \).
+
+\subsection*{Constraints}
+1. Machine Availability Constraints:
+   \[
+   \sum_{p=1}^{P} \left( \text{time}_{m,p} \cdot b_p \right) \leq \text{available}_m \quad \text{for } m = 1, \ldots, M
+   \]
+
+2. Minimum Batch Production Constraints:
+   \[
+   b_p \geq \text{min\_batches}_p \quad \text{for } p = 1, \ldots, P
+   \]
+
+3. Profit Constraints:
+   \[
+   Z \geq \text{min\_profit}
+   \]
+
+4. Non-Negativity Constraints:
+   \[
+   b_p \geq 0 \quad \text{for } p = 1, \ldots, P
+   \]
+
+\subsection*{Output Variables}
+The output will consist of:
+\begin{itemize}
+    \item The number of batches of each part produced: \( \text{batches} = [b_1, b_2, \ldots, b_P] \)
+    \item The total profit obtained: \( \text{total\_profit} = Z \)
+\end{itemize}
+
+\end{document}

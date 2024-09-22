@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item \( k \): index for industry (1 to \( K \))
+    \item \( j \): index for industry (1 to \( K \))
+    \item \( t \): index for year (1 to \( T \))
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{inputone}_{k,j} \): Input from industry \( j \) required by industry \( k \)
+    \item \( \text{manpowerone}_{k} \): Manpower required by industry \( k \)
+    \item \( \text{inputtwo}_{k,j} \): Input from industry \( j \) used for building capacity for industry \( k \)
+    \item \( \text{manpowertwo}_{k} \): Manpower required for building capacity for industry \( k \)
+    \item \( \text{stock}_{k} \): Initial stock of industry \( k \) in year 0
+    \item \( \text{capacity}_{k} \): Initial capacity of industry \( k \)
+    \item \( \text{demand}_{k} \): Exogenous consumption requirement from industry \( k \)
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{produce}_{k,t} \): Amount produced by industry \( k \) in year \( t \)
+    \item \( \text{buildcapa}_{k,t} \): Amount used to build productive capacity for industry \( k \) in year \( t \)
+    \item \( \text{stockhold}_{k,t} \): Amount of stock of industry \( k \) held in year \( t \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total manpower requirement over five years:
+\[
+\text{Maximize } Z = \sum_{t=1}^{T} \sum_{k=1}^{K} \left( \text{manpowerone}_{k} \cdot \text{produce}_{k,t} + \text{manpowertwo}_{k} \cdot \text{buildcapa}_{k,t} \right)
+\]
+
+\subsection*{Constraints}
+\begin{align}
+\text{Production Constraints:} & \quad \sum_{j=1}^{K} \text{inputone}_{k,j} \cdot \text{produce}_{j,t-1} + \text{stockhold}_{k,t-1} \geq \text{demand}_{k} + \text{stockhold}_{k,t} \quad \forall k, \forall t \\
+\text{Capacity Building Constraints:} & \quad \sum_{j=1}^{K} \text{inputtwo}_{k,j} \cdot \text{buildcapa}_{j,t} + \text{stockhold}_{k,t} \geq \text{produce}_{k,t+1} \quad \forall k, \forall t \\
+\text{Initial Conditions:} & \quad \text{stockhold}_{k,0} = \text{stock}_{k} \quad \forall k \\
+& \quad \text{capacity}_{k} = \text{capacity}_{k} + \sum_{t=1}^{T} \text{buildcapa}_{k,t}  \quad \forall k \\
+\text{Non-negativity:} & \quad \text{produce}_{k,t} \geq 0, \quad \text{buildcapa}_{k,t} \geq 0, \quad \text{stockhold}_{k,t} \geq 0 \quad \forall k, \forall t 
+\end{align}
+
+\end{document}

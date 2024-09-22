@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Maximizing Profit}
+
+\subsection*{Parameters}
+Let:
+\begin{itemize}
+    \item \( K \) = number of spare parts
+    \item \( S \) = number of shops
+    \item \( time_{k,s} \) = time required (in worker-hours) to produce part \( k \) in shop \( s \) 
+    \item \( profit_{k} \) = profit earned from producing one unit of part \( k \)
+    \item \( capacity_{s} \) = maximum worker-hours available in shop \( s \)
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let:
+\[
+quantity_k = \text{quantity of spare part } k \text{ produced}
+\]
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize} \quad Z = \sum_{k=1}^{K} profit_k \cdot quantity_k
+\]
+
+\subsection*{Constraints}
+Subject to the constraints:
+\begin{itemize}
+    \item Capacity constraints for each shop \( s \):
+    \[
+    \sum_{k=1}^{K} time_{k,s} \cdot quantity_k \leq capacity_s \quad \forall s = 1, \ldots, S
+    \]
+    
+    \item Non-negativity constraints:
+    \[
+    quantity_k \geq 0 \quad \forall k = 1, \ldots, K
+    \]
+\end{itemize}
+
+\subsection*{Output}
+The output will consist of the quantities of each spare part to be produced to maximize profit:
+\[
+\text{Output: } \{ quantity = [quantity_k \text{ for } k = 1, \ldots, K] \}
+\]
+
+\end{document}

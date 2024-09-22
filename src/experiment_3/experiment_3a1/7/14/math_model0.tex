@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Production and Sales}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $P$: Number of products
+    \item $h_i$: Machine hours required for product $i$, for $i = 1, \ldots, P$
+    \item $c_i$: Production cost per unit of product $i$, for $i = 1, \ldots, P$
+    \item $p_i$: Selling price per unit of product $i$, for $i = 1, \ldots, P$
+    \item $r_i$: Investment rate from sales revenue of product $i$, for $i = 1, \ldots, P$
+    \item $x_i$: Production quantity of product $i$, for $i = 1, \ldots, P$
+    \item $U$: Upgrade hours available
+    \item $U_c$: Cost for upgrading machine hours
+    \item $A$: Available machine hours
+    \item $C$: Available cash
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_i \geq 0$: Quantity of product $i$ to produce
+    \item $u \in \{0,1\}$: Upgrade variable (1 if upgrade is chosen, 0 otherwise)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total net income:
+
+\[
+\text{Maximize } Z = \sum_{i=1}^{P} \left( p_i x_i - c_i x_i - r_i p_i x_i \right) - U_c \cdot u
+\]
+
+\subsection*{Constraints}
+1. Machine hours constraint:
+
+\[
+\sum_{i=1}^{P} h_i x_i \leq A + U \cdot u
+\]
+
+2. Cash availability constraint:
+
+\[
+\sum_{i=1}^{P} c_i x_i + U_c \cdot u \leq C
+\]
+
+3. Non-negativity constraints:
+
+\[
+x_i \geq 0 \quad \forall i \in \{1, \ldots, P\}
+\]
+
+4. Upgrade decision variable constraint:
+
+\[
+u \in \{0, 1\}
+\]
+
+\subsection*{Output Variables}
+\begin{itemize}
+    \item $\text{net\_income} = Z$
+    \item $\text{production} = [x_1, x_2, \ldots, x_P]$
+    \item $\text{upgrade} = u$
+\end{itemize}
+
+\end{document}

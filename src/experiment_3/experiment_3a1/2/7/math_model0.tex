@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Rocket Trajectory Control}
+
+Let \( x_t \), \( v_t \), and \( a_t \) represent the position, velocity, and acceleration of the rocket at time \( t \), respectively. We have the following relationships:
+
+\[
+x_{t+1} = x_t + v_t
+\]
+
+\[
+v_{t+1} = v_t + a_t
+\]
+
+We assume that the acceleration \( a_t \) is controlled through the rocket thrust. To minimize fuel consumption, we will also minimize the maximum required thrust, denoted as \( \max_t |a_t| \).
+
+### Input Parameters
+
+\begin{itemize}
+    \item Initial position: \( x_0 \)
+    \item Initial velocity: \( v_0 \)
+    \item Target position: \( x_T \)
+    \item Target velocity: \( v_T \)
+    \item Time duration: \( T \)
+\end{itemize}
+
+### Objective Function
+
+We wish to minimize the maximum thrust used during the flight:
+
+\[
+\text{Minimize } Z = \max_{t=0,1,\ldots,T} |a_t|
+\]
+
+### Constraints
+
+The constraints for the model are derived from the position and velocity equations:
+
+1. For \( t = 0, 1, \ldots, T-1 \):
+   \[
+   x_{t+1} = x_t + v_t
+   \]
+   \[
+   v_{t+1} = v_t + a_t
+   \]
+
+2. Initial conditions:
+   \[
+   x_0, \quad v_0
+   \]
+
+3. Final conditions (at time \( T \)):
+   \[
+   x_T = x_T, \quad v_T = v_T
+   \]
+
+4. Control limits for acceleration:
+   \[
+   -M \leq a_t \leq M \quad \forall t = 0, 1, \ldots, T
+   \]
+   where \( M \) is a defined maximum thrust limit.
+
+### Output Variables
+
+Define the output variables:
+
+\begin{itemize}
+    \item \( x = [x_0, x_1, \ldots, x_T] \) - positions at each time step
+    \item \( v = [v_0, v_1, \ldots, v_T] \) - velocities at each time step
+    \item \( a = [a_0, a_1, \ldots, a_{T-1}] \) - accelerations at each time step
+    \item \( \text{fuel\_spend} \) - total fuel spent by the rocket
+\end{itemize}
+
+\end{document}

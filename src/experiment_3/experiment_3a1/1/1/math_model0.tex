@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Production Optimization}
+
+\subsection*{Variables}
+Let \( x_j \) be the amount of good \( j \) produced, where \( j = 1, 2, \ldots, M \).
+
+\subsection*{Objective Function}
+Maximize the total revenue:
+\[
+\text{Maximize } Z = \sum_{j=1}^{M} \text{price}_j \cdot x_j
+\]
+
+\subsection*{Constraints}
+The production of goods is limited by the availability of raw materials. For each raw material \( i \) (where \( i = 1, 2, \ldots, N \)), we have the following constraint:
+\[
+\sum_{j=1}^{M} \text{req}_{i,j} \cdot x_j \leq \text{available}_i \quad \forall i
+\]
+
+\subsection*{Non-negativity Constraints}
+The amount produced for each good must be non-negative:
+\[
+x_j \geq 0 \quad \forall j
+\]
+
+\subsection*{Model Summary}
+The complete linear programming model is summarized as follows:
+
+\begin{align*}
+\text{Maximize} \quad & Z = \sum_{j=1}^{M} \text{price}_j \cdot x_j \\
+\text{subject to} \quad & \sum_{j=1}^{M} \text{req}_{i,j} \cdot x_j \leq \text{available}_i \quad \forall i \\
+& x_j \geq 0 \quad \forall j
+\end{align*}
+
+\end{document}

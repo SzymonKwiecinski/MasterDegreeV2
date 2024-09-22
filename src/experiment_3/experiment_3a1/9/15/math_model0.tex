@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for MILP Problem}
+
+\subsection*{Parameters}
+
+\begin{itemize}
+    \item $N$: Number of kinds of products
+    \item $assemblyHour_i$: Hours of assembly labor required for product $i$
+    \item $testingHour_i$: Hours of testing required for product $i$
+    \item $materialCost_i$: Cost of raw materials for product $i$ (in \$)
+    \item $maxAssembly$: Maximum hours of assembly labor available per day
+    \item $maxTesting$: Maximum hours of testing available per day
+    \item $price_i$: Price of product $i$ (in \$)
+    \item $maxOvertimeAssembly$: Maximum hours of overtime assembly labor allowed
+    \item $overtimeAssemblyCost$: Cost per hour of overtime assembly labor
+    \item $materialDiscount$: Percentage discount on raw materials if the daily bill exceeds the threshold
+    \item $discountThreshold$: Threshold for raw material bill to apply discount (in \$)
+\end{itemize}
+
+\subsection*{Decision Variables}
+
+\begin{itemize}
+    \item $unitsProduced_i$: Number of units of product $i$ produced
+    \item $overtimeAssembly$: Number of hours of overtime assembly labor scheduled
+    \item $materialBought$: Total amount of raw materials bought (in \$)
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Maximize daily profit:
+
+\[
+dailyProfit = \sum_{i=1}^{N} price_i \cdot unitsProduced_i - \left( \sum_{i=1}^{N} materialCost_i \cdot unitsProduced_i \cdot (1 - \frac{materialDiscount}{100}) + overtimeAssembly \cdot overtimeAssemblyCost \right)
+\]
+
+\subsection*{Constraints}
+
+\begin{align}
+    \sum_{i=1}^{N} assemblyHour_i \cdot unitsProduced_i + overtimeAssembly & \leq maxAssembly + maxOvertimeAssembly \\
+    \sum_{i=1}^{N} testingHour_i \cdot unitsProduced_i & \leq maxTesting \\
+    materialBought & = \sum_{i=1}^{N} materialCost_i \cdot unitsProduced_i \\
+    & \text{if } materialBought > discountThreshold \text{ then apply discount on material cost} \\
+    unitsProduced_i & \geq 0 \quad \forall i \in \{1, \ldots, N\} \\
+    overtimeAssembly & \geq 0
+\end{align}
+
+\subsection*{Output}
+
+\begin{itemize}
+    \item $dailyProfit$: Daily profit of the company
+    \item $unitsProduced$: List of $unitsProduced_i$ for $i = 1, \ldots, N$
+    \item $overtimeAssembly$: Hours of overtime assembly labor scheduled
+    \item $materialBought$: Amount of raw materials bought
+\end{itemize}
+
+\end{document}

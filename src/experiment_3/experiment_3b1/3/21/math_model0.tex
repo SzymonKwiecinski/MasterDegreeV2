@@ -1,0 +1,79 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mixed Integer Linear Programming Model}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item $M$: Set of machines, $m \in M$
+    \item $K$: Set of products, $k \in K$
+    \item $I$: Set of months, $i \in I$
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $num_m$: Number of machines
+    \item $profit_k$: Profit per unit of product $k$
+    \item $time_{k,m}$: Time required to produce product $k$ on machine $m$ (hours)
+    \item $down_m$: Maintenance downtime for machine $m$ (months)
+    \item $limit_{k,i}$: Marketing limitation for product $k$ in month $i$
+    \item $store\_price$: Cost of storing each product per unit per month
+    \item $keep\_quantity$: Desired stock level for each product at the end of each month
+    \item $n\_workhours$: Total working hours in a month
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $sell_{k,i}$: Amount of product $k$ sold in month $i$
+    \item $manufacture_{k,i}$: Amount of product $k$ manufactured in month $i$
+    \item $storage_{k,i}$: Amount of product $k$ stored at the end of month $i$
+    \item $maintain_{m,k}$: Number of machines maintained for product $k$ in month $i$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the profit:
+\[
+\text{Maximize} \quad Z = \sum_{i \in I} \sum_{k \in K} profit_k \cdot sell_{k,i} - \sum_{i \in I} \sum_{k \in K} store\_price \cdot storage_{k,i}
+\]
+
+\subsection*{Constraints}
+
+\subsubsection*{Production Time Constraint}
+For each product $k$ in month $i$, the total production time should not exceed available working hours:
+\[
+\sum_{m \in M} time_{k,m} \cdot manufacture_{k,i} \leq n\_workhours \cdot (1 - \sum_{m \in M} maintain_{m,k})
+\]
+For a machine $m$ that is down for maintenance:
+\[
+maintain_{m,k} \leq down_m
+\]
+
+\subsubsection*{Marketing Limitations}
+The amount sold cannot exceed marketing limitations:
+\[
+sell_{k,i} \leq limit_{k,i}
+\]
+
+\subsubsection*{Storage Constraints}
+The storage at the end of month $i$ must account for manufactured products and sales:
+\[
+storage_{k,i} = storage_{k,i-1} + manufacture_{k,i} - sell_{k,i}
+\]
+With the condition:
+\[
+storage_{k,i} \leq 100
+\]
+
+\subsubsection*{Ending Stock Requirement}
+At the end of each month, the storage must meet the desired quantity:
+\[
+storage_{k,I} \geq keep\_quantity
+\]
+
+\subsubsection*{Non-negativity and Integrality Constraints}
+\[
+manufacture_{k,i} \geq 0, \quad sell_{k,i} \geq 0, \quad storage_{k,i} \geq 0, \quad maintain_{m,k} \in \{0, 1\}
+\]
+
+\end{document}

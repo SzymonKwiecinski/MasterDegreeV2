@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Auto Parts Manufacturer}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item \( p \): index for parts, \( p = 1, \ldots, P \)
+    \item \( m \): index for machines, \( m = 1, \ldots, M \)
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( time_{m,p} \): time required (in hours) on machine \( m \) to produce a batch of part \( p \)
+    \item \( cost_{m} \): cost (in currency per hour) for using machine \( m \)
+    \item \( available_{m} \): available hours for machine \( m \) per month
+    \item \( price_{p} \): selling price (in currency) for a batch of part \( p \)
+    \item \( setup\_time_{p} \): setup time (in hours) required for machine 1 to produce part \( p \)
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item \( batches_{p} \): number of batches of part \( p \) produced (decision variable)
+    \item \( setup\_flag_{p} \): binary variable indicating whether part \( p \) is set up (1 if set up, 0 otherwise)
+    \item \( total\_profit \): total profit obtained for the month (objective variable)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{maximize } total\_profit = \sum_{p=1}^{P} (price_{p} \cdot batches_{p}) - \sum_{m=1}^{M} \left( cost_{m} \cdot \sum_{p=1}^{P} time_{m,p} \cdot batches_{p} \right)
+\]
+
+\subsection*{Constraints}
+1. Machine availability constraint:
+\[
+\sum_{p=1}^{P} time_{m,p} \cdot batches_{p} + (setup\_flag_{p} \cdot setup\_time_{p}) \leq available_{m}, \quad \forall m = 1, \ldots, M
+\]
+
+2. Setup flag constraint:
+\[
+batches_{p} \leq M \cdot setup\_flag_{p}, \quad \forall p = 1, \ldots, P
+\]
+
+3. Non-negativity and integrality constraints:
+\[
+batches_{p} \geq 0 \quad \text{(integer)}, \quad \forall p = 1, \ldots, P
+\]
+\[
+setup\_flag_{p} \in \{0, 1\}, \quad \forall p = 1, \ldots, P
+\]
+
+\end{document}

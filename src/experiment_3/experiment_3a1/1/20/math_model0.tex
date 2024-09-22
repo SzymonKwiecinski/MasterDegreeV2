@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for the Factory Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let $M$ be the number of machines: $num_m = [m_1, m_2, \ldots, m_M]$
+    \item Let $K$ be the number of products: $profit = [profit_1, profit_2, \ldots, profit_K]$
+    \item Let $time_{k,m}$ be the production time required for product $k$ on machine $m$
+    \item Let $maintain_{i,m}$ be the number of machines down for maintenance in month $i$
+    \item Let $limit_{k,i}$ be the marketing limitation for product $k$ in month $i$
+    \item Let $store\_price$ be the cost of storing one unit of product per month
+    \item Let $keep\_quantity$ be the quantity of each product to keep at the end of each month
+    \item Let $n\_workhours$ be the number of working hours per day
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $sell_{k,i}$: amount of product $k$ sold in month $i$
+    \item $manufacture_{k,i}$: amount of product $k$ manufactured in month $i$
+    \item $storage_{k,i}$: amount of product $k$ stored at the end of month $i$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+Z = \sum_{i=1}^{I} \sum_{k=1}^{K} \left( profit_k \cdot sell_{k,i} - store\_price \cdot storage_{k,i} \right)
+\]
+
+\subsection*{Constraints}
+1. Production Time Constraint:
+\[
+\sum_{k=1}^{K} \sum_{m=1}^{M} time_{k,m} \cdot manufacture_{k,i} \leq (n\_workhours \cdot 6 \cdot 24) - \sum_{m=1}^{M} maintain_{i,m} \quad \forall i
+\]
+
+2. Marketing Limitation:
+\[
+sell_{k,i} \leq limit_{k,i} \quad \forall k, i
+\]
+
+3. Inventory Balance:
+\[
+storage_{k,i-1} + manufacture_{k,i} - sell_{k,i} = storage_{k,i} \quad \forall k, i
+\]
+
+4. Ending Inventory Requirement:
+\[
+storage_{k,I} \geq keep\_quantity \quad \forall k
+\]
+
+5. Non-negativity Constraints:
+\[
+sell_{k,i}, manufacture_{k,i}, storage_{k,i} \geq 0 \quad \forall k, i
+\]
+
+\end{document}

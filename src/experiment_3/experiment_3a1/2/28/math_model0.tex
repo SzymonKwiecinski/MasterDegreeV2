@@ -1,0 +1,73 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+Given a set of data points \((x_k, y_k)\) for \(k = 1, \ldots, K\), we aim to fit the best straight line described by the equation:
+
+\[
+y = bx + a
+\]
+
+where \(b\) is the slope and \(a\) is the intercept of the line. The goal is to minimize the sum of absolute deviations between the observed values \(y_k\) and the predicted values \((bx_k + a)\).
+
+\subsection*{Variables}
+
+Let:
+\begin{itemize}
+    \item \(a\): intercept of the fitted line
+    \item \(b\): slope of the fitted line
+    \item \(d_k\): deviation for each data point, defined as \(d_k = y_k - (bx_k + a)\)
+\end{itemize}
+
+\subsection*{Objective Function}
+
+We want to minimize the total absolute deviation:
+
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} |d_k| = \sum_{k=1}^{K} |y_k - (bx_k + a)|
+\]
+
+\subsection*{Constraints}
+
+To handle the absolute values, we can introduce auxiliary variables \(t_k\) to represent the deviations:
+
+\[
+d_k \leq t_k \quad \text{for } k = 1, \ldots, K
+\]
+\[
+-d_k \leq t_k \quad \text{for } k = 1, \ldots, K
+\]
+
+This gives us the following constraints:
+
+\[
+y_k - (bx_k + a) \leq t_k \quad \text{for } k = 1, \ldots, K
+\]
+\[
+-(y_k - (bx_k + a)) \leq t_k \quad \text{for } k = 1, \ldots, K
+\]
+
+The complete Linear Programming model can then be expressed as follows:
+
+\subsection*{Linear Programming Formulation}
+
+\begin{align*}
+\text{Minimize } & \sum_{k=1}^{K} t_k \\
+\text{Subject to: } & y_k - (bx_k + a) \leq t_k, \quad k = 1, \ldots, K \\
+& -(y_k - (bx_k + a)) \leq t_k, \quad k = 1, \ldots, K \\
+& t_k \geq 0, \quad k = 1, \ldots, K \\
+& a, b \text{ are real numbers}
+\end{align*}
+
+\subsection*{Output Information}
+
+The output will include:
+
+\begin{itemize}
+    \item \texttt{intercept} = \(a\)
+    \item \texttt{slope} = \(b\)
+\end{itemize}
+
+\end{document}

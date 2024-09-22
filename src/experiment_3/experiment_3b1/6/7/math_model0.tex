@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Motion Optimization Model}
+
+Given the discrete-time model for the rocket's motion:
+
+\begin{align}
+    x_{t+1} &= x_t + v_t, \\
+    v_{t+1} &= v_t + a_t,
+\end{align}
+
+where \(x_t\), \(v_t\), and \(a_t\) represent the position, velocity, and acceleration of the rocket at time \(t\), respectively, we wish to optimize the rocket's flight to reach a target position and velocity at a specified time.
+
+\subsection*{Parameters}
+Let the inputs be defined as follows:
+
+\begin{itemize}
+    \item \(x_0\): Initial position of the rocket
+    \item \(v_0\): Initial velocity of the rocket
+    \item \(x_T\): Target position
+    \item \(v_T\): Target velocity
+    \item \(T\): Time at which the targets are to be achieved
+\end{itemize}
+
+\subsection*{Objective}
+We aim to minimize the maximum thrust required during the rocket's flight, represented mathematically as:
+
+\[
+\text{Minimize } \max_t |a_t|
+\]
+
+\subsection*{Constraints}
+The position and velocity must satisfy the following constraints at each time step \(t\):
+
+\begin{align}
+    x_0 &= x_0, \\
+    v_0 &= v_0, \\
+    x_{T} &= x_T, \\
+    v_{T} &= v_T.
+\end{align}
+
+Additionally, the relationship between subsequent states is given by the equations of motion:
+
+\begin{align}
+    x_{t+1} &= x_t + v_t \quad \forall t = 0, 1, \dots, T-1, \\
+    v_{t+1} &= v_t + a_t \quad \forall t = 0, 1, \dots, T-1.
+\end{align}
+
+\subsection*{Output}
+The solution to the optimization problem will yield:
+
+\begin{itemize}
+    \item A list of positions: \(\{x_i\}_{i=0}^{T}\)
+    \item A list of velocities: \(\{v_i\}_{i=0}^{T}\)
+    \item A list of accelerations: \(\{a_i\}_{i=0}^{T}\)
+    \item Total fuel spent: \(fuel\_spent\)
+\end{itemize}
+
+The output format will be:
+
+\[
+\{
+    "x": [x_i \text{ for } i = 0, \ldots, T],
+    "v": [v_i \text{ for } i = 0, \ldots, T],
+    "a": [a_i \text{ for } i = 0, \ldots, T],
+    "fuel\_spend": fuel\_spent,
+\}
+\]
+
+\end{document}

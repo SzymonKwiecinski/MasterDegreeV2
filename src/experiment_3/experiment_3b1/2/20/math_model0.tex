@@ -1,0 +1,86 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Manufacturing and Selling Policy}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item \( m \): Index for machines \( m = 1, \ldots, M \)
+    \item \( k \): Index for products \( k = 1, \ldots, K \)
+    \item \( i \): Index for months \( i = 1, \ldots, I \)
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( num_{m} \): Number of machines
+    \item \( profit_{k} \): Profit for product \( k \)
+    \item \( time_{k,m} \): Time (in hours) required to produce product \( k \) on machine \( m \)
+    \item \( maintain_{i,m} \): Number of machines down for maintenance in month \( i \)
+    \item \( limit_{k,i} \): Marketing limitation for product \( k \) in month \( i \)
+    \item \( store\_price \): Cost of storing each unit of product per month
+    \item \( keep\_quantity \): Required stock of each product at the end of each month
+    \item \( n\_workhours \): Number of work hours in a day
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( sell_{k,i} \): Quantity of product \( k \) sold in month \( i \)
+    \item \( manufacture_{k,i} \): Quantity of product \( k \) manufactured in month \( i \)
+    \item \( storage_{k,i} \): Quantity of product \( k \) stored in month \( i \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+
+\[
+\text{Maximize } Z = \sum_{i=1}^{I} \sum_{k=1}^{K} \left( profit_{k} \cdot sell_{k,i} - store\_price \cdot storage_{k,i} \right)
+\]
+
+\subsection*{Subject to Constraints}
+
+\begin{itemize}
+
+\item \textbf{Production Time Constraints:}
+\[
+\sum_{k=1}^{K} \sum_{m=1}^{M} time_{k,m} \cdot manufacture_{k,i} \leq (num_{m} - \sum_{m=1}^{M} maintain_{i,m}) \cdot n\_workhours \cdot 24 \quad \forall i
+\]
+
+\item \textbf{Marketing Limitations:}
+\[
+sell_{k,i} \leq limit_{k,i} \quad \forall k, \forall i
+\]
+
+\item \textbf{Storage Constraints:}
+\[
+storage_{k,i} \leq 100 \quad \forall k, \forall i
+\]
+
+\item \textbf{Stock Requirements:}
+\[
+storage_{k,i} = keep\_quantity \quad \forall k, \forall i
+\]
+
+\item \textbf{Flow Balance:}
+\[
+storage_{k,i} = storage_{k,i-1} + manufacture_{k,i} - sell_{k,i} \quad \forall k, \forall i \geq 2
+\]
+
+\item \textbf{Non-negativity Constraints:}
+\[
+sell_{k,i} \geq 0, \quad manufacture_{k,i} \geq 0, \quad storage_{k,i} \geq 0 \quad \forall k, \forall i
+\]
+
+\end{itemize}
+
+\subsection*{Output Format}
+The output will be as follows:
+\[
+\text{Output} = \{
+    "sell": [[sell_{k,i}]_{k=1,...,K}]_{i=1,...,I},
+    "manufacture": [[manufacture_{k,i}]_{k=1,...,K}]_{i=1,...,I},
+    "storage": [[storage_{k,i}]_{k=1,...,K}]_{i=1,...,I}
+\}
+\]
+
+\end{document}

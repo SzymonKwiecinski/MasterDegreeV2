@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( x_{i,j} \) be the amount of currency \( i \) exchanged for currency \( j \).
+    \item Let \( y_i \) be the amount of currency \( i \) that we keep after exchanging.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( N \): Number of available currencies.
+    \item \( start_i \): Initial amount of currency \( i \).
+    \item \( limit_i \): Limit on the total amount of currency \( i \) that can be exchanged.
+    \item \( rate_{i,j} \): Exchange rate from currency \( i \) to currency \( j \).
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize} \quad \sum_{j=1}^{N} y_j
+\]
+where \( y_j \) is the amount of currency \( j \) at the end of the day.
+
+\textbf{Constraints:}
+
+1. \textbf{Exchange Limit Constraints:}
+\[
+\sum_{j=1}^{N} x_{i,j} \leq limit_i \quad \forall i = 1, \ldots, N
+\]
+
+2. \textbf{Initial Amount Constraints:}
+\[
+y_i + \sum_{j=1}^{N} x_{i,j} = start_i \quad \forall i = 1, \ldots, N
+\]
+where \( x_{i,j} \) is the amount exchanged from \( i \) to \( j \).
+
+3. \textbf{Wealth Cycle Constraint:}
+\[
+\sum_{j=1}^{N} x_{i,j} \cdot rate_{i,j} \leq y_i \quad \forall i = 1, \ldots, N
+\]
+
+4. \textbf{Non-negativity Constraints:}
+\[
+x_{i,j} \geq 0 \quad \forall i, j = 1, \ldots, N
+\]
+\[
+y_i \geq 0 \quad \forall i = 1, \ldots, N
+\]
+
+\end{document}

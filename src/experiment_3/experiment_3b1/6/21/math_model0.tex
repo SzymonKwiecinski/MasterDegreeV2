@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Manufacturing Problem}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item \( m \) : Index for machines, \( m = 1, \ldots, M \)
+    \item \( k \) : Index for products, \( k = 1, \ldots, K \)
+    \item \( i \) : Index for months, \( i = 1, \ldots, I \)
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{num}_{m} \): Number of machines 
+    \item \( \text{profit}_{k} \): Profit from product \( k \) (£/unit)
+    \item \( \text{time}_{k, m} \): Production time (hours) for product \( k \) on machine \( m \)
+    \item \( \text{down}_{m} \): Months machine \( m \) is down for maintenance
+    \item \( \text{limit}_{k, i} \): Marketing limitation for product \( k \) in month \( i \)
+    \item \( \text{store\_price} \): Storage cost per unit per month
+    \item \( \text{keep\_quantity} \): Desired stock of product at the end of each month
+    \item \( \text{n\_workhours} \): Total work hours available in a month
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{sell}_{k, i} \): Amount of product \( k \) sold in month \( i \)
+    \item \( \text{manufacture}_{k, i} \): Amount of product \( k \) manufactured in month \( i \)
+    \item \( \text{storage}_{k, i} \): Amount of product \( k \) stored at the end of month \( i \)
+    \item \( \text{maintain}_{m, i} \): Amount of machine \( m \) in maintenance during month \( i \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+\text{Maximize} \quad Z = \sum_{i=1}^{I} \left( \sum_{k=1}^{K} \text{profit}_{k} \cdot \text{sell}_{k, i} - \sum_{k=1}^{K} \text{store\_price} \cdot \text{storage}_{k, i} \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+\text{Production Time Constraint:} & \quad \sum_{k=1}^{K} \text{time}_{k, m} \cdot \text{manufacture}_{k, i} \leq \text{n\_workhours} \cdot (1 - \text{down}_{m}) \quad \forall m, i\\
+\text{Marketing Limitations:} & \quad \text{sell}_{k, i} \leq \text{limit}_{k, i} \quad \forall k, i\\
+\text{Inventory Balance:} & \quad \text{storage}_{k, i} = \text{storage}_{k, i-1} + \text{manufacture}_{k, i} - \text{sell}_{k, i} \quad \forall k, i\\
+& \quad \text{storage}_{k, 0} = 0 \quad \forall k \\
+\text{Desired Ending Inventory:} & \quad \text{storage}_{k, I} \geq \text{keep\_quantity} \quad \forall k\\
+\text{Non-negativity Constraints:} & \quad \text{sell}_{k, i}, \text{manufacture}_{k, i}, \text{storage}_{k, i} \geq 0 \quad \forall k, i\\
+& \quad \text{maintain}_{m, i} \in \{0, 1\} \quad \forall m, i
+\end{align*}
+
+\subsection*{Output}
+\begin{itemize}
+    \item \text{sell}: \( \text{sell}_{k, i} \) for \( k \in \{1,\ldots,K\}, i \in \{1,\ldots,I\} \)
+    \item \text{manufacture}: \( \text{manufacture}_{k, i} \) for \( k \in \{1,\ldots,K\}, i \in \{1,\ldots,I\} \)
+    \item \text{storage}: \( \text{storage}_{k, i} \) for \( k \in \{1,\ldots,K\}, i \in \{1,\ldots,I\} \)
+    \item \text{maintain}: \( \text{maintain}_{m, i} \) for \( m \in \{1,\ldots,M\}, k \in \{1,\ldots,K\} \)
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Electricity Capacity Expansion}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item $t$: Year, where $t = 1, \ldots, T$
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $demand_t$: Forecasted demand for electricity in year $t$ (in megawatts)
+    \item $oil_t$: Existing oil-fired capacity available in year $t$ (in megawatts)
+    \item $coal\_cost$: Capital cost per megawatt of coal-fired capacity
+    \item $nuke\_cost$: Capital cost per megawatt of nuclear power capacity
+    \item $max\_nuke$: Maximum percentage of total capacity that can be nuclear
+    \item $coal\_life$: Lifespan of coal plants (in years)
+    \item $nuke\_life$: Lifespan of nuclear plants (in years)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $coal_t$: Amount of coal capacity added in year $t$ (in megawatts)
+    \item $nuke_t$: Amount of nuclear capacity added in year $t$ (in megawatts)
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } Z = \sum_{t=1}^{T} (coal\_cost \cdot coal_t + nuke\_cost \cdot nuke_t)
+\]
+
+\textbf{Constraints:}
+
+1. \textbf{Capacity Requirement:} The total capacity must meet the demand in each year:
+\[
+oil_t + \sum_{k=\max(1, t-coal\_life+1)}^{t} coal_k + \sum_{k=\max(1, t-nuke\_life+1)}^{t} nuke_k \geq demand_t, \quad \forall t
+\]
+
+2. \textbf{Nuclear Capacity Limit:} The nuclear capacity added should not exceed the maximum percentage of total capacity:
+\[
+\sum_{k=1}^{t} nuke_k \leq \frac{max\_nuke}{100} \left( oil_t + \sum_{k=1}^{t} coal_k + \sum_{k=1}^{t} nuke_k \right), \quad \forall t
+\]
+
+3. \textbf{Non-negativity Constraints:}
+\[
+coal_t \geq 0, \quad nuke_t \geq 0, \quad \forall t
+\]
+
+\textbf{Output:} 
+The solution will yield:
+\begin{itemize}
+    \item \texttt{coal\_cap\_added}: List of coal capacity added in each year.
+    \item \texttt{nuke\_cap\_added}: List of nuclear capacity added in each year.
+    \item \texttt{total\_cost}: Total cost of the capacity expansion.
+\end{itemize}
+
+\end{document}

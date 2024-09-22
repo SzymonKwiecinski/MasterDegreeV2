@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Food Selection}
+
+Let:
+\begin{itemize}
+    \item $K$ be the total number of different foods.
+    \item $M$ be the total number of nutritional ingredients.
+    \item $price_k$ be the price per unit of food $k$.
+    \item $demand_m$ be the required daily units of nutrient $m$.
+    \item $nutri_{k,m}$ be the units of nutrient $m$ contained in food $k$.
+    \item $quantity_k$ be the quantity of food $k$ to purchase.
+\end{itemize}
+
+We want to minimize the total cost of the foods purchased:
+
+\[
+\text{Minimize} \quad Z = \sum_{k=1}^{K} price_k \cdot quantity_k
+\]
+
+Subject to the following constraints to ensure that the nutritional needs are met:
+
+\[
+\sum_{k=1}^{K} nutri_{k,m} \cdot quantity_k \geq demand_m, \quad \forall m = 1, 2, \ldots, M
+\]
+
+And the non-negativity constraints:
+
+\[
+quantity_k \geq 0, \quad \forall k = 1, 2, \ldots, K
+\]
+
+\end{document}

@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( M \) be the total number of machines, \( K \) be the total number of products, and \( I \) be the total number of months.
+    \item \( \text{num}_m \) = number of machines.
+    \item \( \text{profit}_k \) = profit from product \( k \).
+    \item \( \text{time}_{k,m} \) = production time for product \( k \) on machine \( m \).
+    \item \( \text{maintain}_{i,m} \) = number of machines down for maintenance in month \( i \).
+    \item \( \text{limit}_{k,i} \) = marketing limitation for product \( k \) in month \( i \).
+    \item \( \text{store\_price} \) = storage cost per unit per month.
+    \item \( \text{keep\_quantity} \) = required stock at the end of each month.
+    \item \( \text{n\_workhours} \) = working hours in a day.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{sell}_{k,i} \) = amount sold of product \( k \) in month \( i \).
+    \item \( \text{manufacture}_{k,i} \) = amount manufactured of product \( k \) in month \( i \).
+    \item \( \text{storage}_{k,i} \) = amount stored of product \( k \) in month \( i \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+
+\[
+\text{Maximize } Z = \sum_{i=1}^{I} \sum_{k=1}^{K} \left( \text{profit}_k \cdot \text{sell}_{k,i} - \text{store\_price} \cdot \text{storage}_{k,i} \right)
+\]
+
+\subsection*{Constraints}
+
+1. \textbf{Production Time Constraint:}
+\[
+\sum_{k=1}^{K} \sum_{m=1}^{M} \text{time}_{k,m} \cdot \text{manufacture}_{k,i} \leq \left( \text{num}_m - \sum_{m=1}^{M} \text{maintain}_{i,m} \right) \cdot \text{n\_workhours} \cdot 24
+\]
+for each month \( i \).
+
+2. \textbf{Sales Limitation:}
+\[
+\text{sell}_{k,i} \leq \text{limit}_{k,i} \quad \forall k, \forall i
+\]
+
+3. \textbf{Storage Limit:}
+\[
+\text{storage}_{k,i} \leq 100 \quad \forall k, \forall i
+\]
+
+4. \textbf{Balance Equation:}
+\[
+\text{storage}_{k,i} = \text{storage}_{k,i-1} + \text{manufacture}_{k,i} - \text{sell}_{k,i} + \text{keep\_quantity} \quad \forall k, \forall i
+\]
+
+5. \textbf{Initial Storage:}
+\[
+\text{storage}_{k,0} = 0 \quad \forall k
+\]
+
+6. \textbf{Non-negativity Constraints:}
+\[
+\text{sell}_{k,i} \geq 0, \quad \text{manufacture}_{k,i} \geq 0, \quad \text{storage}_{k,i} \geq 0 \quad \forall k, \forall i
+\]
+
+\end{document}

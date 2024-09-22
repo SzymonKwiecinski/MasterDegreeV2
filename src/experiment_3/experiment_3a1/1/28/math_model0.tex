@@ -1,0 +1,78 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+Given a set of data points $(x_k, y_k)$ for $k = 1, \ldots, K$, we aim to fit the best straight line of the form:
+
+\[
+y = bx + a
+\]
+
+where \( b \) is the slope and \( a \) is the intercept. Our objective is to minimize the sum of absolute deviations of the observed values \( y_k \) from the predicted values given by the equation of the line.
+
+\subsection*{Objective Function}
+
+We define the absolute deviations for each observed value as follows:
+
+\[
+d_k = y_k - (bx_k + a) \quad \text{for } k = 1, \ldots, K
+\]
+
+The objective function can be expressed as:
+
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} |d_k| = \sum_{k=1}^{K} |y_k - (bx_k + a)|
+\]
+
+To facilitate the optimization process, we introduce auxiliary variables \( e_k \) such that:
+
+\[
+e_k \geq y_k - (bx_k + a) \quad \text{(upper bound)}
+\]
+\[
+e_k \geq -(y_k - (bx_k + a)) \quad \text{(lower bound)}
+\]
+
+Thus, our objective can be reformulated to minimizing the sum of these auxiliary variables:
+
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} e_k
+\]
+
+\subsection*{Constraints}
+
+We need to satisfy the following constraints for each observation:
+
+\[
+e_k \geq y_k - (bx_k + a) \quad \forall k = 1, \ldots, K
+\]
+\[
+e_k \geq -(y_k - (bx_k + a)) \quad \forall k = 1, \ldots, K
+\]
+
+\subsection*{Variables}
+
+The decision variables are:
+
+- The slope \( b \)
+- The intercept \( a \)
+- The auxiliary variables \( e_k \) for \( k = 1, \ldots, K \)
+
+\subsection*{Solution}
+
+The output will provide the estimated values for the intercept and slope of the fitted line. 
+
+In conclusion, the LP formulation can be summarized as follows:
+
+\begin{itemize}
+    \item Objective: Minimize \( Z = \sum_{k=1}^{K} e_k \)
+    \item Subject to:
+    \begin{align*}
+        e_k & \geq y_k - (bx_k + a), \quad \forall k = 1, \ldots, K \\
+        e_k & \geq -(y_k - (bx_k + a)), \quad \forall k = 1, \ldots, K
+    \end{align*}
+\end{itemize}
+
+\end{document}

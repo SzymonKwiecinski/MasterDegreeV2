@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for the Chebychev Center}
+
+Consider the set \( P \) defined by linear inequality constraints:
+
+\[
+P = \{ \mathbf{x} \in \mathbb{R}^N \,|\, \mathbf{a}_i^T \mathbf{x} \leq b_i, \, i = 1, \ldots, m \}
+\]
+
+where \( \mathbf{a}_i \in \mathbb{R}^N \) and \( b_i \in \mathbb{R} \).
+
+We are tasked with finding a ball with center \( \mathbf{y} \) and radius \( r \) that is entirely contained within the set \( P \). The ball is defined as:
+
+\[
+B(\mathbf{y}, r) = \{ \mathbf{x} \in \mathbb{R}^N \,|\, \|\mathbf{x} - \mathbf{y}\|_2 \leq r \}
+\]
+
+The objective is to maximize the radius \( r \) such that the ball \( B(\mathbf{y}, r) \) is contained within \( P \). This translates to the following linear programming formulation:
+
+\begin{align*}
+\text{maximize} & \quad r \\
+\text{subject to} & \quad \|\mathbf{a}_i^T \mathbf{y} - b_i\| + r \leq 0, \quad i = 1, \ldots, m \\
+& \quad \mathbf{y} \in \mathbb{R}^N
+\end{align*}
+
+This can be rephrased as:
+
+\[
+\text{maximize} \quad r
+\]
+
+\[
+\text{subject to} \quad \mathbf{a}_i^T \mathbf{y} + r \leq b_i, \quad \text{and} \quad \mathbf{a}_i^T \mathbf{y} - r \leq b_i, \quad i = 1, \ldots, m
+\]
+
+\end{document}

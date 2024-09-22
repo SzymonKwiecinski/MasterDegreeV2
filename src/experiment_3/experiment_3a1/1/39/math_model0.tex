@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Cafeteria Staffing}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $N$: Number of days
+    \item $num_n$: Number of employees required on day $n$, for $n = 1, 2, \ldots, N$
+    \item $n\_working\_days$: Number of consecutive working days for each employee
+    \item $n\_resting\_days$: Number of consecutive days off for each employee
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $total\_number$: Total number of employees to hire
+    \item $is\_work_{n,i}$: Binary variable indicating whether employee $i$ is working on day $n$ ($is\_work_{n,i} = 1$ if employee $i$ works on day $n$, 0 otherwise), for $n = 1, \ldots, N$ and $i = 1, \ldots, total\_number$
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total number of employees:
+\[
+\text{Minimize } total\_number
+\]
+
+\subsection*{Constraints}
+1. Ensure that the number of employees working meets the requirement for each day:
+\[
+\sum_{i=1}^{total\_number} is\_work_{n,i} \geq num_n, \quad \forall n = 1, \ldots, N
+\]
+2. Define the working and resting schedule for each employee:
+If an employee starts working on day $d$, they will work for $n\_working\_days$ and rest for $n\_resting\_days$. Thus:
+\[
+is\_work_{n,i} = 
+\begin{cases}
+1 & \text{if } (n - d) \mod (n\_working\_days + n\_resting\_days) < n\_working\_days \\
+0 & \text{otherwise}
+\end{cases}, \quad \forall i = 1, \ldots, total\_number, \forall n
+\]
+
+\subsection*{Output Information}
+The output should provide:
+\begin{itemize}
+    \item $total\_number$: Total number of employees hired.
+    \item $is\_work$: A matrix where element $is\_work_{n,i}$ indicates the working status of employee $i$ on day $n$.
+\end{itemize}
+
+\end{document}

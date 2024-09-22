@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Road Illumination Optimization}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item \( N \) be the number of road segments.
+    \item \( M \) be the number of lamps.
+    \item \( \text{power}_j \) be the power of the \( j \)-th lamp, where \( j = 1, 2, \ldots, M \).
+    \item \( \text{ill}_i \) be the illumination of the \( i \)-th segment, where \( i = 1, 2, \ldots, N \).
+    \item \( \text{desired}_i \) be the desired illumination for the \( i \)-th segment.
+    \item \( \text{coeff}_{i,j} \) be the coefficient that represents the contribution of lamp \( j \) to the illumination of segment \( i \).
+\end{itemize}
+
+\subsection*{Model Formulation}
+
+The illumination of the \( i \)-th segment is given by:
+\[
+\text{ill}_i = \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j \quad \text{for } i = 1, 2, \ldots, N
+\]
+
+We want to minimize the absolute error between the actual and desired illuminations:
+\[
+\text{error} = \sum_{i=1}^{N} |\text{ill}_i - \text{desired}_i|
+\]
+
+\subsection*{Objective}
+The objective is to find the optimal lamp powers \( \text{power}_j \) such that:
+\[
+\text{minimize} \quad \text{error}
+\]
+
+\subsection*{Constraints}
+We can impose various constraints depending on the problem specifics. For instance, we can set a non-negativity constraint on the lamp powers:
+\[
+\text{power}_j \geq 0 \quad \text{for } j = 1, 2, \ldots, M
+\]
+
+\subsection*{Output}
+The output will consist of:
+\begin{itemize}
+    \item \( \text{power} = [\text{power}_j \text{ for } j = 1, \ldots, M] \)
+    \item \( \text{error} \) as the total absolute error.
+\end{itemize}
+
+\end{document}

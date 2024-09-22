@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( C \) be the capacity of each floppy disk (in GB).
+    \item Let \( N \) be the total number of files.
+    \item Let \( size_j \) be the size of file \( j \) (for \( j = 1, 2, \ldots, N \)).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( x_{ij} \) be a binary variable such that:
+    \[
+    x_{ij} =
+    \begin{cases}
+    1 & \text{if file } j \text{ is placed on disk } i \\
+    0 & \text{otherwise}
+    \end{cases}
+    \]
+    \item Let \( n \) be the total number of disks used.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the number of disks used:
+\[
+\text{Minimize } n
+\]
+
+\subsection*{Constraints}
+1. Each file must be assigned to exactly one disk:
+\[
+\sum_{i=1}^{n} x_{ij} = 1 \quad \forall j = 1, 2, \ldots, N
+\]
+2. The total size of files assigned to each disk cannot exceed its capacity:
+\[
+\sum_{j=1}^{N} size_j \cdot x_{ij} \leq C \quad \forall i = 1, 2, \ldots, n
+\]
+3. Define the binary variable for the number of disks used:
+\[
+\sum_{i=1}^{n} y_i = n \quad \text{with } y_i = 
+\begin{cases}
+1 & \text{if disk } i \text{ is used} \\
+0 & \text{otherwise}
+\end{cases}
+\]
+4. Ensure that a file can only be placed on a disk that is in use:
+\[
+x_{ij} \leq y_i \quad \forall i, j
+\]
+
+\subsection*{Output Variables}
+\begin{itemize}
+    \item \( n \) represents the total number of floppy disks used.
+    \item \( whichdisk_j \) represents the disk on which file \( j \) is distributed.
+\end{itemize}
+
+\end{document}

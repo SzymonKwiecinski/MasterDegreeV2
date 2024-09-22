@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Transportation Problem: Soybean Distribution}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+Consider a transportation network consisting of \( n \) cities where soybeans are shipped from a terminal city \( k \) to a port city \( p \), and subsequently to a destination city \( l \). 
+Let \( A \) be the set of all routes between the cities. 
+The transport cost per metric ton along the route from city \( i \) to city \( j \) is denoted as \( C_{i,j} \). 
+Each source terminal \( k \) has a soybean supply denoted by \( supply_k \), and each destination city \( l \) has a demand denoted by \( demand_l \).
+
+\subsection*{Objective}
+We aim to determine the quantity of soybeans to ship from each source to each destination in order to minimize the total transportation costs.
+
+\subsection*{Mathematical Formulation}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item Let \( amount_{i,j} \) be the amount of soybeans shipped from city \( i \) to city \( j \).
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } Z = \sum_{(i,j) \in A} C_{i,j} \cdot amount_{i,j}
+\]
+
+\textbf{Subject to:}
+\begin{itemize}
+    \item Supply constraints:
+    \[
+    \sum_{j} amount_{k,j} \leq supply_k \quad \forall k
+    \]
+    
+    \item Demand constraints:
+    \[
+    \sum_{i} amount_{i,l} \geq demand_l \quad \forall l
+    \]
+    
+    \item Non-negativity constraints:
+    \[
+    amount_{i,j} \geq 0 \quad \forall (i,j) \in A
+    \]
+\end{itemize}
+
+\subsection*{Output}
+The solution will provide:
+\begin{itemize}
+    \item The amount of soybeans shipped from route \( (i,j) \) represented as \( amount_{i,j} \).
+    \item The total transportation cost represented as \( total\_cost \).
+\end{itemize}
+
+\end{document}

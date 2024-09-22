@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Fitting a Straight Line}
+
+Given a set of data points \((x_k, y_k)\) for \(k = 1, \ldots, K\), we aim to find the best fit line defined by the equation:
+\[
+y = bx + a
+\]
+where \(b\) is the slope and \(a\) is the intercept.
+
+\subsection*{Objective}
+The objective is to minimize the sum of absolute deviations between the observed values \(y_k\) and the predicted values \(bx_k + a\). This can be formulated as:
+
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} |y_k - (bx_k + a)|
+\]
+
+\subsection*{Variables}
+Let:
+\[
+d_k = y_k - (bx_k + a) \quad \text{for } k = 1, \ldots, K
+\]
+Then, we can define the following constraints for absolute deviations:
+\[
+d_k \geq y_k - (bx_k + a) \quad \forall k
+\]
+\[
+-d_k \geq -(y_k - (bx_k + a)) \quad \forall k
+\]
+
+This leads us to the modified form:
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} d_k
+\]
+
+\subsection*{Constraints}
+The constraints can be written as:
+\[
+d_k \geq y_k - (bx_k + a) \quad \forall k
+\]
+\[
+d_k \geq -(y_k - (bx_k + a)) \quad \forall k
+\]
+
+\subsection*{Summary of the Model}
+Thus, the complete linear programming model can be summarized as follows:
+
+\begin{align*}
+\text{Minimize } & Z = \sum_{k=1}^{K} d_k \\
+\text{subject to } & d_k \geq y_k - (bx_k + a), \quad \forall k \\
+                   & d_k \geq -(y_k - (bx_k + a)), \quad \forall k \\
+                   & b, a \text{ are real numbers} \\
+                   & d_k \text{ are non-negative}, \quad \forall k
+\end{align*}
+
+\subsection*{Output}
+The results of the linear programming model will give us the values for:
+\begin{itemize}
+    \item \textbf{intercept} \(a\)
+    \item \textbf{slope} \(b\)
+\end{itemize}
+
+\end{document}

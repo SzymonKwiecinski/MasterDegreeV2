@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Quadratic Curve Fitting Problem}
+
+Given a set of $K$ observed values of $x$ and $y$, where the $k$-th observed value of $y$ is denoted as $y_k$ corresponding to the $k$-th observed value of $x$ denoted as $x_k$, the objective is to fit the best quadratic curve defined by the equation:
+
+\[
+y = c x^2 + b x + a
+\]
+
+where $c$, $b$, and $a$ are the coefficients we aim to determine.
+
+The goal is to minimize the sum of absolute deviations of the observed values of $y$ from the predicted values given by the quadratic relationship. This can be formulated as:
+
+\[
+\text{minimize} \quad \sum_{k=1}^{K} |y_k - (c x_k^2 + b x_k + a)|
+\]
+
+We introduce auxiliary variables $u_k$ for the absolute deviations, leading to the transformation:
+
+\[
+u_k \geq y_k - (c x_k^2 + b x_k + a) \quad \forall k
+\]
+\[
+u_k \geq -(y_k - (c x_k^2 + b x_k + a)) \quad \forall k
+\]
+
+This provides the linearization needed for our linear programming formulation. Consequently, the complete linear programming model can be expressed as follows:
+
+\[
+\text{minimize} \quad \sum_{k=1}^{K} u_k
+\]
+
+subject to:
+
+\[
+u_k \geq y_k - (c x_k^2 + b x_k + a) \quad \forall k
+\]
+\[
+u_k \geq -(y_k - (c x_k^2 + b x_k + a)) \quad \forall k
+\]
+
+where $u_k$ are the auxiliary variables representing the absolute deviations.
+
+The solution to this linear programming problem will yield the optimal values of the coefficients:
+
+\begin{itemize}
+    \item quadratic term coefficient: $c$
+    \item linear term coefficient: $b$
+    \item constant term coefficient: $a$
+\end{itemize}
+
+The final output will be structured as:
+
+\[
+\{ "quadratic": c, "linear": b, "constant": a \}
+\]
+
+\end{document}

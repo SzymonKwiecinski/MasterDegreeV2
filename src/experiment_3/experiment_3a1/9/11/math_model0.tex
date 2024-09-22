@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Definitions:}
+\begin{itemize}
+    \item Let $T$ be the number of months.
+    \item Let $\text{deliver}_i$ be the units that must be delivered at the end of month $i$ for $i = 1, 2, \ldots, T$.
+    \item Let $x_i$ be the number of units produced in month $i$.
+    \item Let $I_i$ be the inventory at the end of month $i$.
+    \item Let $C$ be the total cost to minimize.
+    \item Let $\text{storage\_cost}$ be the cost of holding one unit in inventory for one month.
+    \item Let $\text{switch\_cost}$ be the cost incurred when changing production levels from month $i$ to month $i+1$.
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } C = \sum_{i=1}^{T} \text{storage\_cost} \cdot I_i + \sum_{i=1}^{T-1} \text{switch\_cost} \cdot |x_{i+1} - x_i|
+\]
+
+\textbf{Constraints:}
+\begin{enumerate}
+    \item Inventory balance:
+    \[
+    I_i = I_{i-1} + x_i - \text{deliver}_i, \quad \text{for } i = 1, \ldots, T
+    \]
+    with $I_0 = 0$ (no initial inventory).
+    
+    \item Non-negativity of inventory:
+    \[
+    I_i \geq 0, \quad \text{for } i = 1, \ldots, T
+    \]
+    
+    \item Non-negativity of production:
+    \[
+    x_i \geq 0, \quad \text{for } i = 1, \ldots, T
+    \]
+    
+    \item At the end of the year:
+    \[
+    I_T = 0
+    \]
+\end{enumerate}
+
+\textbf{Output:}
+\begin{itemize}
+    \item $x = [x_1, x_2, \ldots, x_T]$: the production schedule.
+    \item $\text{cost}$: the minimized total cost $C$.
+\end{itemize}
+
+\end{document}

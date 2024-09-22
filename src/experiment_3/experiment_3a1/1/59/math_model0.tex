@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Translator Selection}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( N \) be the number of available translators.
+    \item Let \( M \) be the number of required languages.
+    \item Let \( \text{cost}_i \) be the cost of hiring translator \( i \) for \( i = 1, \ldots, N \).
+    \item Let \( L_i \) be the set of languages that translator \( i \) can translate into.
+    \item Let \( R \) be the set of required languages.
+\end{itemize}
+
+\subsection*{Decision Variables}
+Define a binary decision variable \( x_i \) for each translator \( i \):
+\[
+x_i =
+\begin{cases}
+1 & \text{if translator } i \text{ is selected} \\
+0 & \text{otherwise}
+\end{cases}
+\]
+
+\subsection*{Objective Function}
+Minimize the total cost of selected translators:
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} \text{cost}_i \cdot x_i
+\]
+
+\subsection*{Constraints}
+Ensure that all required languages are covered:
+\[
+\forall m \in R, \quad \sum_{i: \text{language}_m \in L_i} x_i \geq 1
+\]
+This constraint ensures that for each required language \( m \), at least one translator who can translate that language is selected.
+
+\subsection*{Formulation}
+The complete mathematical formulation can be summarized as follows:
+
+\begin{align*}
+\text{Minimize } & Z = \sum_{i=1}^{N} \text{cost}_i \cdot x_i \\
+\text{Subject to } & \sum_{i: \text{language}_m \in L_i} x_i \geq 1, \quad \forall m \in R \\
+& x_i \in \{0, 1\}, \quad \forall i = 1, \ldots, N
+\end{align*}
+
+\end{document}

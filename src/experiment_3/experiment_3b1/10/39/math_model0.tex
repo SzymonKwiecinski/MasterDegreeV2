@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Cafeteria Staffing Problem}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( N \): Total number of days
+    \item \( num_n \): Number of desired employees on day \( n \) for \( n = 1, \ldots, N \)
+    \item \( n_{\text{working}} \): Number of working days for each employee
+    \item \( n_{\text{resting}} \): Number of resting days for each employee
+    \item \( T = n_{\text{working}} + n_{\text{resting}} \): Total cycle of working and resting days
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( total\_number \): Total number of employees to hire
+    \item \( is\_work_{n,i} \): Binary variable which is 1 if employee \( i \) is working on day \( n \), and 0 otherwise.
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } total\_number
+\]
+
+\textbf{Constraints:}
+\begin{align}
+    \sum_{i=1}^{total\_number} is\_work_{n,i} & \geq num_n, \quad \forall n = 1, \ldots, N \label{constraint1} \\
+    is\_work_{n,i} & = 1 \text{ for } n = k(T) + j \text{ where } j = 0, \ldots, n_{\text{working}} - 1 \text{ (Employee works)} \\
+    is\_work_{n,i} & = 0 \text{ for } n = k(T) + j \text{ where } j = n_{\text{working}}, \ldots, T - 1 \text{ (Employee rests)}
+\end{align}
+where \( k \) is any integer such that \( n \) stays within the range of days.
+
+\textbf{Output:}
+\begin{itemize}
+    \item \( total\_number \): Total number of employees to employ
+    \item \( is\_work \): A matrix of size \( N \times total\_number \) showing the work schedule of each employee.
+\end{itemize}
+
+\end{document}

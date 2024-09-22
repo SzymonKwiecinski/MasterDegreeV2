@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Delivery Path Optimization}
+
+\subsection*{Variables}
+Let \( x_{n,w} \) be a binary variable defined as:
+\[
+x_{n,w} = 
+\begin{cases} 
+1 & \text{if the path goes through the intersection of } w \text{th Avenue and } n \text{th Street} \\
+0 & \text{otherwise}
+\end{cases}
+\]
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( N \) = number of streets
+    \item \( W \) = number of avenues
+    \item \( west\_time_{n,w} \) = time taken to move from intersection \( (w,n) \) to \( (w+1,n) \)
+    \item \( north\_time_{n,w} \) = time taken to move from intersection \( (w,n) \) to \( (w,n+1) \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total walking time:
+\[
+\text{Minimize } Z = \sum_{n=1}^{N-1} \sum_{w=1}^{W-1} (west\_time_{n,w} \cdot x_{n,w} + north\_time_{n,w} \cdot x_{n,w})
+\]
+
+\subsection*{Constraints}
+The following constraints must be satisfied:
+\begin{itemize}
+    \item \textbf{Flow Conservation:} 
+    \[
+    \sum_{w=1}^{W-1} x_{n,w} = 1 \quad \forall n \in \{1, \ldots, N\}
+    \]
+    \item \textbf{Path Activation:}
+    \[
+    \sum_{n=1}^{N-1} x_{n,w} = 1 \quad \forall w \in \{1, \ldots, W\}
+    \]
+    \item \textbf{Starting Point:}
+    \[
+    x_{1,1} = 1
+    \]
+    \item \textbf{Ending Point:}
+    \[
+    x_{N,W} = 1
+    \]
+\end{itemize}
+
+\subsection*{Output}
+The solution will provide:
+\begin{itemize}
+    \item \textbf{Paths:} The optimal intersections taken by the delivery person 
+    \[
+    \text{paths} = \{(n,w) \mid x_{n,w} = 1\}
+    \]
+    \item \textbf{Total Time:} The minimum time \( total\_time = Z \)
+\end{itemize}
+
+\end{document}

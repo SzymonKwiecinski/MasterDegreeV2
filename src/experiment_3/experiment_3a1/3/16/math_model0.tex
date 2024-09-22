@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Oil Refinery Production}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $i$: index for crude oil types, $i = 1, \ldots, O$
+    \item $p$: index for products, $p = 1, \ldots, P$
+    \item $l$: index for production processes, $l = 1, \ldots, L$
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $\text{allocated}_i$: million barrels of crude oil type $i$ allocated for production
+    \item $\text{price}_p$: selling price of product $p$ per barrel
+    \item $\text{input}_{l,i}$: barrels of crude oil type $i$ required for process $l$
+    \item $\text{output}_{l,p}$: barrels of product $p$ produced from process $l$
+    \item $\text{cost}_l$: cost per barrel of product produced in process $l$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_l$: number of times process $l$ is executed
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total revenue:
+\[
+\text{Revenue} = \sum_{p=1}^{P} \text{price}_p \sum_{l=1}^{L} \text{output}_{l,p} x_l - \sum_{l=1}^{L} \text{cost}_l \sum_{p=1}^{P} \text{output}_{l,p} x_l
+\]
+
+\subsection*{Constraints}
+
+1. The total input for each crude oil type must not exceed the allocated amount:
+\[
+\sum_{l=1}^{L} \text{input}_{l,i} x_l \leq \text{allocated}_i \quad \forall i = 1, \ldots, O
+\]
+
+2. The decision variables must be non-negative:
+\[
+x_l \geq 0 \quad \forall l = 1, \ldots, L
+\]
+
+\subsection*{Output}
+The output variables we are interested in are:
+\begin{itemize}
+    \item $\text{revenue}$: total revenue for the month
+    \item $execute_l$: number of times that process $l$ should be executed
+\end{itemize}
+
+\end{document}

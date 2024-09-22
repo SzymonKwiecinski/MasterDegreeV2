@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Warehouse Operations Optimization Model}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Formulation}
+
+Let:
+\begin{itemize}
+    \item \( N \) be the number of time periods.
+    \item \( \text{capacity} \) be the maximum stock capacity of the warehouse.
+    \item \( \text{holding\_cost} \) be the cost of holding one unit of stock for one period.
+    \item \( price_n \) be the selling price of the commodity in period \( n \).
+    \item \( cost_n \) be the cost of purchasing the commodity in period \( n \).
+    \item \( buyquantity_n \) be the amount bought in period \( n \).
+    \item \( sellquantity_n \) be the amount sold in period \( n \).
+    \item \( stock_n \) be the stock remaining at the end of period \( n \).
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to maximize the total profit over \( N \) periods, which can be expressed as:
+
+\[
+\text{Maximize} \quad Z = \sum_{n=1}^{N} \left( (price_n \cdot sellquantity_n) - (cost_n \cdot buyquantity_n) - (holding\_cost \cdot stock_n) \right)
+\]
+
+\subsection*{Constraints}
+1. **Stock Balance**:
+   \[
+   stock_n = stock_{n-1} + buyquantity_n - sellquantity_n, \quad \forall n \in \{1, \ldots, N\}
+   \]
+   with \( stock_0 = 0 \) (initially empty).
+
+2. **Warehouse Capacity**:
+   \[
+   stock_n \leq capacity, \quad \forall n \in \{1, \ldots, N\}
+   \]
+   
+3. **Non-negativity**:
+   \[
+   buyquantity_n \geq 0, \quad sellquantity_n \geq 0, \quad stock_n \geq 0, \quad \forall n \in \{1, \ldots, N\}
+   \]
+
+4. **Final Stock Constraint**:
+   \[
+   stock_N = 0
+   \]
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( buyquantity_n \): Amount bought in period \( n \).
+    \item \( sellquantity_n \): Amount sold in period \( n \).
+    \item \( stock_n \): Stock remaining at the end of period \( n \).
+\end{itemize}
+
+\subsection*{Output Format}
+The output will be in the following format:
+
+\[
+\{
+    "buyquantity": [buyquantity_1, buyquantity_2, \ldots, buyquantity_N],
+    "sellquantity": [sellquantity_1, sellquantity_2, \ldots, sellquantity_N],
+    "stock": [stock_1, stock_2, \ldots, stock_N]
+\}
+\]
+
+\end{document}

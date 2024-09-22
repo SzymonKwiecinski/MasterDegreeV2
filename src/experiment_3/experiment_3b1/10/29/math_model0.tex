@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Linear Regression with Maximum Deviation Minimization}
+
+We aim to find the best fitting line of the form \( y = bx + a \) to a given set of data points \((x_k, y_k)\) where \( k = 1, \ldots, K \). The objective is to minimize the maximum deviation of all the observed values of \( y \) from the predicted values based on the linear relationship.
+
+Let:
+\[
+d_k = y_k - (bx_k + a), \quad \text{for } k = 1, \ldots, K
+\]
+
+We introduce a new variable \( M \) to represent the maximum deviation, leading to the following constraints:
+\[
+d_k \leq M \quad \text{for } k = 1, \ldots, K
+\]
+\[
+-d_k \leq M \quad \text{for } k = 1, \ldots, K
+\]
+
+Thus the mathematical formulation of the problem is:
+
+\textbf{Objective:}
+\[
+\text{Minimize } M
+\]
+
+\textbf{Subject to:}
+\[
+y_k - (bx_k + a) \leq M, \quad k = 1, \ldots, K
+\]
+\[
+-(y_k - (bx_k + a)) \leq M, \quad k = 1, \ldots, K
+\]
+
+\textbf{Variables:}
+- \( a \): Intercept of the fitted line.
+- \( b \): Slope of the fitted line.
+- \( M \): Maximum deviation.
+
+\textbf{Output:}
+The solution will yield the values of \( a \) (intercept) and \( b \) (slope).
+
+\end{document}

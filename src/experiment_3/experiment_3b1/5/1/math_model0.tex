@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Decision Variables:}
+Let \( x_j \) be the amount of good \( j \) produced, where \( j = 1, 2, \ldots, M \).
+
+\textbf{Objective:}
+Maximize total revenue:
+\[
+\text{Maximize } Z = \sum_{j=1}^{M} \text{price}_j \cdot x_j
+\]
+
+\textbf{Constraints:}
+
+1. Raw material availability constraints:
+For each raw material \( i \) (where \( i = 1, 2, \ldots, N \)):
+\[
+\sum_{j=1}^{M} \text{req}_{i,j} \cdot x_j \leq \text{available}_i
+\]
+
+2. Non-negativity constraints:
+\[
+x_j \geq 0 \quad \text{for all } j = 1, 2, \ldots, M
+\]
+
+\textbf{Input Format:}
+
+\begin{itemize}
+    \item \texttt{available}: An array of available raw materials \([ \text{available}_1, \text{available}_2, \ldots, \text{available}_N ]\)
+    \item \texttt{requirements}: A matrix of requirements \([ [ \text{req}_{1,1}, \text{req}_{1,2}, \ldots, \text{req}_{1,M} ], [ \text{req}_{2,1}, \text{req}_{2,2}, \ldots, \text{req}_{2,M} ], \ldots, [ \text{req}_{N,1}, \text{req}_{N,2}, \ldots, \text{req}_{N,M} ] ]\)
+    \item \texttt{prices}: An array of prices \([ \text{price}_1, \text{price}_2, \ldots, \text{price}_M ]\)
+\end{itemize}
+
+\textbf{Output Format:}
+The amount of each good produced:
+\[
+\{
+    \text{"amount"}: [x_1, x_2, \ldots, x_M]
+\}
+\]
+
+\end{document}

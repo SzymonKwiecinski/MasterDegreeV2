@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\subsection*{Parameters}
+
+\begin{itemize}
+    \item Let \( P \) be the number of different parts.
+    \item Let \( M \) be the number of different machines.
+    \item Let \( time_{m,p} \) be the time required (in hours) for machine \( m \) to produce 100 batches of part \( p \).
+    \item Let \( cost_{m} \) be the cost (in dollars per hour) for using machine \( m \).
+    \item Let \( available_{m} \) be the available hours per month for machine \( m \).
+    \item Let \( price_{p} \) be the selling price (in dollars per batch of 100) for part \( p \).
+    \item Let \( min\_batches_{p} \) be the minimum number of batches that must be produced for part \( p \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+
+Let \( batches_{p} \) be the number of batches produced for part \( p \).
+
+\subsection*{Objective Function}
+
+Maximize the total profit:
+
+\[
+\text{Total Profit} = \sum_{p=1}^{P} (price_{p} \times batches_{p}) - \sum_{m=1}^{M} \left( cost_{m} \times \sum_{p=1}^{P} (time_{m,p} \times \frac{batches_{p}}{100}) \right)
+\]
+
+\subsection*{Constraints}
+
+\begin{itemize}
+    \item Machine availability constraint:
+    \[
+    \sum_{p=1}^{P} (time_{m,p} \times \frac{batches_{p}}{100}) \leq available_{m} \quad \forall m = 1, \ldots, M
+    \]
+
+    \item Minimum production requirement:
+    \[
+    batches_{p} \geq min\_batches_{p} \quad \forall p = 1, \ldots, P
+    \]
+    
+    \item Non-negativity constraint:
+    \[
+    batches_{p} \geq 0 \quad \forall p = 1, \ldots, P
+    \end{itemize}
+\end{document}

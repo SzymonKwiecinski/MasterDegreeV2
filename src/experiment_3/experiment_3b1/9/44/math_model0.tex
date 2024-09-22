@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\textbf{Variables:}
+\begin{align*}
+batches_{p} & : \text{the number of batches produced for part } p, \; p = 1, \ldots, P \\
+\end{align*}
+
+\textbf{Parameters:}
+\begin{align*}
+time_{m,p} & : \text{time required on machine } m \text{ to produce one batch of part } p \\
+cost_{m} & : \text{cost per hour for using machine } m \\
+available_{m} & : \text{availability of machine } m \text{ in hours per month} \\
+price_{p} & : \text{selling price of part } p \text{ per batch} \\
+min\_batches_{p} & : \text{minimum number of batches of part } p \text{ to be produced}
+\end{align*}
+
+\textbf{Objective Function:}
+\begin{align*}
+\text{Maximize} \quad Z & = \sum_{p=1}^{P} \left( price_{p} \cdot batches_{p} \right) - \sum_{m=1}^{M} \left( cost_{m} \cdot \sum_{p=1}^{P} (time_{m,p} \cdot batches_{p}) \right)
+\end{align*}
+
+\textbf{Constraints:}
+\begin{align}
+\sum_{p=1}^{P} (time_{m,p} \cdot batches_{p}) & \leq available_{m}, \quad m = 1, \ldots, M \tag{Machine Availability Constraints} \\
+batches_{p} & \geq min\_batches_{p}, \quad p = 1, \ldots, P \tag{Minimum Production Constraints} \\
+batches_{p} & \geq 0, \quad p = 1, \ldots, P \tag{Non-negativity Constraints}
+\end{align}
+
+\end{document}

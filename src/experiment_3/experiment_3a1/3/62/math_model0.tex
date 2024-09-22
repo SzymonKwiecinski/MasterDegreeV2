@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Traveling Salesman Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let $N$ be the number of towns to be visited.
+    \item Let $distance_{i,j}$ be the distance between city $i$ and city $j$, where $i,j \in \{1, \ldots, N\}$.
+    \item Let $start\_city$ be the city from which the traveler starts and returns.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let $x_{i,j}$ be a binary variable that equals 1 if the traveler visits city $j$ immediately after city $i$, and 0 otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the total distance traveled:
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} \sum_{j=1}^{N} distance_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Each city must be visited exactly once:
+    \[
+    \sum_{j=1, j \neq i}^{N} x_{i,j} = 1 \quad \forall i = 1, \ldots, N
+    \]
+    \item Each city must be left exactly once:
+    \[
+    \sum_{i=1, i \neq j}^{N} x_{i,j} = 1 \quad \forall j = 1, \ldots, N
+    \]
+    \item Subtour elimination constraints can be added to ensure that the route is a single tour (if it is required).
+\end{itemize}
+
+\subsection*{Tour Completion}
+The traveler must return to the $start\_city$. This can be implemented as:
+\[
+x_{start\_city,1} + x_{start\_city,2} + \ldots + x_{start\_city,N} = 1
+\]
+and similarly for the return leg.
+
+\subsection*{Output}
+The output format will provide the sequence of cities visited after $start\_city$ and the total distance traveled:
+\[
+\{
+\text{visit\_order}: [city_n \text{ for } n = 1, \ldots, N+1],
+\text{total\_distance}: total\_distance
+\}
+\]
+
+\end{document}

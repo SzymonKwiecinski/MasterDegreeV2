@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Electricity Capacity Planning Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $T$: Total number of years
+    \item $demand_t$: Megawatts of demand for electricity during year $t$
+    \item $oil_t$: Existing oil-fired capacity available during year $t$
+    \item $coal\_cost$: Capital cost per megawatt for coal-fired capacity
+    \item $nuke\_cost$: Capital cost per megawatt for nuclear capacity
+    \item $max\_nuke$: Maximum percentage of total capacity that can be nuclear
+    \item $coal\_life$: Lifespan of coal plants in years
+    \item $nuke\_life$: Lifespan of nuclear plants in years
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $coal_t$: Coal capacity added in year $t$
+    \item $nuke_t$: Nuclear capacity added in year $t$
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{t=1}^{T} (coal\_cost \cdot coal_t + nuke\_cost \cdot nuke_t)
+\]
+
+\subsection*{Constraints}
+1. Capacity requirement:
+\[
+\sum_{j=\max(1, t - coal\_life + 1)}^{t} coal_j + \sum_{j=\max(1, t - nuke\_life + 1)}^{t} nuke_j + oil_t \geq demand_t \quad \forall t \in \{1, 2, \ldots, T\}
+\]
+
+2. Nuclear capacity limit:
+\[
+\frac{\sum_{j=1}^{t} nuke_j}{\sum_{j=1}^{t} (coal_j + nuke_j + oil_j)} \leq \frac{max\_nuke}{100} \quad \forall t \in \{1, 2, \ldots, T\}
+\]
+
+3. Non-negativity:
+\[
+coal_t \geq 0, \quad nuke_t \geq 0 \quad \forall t \in \{1, 2, \ldots, T\}
+\]
+
+\subsection*{Expected Output}
+The output should represent the following:
+\begin{itemize}
+    \item \texttt{coal\_cap\_added}: List of coal capacity added in each year.
+    \item \texttt{nuke\_cap\_added}: List of nuclear capacity added in each year.
+    \item \texttt{total\_cost}: Total cost of the system.
+\end{itemize}
+
+\textbf{Output Format:}
+\[
+\{ 
+\texttt{"coal\_cap\_added"}: [coal_t \text{ for } t = 1, \ldots, T], 
+\texttt{"nuke\_cap\_added"}: [nuke_t \text{ for } t = 1, \ldots, T], 
+\texttt{"total\_cost"}: total\_cost 
+\}
+\]
+
+\end{document}

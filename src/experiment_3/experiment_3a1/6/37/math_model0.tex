@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Spare Automobile Parts Production}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+A small firm specializes in making various types of spare automobile parts. Each part requires a certain number of worker-hours in multiple shops, and the goal is to maximize profit from the production of these parts.
+
+\section*{Parameters}
+\begin{itemize}
+    \item Let \( K \) be the number of different spare parts.
+    \item Let \( S \) be the number of shops.
+    \item \( \text{time}_{k,s} \): Required worker-hours for part \( k \) in shop \( s \).
+    \item \( \text{profit}_{k} \): Profit from part \( k \).
+    \item \( \text{capacity}_{s} \): Capacity of shop \( s \) in working hours.
+\end{itemize}
+
+\section*{Decision Variables}
+Let \( \text{quantity}_{k} \) represent the quantity of each spare part \( k \) to be produced.
+
+\section*{Objective Function}
+The objective is to maximize total profit:
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} \text{profit}_{k} \cdot \text{quantity}_{k}
+\]
+
+\section*{Constraints}
+The production of parts must adhere to the capacity constraints of each shop. For each shop \( s \):
+\[
+\sum_{k=1}^{K} \text{time}_{k,s} \cdot \text{quantity}_{k} \leq \text{capacity}_{s}, \quad \forall s = 1, \ldots, S
+\]
+
+Additionally, the quantities of parts produced must be non-negative:
+\[
+\text{quantity}_{k} \geq 0, \quad \forall k = 1, \ldots, K
+\]
+
+\section*{Model Formulation}
+The complete linear programming model can be summarized as follows:
+
+\begin{align*}
+\text{Maximize} \quad & Z = \sum_{k=1}^{K} \text{profit}_{k} \cdot \text{quantity}_{k} \\
+\text{Subject to} \quad & \sum_{k=1}^{K} \text{time}_{k,s} \cdot \text{quantity}_{k} \leq \text{capacity}_{s}, \quad \forall s = 1, \ldots, S \\
+& \text{quantity}_{k} \geq 0, \quad \forall k = 1, \ldots, K
+\end{align*}
+
+\end{document}

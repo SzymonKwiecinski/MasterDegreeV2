@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Paper Cutting Problem}
+
+\subsection*{Parameters}
+
+\begin{itemize}
+    \item Let \( W \) be the width of the large roll (in inches): \( W = \text{large\_roll\_width} \)
+    \item Let \( M \) be the number of different types of smaller rolls.
+    \item Let \( \text{demand}_j \) represent the demand for rolls of width \( j \) (where \( j = 1, \ldots, M \)) and \( j \) corresponds to specific widths \( \text{inch}_j \).
+    \item Let \( N \) be the number of available cutting patterns.
+    \item Let \( \text{pattern}_{i,j} \) denote the number of rolls of width \( j \) produced by cutting pattern \( i \) (where \( i = 1, \ldots, N \) and \( j = 1, \ldots, M \)).
+\end{itemize}
+
+\subsection*{Decision Variables}
+
+\begin{itemize}
+    \item Let \( x_i \) be the number of times cutting pattern \( i \) is used, where \( i = 1, \ldots, N \).
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Minimize the total number of large rolls used:
+
+\[
+\text{Minimize} \quad \sum_{i=1}^{N} x_i
+\]
+
+\subsection*{Constraints}
+
+The total production of each type of smaller roll must meet or exceed the demand:
+
+\[
+\sum_{i=1}^{N} \text{pattern}_{i,j} x_i \geq \text{demand}_j \quad \forall j = 1, \ldots, M
+\]
+
+\subsection*{Non-negativity and Integer Constraints}
+
+\[
+x_i \geq 0 \quad \text{and} \quad x_i \text{ is an integer} \quad \forall i = 1, \ldots, N
+\]
+
+\end{document}

@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Mathematical Model for Translator Selection Problem}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+
+Given a set of translators and a requirement to translate a list of languages, the objective is to select a combination of translators that ensures all required languages can be translated into, at the minimum possible cost.
+
+\section*{Parameters}
+
+\begin{itemize}
+    \item Let \( N \) be the total number of translators.
+    \item Let \( M \) be the total number of required languages.
+    \item Let \( \text{cost}_i \) be the cost associated with translator \( i \).
+    \item Let \( L_i \) be the set of languages that translator \( i \) can translate.
+    \item Let \( \text{languages}_m \) be the required languages for \( m = 1, \ldots, M \).
+\end{itemize}
+
+\section*{Decision Variables}
+
+Define the binary decision variable:
+\[
+x_i = 
+\begin{cases} 
+1 & \text{if translator } i \text{ is selected} \\
+0 & \text{otherwise}
+\end{cases}
+\]
+
+\section*{Objective Function}
+
+Minimize the total cost of the selected translators:
+\[
+\text{Minimize} \quad Z = \sum_{i=1}^{N} \text{cost}_i \cdot x_i
+\]
+
+\section*{Constraints}
+
+1. Coverage of required languages:
+\[
+\sum_{i=1}^{N} x_i \cdot \mathbf{1}_{\{language_m \in L_i\}} \geq 1 \quad \forall m = 1, \ldots, M
+\]
+where \( \mathbf{1}_{\{language_m \in L_i\}} \) is an indicator function that equals 1 if language \( m \) is included in the languages that translator \( i \) can translate.
+
+2. Non-negativity and binary constraints:
+\[
+x_i \in \{0, 1\} \quad \forall i = 1, \ldots, N
+\]
+
+\section*{Outputs}
+
+The outputs of the model will yield:
+\begin{itemize}
+    \item \texttt{selected\_translators}: the list of ids of the chosen translators.
+    \item \texttt{total\_cost}: the total cost for hiring the selected translators.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Interventions in Network Intrusion}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \(N\): Number of clusters
+    \item \( \text{isolate\_central}_i \): Processing time for isolation intervention at cluster \(i\) using central processing
+    \item \( \text{scan\_central}_i \): Processing time for scanning intervention at cluster \(i\) using central processing
+    \item \( \text{isolate\_distributed}_i \): Processing time for isolation intervention at cluster \(i\) using distributed processing
+    \item \( \text{scan\_distributed}_i \): Processing time for scanning intervention at cluster \(i\) using distributed processing
+    \item \( \text{central\_cost} \): Cost per hour for central processing
+    \item \( \text{distributed\_cost} \): Cost per hour for distributed processing
+    \item \( \text{max\_central} \): Maximum hours allocated for central processing
+    \item \( \text{max\_distributed} \): Maximum hours allocated for distributed processing
+    \item \( \text{cost}_i \): Total cost for interventions across all clusters
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let:
+\begin{itemize}
+    \item \( x_{i,j,k} \): Binary variable that is 1 if intervention type \(j\) (isolate or scan) is processed using method \(k\) (central or distributed) for cluster \(i\), otherwise 0.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize total cost:
+\[
+\text{Total Cost} = \sum_{i=1}^{N} \left( x_{i, \text{isolate}, \text{central}} \cdot \text{isolate\_central}_i \cdot \text{central\_cost} + x_{i, \text{scan}, \text{central}} \cdot \text{scan\_central}_i \cdot \text{central\_cost} + x_{i, \text{isolate}, \text{distributed}} \cdot \text{isolate\_distributed}_i \cdot \text{distributed\_cost} + x_{i, \text{scan}, \text{distributed}} \cdot \text{scan\_distributed}_i \cdot \text{distributed\_cost} \right)
+\]
+
+\subsection*{Constraints}
+1. Each cluster can only have one type of intervention consistently:
+\[
+\sum_{j \in \{\text{isolate, scan}\}} \sum_{k \in \{\text{central, distributed}\}} x_{i,j,k} = 1, \quad \forall i \in \{1, \ldots, N\}
+\]
+2. Maximum hours for central processing:
+\[
+\sum_{i=1}^{N} \left( x_{i, \text{isolate}, \text{central}} \cdot \text{isolate\_central}_i + x_{i, \text{scan}, \text{central}} \cdot \text{scan\_central}_i \right) \leq \text{max\_central}
+\]
+3. Maximum hours for distributed processing:
+\[
+\sum_{i=1}^{N} \left( x_{i, \text{isolate}, \text{distributed}} \cdot \text{isolate\_distributed}_i + x_{i, \text{scan}, \text{distributed}} \cdot \text{scan\_distributed}_i \right) \leq \text{max\_distributed}
+\]
+4. Binary Variable Declaration:
+\[
+x_{i,j,k} \in \{0, 1\}, \quad \forall i \in \{1, \ldots, N\}, j \in \{\text{isolate, scan}\}, k \in \{\text{central, distributed}\}
+\]
+
+\end{document}

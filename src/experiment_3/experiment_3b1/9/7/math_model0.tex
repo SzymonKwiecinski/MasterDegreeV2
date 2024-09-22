@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Thrust Optimization Problem}
+
+We define the discrete-time model of the rocket's motion as follows:
+
+\begin{align}
+    x_{t+1} &= x_t + v_t \\
+    v_{t+1} &= v_t + a_t
+\end{align}
+
+where:
+\begin{itemize}
+    \item \(x_t\) is the position of the rocket at time \(t\),
+    \item \(v_t\) is the velocity of the rocket at time \(t\),
+    \item \(a_t\) is the acceleration of the rocket at time \(t\).
+\end{itemize}
+
+We are given the following initial conditions and target values:
+\begin{itemize}
+    \item Initial position: \(x_0\)
+    \item Initial velocity: \(v_0\)
+    \item Target position: \(x_T\)
+    \item Target velocity: \(v_T\)
+    \item Time horizon: \(T\)
+\end{itemize}
+
+Our objective is to minimize the maximum thrust required, defined as:
+\[
+\text{minimize } \max_{t} |a_t|
+\]
+
+Subject to the constraints:
+\begin{align}
+    x_0 &= x_0 \\
+    v_0 &= v_0 \\
+    x_T &= x_T \\
+    v_T &= v_T
+\end{align}
+
+The state equations are iteratively defined as:
+\begin{align}
+    x_{t+1} &= x_t + v_t \quad \text{for } t = 0, 1, \ldots, T-1 \\
+    v_{t+1} &= v_t + a_t \quad \text{for } t = 0, 1, \ldots, T-1
+\end{align}
+
+We define:
+\[
+\text{fuel\_spent} = \sum_{t=0}^{T-1} |a_t|
+\]
+
+The output format should be structured as follows:
+
+\begin{verbatim}
+{
+    "x": [x_i \text{ for } i = 0, \ldots, T],
+    "v": [v_i \text{ for } i = 0, \ldots, T],
+    "a": [a_i \text{ for } i = 0, \ldots, T],
+    "fuel_spend": \text{fuel\_spent},
+}
+\end{verbatim}
+
+\end{document}

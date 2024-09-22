@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation for Currency Exchange}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( x_{i,j} \) be the amount of currency \( i \) exchanged for currency \( j \).
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( N \): Number of currencies.
+    \item \( \text{start}_i \): Initial amount of currency \( i \).
+    \item \( \text{limit}_i \): Limit on the amount of currency \( i \) that can be exchanged.
+    \item \( \text{rate}_{i,j} \): Exchange rate from currency \( i \) to currency \( j \).
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{j=1}^{N} x_{N,j} \quad \text{(final amount of currency } N\text{)}
+\]
+
+\textbf{Constraints:}
+
+1. \textbf{Exchange limits for each currency:}
+\[
+\sum_{j=1}^{N} x_{i,j} \leq \text{limit}_i, \quad \forall i = 1, \ldots, N
+\]
+
+2. \textbf{Initial amounts:}
+\[
+\sum_{j=1}^{N} x_{i,j} \leq \text{start}_i, \quad \forall i = 1, \ldots, N
+\]
+
+3. \textbf{Non-negativity:}
+\[
+x_{i,j} \geq 0, \quad \forall i, j = 1, \ldots, N
+\]
+
+4. \textbf{Wealth cannot be multiplied through cycles:}
+\[
+\text{rate}_{i,j} \leq 1 \quad \text{for all currency pairs in cycles}
+\]
+
+\end{document}

@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Steel Production}
+
+\subsection*{Parameters}
+
+\begin{itemize}
+    \item $n_{\text{steel\_quant}}$: Tons of steel to produce
+    \item $mn_{\text{percent}}$: Minimum percentage of manganese (Mn)
+    \item $si_{\text{min}}$: Minimum percentage of silicon (Si)
+    \item $si_{\text{max}}$: Maximum percentage of silicon (Si)
+    \item $contsi_k$: Percentage of silicon in mineral $k$
+    \item $contmn_k$: Percentage of manganese in mineral $k$
+    \item $mang_{\text{price}}$: Price of manganese per ton (in million euros)
+    \item $cost_k$: Cost of mineral $k$ per thousand tons (in million euros)
+    \item $sell_{\text{price}}$: Selling price of steel per ton (in million euros)
+    \item $melt_{\text{price}}$: Cost of smelting mineral per ton (in million euros)
+\end{itemize}
+
+\subsection*{Variables}
+
+\begin{itemize}
+    \item $amount_k$: Amount of mineral $k$ melted (in tons)
+    \item $num_{\text{mang}}$: Amount of manganese directly added (in tons)
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Maximize profit:
+
+\[
+\text{Maximize } Z = n_{\text{steel\_quant}} \cdot sell_{\text{price}} - \sum_{k=1}^{K} \left( \frac{cost_k}{1000} \cdot amount_k + melt_{\text{price}} \cdot amount_k \right) - mang_{\text{price}} \cdot num_{\text{mang}}
+\]
+
+\subsection*{Constraints}
+
+1. **Steel Production Requirement**:
+\[
+\sum_{k=1}^{K} \left( contsi_k \cdot amount_k \right) + num_{\text{mang}} \cdot 0 \geq n_{\text{steel\_quant}} \cdot \left( \frac{si_{\text{min}}}{100} \right)
+\]
+\[
+\sum_{k=1}^{K} \left( contsi_k \cdot amount_k \right) + num_{\text{mang}} \cdot 0 \leq n_{\text{steel\_quant}} \cdot \left( \frac{si_{\text{max}}}{100} \right)
+\]
+
+2. **Manganese Requirement**:
+\[
+\sum_{k=1}^{K} \left( contmn_k \cdot amount_k \right) + num_{\text{mang}} \geq n_{\text{steel\_quant}} \cdot \left( \frac{mn_{\text{percent}}}{100} \right)
+\]
+
+3. **Non-negativity Constraints**:
+\[
+amount_k \geq 0 \quad \forall k
+\]
+\[
+num_{\text{mang}} \geq 0
+\]
+
+\end{document}

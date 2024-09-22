@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+Given the problem setup, we can formulate a linear programming model to maximize the total amount of currency at the end of the day. Let us define the necessary variables and constraints.
+
+\section*{Variables}
+Let \( x_{i,j} \) be the amount of currency \( i \) that is exchanged for currency \( j \).
+
+\section*{Objective Function}
+The objective is to maximize the total amount of currency \( N \) at the end of the day, which can be mathematically represented as:
+
+\[
+\text{Maximize } Z = \sum_{j=1}^{N} x_{start,j}
+\]
+
+where \( x_{start,j} \) is the final amount of currency \( j \) we hold at the end of the day.
+
+\section*{Constraints}
+1. **Exchange Limit**: The amount exchanged from or to each currency cannot exceed its limit:
+
+\[
+\sum_{j=1}^{N} x_{i,j} \leq limit_i \quad \forall i = 1, \ldots, N
+\]
+
+2. **Starting Amount**: The amount of each currency at the start of the day must balance with the transactions made. Specifically, for each currency \( i \):
+
+\[
+start_i + \sum_{j=1}^{N} x_{j,i} - \sum_{j=1}^{N} x_{i,j} = x_{final,i} \quad \forall i = 1, \ldots, N
+\]
+
+where \( x_{final,i} \) is the final amount of currency \( i \).
+
+3. **Transaction Rates**: The exchange rates must be respected in the transactions:
+
+\[
+x_{i,j} \leq rate_{i,j} \cdot x_{start,i} \quad \forall i,j = 1, \ldots, N \text{ where } i \neq j
+\]
+
+4. **Non-negativity**: The exchanged amounts must be non-negative:
+
+\[
+x_{i,j} \geq 0 \quad \forall i,j = 1, \ldots, N
+\]
+
+5. **Cycle Constraint**: Assuming \( rate_{i_1,i_2}, rate_{i_2,i_3}, \ldots, rate_{i_k,i_1} \leq 1 \) ensures that no wealth is created through cycles.
+
+\section*{Summary}
+The complete linear programming formulation to maximize the total currency can thus be summarized as:
+
+\[
+\begin{align*}
+\text{Maximize } & Z = \sum_{j=1}^{N} x_{final,j} \\
+\text{subject to } & \sum_{j=1}^{N} x_{i,j} \leq limit_i, \quad \forall i = 1, \ldots, N \\
+& start_i + \sum_{j=1}^{N} x_{j,i} - \sum_{j=1}^{N} x_{i,j} = x_{final,i}, \quad \forall i = 1, \ldots, N \\
+& x_{i,j} \leq rate_{i,j} \cdot x_{start,i}, \quad \forall i,j = 1, \ldots, N, i \neq j \\
+& x_{i,j} \geq 0, \quad \forall i,j = 1, \ldots, N
+\end{align*}
+\]
+
+\end{document}

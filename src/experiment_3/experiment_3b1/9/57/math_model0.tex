@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Container Unloading and Loading Optimization}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item $t = 1, 2, \ldots, T$: index for months
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $demand_t$: demand for containers by ships in month $t$
+    \item $unload\_cost_t$: cost to unload a single container in month $t$
+    \item $unload\_capacity_t$: maximum number of containers that can be unloaded in month $t$
+    \item $holding\_cost$: holding cost per container for each month
+    \item $max\_container$: maximum containers that can be stored in the yard
+    \item $init\_container$: initial number of containers in the yard
+    \item $num\_cranes$: maximum number of cranes that can be rented each month
+    \item $crane\_capacity$: capacity of each crane to load containers
+    \item $crane\_cost$: cost to rent each crane
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item $amount_t$: number of containers unloaded in month $t$
+    \item $crane_t$: number of cranes rented in month $t$
+    \item $total\_cost$: total cost over the period
+    \item $containers\_in\_yard_t$: number of containers left in the yard at the end of month $t$
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } total\_cost = \sum_{t=1}^{T} (unload\_cost_t \cdot amount_t + holding\_cost \cdot containers\_in\_yard_t + crane\_cost \cdot crane_t)
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+1. & \quad containers\_in\_yard_1 = init\_container - amount_1 + demand_1 \\
+2. & \quad containers\_in\_yard_t = containers\_in\_yard_{t-1} - amount_t + demand_t \quad \forall t \in \{2, \ldots, T\} \\
+3. & \quad containers\_in\_yard_t \leq max\_container \quad \forall t \\
+4. & \quad amount_t \leq unload\_capacity_t \quad \forall t \\
+5. & \quad amount_t \geq demand_t \quad \forall t \\
+6. & \quad crane_t \leq num\_cranes \quad \forall t \\
+7. & \quad crane_t \cdot crane\_capacity \geq amount_t \quad \forall t \\
+8. & \quad containers\_in\_yard_T = 0
+\end{align*}
+
+\textbf{Output Variables:}
+\begin{itemize}
+    \item $containers\_unloaded = [amount_t \text{ for } t = 1, \ldots, T]$
+    \item $cranes\_rented = [crane_t \text{ for } t = 1, \ldots, T]$
+    \item $total\_cost$: total cost over the planning horizon
+\end{itemize}
+
+\end{document}

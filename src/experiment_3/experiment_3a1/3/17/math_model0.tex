@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+Let:
+\begin{itemize}
+    \item $N$: Number of different stocks.
+    \item $bought_i$: Number of shares bought of stock $i$.
+    \item $buyPrice_i$: Purchase price per share of stock $i$.
+    \item $currentPrice_i$: Current price per share of stock $i$.
+    \item $futurePrice_i$: Expected price per share of stock $i$ in one year.
+    \item $transactionRate$: Transaction cost rate (percentage) of the amount transacted.
+    \item $taxRate$: Tax rate (percentage) on capital gains.
+    \item $K$: Amount of money to be raised net of capital gains and transaction costs.
+    \item $sell_i$: Number of shares of stock $i$ to sell.
+\end{itemize}
+
+The objective is to maximize the expected value of the portfolio while ensuring that the net amount raised from selling shares meets or exceeds $K$.
+
+\subsection*{Objective Function}
+Maximize the expected value of the portfolio next year:
+\[
+\text{Maximize } Z = \sum_{i=1}^{N} futurePrice_i \cdot (bought_i - sell_i)
+\]
+
+\subsection*{Constraints}
+The amount raised from selling shares, net of transaction costs and taxes on capital gains, should be greater than or equal to $K$:
+\[
+\sum_{i=1}^{N} \left( (currentPrice_i \cdot sell_i) - \left( transactionRate \cdot (currentPrice_i \cdot sell_i) + taxRate \cdot \left( (currentPrice_i - buyPrice_i) \cdot sell_i \right) \right) \right) \geq K
+\]
+This simplifies to:
+\[
+\sum_{i=1}^{N} \left( (1 - transactionRate) \cdot currentPrice_i \cdot sell_i - taxRate \cdot (currentPrice_i - buyPrice_i) \cdot sell_i \right) \geq K
+\]
+
+\subsection*{Non-negativity Constraint}
+\[
+sell_i \geq 0 \quad \forall i \in \{1, 2, \ldots, N\}
+\]
+
+\subsection*{Variable Definition}
+\begin{itemize}
+    \item $sell_i$: Number of shares of stock $i$ to sell, where $i = 1, 2, \ldots, N$.
+\end{itemize}
+
+\end{document}

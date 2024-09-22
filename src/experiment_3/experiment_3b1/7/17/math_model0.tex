@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Investor's Stock Selling Problem}
+
+\subsection*{Parameters}
+
+Let:
+\begin{itemize}
+    \item \( N \): number of different stocks.
+    \item \( bought_i \): number of shares bought of stock \( i \).
+    \item \( buyPrice_i \): purchase price of stock \( i \).
+    \item \( currentPrice_i \): current price of stock \( i \).
+    \item \( futurePrice_i \): expected price of stock \( i \) in one year.
+    \item \( transactionRate \): transaction cost as a percentage of the amount transacted.
+    \item \( taxRate \): tax on capital gains as a percentage.
+    \item \( K \): required net money to raise.
+\end{itemize}
+
+\subsection*{Decision Variables}
+
+Let:
+\[
+sell_i \quad \text{for } i = 1, \ldots, N
+\]
+denote the number of shares of stock \( i \) that the investor should sell.
+
+\subsection*{Objective Function}
+
+The objective is to maximize the expected value of the portfolio in one year while ensuring the net proceeds from selling shares cover the required amount \( K \). Thus, we formulate the optimization problem as follows:
+
+\[
+\text{Maximize } \sum_{i=1}^{N} (futurePrice_i \cdot (bought_i - sell_i)) - \sum_{i=1}^{N} (currentPrice_i \cdot sell_i \cdot (1 + \frac{transactionRate}{100})) - \sum_{i=1}^{N} \left( \frac{(currentPrice_i - buyPrice_i)}{currentPrice_i} \cdot taxRate \cdot sell_i \right)
+\]
+
+\subsection*{Constraints}
+
+The primary constraint ensuring that the investor raises at least \( K \) net of transaction costs and taxes is given by:
+
+\[
+\sum_{i=1}^{N} (currentPrice_i \cdot sell_i \cdot (1 - \frac{transactionRate}{100}) - (currentPrice_i - buyPrice_i) \cdot taxRate \cdot sell_i) \geq K
+\]
+
+Additionally, the shares sold cannot exceed the shares bought:
+
+\[
+0 \leq sell_i \leq bought_i \quad \text{for } i = 1, \ldots, N
+\]
+
+\subsection*{Final Formulation}
+
+We can summarize the linear programming problem as follows:
+
+\[
+\begin{align*}
+\text{Maximize} & \quad \sum_{i=1}^{N} \left( futurePrice_i \cdot (bought_i - sell_i) \right) - \sum_{i=1}^{N} \left( currentPrice_i \cdot sell_i \cdot (1 + \frac{transactionRate}{100}) \right) \\
+& \quad - \sum_{i=1}^{N} \left( \frac{(currentPrice_i - buyPrice_i)}{currentPrice_i} \cdot taxRate \cdot sell_i \right) \\
+\text{subject to} & \quad \sum_{i=1}^{N} \left( currentPrice_i \cdot sell_i \cdot (1 - \frac{transactionRate}{100}) - (currentPrice_i - buyPrice_i) \cdot taxRate \cdot sell_i \right) \geq K \\
+& \quad 0 \leq sell_i \leq bought_i \quad \text{for } i = 1, \ldots, N \\
+\end{align*}
+\]
+
+\end{document}

@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model to Fit a Best Straight Line}
+
+Given a set of data points \( (x_k, y_k) \) for \( k = 1, 2, \ldots, K \), we want to fit a straight line in the form of 
+
+\[
+y = bx + a
+\]
+
+where \( a \) is the intercept and \( b \) is the slope. The objective is to minimize the sum of absolute deviations between the observed values of \( y \) and the predicted values from the linear model.
+
+\subsection*{Objective Function}
+
+We define the absolute deviation for each point as:
+
+\[
+d_k = |y_k - (bx_k + a)|
+\]
+
+We aim to minimize the total sum of deviations:
+
+\[
+\text{Minimize} \quad Z = \sum_{k=1}^{K} d_k
+\]
+
+where \( d_k \) can be represented using auxiliary variables \( z_k^+ \) and \( z_k^- \) as follows:
+
+\[
+d_k = z_k^+ + z_k^-
+\]
+
+subject to the constraints:
+
+\[
+y_k - (bx_k + a) \leq z_k^+ \quad \text{for } k = 1, 2, \ldots, K
+\]
+\[
+-(y_k - (bx_k + a)) \leq z_k^- \quad \text{for } k = 1, 2, \ldots, K
+\]
+
+\subsection*{Linear Programming Formulation}
+
+We can state the linear programming formulation as:
+
+\begin{align*}
+\text{Minimize} & \quad Z = \sum_{k=1}^{K} (z_k^+ + z_k^-) \\
+\text{subject to} & \quad y_k - (bx_k + a) \leq z_k^+ \quad \text{for } k = 1, 2, \ldots, K \\
+                   & \quad -(y_k - (bx_k + a)) \leq z_k^- \quad \text{for } k = 1, 2, \ldots, K \\
+                   & \quad z_k^+, z_k^- \geq 0 \quad \text{for } k = 1, 2, \ldots, K \\
+                   & \quad a, b \text{ are variables to be determined}.
+\end{align*}
+
+\subsection*{Output Information}
+
+After solving the linear programming model, the output will provide:
+
+\begin{itemize}
+    \item \textbf{intercept} \( a \) of the fitted line
+    \item \textbf{slope} \( b \) of the fitted line
+\end{itemize}
+
+\end{document}

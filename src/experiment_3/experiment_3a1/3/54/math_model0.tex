@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( b_p \) be the number of batches produced of part \( p \) for \( p = 1, 2, \ldots, P \).
+    \end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+    \text{Maximize } Z & = \sum_{p=1}^{P} (price_p \cdot b_p) - \sum_{m=1}^{M} (cost_m \cdot \frac{1}{100} \sum_{p=1}^{P} (time_{m,p} \cdot b_p)) \\
+    & - \text{Labor Cost for Machine 1}
+\end{align*}
+Where the labor cost for Machine 1 is calculated based on standard and overtime costs.
+
+\textbf{Labor Cost for Machine 1:}
+\begin{align*}
+    \text{Labor Cost} = 
+    \begin{cases} 
+    standard\_cost \cdot (time_{1,p} \cdot b_p) & \text{if } (time_{1,p} \cdot b_p) \leq overtime\_hour \\
+    standard\_cost \cdot overtime\_hour + overtime\_cost \cdot ((time_{1,p} \cdot b_p) - overtime\_hour) & \text{if } (time_{1,p} \cdot b_p) > overtime\_hour 
+    \end{cases}
+\end{align*}
+
+\textbf{Constraints:}
+\begin{align*}
+    \sum_{p=1}^{P} (time_{m,p} \cdot b_p) & \leq available_m \quad \forall m = 2, \ldots, M \\
+    \sum_{p=1}^{P} (time_{1,p} \cdot b_p) & \leq \infty \\
+    b_p & \geq min\_batches_p \quad \forall p = 1, 2, \ldots, P \\
+    b_p & \geq 0 \quad \forall p = 1, 2, \ldots, P \\
+\end{align*}
+
+\textbf{Output:}
+\begin{itemize}
+    \item The number of batches produced for each part: \( b_p \) for \( p = 1, \ldots, P \)
+    \item Total profit: \( Z \)
+\end{itemize}
+
+\end{document}

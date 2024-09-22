@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model of the Knapsack Problem}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $C$: Maximum capacity of the container.
+    \item $K$: Number of items.
+    \item $value_k$: Value of item $k$, for $k = 1, \ldots, K$.
+    \item $size_k$: Size of item $k$, for $k = 1, \ldots, K$.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_k \in \{0, 1\}$: A binary variable indicating whether item $k$ is included in the knapsack ($x_k = 1$) or not ($x_k = 0$).
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} value_k \cdot x_k
+\]
+
+\textbf{Constraints:}
+\[
+\sum_{k=1}^{K} size_k \cdot x_k \leq C
+\]
+
+\textbf{Binary Constraints:}
+\[
+x_k \in \{0, 1\}, \quad \forall k = 1, \ldots, K
+\]
+
+\textbf{Output:}
+\begin{itemize}
+    \item $isincluded_k$: Represents whether each item $k$ is included in the container.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Rocket Dynamics}
+
+Let \( x_t \), \( v_t \), and \( a_t \) represent the position, velocity, and acceleration of the rocket at time \( t \), respectively. The system is described by the following discrete-time equations:
+
+\begin{align}
+    x_{t+1} & = x_t + v_t \\
+    v_{t+1} & = v_t + a_t
+\end{align}
+
+The objective is to control the acceleration \( a_t \) such that we reach the target position \( x_T \) with the desired velocity \( v_T \) at time \( T \), while minimizing the maximum thrust required, which can be described as minimizing \( \max_{t} |a_t| \).
+
+\subsection*{Input Parameters}
+Given:
+\begin{itemize}
+    \item Initial position: \( x_0 \)
+    \item Initial velocity: \( v_0 \)
+    \item Target position: \( x_T \)
+    \item Target velocity: \( v_T \)
+    \item Total time: \( T \)
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let:
+\begin{itemize}
+    \item \( a_t \): acceleration at time \( t \), where \( t = 0, 1, \ldots, T-1 \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize:
+\[
+z = \max_{t=0}^{T-1} |a_t|
+\]
+
+\subsection*{Constraints}
+The following constraints must be satisfied:
+\begin{align}
+    x_{t+1} - x_t - v_t & = 0, \quad \forall t = 0, 1, \ldots, T-1 \\
+    v_{t+1} - v_t - a_t & = 0, \quad \forall t = 0, 1, \ldots, T-1 \\
+    x_T & = x_T \\
+    v_T & = v_T 
+\end{align}
+
+\subsection*{Output}
+The solution should provide:
+\begin{itemize}
+    \item Key "x" containing the list of positions at each time step from \( 0 \) to \( T \)
+    \item Key "v" containing the list of velocities at each time step from \( 0 \) to \( T \)
+    \item Key "a" containing the list of accelerations at each time step from \( 0 \) to \( T \)
+    \item Key "fuel\_spend" containing the total fuel spent by the rocket
+\end{itemize}
+
+\subsection*{Output Format}
+\[
+\text{{Output}} = 
+\begin{cases}
+    "x": [x_i \text{ for } i = 0, \ldots, T] \\
+    "v": [v_i \text{ for } i = 0, \ldots, T] \\
+    "a": [a_i \text{ for } i = 0, \ldots, T] \\
+    "fuel\_spend": \text{total fuel spent}
+\end{cases}
+\]
+
+\end{document}

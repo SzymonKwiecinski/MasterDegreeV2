@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\subsection*{Variables}
+Let \( b_p \) represent the number of batches produced for part \( p \) where \( p = 1, \ldots, P \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( time_{m,p} \): Time required on machine \( m \) to produce one batch of part \( p \) (in hours).
+    \item \( cost_m \): Cost per hour for using machine \( m \).
+    \item \( available_m \): Availability of machine \( m \) (in hours).
+    \item \( price_p \): Selling price per batch of part \( p \).
+    \item \( min\_batches_p \): Minimum batches of part \( p \) required to fulfill contract.
+    \item \( standard\_cost \): Standard labor cost per hour.
+    \item \( overtime\_cost \): Overtime labor cost per hour.
+    \item \( overtime\_hour \): Hours for which standard cost applies before overtime kicks in.
+    \item \( min\_profit \): Minimum desired profit.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} (price_p \cdot b_p) - \sum_{m=1}^{M} (cost_m \cdot \sum_{p=1}^{P} (time_{m,p} \cdot b_p))
+\]
+
+Where labor costs for machine 1 are given by:
+
+\[
+\text{Labor Cost} = 
+\begin{cases} 
+standard\_cost \cdot \min(\text{Hours Used}, overtime\_hour) + overtime\_cost \cdot \max(0, \text{Hours Used} - overtime\_hour) & \text{if } m = 1 \\
+0 & \text{else}
+\end{cases}
+\]
+
+\subsection*{Constraints}
+1. Time availability for each machine:
+   \[
+   \sum_{p=1}^{P} (time_{m,p} \cdot b_p) \leq available_m, \quad \forall m = 1, \ldots, M
+   \]
+
+2. Minimum batch requirements:
+   \[
+   b_p \geq min\_batches_p, \quad \forall p = 1, \ldots, P
+   \]
+
+3. Profit constraint:
+   \[
+   Z \geq min\_profit
+   \]
+
+4. Non-negativity:
+   \[
+   b_p \geq 0, \quad \forall p = 1, \ldots, P
+   \]
+
+\end{document}

@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( K \) be the number of different foods.
+    \item Let \( M \) be the number of different nutrients.
+    \item Let \( price_k \) be the price per unit of food \( k \).
+    \item Let \( demand_m \) be the minimum required units of nutrient \( m \).
+    \item Let \( nutri_{k,m} \) be the units of nutrient \( m \) contained in one unit of food \( k \).
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item Let \( quantity_k \) be the quantity of food \( k \) to be purchased.
+\end{itemize}
+
+\subsection*{Objective}
+We want to minimize the total cost of purchasing food:
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} price_k \cdot quantity_k
+\]
+
+\subsection*{Constraints}
+We need to ensure that the nutritional demands are satisfied for all nutrients \( m \):
+\[
+\sum_{k=1}^{K} nutri_{k,m} \cdot quantity_k \geq demand_m \quad \forall m = 1, \ldots, M
+\]
+
+\subsection*{Non-negativity Constraint}
+\[
+quantity_k \geq 0 \quad \forall k = 1, \ldots, K
+\]
+
+\subsection*{Summary}
+The linear programming model can be summarized as follows:
+
+\begin{align*}
+    \text{Minimize } & \quad Z = \sum_{k=1}^{K} price_k \cdot quantity_k \\
+    \text{s.t. } & \quad \sum_{k=1}^{K} nutri_{k,m} \cdot quantity_k \geq demand_m, \quad \forall m = 1, \ldots, M \\
+    & \quad quantity_k \geq 0, \quad \forall k = 1, \ldots, K
+\end{align*}
+
+\end{document}

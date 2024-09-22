@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Finding the Chebyshev Center}
+
+We consider a set \( P \) defined by a set of linear inequality constraints as follows:
+
+\[
+P = \{ \mathbf{x} \in \mathbb{R}^N \mid \mathbf{a}_i^T \mathbf{x} \leq b_i, \quad i = 1, \ldots, m \}
+\]
+
+where \( \mathbf{a}_i \in \mathbb{R}^N \) and \( b_i \in \mathbb{R} \).
+
+We aim to find a ball (with center \( \mathbf{y} \) and radius \( r \)) that is entirely contained within the set \( P \). The ball is defined as the set of all points \( \mathbf{x} \) such that the Euclidean distance from \( \mathbf{y} \) is less than or equal to \( r \):
+
+\[
+B(\mathbf{y}, r) = \{ \mathbf{x} \in \mathbb{R}^N \mid \|\mathbf{x} - \mathbf{y}\| \leq r \}
+\]
+
+The objective is to maximize the radius \( r \) of this ball while ensuring that it remains within the set \( P \).
+
+\subsection*{Mathematical Formulation}
+
+The problem can be formulated as follows:
+
+\[
+\begin{align*}
+\text{Maximize} & \quad r \\
+\text{subject to} & \quad \|\mathbf{x} - \mathbf{y}\| \leq r \quad \forall \mathbf{x} \in P \\
+& \quad \mathbf{a}_i^T \mathbf{y} + r \|\mathbf{a}_i\| \leq b_i, \quad i = 1, \ldots, m \\
+& \quad r \geq 0
+\end{align*}
+\]
+
+Here, the condition \( \|\mathbf{a}_i\| \) represents the norm of the vector \( \mathbf{a}_i \).
+
+\subsection*{Output Format}
+
+The solution will provide the following output:
+
+\[
+\begin{align*}
+\text{Output} = \{ & \text{"center": } [y_j \text{ for } j = 1, \ldots, N], \\
+                  & \text{"radius": } r \}
+\end{align*}
+\]
+
+where \( [y_j] \) are the coordinates of the center of the ball in \( \mathbb{R}^N \) and \( r \) is the radius of the ball.
+
+\end{document}

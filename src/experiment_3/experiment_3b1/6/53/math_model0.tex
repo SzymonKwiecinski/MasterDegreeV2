@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Transportation Problem Model}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item Let \( A \) be the set of all routes where \( (i, j) \in A \).
+    \item Let \( K \) be the set of terminal cities.
+    \item Let \( P \) be the set of port cities.
+    \item Let \( L \) be the set of destination cities.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( C_{i,j} \): Transport cost per metric ton along route from city \( i \) to city \( j \).
+    \item \( supply_k \): Soybean supply at terminal city \( k \).
+    \item \( demand_l \): Soybean demand at destination city \( l \).
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item \( amount_{i,j} \): Amount of soybeans shipped from city \( i \) to city \( j \).
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } Z = \sum_{(i,j) \in A} C_{i,j} \cdot amount_{i,j}
+\]
+
+\textbf{Constraints:}
+\begin{itemize}
+
+    \item \textbf{Supply Constraints:}
+    \[
+    \sum_{j: (k,j) \in A} amount_{k,j} \leq supply_k, \quad \forall k \in K
+    \]
+
+    \item \textbf{Demand Constraints:}
+    \[
+    \sum_{i: (i,l) \in A} amount_{i,l} \geq demand_l, \quad \forall l \in L
+    \]
+
+    \item \textbf{Non-negativity Constraints:}
+    \[
+    amount_{i,j} \geq 0, \quad \forall (i,j) \in A
+    \]
+
+\end{itemize}
+
+\textbf{Output:}
+\begin{itemize}
+    \item The distribution of soybeans should be reported as:
+    \[
+    \text{"distribution"}: \left\{ \{ "from": i, "to": j, "amount": amount_{i,j} \} \mid \text{id in } 1, \ldots, m \right\}
+    \]
+    \item \(\text{total\_cost} = Z\)
+\end{itemize}
+
+\end{document}

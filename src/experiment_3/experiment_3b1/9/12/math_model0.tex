@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Formulation for Currency Exchange Problem}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Formulation}
+
+Let \( N \) be the number of available currencies, indexed by \( i \in \{1, \ldots, N\} \).
+
+Define:
+\begin{itemize}
+    \item \( \text{start}_i \): the initial amount of currency \( i \).
+    \item \( \text{limit}_i \): the maximum amount of currency \( i \) that can be exchanged.
+    \item \( \text{rate}_{i,j} \): the exchange rate from currency \( i \) to currency \( j \), where \( \text{rate}_{i,j} > 0 \).
+    \item \( x_{i,j} \): the amount of currency \( i \) exchanged for currency \( j \).
+\end{itemize}
+
+The objective is to maximize the total amount of currency \( N \) at the end of the day. This can be expressed mathematically as:
+
+\[
+\text{Maximize} \quad x_{N,j} \quad \text{for } j \in \{1, \ldots, N\}
+\]
+
+subject to the following constraints:
+
+1. **Exchange Limit Constraints**: The total exchanged amount for each currency cannot exceed its limit:
+
+\[
+\sum_{j=1}^N x_{i,j} \leq \text{limit}_i \quad \forall i \in \{1, \ldots, N\}
+\]
+
+2. **Initial Amount Constraints**: The amount exchanged must not exceed the starting amount minus any amount taken back:
+
+\[
+x_{i,j} \leq \text{start}_i \quad \forall i,j \in \{1, \ldots, N\}
+\]
+
+3. **Non-negativity Constraints**:
+
+\[
+x_{i,j} \geq 0 \quad \forall i,j \in \{1, \ldots, N\}
+\]
+
+4. **Wealth Conservation**: The amount of currency \( j \) that we end up with after all exchanges must be accounted for:
+
+\[
+\text{end}_i = \text{start}_i - \sum_{j=1}^N x_{i,j} + \sum_{k=1}^N x_{j,k} \cdot \text{rate}_{j,k} \quad \forall i \in \{1, \ldots, N\}
+\]
+
+where \( \text{end}_i \) denotes the ending amount of currency \( i \).
+
+\section*{Conclusion}
+
+This linear programming formulation can be solved using standard LP solvers to determine the optimal exchange strategy to maximize the final amount of currency \( N \). 
+
+\end{document}

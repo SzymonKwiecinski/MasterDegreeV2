@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Manufacturing Optimization}
+
+\subsection*{Sets and Parameters}
+\begin{align*}
+& M: \text{Set of machines} \\
+& K: \text{Set of products} \\
+& I: \text{Set of months} \\
+& num_{m}: \text{Number of machines} \\
+& profit_{k}: \text{Profit per unit of product } k \\
+& time_{k,m}: \text{Time (hours) required to produce product } k \text{ on machine } m \\
+& down_{m}: \text{Months machine } m \text{ is down for maintenance} \\
+& limit_{k,i}: \text{Maximum units of product } k \text{ that can be sold in month } i \\
+& store\_price: \text{Cost of storing one unit of product per month} \\
+& keep\_quantity: \text{Desired stock of each product at the end of the period} \\
+& n\_workhours: \text{Number of work hours available per month} \\
+& H: \text{Total working hours in a month} = 24 \times 6 \times 2
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+& sell_{k,i}: \text{Quantity of product } k \text{ sold in month } i \\
+& manufacture_{k,i}: \text{Quantity of product } k \text{ manufactured in month } i \\
+& storage_{k,i}: \text{Quantity of product } k \text{ stored at the end of month } i \\
+& maintain_{m,i}: \text{Number of machines in maintenance for month } i
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\begin{align*}
+\text{Maximize} \quad & Z = \sum_{i=1}^{I} \left( \sum_{k=1}^{K} profit_k \cdot sell_{k,i} - \sum_{k=1}^{K} store\_price \cdot storage_{k,i} \right)
+\end{align*}
+
+\subsection*{Constraints}
+1. **Production Time Constraint**:
+\begin{align*}
+\sum_{k=1}^{K} time_{k,m} \cdot manufacture_{k,i} \leq H \cdot (1 - \text{availability}_{m,i}) \quad \forall m \in M, i \in I
+\end{align*}
+where \( \text{availability}_{m,i} = 1 \) if machine \( m \) is operational and \( 0 \) if it is under maintenance.
+
+2. **Sales Limitation**:
+\begin{align*}
+sell_{k,i} \leq limit_{k,i} \quad \forall k \in K, i \in I
+\end{align*}
+
+3. **Storage Balance**:
+\begin{align*}
+storage_{k,i} = storage_{k,i-1} + manufacture_{k,i} - sell_{k,i} \quad \forall k \in K, i \in \{2,...,I\}
+\end{align*}
+with the initial condition \( storage_{k,1} = 0 \).
+
+4. **Desired Ending Stock**:
+\begin{align*}
+storage_{k,I} \geq keep\_quantity \quad \forall k \in K
+\end{align*}
+
+5. **Maintenance Constraints**:
+\begin{align*}
+\sum_{m=1}^{M} maintain_{m,i} \leq \sum_{m=1}^{M} down_m \quad \forall i \in I
+\end{align*}
+
+\subsection*{Non-negativity and Integer Constraints}
+\begin{align*}
+sell_{k,i}, manufacture_{k,i}, storage_{k,i} & \geq 0 \quad \forall k \in K, i \in I \\
+maintain_{m,i} & \in \mathbb{Z}_{+} \quad \forall m \in M, i \in I
+\end{align*}
+
+\end{document}

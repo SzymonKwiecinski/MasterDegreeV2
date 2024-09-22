@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Warehouse Operation Linear Programming Model}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( buyquantity_n \) be the amount of buying in period \( n \).
+    \item Let \( sellquantity_n \) be the amount of selling in period \( n \).
+    \item Let \( stock_n \) be the amount of stock at the end of period \( n \).
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( capacity \): Maximum capacity of the warehouse.
+    \item \( holding\_cost \): Cost of holding one unit of stock for one period.
+    \item \( price_n \): Selling price of the commodity in period \( n \).
+    \item \( cost_n \): Purchase cost of the commodity in period \( n \).
+    \item \( N \): Total number of periods.
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{n=1}^{N} (price_n \cdot sellquantity_n - cost_n \cdot buyquantity_n - holding\_cost \cdot stock_n)
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+    stock_n & = stock_{n-1} + buyquantity_n - sellquantity_n, \quad \forall n = 1, \ldots, N \\
+    stock_n & \leq capacity, \quad \forall n = 1, \ldots, N \\
+    stock_n & \geq 0, \quad \forall n = 1, \ldots, N \\
+    \sum_{n=1}^{N} sellquantity_n & = \sum_{n=1}^{N} buyquantity_n \\
+    stock_N & = 0
+\end{align*}
+
+\textbf{Output:}
+\begin{itemize}
+    \item \( buyquantity \): Amount of buying in each period, represented as \( [buyquantity_1, buyquantity_2, \ldots, buyquantity_N] \).
+    \item \( sellquantity \): Amount of selling in each period, represented as \( [sellquantity_1, sellquantity_2, \ldots, sellquantity_N] \).
+    \item \( stock \): Amount of stock in each period, represented as \( [stock_1, stock_2, \ldots, stock_N] \).
+\end{itemize}
+
+\end{document}

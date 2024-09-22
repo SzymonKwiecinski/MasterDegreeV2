@@ -1,0 +1,74 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Power Generation Optimization}
+
+\subsection*{Parameters}
+
+\begin{itemize}
+    \item $T$: Number of time periods in a day
+    \item $K$: Number of generator types
+    \item $demand_t$: Demand for electricity in period $t$, $t = 1, \ldots, T$
+    \item $num_k$: Number of generators of type $k$, $k = 1, \ldots, K$
+    \item $minlevel_k$: Minimum operational level of generator type $k$
+    \item $maxlevel_k$: Maximum operational level of generator type $k$
+    \item $runcost_k$: Hourly cost of running each type $k$ generator at minimum level
+    \item $extracost_k$: Extra hourly cost per megawatt for type $k$ generator operated above minimum level
+    \item $startcost_k$: Startup cost for generator type $k$
+\end{itemize}
+
+\subsection*{Decision Variables}
+
+\begin{itemize}
+    \item $numon_{k,t}$: Number of type $k$ generators on in period $t$
+    \item $level_{k,t}$: Operational level of type $k$ generator in period $t$ (in megawatts)
+    \item $startup_{k,t}$: Binary variable indicating if type $k$ generator is started up in period $t$
+\end{itemize}
+
+\subsection*{Objective Function}
+
+The goal is to minimize the total cost, which includes running costs, extra costs for exceeding minimum levels, and startup costs:
+
+\[
+\text{Minimize } Z = \sum_{t=1}^{T} \sum_{k=1}^{K} \left( runcost_k \cdot numon_{k,t} + extracost_k \cdot (level_{k,t} - minlevel_k) \cdot numon_{k,t} + startcost_k \cdot startup_{k,t} \right)
+\]
+
+\subsection*{Constraints}
+
+\begin{itemize}
+    \item \textbf{Demand Satisfaction:}
+    \[
+    \sum_{k=1}^{K} level_{k,t} \geq demand_t, \quad \forall t = 1, \ldots, T
+    \]
+
+    \item \textbf{Operational Level Limits:}
+    \[
+    minlevel_k \cdot numon_{k,t} \leq level_{k,t} \leq maxlevel_k \cdot numon_{k,t}, \quad \forall k = 1, \ldots, K, \forall t = 1, \ldots, T
+    \]
+
+    \item \textbf{Generator Availability:}
+    \[
+    \sum_{t=1}^{T} numon_{k,t} \leq num_k, \quad \forall k = 1, \ldots, K
+    \]
+
+    \item \textbf{Startup Decision:}
+    \[
+    level_{k,t} \leq maxlevel_k \cdot startup_{k,t}, \quad \forall k = 1, \ldots, K, \forall t = 1, \ldots, T
+    \]
+
+    \item \textbf{Binary Variable Constraints:}
+    \[
+    startup_{k,t} \in \{0, 1\}, \quad \forall k = 1, \ldots, K, \forall t = 1, \ldots, T
+    \]
+\end{itemize}
+
+\subsection*{Output}
+
+The output will consist of the number of generators of each type that are on in each period:
+
+\[
+\text{Output: } \{ numon: [[numon_{k,t} \text{ for } t = 1, \ldots, T] \text{ for } k = 1, \ldots, K] ] \}
+\]
+
+\end{document}

@@ -1,0 +1,74 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Rocket Trajectory Control}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item \( x_t \): Position of the rocket at time \( t \)
+    \item \( v_t \): Velocity of the rocket at time \( t \)
+    \item \( a_t \): Acceleration of the rocket at time \( t \)
+\end{itemize}
+
+\subsection*{Discretized Model}
+The dynamics of the rocket can be represented using the following equations:
+\[
+x_{t+1} = x_t + v_t
+\]
+\[
+v_{t+1} = v_t + a_t
+\]
+
+\subsection*{Objective Function}
+The objective is to minimize the maximum thrust required, which is represented as:
+\[
+\min \max_t |a_t|
+\]
+
+\subsection*{Constraints}
+Given:
+\begin{itemize}
+    \item Initial position and velocity: \( x_0, v_0 \)
+    \item Target position and velocity: \( x_T, v_T \)
+    \item Total time: \( T \)
+\end{itemize}
+
+The model must satisfy the following conditions:
+\[
+x_T = x_T \quad \text{(target position)}
+\]
+\[
+v_T = v_T \quad \text{(target velocity)}
+\]
+
+The fuel consumption at each time step is proportional to the acceleration:
+\[
+\text{Fuel Spent} = \sum_{t=0}^{T-1} |a_t|
+\]
+
+\subsection*{Inputs}
+The input format is:
+\[
+\{ 
+    x_0, 
+    v_0, 
+    x_T, 
+    v_T, 
+    T 
+\}
+\]
+
+\subsection*{Outputs}
+The outputs required are:
+\[
+\{ 
+    x = [x_i \, \forall i \in \{0, 1, \ldots, T\}], 
+    v = [v_i \, \forall i \in \{0, 1, \ldots, T\}], 
+    a = [a_i \, \forall i \in \{0, 1, \ldots, T\}], 
+    \text{fuel\_spend} = \text{Total fuel spent} 
+\}
+\]
+
+\end{document}

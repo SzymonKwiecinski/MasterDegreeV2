@@ -1,0 +1,78 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Industrial Production}
+
+\subsection*{Variables}
+
+Let:
+\begin{itemize}
+    \item $produce_{k,t}$ = units produced by industry $k$ in year $t$
+    \item $buildcapa_{k,t}$ = units used to build productive capacity for industry $k$ in year $t$
+    \item $stock_{k,t}$ = stock held by industry $k$ at the end of year $t$
+\end{itemize}
+
+\subsection*{Parameters}
+
+Given the following parameters:
+\begin{itemize}
+    \item $inputone_{k,j}$ = input required from industry $j$ to produce in industry $k$
+    \item $manpowerone_{k}$ = manpower required for production in industry $k$
+    \item $inputtwo_{k,j}$ = input required from industry $j$ to build capacity for industry $k$
+    \item $manpowertwo_{k}$ = manpower required to build capacity for industry $k$
+    \item $stock_{k}$ = initial stock of industry $k$ (at year 0)
+    \item $capacity_{k}$ = initial capacity of industry $k$
+    \item $manpower\_limit$ = total available manpower in a year
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Maximize total production in the last two years $T-1$ and $T$:
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} (produce_{k,T-1} + produce_{k,T})
+\]
+
+\subsection*{Constraints}
+
+\textbf{Production Constraints:}
+\[
+produce_{k,t} \leq capacity_{k} + stock_{k,t-1}, \quad \forall k, t
+\]
+
+\textbf{Input Constraints for Production:}
+\[
+\sum_{j=1}^{K} inputone_{k,j} \cdot produce_{j,t-1} + stock_{j,t-1} \geq produce_{k,t}, \quad \forall k, t
+\]
+
+\textbf{Manpower Constraints for Production:}
+\[
+\sum_{k=1}^{K} manpowerone_{k} \cdot produce_{k,t} \leq manpower\_limit, \quad \forall t
+\]
+
+\textbf{Capacity Building Constraints:}
+\[
+buildcapa_{k,t} \leq capacity_{k} + stock_{k,t-1}, \quad \forall k, t
+\]
+
+\textbf{Input Constraints for Capacity Building:}
+\[
+\sum_{j=1}^{K} inputtwo_{k,j} \cdot buildcapa_{j,t-1} + stock_{j,t-1} \geq buildcapa_{k,t}, \quad \forall k, t
+\]
+
+\textbf{Manpower Constraints for Capacity Building:}
+\[
+\sum_{k=1}^{K} manpowertwo_{k} \cdot buildcapa_{k,t} \leq manpower\_limit, \quad \forall t
+\]
+
+\textbf{Stock Balance Constraints:}
+\[
+stock_{k,t} = stock_{k,t-1} + produce_{k,t-1} - \sum_{j=1}^{K} inputone_{j,k} \cdot produce_{j,t-1} - buildcapa_{k,t-1}, \quad \forall k, t
+\]
+
+\textbf{Initial Conditions:}
+\[
+stock_{k,0} \text{ is given}, \quad capacity_{k} \text{ is given}, \quad \forall k
+\]
+
+\end{document}

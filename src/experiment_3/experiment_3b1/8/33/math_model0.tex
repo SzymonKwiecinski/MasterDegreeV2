@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Knapsack Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( C \) be the maximum capacity of the knapsack.
+    \item Let \( K \) be the number of items.
+    \item Let \( \text{value}_k \) be the value of item \( k \), for \( k = 1, \ldots, K \).
+    \item Let \( \text{size}_k \) be the size of item \( k \), for \( k = 1, \ldots, K \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let \( x_k \) be a binary variable defined as follows:
+\[
+x_k = 
+\begin{cases} 
+1 & \text{if item } k \text{ is included in the knapsack} \\
+0 & \text{otherwise}
+\end{cases} \quad \text{for } k = 1, \ldots, K
+\]
+
+\subsection*{Objective Function}
+The objective is to maximize the total value of the items included in the knapsack:
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} \text{value}_k \cdot x_k
+\]
+
+\subsection*{Constraints}
+The total size of the items included in the knapsack should not exceed the capacity:
+\[
+\sum_{k=1}^{K} \text{size}_k \cdot x_k \leq C
+\]
+
+Additionally, the decision variables are binary:
+\[
+x_k \in \{0, 1\} \quad \text{for } k = 1, \ldots, K
+\]
+
+\subsection*{Output}
+The output \( \text{isincluded} \) represents whether each item is included in the knapsack:
+\[
+\text{isincluded} = [x_1, x_2, \ldots, x_K]
+\]
+
+\end{document}

@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+Let:
+\begin{itemize}
+    \item $K$: Number of industries
+    \item $T$: Number of years (in this case, $T = 5$)
+    \item $produce_{k, t}$: Amount of units produced by industry $k$ in year $t$
+    \item $buildcapa_{k, t}$: Amount of units used to build productive capacity for industry $k$ in year $t$
+    \item $stock_{k, t}$: Amount of stock of industry $k$ held in year $t$
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $inputone_{k,j}$: Input from industry $j$ required by industry $k$ for production
+    \item $manpowerone_{k}$: Manpower required by industry $k$ for production
+    \item $inputtwo_{k,j}$: Input from industry $j$ required by industry $k$ for building productive capacity
+    \item $manpowertwo_{k}$: Manpower required by industry $k$ for building productive capacity
+    \item $stock_{k}$: Initial stock of industry $k$
+    \item $capacity_{k}$: Initial capacity of industry $k$
+    \item $demand_{k}$: External demand for industry $k$ (must be satisfied each year, except year 0)
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} \sum_{t=1}^{5} manpowerone_k \cdot produce_{k,t} + \sum_{k=1}^{K} \sum_{t=1}^{5} manpowertwo_k \cdot buildcapa_{k,t}
+\]
+
+\textbf{Constraints:}
+
+1. \textbf{Production constraints:}
+   \[
+   produce_{k, t} \leq stock_{k, t-1} + capacity_{k} + \sum_{j=1}^{K} inputone_{k,j} \cdot produce_{j,t-1} + \sum_{j=1}^{K} inputtwo_{k,j} \cdot buildcapa_{j,t-2} \quad \forall k, \, t = 1, \ldots, 5
+   \]
+
+2. \textbf{Capacity building constraints:}
+   \[
+   buildcapa_{k, t} \leq stock_{k, t-1} + capacity_{k} + \sum_{j=1}^{K} inputtwo_{k,j} \cdot produce_{j,t-1} \quad \forall k, \, t = 1, \ldots, 5
+   \]
+
+3. \textbf{Stock constraints:}
+   \[
+   stock_{k, t} = stock_{k, t-1} + produce_{k, t} - demand_{k} + buildcapa_{k, t} \quad \forall k, \, t = 1, \ldots, 5
+   \]
+
+4. \textbf{Non-negativity constraints:}
+   \[
+   produce_{k, t} \geq 0, \quad buildcapa_{k, t} \geq 0, \quad stock_{k, t} \geq 0 \quad \forall k, \, t = 1, \ldots, 5
+   \]
+
+\end{document}

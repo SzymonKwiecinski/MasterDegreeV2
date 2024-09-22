@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Economic Production}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $K$: Number of industries
+    \item $inputone_{k, j}$: Input required from industry $j$ by industry $k$
+    \item $manpowerone_{k}$: Manpower required by industry $k$ for production
+    \item $inputtwo_{k, j}$: Input required from industry $j$ by industry $k$ to build capacity
+    \item $manpowertwo_{k}$: Manpower required by industry $k$ for building capacity
+    \item $stock_k$: Initial stock of industry $k$
+    \item $capacity_k$: Initial capacity of industry $k$
+    \item $manpower\_limit$: Maximum yearly manpower available
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $produce_{k, t}$: Units produced by industry $k$ in year $t$
+    \item $buildcapa_{k, t}$: Units used to build productive capacity for industry $k$ in year $t$
+    \item $stock_{k, t}$: Stock of industry $k$ held at the end of year $t$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total production in the last two years:
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} (produce_{k, T-1} + produce_{k, T})
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    \text{Production constraints:} \\
+    stock_{k, t-1} + produce_{k, t} + \sum_{j=1}^{K} output_{j, t-1} \cdot inputone_{k, j} \geq 0 & \quad \forall k, \forall t \\
+    \text{Manpower constraints:} \\
+    \sum_{k=1}^{K} manpowerone_{k} \cdot produce_{k, t} + \sum_{k=1}^{K} manpowertwo_{k} \cdot buildcapa_{k, t} \leq manpower\_limit & \quad \forall t \\
+    \text{Capacity building:} \\
+    capacity_{k} + \sum_{t=1}^{T-2} buildcapa_{k, t} \geq increase_{k} & \quad \forall k \\
+    \text{Stock balance:} \\
+    stock_{k, t} = stock_{k, t-1} + produce_{k, t} - \sum_{j=1}^{K} buildcapa_{j, t} \cdot inputtwo_{j, k} & \quad \forall k, \forall t \\
+    \text{Non-negativity constraints:} \\
+    produce_{k, t} \geq 0, \quad buildcapa_{k, t} \geq 0, \quad stock_{k, t} \geq 0 & \quad \forall k, \forall t
+\end{align}
+
+\end{document}

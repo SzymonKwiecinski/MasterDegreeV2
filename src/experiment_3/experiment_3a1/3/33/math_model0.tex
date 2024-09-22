@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Mathematical Model for the Knapsack Problem}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+
+Given a set of items indexed by $k = 1, \ldots, K$, each item $k$ has a value $value_k$ and a size $size_k$. We need to select a subset of these items to maximize the total value while not exceeding the capacity $C$ of the container.
+
+\section*{Parameters}
+
+\begin{itemize}
+    \item $C$: Maximum capacity of the container
+    \item $value_k$: Value of item $k$
+    \item $size_k$: Size of item $k$
+    \item $K$: Total number of items
+\end{itemize}
+
+\section*{Decision Variables}
+
+Let us define a binary variable $x_k$ for each item $k$:
+\[
+x_k =
+\begin{cases}
+1 & \text{if item } k \text{ is included in the knapsack} \\
+0 & \text{otherwise}
+\end{cases}
+\]
+
+\section*{Objective Function}
+
+We aim to maximize the total value of the items selected:
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} value_k \cdot x_k
+\]
+
+\section*{Constraints}
+
+The total size of the selected items must not exceed the capacity of the knapsack:
+\[
+\sum_{k=1}^{K} size_k \cdot x_k \leq C
+\]
+
+\section*{Binary Constraints}
+
+The decision variables must satisfy the binary constraints:
+\[
+x_k \in \{0, 1\} \quad \forall k \in \{1, 2, \ldots, K\}
+\]
+
+\section*{Output}
+
+The output will be a set of binary values indicating whether each item is included in the knapsack:
+\[
+\text{Output: } isincluded = [x_k \text{ for } k = 1, \ldots, K]
+\]
+
+\end{document}

@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Factory Production Optimization}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $M$: Number of machines
+    \item $K$: Number of products
+    \item $I$: Number of months
+    \item $num_{m}$: Number of machines
+    \item $profit_{k}$: Profit from selling product $k$
+    \item $time_{k, m}$: Time required to produce product $k$ on machine $m$
+    \item $maintain_{i, m}$: Number of machines down for maintenance in month $i$
+    \item $limit_{k, i}$: Marketing limitation for product $k$ in month $i$
+    \item $store\_price$: Cost of storing one unit of product per month
+    \item $keep\_quantity$: Desired quantity of each product to keep in stock at the end of each month
+    \item $n\_workhours$: Number of work hours in a day
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $sell_{k, i}$: Amount of product $k$ sold in month $i$
+    \item $manufacture_{k, i}$: Amount of product $k$ manufactured in month $i$
+    \item $storage_{k, i}$: Amount of product $k$ stored at the end of month $i$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+\text{Maximize } Z = \sum_{i=1}^{I} \sum_{k=1}^{K} (profit_{k} \cdot sell_{k, i} - store\_price \cdot storage_{k, i})
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+    \text{1. Production Time Constraint:} & \quad \sum_{k=1}^{K} \sum_{m=1}^{M} time_{k, m} \cdot manufacture_{k, i} \leq n\_workhours \cdot (6 \cdot 24 - \sum_{m=1}^{M} maintain_{i, m}) \quad \forall i \\
+    \text{2. Marketing Limitations:} & \quad sell_{k, i} \leq limit_{k, i} \quad \forall k, i \\
+    \text{3. Storage Constraint:} & \quad storage_{k, i} \leq 100 \quad \forall k, i \\
+    \text{4. Ending Inventory Requirement:} & \quad storage_{k, i} + manufacture_{k, i} - sell_{k, i} = keep\_quantity \quad \forall k, i \\
+    \text{5. Non-negativity:} & \quad sell_{k, i} \geq 0, \quad manufacture_{k, i} \geq 0, \quad storage_{k, i} \geq 0 \quad \forall k, i 
+\end{align*}
+
+\subsection*{Output Format}
+The solution will provide:
+\begin{itemize}
+    \item $sell$: \([sell_{k, i} \text{ for } k=1,\ldots,K \text{ and } i=1,\ldots,I]\)
+    \item $manufacture$: \([manufacture_{k, i} \text{ for } k=1,\ldots,K \text{ and } i=1,\ldots,I]\)
+    \item $storage$: \([storage_{k, i} \text{ for } k=1,\ldots,K \text{ and } i=1,\ldots,I]\)
+\end{itemize}
+
+\end{document}

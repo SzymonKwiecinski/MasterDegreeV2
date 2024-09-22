@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Stock Selling Problem}
+
+\subsection*{Parameters}
+\begin{align*}
+N & : \text{Number of different stocks} \\
+bought_i & : \text{Number of shares bought of stock } i \\
+buyPrice_i & : \text{Price per share bought of stock } i \\
+currentPrice_i & : \text{Current price per share of stock } i \\
+futurePrice_i & : \text{Expected future price per share of stock } i \\
+transactionRate & : \text{Transaction cost rate (percentage)} \\
+taxRate & : \text{Tax rate on capital gains (percentage)} \\
+K & : \text{Desired net amount to raise}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+sell_i & : \text{Number of shares of stock } i \text{ to sell}
+\end{align*}
+
+\subsection*{Objective Function}
+We need to maximize the expected value of the portfolio next year, given by:
+
+\begin{align*}
+\text{Maximize } & \sum_{i=1}^{N} (futurePrice_i \cdot (bought_i - sell_i)) - \sum_{i=1}^{N} (currentPrice_i \cdot sell_i \cdot (1 - \frac{transactionRate}{100}) - (sell_i \cdot (currentPrice_i - buyPrice_i) \cdot \frac{taxRate}{100}))
+\end{align*}
+
+\subsection*{Constraints}
+To ensure that the investor raises at least the desired amount \( K \), we have the following constraint:
+
+\begin{align*}
+\sum_{i=1}^{N} (currentPrice_i \cdot sell_i \cdot (1 - \frac{transactionRate}{100}) - (sell_i \cdot (currentPrice_i - buyPrice_i) \cdot \frac{taxRate}{100})) & \geq K
+\end{align*}
+
+Additionally, the number of shares sold must not exceed the number of shares bought:
+
+\begin{align*}
+sell_i & \leq bought_i, \quad \text{for } i = 1, \ldots, N
+\end{align*}
+
+And the number of shares sold must be non-negative:
+
+\begin{align*}
+sell_i & \geq 0, \quad \text{for } i = 1, \ldots, N
+\end{align*}
+
+\subsection*{Output Format}
+The output will consist of the number of shares to sell for each stock:
+
+\begin{align*}
+\text{Output: } & \{ "sell": [sell_1, sell_2, \ldots, sell_N] \}
+\end{align*}
+
+\end{document}

@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item $i$: Month index, where $i = 1, 2, \ldots, T$.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $deliver_i$: Number of units to be delivered at the end of month $i$.
+    \item $storage\_cost$: Cost of storing one unit of product for one month.
+    \item $switch\_cost$: Cost incurred for switching production levels between two consecutive months.
+    \item $T$: Total number of months.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_i$: Number of units produced in month $i$.
+    \item $I_i$: Inventory at the end of month $i$.
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+    \text{Minimize } Z = \sum_{i=1}^{T} \left( storage\_cost \cdot I_i + switch\_cost \cdot |x_{i+1} - x_i| \right)
+\end{align*}
+
+\textbf{Constraints:}
+\begin{align*}
+    I_1 & = x_1 - deliver_1 \\
+    I_i & = I_{i-1} + x_i - deliver_i, \quad \text{for } i = 2, \ldots, T \\
+    I_T & \geq 0 \quad (\text{no constraint on inventory after the last month}) \\
+    x_i & \geq 0 \quad \text{for all } i
+\end{align*}
+
+\end{document}

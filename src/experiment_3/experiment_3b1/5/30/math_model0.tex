@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Quadratic Curve Fitting using Linear Programming}
+
+We aim to fit a quadratic curve of the form:
+\[
+y = c \cdot x^2 + b \cdot x + a
+\]
+to a set of data points \((x_k, y_k)\) for \(k = 1, \ldots, K\). The objective is to minimize the sum of absolute deviations between the observed values \(y_k\) and the predicted values from the quadratic model.
+
+\subsection*{Variable Definitions}
+Let:
+\begin{itemize}
+    \item \(y_k\) be the observed values, where \(k = 1, 2, \ldots, K\),
+    \item \(x_k\) be the corresponding independent variable values,
+    \item \(a\) be the constant coefficient,
+    \item \(b\) be the linear coefficient,
+    \item \(c\) be the quadratic coefficient,
+    \item \(d_k\) be the absolute deviation defined as \(d_k = y_k - (c \cdot x_k^2 + b \cdot x_k + a)\).
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the total absolute deviation:
+\[
+\min \sum_{k=1}^{K} |d_k|
+\]
+
+This can be reformulated using auxiliary variables \(u_k\) and \(v_k\) such that:
+\[
+d_k = y_k - (c \cdot x_k^2 + b \cdot x_k + a)
+\]
+We express the absolute deviations using these variables:
+\[
+d_k \leq u_k, \quad -d_k \leq v_k, \quad u_k, v_k \geq 0
+\]
+Thus, our optimization problem can be reformulated as:
+\[
+\min \sum_{k=1}^{K} (u_k + v_k)
+\]
+
+\subsection*{Linear Constraints}
+The linear constraints can be written as:
+\[
+y_k - (c \cdot x_k^2 + b \cdot x_k + a) \leq u_k \quad \text{for } k = 1, \ldots, K
+\]
+\[
+-(y_k - (c \cdot x_k^2 + b \cdot x_k + a)) \leq v_k \quad \text{for } k = 1, \ldots, K
+\]
+
+\subsection*{Output Format}
+After solving the linear programming problem, the output will be given in the following format:
+\[
+\{ 
+    "quadratic": c, 
+    "linear": b, 
+    "constant": a 
+\}
+\]
+
+\end{document}

@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Electricity Capacity Expansion}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( T \): Number of years
+    \item \( d_t \): Demand for electricity in year \( t \)
+    \item \( oil_t \): Existing oil capacity available in year \( t \)
+    \item \( coal\_cost \): Capital cost per megawatt of coal-fired capacity
+    \item \( nuke\_cost \): Capital cost per megawatt of nuclear power capacity
+    \item \( max\_nuke \): Maximum percentage of total capacity that can be nuclear
+    \item \( coal\_life \): Lifespan of coal plants in years
+    \item \( nuke\_life \): Lifespan of nuclear plants in years
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( coal_t \): Amount of coal-fired capacity added in year \( t \)
+    \item \( nuke_t \): Amount of nuclear capacity added in year \( t \)
+\end{itemize}
+
+\subsection*{Objective Function}
+\[
+\text{Minimize } C = \sum_{t=1}^{T} (coal\_cost \cdot coal_t + nuke\_cost \cdot nuke_t)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+    & \text{1. Capacity Constraint:} \\
+    & \quad oil_t + \sum_{s=0}^{\min(t, coal\_life)-1} coal_{t-s} + \sum_{s=0}^{\min(t, nuke\_life)-1} nuke_{t-s} \geq d_t, \quad \forall t \in [1, T] \\
+    \\
+    & \text{2. Nuclear Capacity Constraint:} \\
+    & \quad \sum_{s=0}^{\min(t, coal\_life)-1} coal_{t-s} + \sum_{s=0}^{\min(t, nuke\_life)-1} nuke_{t-s} \cdot \frac{nuke\_cost}{coal\_cost} \leq \frac{max\_nuke}{100} \left( oil_t + \sum_{s=0}^{\min(t, coal\_life)-1} coal_{t-s} + \sum_{s=0}^{\min(t, nuke\_life)-1} nuke_{t-s} \right), \quad \forall t \in [1, T]
+\end{align*}
+
+\subsection*{Output}
+The solution will yield:
+\begin{itemize}
+    \item \( coal\_cap\_added \): A list of coal capacities added each year.
+    \item \( nuke\_cap\_added \): A list of nuclear capacities added each year.
+    \item \( total\_cost \): The total cost associated with the capacity expansion plan.
+\end{itemize}
+
+\end{document}

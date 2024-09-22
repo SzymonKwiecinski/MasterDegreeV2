@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model for Fitting a Line}
+
+Given a set of points \((x_k, y_k)\) for \(k = 1, \ldots, K\), we want to fit a linear model of the form:
+
+\[
+y = bx + a
+\]
+
+where \(b\) is the slope and \(a\) is the intercept. The objective is to minimize the sum of absolute deviations defined as:
+
+\[
+\min \sum_{k=1}^{K} |y_k - (bx_k + a)|
+\]
+
+To handle the absolute values, we introduce auxiliary variables \(e_k\) for each data point \(k\):
+
+\[
+e_k \geq y_k - (bx_k + a)
+\]
+\[
+-e_k \geq -y_k + (bx_k + a)
+\]
+
+This allows us to express the absolute deviation as:
+
+\[
+e_k \geq |y_k - (bx_k + a)|
+\]
+
+The complete linear programming formulation is thus:
+
+\begin{align*}
+\text{Minimize} \quad & \sum_{k=1}^{K} e_k \\
+\text{Subject to} \quad & e_k \geq y_k - (bx_k + a), \quad k = 1, \ldots, K \\
+& e_k \geq -y_k + (bx_k + a), \quad k = 1, \ldots, K \\
+& b, a, e_k \text{ are free variables}
+\end{align*}
+
+Upon solving this linear program, we obtain the values of the intercept \(a\) and slope \(b\) that minimize the sum of absolute deviations.
+
+The output format is as follows:
+
+\[
+\{
+    \text{"intercept"}: a,
+    \text{"slope"}: b
+\}
+\]
+
+\end{document}

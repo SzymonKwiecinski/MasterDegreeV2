@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Employee Scheduling in Cafeteria}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( N \) be the total number of days.
+    \item Let \( num_n \) be the number of employees required on day \( n \) where \( n = 1, 2, \ldots, N \).
+    \item Let \( n_{working} \) be the number of consecutive working days for each employee.
+    \item Let \( n_{resting} \) be the number of consecutive resting days for each employee.
+    \item Let \( T = n_{working} + n_{resting} \) be the total cycle length for each employee.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( total\_number \) be the total number of employees hired.
+    \item Let \( is\_work_{n,i} \) be a binary variable that equals 1 if employee \( i \) is working on day \( n \) and 0 otherwise, where \( i = 1, 2, \ldots, total\_number \) and \( n = 1, 2, \ldots, N \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total number of employees hired:
+\[
+\text{Minimize } total\_number
+\]
+
+\subsection*{Constraints}
+\begin{enumerate}
+    \item For each day \( n \), the total number of employees working must meet the requirement:
+    \[
+    \sum_{i=1}^{total\_number} is\_work_{n,i} \geq num_n \quad \forall n = 1, 2, \ldots, N
+    \]
+    
+    \item Each employee must follow their working and resting cycle. For each employee \( i \):
+    \[
+    is\_work_{n,i} = 
+    \begin{cases}
+      1, & \text{for } n \mod T < n_{working} \\
+      0, & \text{for } n \mod T \geq n_{working}
+    \end{cases} \quad \forall n = 1, 2, \ldots, N
+    \]
+    
+\end{enumerate}
+
+\end{document}

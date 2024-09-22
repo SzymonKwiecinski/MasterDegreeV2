@@ -1,0 +1,69 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+Let:
+\begin{itemize}
+    \item \( K \) be the number of industries.
+    \item \( T \) be the time horizon (number of years).
+    \item \( produce_{k,t} \) be the amount produced by industry \( k \) in year \( t \).
+    \item \( buildcapa_{k,t} \) be the amount used to build capacity by industry \( k \) in year \( t \).
+    \item \( stock_{k,t} \) be the stock held by industry \( k \) at the end of year \( t \).
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Maximize total production in the last two years:
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} (produce_{k,T-1} + produce_{k,T})
+\]
+
+\subsection*{Constraints}
+
+1. **Production Constraints for Each Industry**:
+   For each industry \( k \) in year \( t \):
+   \[
+   produce_{k,t} \leq capacity_{k} + stock_{k,t-1}
+   \]
+
+2. **Input Requirements for Production**:
+   For industry \( k \) in year \( t \):
+   \[
+   \sum_{j=1}^{K} inputone_{k,j} \cdot produce_{j,t-1} + manpowerone_{k} \cdot produce_{k,t} \leq stock_{k,t-1} + capacity_{k}
+   \]
+
+3. **Manpower Constraints**:
+   The total manpower used in any year cannot exceed the available manpower limit:
+   \[
+   \sum_{k=1}^{K} manpowerone_{k} \cdot produce_{k,t} + \sum_{k=1}^{K} manpowertwo_{k} \cdot buildcapa_{k,t} \leq manpower\_limit
+   \]
+
+4. **Capacity Building**:
+   To build capacity in year \( t \):
+   \[
+   buildcapa_{k,t} \leq stock_{k,t-1}
+   \]
+
+5. **Stock Dynamics**:
+   The stock for each industry at the end of year \( t \) is given by:
+   \[
+   stock_{k,t} = stock_{k,t-1} + produce_{k,t} - \sum_{j=1}^{K} inputone_{j,k} \cdot produce_{j,t-1} - buildcapa_{k,t}
+   \]
+
+6. **Initial Conditions**:
+   At year \( 0 \):
+   \[
+   stock_{k,0} = stock_{k}
+   \]
+   \[
+   capacity_{k,0} = capacity_{k}
+   \]
+
+7. **Non-negativity Constraints**:
+   \[
+   produce_{k,t} \geq 0, \quad buildcapa_{k,t} \geq 0, \quad stock_{k,t} \geq 0
+   \]
+
+\end{document}

@@ -1,0 +1,75 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for MILP Problem}
+
+\textbf{Sets:}
+\begin{itemize}
+  \item Let \( N \) be the number of different products, indexed by \( i \) where \( i = 1, 2, \ldots, N \).
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+  \item \( \text{assemblyHour}_i \): hours of assembly labor required for product \( i \)
+  \item \( \text{testingHour}_i \): hours of testing required for product \( i \)
+  \item \( \text{materialCost}_i \): cost of raw materials for product \( i \) (in $)
+  \item \( \text{maxAssembly} \): maximum hours of assembly labor available per day
+  \item \( \text{maxTesting} \): maximum hours of testing available per day
+  \item \( \text{price}_i \): selling price of product \( i \) (in $)
+  \item \( \text{maxOvertimeAssembly} \): maximum hours of overtime assembly labor available
+  \item \( \text{overtimeAssemblyCost} \): cost per hour of overtime assembly labor (in $)
+  \item \( \text{materialDiscount} \): percentage discount on raw materials if bill exceeds threshold
+  \item \( \text{discountThreshold} \): threshold amount for discount eligibility (in $)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+  \item \( x_i \): number of units of product \( i \) produced
+  \item \( y \): hours of overtime assembly labor scheduled
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize} \quad Z = \sum_{i=1}^{N} \text{price}_i \cdot x_i - \left( \sum_{i=1}^{N} \text{materialCost}_i \cdot x_i \cdot (1 - \frac{\text{materialDiscount}}{100}) + \text{overtimeAssemblyCost} \cdot y \right)
+\]
+
+\textbf{Constraints:}
+
+1. Assembly labor constraint:
+\[
+\sum_{i=1}^{N} \text{assemblyHour}_i \cdot x_i + y \leq \text{maxAssembly} + \text{maxOvertimeAssembly}
+\]
+
+2. Testing labor constraint:
+\[
+\sum_{i=1}^{N} \text{testingHour}_i \cdot x_i \leq \text{maxTesting}
+\]
+
+3. Non-negativity constraints:
+\[
+x_i \geq 0 \quad \forall i \in \{1, \ldots, N\}
+\]
+\[
+y \geq 0
+\]
+
+4. Overtime hours cannot exceed the maximum limit:
+\[
+y \leq \text{maxOvertimeAssembly}
+\]
+
+5. Daily profit:
+\[
+\text{dailyProfit} = Z
+\]
+
+\textbf{Output:}
+\begin{itemize}
+    \item \( \text{dailyProfit} \): total daily profit
+    \item \( \text{unitsProduced}_i \): number of units of product \( i \) produced
+    \item \( \text{overtimeAssembly} \): number of hours of overtime assembly labor scheduled
+    \item \( \text{materialBought} = \sum_{i=1}^{N} \text{materialCost}_i \cdot x_i \cdot (1 - \frac{\text{materialDiscount}}{100}) \)
+\end{itemize}
+
+\end{document}

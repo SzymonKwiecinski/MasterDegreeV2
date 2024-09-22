@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Nurse Scheduling Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $d_j$: Demand for nurses on day $j$, where $j = 1, \ldots, 7$.
+    \item $period$: Number of consecutive days a nurse works the night shift.
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item $start_j$: Number of nurses starting their shifts on day $j$, where $j = 1, \ldots, 7$.
+    \item $N$: Total number of nurses hired.
+\end{itemize}
+
+\subsection*{Objective}
+Minimize the total number of nurses hired:
+\[
+\text{Minimize } N = \sum_{j=1}^{7} start_j
+\]
+
+\subsection*{Constraints}
+Ensure that the demand for nurses is met for each day:
+\[
+\sum_{j=1}^{7} start_{j - k} \geq d_j \quad \forall j = 1, \ldots, 7, \quad \text{where } k = 0, 1, \ldots, period - 1
+\]
+Where $start_{j - k}$ is understood to be zero when $j - k < 1$ or $j - k > 7$.
+
+\subsection*{Non-negativity Constraints}
+\[
+start_j \geq 0 \quad \forall j = 1, \ldots, 7
+\]
+\[
+N \geq 0
+\]
+
+\subsection*{Output}
+The output will consist of:
+\begin{itemize}
+    \item An array of $start = [start_1, start_2, \ldots, start_7]$.
+    \item Total number of nurses hired $N$.
+\end{itemize}
+
+\end{document}

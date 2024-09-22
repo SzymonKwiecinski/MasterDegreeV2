@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Product Production}
+
+Let:
+\begin{itemize}
+    \item $P$: The number of products
+    \item $cash$: The available cash
+    \item $hour_i$: The machine hours required for producing the $i$-th product
+    \item $cost_i$: The production cost per unit of the $i$-th product
+    \item $price_i$: The selling price per unit of the $i$-th product
+    \item $investPercentage_i$: The percentage of revenues from the $i$-th product available for reinvestment
+    \item $upgradeHours$: Additional machine hours that can be obtained through upgrades
+    \item $upgradeCost$: The cost of upgrading the machine capacity
+    \item $availableHours$: The current available machine hours
+    \item $production_i$: The quantity produced of the $i$-th product
+    \item $upgrade$: A binary variable indicating whether to upgrade the machine
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total net income:
+
+\[
+Z = \sum_{i=1}^{P} \left( (price_i - cost_i) \cdot production_i - investPercentage_i \cdot (price_i \cdot production_i) \right) - upgradeCost \cdot upgrade
+\]
+
+\subsection*{Constraints}
+
+1. **Machine Capacity Constraint**:
+\[
+\sum_{i=1}^{P} hour_i \cdot production_i \leq availableHours + upgradeHours \cdot upgrade
+\]
+
+2. **Cash Availability Constraint**:
+\[
+\sum_{i=1}^{P} cost_i \cdot production_i \leq cash
+\]
+
+3. **Non-negativity Constraints**:
+\[
+production_i \geq 0 \quad \forall i = 1, \ldots, P
+\]
+\[
+upgrade \in \{0, 1\}
+\]
+
+\subsection*{Output Variables}
+The outputs of the model will be:
+\begin{itemize}
+    \item $\text{net\_income}$: Total net income from production
+    \item $\text{production}$: The production quantities $[production_1, production_2, \ldots, production_P]$
+    \item $\text{upgrade}$: Indicates if the upgrade was performed (true or false)
+\end{itemize}
+
+\end{document}

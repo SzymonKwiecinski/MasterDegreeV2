@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Alloy Production}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( \text{alloy\_quant} \) be the total quantity of the alloy to be produced (in lb).
+    \item Let \( \text{target}_{m} \) be the target quantity of metal \( m \) in the alloy.
+    \item Let \( \text{ratio}_{k, m} \) be the ratio of metal \( m \) in alloy \( k \).
+    \item Let \( \text{price}_{k} \) be the price of alloy \( k \).
+    \item Let \( K \) be the total number of available alloys.
+    \item Let \( M \) be the total number of metals involved in the alloy.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( \text{amount}_{k} \) be the quantity of alloy \( k \) to purchase (in lb).
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the total cost of alloys purchased:
+\[
+\text{Minimize} \quad Z = \sum_{k=1}^{K} \text{price}_{k} \cdot \text{amount}_{k}
+\]
+
+\subsection*{Constraints}
+1. The total quantity of the produced alloy must be equal to the desired quantity:
+\[
+\sum_{k=1}^{K} \text{amount}_{k} = \text{alloy\_quant}
+\]
+
+2. The weight of each metal \( m \) in the final alloy must meet the target requirements:
+\[
+\sum_{k=1}^{K} \text{ratio}_{k, m} \cdot \text{amount}_{k} = \text{target}_{m} \quad \text{for } m = 1, \ldots, M
+\]
+
+3. Non-negativity constraints:
+\[
+\text{amount}_{k} \geq 0 \quad \text{for } k = 1, \ldots, K
+\]
+
+\subsection*{Output}
+The output will provide the quantities of each alloy to purchase:
+\[
+\text{amount} = [\text{amount}_{k} \text{ for } k = 1, \ldots, K]
+\]
+
+\end{document}

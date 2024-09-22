@@ -1,0 +1,73 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Production Problem}
+
+Let:
+\begin{itemize}
+    \item $N$: Number of types of products
+    \item $assemblyHour_i$: Assembly hours required for product $i$ (for $i=1, \ldots, N$)
+    \item $testingHour_i$: Testing hours required for product $i$ (for $i=1, \ldots, N$)
+    \item $materialCost_i$: Material cost for product $i$ (for $i=1, \ldots, N$)
+    \item $maxAssembly$: Maximum assembly hours available per day
+    \item $maxTesting$: Maximum testing hours available per day
+    \item $price_i$: Selling price for product $i$ (for $i=1, \ldots, N$)
+    \item $maxOvertimeAssembly$: Maximum allowed overtime assembly hours
+    \item $overtimeAssemblyCost$: Cost per hour of overtime assembly
+    \item $materialDiscount$: Discount percentage on materials if the bill exceeds the threshold
+    \item $discountThreshold$: Threshold for material bill to qualify for discount
+\end{itemize}
+
+Define variables:
+\begin{itemize}
+    \item $x_i$: Number of units produced of product $i$ (for $i=1, \ldots, N$)
+    \item $overtimeAssembly$: Hours of overtime assembly labor scheduled
+    \item $materialBought$: Total amount spent on raw materials
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the daily profit:
+\[
+\text{dailyProfit} = \sum_{i=1}^{N} (price_i \cdot x_i) - \text{materialBought} - (overtimeAssembly \cdot overtimeAssemblyCost)
+\]
+
+\subsection*{Subject to the following constraints}
+
+1. Assembly hours constraint:
+\[
+\sum_{i=1}^{N} (assemblyHour_i \cdot x_i) + overtimeAssembly \leq maxAssembly + maxOvertimeAssembly
+\]
+
+2. Testing hours constraint:
+\[
+\sum_{i=1}^{N} (testingHour_i \cdot x_i) \leq maxTesting
+\]
+
+3. Material cost calculation:
+\[
+\text{materialBought} = \sum_{i=1}^{N} materialCost_i \cdot x_i
+\]
+If $\text{materialBought} > discountThreshold$:
+\[
+\text{materialBought} = \text{materialBought} \cdot (1 - \frac{materialDiscount}{100})
+\]
+
+4. Non-negativity constraints:
+\[
+x_i \geq 0 \quad \text{for } i = 1, \ldots, N
+\]
+\[
+overtimeAssembly \geq 0
+\]
+
+\subsection*{Output Variables}
+The output will include:
+\begin{itemize}
+    \item \text{dailyProfit}: The optimal value of daily profit.
+    \item \text{unitsProduced}: Vector $[x_1, x_2, \ldots, x_N]$ representing the units of each product produced.
+    \item \text{overtimeAssembly}: The optimal number of overtime assembly hours scheduled.
+    \item \text{materialBought}: The optimal amount of raw materials bought.
+\end{itemize}
+
+\end{document}

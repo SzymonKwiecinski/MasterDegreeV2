@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Quadratic Curve Fitting Problem}
+
+We aim to fit the best quadratic curve of the form 
+\[
+y = c \cdot x^2 + b \cdot x + a
+\]
+to a set of data points \((x_k, y_k)\) for \(k = 1, \ldots, K\). The objective is to minimize the sum of absolute deviations of each observed value of \(y\) from the predicted value of \(y\) given by the quadratic function.
+
+\subsection*{Inputs}
+The values of \(y\) and \(x\) are provided as follows:
+\begin{align*}
+y & = [y_{1}, y_{2}, \ldots, y_{K}] \\
+x & = [x_{1}, x_{2}, \ldots, x_{K}]
+\end{align*}
+
+\subsection*{Objective Function}
+We define the absolute deviations for each data point as follows:
+\[
+d_k = |y_k - (c \cdot x_k^2 + b \cdot x_k + a)|, \quad \text{for } k = 1, 2, \ldots, K
+\]
+The objective is to minimize the sum of these absolute deviations:
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} d_k
+\]
+
+\subsection*{Variables}
+The coefficients \(c\), \(b\), and \(a\) are the variables we need to determine:
+\begin{align*}
+\text{Let } & c \text{ be the coefficient of the quadratic term,} \\
+& b \text{ be the coefficient of the linear term,} \\
+& a \text{ be the constant term.}
+\end{align*}
+
+\subsection*{Output}
+The output will specify the values of the coefficients:
+\begin{verbatim}
+{
+    "quadratic": c,
+    "linear": b,
+    "constant": a
+}
+\end{verbatim}
+
+\end{document}

@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Motion Optimization Model}
+
+Let \( x_t \), \( v_t \), and \( a_t \) represent the position, velocity, and acceleration of the rocket at time \( t \), respectively.
+
+The discrete-time dynamics of the rocket can be described as follows:
+
+\[
+x_{t+1} = x_t + v_t
+\]
+\[
+v_{t+1} = v_t + a_t
+\]
+
+We control the acceleration \( a_t \) and its magnitude \( |a_t| \) is proportional to the fuel consumption at time \( t \).
+
+Given the initial conditions:
+\[
+x_0, \quad v_0
+\]
+
+We aim to reach a target position \( x_T \) with speed \( v_T \) at time \( T \), expressed mathematically as:
+
+\[
+x_T = x_{T-1} + v_{T-1}
+\]
+\[
+v_T = v_{T-1} + a_{T-1}
+\]
+
+The goal is to minimize the total fuel consumption over the time period, which can be stated as:
+
+\[
+\text{Minimize} \quad \sum_{t=0}^{T-1} |a_t|
+\]
+
+Subject to the constraints:
+
+1. \( x_{t+1} = x_t + v_t, \quad \forall t = 0, 1, \ldots, T-1 \)
+2. \( v_{t+1} = v_t + a_t, \quad \forall t = 0, 1, \ldots, T-1 \)
+3. \( x_T = x_{T-1} + v_{T-1} \)
+4. \( v_T = v_{T-1} + a_{T-1} \)
+
+With given inputs:
+\[
+\begin{align*}
+x_0 & : \text{initial position} \\
+v_0 & : \text{initial velocity} \\
+x_T & : \text{target position} \\
+v_T & : \text{target velocity} \\
+T & : \text{total time}
+\end{align*}
+\]
+
+The output will consist of:
+\[
+\begin{align*}
+\text{"x"} & : [x_i \text{ for } i = 0, 1, \ldots, T] \\
+\text{"v"} & : [v_i \text{ for } i = 0, 1, \ldots, T] \\
+\text{"a"} & : [a_i \text{ for } i = 0, 1, \ldots, T] \\
+\text{"fuel\_spend"} & : \text{total fuel spent}
+\end{align*}
+\]
+
+\end{document}

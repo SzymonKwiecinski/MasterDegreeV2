@@ -1,0 +1,74 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\textbf{Indices:} \\
+$t$ : Month index, where $t = 1, 2, \ldots, T$
+
+\textbf{Parameters:} \\
+$demand_t$: Demand for containers by ships in month $t$ \\
+$unload\_cost_t$: Cost to unload a single container in month $t$ \\
+$unload\_capacity_t$: Maximum number of containers that can be unloaded in month $t$ \\
+$holding\_cost$: Cost of holding a container in the yard \\
+$max\_container$: Maximum containers that can be stored in the yard \\
+$init\_container$: Initial number of containers in the yard at the start of month 1 \\
+$num\_cranes$: Maximum number of cranes that can be rented each month \\
+$crane\_capacity$: Number of containers that a single crane can load in a month \\
+$crane\_cost$: Cost of renting a single crane in a month \\
+
+\textbf{Decision Variables:} \\
+$amount_t$: Number of containers unloaded in month $t$ \\
+$crane_t$: Number of cranes rented in month $t$ \\
+$hold_t$: Number of containers held over to month $t$ \\
+
+\textbf{Objective Function:} \\
+Minimize the total cost:
+\[
+\text{Total Cost} = \sum_{t=1}^{T} (unload\_cost_t \cdot amount_t + holding\_cost \cdot hold_t + crane\_cost \cdot crane_t)
+\]
+
+\textbf{Constraints:} \\
+
+1. Demand fulfillment:
+\[
+hold_{t-1} + amount_t - demand_t = hold_t \quad \forall t \in \{1, \ldots, T\}
+\]
+
+2. Initial condition:
+\[
+hold_0 = init\_container
+\]
+
+3. Yard capacity constraint:
+\[
+hold_t \leq max\_container \quad \forall t \in \{1, \ldots, T\}
+\]
+
+4. Unloading capacity constraint:
+\[
+amount_t \leq unload\_capacity_t \quad \forall t \in \{1, \ldots, T\}
+\]
+
+5. Non-negativity constraint:
+\[
+amount_t \geq 0, \quad hold_t \geq 0, \quad crane_t \geq 0 \quad \forall t \in \{1, \ldots, T\}
+\]
+
+6. Crane capacity constraint:
+\[
+crane_t \cdot crane\_capacity \geq amount_t \quad \forall t \in \{1, \ldots, T\}
+\]
+
+7. Maximum cranes rental constraint:
+\[
+crane_t \leq num\_cranes \quad \forall t \in \{1, \ldots, T\}
+\]
+
+8. Yard empty condition after last month:
+\[
+hold_T = 0
+\]
+
+\end{document}

@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item Let $x_i$ be the number of units produced in month $i$, where $i = 1, 2, \ldots, T$.
+    \item Let $I_i$ be the inventory at the end of month $i$, where $i = 1, 2, \ldots, T$.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $deliver_i$: units to be delivered at the end of month $i$.
+    \item $storage\_cost$: cost per unit of inventory held for one month.
+    \item $switch\_cost$: cost incurred for switching production levels between months.
+    \item $T$: total number of months.
+\end{itemize}
+
+\textbf{Objective Function:}
+
+The objective is to minimize the total cost, which includes production costs, storage costs, and switching costs. The objective function can be represented as follows:
+
+\[
+\text{Minimize } Z = \sum_{i=1}^{T} (storage\_cost \cdot I_i + switch\_cost \cdot |x_{i+1} - x_i|) 
+\]
+
+\textbf{Constraints:}
+\begin{itemize}
+    \item Inventory balance equation for each month $i$:
+        \[
+        I_i = I_{i-1} + x_i - deliver_i, \quad \text{for } i = 1, 2, \ldots, T
+        \]
+    \item Initial inventory at the start of the year:
+        \[
+        I_0 = 0
+        \]
+    \item Non-negativity constraints:
+        \[
+        x_i \geq 0, \quad I_i \geq 0, \quad \text{for } i = 1, 2, \ldots, T
+        \]
+\end{itemize}
+
+\textbf{Final Output:}
+The output should provide the production schedule and the total cost:
+\[
+\text{Output: } \{ x: [x_1, x_2, \ldots, x_T], \; cost: Z \}
+\]
+
+\end{document}

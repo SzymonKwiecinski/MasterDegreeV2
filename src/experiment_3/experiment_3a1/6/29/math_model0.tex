@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Linear Regression}
+
+Given a set of observed values \( y_k \) corresponding to values \( x_k \) for \( k = 1, \ldots, K \), we want to find the best-fitting straight line represented by the equation:
+
+\[
+y = bx + a
+\]
+
+where \( b \) is the slope and \( a \) is the intercept. The objective is to minimize the maximum deviation of all observed \( y_k \) values from the predicted \( y \) values on this line.
+
+Let the deviation for each observation be defined as:
+
+\[
+d_k = y_k - (bx_k + a) \quad \text{for } k = 1, \ldots, K
+\]
+
+To maintain a maximum deviation, we introduce slack variables \( z \) for the deviations. The model can be stated as follows:
+
+\begin{align*}
+\text{Minimize } & z \\
+\text{subject to } & y_k - (bx_k + a) \leq z, & \forall k \in \{1, \ldots, K\} \\
+                   & -(y_k - (bx_k + a)) \leq z, & \forall k \in \{1, \ldots, K\} \\
+                   & \text{slope } b \text{ and intercept } a \text{ are free variables} \\
+\end{align*}
+
+The objective function minimizes the maximum deviation \( z \), subject to the constraints derived from the observation values. 
+
+The final output of the linear programming model will yield:
+
+\[
+\begin{align*}
+\text{intercept} & = a \\
+\text{slope} & = b
+\end{align*}
+\]
+
+\end{document}

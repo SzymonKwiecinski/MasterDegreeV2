@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Oil Refinery Production}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( O \) be the number of crude oil types.
+    \item Let \( P \) be the number of products.
+    \item Let \( L \) be the number of production processes.
+    \item Let \( \text{allocated}_i \) represent the amount of crude oil type \( i \) allocated for production (in million barrels).
+    \item Let \( \text{price}_p \) be the selling price per barrel of product \( p \).
+    \item Let \( \text{input}_{l,i} \) be the amount of crude oil type \( i \) required for process \( l \) (in barrels).
+    \item Let \( \text{output}_{l,p} \) be the amount of product \( p \) produced by process \( l \) (in barrels).
+    \item Let \( \text{cost}_l \) be the cost per barrel for process \( l \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( \text{execute}_l \) be the number of times process \( l \) is executed.
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to maximize the total revenue:
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} \text{price}_p \cdot \left( \sum_{l=1}^{L} \text{output}_{l,p} \cdot \text{execute}_l \right)
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item \textbf{Crude Oil Allocation Constraint:}
+    \[
+    \sum_{l=1}^{L} \text{input}_{l,i} \cdot \text{execute}_l \leq \text{allocated}_i \quad \forall i = 1, \ldots, O
+    \]
+    
+    \item \textbf{Non-negativity Constraint:}
+    \[
+    \text{execute}_l \geq 0 \quad \forall l = 1, \ldots, L
+    \]
+\end{itemize}
+
+\subsection*{Output Variables}
+The output of the model will include:
+\begin{itemize}
+    \item Total revenue for the month: \( \text{revenue} = Z \)
+    \item Number of times to execute each process: \( \text{execute} = [\text{execute}_l \quad \forall l = 1, \ldots, L] \)
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,95 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model of the Oil Refining Problem}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $i$: Index for oil types, $i = 1, \ldots, I$
+    \item $m$: Index for months, $m = 1, \ldots, M$
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $price_{i,m}$: Purchase price of oil $i$ in month $m$
+    \item $sell\_price$: Selling price of the final product per ton
+    \item $is\_vegetable_{i}$: Indicator for whether oil $i$ is vegetable (1) or non-vegetable (0)
+    \item $max\_vegetable\_refining\_per\_month$: Maximum tons of vegetable oils that can be refined in a month
+    \item $max\_non\_vegetable\_refining\_per\_month$: Maximum tons of non-vegetable oils that can be refined in a month
+    \item $storage\_size$: Maximum storage capacity for each oil
+    \item $storage\_cost$: Cost of storage per ton per month
+    \item $max\_hardness$: Maximum allowed hardness of the final product
+    \item $min\_hardness$: Minimum allowed hardness of the final product
+    \item $hardness_{i}$: Hardness of oil $i$
+    \item $init\_amount$: Initial amount of each oil type in storage
+    \item $min\_usage$: Minimum usage of oil $i$ if it is selected for refining
+    \item $dependency_{i,j}$: Dependency relation where if $oil\ i$ is used, $oil\ j$ must also be used (1 for yes, 0 for no)
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item $buyquantity_{i,m}$: Amount of oil $i$ bought in month $m$
+    \item $refine_{i,m}$: Amount of oil $i$ refined in month $m$
+    \item $storage_{i,m}$: Amount of oil $i$ stored at the end of month $m$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize profit:
+\[
+\text{Maximize } Z = \sum_{m=1}^{M} \left( sell\_price \cdot \sum_{i=1}^{I} refine_{i,m} - \sum_{i=1}^{I} (price_{i,m} \cdot buyquantity_{i,m} + storage\_cost \cdot storage_{i,m}) \right)
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item \textbf{Refining Capacity Constraints:}
+    \[
+    \sum_{i \, : \, is\_vegetable_{i}=1} refine_{i,m} \leq max\_vegetable\_refining\_per\_month \quad \forall m
+    \]
+    \[
+    \sum_{i \, : \, is\_vegetable_{i}=0} refine_{i,m} \leq max\_non\_vegetable\_refining\_per\_month \quad \forall m
+    \]
+    
+    \item \textbf{Storage Capacity Constraints:}
+    \[
+    storage_{i,m} \leq storage\_size \quad \forall i, \forall m
+    \]
+    
+    \item \textbf{Hardness Constraints:}
+    \[
+    min\_hardness \leq \frac{\sum_{i=1}^{I} hardness_{i} \cdot refine_{i,m}}{\sum_{i=1}^{I} refine_{i,m}} \leq max\_hardness \quad \forall m
+    \]
+
+    \item \textbf{Initial and Final Storage Constraints:}
+    \[
+    storage_{i,0} = init\_amount \quad \forall i
+    \]
+    \[
+    storage_{i,M} = init\_amount \quad \forall i
+    \]
+
+    \item \textbf{Usage Requirements:}
+    \[
+    refine_{i,m} \geq min\_usage \cdot y_{i,m} \quad \forall i, \forall m
+    \]
+    where \( y_{i,m} \) is a binary variable indicating whether oil \( i \) is refined in month \( m \).
+
+    \item \textbf{Dependency Constraints:}
+    \[
+    refine_{j,m} \leq M \cdot y_{i,m} \quad \forall i, j \text{ such that } dependency_{i,j} = 1
+    \]
+
+    \item \textbf{Storage Dynamics:}
+    \[
+    storage_{i,m} = storage_{i,m-1} + buyquantity_{i,m} - refine_{i,m} \quad \forall i, \forall m
+    \]
+\end{itemize}
+
+\subsection*{Output Variables}
+\begin{itemize}
+    \item Buy quantities: \( buyquantity_{i,m} \)
+    \item Refined quantities: \( refine_{i,m} \)
+    \item Storage amounts: \( storage_{i,m} \)
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,75 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Quadratic Curve Fitting}
+
+Given a set of data points represented as $(x_k, y_k)$ for $k = 1, \ldots, K$, we aim to fit the best quadratic curve of the form:
+
+\[
+y = c x^2 + b x + a
+\]
+
+We will minimize the sum of absolute deviations between the observed values and the predicted values of $y$. Define the deviation for each observation as:
+
+\[
+d_k = y_k - (c x_k^2 + b x_k + a)
+\]
+
+The objective function is to minimize the sum of absolute deviations:
+
+\[
+\text{Minimize} \quad Z = \sum_{k=1}^{K} |d_k|
+\]
+
+To handle the absolute values, we introduce slack variables $d_k^+$ and $d_k^-$ such that:
+
+\[
+d_k = d_k^+ - d_k^-
+\]
+
+and impose the constraints:
+
+\[
+d_k^+ \geq d_k
+\]
+\[
+d_k^- \geq -d_k
+\]
+
+Substituting $d_k = y_k - (c x_k^2 + b x_k + a)$ gives us the following constraints:
+
+\[
+d_k^+ \geq y_k - (c x_k^2 + b x_k + a)
+\]
+\[
+d_k^- \geq -(y_k - (c x_k^2 + b x_k + a))
+\]
+
+Then the objective function can be rewritten as:
+
+\[
+\text{Minimize} \quad Z = \sum_{k=1}^{K} (d_k^+ + d_k^-)
+\]
+
+The complete linear programming formulation then becomes:
+
+\[
+\begin{aligned}
+& \text{Minimize} && Z = \sum_{k=1}^{K} (d_k^+ + d_k^-) \\
+& \text{subject to} \\
+& && d_k^+ \geq y_k - (c x_k^2 + b x_k + a) && \text{for } k = 1, \ldots, K \\
+& && d_k^- \geq - (y_k - (c x_k^2 + b x_k + a)) && \text{for } k = 1, \ldots, K \\
+& && d_k^+ \geq 0, \quad d_k^- \geq 0 && \text{for } k = 1, \ldots, K \\
+\end{aligned}
+\]
+
+The solution of this linear programming problem will yield the values for the coefficients:
+
+\[
+\text{quadratic} = c, \quad \text{linear} = b, \quad \text{constant} = a
+\]
+
+These coefficients will provide the best fit quadratic curve for the given data.
+
+\end{document}

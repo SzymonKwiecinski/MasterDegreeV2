@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Linear Regression}
+
+Given the data pairs of \( (x_k, y_k) \) for \( k = 1, \ldots, K \), we want to fit a line described by the equation:
+
+\[
+y = bx + a
+\]
+
+where \( a \) is the intercept and \( b \) is the slope. Our goal is to minimize the maximum deviation between the observed values \( y_k \) and the predicted values \( \hat{y}_k = bx_k + a \).
+
+Let \( d_k \) represent the deviation for each observation \( k \):
+
+\[
+d_k = y_k - (bx_k + a)
+\]
+
+To minimize the maximum deviation, we introduce an auxiliary variable \( M \) such that:
+
+\[
+d_k \leq M \quad \text{and} \quad -d_k \leq M \quad \forall k
+\]
+
+This leads to the following set of inequalities:
+
+\[
+y_k - (bx_k + a) \leq M \quad \forall k
+\]
+\[
+-(y_k - (bx_k + a)) \leq M \quad \forall k
+\]
+
+The objective is to minimize \( M \).
+
+\textbf{Objective Function:}
+
+\[
+\text{Minimize } M
+\]
+
+\textbf{Subject to:}
+
+\[
+y_k - bx_k - a \leq M \quad \forall k \in \{1, \ldots, K\}
+\]
+\[
+-(y_k - bx_k - a) \leq M \quad \forall k \in \{1, \ldots, K\}
+\]
+
+\textbf{Variables:}
+\begin{itemize}
+    \item \( a \): intercept of the fitted line
+    \item \( b \): slope of the fitted line
+    \item \( M \): maximum deviation
+\end{itemize}
+
+This linear programming formulation allows us to determine the values of \( a \) and \( b \) that minimize the maximum deviation from the predicted line.
+
+\end{document}

@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $T$: Total number of months
+    \item $deliver_i$: Units to be delivered at the end of month $i$ for $i = 1, \ldots, T$
+    \item $storage\_cost$: Cost per unit of inventory held per month
+    \item $switch\_cost$: Cost incurred when changing production levels between consecutive months
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_i$: Number of units produced in month $i$ for $i = 1, \ldots, T$
+    \item $I_i$: Inventory at the end of month $i$ for $i = 1, \ldots, T$
+\end{itemize}
+
+\subsection*{Objective Function}
+\[
+\text{Minimize } Z = \sum_{i=1}^{T} (storage\_cost \cdot I_i + switch\_cost \cdot |x_{i+1} - x_i|) 
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+    I_1 & = x_1 - deliver_1 \\
+    I_i & = I_{i-1} + x_i - deliver_i, \quad \text{for } i = 2, \ldots, T \\
+    I_T & \geq 0 \\
+    I_i & \geq 0, \quad \text{for } i = 1, \ldots, T \\
+\end{align*}
+
+\subsection*{Initial Condition}
+\[
+I_0 = 0
+\]
+
+\end{document}

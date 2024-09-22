@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Given:}
+\begin{itemize}
+    \item Let \( K \) be the number of products.
+    \item Let \( S \) be the number of production stages.
+    \item Let \( \text{produce\_time}_{k,s} \) be the time required to produce 1 unit of product \( k \) in stage \( s \).
+    \item Let \( \text{time}_{s} \) be the available time in hours for stage \( s \).
+    \item Let \( \text{profit}_{k} \) be the profit per unit of product \( k \).
+\end{itemize}
+
+\textbf{Decision Variables:}
+Let \( x_k \) be the quantity produced of product \( k \).
+
+\textbf{Objective Function:}
+Maximize the total profit:
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} \text{profit}_{k} \cdot x_k
+\]
+
+\textbf{Constraints:}
+For each stage \( s \), the total time spent on production should not exceed the available time:
+\[
+\sum_{k=1}^{K} \text{produce\_time}_{k,s} \cdot x_k \leq \text{time}_{s}, \quad \forall s \in \{1, 2, \ldots, S\}
+\]
+
+\textbf{Non-negativity Constraints:}
+\[
+x_k \geq 0, \quad \forall k \in \{1, 2, \ldots, K\}
+\]
+
+\textbf{Model Summary:}
+\begin{align*}
+\text{Maximize } & Z = \sum_{k=1}^{K} \text{profit}_{k} \cdot x_k \\
+\text{subject to } & \sum_{k=1}^{K} \text{produce\_time}_{k,s} \cdot x_k \leq \text{time}_{s}, \quad \forall s \in \{1, 2, \ldots, S\} \\
+& x_k \geq 0, \quad \forall k \in \{1, 2, \ldots, K\}
+\end{align*}
+
+\end{document}

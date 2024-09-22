@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Warehouse Optimization Problem}
+
+Let:
+\begin{itemize}
+    \item \( N \) = number of time periods
+    \item \( \text{capacity} \) = maximum stock capacity of the warehouse
+    \item \( \text{holding\_cost} \) = cost per unit for holding stock for one period
+    \item \( \text{price}_n \) = selling price of the commodity in period \( n \)
+    \item \( \text{cost}_n \) = buying cost of the commodity in period \( n \)
+    \item \( \text{buyquantity}_n \) = amount bought in period \( n \)
+    \item \( \text{sellquantity}_n \) = amount sold in period \( n \)
+    \item \( \text{stock}_n \) = amount of stock at the end of period \( n \)
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Maximize the total profit over all periods:
+
+\[
+\text{Profit} = \sum_{n=1}^{N} \left( \text{sellquantity}_n \cdot \text{price}_n - \text{buyquantity}_n \cdot \text{cost}_n - \text{stock}_{n-1} \cdot \text{holding\_cost} \right)
+\]
+
+where \( \text{stock}_0 = 0 \) since the warehouse starts empty.
+
+\subsection*{Constraints}
+
+1. Stock balance:
+\[
+\text{stock}_n = \text{stock}_{n-1} + \text{buyquantity}_n - \text{sellquantity}_n \quad \forall n = 1, \ldots, N
+\]
+
+2. Capacity constraint:
+\[
+\text{stock}_n \leq \text{capacity} \quad \forall n = 1, \ldots, N
+\]
+
+3. Non-negativity constraints:
+\[
+\text{buyquantity}_n \geq 0, \quad \text{sellquantity}_n \geq 0, \quad \text{stock}_n \geq 0 \quad \forall n = 1, \ldots, N
+\]
+
+4. Final stock condition:
+\[
+\text{stock}_N = 0
+\]
+
+\subsection*{Output}
+
+The solution to the optimization problem will yield:
+\begin{itemize}
+    \item \( \text{buyquantity} = [\text{buyquantity}_1, \text{buyquantity}_2, \ldots, \text{buyquantity}_N] \)
+    \item \( \text{sellquantity} = [\text{sellquantity}_1, \text{sellquantity}_2, \ldots, \text{sellquantity}_N] \)
+    \item \( \text{stock} = [\text{stock}_1, \text{stock}_2, \ldots, \text{stock}_N] \)
+\end{itemize}
+
+\end{document}

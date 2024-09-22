@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item \( x_i \): the number of units produced in month \( i \), for \( i = 1, \ldots, T \)
+    \item \( I_i \): the inventory at the end of month \( i \), for \( i = 1, \ldots, T \)
+\end{itemize}
+
+\subsection*{Parameters}
+Given:
+\begin{itemize}
+    \item \( \text{deliver}_i \): the number of units that must be delivered at the end of month \( i \)
+    \item \( \text{storage\_cost} \): the cost per unit of inventory per month
+    \item \( \text{switch\_cost} \): the cost associated with changing production levels
+    \item \( T \): the total number of months
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the total cost \( C \):
+\[
+C = \sum_{i=1}^{T} \left( \text{storage\_cost} \cdot I_i + \text{switch\_cost} \cdot |x_{i} - x_{i-1}| \right)
+\]
+
+\subsection*{Constraints}
+
+1. **Inventory Balance**:
+   \[
+   I_i = I_{i-1} + x_i - \text{deliver}_i \quad \text{for } i = 1, \ldots, T
+   \]
+   where \( I_0 = 0 \) (starting inventory is zero).
+
+2. **Non-negativity**:
+   \[
+   x_i \geq 0 \quad \text{for } i = 1, \ldots, T
+   \]
+   \[
+   I_i \geq 0 \quad \text{for } i = 1, \ldots, T
+   \]
+
+3. **End of Year Inventory**:
+   \[
+   I_T = 0 \quad \text{(no inventory at the end of the year)}
+   \]
+
+\subsection*{Output}
+The output will be:
+\begin{itemize}
+    \item \( x = [x_1, x_2, \ldots, x_T] \)
+    \item \( \text{cost} = C \)
+\end{itemize}
+
+\end{document}

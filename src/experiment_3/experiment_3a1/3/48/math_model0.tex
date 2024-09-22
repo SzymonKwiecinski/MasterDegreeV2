@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Gift Basket Production Problem}
+
+\textbf{Variables:}
+
+\begin{itemize}
+    \item $regular\_used_{w}$: hours of regular labor used in week $w$.
+    \item $overtime\_used_{w}$: hours of overtime labor used in week $w$.
+    \item $regular\_basket_{w}$: number of baskets assembled with regular labor in week $w$.
+    \item $overtime\_basket_{w}$: number of baskets assembled with overtime labor in week $w$.
+    \item $inventory_{w}$: number of baskets on hand at the end of week $w$.
+\end{itemize}
+
+\textbf{Parameters:}
+
+\begin{itemize}
+    \item $W$: total number of weeks.
+    \item $demand_{w}$: demand in week $w$.
+    \item $regular\_labor_{w}$: available regular labor hours in week $w$.
+    \item $overtime\_labor_{w}$: available overtime labor hours in week $w$.
+    \item $assembly\_time$: hours of labor required to assemble one basket.
+    \item $regular\_cost$: cost of regular labor per hour.
+    \item $overtime\_cost$: cost of overtime labor per hour.
+    \item $material\_cost$: material cost for each basket.
+    \item $selling\_price$: selling price for each basket.
+    \item $holding\_cost$: holding cost for unsold baskets.
+    \item $salvage\_value$: salvage value for unsold baskets at the end of $W$.
+\end{itemize}
+
+\textbf{Objective Function:}
+
+Maximize total profit:
+
+\[
+\text{Maximize } Z = \sum_{w=1}^{W} \left( (selling\_price - material\_cost) \cdot (regular\_basket_{w} + overtime\_basket_{w}) - regular\_cost \cdot regular\_used_{w} - overtime\_cost \cdot overtime\_used_{w} - holding\_cost \cdot inventory_{w} \right) + salvage\_value \cdot inventory_{W}
+\]
+
+\textbf{Constraints:}
+
+1. Labor Constraints:
+    \[
+    regular\_used_{w} + overtime\_used_{w} \leq regular\_labor_{w} + overtime\_labor_{w}, \quad \forall w = 1, \ldots, W
+    \]
+
+2. Assembly Constraints:
+    \[
+    regular\_basket_{w} + overtime\_basket_{w} \leq \frac{regular\_used_{w}}{assembly\_time} + \frac{overtime\_used_{w}}{assembly\_time}, \quad \forall w = 1, \ldots, W
+    \]
+
+3. Demand Fulfillment:
+    \[
+    inventory_{w-1} + regular\_basket_{w} + overtime\_basket_{w} - demand_{w} = inventory_{w}, \quad \forall w = 1, \ldots, W
+    \]
+    with $inventory_{0} = 0$.
+
+4. Non-negativity Constraints:
+    \[
+    regular\_used_{w} \geq 0, \quad overtime\_used_{w} \geq 0, \quad regular\_basket_{w} \geq 0, \quad overtime\_basket_{w} \geq 0, \quad inventory_{w} \geq 0, \quad \forall w = 1, \ldots, W
+    \]
+
+\end{document}

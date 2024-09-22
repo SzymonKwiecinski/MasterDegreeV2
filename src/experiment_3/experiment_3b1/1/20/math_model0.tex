@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Manufacturing Profit Optimization}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Formulation}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item $m$: index for machine ($m = 1, 2, \ldots, M$)
+    \item $k$: index for product ($k = 1, 2, \ldots, K$)
+    \item $i$: index for month ($i = 1, 2, \ldots, I$)
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $num_m$: number of machines
+    \item $profit_k$: profit per unit of product $k$
+    \item $time_{k,m}$: production time of product $k$ on machine $m$
+    \item $maintain_{i,m}$: number of machines down for maintenance in month $i$
+    \item $limit_{k,i}$: marketing limitation on product $k$ in month $i$
+    \item $store\_price$: storage cost per unit per month
+    \item $keep\_quantity$: required stock of each product at the end of each month
+    \item $n\_workhours$: number of work hours per day
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $sell_{k,i}$: quantity of product $k$ sold in month $i$
+    \item $manufacture_{k,i}$: quantity of product $k$ manufactured in month $i$
+    \item $storage_{k,i}$: quantity of product $k$ stored at the end of month $i$
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+    \text{Maximize } Z &= \sum_{i=1}^{I} \sum_{k=1}^{K} \left( profit_k \cdot sell_{k,i} - store\_price \cdot storage_{k,i} \right)
+\end{align*}
+
+\textbf{Subject to:}
+
+\begin{align*}
+    \sum_{k=1}^{K} time_{k,m} \cdot manufacture_{k,i} & \leq (n\_workhours \cdot 6 \cdot 24) - \sum_{m=1}^{M} maintain_{i,m}, \quad \forall i, m\\
+    sell_{k,i} & \leq limit_{k,i}, \quad \forall k, i\\
+    storage_{k,i} & \leq 100, \quad \forall k, i\\
+    storage_{k,i} & = storage_{k,i-1} + manufacture_{k,i} - sell_{k,i}, \quad \forall k, i \geq 2\\
+    storage_{k,1} & = 0, \quad \forall k\\
+    storage_{k,I} & \geq keep\_quantity, \quad \forall k\\
+    sell_{k,i}, manufacture_{k,i}, storage_{k,i} & \geq 0, \quad \forall k, i
+\end{align*}
+
+\end{document}

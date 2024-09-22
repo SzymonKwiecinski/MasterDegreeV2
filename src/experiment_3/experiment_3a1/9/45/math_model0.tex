@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Custom Tees Advertising Campaign}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( A \) be the number of different ad types.
+    \item Let \( \text{goal\_young} \) be the goal of clicks from visitors aged 18-25 (in thousands).
+    \item Let \( \text{goal\_old} \) be the goal of clicks from visitors older than 25 (in thousands).
+    \item Let \( \text{goal\_unique\_young} \) be the goal of unique clicks from visitors aged 18-25 (in thousands).
+    \item Let \( \text{goal\_unique\_old} \) be the goal of unique clicks from visitors older than 25 (in thousands).
+    \item Let \( \text{young\_click}_a \) be the percentage of clicks from age 18-25 for ad type \( a \).
+    \item Let \( \text{old\_click}_a \) be the percentage of clicks from visitors older than 25 for ad type \( a \).
+    \item Let \( \text{cost}_a \) be the cost per 1000 clicks for ad type \( a \).
+    \item Let \( \text{max\_click}_a \) be the maximum allowable clicks (in thousands) for ad type \( a \).
+    \item Let \( \text{unique\_click}_a \) be the estimated percentage of unique visitors for ad type \( a \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+Define \( x_a \) as the number of clicks purchased for ad type \( a \) (in thousands).
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{minimize } Z = \sum_{a=1}^{A} \text{cost}_a \cdot x_a
+\]
+
+\subsection*{Constraints}
+1. Clicks from visitors aged 18-25:
+\[
+\sum_{a=1}^{A} \text{young\_click}_a \cdot x_a \geq \text{goal\_young}
+\]
+
+2. Clicks from visitors older than 25:
+\[
+\sum_{a=1}^{A} \text{old\_click}_a \cdot x_a \geq \text{goal\_old}
+\]
+
+3. Unique clicks from visitors aged 18-25:
+\[
+\sum_{a=1}^{A} \text{unique\_click}_a \cdot x_a \geq \text{goal\_unique\_young}
+\]
+
+4. Unique clicks from visitors older than 25:
+\[
+\sum_{a=1}^{A} \text{unique\_click}_a \cdot x_a \geq \text{goal\_unique\_old}
+\]
+
+5. Maximum allowable clicks for each ad type:
+\[
+x_a \leq \text{max\_click}_a, \quad \forall a = 1, \ldots, A
+\]
+
+6. Non-negativity constraints:
+\[
+x_a \geq 0, \quad \forall a = 1, \ldots, A
+\]
+
+\subsection*{Output Variables}
+\begin{itemize}
+    \item \( \text{clicks} = [x_a \text{ for } a = 1, \ldots, A] \)
+    \item \( \text{total\_cost} = Z \)
+\end{itemize}
+
+\end{document}

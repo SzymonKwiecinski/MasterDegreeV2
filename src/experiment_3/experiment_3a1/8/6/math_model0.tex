@@ -1,0 +1,84 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Rocket Motion}
+
+We define the following variables:
+
+\begin{itemize}
+    \item \( x_t \): position of the rocket at time \( t \)
+    \item \( v_t \): velocity of the rocket at time \( t \)
+    \item \( a_t \): acceleration of the rocket at time \( t \)
+\end{itemize}
+
+The discrete-time dynamics of the rocket can be expressed as:
+
+\[
+x_{t+1} = x_t + v_t
+\]
+
+\[
+v_{t+1} = v_t + a_t
+\]
+
+Given the initial conditions:
+
+\[
+x_0, \quad v_0
+\]
+
+and the target conditions:
+
+\[
+x_T, \quad v_T, \quad T
+\]
+
+we aim to minimize the total fuel used, represented by the sum of the absolute values of the accelerations:
+
+\[
+\text{Minimize} \quad \sum_{t=0}^{T-1} |a_t|
+\]
+
+subject to the constraints:
+
+\begin{align*}
+x_{t+1} &= x_t + v_t \quad \forall t = 0, 1, \ldots, T-1 \\
+v_{t+1} &= v_t + a_t \quad \forall t = 0, 1, \ldots, T-1 \\
+x_0 &= \text{initial position} \\
+v_0 &= \text{initial velocity} \\
+x_T &= \text{target position} \\
+v_T &= \text{target velocity}
+\end{align*}
+
+The objective can be formulated as follows:
+
+\begin{equation}
+\text{Objective:} \quad \min \left( \sum_{t=0}^{T-1} |a_t| \right)
+\end{equation}
+
+\textbf{Output:} 
+
+The results will yield:
+
+\begin{itemize}
+    \item \( x \): a list of positions \( [x_i \text{ for } i = 0, \ldots, T] \)
+    \item \( v \): a list of velocities \( [v_i \text{ for } i = 0, \ldots, T] \)
+    \item \( a \): a list of accelerations \( [a_i \text{ for } i = 0, \ldots, T] \)
+    \item \( \text{fuel\_spend} \): total fuel spent
+\end{itemize}
+
+Output format:
+
+\[
+\left\{
+\begin{array}{l}
+"x": [x_0, x_1, \ldots, x_T], \\
+"v": [v_0, v_1, \ldots, v_T], \\
+"a": [a_0, a_1, \ldots, a_T], \\
+"fuel\_spend": \text{total fuel spent}
+\end{array}
+\right.
+\]
+
+\end{document}

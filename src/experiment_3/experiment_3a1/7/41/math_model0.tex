@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Floppy Disk Backup Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( C \): Capacity of each floppy disk (in GB)
+    \item \( N \): Total number of files
+    \item \( size_j \): Size of file \( j \) (for \( j = 1, 2, \ldots, N \))
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_{i,j} \): Binary variable that equals 1 if file \( j \) is assigned to disk \( i \), and 0 otherwise.
+    \item \( y_i \): Binary variable that equals 1 if disk \( i \) is used, and 0 otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+\begin{align*}
+    \text{Minimize } & \sum_{i=1}^{M} y_i
+\end{align*}
+
+Where \( M \) is the maximum number of disks that can be used.
+
+\subsection*{Constraints}
+\begin{align*}
+    \sum_{i=1}^{M} x_{i,j} & = 1, \quad \forall j = 1, 2, \ldots, N \quad \text{(Each file must be assigned to exactly one disk)}\\
+    \sum_{j=1}^{N} size_j \cdot x_{i,j} & \leq C \cdot y_i, \quad \forall i = 1, 2, \ldots, M \quad \text{(Disk capacity constraint)}\\
+    x_{i,j} & \in \{0, 1\}, \quad \forall i, j \quad \text{(Binary decision variable)}\\
+    y_i & \in \{0, 1\}, \quad \forall i \quad \text{(Binary disk usage variable)}
+\end{align*}
+
+\subsection*{Output}
+The output will be:
+\begin{itemize}
+    \item \( n\_disks \): Total number of floppy disks used, calculated as \( n\_disks = \sum_{i=1}^{M} y_i \)
+    \item \( whichdisk \): Distribution of files across disks, determined by the values of \( x_{i,j} \) for each file \( j \)
+\end{itemize}
+
+\end{document}

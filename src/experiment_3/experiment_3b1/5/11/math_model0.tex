@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item \( x_i \) = units produced in month \( i \) for \( i = 1, 2, \ldots, T \)
+    \item \( I_i \) = inventory at the end of month \( i \) for \( i = 1, 2, \ldots, T \)
+\end{itemize}
+
+\subsection*{Parameters}
+Given:
+\begin{itemize}
+    \item \( deliver_i \) = number of units to deliver at the end of month \( i \)
+    \item \( storage\_cost \) = cost of storing one unit for one month
+    \item \( switch\_cost \) = cost associated with changing production levels
+    \item \( T \) = total number of months
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the total cost over the \( T \) months:
+
+\[
+\text{Minimize } Z = \sum_{i=1}^{T} \left( storage\_cost \cdot I_i + switch\_cost \cdot |x_{i+1} - x_i| \right)
+\]
+
+\subsection*{Constraints}
+The constraints for the production and inventory management are as follows:
+
+1. Inventory balance constraint:
+   \[
+   I_i = I_{i-1} + x_i - deliver_i \quad (for \; i = 1, 2, \ldots, T)
+   \]
+   with \( I_0 = 0 \)
+
+2. Non-negativity constraints:
+   \[
+   x_i \geq 0 \quad (for \; i = 1, 2, \ldots, T)
+   \]
+   \[
+   I_i \geq 0 \quad (for \; i = 1, 2, \ldots, T)
+   \]
+
+3. Delivery constraints:
+   \[
+   I_i \geq 0 \quad (for \; i = 1, 2, \ldots, T)
+   \]
+
+\subsection*{Output Format}
+The output of the model consists of the production levels and total cost:
+
+\[
+\text{Output: } \{ x: [x_1, x_2, \ldots, x_T], cost: Z \}
+\]
+
+\end{document}

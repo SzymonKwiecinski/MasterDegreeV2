@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Translator Selection Problem}
+
+Let:
+\begin{itemize}
+    \item \( N \) be the number of translators available.
+    \item \( M \) be the number of required languages.
+    \item \( c_i \) be the cost of hiring translator \( i \).
+    \item \( S_i \) be a binary decision variable that equals 1 if translator \( i \) is selected, and 0 otherwise.
+    \item \( L_i \) be the set of languages that translator \( i \) can translate.
+    \item \( R \) be the set of required languages.
+\end{itemize}
+
+The objective is to minimize the total cost of hiring the translators while ensuring that all required languages can be translated.
+
+\subsection*{Objective Function}
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} c_i S_i
+\]
+
+\subsection*{Constraints}
+\[
+\sum_{i: language_m \in L_i} S_i \geq 1, \quad \forall language_m \in R
+\]
+This constraint ensures that at least one translator is selected for each required language.
+
+\subsection*{Decision Variables}
+\[
+S_i \in \{0, 1\}, \quad \forall i = 1, 2, \ldots, N
+\]
+
+\end{document}

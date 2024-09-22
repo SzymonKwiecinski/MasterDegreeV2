@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for DEC Production Optimization}
+
+\subsection*{Sets}
+Let \( N \) be the number of different computer systems.
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( is\_workstation_i \): boolean indicating if system \( i \) is a workstation
+    \item \( price_i \): price of system \( i \)
+    \item \( disk_i \): average disk drives requested for system \( i \)
+    \item \( mem_i \): average 256K memory boards required for system \( i \)
+    \item \( max\_cpu \): maximum number of CPUs available
+    \item \( min\_disk \): minimum number of disk drives available
+    \item \( max\_disk \): maximum number of disk drives available
+    \item \( min\_mem \): minimum number of 256K memory boards available
+    \item \( max\_mem \): maximum number of 256K memory boards available
+    \item \( demand_i \): maximum demand for system \( i \)
+    \item \( demand\_GP \): maximum demand for all GP systems
+    \item \( demand\_WS \): maximum demand for all WS systems
+    \item \( preorder_i \): preorders for system \( i \)
+    \item \( alt\_mem \): available alternative memory boards
+    \item \( alt\_compatible_i \): boolean indicating if system \( i \) can use alternative memory boards
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let \( x_i \) be the number of systems \( i \) produced.
+
+Let \( alt\_used_i \) be the number of alternative memory boards used in system \( i \).
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Profit} = \sum_{i=1}^N \left( price_i \cdot x_i - \text{costs} \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+\sum_{i=1}^N x_i & \leq max\_cpu \quad \text{(CPU Constraint)} \\
+\sum_{i=1}^N disk_i \cdot x_i & \in [min\_disk, max\_disk] \quad \text{(Disk Drives Constraint)} \\
+\sum_{i=1}^N mem_i \cdot x_i + \sum_{i=1}^N alt\_compatible_i \cdot alt\_used_i & \in [min\_mem, max\_mem] \quad \text{(Memory Boards Constraint)} \\
+x_i & \geq preorder_i \quad \forall i \in [1, N] \quad \text{(Preorder Fulfillment)} \\
+\sum_{i \text{ s.t. } is\_workstation_i} x_i & \leq demand\_WS \quad \text{(Workstation Demand Constraint)} \\
+\sum_{i \text{ s.t. } \neg is\_workstation_i} x_i & \leq demand\_GP \quad \text{(General Purpose Demand Constraint)} \\
+x_i & \leq demand_i \quad \forall i \in [1, N] \quad \text{(Individual System Demand)}
+\end{align*}
+
+\subsection*{Output}
+The output will be a JSON formatted result containing:
+\begin{itemize}
+    \item \( system\_output \): list of produced systems with their production details
+    \item \( profit \): total profit for the next quarter
+\end{itemize}
+
+\end{document}

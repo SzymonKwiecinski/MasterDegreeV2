@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Cafeteria Staff Scheduling Model}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item Let $N$ be the number of future days.
+    \item Let $num_n$ be the number of desired employees on day $n$ for $n = 1, \ldots, N$.
+    \item Let $n_{\text{working}}$ be the number of working days for each employee.
+    \item Let $n_{\text{resting}}$ be the number of resting days for each employee.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item Let $total\_number$ be the total number of employees to hire.
+    \item Let $is\_work_{n,i}$ be a binary variable that indicates whether employee $i$ is working on day $n$ (1 if working, 0 if resting) for $n = 1, \ldots, N$ and $i = 1, \ldots, total\_number$.
+\end{itemize}
+
+\textbf{Objective:}
+\[
+\text{Minimize } total\_number
+\]
+
+\textbf{Constraints:}
+\begin{equation}
+\sum_{i=1}^{total\_number} is\_work_{n,i} \geq num_n \quad \forall n = 1, \ldots, N
+\end{equation}
+
+\begin{equation}
+is\_work_{n,i} \text{ must satisfy the schedule of } n_{\text{working}} \text{ and } n_{\text{resting}} 
+\end{equation}
+
+Specifically, for each employee $i$, the following conditions must hold:
+\begin{equation}
+\sum_{j=n}^{n+n_{\text{working}}-1} is\_work_{j,i} = n_{\text{working}} \quad \text{for each } n
+\end{equation}
+\begin{equation}
+\sum_{j=n+n_{\text{working}}}^{n+n_{\text{working}}+n_{\text{resting}}-1} is\_work_{j,i} = 0 \quad \text{for each } n
+\end{equation}
+
+\textbf{Outputs:}
+\begin{itemize}
+    \item $total\_number$: Total number of employees to employ.
+    \item $is\_work$: A matrix where $is\_work[n,i]$ indicates whether employee $i$ is working on day $n$.
+\end{itemize}
+
+\end{document}

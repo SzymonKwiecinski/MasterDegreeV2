@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+We are given the following parameters for our linear programming model:
+
+- Let \( N \) be the number of available currencies.
+- Let \( \text{start}_i \) be the initial amount of currency \( i \).
+- Let \( \text{limit}_i \) be the maximum amount of currency \( i \) that can be exchanged in a day.
+- Let \( \text{rate}_{i,j} \) be the exchange rate from currency \( i \) to currency \( j \), where \( \text{rate}_{i,j} > 0 \).
+
+We define the variables for our model as follows:
+
+- Let \( x_{i,j} \) be the amount of currency \( i \) that is exchanged for currency \( j \).
+
+Our objective is to maximize the total amount of currency \( N \) by the end of the day. The linear programming formulation can be expressed as follows:
+
+\[
+\text{Maximize } z = \text{final\_currency}_N
+\]
+
+where \( \text{final\_currency}_N = \text{start}_N + \sum_{j=1}^{N} x_{j,N} \).
+
+\subsection*{Constraints}
+
+1. Exchange limits for each currency:
+\[
+\sum_{j=1}^{N} x_{i,j} - \sum_{j=1}^{N} x_{j,i} \leq \text{limit}_i \quad \forall i \in \{1, \ldots, N\}
+\]
+
+2. Non-negativity constraints:
+\[
+x_{i,j} \geq 0 \quad \forall i, j \in \{1, \ldots, N\}
+\]
+
+3. Wealth preservation constraints:
+\[
+\sum_{j=1}^{N} \frac{x_{i,j}}{\text{rate}_{i,j}} \leq \text{start}_i \quad \forall i \in \{1, \ldots, N\}
+\]
+
+4. Cycle constraint:
+\[
+\text{rate}_{i_1,i_2}, \text{rate}_{i_2,i_3}, \ldots, \text{rate}_{i_k,i_1} \leq 1 \quad \forall \text{cycles } (i_1, i_2, \ldots, i_k)
+\]
+
+\subsection*{Output Information}
+
+The output of the linear programming model will consist of a list of transactions where:
+- Each transaction will be represented as:
+\[
+\text{transaction} = \{ \text{from}: i, \text{to}: j, \text{amount}: x_{i,j} \}
+\]
+
+The final output will include:
+\begin{itemize}
+    \item A list of transactions executed.
+    \item The final amount of currency \( N \):
+\[
+\text{final\_amount\_of\_currency\_N} = \text{start}_N + \sum_{j=1}^{N} x_{j,N}
+\]
+\end{itemize}
+
+\end{document}

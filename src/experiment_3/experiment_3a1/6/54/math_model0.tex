@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\subsection*{Parameters}
+\begin{align*}
+& P \quad \text{(Number of different parts)} \\
+& M \quad \text{(Number of different machines)} \\
+& \text{time}_{m,p} \quad \text{(Time required in hours on machine } m \text{ for part } p) \\
+& \text{cost}_{m} \quad \text{(Cost per hour for using machine } m) \\
+& \text{available}_{m} \quad \text{(Availability of machine } m \text{ in hours per month)} \\
+& \text{price}_{p} \quad \text{(Selling price per batch of part } p) \\
+& \text{min\_batches}_{p} \quad \text{(Minimum batches of part } p \text{ to be produced)} \\
+& \text{standard\_cost} \quad \text{(Standard labor cost per hour)} \\
+& \text{overtime\_cost} \quad \text{(Overtime labor cost per hour)} \\
+& \text{overtime\_hour} \quad \text{(Hours up to which standard cost is charged)}
+\end{align*}
+
+\subsection*{Decision Variables}
+Let \( \text{batches}_{p} \) be the number of batches produced for part \( p \), where \( p = 1, \ldots, P \).
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{total\_profit} = \sum_{p=1}^{P} \left( \text{price}_{p} \cdot \text{batches}_{p} - \sum_{m=1}^{M} \left( \text{cost}_{m} \cdot \left( \frac{\text{time}_{m,p}}{100} \cdot \text{batches}_{p} \right) \right) \right)
+\]
+
+\subsection*{Constraints}
+1. Time availability for each machine:
+\[
+\sum_{p=1}^{P} \left( \text{time}_{m,p} \cdot \text{batches}_{p} \right) \leq \text{available}_{m} \quad \forall m = 1, \ldots, M
+\]
+2. Minimum production requirement for each part:
+\[
+\text{batches}_{p} \geq \text{min\_batches}_{p} \quad \forall p = 1, \ldots, P
+\]
+3. Labor cost constraints for machine 1:
+\begin{align*}
+& \text{labor\_hours} = \sum_{p=1}^{P} \left( \frac{\text{time}_{1,p}}{100} \cdot \text{batches}_{p} \right) \\
+& \text{if } \text{labor\_hours} \leq \text{overtime\_hour}: \quad \text{cost}_{labor} = \text{labor\_hours} \cdot \text{standard\_cost} \\
+& \text{if } \text{labor\_hours} > \text{overtime\_hour}: \quad \text{cost}_{labor} = \text{overtime\_hour} \cdot \text{standard\_cost} + (\text{labor\_hours} - \text{overtime\_hour}) \cdot \text{overtime\_cost}
+\end{align*}
+
+\subsection*{Non-negativity Constraints}
+\[
+\text{batches}_{p} \geq 0 \quad \forall p = 1, \ldots, P
+\]
+
+\end{document}

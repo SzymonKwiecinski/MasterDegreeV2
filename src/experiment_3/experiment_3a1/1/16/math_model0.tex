@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Oil Refinery Production}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item Let \( O \) be the number of crude oil types.
+    \item Let \( P \) be the number of products.
+    \item Let \( L \) be the number of production processes.
+    \item \( \text{allocated}_i \) = allocated barrels of crude type \( i \) for production.
+    \item \( \text{price}_p \) = selling price per barrel of product \( p \).
+    \item \( \text{input}_{l,i} \) = barrels of crude type \( i \) required by process \( l \).
+    \item \( \text{output}_{l,p} \) = barrels of product \( p \) produced by process \( l \).
+    \item \( \text{cost}_l \) = cost per barrel for process \( l \).
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item Let \( x_l \) be the number of times process \( l \) is executed.
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} \text{price}_p \sum_{l=1}^{L} \text{output}_{l,p} \cdot x_l - \sum_{l=1}^{L} \text{cost}_l \cdot x_l
+\]
+
+\textbf{Subject to Constraints:}
+\begin{itemize}
+    \item \textbf{Crude Oil Availability Constraints:}
+    \[
+    \sum_{l=1}^{L} \text{input}_{l,i} \cdot x_l \leq \text{allocated}_i \quad \forall i = 1, \ldots, O
+    \]
+    
+    \item \textbf{Non-negativity Constraints:}
+    \[
+    x_l \geq 0 \quad \forall l = 1, \ldots, L
+    \]
+\end{itemize}
+
+\textbf{Output:}
+\begin{itemize}
+    \item \( \text{revenue} = Z \)
+    \item Execute: \( [x_l \text{ for } l = 1, \ldots, L] \)
+\end{itemize}
+
+\end{document}

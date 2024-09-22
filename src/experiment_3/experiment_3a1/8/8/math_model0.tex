@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Profit Maximization in Spare Part Manufacturing}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item $K$: Number of different spare parts
+    \item $S$: Number of shops
+    \item $quantity_k$: Quantity of spare part $k$ to be produced, for $k = 1, \ldots, K$.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $time_{k,s}$: Worker-hours required for part $k$ in shop $s$, for $k = 1, \ldots, K$ and $s = 1, \ldots, S$.
+    \item $profit_k$: Profit from each unit of spare part $k$, for $k = 1, \ldots, K$.
+    \item $capacity_s$: Total worker-hours available in shop $s$, for $s = 1, \ldots, S$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} profit_k \cdot quantity_k
+\]
+
+\subsection*{Constraints}
+Subject to the constraints:
+\[
+\sum_{k=1}^{K} time_{k, s} \cdot quantity_k \leq capacity_s \quad \forall s = 1, \ldots, S
+\]
+
+\subsection*{Non-negativity Constraints}
+\[
+quantity_k \geq 0 \quad \forall k = 1, \ldots, K
+\]
+
+\subsection*{Output Format}
+The optimal solution will yield the quantities of each spare part:
+\[
+\text{Output: } \{ quantity_k \text{ for } k = 1, \ldots, K \}
+\]
+
+\end{document}

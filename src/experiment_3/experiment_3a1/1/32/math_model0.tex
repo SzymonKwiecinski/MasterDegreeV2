@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Product Production}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Formulation}
+
+\subsection*{Variables}
+Let \( x_k \) represent the production quantity of product \( k \) for \( k = 1, 2, \ldots, K \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{produce\_time}_{k, s} \): Time required to produce 1 unit of product \( k \) at stage \( s \).
+    \item \( \text{time}_s \): Available working hours for stage \( s \).
+    \item \( \text{profit}_k \): Unit profit for product \( k \).
+\end{itemize}
+
+\subsection*{Objective Function}
+We want to maximize the total profit:
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} \text{profit}_k \cdot x_k
+\]
+
+\subsection*{Constraints}
+We need to ensure that the production constraints for each stage are satisfied:
+\[
+\sum_{k=1}^{K} \text{produce\_time}_{k, s} \cdot x_k \leq \text{time}_s \quad \text{for } s = 1, 2, \ldots, S
+\]
+
+\subsection*{Non-negativity Constraints}
+\[
+x_k \geq 0 \quad \text{for } k = 1, 2, \ldots, K
+\]
+
+\subsection*{Model Summary}
+Our complete linear programming model can be summarized as follows:
+
+\begin{align*}
+\text{maximize } & Z = \sum_{k=1}^{K} \text{profit}_k \cdot x_k \\
+\text{subject to } & \sum_{k=1}^{K} \text{produce\_time}_{k, s} \cdot x_k \leq \text{time}_s, & \text{for } s = 1, 2, \ldots, S \\
+& x_k \geq 0, & \text{for } k = 1, 2, \ldots, K
+\end{align*}
+
+\end{document}

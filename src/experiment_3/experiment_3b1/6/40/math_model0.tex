@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Inputs:}
+\begin{itemize}
+    \item \( n_{\text{steel\_quant}} \): tons of steel required
+    \item \( mn_{\text{percent}} \): minimum percentage of manganese in the steel
+    \item \( si_{\text{min}} \): minimum percentage of silicon in the steel
+    \item \( si_{\text{max}} \): maximum percentage of silicon in the steel
+    \item \( \text{contsi}_k \): percentage of silicon in mineral \( k \)
+    \item \( \text{contmn}_k \): percentage of manganese in mineral \( k \)
+    \item \( mang_{\text{price}} \): price of manganese (in million euros per ton)
+    \item \( \text{cost}_k \): cost of mineral \( k \) (in million euros per thousand tons)
+    \item \( sell_{\text{price}} \): selling price of steel (in million euros per ton)
+    \item \( melt_{\text{price}} \): melting cost of a ton of mineral (in million euros)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( \text{amount}_k \): amount of mineral \( k \) melted (in tons)
+    \item \( num_{\text{mang}} \): amount of manganese added directly (in tons)
+\end{itemize}
+
+\textbf{Objective Function:}
+Maximize profit:
+\[
+\text{Profit} = n_{\text{steel\_quant}} \times sell_{\text{price}} - \sum_{k=1}^{K} \left( \frac{\text{cost}_k}{1000} \times \text{amount}_k + melt_{\text{price}} \times \text{amount}_k \right) - mang_{\text{price}} \times num_{\text{mang}}
+\]
+
+\textbf{Constraints:}
+1. Manganese content constraint:
+\[
+\sum_{k=1}^{K} \left( \frac{\text{amount}_k \times \text{contmn}_k}{100} \right) + num_{\text{mang}} \geq \frac{mn_{\text{percent}}}{100} \times n_{\text{steel\_quant}}
+\]
+
+2. Silicon content constraints:
+\[
+si_{\text{min}} \leq \frac{\sum_{k=1}^{K} \left( \frac{\text{amount}_k \times \text{contsi}_k}{100} \right)}{n_{\text{steel\_quant}}} \leq si_{\text{max}}
+\]
+
+3. Non-negativity constraints:
+\[
+\text{amount}_k \geq 0, \quad num_{\text{mang}} \geq 0 \quad \forall k
+\]
+
+\end{document}

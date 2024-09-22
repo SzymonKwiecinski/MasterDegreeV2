@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Steel Production}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item $x_k$: amount of mineral $k$ melted (in tons) for $k = 1, \ldots, K$.
+    \item $m$: amount of manganese added (in tons).
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $n_{\text{steel\_quant}}$: required amount of steel (in tons).
+    \item $mn_{\text{percent}}$: minimum percentage of manganese in the steel.
+    \item $si_{\text{min}}$: minimum percentage of silicon in the steel.
+    \item $si_{\text{max}}$: maximum percentage of silicon in the steel.
+    \item $cont_{si_k}$: silicon content from mineral $k$ (in percentage).
+    \item $cont_{mn_k}$: manganese content from mineral $k$ (in percentage).
+    \item $mang_{\text{price}}$: price of manganese (in million euros per ton).
+    \item $cost_k$: cost of mineral $k$ (in million euros per thousand tons).
+    \item $sell_{\text{price}}$: selling price of steel (in million euros per ton).
+    \item $melt_{\text{price}}$: cost of smelting one ton of mineral (in million euros).
+\end{itemize}
+
+\textbf{Objective Function:}
+Maximize profit:
+\[
+\text{Profit} = n_{\text{steel\_quant}} \cdot sell_{\text{price}} - \left( \sum_{k=1}^{K} \left(\frac{cost_k}{1000} \cdot x_k + melt_{\text{price}} \cdot x_k\right) + mang_{\text{price}} \cdot m \right)
+\]
+
+\textbf{Constraints:}
+1. Total weight of steel produced:
+\[
+\sum_{k=1}^{K} \left( \frac{cont_{si_k}}{100} \cdot x_k \right) + m = n_{\text{steel\_quant}}
+\]
+
+2. Minimum manganese content:
+\[
+\frac{m}{n_{\text{steel\_quant}}} \geq \frac{mn_{\text{percent}}}{100} \implies m \geq n_{\text{steel\_quant}} \cdot \frac{mn_{\text{percent}}}{100}
+\]
+
+3. Silicon content constraints:
+\[
+si_{\text{min}} \cdot n_{\text{steel\_quant}} \leq \sum_{k=1}^{K} \left( \frac{cont_{si_k}}{100} \cdot x_k \right) \leq si_{\text{max}} \cdot n_{\text{steel\_quant}}
+\]
+
+4. Non-negativity constraints:
+\[
+x_k \geq 0 \quad \forall k = 1, \ldots, K
+\]
+\[
+m \geq 0
+\]
+
+\end{document}

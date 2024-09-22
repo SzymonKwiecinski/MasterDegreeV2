@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Auto Parts Manufacturer}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $P$: Number of different parts
+    \item $M$: Number of different machines
+    \item $time_{m,p}$: Time required (in hours) on machine $m$ to produce a batch of 100 parts $p$
+    \item $cost_{m}$: Cost per hour for using machine $m$
+    \item $available_{m}$: Availability of machine $m$ (in hours per month)
+    \item $price_{p}$: Selling price per batch of part $p$
+    \item $min\_batches_{p}$: Minimum number of batches of part $p$ to be produced
+    \item $standard\_cost$: Standard labor cost per hour
+    \item $overtime\_cost$: Overtime labor cost per hour
+    \item $overtime\_hour$: Overtime limit in hours
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $batches_{p}$: Number of batches of part $p$ produced
+    \item $overtime\_hours$: Overtime hours used
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} \left( price_{p} \cdot batches_{p} - \sum_{m=1}^{M} (cost_{m} \cdot time_{m,p} \cdot batches_{p}) \right) - (standard\_cost \cdot overtime\_hours + overtime\_cost \cdot max(0, overtime\_hours - overtime\_hour))
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Production constraints for each part:
+    \[
+    batches_{p} \geq min\_batches_{p} \quad \forall p \in \{1, \ldots, P\}
+    \]
+    \item Machine availability constraints:
+    \[
+    \sum_{p=1}^{P} time_{m,p} \cdot batches_{p} \leq available_{m} \quad \forall m \in \{1, \ldots, M\}
+    \]
+\end{itemize}
+
+\subsection*{Output}
+The output consists of:
+\begin{itemize}
+    \item The number of batches produced of each part: $batches_{p}$
+    \item The total profit: $total\_profit = Z$
+\end{itemize}
+
+\end{document}

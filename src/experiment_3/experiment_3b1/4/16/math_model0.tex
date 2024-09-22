@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+Let:
+\begin{itemize}
+    \item $O$: number of crude oil types
+    \item $P$: number of products
+    \item $L$: number of production processes
+    \item $allocated_i$: allocated million barrels of crude oil type $i$ for $i = 1, \ldots, O$
+    \item $price_p$: selling price per barrel of product $p$ for $p = 1, \ldots, P$
+    \item $input_{l,i}$: input (in barrels) of crude oil type $i$ for process $l$ for $l = 1, \ldots, L, \, i = 1, \ldots, O$
+    \item $output_{l,p}$: output (in barrels) of product $p$ for process $l$ for $l = 1, \ldots, L, \, p = 1, \ldots, P$
+    \item $cost_l$: cost per barrel produced for process $l$ for $l = 1, \ldots, L$
+    \item $execute_l$: number of times process $l$ is executed
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total revenue:
+\[
+\text{Maximize } R = \sum_{p=1}^{P} price_p \cdot \sum_{l=1}^{L} (output_{l,p} \cdot execute_l)
+\]
+
+\subsection*{Constraints}
+
+1. Crude oil allocation constraints:
+\[
+\sum_{l=1}^{L} (input_{l,i} \cdot execute_l) \leq allocated_i \quad \forall i = 1, \ldots, O
+\]
+
+2. Non-negativity constraints for process executions:
+\[
+execute_l \geq 0 \quad \forall l = 1, \ldots, L
+\]
+
+\subsection*{Output}
+Let:
+\begin{itemize}
+    \item $revenue$: total revenue for the month
+    \item $execute = [execute_l \;|\; l = 1, \ldots, L]$: the number of times each process should be executed
+\end{itemize}
+
+\end{document}

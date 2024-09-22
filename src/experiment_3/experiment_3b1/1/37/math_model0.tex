@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Spare Automobile Parts Production}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $k$: Index for spare parts, where $k = 1, \ldots, K$.
+    \item $s$: Index for shops, where $s = 1, \ldots, S$.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $time_{k,s}$: Required worker-hours for part $k$ in shop $s$.
+    \item $profit_{k}$: Profit of part $k$.
+    \item $capacity_{s}$: Capacity of shop $s$ in working hours.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $quantity_{k}$: Quantity of spare part $k$ to be produced.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} profit_{k} \cdot quantity_{k}
+\]
+
+\subsection*{Constraints}
+The shop capacity constraints can be formulated as follows:
+\[
+\sum_{k=1}^{K} time_{k,s} \cdot quantity_{k} \leq capacity_{s}, \quad \forall s = 1, \ldots, S
+\]
+
+\subsection*{Non-negativity Constraints}
+\[
+quantity_{k} \geq 0, \quad \forall k = 1, \ldots, K
+\]
+
+\subsection*{Complete Model}
+The complete linear programming formulation can be summarized as follows:
+
+\begin{align*}
+\text{Maximize } & Z = \sum_{k=1}^{K} profit_{k} \cdot quantity_{k} \\
+\text{Subject to:} \quad & \sum_{k=1}^{K} time_{k,s} \cdot quantity_{k} \leq capacity_{s}, \quad \forall s = 1, \ldots, S \\
+& quantity_{k} \geq 0, \quad \forall k = 1, \ldots, K
+\end{align*}
+
+\end{document}

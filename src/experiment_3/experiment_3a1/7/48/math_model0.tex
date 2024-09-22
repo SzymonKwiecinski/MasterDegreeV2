@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Gift Basket Production}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $w$: Week index, where $w = 1, \ldots, W$
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $W$: Total number of weeks
+    \item $demand_{w}$: Demand for baskets in week $w$
+    \item $regular\_labor_{w}$: Available regular labor hours in week $w$
+    \item $overtime\_labor_{w}$: Available overtime labor hours in week $w$
+    \item $regular\_cost$: Cost of regular labor per hour
+    \item $overtime\_cost$: Cost of overtime labor per hour
+    \item $assembly\_time$: Time in hours to assemble one basket
+    \item $material\_cost$: Material cost for each basket
+    \item $selling\_price$: Selling price for each basket
+    \item $holding\_cost$: Holding cost for unsold baskets
+    \item $salvage\_value$: Salvage value of unsold baskets at the end of week $W$
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item $regular\_used_{w}$: Hours of regular labor used in week $w$
+    \item $overtime\_used_{w}$: Hours of overtime labor used in week $w$
+    \item $regular\_baskets_{w}$: Number of baskets assembled using regular labor in week $w$
+    \item $overtime\_baskets_{w}$: Number of baskets assembled using overtime labor in week $w$
+    \item $inventory_{w}$: Number of baskets on hand at the end of week $w$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+
+\begin{align*}
+    \text{Total Profit} = \sum_{w=1}^{W} \left( (selling\_price \cdot (regular\_baskets_{w} + overtime\_baskets_{w})) - (regular\_cost \cdot regular\_used_{w}) - (overtime\_cost \cdot overtime\_used_{w}) - (material\_cost \cdot (regular\_baskets_{w} + overtime\_baskets_{w})) - (holding\_cost \cdot inventory_{w}) \right)
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+    & \text{Production Capacity Constraints:} \\
+    & regular\_used_{w} + overtime\_used_{w} \leq regular\_labor_{w} + overtime\_labor_{w} \quad \forall w \\
+    & \text{Basket Assembly Constraints:} \\
+    & regular\_baskets_{w} \cdot assembly\_time \leq regular\_used_{w} \\
+    & overtime\_baskets_{w} \cdot assembly\_time \leq overtime\_used_{w} \\
+    & \text{Demand Satisfaction Constraints:} \\
+    & regular\_baskets_{w} + overtime\_baskets_{w} + inventory_{w-1} = demand_{w} + inventory_{w} \quad \forall w = 2, \ldots, W \\
+    & inventory_{1} = 0 \\
+    & \text{Salvage Value Condition:} \\
+    & inventory_{W} \text{ incurs salvage value} \\
+    & \text{Non-negativity Constraints:} \\
+    & regular\_used_{w} \geq 0, \quad overtime\_used_{w} \geq 0, \\
+    & regular\_baskets_{w} \geq 0, \quad overtime\_baskets_{w} \geq 0, \\
+    & inventory_{w} \geq 0 \quad \forall w
+\end{align*}
+
+\end{document}

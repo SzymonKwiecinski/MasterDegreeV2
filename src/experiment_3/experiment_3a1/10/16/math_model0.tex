@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Given:}
+\begin{itemize}
+    \item \( O \): Total number of crude oil types
+    \item \( P \): Total number of products
+    \item \( L \): Total number of production processes
+    \item \( \text{allocated}_i \): Millions of barrels of crude oil type \( i \) allocated for production
+    \item \( \text{price}_p \): Selling price of product \( p \) per barrel
+    \item \( \text{input}_{l,i} \): Barrels of crude oil type \( i \) required for process \( l \)
+    \item \( \text{output}_{l,p} \): Barrels of product \( p \) produced by process \( l \)
+    \item \( \text{cost}_l \): Cost per barrel of product produced by process \( l \)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item Let \( x_l \) be the number of times process \( l \) is executed for \( l = 1, 2, \ldots, L \)
+\end{itemize}
+
+\textbf{Objective Function:}\\
+Maximize total revenue:
+\[
+\text{Revenue} = \sum_{p=1}^{P} \text{price}_p \left( \sum_{l=1}^{L} \text{output}_{l,p} x_l \right)
+\]
+
+\textbf{Subject to Constraints:}\\
+1. Crude oil usage constraints:
+\[
+\sum_{l=1}^{L} \text{input}_{l,i} x_l \leq \text{allocated}_i \quad \forall i \in \{1, 2, \ldots, O\}
+\]
+
+2. Non-negativity constraints:
+\[
+x_l \geq 0 \quad \forall l \in \{1, 2, \ldots, L\}
+\]
+
+\textbf{Output:}
+\begin{itemize}
+    \item \( \text{revenue} \): Total revenue for the month
+    \item \( \text{execute}_l \): Number of times process \( l \) should be executed
+\end{itemize}
+
+\end{document}

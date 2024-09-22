@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Paper Cutting Problem}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $W$: Width of the large roll (inches)
+    \item $M$: Number of different smaller roll types
+    \item $d_j$: Demand for smaller rolls of width $j$ (for $j = 1, \ldots, M$)
+    \item $N$: Number of cutting patterns available
+    \item $p_{i,j}$: Number of rolls of width $j$ produced by pattern $i$ (for $i = 1, \ldots, N$ and $j = 1, \ldots, M$)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_i$: Number of times cutting pattern $i$ is used (for $i = 1, \ldots, N$)
+\end{itemize}
+
+\textbf{Objective:}
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} x_i
+\]
+
+\textbf{Subject to the constraints:}
+\begin{itemize}
+    \item Demand constraints:
+    \[
+    \sum_{i=1}^{N} p_{i,j} x_i \geq d_j \quad \forall j = 1,\ldots,M
+    \]
+    \item Non-negativity constraints:
+    \[
+    x_i \geq 0 \quad \forall i = 1,\ldots,N
+    \]
+\end{itemize}
+
+\textbf{Output:}
+\begin{itemize}
+    \item Patterns used:
+    \[
+    \text{patterns} = \{ (pattern, amount) | x_i \text{ for each pattern } i \} 
+    \]
+    \item Total number of large rolls used:
+    \[
+    \text{total\_large\_rolls\_used} = Z
+    \]
+\end{itemize}
+
+\end{document}

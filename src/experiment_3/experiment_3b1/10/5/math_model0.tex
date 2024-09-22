@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Communication Network Optimization}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item Let \( N \) be the set of nodes, where \( n = |N| \).
+    \item Let \( A \) be the set of all directed links, where each link is represented as an ordered pair \( (i,j) \).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( U_{i,j} \): maximum capacity (in bits per second) of the link from node \( i \) to node \( j \).
+    \item \( C_{i,j} \): cost (per bit) of transmitting data along the link from node \( i \) to node \( j \).
+    \item \( B_{k,l} \): data generation rate (in bits per second) from node \( k \) to node \( l \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( x_{i,j}^{k,l} \): flow (in bits per second) from node \( k \) to node \( l \) through link \( (i,j) \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{(i,j) \in A} C_{i,j} \sum_{(k,l)} x_{i,j}^{k,l}
+\]
+
+\subsection*{Constraints}
+1. Flow conservation at each node:
+\[
+\sum_{j: (i,j) \in A} x_{i,j}^{k,l} - \sum_{m: (m,i) \in A} x_{m,i}^{k,l} = 
+\begin{cases} 
+B_{k,l} & \text{if } i = k \\
+-B_{k,l} & \text{if } i = l \\
+0 & \text{otherwise}
+\end{cases} \quad \forall i \in N
+\]
+
+2. Capacity constraints on each link:
+\[
+x_{i,j}^{k,l} \leq U_{i,j} \quad \forall (i,j) \in A, \forall (k,l) \text{ where data is generated}
+\]
+
+3. Non-negativity constraints:
+\[
+x_{i,j}^{k,l} \geq 0 \quad \forall (i,j) \in A, \forall (k,l)
+\]
+
+\end{document}

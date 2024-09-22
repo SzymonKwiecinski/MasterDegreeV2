@@ -1,0 +1,79 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Economic Production}
+
+\subsection*{Parameters}
+
+\begin{itemize}
+    \item Let \( K \) be the number of industries.
+    \item Let \( inputone_{k,j} \) be the input required from industry \( j \) to produce one unit in industry \( k \).
+    \item Let \( manpowerone_{k} \) be the manpower required for one unit of production in industry \( k \).
+    \item Let \( inputtwo_{k,j} \) be the input required from industry \( j \) to build one unit of capacity in industry \( k \).
+    \item Let \( manpowertwo_{k} \) be the manpower required to build one unit of capacity in industry \( k \).
+    \item Let \( stock_{k} \) be the initial stock of industry \( k \).
+    \item Let \( capacity_{k} \) be the initial capacity of industry \( k \).
+    \item Let \( demand_{k} \) be the consumption requirement for industry \( k \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+
+\begin{itemize}
+    \item Let \( produce_{k,t} \) be the amount produced by industry \( k \) in year \( t \).
+    \item Let \( buildcapa_{k,t} \) be the amount used to build productive capacity for industry \( k \) in year \( t \).
+    \item Let \( stockhold_{k,t} \) be the stock held for industry \( k \) in year \( t \).
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Maximize the total manpower requirement over five years:
+\[
+\text{Maximize} \quad \sum_{t=1}^{5} \sum_{k=1}^{K} \left( manpowerone_{k} \cdot produce_{k,t} + manpowertwo_{k} \cdot buildcapa_{k,t} \right)
+\]
+
+\subsection*{Constraints}
+
+1. **Production Constraints:**
+   \[
+   produce_{k,t} \leq capacity_{k} + stockhold_{k,t-1} \quad \forall k, t
+   \]
+
+2. **Demand Constraints (for years 1 to 5):**
+   \[
+   produce_{k,t} + stockhold_{k,t-1} \geq demand_{k} \quad \forall k, t = 1, 2, 3, 4, 5
+   \]
+
+3. **Stock Balance Constraints:**
+   \[
+   stockhold_{k,t} = stockhold_{k,t-1} + produce_{k,t-1} - demand_{k} \quad \forall k, t = 1, 2, 3, 4, 5
+   \]
+
+4. **Capacity Building Constraints:**
+   \[
+   capacity_{k} + \sum_{t=1}^{5} buildcapa_{k,t} \cdot 1 \text{ (effect in t+2)} \geq 0 \quad \forall k
+   \]
+
+5. **Input Requirements for Production:**
+   \[
+   \sum_{j=1}^{K} inputone_{k,j} \cdot produce_{j,t} \text{ (inputs needed for production)} \quad \forall k, t
+   \]
+
+6. **Input Requirements for Capacity Building:**
+   \[
+   \sum_{j=1}^{K} inputtwo_{k,j} \cdot buildcapa_{j,t} \text{ (inputs needed for capacity building)} \quad \forall k, t
+   \]
+
+\subsection*{Initial Conditions}
+\[
+stockhold_{k,0} = stock_{k}, \quad capacity_{k} = capacity_{k} \quad \forall k
+\]
+
+\subsection*{Output}
+\begin{itemize}
+    \item Produce: \( produce_{k,t} \)
+    \item Build Capacity: \( buildcapa_{k,t} \)
+    \item Stock Hold: \( stockhold_{k,t} \)
+\end{itemize}
+
+\end{document}

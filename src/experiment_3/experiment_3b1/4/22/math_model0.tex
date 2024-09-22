@@ -1,0 +1,77 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Manpower Optimization}
+
+\textbf{Definitions:}
+
+Let:
+\begin{itemize}
+    \item $K$: Number of different manpower categories
+    \item $I$: Number of future years
+    \item $requirement_{k,i}$: Estimated manpower requirement for category $k$ in year $i$
+    \item $strength_k$: Current strength of manpower category $k$
+    \item $lessonewaste_k$: Wastage rate for manpower category $k$ with less than one year of service
+    \item $moreonewaste_k$: Wastage rate for manpower category $k$ with more than one year of service
+    \item $recruit_k$: Maximum number of recruits possible for manpower category $k$
+    \item $costredundancy_k$: Cost of redundancy for manpower category $k$
+    \item $num\_overman$: Maximum number of overman workers across all categories
+    \item $costoverman_k$: Extra cost per overman employee per year for manpower category $k$
+    \item $num\_shortwork$: Maximum number of workers on short-time in each category
+    \item $costshort_k$: Cost per short-time employee per year for manpower category $k$
+\end{itemize}
+
+\textbf{Decision Variables:}
+
+Let:
+\begin{itemize}
+    \item $recruit_{k,i}$: Number of recruits for manpower category $k$ in year $i$
+    \item $overmanning_{k,i}$: Number of overmanning workers for category $k$ in year $i$
+    \item $short_{k,i}$: Number of short-time workers for category $k$ in year $i$
+\end{itemize}
+
+\textbf{Objective Function:}
+
+Minimize total redundancy cost:
+
+\[
+\text{Minimize} \quad Z = \sum_{k=1}^{K} \sum_{i=1}^{I} costredundancy_k \cdot redundancy_{k,i}
+\]
+
+where:
+
+\[
+redundancy_{k,i} = \max(0, (strength_k - lessonewaste_k \cdot recruit_{k,i} - overmanning_{k,i} - short_{k,i}/2 - requirement_{k,i}))
+\]
+
+\textbf{Constraints:}
+
+1. **Recruitment Constraint:**
+\[
+recruit_{k,i} \leq recruit_k \quad \forall k, i
+\]
+
+2. **Overmanning Constraint:**
+\[
+\sum_{k=1}^{K} overmanning_{k,i} \leq num\_overman \quad \forall i
+\]
+
+3. **Short-time Working Constraint:**
+\[
+short_{k,i} \leq num\_shortwork \quad \forall k, i
+\]
+
+4. **Wastage Calculations:**
+\[
+strength_k' = strength_k(1 - moreonewaste_k) + recruit_{k,i} (1 - lessonewaste_k) - redundancy_{k,i}
+\]
+
+where \(strength_k'\) represents the updated manpower strength for category \(k\).
+
+5. **Non-negativity Constraints:**
+\[
+recruit_{k,i} \geq 0, \quad overmanning_{k,i} \geq 0, \quad short_{k,i} \geq 0 \quad \forall k, i
+\]
+
+\end{document}

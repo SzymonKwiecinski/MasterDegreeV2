@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Police Shift Assignment}
+
+Given the problem description, we define the following variables and parameters:
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( S \) be the number of different shifts.
+    \item Let \( officers\_needed_s \) denote the number of police officers required during shift \( s \) for \( s = 1, 2, \ldots, S \).
+    \item Let \( shift\_cost_s \) denote the cost incurred when starting shift \( s \).
+    \item Let \( x_s \) be the number of officers assigned to shift \( s \).
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the total cost incurred by assigning officers to shifts:
+
+\[
+\text{Minimize } Z = \sum_{s=1}^{S} shift\_cost_s \cdot x_s
+\]
+
+\subsection*{Constraints}
+Each officer works for two consecutive shifts, so the assignment must satisfy the following constraints for each shift:
+
+1. For each shift \( s \):
+   \[
+   x_s \geq officers\_needed_s \quad \text{for } s = 1, 2, \ldots, S
+   \]
+
+2. Each officer assigned to shift \( s \) also covers shift \( s+1 \) (for \( s < S \)). Therefore, the number of officers assigned to shift \( s \) must ensure that the requirements for the next shift are met:
+   \[
+   x_s + x_{s-1} \geq officers\_needed_s \quad \text{for } s = 2, 3, \ldots, S
+   \]
+
+3. Non-negativity constraint:
+   \[
+   x_s \geq 0 \quad \text{for } s = 1, 2, \ldots, S
+   \]
+
+\subsection*{Output}
+The output should provide:
+\begin{itemize}
+    \item \( officers\_assigned = [x_1, x_2, \ldots, x_S] \)
+    \item The total cost \( total\_cost = Z \).
+\end{itemize}
+
+\end{document}

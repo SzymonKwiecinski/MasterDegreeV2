@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Oil Refinery Production}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( x_l \) be the number of times process \( l \) is executed, where \( l = 1, 2, \ldots, L \).
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{allocated}_i \): the number of million barrels of crude oil type \( i \) allocated for production.
+    \item \( \text{price}_p \): the selling price per barrel of product \( p \).
+    \item \( \text{input}_{l,i} \): the number of barrels of crude oil type \( i \) required for process \( l \).
+    \item \( \text{output}_{l,p} \): the number of barrels of product \( p \) produced by process \( l \).
+    \item \( \text{cost}_l \): the cost per barrel of product produced by process \( l \).
+\end{itemize}
+
+\textbf{Objective Function:}
+We want to maximize the revenue, defined as:
+\[
+\text{Revenue} = \sum_{l=1}^{L} \sum_{p=1}^{P} \left( \text{price}_p \cdot \text{output}_{l,p} \cdot x_l \right) - \sum_{l=1}^{L} \left( \text{cost}_l \cdot \sum_{p=1}^{P} \text{output}_{l,p} \cdot x_l \right)
+\]
+
+\textbf{Constraints:}
+1. The supply constraints for each crude oil type:
+\[
+\sum_{l=1}^{L} \text{input}_{l,i} \cdot x_l \leq \text{allocated}_i \quad \text{for } i = 1, 2, \ldots, O
+\]
+2. Non-negativity constraints:
+\[
+x_l \geq 0 \quad \text{for } l = 1, 2, \ldots, L
+\]
+
+\textbf{Output Variables:}
+\begin{itemize}
+    \item \( \text{revenue} \): the total revenue for the month.
+    \item \( \text{execute}_l \): the number of times process \( l \) should be executed.
+\end{itemize}
+
+\end{document}

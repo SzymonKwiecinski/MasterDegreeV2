@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Cafeteria Staffing}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( N \) be the total number of days considered.
+    \item Let \( num_n \) be the number of employees required on day \( n \) where \( n = 1, 2, \ldots, N \).
+    \item Let \( n_{\text{working}} \) be the number of consecutive working days for each employee.
+    \item Let \( n_{\text{resting}} \) be the number of consecutive resting days for each employee.
+    \item Let \( T = n_{\text{working}} + n_{\text{resting}} \) be the total cycle length for each employee.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( x \) be the total number of employees hired.
+    \item Let \( is\_work_{n,i} \) be a binary variable that indicates whether employee \( i \) is working on day \( n \) (1 if working, 0 if resting).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total number of employees to hire:
+\[
+\text{Minimize } x
+\]
+
+\subsection*{Constraints}
+1. Staffing requirements:
+\[
+\sum_{i=1}^{x} is\_work_{n,i} \geq num_n, \quad \forall n = 1, 2, \ldots, N
+\]
+
+2. Employee working pattern:
+Each employee works \( n_{\text{working}} \) days and then rests for \( n_{\text{resting}} \) days. Thus, for each employee \( i \):
+\[
+is\_work_{n,i} = 1 \quad \text{for } n = k(T) + 1, \ldots, k(T + n_{\text{working}}) \text{ for } k \in \mathbb{Z}
+\]
+\[
+is\_work_{n,i} = 0 \quad \text{for } n = k(T + n_{\text{working}} + 1), \ldots, k(T + n_{\text{working}} + n_{\text{resting}}) \text{ for } k \in \mathbb{Z}
+\]
+
+3. Binary constraints:
+\[
+is\_work_{n,i} \in \{0, 1\}, \quad \forall n = 1, 2, \ldots, N, \, i = 1, 2, \ldots, x
+\]
+
+\subsection*{Output}
+The output should provide:
+\begin{itemize}
+    \item \( total\_number \): the total number of employees to employ.
+    \item \( is\_work \): a matrix of size \( N \times total\_number \) indicating the working status of each employee on each day.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item \( t \): index for time periods, \( t = 1, \ldots, T \)
+    \item \( k \): index for generator types, \( k = 1, \ldots, K \)
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{demand}_t \): electricity demand at time period \( t \)
+    \item \( \text{num}_k \): number of generators of type \( k \)
+    \item \( \text{minlevel}_k \): minimum level of generation for type \( k \)
+    \item \( \text{maxlevel}_k \): maximum level of generation for type \( k \)
+    \item \( \text{runcost}_k \): cost to run type \( k \) generator at minimum level
+    \item \( \text{extracost}_k \): extra cost for each megawatt above minimum level for type \( k \)
+    \item \( \text{startcost}_k \): startup cost for type \( k \) generator
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( \text{numon}_{k,t} \): number of generators of type \( k \) that are on at time \( t \)
+    \item \( x_{k,t} \): additional generation level of type \( k \) at time \( t \) above the minimum level
+    \item \( y_{k,t} \): binary variable indicating whether generator type \( k \) is started at time \( t \) (1 if started, 0 otherwise)
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+\text{Minimize} \quad Z &= \sum_{t=1}^T \sum_{k=1}^K \left( \text{runcost}_k \cdot \text{numon}_{k,t} + \text{extracost}_k \cdot x_{k,t} + \text{startcost}_k \cdot y_{k,t} \right)
+\end{align*}
+
+\textbf{Constraints:}
+\begin{align*}
+\sum_{k=1}^K (\text{numon}_{k,t} \cdot \text{minlevel}_k + x_{k,t}) &\geq \text{demand}_t, \quad \forall t \in \{1, \ldots, T\} \\
+\text{numon}_{k,t} &\leq \text{num}_k, \quad \forall k, \; \forall t \\
+\text{numon}_{k,t} \cdot \text{minlevel}_k + x_{k,t} &\leq \text{numon}_{k,t} \cdot \text{maxlevel}_k, \quad \forall k, \; \forall t \\
+x_{k,t} &\geq 0, \quad \forall k, \; \forall t \\
+y_{k,t} &\in \{0, 1\}, \quad \forall k, \; \forall t
+\end{align*}
+
+\end{document}

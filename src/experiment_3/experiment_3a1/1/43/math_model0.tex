@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Wild Sports Production}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( M \) be the number of different products.
+    \item Let \( N \) be the number of different raw materials.
+    \item Let \( \text{available}_i \) be the available units of raw material \( i \) for \( i = 1, \ldots, N \).
+    \item Let \( \text{req}_{i,j} \) be the units of material \( i \) required to produce one unit of product \( j \) for \( j = 1, \ldots, M \).
+    \item Let \( \text{price}_j \) be the selling price per unit of product \( j \).
+    \item Let \( \text{cost}_j \) be the production cost per unit of product \( j \).
+    \item Let \( \text{demand}_j \) be the forecasted maximum demand for product \( j \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let \( \text{amount}_j \) be the amount of product \( j \) produced, where \( j = 1, \ldots, M \).
+
+\subsection*{Objective Function}
+The objective is to maximize the total profit, defined as:
+\[
+\text{total\_profit} = \sum_{j=1}^{M} (\text{price}_j - \text{cost}_j) \cdot \text{amount}_j
+\]
+
+\subsection*{Constraints}
+1. Raw material constraints:
+\[
+\sum_{j=1}^{M} \text{req}_{i,j} \cdot \text{amount}_j \leq \text{available}_i, \quad \forall i = 1, \ldots, N
+\]
+
+2. Demand constraints:
+\[
+\text{amount}_j \leq \text{demand}_j, \quad \forall j = 1, \ldots, M
+\]
+
+3. Non-negativity constraints:
+\[
+\text{amount}_j \geq 0, \quad \forall j = 1, \ldots, M
+\]
+
+\subsection*{Model Formulation}
+The linear programming model can be summarized as follows:
+
+\begin{align*}
+\text{Maximize} & \quad \text{total\_profit} = \sum_{j=1}^{M} (\text{price}_j - \text{cost}_j) \cdot \text{amount}_j \\
+\text{subject to} & \quad \sum_{j=1}^{M} \text{req}_{i,j} \cdot \text{amount}_j \leq \text{available}_i, \quad \forall i \\
+                  & \quad \text{amount}_j \leq \text{demand}_j, \quad \forall j \\
+                  & \quad \text{amount}_j \geq 0, \quad \forall j
+\end{align*}
+
+\end{document}

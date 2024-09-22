@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Electricity Capacity Expansion}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( x_{c,t} \) be the amount of coal capacity added in year \( t \) (in MW).
+    \item Let \( x_{n,t} \) be the amount of nuclear capacity added in year \( t \) (in MW).
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( T \): The number of years for planning.
+    \item \( d_t \): The demand for electricity in year \( t \) (in MW).
+    \item \( o_t \): The existing oil-fired capacity in year \( t \) (in MW).
+    \item \( c_{\text{cost}} \): The capital cost of coal capacity per MW.
+    \item \( n_{\text{cost}} \): The capital cost of nuclear capacity per MW.
+    \item \( \text{max\_nuke} \): The maximum allowable percentage of nuclear capacity.
+    \item \( L_c \): The lifespan of coal plants (in years).
+    \item \( L_n \): The lifespan of nuclear plants (in years).
+\end{itemize}
+
+\textbf{Objective Function:}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{t=1}^{T} \left( c_{\text{cost}} \cdot x_{c,t} + n_{\text{cost}} \cdot x_{n,t} \right)
+\]
+
+\textbf{Constraints:}
+1. \textbf{Capacity Requirement:}
+   The total capacity available in year \( t \) should meet the demand:
+   \[
+   o_t + \sum_{j=\max(1, t-L_c+1)}^{t} x_{c,j} + \sum_{j=\max(1, t-L_n+1)}^{t} x_{n,j} \geq d_t \quad \forall t \in [1, T]
+   \]
+
+2. \textbf{Nuclear Capacity Limit:}
+   The nuclear capacity must be limited to a certain percentage of total capacity:
+   \[
+   \sum_{j=1}^{t} x_{n,j} \leq \frac{\text{max\_nuke}}{100} \left( o_t + \sum_{j=1}^{t} x_{c,j} + \sum_{j=1}^{t} x_{n,j} \right) \quad \forall t \in [1, T]
+   \]
+
+3. \textbf{Non-negativity Constraints:}
+   \[
+   x_{c,t} \geq 0,\ x_{n,t} \geq 0 \quad \forall t \in [1, T]
+   \]
+
+\textbf{Output:}
+The solution will yield:
+\begin{itemize}
+    \item A list of coal capacities added each year: \( \text{coal\_cap\_added} = [x_{c,1}, x_{c,2}, \ldots, x_{c,T}] \)
+    \item A list of nuclear capacities added each year: \( \text{nuke\_cap\_added} = [x_{n,1}, x_{n,2}, \ldots, x_{n,T}] \)
+    \item The total cost of the expansion plan: \( \text{total\_cost} = Z \)
+\end{itemize}
+
+\end{document}

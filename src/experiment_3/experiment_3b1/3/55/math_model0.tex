@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturing}
+
+\subsection*{Decision Variables}
+Let \( b_p \) be the number of batches produced for part \( p \) for \( p = 1, \ldots, P \).
+
+\subsection*{Objective Function}
+The objective of the manufacturer is to maximize the total profit, which can be expressed as:
+
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} \left( \text{price}_p \cdot b_p - \sum_{m=1}^{M} \left( \text{cost}_m \cdot \left( \frac{\text{time}_{m,p}}{100} \cdot b_p \right) \right) \right) - \text{labor\_cost}
+\]
+
+where the labor cost is calculated based on the machine usage for machine 1, including standard and overtime costs.
+
+\subsection*{Constraints}
+
+1. **Machine Availability Constraints:**
+   For each machine \( m \) (except machine 1), the total time used cannot exceed the availability:
+
+   \[
+   \sum_{p=1}^{P} \left( \frac{\text{time}_{m,p}}{100} \cdot b_p \right) \leq \text{available}_m \quad \forall m = 2, \ldots, M
+   \]
+
+2. **Minimum Batch Requirements:**
+   The manufacturer must produce at least a certain number of batches for each part to fulfill contracts:
+
+   \[
+   b_p \geq \text{min\_batches}_p \quad \forall p = 1, \ldots, P
+   \]
+
+3. **Labor Cost Calculation for Machine 1:**
+   Let \( \text{total\_time}_1 \) be the total time used on machine 1, which can be expressed as:
+
+   \[
+   \text{total\_time}_1 = \sum_{p=1}^{P} \left( \frac{\text{time}_{1,p}}{100} \cdot b_p \right)
+   \]
+
+   The labor cost can be formulated as:
+   
+   \[
+   \text{labor\_cost} = 
+   \begin{cases} 
+   \text{standard\_cost} \cdot \text{total\_time}_1 & \text{if } \text{total\_time}_1 \leq \text{overtime\_hour} \\
+   \text{standard\_cost} \cdot \text{overtime\_hour} + \text{overtime\_cost} \cdot (\text{total\_time}_1 - \text{overtime\_hour}) & \text{if } \text{total\_time}_1 > \text{overtime\_hour} 
+   \end{cases}
+   \]
+
+4. **Profit Requirement:**
+   The total profit must surpass a specified minimum profit \( \text{min\_profit} \):
+
+   \[
+   Z \geq \text{min\_profit}
+   \]
+
+5. **Non-negativity Constraints:**
+   The number of batches produced for each part must be non-negative:
+
+   \[
+   b_p \geq 0 \quad \forall p = 1, \ldots, P
+   \]
+
+\subsection*{Output}
+The solution will provide the following outputs:
+- The number of batches of each part produced: \( \{b_p | p = 1, \ldots, P\} \)
+- The total profit obtained for the month: \( Z \)
+
+\end{document}

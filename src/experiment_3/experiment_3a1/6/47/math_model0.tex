@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Police Officer Shift Assignment Problem}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+
+Let:
+\begin{itemize}
+    \item \( S \) = number of shifts (1, 2, ..., \( S \))
+    \item \( officers\_needed_s \) = number of police officers needed during shift \( s \)
+    \item \( shift\_cost_s \) = cost incurred when starting shift \( s \)
+    \item \( officers\_assigned_s \) = number of officers assigned to shift \( s \)
+\end{itemize}
+
+\section*{Objective Function}
+
+The objective is to minimize the total cost for the town, which can be defined as:
+
+\[
+\text{Minimize } Z = \sum_{s=1}^{S} shift\_cost_s \cdot x_s
+\]
+
+where \( x_s \) is a binary variable indicating whether shift \( s \) is started (1) or not (0). 
+
+\section*{Constraints}
+
+Since each officer works two consecutive shifts, the following constraints must be satisfied for each shift \( s \):
+
+\begin{align*}
+officers\_assigned_{s} & \geq officers\_needed_{s}, \quad \forall s \\
+officers\_assigned_{s} & = officers\_assigned_{s-1} + officers\_assigned_{s+1}, \quad \forall s \text{ with } 2 \leq s \leq S-1 \\
+officers\_assigned_1 & = officers\_assigned_2 \\
+officers\_assigned_S & = officers\_assigned_{S-1}
+\end{align*}
+
+\section*{Solution Variables}
+
+The solution will consist of:
+\begin{itemize}
+    \item \( officers\_assigned = [officers\_assigned_s \text{ for } s = 1, ..., S] \)
+    \item \( total\_cost = Z \)
+\end{itemize}
+
+\end{document}

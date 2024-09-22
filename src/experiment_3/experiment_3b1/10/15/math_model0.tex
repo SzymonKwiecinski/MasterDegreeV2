@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Daily Profit Maximization}
+
+\subsection*{Decision Variables}
+Let:
+\begin{itemize}
+    \item $x_i$: number of units of product type $i$ produced, for $i = 1, \ldots, N$
+    \item $o$: hours of overtime assembly labor scheduled
+\end{itemize}
+
+\subsection*{Parameters}
+Given:
+\begin{itemize}
+    \item $assemblyHour_i$: hours of assembly labor required for product type $i$
+    \item $testingHour_i$: hours of testing required for product type $i$
+    \item $materialCost_i$: cost of raw materials for product type $i$ in dollars
+    \item $maxAssembly$: maximum hours of assembly labor available per day
+    \item $maxTesting$: maximum hours of testing available per day
+    \item $price_i$: price of product type $i$ in dollars
+    \item $maxOvertimeAssembly$: maximum hours of overtime assembly labor that can be scheduled
+    \item $overtimeAssemblyCost$: cost of overtime assembly labor per hour
+    \item $materialDiscount$: percentage discount on materials if the daily bill exceeds the threshold
+    \item $discountThreshold$: threshold for material discount in dollars
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the daily profit:
+\[
+\text{maximize } Z = \sum_{i=1}^{N} \left( price_i \cdot x_i \right) - \sum_{i=1}^{N} \left( materialCost_i \cdot x_i \right) \cdot \left(1 - \frac{materialDiscount}{100} \cdot \mathbb{1}\left(\sum_{i=1}^{N} materialCost_i \cdot x_i > discountThreshold\right)\right) - o \cdot overtimeAssemblyCost
+\]
+
+\subsection*{Constraints}
+1. Assembly labor constraint:
+\[
+\sum_{i=1}^{N} (assemblyHour_i \cdot x_i) + o \leq maxAssembly + maxOvertimeAssembly
+\]
+
+2. Testing labor constraint:
+\[
+\sum_{i=1}^{N} (testingHour_i \cdot x_i) \leq maxTesting
+\]
+
+3. Non-negativity constraints:
+\[
+x_i \geq 0 \quad \forall i = 1, \ldots, N
+\]
+\[
+o \geq 0
+\]
+
+\subsection*{Output Variables}
+The outputs are:
+\begin{itemize}
+    \item $dailyProfit = Z$
+    \item $unitsProduced = [x_1, x_2, \ldots, x_N]$
+    \item $overtimeAssembly = o$
+    \item $materialBought = \sum_{i=1}^{N} materialCost_i \cdot x_i$
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Stock Selling Problem}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let $x_i$ be the number of shares of stock $i$ that the investor sells, for $i = 1, 2, \ldots, N$.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $bought_i$: Number of shares bought of stock $i$.
+    \item $buyPrice_i$: Purchase price of stock $i$.
+    \item $currentPrice_i$: Current price of stock $i$.
+    \item $futurePrice_i$: Expected future price of stock $i$.
+    \item $transactionRate$: Transaction cost rate (in percentage).
+    \item $taxRate$: Tax rate on capital gains (in percentage).
+    \item $K$: Amount of money the investor wants to raise net of capital gains and transaction costs.
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } \sum_{i=1}^N (futurePrice_i \cdot bought_i - buyPrice_i \cdot bought_i) - \sum_{i=1}^N (transactionRate \cdot (\text{currentPrice_i} \cdot x_i)) - \sum_{i=1}^N \left( \frac{taxRate}{100} \cdot (currentPrice_i \cdot x_i - buyPrice_i \cdot x_i) \right)
+\]
+
+\textbf{Subject to:}
+\begin{itemize}
+    \item Total amount raised net of costs:
+    \[
+    \sum_{i=1}^N \left( currentPrice_i \cdot x_i \cdot (1 - \frac{transactionRate}{100}) - \frac{taxRate}{100} \cdot (currentPrice_i \cdot x_i - buyPrice_i \cdot x_i) \right) \geq K
+    \]
+    \item Non-negativity constraints:
+    \[
+    x_i \geq 0, \quad \forall i = 1, 2, \ldots, N
+    \]
+    \item The number of shares sold cannot exceed the number of shares bought:
+    \[
+    x_i \leq bought_i, \quad \forall i = 1, 2, \ldots, N
+    \]
+\end{itemize}
+
+\textbf{Output:}
+The solution will provide the number of shares to sell for each stock $i$ in the format:
+\[
+\{ "sell": [x_1, x_2, \ldots, x_N] \}
+\]
+
+\end{document}

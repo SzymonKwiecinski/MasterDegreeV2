@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mixed Integer Linear Programming Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $N$: Number of product types
+    \item $assemblyHour_i$: Hours of assembly labor required for product type $i$
+    \item $testingHour_i$: Hours of testing required for product type $i$
+    \item $materialCost_i$: Cost of raw materials for product type $i$ (in dollars)
+    \item $maxAssembly$: Maximum assembly hours available per day
+    \item $maxTesting$: Maximum testing hours available per day
+    \item $price_i$: Selling price for product type $i$ (in dollars)
+    \item $maxOvertimeAssembly$: Maximum overtime assembly hours that can be scheduled
+    \item $overtimeAssemblyCost$: Cost per hour of overtime assembly
+    \item $materialDiscount$: Percentage discount on materials if daily bill exceeds the threshold
+    \item $discountThreshold$: Threshold for material discount (in dollars)
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $unitsProduced_i$: Number of units produced of product type $i$
+    \item $overtimeAssembly$: Number of hours of overtime assembly labor scheduled
+    \item $materialBought$: Total cost of raw materials bought
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the daily profit:
+\[
+\text{maximize} \quad dailyProfit = \sum_{i=1}^{N} (price_i \cdot unitsProduced_i) - \left( \sum_{i=1}^{N} materialCost_i \cdot unitsProduced_i \cdot (1 - \frac{materialDiscount}{100}) \cdot \mathbbm{1}\left(\sum_{i=1}^{N} materialCost_i \cdot unitsProduced_i > discountThreshold\right) + \sum_{i=1}^{N} materialCost_i \cdot unitsProduced_i \cdot \mathbbm{1}\left(\sum_{i=1}^{N} materialCost_i \cdot unitsProduced_i \leq discountThreshold\right) + overtimeAssembly \cdot overtimeAssemblyCost \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+    \sum_{i=1}^{N} assemblyHour_i \cdot unitsProduced_i & \leq maxAssembly + overtimeAssembly \\
+    \sum_{i=1}^{N} testingHour_i \cdot unitsProduced_i & \leq maxTesting \\
+    0 \leq overtimeAssembly & \leq maxOvertimeAssembly \\
+    unitsProduced_i & \geq 0 \quad \forall i \in \{1, \ldots, N\} \\
+\end{align*}
+
+\end{document}

@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Electricity Capacity Planning}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item $t \in \{1, 2, \ldots, T\}$: Time periods (years).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $demand_t$: Forecasted demand for electricity in megawatts for year $t$.
+    \item $oil_t$: Existing oil-fired capacity available in megawatts for year $t$.
+    \item $coal\_cost$: Capital cost per megawatt for coal-fired capacity.
+    \item $nuke\_cost$: Capital cost per megawatt for nuclear capacity.
+    \item $max\_nuke$: Maximum percentage of total capacity that can be nuclear.
+    \item $coal\_life$: Lifetime of coal plants in years.
+    \item $nuke\_life$: Lifetime of nuclear plants in years.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_t^{\text{coal}}$: Megawatts of coal-fired capacity added in year $t$.
+    \item $x_t^{\text{nuke}}$: Megawatts of nuclear capacity added in year $t$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost of capacity addition:
+
+\[
+\min \sum_{t=1}^{T} \left( coal\_cost \cdot x_t^{\text{coal}} + nuke\_cost \cdot x_t^{\text{nuke}} \right)
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item \textbf{Demand Satisfaction:} For each year $t$, the total capacity should meet or exceed the demand.
+    \[
+    oil_t + \sum_{j=\max(1, t-coal\_life+1)}^{t} x_j^{\text{coal}} + \sum_{j=\max(1, t-nuke\_life+1)}^{t} x_j^{\text{nuke}} \geq demand_t, \quad \forall t
+    \]
+
+    \item \textbf{Nuclear Capacity Limit:} The nuclear capacity should not exceed the specified percentage of total capacity.
+    \[
+    \sum_{j=\max(1, t-nuke\_life+1)}^{t} x_j^{\text{nuke}} \leq \frac{max\_nuke}{100} \cdot \left(oil_t + \sum_{j=\max(1, t-coal\_life+1)}^{t} x_j^{\text{coal}} + \sum_{j=\max(1, t-nuke\_life+1)}^{t} x_j^{\text{nuke}} \right), \quad \forall t
+    \]
+
+    \item \textbf{Non-negativity:}
+    \[
+    x_t^{\text{coal}} \geq 0, \quad x_t^{\text{nuke}} \geq 0, \quad \forall t
+    \]
+\end{itemize}
+
+\end{document}

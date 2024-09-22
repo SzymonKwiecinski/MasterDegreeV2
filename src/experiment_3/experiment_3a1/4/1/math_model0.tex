@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $M$: Number of different goods
+    \item $N$: Number of different raw materials
+    \item $available_i$: Amount of raw material $i$ available for $i = 1, \ldots, N$
+    \item $req_{i,j}$: Amount of material $i$ required to produce one unit of good $j$ for $j = 1, \ldots, M$ and $i = 1, \ldots, N$
+    \item $price_j$: Revenue obtained from producing one unit of good $j$ for $j = 1, \ldots, M$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $amount_j$: Amount of good $j$ produced for $j = 1, \ldots, M$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total revenue:
+\[
+\text{Maximize } Z = \sum_{j=1}^{M} price_j \cdot amount_j
+\]
+
+\subsection*{Constraints}
+The production of goods must not exceed the available raw materials:
+\[
+\sum_{j=1}^{M} req_{i,j} \cdot amount_j \leq available_i \quad \text{for } i = 1, \ldots, N
+\]
+
+Additionally, the amount produced cannot be negative:
+\[
+amount_j \geq 0 \quad \text{for } j = 1, \ldots, M
+\]
+
+\subsection*{Output}
+The result will provide the optimal amounts of each good to produce:
+\[
+\text{Output: } \{ "amount": [amount_j \text{ for } j = 1, \ldots, M] \}
+\]
+
+\end{document}

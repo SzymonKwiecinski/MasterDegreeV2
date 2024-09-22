@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item Let \( S \) be the set of steel types.
+    \item Let \( A \) be the set of alloys.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{available}_{a} \): available tons of alloy \( a \) for \( a \in A \)
+    \item \( \text{carbon}_{a} \): percent of carbon in alloy \( a \) for \( a \in A \)
+    \item \( \text{nickel}_{a} \): percent of nickel in alloy \( a \) for \( a \in A \)
+    \item \( \text{alloy\_price}_{a} \): purchase price of alloy \( a \) per ton for \( a \in A \)
+    \item \( \text{steel\_price}_{s} \): selling price of steel \( s \) per ton for \( s \in S \)
+    \item \( \text{carbon\_min}_{s} \): minimum carbon percentage required for steel \( s \) for \( s \in S \)
+    \item \( \text{nickel\_max}_{s} \): maximum nickel percentage allowed for steel \( s \) for \( s \in S \)
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item \( x_{a,s} \): amount of alloy \( a \) used in steel type \( s \) 
+    \item \( \text{total\_steel}_{s} \): total amount of steel type \( s \) produced
+    \item \( \text{total\_profit} \): total profit
+\end{itemize}
+
+\textbf{Objective function:}
+\[
+\text{Maximize } Z = \sum_{s \in S} (\text{steel\_price}_{s} \cdot \text{total\_steel}_{s}) - \sum_{a \in A} (\text{alloy\_price}_{a} \cdot \sum_{s \in S} x_{a,s})
+\]
+
+\textbf{Subject to:}
+
+\textbf{Material Constraints:}
+\[
+\sum_{s \in S} x_{a,s} \leq \text{available}_{a}, \quad \forall a \in A
+\]
+
+\textbf{Carbon Constraints:}
+\[
+\frac{\sum_{a \in A} (x_{a,s} \cdot \text{carbon}_{a})}{\text{total\_steel}_{s}} \geq \text{carbon\_min}_{s}, \quad \forall s \in S
+\]
+
+\textbf{Nickel Constraints:}
+\[
+\frac{\sum_{a \in A} (x_{a,s} \cdot \text{nickel}_{a})}{\text{total\_steel}_{s}} \leq \text{nickel\_max}_{s}, \quad \forall s \in S
+\]
+
+\textbf{Alloy 1 Constraint:}
+\[
+\sum_{s \in S} x_{1,s} \leq 0.4 \cdot \text{total\_steel}_{s}, \quad \forall s \in S
+\]
+
+\textbf{Non-negativity Constraints:}
+\[
+x_{a,s} \geq 0, \quad \forall a \in A, \; s \in S
+\]
+\[
+\text{total\_steel}_{s} \geq 0, \quad \forall s \in S
+\]
+
+\end{document}

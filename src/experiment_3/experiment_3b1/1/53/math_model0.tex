@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Transportation Problem Model}
+
+Let us define the variables and parameters for the transportation problem concerning soybean distribution:
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $A$: Set of all routes available for transportation.
+    \item $C_{i,j}$: Cost per metric ton of transporting soybeans from city $i$ to city $j$.
+    \item $supply_k$: Supply of soybeans at terminal city $k$.
+    \item $demand_l$: Demand for soybeans at destination city $l$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let $amount_{i,j}$ be the amount of soybeans transported from city $i$ to city $j$.
+
+\subsection*{Objective Function}
+The objective is to minimize the total transportation cost:
+\[
+\text{Minimize } Z = \sum_{(i,j) \in A} C_{i,j} \cdot amount_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Supply Constraints:
+    \[
+    \sum_{j: (k,j) \in A} amount_{k,j} \leq supply_k \quad \forall k
+    \]
+
+    \item Demand Constraints:
+    \[
+    \sum_{i: (i,l) \in A} amount_{i,l} \geq demand_l \quad \forall l
+    \]
+
+    \item Non-negativity Constraints:
+    \[
+    amount_{i,j} \geq 0 \quad \forall (i,j) \in A
+    \]
+\end{itemize}
+
+\subsection*{Output Format}
+The output shall include:
+\begin{itemize}
+    \item Distribution of soybeans:
+    \[
+    \text{distribution} = \{ (from: i, to: j, amount: amount_{i,j}) \mid \text{for } id \text{ in } 1, \ldots, m \}
+    \]
+    \item Total Transportation Cost:
+    \[
+    \text{total\_cost} = Z
+    \]
+\end{itemize}
+
+\end{document}

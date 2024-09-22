@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item $i \in \{1, 2, \ldots, N\}$: index for the computer systems
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $is\_workstation[i]$: boolean indicating if system $i$ is a workstation
+    \item $price[i]$: price of system $i$
+    \item $disk\_drives[i]$: average disk drives requested for system $i$
+    \item $mem[i]$: average 256K memory boards requested for system $i$
+    \item $max\_cpu$: maximum number of CPUs available
+    \item $min\_disk$: minimum available disk drives
+    \item $max\_disk$: maximum available disk drives
+    \item $min\_mem$: minimum available 256K memory boards
+    \item $max\_mem$: maximum available 256K memory boards
+    \item $demand[i]$: maximum demand for system $i$
+    \item $demand\_GP$: maximum demand for the GP family
+    \item $demand\_WS$: maximum demand for the WS family
+    \item $preorder[i]$: preorders for system $i$
+    \item $alt\_mem$: available alternative memory boards
+    \item $alt\_compatible[i]$: boolean indicating if system $i$ can use alternative memory
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_i$: number of systems produced of type $i$ (continuous)
+    \item $y_i$: number of alternative memory boards used for system $i$ (integer)
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align}
+    \text{Maximize } Z = \sum_{i=1}^{N} (price[i] \cdot x_i) - \text{Cost}(x_i, y_i)
+\end{align}
+
+\textbf{Constraints:}
+\begin{align}
+    \sum_{i=1}^{N} x_i & \leq max\_cpu \quad \text{(CPU constraint)} \\
+    \sum_{i=1}^{N} disk\_drives[i] \cdot x_i & \geq min\_disk \quad \text{(minimum disk drives)} \\
+    \sum_{i=1}^{N} disk\_drives[i] \cdot x_i & \leq max\_disk \quad \text{(maximum disk drives)} \\
+    \sum_{i=1}^{N} mem[i] \cdot x_i + \sum_{i=1}^{N} y_i & \geq min\_mem \quad \text{(minimum memory boards)} \\
+    \sum_{i=1}^{N} mem[i] \cdot x_i + \sum_{i=1}^{N} y_i & \leq max\_mem \quad \text{(maximum memory boards)} \\
+    x_i & \geq preorder[i] \quad \forall i \quad \text{(meet preorders)} \\
+    x_i & \leq demand[i] \quad \forall i \quad \text{(meet demand)} \\
+    \sum_{i: is\_workstation[i]} x_i & \leq demand\_WS \quad \text{(workstation demand)} \\
+    \sum_{i: \neg is\_workstation[i]} x_i & \leq demand\_GP \quad \text{(general-purpose demand)} \\
+    y_i & \leq alt\_mem \cdot alt\_compatible[i] \quad \forall i \quad \text{(alternative memory constraint)}
+\end{align}
+
+\textbf{Output:}
+The output will consist of a JSON object with:
+\begin{itemize}
+    \item "system\_output": containing a list of produced systems with details
+    \item "profit": the total profit calculated from the objective function
+\end{itemize}
+
+\end{document}

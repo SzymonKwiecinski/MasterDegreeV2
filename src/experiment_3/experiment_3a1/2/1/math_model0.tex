@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Decision Variables:}
+Let \( x_j \) denote the amount of good \( j \) produced, where \( j = 1, 2, \ldots, M \).
+
+\textbf{Objective Function:}
+Maximize total revenue:
+\[
+\text{Maximize} \quad Z = \sum_{j=1}^{M} \text{price}_j \cdot x_j
+\]
+
+\textbf{Subject to:}
+The constraints arising from the availability of raw materials can be expressed as:
+\[
+\sum_{j=1}^{M} \text{req}_{i,j} \cdot x_j \leq \text{available}_{i}, \quad \forall i = 1, 2, \ldots, N
+\]
+
+\textbf{Non-negativity Constraints:}
+\[
+x_j \geq 0, \quad \forall j = 1, 2, \ldots, M
+\]
+
+\end{document}

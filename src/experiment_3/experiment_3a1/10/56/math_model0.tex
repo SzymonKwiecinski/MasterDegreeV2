@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Optimal Path Problem in a Grid}
+
+Consider a delivery person starting at the intersection of the \(1^{st}\) Avenue and \(1^{st}\) Street, with the aim to reach the intersection of the \(W^{th}\) Avenue and \(N^{th}\) Street. The path forms an \((N-1) \times (W-1)\) grid, allowing movement only north or west.
+
+\subsection*{Definitions}
+Let:
+\begin{itemize}
+    \item \( \text{west\_time}_{n,w} \) be the time to move from the intersection of the \(w^{th}\) Avenue and \(n^{th}\) Street to the \( (w+1)^{th} \) Avenue and \(n^{th}\) Street.
+    \item \( \text{north\_time}_{n,w} \) be the time to move from the intersection of the \(w^{th}\) Avenue and \(n^{th}\) Street to the \(w^{th}\) Avenue and \( (n+1)^{th} \) Street.
+\end{itemize}
+
+\subsection*{Input Format}
+The input format is defined as follows:
+\[
+\begin{aligned}
+    \text{Input: } & \{ \\
+    & \quad \text{"west\_time": } [[\text{west}_{n,w} \text{ for } w \text{ in } 1, ..., W-1] \text{ for } n \text{ in } 1, ..., N], \\
+    & \quad \text{"north\_time": } [[\text{north}_{n,w} \text{ for } w \text{ in } 1, ..., W] \text{ for } n \text{ in } 1, ..., N-1] \\
+    & \}
+\end{aligned}
+\]
+
+\subsection*{Objective}
+The goal is to determine the optimal path for the delivery person to ensure that the package is delivered in the least amount of time. 
+
+\subsection*{Variables}
+Define:
+\begin{itemize}
+    \item \( x_{n,w} \): binary variable indicating whether the path goes through the intersection of \(w^{th}\) Avenue and \(n^{th}\) Street.
+\end{itemize}
+
+\subsection*{Objective Function}
+The total time taken to travel this path can be represented as:
+\[
+\text{total\_time} = \sum_{n=1}^{N-1} \sum_{w=1}^{W-1} (\text{west\_time}_{n,w} \cdot x_{n,w} + \text{north\_time}_{n,w} \cdot x_{n,w})
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item The delivery person must leave from the start position \((1, 1)\) and reach the end position \((W, N)\).
+    \item The person can only move to the next block either to the north or west.
+    \item There should be continuity in the path taken.
+\end{itemize}
+
+\subsection*{Output Format}
+The expected output format is:
+\[
+\{ 
+    \text{"paths": } [(street_{n}, avenue_{w}) \text{ for } id \text{ in } 1, ..., m], 
+    \text{"total\_time": } total\_travel\_time 
+\}
+\]
+
+\end{document}

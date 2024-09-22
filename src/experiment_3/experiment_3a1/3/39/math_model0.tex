@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Mathematical Model for Cafeteria Staff Scheduling}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+To operate a cafeteria, the manager must ensure on-call duty based on the statistics on the required staff. The desired number of employees on day \( n \) is denoted as \( num_n \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( N \): Total number of days
+    \item \( num_n \): Number of desired employees on day \( n \), for \( n = 1, 2, \ldots, N \)
+    \item \( n_{working\_days} \): Number of consecutive days each employee works
+    \item \( n_{resting\_days} \): Number of days off each employee has
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( total\_number \): Total number of employees to hire
+    \item \( is\_work_{n,i} \): A binary variable that indicates if employee \( i \) is working on day \( n \) (1) or resting (0)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total number of employees hired:
+\[
+\text{Minimize } total\_number
+\]
+
+\subsection*{Constraints}
+1. Ensure that the number of working employees meets the required staff for each day:
+\[
+\sum_{i=1}^{total\_number} is\_work_{n,i} \geq num_n, \quad \forall n = 1, 2, \ldots, N
+\]
+2. Each employee has a working and resting cycle:
+\[
+is\_work_{n,i} = 1 \text{ for } n \in [k \cdot (n_{working\_days} + n_{resting\_days}) + 1, k \cdot (n_{working\_days} + n_{resting\_days}) + n_{working\_days}] \quad \text{for some integer } k
+\]
+\[
+is\_work_{n,i} = 0 \text{ otherwise}
+\]
+3. Non-negativity constraint on the decision variable:
+\[
+total\_number \geq 0
+\]
+
+\section*{Output}
+\begin{itemize}
+    \item \( total\_number \): Total number of employees to employ
+    \item \( is\_work \): A matrix where \( is\_work_{n,i} \) indicates the working/resting status of employee \( i \) on day \( n \)
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Mining Company Operations}
+
+Let:
+\begin{itemize}
+    \item \( n \): Number of mines
+    \item \( n_{\text{maxwork}} \): Maximum number of mines that can operate in any one year
+    \item \( \text{royalty}_k \): Yearly royalties for mine \( k \) (for \( k = 1, \ldots, n \))
+    \item \( \text{limit}_k \): Upper limit of ore extractable from mine \( k \) in a year
+    \item \( \text{quality}_k \): Quality of ore from mine \( k \)
+    \item \( \text{requiredquality}_i \): Required quality of blended ore in year \( i \) (for \( i = 1, \ldots, I \))
+    \item \( \text{price} \): Selling price of the blended ore per ton
+    \item \( \text{discount} \): Discount rate per annum
+    \item \( \text{isoperated}_{k,i} \): Binary variable indicating if mine \( k \) is operated in year \( i \)
+    \item \( \text{amount}_{k,i} \): Amount of ore produced by mine \( k \) in year \( i \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit over the planning horizon, given by:
+\[
+\text{Maximize } Z = \sum_{i=1}^{I} \left( \sum_{k=1}^{n} \text{amount}_{k,i} \cdot \text{price} - \sum_{k=1}^{n} \text{royalty}_k \cdot \text{isoperated}_{k,i} \right) \cdot (1 + \text{discount})^{-i}
+\]
+
+\subsection*{Constraints}
+1. **Operation Limits**:
+\[
+\sum_{k=1}^{n} \text{isoperated}_{k,i} \leq n_{\text{maxwork}}, \quad \forall i = 1, \ldots, I
+\]
+
+2. **Ore Production Limits**:
+\[
+\text{amount}_{k,i} \leq \text{limit}_k \cdot \text{isoperated}_{k,i}, \quad \forall k = 1, \ldots, n, \; \forall i = 1, \ldots, I
+\]
+
+3. **Quality Constraints**:
+The total quality of the blended ore must meet the required quality:
+\[
+\sum_{k=1}^{n} \frac{\text{quality}_k \cdot \text{amount}_{k,i}}{\sum_{k=1}^{n} \text{amount}_{k,i}} = \text{requiredquality}_i, \quad \forall i = 1, \ldots, I
+\]
+
+4. **Binary Variables**:
+\[
+\text{isoperated}_{k,i} \in \{0, 1\}, \quad \forall k = 1, \ldots, n, \; \forall i = 1, \ldots, I
+\]
+
+5. **Non-negativity**:
+\[
+\text{amount}_{k,i} \geq 0, \quad \forall k = 1, \ldots, n, \; \forall i = 1, \ldots, I
+\]
+
+\end{document}

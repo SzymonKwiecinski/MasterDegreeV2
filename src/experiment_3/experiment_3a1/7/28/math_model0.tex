@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Linear Regression}
+
+Given a set of observed values \( y_k \) and corresponding values \( x_k \) for \( k = 1, \ldots, K \), we aim to fit the best straight line defined by the equation:
+
+\[
+y = bx + a
+\]
+
+where \( b \) is the slope and \( a \) is the intercept.
+
+\subsection*{Objective Function}
+
+The objective is to minimize the sum of absolute deviations of each observed value of \( y_k \) from the predicted value \( bx_k + a \):
+
+\[
+\min \sum_{k=1}^{K} |y_k - (bx_k + a)|
+\]
+
+\subsection*{Variables}
+
+Let:
+
+- \( a \): intercept
+- \( b \): slope
+
+\subsection*{Constraints}
+
+To handle the absolute values, we introduce auxiliary variables \( d_k \) for \( k = 1, \ldots, K \) defined as:
+
+\[
+d_k = y_k - (bx_k + a)
+\]
+
+Thus, we can rewrite the objective function as:
+
+\[
+\min \sum_{k=1}^{K} d_k
+\]
+
+We need to account for the non-negativity of the deviations:
+
+\[
+d_k \geq y_k - (bx_k + a) \quad \forall k
+\]
+\[
+-d_k \geq -(y_k - (bx_k + a)) \quad \forall k
+\]
+
+This simplifies to the following two sets of constraints:
+
+1. \( d_k \geq y_k - (bx_k + a) \)
+2. \( d_k \geq -(y_k - (bx_k + a)) \)
+
+\subsection*{Final Model}
+
+Thus, the final linear programming model can be summarized as follows:
+
+\[
+\begin{aligned}
+    & \text{Minimize} && \sum_{k=1}^{K} d_k \\
+    & \text{subject to} && d_k \geq y_k - (bx_k + a), \quad \forall k \\
+    & && d_k \geq -(y_k - (bx_k + a)), \quad \forall k \\
+    & && d_k \geq 0, \quad \forall k \\
+\end{aligned}
+\]
+
+\end{document}

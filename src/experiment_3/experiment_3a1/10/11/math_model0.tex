@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+Given the problem description, we can formulate the Linear Programming (LP) model as follows:
+
+\subsection*{Variables}
+Let \( x_i \) denote the number of units produced in month \( i \) for \( i = 1, 2, \ldots, T \).
+
+Let \( I_i \) denote the inventory at the end of month \( i \).
+
+\subsection*{Parameters}
+- \( deliver_i \): The number of units that must be delivered at the end of month \( i \).
+- \( storage\_cost \): The cost of storage per unit per month.
+- \( switch\_cost \): The cost incurred from changing production levels from month \( i \) to month \( i+1 \).
+
+\subsection*{Objective Function}
+We want to minimize the total cost, which consists of storage costs and switching costs:
+
+\[
+\text{Minimize } Z = \sum_{i=1}^{T} (storage\_cost \cdot I_i) + \sum_{i=1}^{T-1} (switch\_cost \cdot |x_{i+1} - x_i|)
+\]
+
+\subsection*{Constraints}
+1. Inventory balance:
+\[
+I_i = I_{i-1} + x_i - deliver_i \quad \text{for } i = 1, 2, \ldots, T
+\]
+with \( I_0 = 0 \) (initial inventory).
+
+2. Non-negativity:
+\[
+x_i \geq 0 \quad \text{for } i = 1, 2, \ldots, T
+\]
+\[
+I_i \geq 0 \quad \text{for } i = 1, 2, \ldots, T
+\]
+
+3. Final inventory should be zero:
+\[
+I_T = 0
+\]
+
+\subsection*{Output}
+The output will consist of:
+\begin{itemize}
+    \item \( x = [x_1, x_2, \ldots, x_T] \): the production schedule.
+    \item \( cost = Z \): the minimized total cost.
+\end{itemize}
+
+\end{document}

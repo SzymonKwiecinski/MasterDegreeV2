@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Fitting a Line}
+
+We want to fit the best straight line \( y = bx + a \) to a given dataset consisting of pairs \( (x_k, y_k) \) for \( k = 1, \ldots, K \).
+
+\subsection*{Data}
+Let:
+\[
+y = [y_{1}, y_{2}, \ldots, y_{K}]
+\]
+\[
+x = [x_{1}, x_{2}, \ldots, x_{K}]
+\]
+
+\subsection*{Objective}
+The objective is to minimize the sum of absolute deviations:
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} |y_{k} - (bx_{k} + a)|
+\]
+
+We introduce auxiliary variables \( d_k \) for each \( k \) to handle the absolute values:
+\[
+d_k \geq y_{k} - (bx_{k} + a) \quad \forall k
+\]
+\[
+d_k \geq -(y_{k} - (bx_{k} + a)) \quad \forall k
+\]
+
+Thus, we can reformulate the objective function to minimize:
+\[
+Z = \sum_{k=1}^{K} d_k
+\]
+
+\subsection*{Constraints}
+We have the following constraints:
+\[
+y_k - bx_k - a \leq d_k \quad \forall k
+\]
+\[
+-(y_k - bx_k - a) \leq d_k \quad \forall k
+\]
+which can be simplified to:
+\[
+bx_k + a + d_k \geq y_k \quad \forall k
+\]
+\[
+bx_k + a - d_k \leq y_k \quad \forall k
+\]
+
+\subsection*{Variables}
+The decision variables are:
+- \( a \): the intercept of the fitted line.
+- \( b \): the slope of the fitted line.
+- \( d_k \): the absolute deviation for each \( k \).
+
+\subsection*{Final Linear Programming Formulation}
+The complete linear programming model can be formulated as:
+\[
+\begin{align*}
+\text{Minimize } & Z = \sum_{k=1}^{K} d_k \\
+\text{subject to: } & bx_k + a + d_k \geq y_k \quad \forall k \\
+& bx_k + a - d_k \leq y_k \quad \forall k \\
+& d_k \geq 0 \quad \forall k \\
+& a \text{ is unrestricted} \\
+& b \text{ is unrestricted}
+\end{align*}
+\]
+
+\end{document}

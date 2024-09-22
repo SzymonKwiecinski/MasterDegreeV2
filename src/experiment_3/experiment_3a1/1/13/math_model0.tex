@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Problem Formulation}
+
+Consider a set \( P \) described by linear inequality constraints:
+
+\[
+P = \{ x \in \mathbb{R}^N \mid a_i^T x \leq b_i, \, i = 1, \ldots, m \}
+\]
+
+where \( a_i \in \mathbb{R}^N \) and \( b_i \in \mathbb{R} \).
+
+Define a ball with center \( y \in \mathbb{R}^N \) and radius \( r \) as:
+
+\[
+B(y, r) = \{ x \in \mathbb{R}^N \mid \| x - y \|_2 \leq r \}
+\]
+
+Our objective is to find the ball with the largest possible radius \( r \) such that the ball is entirely contained within the set \( P \).
+
+\subsection*{Input Format}
+
+The input for the problem is defined as follows:
+
+\begin{verbatim}
+{
+    "A": [[a_i_j for j in 1, ..., n] for i in 1, ..., m],
+    "b": [b_i for i in 1, ..., m]
+}
+\end{verbatim}
+
+\subsection*{Output Information}
+
+The output should include the center of the ball and its radius, specified in the following format:
+
+\begin{verbatim}
+{
+    "center": [y_j for j in 1, ..., n],
+    "radius": r
+}
+\end{verbatim}
+
+\end{document}

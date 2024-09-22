@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+Let \( K \) be the number of different spare parts and \( S \) be the number of shops. 
+
+Define the following variables:
+
+\begin{itemize}
+    \item \( x_k \): quantity of spare part \( k \) produced, for \( k = 1, 2, \ldots, K \).
+\end{itemize}
+
+The objective is to maximize the total profit:
+
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} profit_k \cdot x_k
+\]
+
+Subject to the constraints imposed by the capacity of each shop. For each shop \( s \):
+
+\[
+\sum_{k=1}^{K} time_{k,s} \cdot x_k \leq capacity_s \quad \text{for all } s = 1, 2, \ldots, S
+\]
+
+Additionally, we need to ensure non-negativity of the variables:
+
+\[
+x_k \geq 0 \quad \text{for all } k = 1, 2, \ldots, K
+\]
+
+In summary, the linear programming model can be stated as follows:
+
+\begin{align*}
+\text{Maximize} \quad & Z = \sum_{k=1}^{K} profit_k \cdot x_k \\
+\text{Subject to} \quad & \sum_{k=1}^{K} time_{k,s} \cdot x_k \leq capacity_s, \quad s = 1, 2, \ldots, S \\
+& x_k \geq 0, \quad k = 1, 2, \ldots, K
+\end{align*}
+
+\end{document}

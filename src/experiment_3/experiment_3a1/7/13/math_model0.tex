@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Problem Formulation}
+
+Consider a set \( P \) described by the following linear inequality constraints:
+
+\[
+P = \{ \mathbf{x} \in \mathbb{R}^N \mid \mathbf{a}_i^T \mathbf{x} \leq b_i , \, i = 1, \ldots, m \}
+\]
+
+where \( \mathbf{a}_i \in \mathbb{R}^N \) and \( b_i \in \mathbb{R} \).
+
+A ball with center \( \mathbf{y} \) in \( \mathbb{R}^N \) and radius \( r \) is defined as the set of all points within (Euclidean) distance \( r \) from \( \mathbf{y} \):
+
+\[
+B(\mathbf{y}, r) = \{ \mathbf{x} \in \mathbb{R}^N \mid \|\mathbf{x} - \mathbf{y}\|_2 \leq r \}
+\]
+
+We seek to find a ball with the largest possible radius \( r \) that is entirely contained within the set \( P \). The center of such a ball is referred to as the Chebyshev center of \( P \).
+
+\subsection*{Input Format}
+
+Let \( A \) be a list of lists representing the coefficients of the constraints, and \( b \) be a list representing the bounds:
+
+\begin{itemize}
+    \item \( A = [[a_{i,j} \text{ for } j = 1, \ldots, N] \text{ for } i = 1, \ldots, m] \)
+    \item \( b = [b_i \text{ for } i = 1, \ldots, m] \)
+\end{itemize}
+
+\subsection*{Objective}
+
+We are interested in finding the center \( \mathbf{y} \) and the radius \( r \) of the largest ball contained within the set \( P \).
+
+\subsection*{Output Format}
+
+The output can be represented as follows:
+
+\[
+\text{Output} = \{ 
+    \text{"center"}: [y_j \text{ for } j = 1, \ldots, N], 
+    \text{"radius"}: r 
+\}
+\]
+
+\end{document}

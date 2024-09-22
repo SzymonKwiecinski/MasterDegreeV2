@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $K$: Number of industries
+    \item $T$: Planning horizon (number of years)
+    \item $inputone_{k,j}$: Input from industry $j$ required by industry $k$ for production
+    \item $manpowerone_k$: Manpower required by industry $k$ for production
+    \item $inputtwo_{k,j}$: Input from industry $j$ required by industry $k$ to build productive capacity
+    \item $manpowertwo_k$: Manpower required by industry $k$ to build productive capacity
+    \item $stock_k$: Initial stock of industry $k$ in year 0
+    \item $capacity_k$: Initial productive capacity of industry $k$
+    \item $manpower\_limit$: Total available manpower in each year
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item $produce_{k,t}$: Amount of units produced by industry $k$ in year $t$
+    \item $buildcapa_{k,t}$: Amount of units used to build productive capacity for industry $k$ in year $t$
+    \item $stock_{k,t}$: Amount of stock of industry $k$ held in year $t$
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} (produce_{k,T-1} + produce_{k,T})
+\]
+
+\textbf{Constraints:}
+\begin{align}
+1. & \quad produce_{k,t} + stock_{k,t-1} \leq capacity_k + stock_{k,t} \quad \forall k, t\\
+2. & \quad \sum_{j=1}^{K} inputone_{k,j} \cdot produce_{j,t-1} + \sum_{j=1}^{K} inputtwo_{k,j} \cdot buildcapa_{j,t-1} + stock_{k,t-1} \geq produce_{k,t} \quad \forall k, t\\
+3. & \quad \sum_{k=1}^{K} manpowerone_k \cdot produce_{k,t} + \sum_{k=1}^{K} manpowertwo_k \cdot buildcapa_{k,t} \leq manpower\_limit \quad \forall t\\
+4. & \quad stock_{k,0} = stock_k \quad \forall k\\
+5. & \quad capacity_k + \sum_{j=1}^{K} buildcapa_{j,t} \text{ increases productive capacity in future years}\\
+6. & \quad stock_{k,t} \geq 0, \quad produce_{k,t} \geq 0, \quad buildcapa_{k,t} \geq 0 \quad \forall k, t
+\end{align}
+
+\end{document}

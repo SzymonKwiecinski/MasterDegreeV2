@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $N$: number of neighborhoods
+    \item $S$: number of schools
+    \item $G$: number of grades
+    \item $capacity_{s,g}$: capacity of school $s$ for grade $g$
+    \item $population_{n,g}$: student population in neighborhood $n$ for grade $g$
+    \item $d_{n,s}$: distance from neighborhood $n$ to school $s$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_{n,s,g}$: number of students of grade $g$ from neighborhood $n$ assigned to school $s$
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total distance traveled by all students:
+\[
+\text{Minimize } Z = \sum_{n=1}^{N} \sum_{s=1}^{S} \sum_{g=1}^{G} d_{n,s} \cdot x_{n,s,g}
+\]
+
+\subsection*{Constraints}
+1. Capacity constraints:
+\[
+\sum_{n=1}^{N} x_{n,s,g} \leq capacity_{s,g} \quad \forall s \in \{1, \ldots, S\}, g \in \{1, \ldots, G\}
+\]
+
+2. Demand constraints:
+\[
+\sum_{s=1}^{S} x_{n,s,g} = population_{n,g} \quad \forall n \in \{1, \ldots, N\}, g \in \{1, \ldots, G\}
+\]
+
+3. Non-negativity constraints:
+\[
+x_{n,s,g} \geq 0 \quad \forall n \in \{1, \ldots, N\}, s \in \{1, \ldots, S\}, g \in \{1, \ldots, G\}
+\]
+
+\end{document}

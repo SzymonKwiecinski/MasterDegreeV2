@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Manufacturing Optimization}
+
+\subsection*{Parameters}
+\begin{align*}
+& M: \text{Number of machines} \\
+& K: \text{Number of products} \\
+& I: \text{Number of months} \\
+& \text{num}_{m}: \text{Number of machine } m \text{ for } m \in \{1, \ldots, M\} \\
+& \text{profit}_{k}: \text{Profit from selling product } k \text{ for } k \in \{1, \ldots, K\} \\
+& \text{time}_{k, m}: \text{Production time of product } k \text{ on machine } m \\
+& \text{maintain}_{i, m}: \text{Number of machines down in month } i \text{ for machine } m \\
+& \text{limit}_{k, i}: \text{Sales limit for product } k \text{ in month } i \\
+& \text{store\_price}: \text{Storage cost per unit per month} \\
+& \text{keep\_quantity}: \text{Desired stock of each product at the end of each month} \\
+& \text{n\_workhours}: \text{Number of working hours per day} \\
+& \text{Total Working Hours in a month} = n\_workhours \times 6 \times 24
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+& \text{sell}_{k, i}: \text{Amount sold of product } k \text{ in month } i \\
+& \text{manufacture}_{k, i}: \text{Amount manufactured of product } k \text{ in month } i \\
+& \text{storage}_{k, i}: \text{Amount stored of product } k \text{ in month } i
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize profit:
+\begin{align*}
+Z = \sum_{i=1}^{I} \sum_{k=1}^{K} \left( \text{profit}_{k} \cdot \text{sell}_{k, i} - \text{store\_price} \cdot \text{storage}_{k, i} \right)
+\end{align*}
+
+\subsection*{Constraints}
+1. **Production Time Constraint**:
+\begin{align*}
+\sum_{k=1}^{K} \text{time}_{k, m} \cdot \text{manufacture}_{k, i} \leq \text{Total Working Hours} - \sum_{m=1}^{M} \text{maintain}_{i, m} \quad \forall m, i
+\end{align*}
+
+2. **Sales Limit Constraint**:
+\begin{align*}
+\text{sell}_{k, i} \leq \text{limit}_{k, i} \quad \forall k, i
+\end{align*}
+
+3. **Storage Constraint**:
+\begin{align*}
+\text{storage}_{k, i} = \text{storage}_{k, i-1} + \text{manufacture}_{k, i} - \text{sell}_{k, i} \quad \forall k, i
+\end{align*}
+With the condition:
+\begin{align*}
+\text{storage}_{k, 0} = 0
+\end{align*}
+
+4. **End-of-Month Stock Constraint**:
+\begin{align*}
+\text{storage}_{k, I} \geq \text{keep\_quantity} \quad \forall k
+\end{align*}
+
+5. **Non-negativity Constraints**:
+\begin{align*}
+\text{sell}_{k, i} \geq 0, \quad \text{manufacture}_{k, i} \geq 0, \quad \text{storage}_{k, i} \geq 0 \quad \forall k, i
+\end{align*}
+
+\end{document}

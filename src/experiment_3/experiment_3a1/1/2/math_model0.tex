@@ -1,0 +1,78 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for DEC Production Optimization}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $i$: Index for systems, where $i = 1, 2, \ldots, N$
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $is\_workstation_i$: Boolean indicating if system $i$ is a workstation
+    \item $price_i$: Price of system $i$ in dollars
+    \item $disk_i$: Average number of disk drives requested per system $i$
+    \item $mem_i$: Average number of 256K memory boards requested per system $i$
+    \item $max\_cpu$: Maximum available CPUs
+    \item $min\_disk$: Minimum supply of disk drives
+    \item $max\_disk$: Maximum supply of disk drives
+    \item $min\_mem$: Minimum supply of 256K memory boards
+    \item $max\_mem$: Maximum supply of 256K memory boards
+    \item $demand_i$: Maximum demand for system $i$
+    \item $demand\_GP$: Maximum demand for the whole GP family
+    \item $demand\_WS$: Maximum demand for the whole WS family
+    \item $preorder_i$: Preorders for system $i$
+    \item $alt\_mem$: Units of alternative memory boards available
+    \item $alt\_compatible_i$: Boolean indicating if system $i$ can use alternative memory
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_i$: Number of systems produced of type $i$
+    \item $y_i$: Number of alternative memory boards used in system $i$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+\text{Maximize} \quad \sum_{i=1}^{N} (price_i \cdot x_i) - \sum_{i=1}^{N} (c_{disk} \cdot disk_i \cdot x_i) - \sum_{i=1}^{N} (c_{mem} \cdot mem_i \cdot x_i) - \sum_{i=1}^{N} (c_{alt} \cdot y_i)
+\]
+
+Where:
+- $c_{disk}$: Cost per disk drive
+- $c_{mem}$: Cost per 256K memory board
+- $c_{alt}$: Cost per alternative memory board
+
+\subsection*{Constraints}
+
+\begin{align}
+\sum_{i=1}^{N} x_i & \leq max\_cpu \quad \text{(CPU constraint)} \\
+\sum_{i=1}^{N} disk_i \cdot x_i & \geq min\_disk \quad \text{(Disk supply lower bound)} \\
+\sum_{i=1}^{N} disk_i \cdot x_i & \leq max\_disk \quad \text{(Disk supply upper bound)} \\
+\sum_{i=1}^{N} mem_i \cdot x_i & \geq min\_mem \quad \text{(Memory supply lower bound)} \\
+\sum_{i=1}^{N} mem_i \cdot x_i & \leq max\_mem \quad \text{(Memory supply upper bound)} \\
+x_i & \geq preorder_i \quad \text{(Preorder fulfillment)} \quad \forall i \\
+\sum_{i: is\_workstation_i} x_i & \leq demand\_WS \quad \text{(Workstation demand)} \\
+\sum_{i: \neg is\_workstation_i} x_i & \leq demand\_GP \quad \text{(General-purpose demand)} \\
+y_i & \leq alt\_mem \quad \text{(Alternative memory usage limit)} \quad \forall i: alt\_compatible_i \\
+\end{align}
+\begin{align}
+y_i & \leq mem_i \cdot x_i \quad \forall i: alt\_compatible_i \quad \text{(Alternative memory usage only if compatible)}
+\end{align}
+
+\subsection*{Output}
+The output will be a JSON format with the system output and total profit:
+\[
+\text{Output} = \left\{ 
+\begin{array}{ll}
+\text{"system\_output"}: \left[ \right. & \text{for each system } i \\
+    \{ x_i, mem_i \cdot x_i, y_i, disk_i \cdot x_i \} & \\
+\text{for } i = 1, \ldots, N & \left. \right] \\
+\text{"profit"}: \text{Total profit} &
+\end{array}
+\right\}
+\]
+
+\end{document}

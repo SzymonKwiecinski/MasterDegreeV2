@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Knapsack Problem Formulation}
+
+Given the following inputs:
+
+\begin{itemize}
+    \item Let \( C \) be the maximum capacity of the knapsack.
+    \item Let \( K \) be the total number of items.
+    \item Each item \( k \) has a value \( \text{value}_k \) and a size \( \text{size}_k \).
+\end{itemize}
+
+We need to determine a selection of items to maximize the total value while respecting the knapsack's capacity.
+
+\subsection*{Decision Variables}
+Define binary decision variables:
+\[
+x_k = 
+\begin{cases}
+1 & \text{if item } k \text{ is included in the knapsack} \\
+0 & \text{otherwise}
+\end{cases}
+\]
+for \( k = 1, 2, \ldots, K \).
+
+\subsection*{Objective Function}
+The objective is to maximize the total value of the packed items:
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} \text{value}_k \cdot x_k
+\]
+
+\subsection*{Constraints}
+The total size of the selected items must not exceed the knapsack's capacity:
+\[
+\sum_{k=1}^{K} \text{size}_k \cdot x_k \leq C
+\]
+
+Additionally, the decision variables must be binary:
+\[
+x_k \in \{0, 1\}, \quad \forall k = 1, 2, \ldots, K
+\]
+
+\subsection*{Output}
+The solution will provide a list indicating whether each item is included in the knapsack:
+\[
+\text{isincluded} = [x_k \text{ for } k = 1, \ldots, K]
+\]
+
+\end{document}

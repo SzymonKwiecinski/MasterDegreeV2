@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Steel Production}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( n_{steel\_quant} \): Total tons of steel required
+    \item \( mn\_percent \): Minimum percentage of manganese (Mn) required in the steel
+    \item \( si_{min} \): Minimum allowable percentage of silicon (Si)
+    \item \( si_{max} \): Maximum allowable percentage of silicon (Si)
+    \item \( contsi_k \): Percentage of silicon in mineral \( k \)
+    \item \( contmn_k \): Percentage of manganese in mineral \( k \)
+    \item \( mang\_price \): Price of manganese per ton (in million euros)
+    \item \( cost_k \): Cost of mineral \( k \) per thousand tons (in million euros)
+    \item \( sell\_price \): Selling price of steel per ton (in million euros)
+    \item \( melt\_price \): Cost of melting a ton of mineral (in million euros)
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item \( amount_k \): Amount of mineral \( k \) melted (in tons)
+    \item \( num\_mang \): Amount of manganese directly added (in tons)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize profit \( P \):
+\[
+P = n_{steel\_quant} \times sell\_price - \sum_{k=1}^{K} \left( \frac{cost_k}{1000} \times amount_k + melt\_price \times amount_k \right) - mang\_price \times num\_mang
+\]
+
+\subsection*{Constraints}
+1. Steel production requirement:
+\[
+amount_{total} = \sum_{k=1}^{K} amount_k + num\_mang = n_{steel\_quant}
+\]
+
+2. Manganese content requirement:
+\[
+\frac{\sum_{k=1}^{K} amount_k \times contmn_k}{amount_{total}} \geq \frac{mn\_percent}{100} \times n_{steel\_quant}
+\]
+
+3. Silicon content constraints:
+\[
+\frac{si_{min}}{100} \times amount_{total} \leq \frac{\sum_{k=1}^{K} amount_k \times contsi_k}{amount_{total}} \leq \frac{si_{max}}{100} \times amount_{total}
+\]
+
+4. Non-negativity constraints:
+\[
+amount_k \geq 0 \quad \forall k \in \{1, 2, ..., K\}
+\]
+\[
+num\_mang \geq 0
+\]
+
+\end{document}

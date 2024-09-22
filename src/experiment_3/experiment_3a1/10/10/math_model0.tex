@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for School Assignment Problem}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item Let \( N \) be the number of neighborhoods.
+    \item Let \( S \) be the number of schools.
+    \item Let \( G \) be the number of grades.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( capacity_{s,g} \): capacity of school \( s \) for grade \( g \).
+    \item \( population_{n,g} \): student population of grade \( g \) in neighborhood \( n \).
+    \item \( d_{n,s} \): distance of school \( s \) from neighborhood \( n \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let \( x_{n,s,g} \) be the number of students of grade \( g \) from neighborhood \( n \) assigned to school \( s \).
+
+\subsection*{Objective Function}
+Minimize the total distance traveled by all students:
+\[
+\text{Minimize} \quad Z = \sum_{n=1}^{N} \sum_{s=1}^{S} \sum_{g=1}^{G} d_{n,s} \cdot x_{n,s,g}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Capacity Constraints:
+    \[
+    \sum_{n=1}^{N} \sum_{g=1}^{G} x_{n,s,g} \leq capacity_{s,g} \quad \forall s, g
+    \]
+    
+    \item Demand Constraints:
+    \[
+    \sum_{s=1}^{S} x_{n,s,g} = population_{n,g} \quad \forall n, g
+    \]
+    
+    \item Non-negativity Constraints:
+    \[
+    x_{n,s,g} \geq 0 \quad \forall n, s, g
+    \]
+\end{itemize}
+
+\subsection*{Output Information}
+The output shall provide:
+\begin{itemize}
+    \item Optimal assignment \( x_{n,s,g} \) for all neighborhoods \( n \), schools \( s \), and grades \( g \).
+    \item Total distance traveled by all students, \( total\_distance \).
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,77 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Economic Production}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( K \): Number of industries
+    \item \( \text{inputone}_{k, j} \): Input required from industry \( j \) to industry \( k \)
+    \item \( \text{manpowerone}_{k} \): Manpower required by industry \( k \)
+    \item \( \text{inputtwo}_{k, j} \): Input required from industry \( j \) to build capacity for industry \( k \)
+    \item \( \text{manpowertwo}_{k} \): Manpower required to build productive capacity for industry \( k \)
+    \item \( \text{stock}_{k} \): Initial stock of industry \( k \)
+    \item \( \text{capacity}_{k} \): Initial capacity of industry \( k \)
+    \item \( \text{manpower\_limit} \): Total manpower limit in the economy
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{produce}_{k, t} \): Amount produced by industry \( k \) in year \( t \)
+    \item \( \text{buildcapa}_{k, t} \): Amount used to build productive capacity for industry \( k \) in year \( t \)
+    \item \( \text{stockhold}_{k, t} \): Amount of stock held by industry \( k \) in year \( t \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total production in the last two years:
+\[
+\max \sum_{k=1}^{K} (\text{produce}_{k, T} + \text{produce}_{k, T-1})
+\]
+
+\subsection*{Constraints}
+1. Production constraint for each industry:
+\[
+\text{produce}_{k, t} \leq \text{capacity}_{k} + \text{stock}_{k, t-1} \quad \forall k, t
+\]
+
+2. Input requirement for production:
+\[
+\text{produce}_{k, t} \leq \sum_{j=1}^{K} \text{inputone}_{k, j} \cdot \text{produce}_{j, t-1} + \text{stock}_{k, t-1} \quad \forall k, t
+\]
+
+3. Manpower constraint for production:
+\[
+\sum_{k=1}^{K} \text{manpowerone}_{k} \cdot \text{produce}_{k, t} \leq \text{manpower\_limit} \quad \forall t
+\]
+
+4. Capacity building:
+\[
+\text{buildcapa}_{k, t} \leq \text{capacity}_{k} + \text{stock}_{k, t-1} \quad \forall k, t
+\]
+
+5. Input requirement for capacity building:
+\[
+\text{buildcapa}_{k, t} \leq \sum_{j=1}^{K} \text{inputtwo}_{k, j} \cdot \text{produce}_{j, t-1} + \text{stock}_{k, t-1} \quad \forall k, t
+\]
+
+6. Manpower constraint for capacity building:
+\[
+\sum_{k=1}^{K} \text{manpowertwo}_{k} \cdot \text{buildcapa}_{k, t} \leq \text{manpower\_limit} \quad \forall t
+\]
+
+7. Stock update:
+\[
+\text{stock}_{k, t} = \text{stock}_{k, t-1} + \text{produce}_{k, t-1} - \text{consume}_{k, t} \quad \forall k, t
+\]
+
+\subsection*{Initial Conditions}
+At year 0:
+\[
+\text{stock}_{k, 0} = \text{stock}_{k} \quad \forall k
+\]
+\[
+\text{capacity}_{k, 0} = \text{capacity}_{k} \quad \forall k
+\]
+
+\end{document}

@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Police Shift Assignment}
+
+\subsection*{Definitions}
+Let:
+\begin{itemize}
+    \item \( S \) be the total number of shifts.
+    \item \( officers\_needed_{s} \) be the number of police officers needed during shift \( s \) for \( s = 1, 2, \ldots, S \).
+    \item \( shift\_cost_{s} \) be the cost incurred by the town when starting a shift at \( s \).
+    \item \( officers\_assigned_{s} \) be the number of police officers assigned to shift \( s \).
+\end{itemize}
+
+\subsection*{Objective}
+Minimize the total cost:
+\[
+\text{Total Cost} = \sum_{s=1}^{S} shift\_cost_{s} \cdot x_{s}
+\]
+
+where \( x_{s} \) is a binary variable indicating whether shift \( s \) is assigned (1) or not assigned (0).
+
+\subsection*{Constraints}
+1. Each officer works for two consecutive shifts:
+   \[
+   officers\_assigned_{s} \geq officers\_needed_{s} \quad \forall s = 1, 2, \ldots, S
+   \]
+
+2. The number of officers assigned to a shift is dependent on the officers assigned to the previous shift:
+   \[
+   officers\_assigned_{s} \leq officers\_assigned_{s-1} + 2 \cdot x_{s} \quad \forall s = 2, 3, \ldots, S
+   \]
+   \[
+   officers\_assigned_{1} \leq 2 \cdot x_{1} 
+   \]
+
+3. Non-negativity constraint:
+   \[
+   officers\_assigned_{s} \geq 0 \quad \forall s
+   \]
+
+4. Binary decision variable:
+   \[
+   x_{s} \in \{0, 1\} \quad \forall s
+   \]
+
+\subsection*{Output}
+The solution will provide:
+\begin{itemize}
+    \item \( officers\_assigned \): The list of officers assigned to each shift.
+    \item \( total\_cost \): The total cost incurred by the town for the assigned shifts.
+\end{itemize}
+
+\end{document}

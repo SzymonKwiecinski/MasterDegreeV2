@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Rocket Motion}
+
+Let \( x_t \), \( v_t \), and \( a_t \) represent the position, velocity, and acceleration of the rocket at time \( t \), respectively. The discrete-time model is given by the equations:
+
+\[
+x_{t+1} = x_t + v_t
+\]
+\[
+v_{t+1} = v_t + a_t
+\]
+
+The acceleration \( a_t \) is determined by the thrust of the rocket and is under our control. We aim to minimize the total fuel used, which is proportional to the magnitudes of acceleration:
+
+\[
+\text{Objective:} \quad \min \sum_{t=0}^{T-1} |a_t|
+\]
+
+Subject to the following constraints:
+
+- Initial conditions:
+  \[
+  x_0 \quad \text{(initial position)}
+  \]
+  \[
+  v_0 \quad \text{(initial velocity)}
+  \]
+
+- Final conditions to reach the target:
+  \[
+  x_T \quad \text{(target position)}
+  \]
+  \[
+  v_T \quad \text{(target velocity)}
+  \]
+
+- Time constraint:
+  \[
+  t = 0, 1, \ldots, T-1
+  \]
+
+Thus our problem can be summarized as follows:
+
+\begin{align*}
+\text{Minimize:} & \quad \sum_{t=0}^{T-1} |a_t| \\
+\text{Subject to:} & \\
+& x_{t+1} = x_t + v_t, \quad t = 0, 1, \ldots, T-1 \\
+& v_{t+1} = v_t + a_t, \quad t = 0, 1, \ldots, T-1 \\
+& x_0 \text{ given}, \quad v_0 \text{ given} \\
+& x_T \text{ desired}, \quad v_T \text{ desired}
+\end{align*}
+
+The output of the model will provide:
+\begin{itemize}
+    \item A list of positions \( [x_i \text{ for } i = 0, \ldots, T] \)
+    \item A list of velocities \( [v_i \text{ for } i = 0, \ldots, T] \)
+    \item A list of accelerations \( [a_i \text{ for } i = 0, \ldots, T] \)
+    \item Total fuel spent \( \text{fuel\_spent} \)
+\end{itemize}
+
+\end{document}

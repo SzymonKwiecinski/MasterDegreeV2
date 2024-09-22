@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Oil Refinement and Blending}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Statement}
+A food manufacturer needs to decide on the buying, storing, and refining of vegetable and non-vegetable oils to maximize profit. The relevant parameters are defined as follows:
+
+\begin{itemize}
+    \item Let \( I \) be the total number of oil types.
+    \item Let \( M \) be the total number of months.
+    \item Let \( \text{buy\_price}_{i,m} \) be the price of oil \( i \) in month \( m \).
+    \item Let \( \text{sell\_price} \) be the selling price per ton of the final product.
+    \item Let \( \text{is\_vegetable}_{i} \) be a binary variable indicating if oil \( i \) is a vegetable oil.
+    \item Let \( \text{max\_veg} \) and \( \text{max\_non\_veg} \) be the maximum refining capacities per month for vegetable and non-vegetable oils respectively.
+    \item Let \( \text{storage\_size} \) be the maximum storage capacity for each type of oil.
+    \item Let \( \text{storage\_cost} \) be the cost of storing one ton of oil per month.
+    \item Let \( \text{max\_hardness} \) and \( \text{min\_hardness} \) be the bounds for the hardness of the final product.
+    \item Let \( \text{hardness}_{i} \) be the hardness of oil \( i \).
+    \item Let \( \text{init\_amount} \) be the initial amount of each type of raw oil in storage.
+\end{itemize}
+
+\section*{Decision Variables}
+\begin{itemize}
+    \item Let \( \text{buyquantity}_{i,m} \) be the amount of oil \( i \) bought in month \( m \).
+    \item Let \( \text{refine}_{i,m} \) be the amount of oil \( i \) refined in month \( m \).
+    \item Let \( \text{storage}_{i,m} \) be the amount of oil \( i \) stored at the end of month \( m \).
+\end{itemize}
+
+\section*{Objective Function}
+Maximize the profit:
+\[
+\text{Profit} = \sum_{m=1}^{M} \left( \text{sell\_price} \times \sum_{i=1}^{I} \text{refine}_{i,m} - \sum_{i=1}^{I} \text{buy\_price}_{i,m} \cdot \text{buyquantity}_{i,m} - \sum_{i=1}^{I} \text{storage\_cost} \cdot \text{storage}_{i,m} \right)
+\]
+
+\section*{Constraints}
+1. **Storage Constraints:**
+   \[
+   \text{storage}_{i,m} = \text{storage}_{i,m-1} + \text{buyquantity}_{i,m} - \text{refine}_{i,m}, \quad \forall i, m
+   \]
+   \[
+   0 \leq \text{storage}_{i,m} \leq \text{storage\_size}, \quad \forall i, m
+   \]
+
+2. **Refining Capacity Constraints:**
+   \[
+   \sum_{i \in \text{veg}} \text{refine}_{i,m} \leq \text{max\_veg}, \quad \forall m
+   \]
+   \[
+   \sum_{i \in \text{non-veg}} \text{refine}_{i,m} \leq \text{max\_non\_veg}, \quad \forall m
+   \]
+
+3. **Hardness Constraints:**
+   \[
+   \frac{\sum_{i=1}^{I} \text{hardness}_{i} \cdot \text{refine}_{i,m}}{\sum_{i=1}^{I} \text{refine}_{i,m}} \geq \text{min\_hardness}, \quad \forall m
+   \]
+   \[
+   \frac{\sum_{i=1}^{I} \text{hardness}_{i} \cdot \text{refine}_{i,m}}{\sum_{i=1}^{I} \text{refine}_{i,m}} \leq \text{max\_hardness}, \quad \forall m
+   \]
+
+4. **Initial and Final Storage Constraints:**
+   \[
+   \text{storage}_{i,0} = \text{init\_amount}, \quad \forall i
+   \]
+   \[
+   \text{storage}_{i,M} = \text{init\_amount}, \quad \forall i
+   \]
+
+\section*{Conclusion}
+This linear programming model will help in formulating a buying, storing, and manufacturing policy for maximizing profitability in the refinement and blending of oils.
+
+\end{document}

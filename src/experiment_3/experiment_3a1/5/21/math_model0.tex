@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mixed Integer Linear Programming Model}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item $M$: set of machines, where $m \in M$
+    \item $K$: set of products, where $k \in K$
+    \item $I$: set of months, where $i \in I$
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $num_m$: number of machines
+    \item $profit_k$: profit for product $k$
+    \item $time_{k,m}$: production time required for product $k$ on machine $m$
+    \item $down_m$: down time for maintenance of machine $m$
+    \item $limit_{k,i}$: marketing limitation for product $k$ in month $i$
+    \item $store\_price$: storing cost per unit per month
+    \item $keep\_quantity$: desired stock of each product at the end of the months
+    \item $n\_workhours$: working hours per month 
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $sell_{k,i}$: quantity of product $k$ sold in month $i$
+    \item $manufacture_{k,i}$: quantity of product $k$ manufactured in month $i$
+    \item $storage_{k,i}$: quantity of product $k$ stored at the end of month $i$
+    \item $maintain_{m,k}$: binary variable indicating whether machine $m$ is under maintenance for product $k$ in month $i$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize } Z = \sum_{i \in I} \sum_{k \in K} profit_k \cdot sell_{k,i} - \sum_{i \in I} \sum_{k \in K} store\_price \cdot storage_{k,i}
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+1. & \quad \sum_{k \in K} sell_{k,i} \leq limit_{k,i} & \forall k \in K, i \in I \\
+2. & \quad \sum_{k \in K} time_{k,m} \cdot manufacture_{k,i} \leq n\_workhours \cdot (24 - down_m) & \forall m \in M, i \in I \\
+3. & \quad storage_{k,i} = storage_{k,i-1} + manufacture_{k,i} - sell_{k,i} & \forall k \in K, i \in I \\
+4. & \quad storage_{k,i} \leq 100 & \forall k \in K, i \in I \\
+5. & \quad storage_{k,I} \geq keep\_quantity & \forall k \in K \\
+6. & \quad maintain_{m,k} \in \{0, 1\} & \forall m \in M, k \in K, i \in I
+\end{align*}
+
+\end{document}

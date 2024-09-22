@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Model for Manufacturing and Maintenance Optimization}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $M$: Number of machines
+    \item $K$: Number of products
+    \item $I$: Number of months
+    \item $profit_{k}$: Profit from product $k$, for $k = 1, \ldots, K$
+    \item $time_{k, m}$: Time required to produce product $k$ on machine $m$, for $k = 1, \ldots, K$, $m = 1, \ldots, M$
+    \item $down_{m}$: Down time for machine $m$, for $m = 1, \ldots, M$
+    \item $limit_{k, i}$: Marketing limit for product $k$ in month $i$, for $k = 1, \ldots, K$, $i = 1, \ldots, I$
+    \item $store\_price$: Cost of storing each product per unit per month
+    \item $keep\_quantity$: Desired ending inventory for each product
+    \item $n\_workhours$: Number of work hours per day (2 shifts per day)
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $sell_{k, i}$: Amount sold of product $k$ in month $i$, for $k = 1, \ldots, K$, $i = 1, \ldots, I$
+    \item $manufacture_{k, i}$: Amount manufactured of product $k$ in month $i$, for $k = 1, \ldots, K$, $i = 1, \ldots, I$
+    \item $storage_{k, i}$: Amount stored of product $k$ at the end of month $i$, for $k = 1, \ldots, K$, $i = 1, \ldots, I$
+    \item $maintain_{m, i}$: Number of machines under maintenance in month $i$, for $m = 1, \ldots, M$, $i = 1, \ldots, I$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\begin{equation}
+\text{Maximize } Z = \sum_{i=1}^{I} \sum_{k=1}^{K} (profit_{k} \cdot sell_{k, i}) - \sum_{i=1}^{I} \sum_{k=1}^{K} (store\_price \cdot storage_{k, i})
+\end{equation}
+
+\subsection*{Constraints}
+
+\begin{enumerate}
+
+    \item \textbf{Production constraints:}
+    \begin{equation}
+    manufacture_{k, i} \leq limit_{k, i} \quad \forall k, i
+    \end{equation}
+    
+    \item \textbf{Inventory balance constraints:}
+    \begin{equation}
+    storage_{k, i} = storage_{k, i-1} + manufacture_{k, i} - sell_{k, i} \quad \forall k, i
+    \end{equation}
+    
+    \item \textbf{Ending inventory requirement:}
+    \begin{equation}
+    storage_{k, I} \geq keep\_quantity \quad \forall k
+    \end{equation}
+
+    \item \textbf{Machine availability:}
+    \begin{equation}
+    \sum_{k=1}^{K} (manufacture_{k, i} \cdot time_{k, m}) \leq n\_workhours \cdot (24 - down_{m}) \quad \forall m, i
+    \end{equation}
+    
+    \item \textbf{Maintenance constraints:}
+    \begin{equation}
+    maintain_{m, i} \in \{0, 1\} \quad \forall m, i
+    \end{equation}
+    
+    \item \textbf{Non-negativity constraints:}
+    \begin{equation}
+    sell_{k, i}, manufacture_{k, i}, storage_{k, i} \geq 0 \quad \forall k, i
+    \end{equation}
+
+\end{enumerate}
+
+\end{document}

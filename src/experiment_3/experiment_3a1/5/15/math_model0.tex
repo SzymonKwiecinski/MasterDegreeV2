@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Production Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $N$: Number of product types
+    \item $assemblyHour_i$: Hours of assembly labor required for product $i$
+    \item $testingHour_i$: Hours of testing required for product $i$
+    \item $materialCost_i$: Cost of raw materials for product $i$ (in \$)
+    \item $maxAssembly$: Maximum assembly hours available per day
+    \item $maxTesting$: Maximum testing hours available per day
+    \item $price_i$: Selling price for product $i$ (in \$)
+    \item $maxOvertimeAssembly$: Maximum overtime assembly hours that can be scheduled
+    \item $overtimeAssemblyCost$: Cost of overtime assembly labor per hour (in \$)
+    \item $materialDiscount$: Discount percentage for raw materials
+    \item $discountThreshold$: Threshold for discount on material cost (in \$)
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_i$: Number of units produced for product $i$ (for $i = 1, \ldots, N$)
+    \item $overtimeAssembly$: Hours of overtime assembly labor scheduled
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the daily profit:
+\[
+\text{Maximize } Z = \sum_{i=1}^{N} (price_i \cdot x_i) - \left( \sum_{i=1}^{N} (materialCost_i \cdot x_i) - \text{Discount} \right) - \left( overtimeAssemblyCost \cdot overtimeAssembly \right)
+\]
+
+where the discount is defined as:
+\[
+\text{Discount} = 
+\begin{cases} 
+materialDiscount \cdot \left( \sum_{i=1}^{N} (materialCost_i \cdot x_i) \right) & \text{if } \sum_{i=1}^{N} (materialCost_i \cdot x_i) > discountThreshold \\
+0 & \text{otherwise}
+\end{cases}
+\]
+
+\subsection*{Constraints}
+1. **Assembly Hours Constraint**:
+\[
+\sum_{i=1}^{N} (assemblyHour_i \cdot x_i) + overtimeAssembly \leq maxAssembly + maxOvertimeAssembly
+\]
+
+2. **Testing Hours Constraint**:
+\[
+\sum_{i=1}^{N} (testingHour_i \cdot x_i) \leq maxTesting
+\]
+
+3. **Non-negativity Constraints**:
+\[
+x_i \geq 0 \quad \text{for } i = 1, \ldots, N
+\]
+\[
+overtimeAssembly \geq 0
+\]
+
+\end{document}

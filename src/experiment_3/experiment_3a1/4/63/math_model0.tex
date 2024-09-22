@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Mathematical Model for Roll Cutting Problem}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+Let:
+\begin{itemize}
+    \item \( W \) be the width of the large roll, where \( W = \text{large\_roll\_width} \).
+    \item \( M \) be the number of smaller roll types.
+    \item \( d_j \) be the demand for rolls of width \( j \) where \( j \in \{1, 2, \ldots, M\} \).
+    \item \( N \) be the number of cutting patterns available.
+    \item \( p_{i,j} \) be the number of rolls produced of width \( j \) using cutting pattern \( i \).
+    \item \( x_i \) be the number of times cutting pattern \( i \) is used.
+\end{itemize}
+
+\section*{Objective Function}
+The objective is to minimize the total number of large rolls used:
+\[
+\text{Minimize} \quad Z = \sum_{i=1}^{N} x_i
+\]
+
+\section*{Constraints}
+The constraints ensuring that the demand for each roll width is fulfilled can be expressed as:
+\[
+\sum_{i=1}^{N} p_{i,j} x_i \geq d_j \quad \forall j \in \{1, 2, \ldots, M\}
+\]
+
+Additionally, each pattern must respect the width of the large roll:
+\[
+\sum_{j=1}^{M} p_{i,j} \leq W \quad \forall i \in \{1, 2, \ldots, N\}
+\]
+
+\section*{Variable Definitions}
+\begin{itemize}
+    \item \( x_i \geq 0 \) and integer for all \( i \in \{1, 2, \ldots, N\} \).
+\end{itemize}
+
+\section*{Output Format}
+The output will include the details of the cutting patterns applied and the total number of large rolls used:
+\begin{verbatim}
+{
+    "patterns": [
+        {
+         "pattern": [pattern_j for j in 1, ..., M],
+         "amount": amount_i
+        }
+        for i in 1, ..., N
+    ],
+    "total_large_rolls_used": total_large_rolls
+}
+\end{verbatim}
+
+\end{document}

@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Stock Selling}
+
+\textbf{Variables:}
+
+Let \( sell_i \) be the number of shares of stock \( i \) that the investor should sell.
+
+\textbf{Parameters:}
+
+\begin{itemize}
+    \item \( N \): Total number of different stocks.
+    \item \( bought_i \): Number of shares bought of stock \( i \).
+    \item \( buyPrice_i \): Price at which the shares of stock \( i \) were bought.
+    \item \( currentPrice_i \): Current price of one share of stock \( i \).
+    \item \( futurePrice_i \): Expected price of one share of stock \( i \) in one year.
+    \item \( transactionRate \): Transaction cost rate as a percentage.
+    \item \( taxRate \): Tax rate on capital gains as a percentage.
+    \item \( K \): Amount of money the investor needs to raise net of capital gains and transaction costs.
+\end{itemize}
+
+\textbf{Objective Function:}
+
+Maximize the expected value of the portfolio net of sales:
+
+\[
+\text{Maximize} \quad \sum_{i=1}^{N} futurePrice_i \cdot (bought_i - sell_i)
+\]
+
+\textbf{Constraints:}
+
+1. The total amount raised must be equal to or greater than \( K \) after accounting for transaction costs and taxes:
+
+\[
+\sum_{i=1}^{N} (currentPrice_i \cdot sell_i) \cdot (1 - \frac{transactionRate}{100}) - \sum_{i=1}^{N} ((currentPrice_i - buyPrice_i) \cdot sell_i) \cdot \frac{taxRate}{100} \geq K
+\]
+
+2. The number of shares sold cannot exceed the number of shares bought:
+
+\[
+0 \leq sell_i \leq bought_i \quad \forall i \in \{1, 2, \ldots, N\}
+\]
+
+3. Non-negativity constraint:
+
+\[
+sell_i \geq 0 \quad \forall i \in \{1, 2, \ldots, N\}
+\]
+
+\textbf{Output:}
+
+The result will provide the values of \( sell_i \) for \( i = 1, 2, \ldots, N \):
+
+\[
+\text{Output: } \{ "sell": [sell_1, sell_2, \ldots, sell_N] \}
+\]
+
+\end{document}

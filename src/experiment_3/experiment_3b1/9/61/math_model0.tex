@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for MILP Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let $N$ be the number of clusters.
+    \item Let $isolate\_central_{i}$ be the processing time for isolation of cluster $i$ using central processing, for $i = 1, \ldots, N$.
+    \item Let $scan\_central_{i}$ be the processing time for scanning of cluster $i$ using central processing, for $i = 1, \ldots, N$.
+    \item Let $isolate\_distributed_{i}$ be the processing time for isolation of cluster $i$ using distributed processing, for $i = 1, \ldots, N$.
+    \item Let $scan\_distributed_{i}$ be the processing time for scanning of cluster $i$ using distributed processing, for $i = 1, \ldots, N$.
+    \item Let $central\_cost$ be the opportunity cost for central processing per hour.
+    \item Let $distributed\_cost$ be the opportunity cost for distributed processing per hour.
+    \item Let $max\_central$ be the maximum hours allowed for central processing.
+    \item Let $max\_distributed$ be the maximum hours allowed for distributed processing.
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let:
+\begin{itemize}
+    \item $x_{i}^{isolate\_central}$ = 1 if cluster $i$ is isolated using central processing, 0 otherwise.
+    \item $x_{i}^{scan\_central}$ = 1 if cluster $i$ is scanned using central processing, 0 otherwise.
+    \item $x_{i}^{isolate\_distributed}$ = 1 if cluster $i$ is isolated using distributed processing, 0 otherwise.
+    \item $x_{i}^{scan\_distributed}$ = 1 if cluster $i$ is scanned using distributed processing, 0 otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Total Cost} = \sum_{i=1}^{N} \left( central\_cost \cdot (isolate\_central_{i} \cdot x_{i}^{isolate\_central} + scan\_central_{i} \cdot x_{i}^{scan\_central}) + distributed\_cost \cdot (isolate\_distributed_{i} \cdot x_{i}^{isolate\_distributed} + scan\_distributed_{i} \cdot x_{i}^{scan\_distributed}) \right)
+\]
+
+\subsection*{Constraints}
+
+\begin{itemize}
+    \item Each cluster must have exactly one type of intervention:
+    \[
+    x_{i}^{isolate\_central} + x_{i}^{scan\_central} + x_{i}^{isolate\_distributed} + x_{i}^{scan\_distributed} = 1, \quad \forall i = 1, \ldots, N
+    \]
+
+    \item Central processing time constraint:
+    \[
+    \sum_{i=1}^{N}(isolate\_central_{i} \cdot x_{i}^{isolate\_central} + scan\_central_{i} \cdot x_{i}^{scan\_central}) \leq max\_central
+    \]
+
+    \item Distributed processing time constraint:
+    \[
+    \sum_{i=1}^{N}(isolate\_distributed_{i} \cdot x_{i}^{isolate\_distributed} + scan\_distributed_{i} \cdot x_{i}^{scan\_distributed}) \leq max\_distributed
+    \]
+\end{itemize}
+
+\subsection*{Output}
+
+The output will detail the selected intervention for each cluster and the total cost incurred:
+\[
+\text{Output} = 
+\begin{cases} 
+\text{interventions:} \\
+\{(cluster\_id = i, type = "isolate" \text{ or } "scan", method = "central" \text{ or } "distributed", amount = amount_i)\} \\
+\text{for } i = 1, \ldots, N 
+\end{cases}
+\]
+
+\[
+\text{total\_cost} = \text{Total Cost}
+\]
+
+\end{document}

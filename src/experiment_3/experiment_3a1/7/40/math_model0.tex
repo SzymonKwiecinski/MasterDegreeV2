@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Steel Production}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $n_{steel\_quant}$: tons of steel required
+    \item $mn_{percent}$: minimum percentage of manganese (Mn)
+    \item $si_{min}$: minimum percentage of silicon (Si)
+    \item $si_{max}$: maximum percentage of silicon (Si)
+    \item $cont_{si_k}$: percentage of silicon in mineral $k$
+    \item $cont_{mn_k}$: percentage of manganese in mineral $k$
+    \item $mang_{price}$: price of Manganese (million euros per ton)
+    \item $cost_k$: cost of mineral $k$ (million euros per thousand tons)
+    \item $sell_{price}$: selling price of steel (million euros per ton)
+    \item $melt_{price}$: cost of smelting a ton of mineral (million euros)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $amount_k$: amount of mineral $k$ melted (in tons)
+    \item $num_{mang}$: amount of Manganese directly added (in tons)
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = (sell_{price} - melt_{price}) \cdot n_{steel\_quant} - \sum_{k=1}^{K} \left( \frac{cost_k}{1000} \cdot amount_k \right) - mang_{price} \cdot num_{mang}
+\]
+
+\textbf{Subject to:}
+\begin{align}
+    \sum_{k=1}^{K} (cont_{si_k} \cdot amount_k) + num_{mang} & \geq \frac{mn_{percent}}{100} \cdot n_{steel\_quant} \quad \text{(Mn requirement)} \\
+    si_{min} \cdot n_{steel\_quant} & \leq \sum_{k=1}^{K} (cont_{si_k} \cdot amount_k) + num_{mang} \leq si_{max} \cdot n_{steel\_quant} \quad \text{(Si requirement)} \\
+    amount_k & \geq 0 \quad \forall k \in \{1, \ldots, K\} \\
+    num_{mang} & \geq 0
+\end{align}
+
+\end{document}

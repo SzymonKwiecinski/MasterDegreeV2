@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mixed Integer Linear Programming Model}
+
+\subsection*{Parameters}
+
+\begin{itemize}
+    \item $M$: Number of machines
+    \item $K$: Number of products
+    \item $I$: Number of months
+    \item $profit_k$: Profit per unit of product $k$ 
+    \item $time_{k,m}$: Time required to produce product $k$ on machine $m$ (hours)
+    \item $down_m$: Months machine $m$ is down for maintenance
+    \item $limit_{k,i}$: Limitation on selling product $k$ in month $i$
+    \item $store\_price$: Cost of storing one unit of product per month
+    \item $keep\_quantity$: Desired stock level of each product at the end of subsequent months
+    \item $n\_workhours$: Total working hours per month
+\end{itemize}
+
+\subsection*{Decision Variables}
+
+\begin{itemize}
+    \item $sell_{k,i}$: Quantity of product $k$ sold in month $i$
+    \item $manufacture_{k,i}$: Quantity of product $k$ manufactured in month $i$
+    \item $storage_{k,i}$: Quantity of product $k$ stored in month $i$
+    \item $maintain_{m,i}$: Binary variable indicating if machine $m$ is under maintenance in month $i$
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Maximize:
+\[
+Z = \sum_{i=1}^{I} \sum_{k=1}^{K} \left( profit_k \cdot sell_{k,i} - store\_price \cdot storage_{k,i} \right)
+\]
+
+\subsection*{Constraints}
+
+1. Production Time Constraint:
+\[
+\sum_{k=1}^{K} time_{k,m} \cdot manufacture_{k,i} \leq (n\_workhours \cdot 24) \cdot (1 - \sum_{j=1}^{down_m} maintain_{m,j}) \quad \forall m \in \{1, 2, \ldots, M\}, i \in \{1, 2, \ldots, I\}
+\]
+
+2. Selling Limitations:
+\[
+sell_{k,i} \leq limit_{k,i} \quad \forall k \in \{1, 2, \ldots, K\}, i \in \{1, 2, \ldots, I\}
+\]
+
+3. Storage Balance:
+\[
+storage_{k,i} = storage_{k,i-1} + manufacture_{k,i} - sell_{k,i} \quad \forall k \in \{1, 2, \ldots, K\}, i \in \{2, 3, \ldots, I\}
+\]
+
+4. Initial Storage:
+\[
+storage_{k,1} = 0 \quad \forall k \in \{1, 2, \ldots, K\}
+\]
+
+5. Desired Ending Stock:
+\[
+storage_{k,I} \geq keep\_quantity \quad \forall k \in \{1, 2, \ldots, K\}
+\]
+
+6. Non-negativity:
+\[
+sell_{k,i}, manufacture_{k,i}, storage_{k,i} \geq 0 \quad \forall k \in \{1, 2, \ldots, K\}, i \in \{1, 2, \ldots, I\}
+\]
+
+7. Maintenance Decision:
+\[
+maintain_{m,i} \in \{0, 1\} \quad \forall m \in \{1, 2, \ldots, M\}, i \in \{1, 2, \ldots, I\}
+\]
+
+\end{document}

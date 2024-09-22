@@ -1,0 +1,85 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Warehouse Operations}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+
+We consider a warehouse that operates for \(N\) periods, aiming to maximize profit through the buying and selling of a commodity while respecting certain constraints.
+
+Let:
+\begin{itemize}
+    \item \(C\): the fixed capacity of the warehouse,
+    \item \(h\): the holding cost per unit per period,
+    \item \(p_n\): the selling price of the commodity in period \(n\),
+    \item \(c_n\): the cost of the commodity for purchase in period \(n\),
+    \item \(b_n\): the quantity bought in period \(n\),
+    \item \(s_n\): the quantity sold in period \(n\),
+    \item \(x_n\): the stock remaining in the warehouse at the end of period \(n\).
+\end{itemize}
+
+\section*{Objective Function}
+
+The objective is to maximize the total profit over \(N\) periods, which can be expressed as:
+
+\[
+\text{Maximize } Z = \sum_{n=1}^{N} (p_n s_n - c_n b_n - h x_n)
+\]
+
+\section*{Constraints}
+
+1. **Capacity Constraint**: The stock at any time must not exceed the warehouse capacity.
+
+\[
+x_n = x_{n-1} + b_n - s_n \quad \forall n \in \{1, \ldots, N\}
+\]
+
+\[
+x_n \leq C \quad \forall n \in \{1, \ldots, N\}
+\]
+
+2. **Non-negativity Constraints**: The quantities bought, sold, and stock must be non-negative.
+
+\[
+b_n \geq 0, \quad s_n \geq 0, \quad x_n \geq 0 \quad \forall n \in \{1, \ldots, N\}
+\]
+
+3. **Initial Condition**: The warehouse starts empty.
+
+\[
+x_0 = 0
+\]
+
+4. **Final Condition**: The warehouse must be empty at the end of the last period.
+
+\[
+x_N = 0
+\]
+
+\section*{Output Variables}
+
+The solution will yield the following output:
+
+\begin{itemize}
+    \item \(b_n\): the amount bought in each period.
+    \item \(s_n\): the amount sold in each period.
+    \item \(x_n\): the stock at the end of each period, excluding the initial stock.
+\end{itemize}
+
+\section*{Output Format}
+
+The results are provided in the following format:
+
+\[
+\{
+    \text{"buyquantity"}: [b_1, b_2, \ldots, b_N],
+    \text{"sellquantity"}: [s_1, s_2, \ldots, s_N],
+    \text{"stock"}: [x_1, x_2, \ldots, x_N]
+\}
+\]
+
+\end{document}

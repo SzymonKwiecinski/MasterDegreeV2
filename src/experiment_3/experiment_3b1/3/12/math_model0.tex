@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+Let:
+\begin{itemize}
+    \item \( N \) be the number of available currencies.
+    \item \( start_i \) be the initial amount of currency \( i \) for \( i = 1, \ldots, N \).
+    \item \( limit_i \) be the limit on the total amount of currency \( i \) that can be exchanged for \( i = 1, \ldots, N \).
+    \item \( rate_{i,j} \) be the exchange rate from currency \( i \) to currency \( j \) for \( i, j = 1, \ldots, N \) (with \( rate_{i,j} > 0 \)).
+    \item \( x_{i,j} \) be the amount of currency \( i \) exchanged for currency \( j \).
+\end{itemize}
+
+The objective is to maximize the amount of currency \( N \) at the end of the day, represented mathematically as:
+
+\[
+\text{Maximize } Z = x_{N,j} + \ldots + x_{N,N}
+\]
+
+where \( j \) represents any currency other than \( N \).
+
+Subject to the following constraints:
+
+1. **Currency Exchange Limits**:
+   \[
+   x_{i,j} \leq limit_i \quad \forall i, j
+   \]
+
+2. **Initial Currency Constraints**:
+   \[
+   \sum_{j=1}^{N} x_{i,j} \leq start_i \quad \forall i
+   \]
+
+3. **Total Exchange Calculation**:
+   \[
+   x_{i,j} \leq start_i \cdot rate_{i,j} \quad \forall i,j
+   \]
+
+4. **Non-negativity**:
+   \[
+   x_{i,j} \geq 0 \quad \forall i,j
+   \]
+
+5. **Conservation of Currency**: For each currency \( i \):
+   \[
+   \text{End amount of currency } i = start_i + \sum_{j} x_{j,i} - \sum_{k} x_{i,k}
+   \]
+
+This formulation ensures that transactions adhere to the constraints of limits, starting amounts, and will maximize our final amount of currency \( N \) through possible exchanges with other currencies.
+
+\end{document}

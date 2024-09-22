@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\textbf{Variables:}
+
+Let \( b_p \) be the number of batches of part \( p \) produced per month, where \( p = 1, 2, \ldots, P \).
+
+\textbf{Objective Function:}
+
+Maximize the total profit:
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} \left( \text{price}_p \cdot b_p \right) - \sum_{m=1}^{M} \left( \text{cost}_m \cdot \sum_{p=1}^{P} (time_{m,p} \cdot b_p) \right)
+\]
+
+\textbf{Subject to:}
+
+1. **Machine Availability Constraints**:
+   \[
+   \sum_{p=1}^{P} (time_{m,p} \cdot b_p) \leq \text{available}_m \quad \text{for each } m = 1, \ldots, M
+   \]
+
+2. **Shared Availability for Machine \( M \) and Machine \( M-1 \)**:
+   \[
+   \sum_{p=1}^{P} (time_{M,p} \cdot b_p) + \sum_{p=1}^{P} (time_{M-1,p} \cdot b_p) \leq \text{available}_{M} + \text{available}_{M-1}
+   \]
+
+3. **Minimum Production Requirements**:
+   \[
+   b_p \geq \text{min\_batches}_p \quad \text{for each } p = 1, \ldots, P
+   \]
+
+\textbf{Non-negativity Constraints:}
+\[
+b_p \geq 0 \quad \text{for each } p = 1, \ldots, P
+\]
+
+\end{document}

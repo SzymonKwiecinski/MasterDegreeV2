@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for DEC's Production Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $N$: Number of computer systems
+    \item $is\_workstation_i$: A boolean indicating if system $i$ is a workstation
+    \item $price_i$: Price of system $i$
+    \item $disk_i$: Average disk drives requested for system $i$
+    \item $mem_i$: Average 256K memory boards requested for system $i$
+    \item $max\_cpu$: Maximum number of CPUs available
+    \item $min\_disk$: Minimum supply of disk drives
+    \item $max\_disk$: Maximum supply of disk drives
+    \item $min\_mem$: Minimum supply of 256K memory boards
+    \item $max\_mem$: Maximum supply of 256K memory boards
+    \item $demand_i$: Maximum demand for system $i$
+    \item $demand\_GP$: Maximum demand for general-purpose systems
+    \item $demand\_WS$: Maximum demand for workstation systems
+    \item $preorder_i$: Preorders received for system $i$
+    \item $alt\_mem$: Available alternative memory boards
+    \item $alt\_compatible_i$: A boolean indicating if system $i$ can use alternative memory boards
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_i$: Number of system $i$ produced
+    \item $mem\_used_i$: Total 256K memory boards used for system $i$
+    \item $alt\_used_i$: Total alternative memory boards used for system $i$
+    \item $disk\_used_i$: Total disk drives used for system $i$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the profit:
+\[
+\text{Maximize } Z = \sum_{i=1}^{N} (price_i \cdot x_i) - \text{Cost}
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+& \text{CPU Constraint: } \sum_{i=1}^{N} x_i \leq max\_cpu \\
+& \text{Disk Drives Constraint: } \sum_{i=1}^{N} disk_i \cdot x_i \leq max\_disk \\
+& \text{Memory Constraint: } \sum_{i=1}^{N} mem_i \cdot x_i + \sum_{i \in S} alt\_used_i \leq max\_mem + alt\_mem \\
+& \text{Demand Constraints: } \\
+& x_i \geq preorder_i && \forall i \in 1, \ldots, N \\
+& \sum_{i \text{ GP}} x_i \leq demand\_GP \\
+& \sum_{i \text{ WS}} x_i \leq demand\_WS \\
+& x_i \leq demand_i && \forall i \in 1, \ldots, N \\
+& mem\_used_i = mem_i \cdot x_i && \forall i \in 1, \ldots, N \\
+& alt\_used_i \leq alt\_mem \cdot x_i && \forall i \in 1, \ldots, N \text{ such that } alt\_compatible_i = \text{true} \\
+\end{align*}
+
+\end{document}

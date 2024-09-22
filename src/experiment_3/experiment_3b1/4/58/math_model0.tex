@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Variables}
+Let:
+\begin{align*}
+    &batches_{p} \quad \text{= number of batches produced of part } p \quad \text{for } p = 1, \ldots, P \\
+    &setup\_flags_{p} \quad \text{= binary variable indicating if part } p \text{ is set up (1) or not (0)} \\
+    &total\_profit \quad \text{= total profit obtained for the month}
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+    &time_{m,p} \quad \text{= time required on machine } m \text{ to produce one batch of part } p \quad \text{for } m = 1, \ldots, M, \; p = 1, \ldots, P \\
+    &cost_{m} \quad \text{= cost per hour of machine } m \quad \text{for } m = 1, \ldots, M \\
+    &available_{m} \quad \text{= available hours of machine } m \text{ per month} \quad \text{for } m = 1, \ldots, M \\
+    &price_{p} \quad \text{= selling price per batch of part } p \quad \text{for } p = 1, \ldots, P \\
+    &setup\_time_{p} \quad \text{= setup time required for part } p \text{ on machine 1} \quad \text{for } p = 1, \ldots, P
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\begin{align*}
+    total\_profit &= \sum_{p=1}^{P} price_{p} \cdot batches_{p} - \sum_{m=1}^{M} \left( cost_{m} \cdot \left( \sum_{p=1}^{P} time_{m,p} \cdot batches_{p} + \sum_{p=1}^{P} setup\_flags_{p} \cdot setup\_time_{p} \cdot \delta_{m,1} \right) \right)
+\end{align*}
+where $\delta_{m,1}$ is 1 if $m=1$ (indicating machine 1), and 0 otherwise.
+
+\subsection*{Constraints}
+1. Machine availability constraints:
+\begin{align*}
+    \sum_{p=1}^{P} time_{m,p} \cdot batches_{p} + setup\_flags_{p} \cdot setup\_time_{p} \cdot \delta_{m,1} \leq available_{m} \quad \text{for } m = 1, \ldots, M
+\end{align*}
+
+2. Non-negativity and binary constraints:
+\begin{align*}
+    &batches_{p} \geq 0 \quad \text{for } p = 1, \ldots, P \\
+    &setup\_flags_{p} \in \{0, 1\} \quad \text{for } p = 1, \ldots, P
+\end{align*}
+
+\end{document}

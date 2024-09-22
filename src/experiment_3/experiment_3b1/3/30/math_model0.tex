@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Quadratic Curve Fitting Problem}
+
+Given a set of observed values \( y_k \) corresponding to values \( x_k \) for \( k = 1, \ldots, K \), the goal is to fit a quadratic curve of the form:
+
+\[
+y = c x^2 + b x + a
+\]
+
+where:
+- \( c \) is the coefficient of the quadratic term,
+- \( b \) is the coefficient of the linear term,
+- \( a \) is the constant term.
+
+We aim to minimize the sum of absolute deviations between the observed values \( y_k \) and the predicted values from the quadratic equation, which can be expressed mathematically as:
+
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} |y_k - (c x_k^2 + b x_k + a)|
+\]
+
+To formulate this as a Linear Programming (LP) problem, we can introduce auxiliary variables \( z_k \) such that:
+
+\[
+z_k \geq y_k - (c x_k^2 + b x_k + a) \quad \text{and} \quad z_k \geq -(y_k - (c x_k^2 + b x_k + a))
+\]
+
+The problem can then be rephrased as:
+
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} z_k
+\]
+
+subject to:
+
+\[
+z_k \geq y_k - (c x_k^2 + b x_k + a), \quad k = 1, \ldots, K
+\]
+\[
+z_k \geq -(y_k - (c x_k^2 + b x_k + a)), \quad k = 1, \ldots, K
+\]
+
+The output coefficients will be represented as follows:
+
+\[
+\begin{align*}
+\text{quadratic} & : c \\
+\text{linear} & : b \\
+\text{constant} & : a
+\end{align*}
+\]
+
+\end{document}

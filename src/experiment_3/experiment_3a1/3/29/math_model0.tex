@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model to Fit a Line}
+
+Given a set of observations for quantities \( x \) and \( y \) where \( k = 1, \ldots, K \):
+
+\[
+y_k \text{ for } k = 1, \ldots, K
+\]
+\[
+x_k \text{ for } k = 1, \ldots, K
+\]
+
+The objective is to fit the best straight line of the form:
+
+\[
+y = bx + a
+\]
+
+where \( b \) is the slope and \( a \) is the intercept. We want to minimize the maximum deviation of the observed \( y_k \) values from the predicted \( y \) values based on the linear model.
+
+Define the deviations \( d_k \) for each observation, which represent the difference between the observed values and the values predicted by the model:
+
+\[
+d_k = y_k - (bx_k + a)
+\]
+
+We aim to minimize the maximum deviation:
+
+\[
+\min \, t
+\]
+
+subject to the constraints:
+
+\[
+d_k \leq t \quad \forall k
+\]
+\[
+-d_k \leq t \quad \forall k
+\]
+
+This leads us to the following inequalities:
+
+\[
+y_k - (bx_k + a) \leq t \quad \forall k
+\]
+\[
+-(y_k - (bx_k + a)) \leq t \quad \forall k
+\]
+
+Thus, the formulation of our linear programming problem is:
+
+\[
+\begin{align*}
+\text{Minimize} & \quad t \\
+\text{Subject to:} & \quad y_k - (bx_k + a) \leq t, \quad \forall k \\
+& \quad -(y_k - (bx_k + a)) \leq t, \quad \forall k \\
+& \quad b, a \text{ are parameters to be determined}
+\end{align*}
+\]
+
+The solution to this problem will yield the values of \( a \) (intercept) and \( b \) (slope) of the best-fit line.
+
+\end{document}

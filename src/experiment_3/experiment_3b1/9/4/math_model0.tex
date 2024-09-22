@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+Given the problem of scheduling nurses for the night shift, we define the following variables and parameters:
+
+\begin{itemize}
+    \item Let \( n \) be the total number of nurses hired.
+    \item Let \( d_j \) be the demand for nurses on day \( j \) where \( j = 1, \ldots, 7 \).
+    \item Let \( \text{period} \) be the number of consecutive days a nurse works.
+    \item Let \( start_j \) be the number of nurses who start their period on day \( j \).
+\end{itemize}
+
+We need to satisfy the demand for nurses for each day while minimizing the total number of nurses hired.
+
+\subsection*{Objective Function}
+
+The objective is to minimize the total number of nurses hired:
+
+\[
+\text{minimize } n = \sum_{j=1}^{7} start_j
+\]
+
+\subsection*{Constraints}
+
+For each day \( j \), the total number of nurses available must meet or exceed the demand \( d_j \):
+
+\[
+\sum_{i=0}^{\text{period}-1} start_{j-i} \geq d_j \quad \forall j = 1, \ldots, 7
+\]
+
+Where \( start_{j-i} \) refers to nurses starting their shifts on days prior to \( j \), up to the length of the period.
+
+Additionally, since the period of work is followed by days off, we also have:
+
+\[
+start_j = 0 \quad \text{for } j > 7 - \text{period}
+\]
+
+This models the scenario that no new nurses can start their period if the schedule would push their shifts beyond the 7-day week.
+
+\subsection*{Output Information}
+
+The solution will provide:
+
+\begin{itemize}
+    \item \( start = [start_1, start_2, start_3, start_4, start_5, start_6, start_7] \)
+    \item total number of nurses \( n \)
+\end{itemize}
+
+\end{document}

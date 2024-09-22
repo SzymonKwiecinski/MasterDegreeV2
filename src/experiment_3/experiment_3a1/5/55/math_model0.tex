@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item Let \( b_p \) = Number of batches produced of part \( p \) for \( p = 1, 2, \ldots, P \).
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+    \text{Maximize } Z & = \sum_{p=1}^{P} (price_p \cdot b_p) - \sum_{m=1}^{M} \left( cost_m \cdot \sum_{p=1}^{P} (time_{m,p} \cdot b_p) \right) \\
+    & - \text{Labor Cost for Machine 1}
+\end{align*}
+
+Where the labor cost associated with Machine 1 is given by:
+\[
+\text{Labor Cost} = \begin{cases} 
+standard\_cost \cdot (t) & \text{if } t \leq overtime\_hour \\
+standard\_cost \cdot overtime\_hour + overtime\_cost \cdot (t - overtime\_hour) & \text{if } t > overtime\_hour 
+\end{cases}
+\]
+with \( t = \sum_{p=1}^{P} (time_{1,p} \cdot b_p) \).
+
+\textbf{Constraints:}
+\begin{align*}
+    \sum_{p=1}^{P} (time_{m,p} \cdot b_p) & \leq available_m, \quad \forall m = 2, \ldots, M \\
+    b_p & \geq min\_batches_p, \quad \forall p = 1, \ldots, P \\
+    Z & \geq min\_profit
+\end{align*}
+
+\textbf{Non-negativity:}
+\[
+b_p \geq 0, \quad \forall p = 1, \ldots, P
+\]
+
+\end{document}

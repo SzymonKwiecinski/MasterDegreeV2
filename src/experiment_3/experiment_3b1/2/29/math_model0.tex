@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Linear Regression}
+
+Given a set of observed values \( (x_k, y_k) \) for \( k = 1, \ldots, K \), we want to fit the best straight line represented by the equation:
+
+\[
+y = bx + a
+\]
+
+where \( a \) is the intercept and \( b \) is the slope. The objective is to minimize the maximum deviation of all observed values of \( y \) from the predicted values given by the linear relationship.
+
+Define \( e_k = y_k - (bx_k + a) \) as the deviation of the observed value from the predicted value. Our goal is to minimize the maximum absolute deviation:
+
+\[
+\text{Minimize} \quad T
+\]
+
+subject to:
+
+\[
+e_k \leq T \quad \forall k = 1, \ldots, K
+\]
+\[
+-e_k \leq T \quad \forall k = 1, \ldots, K
+\]
+
+This can be expressed as:
+
+\[
+y_k - (bx_k + a) \leq T \quad \forall k
+\]
+\[
+-(y_k - (bx_k + a)) \leq T \quad \forall k
+\]
+
+Rearranging the constraints gives:
+
+\[
+bx_k + a + T \geq y_k \quad \forall k
+\]
+\[
+bx_k + a - T \leq y_k \quad \forall k
+\]
+
+This leads us to the following Linear Programming formulation:
+
+\begin{align*}
+\text{Minimize} \quad & T \\
+\text{subject to} \quad & bx_k + a + T \geq y_k, \quad \forall k = 1, \ldots, K \\
+& bx_k + a - T \leq y_k, \quad \forall k = 1, \ldots, K \\
+& T \geq 0
+\end{align*}
+
+The output of the model will provide the values for \( a \) (intercept) and \( b \) (slope) that define the best-fitting line.
+
+\textbf{Output Format:}
+\begin{verbatim}
+{
+    "intercept": a,
+    "slope": b
+}
+\end{verbatim}
+
+\end{document}

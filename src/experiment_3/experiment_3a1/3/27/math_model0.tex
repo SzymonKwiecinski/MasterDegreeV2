@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Mathematical Model for Department Relocation}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+A large company is considering relocating its departments from London to various cities to minimize overall yearly costs, accounting for benefits derived from relocation and communication costs between departments.
+
+\section*{Sets and Indices}
+\begin{itemize}
+    \item Let \( K \) be the number of departments.
+    \item Let \( L \) be the number of possible cities for relocation including London.
+    \end{itemize}
+
+\section*{Parameters}
+\begin{itemize}
+    \item \( \text{benefit}_{k, l} \): The benefit for department \( k \) from being relocated to city \( l \) (in thousands of pounds).
+    \item \( \text{communication}_{k, j} \): The quantity of communication between department \( k \) and city \( j \).
+    \item \( \text{cost}_{l, m} \): The unit cost of communication between city \( l \) and city \( m \).
+\end{itemize}
+
+\section*{Decision Variables}
+\begin{itemize}
+    \item \( \text{islocated}_{k, l} \): A binary variable that is 1 if department \( k \) is located in city \( l \), and 0 otherwise.
+\end{itemize}
+
+\section*{Objective Function}
+We aim to minimize the overall yearly cost, which is given by:
+\[
+\text{Minimize} \quad Z = \sum_{k=1}^{K} \sum_{l=1}^{L} \left( \text{communication}_{k,j} \cdot \text{cost}_{l,m} \cdot \text{islocated}_{k,l} \right) - \sum_{k=1}^{K} \sum_{l=1}^{L} \text{benefit}_{k,l} \cdot \text{islocated}_{k,l}
+\]
+
+\section*{Constraints}
+\begin{itemize}
+    \item Each department must be located in exactly one city:
+    \[
+    \sum_{l=1}^{L} \text{islocated}_{k,l} = 1, \quad \forall k \in \{1, 2, \ldots, K\}
+    \]
+    
+    \item No more than three departments may be located in any city:
+    \[
+    \sum_{k=1}^{K} \text{islocated}_{k,l} \leq 3, \quad \forall l \in \{1, 2, \ldots, L\}
+    \]
+    
+    \item The binary nature of decision variables:
+    \[
+    \text{islocated}_{k,l} \in \{0, 1\}, \quad \forall k \in \{1, 2, \ldots, K\}, \forall l \in \{1, 2, \ldots, L\}
+    \]
+\end{itemize}
+
+\section*{Output}
+The output will be a matrix indicating the location of each department:
+\[
+\text{islocated} = \begin{bmatrix}
+\text{islocated}_{1,1} & \text{islocated}_{1,2} & \cdots & \text{islocated}_{1,L} \\
+\text{islocated}_{2,1} & \text{islocated}_{2,2} & \cdots & \text{islocated}_{2,L} \\
+\vdots & \vdots & \ddots & \vdots \\
+\text{islocated}_{K,1} & \text{islocated}_{K,2} & \cdots & \text{islocated}_{K,L} \\
+\end{bmatrix}
+\]
+
+\end{document}

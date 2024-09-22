@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Trajectory Optimization Model}
+
+Let \( x_t \), \( v_t \), and \( a_t \) represent the position, velocity, and acceleration of the rocket at time \( t \), respectively. The rocket's motion is governed by the following discrete-time equations:
+
+\[
+x_{t+1} = x_t + v_t
+\]
+\[
+v_{t+1} = v_t + a_t
+\]
+
+We have control over the acceleration \( a_t \), which is proportional to the rate of fuel consumption at time \( t \). Given the initial conditions \( x_0 \) and \( v_0 \), we seek to reach the target position \( x_T \) with the target velocity \( v_T \) at time \( T \) while minimizing the maximum thrust required, given by \( \max_t |a_t| \).
+
+\subsection*{Input Parameters}
+The input parameters are defined as follows:
+
+\begin{itemize}
+    \item \( x_0 \): Initial position of the rocket
+    \item \( v_0 \): Initial velocity of the rocket
+    \item \( x_T \): Target position of the rocket
+    \item \( v_T \): Target velocity of the rocket
+    \item \( T \): Total time
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the maximum thrust required, which can be expressed mathematically as:
+
+\[
+\text{Minimize } \max_{t=0,1,\ldots,T} |a_t|
+\]
+
+\subsection*{Output Variables}
+The output variables, which represent the rocket's trajectory and total fuel spent, are defined as follows:
+
+\begin{itemize}
+    \item \( x = [x_i, \; i = 0, \ldots, T] \): List of positions at each time step
+    \item \( v = [v_i, \; i = 0, \ldots, T] \): List of velocities at each time step
+    \item \( a = [a_i, \; i = 0, \ldots, T] \): List of accelerations at each time step
+    \item \text{fuel\_spend}: Total fuel spent by the rocket
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Finding the Chebyshev Center}
+
+Given a set \( P \) defined by the constraints:
+
+\[
+P = \{ \mathbf{x} \in \mathbb{R}^N \mid \mathbf{a}_i^T \mathbf{x} \leq b_i, \, i = 1, \ldots, m \}
+\]
+
+where \( \mathbf{a}_i \in \mathbb{R}^N \) and \( b_i \in \mathbb{R} \), we want to find the center \( \mathbf{y} \) of a ball such that the radius \( r \) of the ball is maximized. The ball is defined as:
+
+\[
+B(\mathbf{y}, r) = \{ \mathbf{x} \in \mathbb{R}^N \mid \|\mathbf{x} - \mathbf{y}\|_2 \leq r \}
+\]
+
+The objective is to maximize the radius \( r \) while ensuring that the entire ball is contained within the set \( P \).
+
+The problem can be formulated as follows:
+
+\[
+\text{Maximize } r
+\]
+
+subject to:
+
+\[
+\|\mathbf{x} - \mathbf{y}\|_2 \leq r \quad \text{for all } \mathbf{x} \text{ such that } \mathbf{a}_i^T \mathbf{x} \leq b_i
+\]
+
+This can be expressed in terms of linear inequalities. We need to check that:
+
+\[
+\mathbf{a}_i^T (\mathbf{y} + r \mathbf{u}) \leq b_i \quad \text{for all } i = 1, \ldots, m
+\]
+
+where \( \mathbf{u} \) is a unit vector in the direction of the radius. Therefore, we can rewrite the constraints as:
+
+\[
+\mathbf{a}_i^T \mathbf{y} + r \|\mathbf{a}_i\|_2 \leq b_i
+\]
+
+or equivalently:
+
+\[
+r \leq \frac{b_i - \mathbf{a}_i^T \mathbf{y}}{\|\mathbf{a}_i\|_2} \quad \forall i = 1, \ldots, m
+\]
+
+We can summarize the problem of finding the Chebyshev center as follows:
+
+\[
+\text{Maximize } r
+\]
+
+\[
+\text{subject to } r \leq \frac{b_i - \mathbf{a}_i^T \mathbf{y}}{\|\mathbf{a}_i\|_2}, \quad \forall i = 1, \ldots, m
+\]
+
+The output solution will provide us with:
+
+\begin{itemize}
+    \item Center: \( \text{center} = [y_j \text{ for } j = 1, \ldots, N] \)
+    \item Radius: \( \text{radius} = r \)
+\end{itemize}
+
+\end{document}

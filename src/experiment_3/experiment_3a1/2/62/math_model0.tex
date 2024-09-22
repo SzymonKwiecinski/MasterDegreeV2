@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Traveling Salesman Problem}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $N$: Number of towns to visit.
+    \item $d_{i,j}$: Distance between city $i$ and city $j$.
+    \item $C$: Set of all cities including $start\_city$.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_{i,j} \in \{0, 1\}$: Binary variable that is $1$ if the traveler travels directly from city $i$ to city $j$, and $0$ otherwise.
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize} \quad Z = \sum_{i \in C} \sum_{j \in C} d_{i,j} x_{i,j}
+\]
+
+\textbf{Constraints:}
+\begin{itemize}
+    \item Out-degree constraint for each city:
+    \[
+    \sum_{j \in C \setminus \{start\_city\}} x_{start\_city,j} = 1
+    \]
+    \item In-degree constraint for each city (except the start city):
+    \[
+    \sum_{i \in C} x_{i,j} = 1 \quad \forall j \in C \setminus \{start\_city\}
+    \]
+    \item Subtour elimination constraints (using Miller-Tucker-Zemlin formulation):
+    \[
+    u_i - u_j + N x_{i,j} \leq N - 1 \quad \forall i,j \in C \setminus \{start\_city\}, i \neq j
+    \]
+    where $u_i$ is a continuous variable representing the position of city $i$ in the tour.
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item $u_i \geq 1$ for all $i \in C \setminus \{start\_city\}$
+\end{itemize}
+
+\textbf{Output:}
+The solution will provide:
+\begin{itemize}
+    \item \texttt{visit\_order}: The sequence of cities visited after $start\_city$.
+    \item \texttt{total\_distance}: The total distance traveled on this optimal journey.
+\end{itemize}
+
+\end{document}

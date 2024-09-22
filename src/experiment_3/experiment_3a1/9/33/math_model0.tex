@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Knapsack Problem Formulation}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item Let \( K \) be the set of items, where \( k \in K \).
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( C \): Maximum capacity of the knapsack.
+    \item \( \text{value}_{k} \): Value of item \( k \).
+    \item \( \text{size}_{k} \): Size of item \( k \).
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item \( \text{isincluded}_{k} \in \{0, 1\} \): Binary variable indicating whether item \( k \) is included in the knapsack (1 if included, 0 otherwise).
+\end{itemize}
+
+\textbf{Objective:}
+\[
+\text{Maximize} \quad Z = \sum_{k \in K} \text{value}_{k} \cdot \text{isincluded}_{k}
+\]
+
+\textbf{Subject to:}
+\[
+\sum_{k \in K} \text{size}_{k} \cdot \text{isincluded}_{k} \leq C
+\]
+
+\textbf{Binary constraints:}
+\[
+\text{isincluded}_{k} \in \{0, 1\} \quad \forall k \in K
+\]
+
+\end{document}

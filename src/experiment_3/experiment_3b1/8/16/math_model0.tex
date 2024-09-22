@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Oil Refinery Production}
+
+\textbf{Parameters:}
+
+\begin{itemize}
+    \item $O$: Number of crude oil types
+    \item $P$: Number of products
+    \item $L$: Number of production processes
+    \item $allocated_i$: Millions of barrels of crude oil type $i$
+    \item $price_p$: Selling price per barrel of product $p$
+    \item $input_{l,i}$: Barrels of crude oil type $i$ needed for process $l$
+    \item $output_{l,p}$: Barrels of product $p$ produced by process $l$
+    \item $cost_l$: Cost per barrel of product produced by process $l$
+\end{itemize}
+
+\textbf{Decision Variables:}
+
+\begin{itemize}
+    \item $execute_l$: Number of times process $l$ is executed
+\end{itemize}
+
+\textbf{Objective Function:}
+
+Maximize the total revenue:
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} price_p \left( \sum_{l=1}^{L} output_{l,p} \cdot execute_l \right) - \sum_{l=1}^{L} cost_l \left( \sum_{p=1}^{P} output_{l,p} \cdot execute_l \right)
+\]
+
+\textbf{Subject to:}
+
+\begin{itemize}
+    \item Resource constraints for each crude oil type:
+    \[
+    \sum_{l=1}^{L} input_{l,i} \cdot execute_l \leq allocated_i \quad \forall i = 1, \ldots, O
+    \]
+    
+    \item Non-negativity constraints:
+    \[
+    execute_l \geq 0 \quad \forall l = 1, \ldots, L
+    \]
+\end{itemize}
+
+\textbf{Output:}
+
+\begin{itemize}
+    \item Revenue: $Z$
+    \item Execute: $execute_l \quad \forall l = 1, \ldots, L$
+\end{itemize}
+
+\end{document}

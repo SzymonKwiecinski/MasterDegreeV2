@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Knapsack Problem}
+
+\subsection*{Sets}
+Let \( K \) be the set of items, where \( k \in K \).
+
+\subsection*{Parameters}
+\begin{align*}
+C & \text{ : maximum capacity of the container} \\
+value_k & \text{ : value of item } k \\
+size_k & \text{ : size of item } k 
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+isincluded_k & = \begin{cases} 
+1 & \text{if item } k \text{ is included in the container} \\
+0 & \text{otherwise}
+\end{cases} \quad \forall k \in K 
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total value of the items included in the container:
+\[
+\text{Maximize } Z = \sum_{k \in K} value_k \cdot isincluded_k
+\]
+
+\subsection*{Constraints}
+Ensure that the total size of the items included does not exceed the capacity of the container:
+\[
+\sum_{k \in K} size_k \cdot isincluded_k \leq C
+\]
+
+\subsection*{Final Model}
+The complete mathematical model is defined as follows:
+\[
+\begin{aligned}
+& \text{Maximize } Z = \sum_{k \in K} value_k \cdot isincluded_k \\
+& \text{subject to} \\
+& \sum_{k \in K} size_k \cdot isincluded_k \leq C \\
+& isincluded_k \in \{0, 1\} \quad \forall k \in K 
+\end{aligned}
+\]
+
+\end{document}

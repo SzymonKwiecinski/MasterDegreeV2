@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Power Generation Scheduling}
+
+\subsection*{Sets and Parameters}
+\begin{itemize}
+    \item Let \( T \) be the number of time periods in a day.
+    \item Let \( K \) be the number of types of generating units.
+    \item Let \( demand_t \) be the electricity demand at time period \( t \) for \( t = 1, \ldots, T \).
+    \item Let \( num_k \) be the number of units of type \( k \) available for \( k = 1, \ldots, K \).
+    \item Let \( minlevel_k \) be the minimum operational level of type \( k \).
+    \item Let \( maxlevel_k \) be the maximum operational level of type \( k \).
+    \item Let \( runcost_k \) be the hourly cost of running each type \( k \) generator at minimum level.
+    \item Let \( extracost_k \) be the additional cost per megawatt for each type \( k \) generator operated above the minimum level.
+    \item Let \( startcost_k \) be the startup cost for type \( k \) generators.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( numon_{k,t} \) be the number of generators of type \( k \) that are on during time period \( t \).
+    \item Let \( level_{k,t} \) be the operational level of type \( k \) generators during time period \( t \). 
+    \item Let \( start_{k,t} \) be a binary variable indicating whether type \( k \) generator is started at time period \( t \) (1 if started, 0 otherwise).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Total Cost} = \sum_{t=1}^{T} \sum_{k=1}^{K} \left( runcost_k \cdot numon_{k,t} + extracost_k \cdot \max(0, level_{k,t} - minlevel_k) \cdot numon_{k,t} + startcost_k \cdot start_{k,t} \right)
+\]
+
+\subsection*{Constraints}
+1. **Demand Satisfaction:**
+\[
+\sum_{k=1}^{K} level_{k,t} = demand_t \quad \forall t = 1, \ldots, T
+\]
+
+2. **Operational Level Constraints:**
+\[
+minlevel_k \cdot numon_{k,t} \leq level_{k,t} \leq maxlevel_k \cdot numon_{k,t} \quad \forall k = 1, \ldots, K, \forall t = 1, \ldots, T
+\]
+
+3. **Generator Availability:**
+\[
+numon_{k,t} \leq num_k \quad \forall k = 1, \ldots, K, \forall t = 1, \ldots, T
+\]
+
+4. **Startup Indicator:**
+\[
+level_{k,t} \leq maxlevel_k \cdot start_{k,t} \quad \forall k = 1, \ldots, K, \forall t = 1, \ldots, T
+\]
+
+5. **Binary Variable Constraints:**
+\[
+start_{k,t} \in \{0, 1\} \quad \forall k = 1, \ldots, K, \forall t = 1, \ldots, T
+\]
+
+\end{document}

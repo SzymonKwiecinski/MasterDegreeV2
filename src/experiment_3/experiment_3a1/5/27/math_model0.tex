@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Mathematical Model for Department Relocation}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+
+A company needs to decide the optimal location for its departments to minimize yearly costs associated with relocation and communication.
+
+\section*{Parameters}
+
+Let:
+\begin{itemize}
+    \item \( K \) denote the number of departments.
+    \item \( L \) denote the number of possible cities including London.
+    \item \( \text{benefit}_{k, l} \) be the benefit (in thousands of pounds) for department \( k \) from relocation at city \( l \).
+    \item \( \text{communication}_{k, j} \) be the quantity of communication between department \( k \) and department \( j \).
+    \item \( \text{cost}_{l, m} \) be the unit cost of communication between city \( l \) and city \( m \).
+    \item \( \text{islocated}_{k, l} \) be a binary variable that determines if department \( k \) is located at city \( l \).
+\end{itemize}
+
+\section*{Objective Function}
+
+We want to minimize the overall cost given by:
+
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} \sum_{l=1}^{L} \text{islocated}_{k, l} \left( \sum_{j=1}^{K} \text{communication}_{k, j} \cdot \sum_{m=1}^{L} \text{cost}_{l, m} \cdot \text{islocated}_{j, m} \right) - \sum_{k=1}^{K} \sum_{l=1}^{L} \text{islocated}_{k, l} \cdot \text{benefit}_{k, l}
+\]
+
+\section*{Constraints}
+
+1. Each department can be located in only one city:
+
+\[
+\sum_{l=1}^{L} \text{islocated}_{k, l} = 1, \quad \forall k = 1, 2, \ldots, K
+\]
+
+2. No more than three departments can be located in the same city:
+
+\[
+\sum_{k=1}^{K} \text{islocated}_{k, l} \leq 3, \quad \forall l = 1, 2, \ldots, L
+\]
+
+3. The binary nature of the location decision:
+
+\[
+\text{islocated}_{k, l} \in \{0, 1\}, \quad \forall k = 1, 2, \ldots, K, \; l = 1, 2, \ldots, L
+\]
+
+\section*{Output}
+
+The model will return a binary matrix \( \text{islocated} \) such that:
+
+\[
+\text{islocated} = \left[ \text{islocated}_{k, l} \right] \text{ for } k = 1, \ldots, K \text{ and } l = 1, \ldots, L
+\]
+
+\end{document}

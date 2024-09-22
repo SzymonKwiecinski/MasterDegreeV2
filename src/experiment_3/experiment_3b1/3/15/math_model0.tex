@@ -1,0 +1,73 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Daily Profit Maximization}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $N$: Number of product types
+    \item $assemblyHour_i$: Hours of assembly labor required for product type $i$ 
+    \item $testingHour_i$: Hours of testing required for product type $i$
+    \item $materialCost_i$: Cost of raw materials for product type $i$ (in dollars)
+    \item $maxAssembly$: Maximum hours of assembly labor available per day
+    \item $maxTesting$: Maximum hours of testing available per day
+    \item $price_i$: Sales price of product type $i$ (in dollars)
+    \item $maxOvertimeAssembly$: Maximum hours of overtime assembly labor available
+    \item $overtimeAssemblyCost$: Cost of overtime assembly labor per hour (in dollars)
+    \item $materialDiscount$: Discount on materials if the bill exceeds a threshold (in percentage)
+    \item $discountThreshold$: The threshold for applying the material discount (in dollars)
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $unitsProduced_i$: Number of units of product type $i$ produced
+    \item $overtimeAssembly$: Number of hours of overtime assembly labor scheduled
+    \item $materialBought$: Amount of raw materials bought (total across all products)
+\end{itemize}
+
+\subsection*{Objective Function}
+\[
+\text{Maximize } Z = \sum_{i=1}^{N} (price_i \cdot unitsProduced_i) - \left( \sum_{i=1}^{N} (materialCost_i \cdot unitsProduced_i) + overtimeAssembly \cdot overtimeAssemblyCost - \text{discount} \right)
+\]
+where
+\[
+\text{discount} = 
+\begin{cases} 
+    \frac{materialDiscount}{100} \cdot \left( \sum_{i=1}^{N} materialCost_i \cdot unitsProduced_i \right) & \text{if } \sum_{i=1}^{N} materialCost_i \cdot unitsProduced_i > discountThreshold \\
+    0 & \text{otherwise}
+\end{cases}
+\]
+
+\subsection*{Constraints}
+1. Assembly labor constraint:
+\[
+\sum_{i=1}^{N} (assemblyHour_i \cdot unitsProduced_i) + overtimeAssembly \leq maxAssembly + maxOvertimeAssembly
+\]
+
+2. Testing labor constraint:
+\[
+\sum_{i=1}^{N} (testingHour_i \cdot unitsProduced_i) \leq maxTesting
+\]
+
+3. Non-negativity constraints:
+\[
+unitsProduced_i \geq 0 \quad \forall i \in \{1, \ldots, N\}
+\]
+\[
+overtimeAssembly \geq 0
+\]
+\[
+materialBought \geq 0
+\]
+
+\subsection*{Output Variables}
+The output should include:
+\begin{itemize}
+    \item $dailyProfit$: The total daily profit calculated from the objective function
+    \item $unitsProduced$: Array of units produced for each product type $[unitsProduced_i]_{i=1}^{N}$
+    \item $overtimeAssembly$: The number of overtime assembly hours scheduled
+    \item $materialBought$: The total amount of raw materials bought
+\end{itemize}
+
+\end{document}

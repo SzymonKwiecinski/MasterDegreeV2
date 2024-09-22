@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Variables}
+Let \( x_k \) be the quantity produced of product \( k \) for \( k = 1, \ldots, K \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{produce\_time}_{k,s} \): Time required to produce 1 unit of product \( k \) at stage \( s \)
+    \item \( \text{time}_s \): Available working hours for stage \( s \)
+    \item \( \text{profit}_k \): Unit profit for product \( k \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize} \quad Z = \sum_{k=1}^{K} \text{profit}_k \cdot x_k
+\]
+
+\subsection*{Constraints}
+For each stage \( s \):
+\[
+\sum_{k=1}^{K} \text{produce\_time}_{k,s} \cdot x_k \leq \text{time}_s \quad \forall s = 1, \ldots, S
+\]
+
+\subsection*{Non-negativity Constraints}
+\[
+x_k \geq 0 \quad \forall k = 1, \ldots, K
+\]
+
+\subsection*{Output}
+The output quantities for each product are given by:
+\[
+\text{quantity} = [x_1, x_2, \ldots, x_K]
+\]
+
+\end{document}

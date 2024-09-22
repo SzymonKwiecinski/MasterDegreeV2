@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Best Fit Line}
+
+Given the data points \((x_k, y_k)\) for \(k = 1, \ldots, K\), we seek to fit a line of the form \(y = bx + a\) that minimizes the maximum deviation of the observed values \(y_k\) from the predicted values \((bx_k + a)\).
+
+\subsection*{Decision Variables}
+\begin{align*}
+b & : \text{slope of the fitted line} \\
+a & : \text{intercept of the fitted line} \\
+d_k & : \text{deviation for each observation } (k = 1, \ldots, K)
+\end{align*}
+
+\subsection*{Objective Function}
+We want to minimize the maximum deviation:
+\[
+\min_{d_k} \quad D \quad \text{where} \quad D \geq d_k \quad \forall k
+\]
+
+Subject to:
+\[
+d_k \geq y_k - (bx_k + a) \quad \forall k
+\]
+\[
+d_k \geq -(y_k - (bx_k + a)) \quad \forall k
+\]
+
+\subsection*{Constraints}
+Thus, we can define the problem with the following constraints:
+\begin{align*}
+d_k & \geq y_k - (bx_k + a) & \forall k \\
+d_k & \geq -(y_k - (bx_k + a)) & \forall k \\
+D & \geq d_k & \forall k
+\end{align*}
+
+\subsection*{Output}
+The output will be:
+\[
+\text{Output: } \{ \text{"intercept": } a, \text{"slope": } b \}
+\]
+
+\end{document}

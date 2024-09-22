@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Interventions in Network Intrusion}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $i$: index for clusters, where \( i = 1, \ldots, N \)
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $isolate\_central_i$: Processing time for isolating cluster \( i \) centrally
+    \item $scan\_central_i$: Processing time for scanning cluster \( i \) centrally
+    \item $isolate\_distributed_i$: Processing time for isolating cluster \( i \) through distributed nodes
+    \item $scan\_distributed_i$: Processing time for scanning cluster \( i \) through distributed nodes
+    \item $central\_cost$: Opportunity cost for central processing per hour
+    \item $distributed\_cost$: Opportunity cost for distributed processing per hour
+    \item $max\_central$: Maximum hours allocated for central processing
+    \item $max\_distributed$: Maximum hours allocated for distributed processing
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_{i}^c$: Amount of time spent on isolation in cluster \( i \) through central processing
+    \item $y_{i}^c$: Amount of time spent on scanning in cluster \( i \) through central processing
+    \item $x_{i}^d$: Amount of time spent on isolation in cluster \( i \) through distributed processing
+    \item $y_{i}^d$: Amount of time spent on scanning in cluster \( i \) through distributed processing
+    \item $z_i$: Type of intervention for cluster \( i \), where \( z_i = 1 \) if isolate, \( z_i = 0 \) if scan
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} \left( \text{central\_cost} \cdot (x_i^c \cdot isolate\_central_i + y_i^c \cdot scan\_central_i) + \text{distributed\_cost} \cdot (x_i^d \cdot isolate\_distributed_i + y_i^d \cdot scan\_distributed_i) \right)
+\]
+
+\subsection*{Constraints}
+\begin{align}
+\sum_{i=1}^{N} (x_i^c \cdot isolate\_central_i + y_i^c \cdot scan\_central_i) & \leq max\_central \tag{1} \\
+\sum_{i=1}^{N} (x_i^d \cdot isolate\_distributed_i + y_i^d \cdot scan\_distributed_i) & \leq max\_distributed \tag{2} \\
+x_i^c + x_i^d & \leq 1 \quad \forall i \in \{1, \ldots, N\} \tag{3} \\
+y_i^c + y_i^d & \leq 1 \quad \forall i \in \{1, \ldots, N\} \tag{4} \\
+z_i & \in \{0, 1\} \quad \forall i \in \{1, \ldots, N\} \tag{5}
+\end{align}
+
+\subsection*{Output Format}
+The output will consist of:
+\begin{itemize}
+    \item A list of interventions detailing:
+    \begin{itemize}
+        \item $cluster\_id$
+        \item $type$ (isolate or scan)
+        \item $method$ (central or distributed)
+        \item $amount$
+    \end{itemize}
+    \item The total cost:
+    \[
+    \text{total\_cost} = Z
+    \]
+\end{itemize}
+
+\end{document}

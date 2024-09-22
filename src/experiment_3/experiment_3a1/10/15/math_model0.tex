@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Production Optimization}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $i \in \{1, \ldots, N\}$: index for the types of products
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $assemblyHour_i$: hours of assembly labor required for product $i$
+    \item $testingHour_i$: hours of testing required for product $i$
+    \item $materialCost_i$: cost of raw materials for product $i$ (in \$)
+    \item $maxAssembly$: maximum hours of assembly labor available per day
+    \item $maxTesting$: maximum hours of testing available per day
+    \item $price_i$: selling price of product $i$ (in \$)
+    \item $maxOvertimeAssembly$: maximum hours of overtime assembly labor that can be scheduled
+    \item $overtimeAssemblyCost$: cost per hour of overtime assembly labor (in \$)
+    \item $materialDiscount$: percentage discount on material cost if daily bill exceeds threshold
+    \item $discountThreshold$: threshold for material discount (in \$)
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $unitsProduced_i$: number of units of product $i$ produced
+    \item $overtimeAssembly$: number of hours of overtime assembly labor scheduled
+    \item $materialBought$: total amount of raw materials bought (in \$)
+\end{itemize}
+
+\subsection*{Objective Function}
+We want to maximize the daily profit of the company:
+\[
+\text{Maximize } Z = \sum_{i=1}^{N} (price_i \cdot unitsProduced_i) - \text{Total Cost}
+\]
+where
+\[
+\text{Total Cost} = \sum_{i=1}^{N} (materialCost_i \cdot unitsProduced_i) + 
+\begin{cases} 
+0 & \text{if } \sum_{i=1}^{N} (materialCost_i \cdot unitsProduced_i) \leq discountThreshold \\
+(1 - \frac{materialDiscount}{100}) \cdot \sum_{i=1}^{N} (materialCost_i \cdot unitsProduced_i) & \text{otherwise} 
+\end{cases}
++ overtimeAssemblyCost \cdot overtimeAssembly
+\]
+
+\subsection*{Constraints}
+1. Assembly labor constraint:
+\[
+\sum_{i=1}^{N} (assemblyHour_i \cdot unitsProduced_i) + overtimeAssembly \leq maxAssembly + maxOvertimeAssembly
+\]
+
+2. Testing labor constraint:
+\[
+\sum_{i=1}^{N} (testingHour_i \cdot unitsProduced_i) \leq maxTesting
+\]
+
+3. Non-negativity constraints:
+\[
+unitsProduced_i \geq 0 \quad \forall i, \quad overtimeAssembly \geq 0, \quad materialBought \geq 0
+\]
+
+\subsection*{Output Representation}
+The results of the optimization will be represented as follows:
+\[
+\text{Output} = 
+\begin{cases}
+\text{dailyProfit} = Z \\
+\text{unitsProduced} = [unitsProduced_1, ..., unitsProduced_N] \\
+\text{overtimeAssembly} = overtimeAssembly \\
+\text{materialBought} = materialBought
+\end{cases}
+\]
+
+\end{document}

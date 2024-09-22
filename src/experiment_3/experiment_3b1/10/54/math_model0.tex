@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\subsection*{Decision Variables}
+Let \( b_p \) represent the number of batches of part \( p \) produced, where \( p = 1, 2, \ldots, P \).
+
+\subsection*{Objective Function}
+The objective is to maximize the total profit:
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} (price_p \cdot b_p) - \sum_{m=1}^{M} (cost_m \cdot \text{time}_{m,p} \cdot b_p)
+\]
+where \( \text{time}_{m,p} \) is the time required on machine \( m \) for part \( p \).
+
+\subsection*{Constraints}
+
+1. **Machine Availability Constraint**: 
+   For each machine \( m \) (where \( m = 1, 2, \ldots, M \)):
+   \[
+   \sum_{p=1}^{P} \text{time}_{m,p} \cdot b_p \leq available_m
+   \]
+
+2. **Minimum Batches Requirement**:
+   For each part \( p \):
+   \[
+   b_p \geq min\_batches_p
+   \]
+
+3. **Labor Cost Constraints on Machine 1**:
+   For machine 1, the labor cost structure applies:
+   \[
+   \text{time}_{1,p} \cdot b_p \leq \text{max\_hours}
+   \]
+   Where \(\text{max\_hours}\) is the number of hours available, which may include overtime hours.
+
+4. **Additional Overtime Constraints**:
+   If the total required hours on machine 1 exceed available hours, then:
+   \[
+   \text{time}_{1,p} \cdot b_p \leq available_1 + overtime\_hour \quad \text{(within standard cost)}
+   \]
+   and for hours exceeding this limit, the overtime cost applies.
+
+\subsection*{Non-negativity Constraints}
+\[
+b_p \geq 0 \quad \text{for all } p
+\]
+
+\subsection*{Output}
+The solution will yield:
+\[
+\text{Output: } \{ \text{batches} = [b_p \text{ for } p = 1, \ldots, P], \text{ total\_profit} = Z \} 
+\]
+
+\end{document}

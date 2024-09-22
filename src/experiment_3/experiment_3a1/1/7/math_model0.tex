@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Motion Optimization Problem}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( x_t \) be the position of the rocket at time \( t \).
+    \item Let \( v_t \) be the velocity of the rocket at time \( t \).
+    \item Let \( a_t \) be the acceleration of the rocket at time \( t \).
+\end{itemize}
+
+\textbf{Discrete-Time Model:}
+\begin{align*}
+    x_{t+1} &= x_t + v_t \\
+    v_{t+1} &= v_t + a_t
+\end{align*}
+
+\textbf{Initial Conditions:}
+\begin{align*}
+    x_0 &= x_0 \\
+    v_0 &= v_0
+\end{align*}
+
+\textbf{Target Conditions:}
+\begin{align*}
+    x_T &= x_T \\
+    v_T &= v_T \\
+    T &= T
+\end{align*}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } \max_{t} |a_t|
+\]
+
+\textbf{Fuel Consumption:}
+\[
+\text{Fuel consumption is proportional to the acceleration: } |a_t| \text{ at time } t
+\]
+
+\textbf{Output:}
+\begin{itemize}
+    \item \( x \) contains positions at each time step from \( 0 \) to \( T \).
+    \item \( v \) contains velocities at each time step from \( 0 \) to \( T \).
+    \item \( a \) contains accelerations at each time step from \( 0 \) to \( T \).
+    \item \( \text{fuel\_spend} \) contains the total fuel spent by the rocket.
+\end{itemize}
+
+\textbf{Output Format:}
+\[
+\{ 
+    "x": [x_i \text{ for } i = 1, \ldots, T], \\
+    "v": [v_i \text{ for } i = 1, \ldots, T], \\
+    "a": [a_i \text{ for } i = 1, \ldots, T], \\
+    "fuel\_spend": \text{fuel\_spent}
+\}
+\]
+
+\end{document}

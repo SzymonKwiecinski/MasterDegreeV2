@@ -1,0 +1,74 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Economy Problem}
+
+\subsection*{Definitions}
+
+Let:
+\begin{itemize}
+    \item \( K \): Number of industries
+    \item \( T \): Number of years (in this case, 5)
+    \item \( produce_{k, t} \): Amount of units produced by industry \( k \) in year \( t \)
+    \item \( buildcapa_{k, t} \): Amount of units used to build productive capacity for industry \( k \) in year \( t \)
+    \item \( stock_{k, t} \): Amount of stock of industry \( k \) held in year \( t \)
+    \item \( inputone_{k, j} \): Units of input from industry \( j \) required by industry \( k \)
+    \item \( manpowerone_{k} \): Units of manpower required by industry \( k \)
+    \item \( inputtwo_{k, j} \): Units of input for building capacity from industry \( j \) required by industry \( k \)
+    \item \( manpowertwo_{k} \): Units of manpower for building capacity for industry \( k \)
+    \item \( stock_{k} \): Initial stock of industry \( k \)
+    \item \( capacity_{k} \): Initial capacity of industry \( k \)
+    \item \( demand_{k} \): Exogenous consumption requirement of industry \( k \)
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Maximize the total manpower requirement over five years:
+
+\[
+\text{Maximize } \sum_{t=1}^{T} \sum_{k=1}^{K} manpowerone_{k} \cdot produce_{k, t} + manpowertwo_{k} \cdot buildcapa_{k, t}
+\]
+
+\subsection*{Constraints}
+
+1. **Production Capacity:**
+   \[
+   produce_{k, t} + stock_{k, t-1} - stock_{k, t} \leq capacity_{k} \quad \forall k = 1,\ldots,K, \; t = 1,\ldots,T
+   \]
+
+2. **Demand Satisfaction:**
+   \[
+   produce_{k, t} + stock_{k, t-1} \geq demand_{k} + stock_{k, t} \quad \forall k = 1,\ldots,K, \; t = 1,\ldots,T, \; t \neq 0
+   \]
+
+3. **Manpower Requirement for Production:**
+   \[
+   manpowerone_{k} \cdot produce_{k, t} \leq \text{Available Manpower at year } t \quad \forall k = 1,\ldots,K, \; t = 1,\ldots,T
+   \]
+
+4. **Building Capacity:**
+   \[
+   buildcapa_{k, t} \leq stock_{k, t} \quad \forall k = 1,\ldots,K, \; t = 1,\ldots,T
+   \]
+
+5. **Stock Holding:**
+   \[
+   stock_{k, t} = stock_{k, t-1} + produce_{k, t} - demand_{k} \quad \forall k = 1,\ldots,K, \; t = 1,\ldots,T
+   \]
+
+6. **Capacity Building Delay:**
+   \[
+   capacity_{k} + \sum_{t=1}^{T-2} buildcapa_{k, t} \geq capacity_{k} + \sum_{t=1}^{T} produce_{k, t} \quad \forall k = 1,\ldots,K
+   \]
+
+\subsection*{Output Variables}
+
+The output variables to be calculated are as follows:
+\begin{itemize}
+    \item \( produce_{k, t} \): Amount of units produced by each industry in each year
+    \item \( buildcapa_{k, t} \): Amount of units used to build productive capacity for each industry in each year
+    \item \( stockhold_{k, t} \): Amount of stock of each industry held in each year
+\end{itemize}
+
+\end{document}

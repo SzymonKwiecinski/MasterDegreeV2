@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Mathematical Model for Translator Selection Problem}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Formulation}
+
+Let:
+\begin{itemize}
+    \item $N$: Number of available translators.
+    \item $M$: Number of required languages.
+    \item $cost_i$: Cost of hiring translator $i$, for $i = 1, \ldots, N$.
+    \item $languages(i)$: Set of languages that translator $i$ can translate into.
+    \item $required\_languages$: Set of languages that need to be translated.
+\end{itemize}
+
+Define binary decision variable:
+\[
+x_i = 
+\begin{cases} 
+1 & \text{if translator } i \text{ is selected} \\
+0 & \text{otherwise}
+\end{cases}
+\]
+
+\subsection*{Objective Function}
+The objective is to minimize the total cost of hiring the selected translators:
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} cost_i \cdot x_i
+\]
+
+\subsection*{Constraints}
+To ensure that all required languages are covered by the selected translators, we need to satisfy the following constraints:
+
+For each language $m \in required\_languages$:
+\[
+\sum_{i \, \text{such that } language_m \in languages(i)} x_i \geq 1 \quad \forall m = 1, \ldots, M
+\]
+
+\subsection*{Binary Constraints}
+The decision variables should be binary:
+\[
+x_i \in \{0, 1\} \quad \forall i = 1, \ldots, N
+\]
+
+\subsection*{Conclusion}
+The solution to this Mixed Integer Linear Programming (MILP) model will yield the optimal set of translators to hire and the minimum total cost to cover all required languages.
+
+\end{document}

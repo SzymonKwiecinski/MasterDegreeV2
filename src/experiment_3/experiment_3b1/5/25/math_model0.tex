@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Economic Production}
+
+\subsection*{Parameters}
+\begin{align*}
+K & : \text{Number of industries} \\
+\text{inputone}_{k, j} & : \text{Input from industry } j \text{ needed by industry } k \\
+\text{manpowerone}_{k} & : \text{Manpower required by industry } k \\
+\text{inputtwo}_{k, j} & : \text{Input from industry } j \text{ to build capacity for industry } k \\
+\text{manpowertwo}_{k} & : \text{Manpower required to increase capacity for industry } k \\
+\text{stock}_{k} & : \text{Initial stock of industry } k \\
+\text{capacity}_{k} & : \text{Initial capacity of industry } k \\
+\text{manpower\_limit} & : \text{Total available manpower each year} \\
+T & : \text{Total years of production}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+\text{produce}_{k, t} & : \text{Units produced by industry } k \text{ in year } t \\
+\text{buildcapa}_{k, t} & : \text{Units of industry } k \text{ used to build capacity in year } t \\
+\text{stockhold}_{k, t} & : \text{Stock of industry } k \text{ held at the end of year } t
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize total production in the last two years:
+\begin{align*}
+\text{Maximize } Z & = \sum_{k=1}^{K} \left( \text{produce}_{k, T} + \text{produce}_{k, T-1} \right)
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+\sum_{j=1}^{K} \text{inputone}_{k, j} \cdot \text{produce}_{j, t-1} + \text{stockhold}_{k, t-1} & \geq \text{produce}_{k, t} & \forall k, \forall t \\
+\text{manpowerone}_{k} \cdot \text{produce}_{k, t} + \text{manpowertwo}_{k} \cdot \text{buildcapa}_{k, t} & \leq \text{manpower\_limit} & \forall k, \forall t \\
+\sum_{j=1}^{K} \text{inputtwo}_{k, j} \cdot \text{buildcapa}_{j, t} & \leq \text{capacity}_{k} + \text{stock}_{k} + \sum_{t'=1}^{t-2} \text{produce}_{k, t'} & \forall k, \forall t \\
+\text{stockhold}_{k, t} & = \text{stock}_{k} + \text{stockhold}_{k, t-1} + \text{produce}_{k, t-1} - \text{produce}_{k, t} & \forall k, \forall t \\
+\text{buildcapa}_{k, t}, \text{produce}_{k, t}, \text{stockhold}_{k, t} & \geq 0 & \forall k, \forall t
+\end{align*}
+
+\end{document}

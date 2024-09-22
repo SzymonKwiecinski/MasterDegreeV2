@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Economic Production and Capacity Building}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item \( k \): Index for industry, \( k = 1, 2, \ldots, K \)
+    \item \( j \): Index for inputs from other industries, \( j = 1, 2, \ldots, K \)
+    \item \( t \): Index for time (years), \( t = 1, 2, \ldots, T \) (with \( T = 5 \))
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{inputone}_{k, j} \): Input from industry \( j \) for industry \( k \) 
+    \item \( \text{manpowerone}_{k} \): Manpower required for industry \( k \) to produce units
+    \item \( \text{inputtwo}_{k, j} \): Input required to build capacity of industry \( k \) from industry \( j \)
+    \item \( \text{manpowertwo}_{k} \): Manpower required to build capacity for industry \( k \)
+    \item \( \text{stock}_{k} \): Initial stock of industry \( k \)
+    \item \( \text{capacity}_{k} \): Initial capacity of industry \( k \)
+    \item \( \text{demand}_{k} \): Exogenous consumption requirement for industry \( k \)
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{produce}_{k, t} \): Amount of units produced by industry \( k \) in year \( t \)
+    \item \( \text{buildcapa}_{k, t} \): Amount of units used to build productive capacity for industry \( k \) in year \( t \)
+    \item \( \text{stockhold}_{k, t} \): Amount of stock of industry \( k \) held at the end of year \( t \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total manpower requirement over five years:
+
+\[
+\text{Maximize } Z = \sum_{t=1}^{T} \sum_{k=1}^{K} \left( \text{manpowerone}_{k} \cdot \text{produce}_{k, t} + \text{manpowertwo}_{k} \cdot \text{buildcapa}_{k, t} \right)
+\]
+
+\subsection*{Constraints}
+
+\textbf{Production Constraints:}
+\[
+\text{produce}_{k, t} \leq \text{capacity}_{k} + \text{stockhold}_{k, t-1} \quad \forall k, t
+\]
+
+\textbf{Input Requirement Constraints:}
+\[
+\text{produce}_{k, t} \geq \sum_{j=1}^{K} \text{inputone}_{k, j} \cdot \text{produce}_{j, t-1} + \text{demand}_{k} \quad \forall k, t
+\]
+
+\textbf{Stock Constraints:}
+\[
+\text{stockhold}_{k, t} = \text{stock}_{k} + \text{stockhold}_{k, t-1} + \text{produce}_{k, t} - \text{demand}_{k} \quad \forall k, t
+\]
+
+\textbf{Capacity Building Constraints:}
+\[
+\text{capacity}_{k} += \sum_{j=1}^{K} \text{inputtwo}_{k, j} \cdot \text{buildcapa}_{j, t-1} \quad \forall k, t
+\]
+
+\textbf{Non-negativity Constraints:}
+\[
+\text{produce}_{k, t}, \text{buildcapa}_{k, t}, \text{stockhold}_{k, t} \geq 0 \quad \forall k, t
+\]
+
+\end{document}

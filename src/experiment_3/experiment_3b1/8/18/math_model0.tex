@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Oil Refining and Blending}
+
+\subsection*{Variables}
+\begin{align*}
+& \text{Let } buyquantity_{i,m} \text{ be the amount of oil } i \text{ bought in month } m \\
+& \text{Let } refine_{i,m} \text{ be the amount of oil } i \text{ refined in month } m \\
+& \text{Let } storage_{i,m} \text{ be the amount of oil } i \text{ stored at the end of month } m \\
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+& I \text{ = number of different oils} \\
+& M \text{ = number of months} \\
+& price_{i,m} \text{ = purchase price of oil } i \text{ in month } m \\
+& sell\_price \text{ = selling price of the final product per ton} \\
+& max\_veg \text{ = maximum vegetable oils refining capacity per month} \\
+& max\_non\_veg \text{ = maximum non-vegetable oils refining capacity per month} \\
+& storage\_size \text{ = maximum storage capacity of each oil} \\
+& storage\_cost \text{ = storage cost of each oil per ton per month} \\
+& max\_hardness \text{ = maximum permissible hardness of the final product} \\
+& min\_hardness \text{ = minimum permissible hardness of the final product} \\
+& hardness_{i} \text{ = hardness value of oil } i \\
+& init\_amount \text{ = initial amount of each oil in storage} \\
+& is\_vegetable_{i} \text{ = indicator whether oil } i \text{ is vegetable (1) or non-vegetable (0)} \\
+\end{align*}
+
+\subsection*{Objective Function}
+\begin{align*}
+\text{Maximize Profit: } Z &= \sum_{m=1}^{M} \left( sell\_price \cdot \sum_{i=1}^{I} refine_{i,m} - \sum_{i=1}^{I} (price_{i,m} \cdot buyquantity_{i,m} + storage\_cost \cdot storage_{i,m}) \right)
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+\text{1. Refining Capacities:} \\
+& \sum_{i \in \text{veg}} refine_{i,m} \leq max\_veg, \quad \forall m \in \{1, 2, \ldots, M\} \\
+& \sum_{i \in \text{non-veg}} refine_{i,m} \leq max\_non\_veg, \quad \forall m \in \{1, 2, \ldots, M\} \\
+
+\text{2. Storage Constraints:} \\
+& storage_{i,m} = storage_{i,m-1} + buyquantity_{i,m} - refine_{i,m}, \quad \forall i \in \{1, 2, \ldots, I\}, \forall m \in \{1, 2, \ldots, M\} \\
+& 0 \leq storage_{i,m} \leq storage\_size, \quad \forall i \in \{1, 2, \ldots, I\}, \forall m \in \{1, 2, \ldots, M\} \\
+
+\text{3. Initial and Final Storage:} \\
+& storage_{i,0} = init\_amount, \quad \forall i \in \{1, 2, \ldots, I\} \\
+& storage_{i,M} = init\_amount, \quad \forall i \in \{1, 2, \ldots, I\} \\
+
+\text{4. Hardness Constraints:} \\
+& \min\_hardness \leq \frac{\sum_{i=1}^{I} (hardness_{i} \cdot refine_{i,m})}{\sum_{i=1}^{I} refine_{i,m}} \leq max\_hardness, \quad \forall m \in \{1, 2, \ldots, M\}
+\end{align*}
+
+\subsection*{Output Format}
+The output will be structured as follows:
+\begin{align*}
+& \text{"buy": } [[buyquantity_{i, m} \text{ for } i = 1,\ldots,I] \text{ for } m = 1, \ldots, M], \\
+& \text{"refine": } [[refine_{i, m} \text{ for } i = 1,\ldots,I] \text{ for } m = 1, \ldots, M], \\
+& \text{"storage": } [[storage_{i, m} \text{ for } i = 1,\ldots,I] \text{ for } m = 1, \ldots, M]
+\end{align*}
+
+\end{document}

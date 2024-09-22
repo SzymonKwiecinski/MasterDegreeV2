@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+Let:
+\begin{itemize}
+    \item $T$: Total number of months
+    \item $deliver_i$: Units of product that must be delivered at the end of month $i$ for $i = 1, \ldots, T$
+    \item $storage\_cost$: Cost of storing one unit of product for one month
+    \item $switch\_cost$: Cost incurred when switching production levels between two consecutive months
+    \item $x_i$: Number of units produced in month $i$
+    \item $I_i$: Inventory at the end of month $i$
+\end{itemize}
+
+\subsection*{Objective Function}
+
+The objective is to minimize the total cost, which includes production costs, storage costs, and switching costs:
+
+\[
+\text{Minimize } Z = \sum_{i=1}^{T} (storage\_cost \cdot I_i + switch\_cost \cdot |x_{i+1} - x_i|)
+\]
+
+\subsection*{Constraints}
+
+1. **Inventory Balance:**
+   The inventory at the end of each month is given by:
+   \[
+   I_i = I_{i-1} + x_i - deliver_i \quad \text{for } i = 1, \ldots, T
+   \]
+   with the initial condition:
+   \[
+   I_0 = 0
+   \]
+
+2. **Non-negativity Constraints:**
+   \[
+   x_i \geq 0 \quad \text{for } i = 1, \ldots, T
+   \]
+   
+3. **Final Inventory Constraint:**
+   The inventory at the end of the last month should be zero:
+   \[
+   I_T = 0
+   \]
+
+\end{document}

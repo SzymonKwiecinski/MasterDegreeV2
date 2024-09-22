@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Consultant Assignment}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item \( i \): Index for projects where \( i = 1, \ldots, I \)
+    \item \( j \): Index for consultants where \( j = 1, \ldots, J \)
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( f_j \): Fixed cost of hiring consultant \( j \)
+    \item \( c_{i,j} \): Additional cost of assigning project \( i \) to consultant \( j \)
+    \item \( K \): Maximum number of projects that can be assigned to a single consultant
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_{j} \): Binary variable, where \( x_{j} = 1 \) if consultant \( j \) is hired, \( 0 \) otherwise
+    \item \( assignment_{j,i} \): Binary variable, where \( assignment_{j,i} = 1 \) if project \( i \) is assigned to consultant \( j \), \( 0 \) otherwise
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{j=1}^{J} f_{j} x_{j} + \sum_{i=1}^{I} \sum_{j=1}^{J} c_{i,j} \cdot assignment_{j,i}
+\]
+
+\subsection*{Constraints}
+\begin{enumerate}
+    \item Each project must be assigned to exactly one consultant:
+    \[
+    \sum_{j=1}^{J} assignment_{j,i} = 1 \quad \forall i = 1, \ldots, I
+    \]
+    
+    \item A consultant can assign up to \( K \) projects:
+    \[
+    \sum_{i=1}^{I} assignment_{j,i} \leq K \cdot x_{j} \quad \forall j = 1, \ldots, J
+    \]
+
+    \item Each assignment must be binary:
+    \[
+    x_{j} \in \{0, 1\} \quad \forall j = 1, \ldots, J
+    \]
+    \[
+    assignment_{j,i} \in \{0, 1\} \quad \forall i = 1, \ldots, I, \, j = 1, \ldots, J
+    \]
+\end{enumerate}
+
+\subsection*{Output}
+The output will consist of:
+\begin{itemize}
+    \item \( assignments \): A matrix where \( assignments_{j,i} \) indicates whether project \( i \) is assigned to consultant \( j \)
+    \item \( total\_cost \): The total cost calculated from the objective function
+\end{itemize}
+
+\end{document}

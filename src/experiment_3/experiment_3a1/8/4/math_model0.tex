@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Nurse Scheduling Problem: MILP Formulation}
+
+\textbf{Definitions:}
+
+Let:
+\begin{itemize}
+    \item $N$: total number of nurses hired.
+    \item $d_j$: demand for nurses on day $j$, where $j = 1, \ldots, 7$.
+    \item $period$: number of consecutive days a nurse works the night shift.
+    \item $start_j$: number of nurses starting their shift on day $j$.
+\end{itemize}
+
+\textbf{Objective:}
+
+Minimize the total number of nurses hired:
+
+\[
+\text{Minimize } N = \sum_{j=1}^{7} start_j
+\]
+
+\textbf{Constraints:}
+
+For each day \( j \) (where \( j = 1, \ldots, 7 \)):
+\[
+\sum_{i=0}^{period-1} start_{(j-i) \mod 7} \geq d_j \quad \forall j \in \{1,\ldots,7\}
+\]
+
+Where \( start_{(j-i) \mod 7} \) represents the nurses starting on day \( j-i \) and ensures that the demand \( d_j \) is met for each day.
+
+\textbf{Non-negativity constraints:}
+\[
+start_j \geq 0 \quad \forall j \in \{1,\ldots,7\}
+\]
+
+\textbf{Binary Constraints:}
+Since \( start_j \) must be an integer, we can define:
+\[
+start_j \in \mathbb{Z}^{+} \quad \forall j \in \{1,\ldots,7\}
+\]
+
+\textbf{Output:}
+
+Finally, the output will be:
+\begin{itemize}
+    \item $start = [start_1, start_2, \ldots, start_7]$
+    \item $total = N$
+\end{itemize}
+
+\end{document}

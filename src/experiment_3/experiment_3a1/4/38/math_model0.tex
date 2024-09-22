@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Production Scheduling Linear Programming Model}
+
+\subsection*{Decision Variables}
+Let 
+\begin{align*}
+\text{reg\_quant}_n & : \text{Quantity of products produced using regular production in month } n, \\
+\text{over\_quant}_n & : \text{Quantity of products produced using overtime production in month } n, \\
+\text{inventory}_n & : \text{Inventory carried over to month } n.
+\end{align*}
+
+\subsection*{Parameters}
+Let 
+\begin{align*}
+demand_n & : \text{Demand in month } n, \quad n = 1, \ldots, N, \\
+max\_regular\_amount & : \text{Maximum units that can be produced using regular production in any month,} \\
+cost\_regular & : \text{Cost of regular production per unit,} \\
+cost\_overtime & : \text{Cost of overtime production per unit,} \\
+store\_cost & : \text{Cost of storing one unit of product per month.}
+\end{align*}
+
+\subsection*{Objective Function}
+The objective is to minimize the total cost, given by:
+
+\[
+\text{Minimize } Z = \sum_{n=1}^{N} \left( cost\_regular \cdot \text{reg\_quant}_n + cost\_overtime \cdot \text{over\_quant}_n + store\_cost \cdot \text{inventory}_n \right)
+\]
+
+\subsection*{Constraints}
+1. Demand Constraints:
+   \[
+   \text{reg\_quant}_n + \text{over\_quant}_n + \text{inventory}_{n-1} - \text{inventory}_n = demand_n, \quad n = 1, \ldots, N
+   \]
+   where $\text{inventory}_0 = 0$ (initial inventory).
+
+2. Regular Production Capacity Constraint:
+   \[
+   \text{reg\_quant}_n \leq max\_regular\_amount, \quad n = 1, \ldots, N
+   \]
+
+3. Non-negativity Constraints:
+   \[
+   \text{reg\_quant}_n \geq 0, \quad \text{over\_quant}_n \geq 0, \quad \text{inventory}_n \geq 0, \quad n = 1, \ldots, N
+   \]
+
+\subsection*{Output}
+The output will provide:
+\begin{align*}
+\text{reg\_quant} & : [\text{reg\_quant}_n \text{ for } n = 1,\ldots,N] \\
+\text{over\_quant} & : [\text{over\_quant}_n \text{ for } n = 1,\ldots,N]
+\end{align*}
+
+\end{document}

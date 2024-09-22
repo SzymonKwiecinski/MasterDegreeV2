@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+Let \( N \) be the number of available currencies. We define the following variables:
+
+\begin{itemize}
+    \item \( x_{i,j} \): Amount of currency \( i \) exchanged for currency \( j \).
+\end{itemize}
+
+Given the following parameters:
+
+\begin{itemize}
+    \item \( \text{start}_i \): Initial amount of currency \( i \).
+    \item \( \text{limit}_i \): Limit on the total amount of currency \( i \) that can be exchanged.
+    \item \( \text{rate}_{i,j} \): Exchange rate from currency \( i \) to currency \( j \).
+\end{itemize}
+
+Now, we can formulate the linear programming problem as follows:
+
+\subsection*{Objective Function}
+We aim to maximize the total amount of currency \( N \) at the end of the day. The final amount of currency \( N \) can be expressed as:
+\[
+\text{final\_amount\_of\_currency\_N} = \text{start}_N + \sum_{i=1}^{N} x_{i,N}
+\]
+Thus, our objective function is:
+\[
+\text{Maximize } Z = \text{final\_amount\_of\_currency\_N}
+\]
+
+\subsection*{Constraints}
+
+1. Currency exchange limits:
+\[
+\sum_{j=1}^{N} x_{i,j} \leq \text{limit}_i, \quad \forall i \in \{1, \ldots, N\}
+\]
+
+2. Initial currency amounts:
+\[
+\text{start}_i - \sum_{j=1}^{N} x_{i,j} + \sum_{j=1}^{N} x_{j,i} \geq 0, \quad \forall i \in \{1, \ldots, N\}
+\]
+
+3. Exchange rate constraints:
+\[
+x_{i,j} \leq \text{start}_i \times \text{rate}_{i,j}, \quad \forall i,j \in \{1, \ldots, N\}
+\]
+
+4. Non-negativity constraints:
+\[
+x_{i,j} \geq 0, \quad \forall i,j \in \{1, \ldots, N\}
+\]
+
+\subsection*{Complete Model}
+The complete linear programming model can be summarized as follows:
+
+\begin{align*}
+\text{Maximize } & Z = \text{start}_N + \sum_{i=1}^{N} x_{i,N} \\
+\text{Subject to:} & \\
+& \sum_{j=1}^{N} x_{i,j} \leq \text{limit}_i, \quad \forall i \in \{1, \ldots, N\} \\
+& \text{start}_i - \sum_{j=1}^{N} x_{i,j} + \sum_{j=1}^{N} x_{j,i} \geq 0, \quad \forall i \in \{1, \ldots, N\} \\
+& x_{i,j} \leq \text{start}_i \times \text{rate}_{i,j}, \quad \forall i,j \in \{1, \ldots, N\} \\
+& x_{i,j} \geq 0, \quad \forall i,j \in \{1, \ldots, N\}
+\end{align*}
+
+\end{document}

@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Investment Portfolio}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $N$: Number of different stocks.
+    \item $bought_i$: Number of shares bought of stock $i$.
+    \item $buyPrice_i$: Purchase price of one share of stock $i$.
+    \item $currentPrice_i$: Current price of one share of stock $i$.
+    \item $futurePrice_i$: Expected price of one share of stock $i$ in one year.
+    \item $transactionRate$: Transaction cost rate in percentage.
+    \item $taxRate$: Tax rate on capital gains in percentage.
+    \item $K$: Required amount of money to raise net of capital gains and transaction costs.
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let $sell_i$ be the number of shares to sell of stock $i$ for $i = 1, 2, \ldots, N$.
+
+\subsection*{Objective Function}
+We want to maximize the expected value of the portfolio next year after selling the shares:
+\[
+\text{Maximize } Z = \sum_{i=1}^{N} \left( futurePrice_i \cdot (bought_i - sell_i) \right)
+\]
+
+\subsection*{Constraints}
+The following constraints must be fulfilled:
+
+1. The total amount raised after selling shares should cover the required net amount $K$:
+\[
+\sum_{i=1}^{N} \left[ (currentPrice_i \cdot sell_i) \cdot (1 - \frac{transactionRate}{100}) - \left( (currentPrice_i - buyPrice_i) \cdot sell_i \cdot \frac{taxRate}{100} \right) \right] \geq K
+\]
+
+2. The number of shares sold cannot exceed the number of shares bought:
+\[
+sell_i \leq bought_i \quad \forall i = 1, 2, \ldots, N
+\]
+
+3. Non-negativity constraints:
+\[
+sell_i \geq 0 \quad \forall i = 1, 2, \ldots, N
+\]
+
+\subsection*{Output}
+The solution will provide the values:
+\[
+\text{Output: } \{ "sell": [sell_1, sell_2, \ldots, sell_N] \}
+\]
+
+\end{document}

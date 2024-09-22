@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Translator Selection Problem}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item Let \( N \) be the total number of available translators.
+    \item Let \( M \) be the total number of required languages.
+    \item Let \( \text{cost}_i \) be the cost of hiring translator \( i \).
+    \item Let \( \text{languages}_i \) be the set of languages that translator \( i \) can translate into.
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( x_i \in \{0, 1\} \) be a binary variable where 
+        \[
+        x_i = \begin{cases} 
+        1 & \text{if translator } i \text{ is selected} \\ 
+        0 & \text{otherwise}
+        \end{cases}
+        \]
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} \text{cost}_i \cdot x_i
+\]
+
+\textbf{Constraints:}
+\begin{itemize}
+    \item Each required language must be covered by at least one selected translator:
+    \[
+    \sum_{i: \text{language}_m \in \text{languages}_i} x_i \geq 1, \quad \forall m = 1, \ldots, M
+    \]
+\end{itemize}
+
+\textbf{Output:}
+\begin{itemize}
+    \item \( \text{selected\_translators} = \{i : x_i = 1\} \)
+    \item \( \text{total\_cost} = Z \)
+\end{itemize}
+
+\end{document}

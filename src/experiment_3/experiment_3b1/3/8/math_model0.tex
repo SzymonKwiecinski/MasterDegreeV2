@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Spare Automobile Parts Production}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Formulation}
+
+Let:
+\begin{itemize}
+    \item \( K \): Number of different spare parts
+    \item \( S \): Number of shops
+    \item \( \text{time}_{k, s} \): Worker-hours required to make part \( k \) in shop \( s \)
+    \item \( \text{profit}_{k} \): Profit from part \( k \)
+    \item \( \text{capacity}_{s} \): Capacity in working hours of shop \( s \)
+    \item \( x_{k} \): Quantity of part \( k \) to be produced
+\end{itemize}
+
+\subsection*{Objective Function}
+
+We aim to maximize the total profit:
+
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} \text{profit}_{k} \cdot x_{k}
+\]
+
+\subsection*{Constraints}
+
+The production of parts is limited by the capacity of each shop. For each shop \( s \), the constraint is given by:
+
+\[
+\sum_{k=1}^{K} \text{time}_{k,s} \cdot x_{k} \leq \text{capacity}_{s}  \quad \forall s = 1, 2, \ldots, S
+\]
+
+In addition, we need to ensure that the quantities produced are non-negative:
+
+\[
+x_{k} \geq 0  \quad \forall k = 1, 2, \ldots, K
+\]
+
+\subsection*{Decision Variables}
+
+The decision variables for this model are the quantities of each spare part to be made:
+
+\[
+\text{quantity} = [x_{k} \text{ for } k = 1, \ldots, K]
+\]
+
+\end{document}

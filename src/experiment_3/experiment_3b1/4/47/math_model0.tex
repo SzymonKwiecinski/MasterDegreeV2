@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Police Officer Shifts}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( S \) be the total number of shifts.
+    \item Let \( \text{officers\_needed}_{s} \) be the number of police officers needed during shift \( s \) for \( s = 1, 2, \ldots, S \).
+    \item Let \( \text{shift\_cost}_{s} \) be the cost of assigning officers to shift \( s \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let \( x_{s} \) be the number of police officers assigned to shift \( s \).
+
+\subsection*{Objective Function}
+The objective is to minimize the total cost:
+\[
+\text{Minimize} \quad Z = \sum_{s=1}^{S} \text{shift\_cost}_{s} \cdot x_{s}
+\]
+
+\subsection*{Constraints}
+Each officer works for two consecutive shifts. Therefore, we have the following constraints:
+
+\begin{itemize}
+    \item For each shift \( s \):
+    \[
+    x_{s} + x_{s-1} \geq \text{officers\_needed}_{s} \quad \text{for } s = 2, 3, \ldots, S
+    \]
+    \item For the first shift:
+    \[
+    x_{1} \geq \text{officers\_needed}_{1}
+    \]
+    \item Each variable \( x_s \) must be non-negative:
+    \[
+    x_{s} \geq 0 \quad \text{for } s = 1, 2, \ldots, S
+    \]
+\end{itemize}
+
+\subsection*{Output}
+The outputs will be:
+\begin{itemize}
+    \item The number of officers assigned to each shift \( \text{officers\_assigned}_{s} = x_{s} \) for \( s = 1, 2, \ldots, S \).
+    \item The total cost \( \text{total\_cost} = Z \).
+\end{itemize}
+
+\end{document}

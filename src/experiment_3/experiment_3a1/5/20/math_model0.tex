@@ -1,0 +1,78 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for the Engineering Factory}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( M \) be the number of machines, where \( m \in \{1, \ldots, M\} \).
+    \item Let \( K \) be the number of products, where \( k \in \{1, \ldots, K\} \).
+    \item Let \( I \) be the number of months, where \( i \in \{1, \ldots, I\} \).
+    \item \( \text{profit}_k \): Profit earned per unit of product \( k \).
+    \item \( \text{time}_{k,m} \): Time (in hours) required to produce one unit of product \( k \) on machine \( m \).
+    \item \( \text{maintain}_{i,m} \): Number of machines \( m \) that are down for maintenance in month \( i \).
+    \item \( \text{limit}_{k,i} \): Marketing limitation on product \( k \) in month \( i \).
+    \item \( \text{store\_price} \): Cost of storing each product per unit, per month.
+    \item \( \text{keep\_quantity} \): Desired ending quantity of each product at the end of each month.
+    \item \( n\_workhours \): Number of work hours available per day.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{sell}_{k,i} \): Quantity of product \( k \) sold in month \( i \).
+    \item \( \text{manufacture}_{k,i} \): Quantity of product \( k \) manufactured in month \( i \).
+    \item \( \text{storage}_{k,i} \): Quantity of product \( k \) stored at the end of month \( i \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+
+\[
+\text{Maximize } Z = \sum_{i=1}^{I} \sum_{k=1}^{K} \left( \text{profit}_k \cdot \text{sell}_{k,i} - \text{store\_price} \cdot \text{storage}_{k,i} \right)
+\]
+
+\subsection*{Constraints}
+
+\textbf{1. Production Time Constraint}:
+
+The total production time on all machines for all products should not exceed the total available machine hours:
+
+\[
+\sum_{k=1}^{K} \sum_{m=1}^{M} \text{time}_{k,m} \cdot \text{manufacture}_{k,i} \leq (n\_workhours \cdot 6 \cdot 24) - \sum_{m=1}^{M} \text{maintain}_{i,m} \cdot n\_workhours \cdot 6 \cdot 24, \quad \forall i
+\]
+
+\textbf{2. Marketing Limitation Constraint}:
+
+The quantity sold should not exceed the marketing limitations:
+
+\[
+\text{sell}_{k,i} \leq \text{limit}_{k,i}, \quad \forall k, \forall i
+\]
+
+\textbf{3. Storage Constraint}:
+
+The storage for each product should account for production, sales, and desired ending stock:
+
+\[
+\text{storage}_{k,i} = \text{storage}_{k,i-1} + \text{manufacture}_{k,i} - \text{sell}_{k,i}, \quad \forall k, \forall i > 1
+\]
+\[
+\text{storage}_{k,1} = 0
+\]
+
+\textbf{4. End Stock Constraint}:
+
+The storage at the end of each month should meet the desired keep quantity:
+
+\[
+\text{storage}_{k,i} \geq \text{keep\_quantity}, \quad \forall k, \forall i
+\]
+
+\textbf{5. Non-negativity Constraints}:
+
+\[
+\text{sell}_{k,i} \geq 0, \quad \text{manufacture}_{k,i} \geq 0, \quad \text{storage}_{k,i} \geq 0, \quad \forall k, \forall i
+\]
+
+\end{document}

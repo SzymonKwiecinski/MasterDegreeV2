@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( A \) be the total weight of the alloy required: \( A = \text{alloy\_quant} \)
+    \item Let \( M \) be the number of metals.
+    \item Let \( K \) be the number of available alloys.
+    \item Let \( \text{target}_{m} \) be the target quantity of metal \( m \).
+    \item Let \( \text{ratio}_{k, m} \) be the ratio of metal \( m \) in alloy \( k \).
+    \item Let \( \text{price}_{k} \) be the price of alloy \( k \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let \( x_k \) be the amount of alloy \( k \) to purchase for \( k = 1, \ldots, K \).
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize} \quad Z = \sum_{k=1}^{K} \text{price}_{k} \cdot x_k
+\]
+
+\subsection*{Constraints}
+1. The total weight of the alloys must equal the desired alloy weight:
+\[
+\sum_{k=1}^{K} x_k = A
+\]
+
+2. The quantity of each metal \( m \) in the mixture must satisfy the target:
+\[
+\sum_{k=1}^{K} \text{ratio}_{k,m} \cdot x_k = \text{target}_{m}, \quad \forall m = 1, \ldots, M
+\]
+
+3. Non-negativity constraints:
+\[
+x_k \geq 0, \quad \forall k = 1, \ldots, K
+\]
+
+\subsection*{Output}
+The solution will provide the amounts of each alloy:
+\[
+\text{amount} = [x_1, x_2, \ldots, x_K]
+\]
+
+\end{document}

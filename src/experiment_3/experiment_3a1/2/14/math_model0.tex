@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Maximizing Net Income}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item Let \( P \) be the number of different products.
+    \item Let \( \text{cash} \) be the available cash.
+    \item Let \( \text{hour}_i \) be the machine hours required for product \( i \) where \( i \in \{1, 2, \ldots, P\} \).
+    \item Let \( \text{cost}_i \) be the production cost per unit of product \( i \).
+    \item Let \( \text{price}_i \) be the selling price per unit of product \( i \).
+    \item Let \( \text{investPercentage}_i \) be the percentage of sales revenue from product \( i \) allocated for operations.
+    \item Let \( \text{upgradeHours} \) be the additional machine hours available through upgrading.
+    \item Let \( \text{upgradeCost} \) be the cost of upgrading the machine.
+    \item Let \( \text{availableHours} \) be the current available machine hours.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item Let \( x_i \) be the quantity produced of product \( i \).
+    \item Let \( \text{upgrade} \in \{0, 1\} \) be a binary variable indicating whether the company chooses to upgrade its machine capacity (1 for yes, 0 for no).
+\end{itemize}
+
+\textbf{Objective Function:}
+We aim to maximize the total net income given by:
+\[
+\max \quad \text{net\_income} = \sum_{i=1}^{P} \left( ( \text{price}_i - \text{cost}_i - \text{investPercentage}_i \cdot \text{price}_i ) \cdot x_i \right) - \text{upgradeCost} \cdot \text{upgrade}
+\]
+
+\textbf{Constraints:}
+1. **Cash Constraint:**
+\[
+\sum_{i=1}^{P} \text{cost}_i \cdot x_i \leq \text{cash} - \text{investPercentage}_i \cdot \text{price}_i \cdot \sum_{i=1}^{P} x_i \cdot \text{upgrade}
+\]
+
+2. **Machine Hours Constraint:**
+\[
+\sum_{i=1}^{P} \text{hour}_i \cdot x_i \leq \text{availableHours} + \text{upgradeHours} \cdot \text{upgrade}
+\]
+
+3. **Non-negativity Constraints:**
+\[
+x_i \geq 0 \quad \forall i \in \{1, 2, \ldots, P\}
+\]
+\[
+\text{upgrade} \in \{0, 1\}
+\]
+
+\textbf{Output Variables:}
+\begin{itemize}
+    \item The net income is given by \( \text{net\_income} \).
+    \item The production quantities are given by \( x_i \) for \( i \in \{1, 2, \ldots, P\} \).
+    \item The variable \( \text{upgrade} \) indicates whether an upgrade is performed or not.
+\end{itemize}
+
+\end{document}

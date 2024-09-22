@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Traveling Salesman Problem (TSP)}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( N \) - Number of towns to visit.
+    \item \( \text{distance}_{i,j} \) - Distance between town \( i \) and town \( j \).
+    \item \( \text{start\_city} \) - The starting city of the traveler.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_{i,j} \) - Binary variable where \( x_{i,j} = 1 \) if the traveler goes from town \( i \) to town \( j \), and \( x_{i,j} = 0 \) otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total distance traveled:
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} \sum_{j=1}^{N} \text{distance}_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{enumerate}
+    \item Each town must be visited exactly once:
+    \[
+    \sum_{j=1}^{N} x_{start\_city,j} = 1
+    \]
+    \[
+    \sum_{i=1}^{N} x_{i,j} = 1 \quad \forall j \in \{1, \ldots, N\}
+    \]
+    
+    \item The traveler must return to the starting city:
+    \[
+    \sum_{j=1}^{N} x_{j,start\_city} = 1
+    \]
+    
+    \item Subtour elimination constraints (using Miller-Tucker-Zemlin formulation):
+    \[
+    u_i - u_j + N x_{i,j} \leq N - 1 \quad \forall i,j \in \{1, \ldots, N\}, i \neq j
+    \]
+    \[
+    u_i \geq 1 \quad \forall i \in \{1, \ldots, N\}
+    \]
+\end{enumerate}
+
+\subsection*{Output}
+The output will be:
+\begin{itemize}
+    \item \texttt{visit\_order}: The sequence of towns visited after \texttt{start\_city}.
+    \item \texttt{total\_distance}: The total distance traveled on the optimal journey.
+\end{itemize}
+
+\end{document}

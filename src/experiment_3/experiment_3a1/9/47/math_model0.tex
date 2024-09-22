@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Police Shift Assignment}
+
+\textbf{Indices:} \\
+Let \( s \) be the index for shifts, where \( s = 1, 2, \ldots, S \).
+
+\textbf{Parameters:} \\
+\( \text{officers\_needed}_{s} \): Number of police officers required during shift \( s \) \\
+\( \text{shift\_cost}_{s} \): Cost incurred by the town for starting shift \( s \)
+
+\textbf{Decision Variables:} \\
+Let \( x_{s} \) be the number of officers assigned to shift \( s \).
+
+\textbf{Objective Function:} \\
+Minimize the total cost:
+\[
+\text{Total Cost} = \sum_{s=1}^{S} \text{shift\_cost}_{s} \cdot x_{s}
+\]
+
+\textbf{Constraints:} \\
+Each officer works for two consecutive shifts. Therefore, the number of officers assigned to each shift needs to satisfy:
+\[
+x_{s} \geq \text{officers\_needed}_{s}, \quad \forall s = 1, \ldots, S
+\]
+\[
+x_{s} = x_{s+1}, \quad \forall s = 1, \ldots, S-1
+\]
+
+Also, since the first shift requires a certain number of officers, and the last shift will have the same number of officers assigned as the previous one (if needed):
+\[
+x_{1} \geq \text{officers\_needed}_{1}
+\]
+\[
+x_{S} \geq \text{officers\_needed}_{S}
+\]
+
+\textbf{Output:} \\
+The number of officers assigned to each shift \( x_{s} \) for \( s = 1, \ldots, S \) and the total cost.
+
+\end{document}

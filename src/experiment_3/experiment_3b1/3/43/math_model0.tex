@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Wild Sports}
+
+\textbf{Variables:}
+Let \( x_j \) be the amount of product \( j \) produced, where \( j = 1, \ldots, M \).
+
+\textbf{Objective Function:}
+We want to maximize the total profit, which can be expressed as:
+\[
+\text{Maximize } Z = \sum_{j=1}^{M} (price_j - cost_j) \cdot x_j
+\]
+
+\textbf{Constraints:}
+
+1. **Raw Material Constraints:**
+For each raw material \( i \) (where \( i = 1, \ldots, N \)):
+\[
+\sum_{j=1}^{M} req_{i,j} \cdot x_j \leq available_i
+\]
+   
+2. **Demand Constraints:**
+For each product \( j \):
+\[
+0 \leq x_j \leq demand_j
+\]
+
+3. **Non-negativity Constraints:**
+\[
+x_j \geq 0 \quad \forall j = 1, \ldots, M
+\]
+
+\textbf{Model Summary:}
+
+The complete linear programming model can be summarized as follows:
+
+\[
+\begin{aligned}
+\text{Maximize } & Z = \sum_{j=1}^{M} (price_j - cost_j) \cdot x_j \\
+\text{subject to } & \sum_{j=1}^{M} req_{i,j} \cdot x_j \leq available_i, \quad \forall i = 1, \ldots, N \\
+& 0 \leq x_j \leq demand_j, \quad \forall j = 1, \ldots, M \\
+& x_j \geq 0, \quad \forall j = 1, \ldots, M
+\end{aligned}
+\]
+
+\end{document}

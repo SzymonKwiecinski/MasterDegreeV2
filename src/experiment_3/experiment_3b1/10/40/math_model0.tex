@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Steel Production}
+
+Let:
+\begin{itemize}
+    \item \( x_k \) = amount of mineral \( k \) melted (in tons) for \( k = 1, 2, \ldots, K \)
+    \item \( y \) = amount of Manganese added (in tons)
+\end{itemize}
+
+\textbf{Objective Function:}
+Maximize Profit, \( Z \):
+\[
+Z = n_{steel\_quant} \times sell\_price - \sum_{k=1}^{K} \left( \frac{cost_k}{1000} \times x_k + melt\_price \times x_k \right) - mang\_price \times y
+\]
+
+\textbf{Subject to:}
+
+1. Manganese content constraint:
+\[
+\frac{\sum_{k=1}^{K} cont_{mn_k} \times x_k + y}{n_{steel\_quant}} \geq \frac{mn\_percent}{100}
+\]
+
+2. Silicon content constraints:
+\[
+\frac{\sum_{k=1}^{K} cont_{si_k} \times x_k}{n_{steel\_quant}} \geq \frac{si_{min}}{100}
+\]
+\[
+\frac{\sum_{k=1}^{K} cont_{si_k} \times x_k}{n_{steel\_quant}} \leq \frac{si_{max}}{100}
+\]
+
+3. Non-negativity constraints:
+\[
+x_k \geq 0 \quad \forall k \in \{1, 2, \ldots, K\}
+\]
+\[
+y \geq 0
+\]
+
+\end{document}

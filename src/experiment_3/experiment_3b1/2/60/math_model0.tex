@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Project Assignment Problem}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item Let \( I \) be the set of projects, indexed by \( i \).
+    \item Let \( J \) be the set of consultants, indexed by \( j \).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( f_j \): Fixed cost of hiring consultant \( j \).
+    \item \( c_{i,j} \): Additional cost of assigning project \( i \) to consultant \( j \).
+    \item \( K \): Maximum number of projects that can be assigned to any consultant.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_{j} \): Binary variable, \( x_{j} = 1 \) if consultant \( j \) is hired, \( 0 \) otherwise.
+    \item \( a_{i,j} \): Binary variable, \( a_{i,j} = 1 \) if project \( i \) is assigned to consultant \( j \), \( 0 \) otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+
+\[
+\text{minimize} \quad Z = \sum_{j=1}^{J} f_j x_j + \sum_{i=1}^{I} \sum_{j=1}^{J} c_{i,j} a_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Each project must be assigned to exactly one consultant:
+    \[
+    \sum_{j=1}^{J} a_{i,j} = 1, \quad \forall i \in I
+    \]
+
+    \item A consultant can only assign projects if they are hired:
+    \[
+    a_{i,j} \leq x_j, \quad \forall i \in I, \forall j \in J
+    \]
+
+    \item Each consultant can be assigned a maximum of \( K \) projects:
+    \[
+    \sum_{i=1}^{I} a_{i,j} \leq K x_j, \quad \forall j \in J
+    \]
+
+    \item Binary constraints on decision variables:
+    \[
+    x_j \in \{0, 1\}, \quad a_{i,j} \in \{0, 1\}, \quad \forall i \in I, \forall j \in J
+    \]
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Police Officer Shift Assignment Problem}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item Let \( S \) be the number of different shifts.
+    \item Let \( s \in \{1, 2, \ldots, S\} \) represent the index of the shift.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{officers\_needed}_{s} \): Number of police officers needed during shift \( s \).
+    \item \( \text{shift\_cost}_{s} \): Cost for the town when starting a shift at \( s \).
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item Let \( x_{s} \) be the number of police officers assigned to shift \( s \).
+\end{itemize}
+
+\textbf{Objective:}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{s=1}^{S} \text{shift\_cost}_{s} \cdot x_{s}
+\]
+
+\textbf{Constraints:}
+\begin{itemize}
+    \item Each police officer works for two consecutive shifts:
+    \[
+    x_{s} + x_{s+1} \geq \text{officers\_needed}_{s}, \quad s = 1, 2, \ldots, S-1
+    \]
+    \item For the last shift:
+    \[
+    x_{S} \geq \text{officers\_needed}_{S}
+    \]
+\end{itemize}
+
+\textbf{Non-negativity:}
+\[
+x_{s} \geq 0, \quad s = 1, 2, \ldots, S
+\]
+
+\end{document}

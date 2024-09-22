@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Variables}
+Let \( b_p \) be the number of batches produced for part \( p \), where \( p = 1, 2, \ldots, P \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( time_{m,p} \): time required on machine \( m \) for part \( p \) (in hours).
+    \item \( cost_{m} \): cost per hour for using machine \( m \).
+    \item \( available_{m} \): available hours of machine \( m \) per month.
+    \item \( price_{p} \): selling price per batch of part \( p \).
+    \item \( min\_batches_{p} \): minimum batches required for part \( p \) to fulfill a contract.
+    \item \( standard\_cost \): standard cost of labor per hour for machine 1.
+    \item \( overtime\_cost \): overtime cost of labor per hour for machine 1.
+    \item \( overtime\_hour \): number of hours after which overtime cost applies.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+Z = \sum_{p=1}^{P} (price_{p} \cdot b_p) - \sum_{m=1}^{M} (cost_{m} \cdot \sum_{p=1}^{P} (time_{m,p} \cdot b_p))
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+\sum_{p=1}^{P} (time_{m,p} \cdot b_p) & \leq available_{m} \quad \text{for } m = 2, \ldots, M \\
+\sum_{p=1}^{P} (time_{1,p} \cdot b_p) & \leq O \quad \text{where } O = overtime\_hour \\
+\sum_{p=1}^{P} (time_{1,p} \cdot b_p) & > O \Rightarrow \text{Cost for machine 1} = (standard\_cost \cdot O) + (overtime\_cost \cdot (\sum_{p=1}^{P} (time_{1,p} \cdot b_p) - O)) \\
+b_p & \geq min\_batches_{p} \quad \text{for } p = 1, \ldots, P \\
+b_p & \geq 0 \quad \text{for } p = 1, \ldots, P \\
+\end{align*}
+
+\subsection*{Output}
+The output will signify:
+\begin{itemize}
+    \item \( batches = [b_1, b_2, \ldots, b_P] \)
+    \item \( total\_profit = Z \)
+\end{itemize}
+
+\end{document}

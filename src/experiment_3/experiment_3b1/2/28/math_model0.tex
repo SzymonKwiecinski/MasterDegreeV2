@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Linear Regression}
+
+Given a set of observed values \(y_k\) and corresponding values \(x_k\) for \(k = 1, \ldots, K\), we want to fit a linear model of the form:
+
+\[
+y = bx + a
+\]
+
+where \(b\) is the slope and \(a\) is the intercept. Our objective is to minimize the sum of absolute deviations of each observed value of \(y\) from the predicted value based on the linear relationship. This can be formulated as:
+
+\[
+\text{minimize} \quad \sum_{k=1}^{K} |y_k - (bx_k + a)|
+\]
+
+To handle the absolute values, we introduce auxiliary variables \(d_k\) for each \(k\), representing the deviations:
+
+\[
+d_k \geq y_k - (bx_k + a) \quad \forall k = 1, \ldots, K
+\]
+\[
+d_k \geq -(y_k - (bx_k + a)) \quad \forall k = 1, \ldots, K
+\]
+
+The complete linear programming formulation is then:
+
+\[
+\text{minimize} \quad \sum_{k=1}^{K} d_k
+\]
+
+subject to:
+
+\[
+d_k \geq y_k - (bx_k + a) \quad \forall k = 1, \ldots, K
+\]
+\[
+d_k \geq -(y_k - (bx_k + a)) \quad \forall k = 1, \ldots, K
+\]
+
+The variables to be optimized are \(b\), \(a\), and \(d_k\) for each \(k\). 
+
+Upon solving this linear program, the optimal values for \(a\) and \(b\) will yield our desired intercept and slope.
+
+\section*{Output}
+
+The output will provide the following values:
+
+\begin{itemize}
+    \item \texttt{intercept} represents the intercept of the fitted line \(a\).
+    \item \texttt{slope} represents the slope of the fitted line \(b\).
+\end{itemize}
+
+\end{document}

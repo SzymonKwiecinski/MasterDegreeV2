@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item Let \( P \) be the number of different parts.
+    \item Let \( M \) be the number of different machines.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{time}_{m,p} \): time required on machine \( m \) to produce a batch of part \( p \) (in hours).
+    \item \( \text{cost}_{m} \): cost per hour of using machine \( m \).
+    \item \( \text{available}_{m} \): available hours of machine \( m \) per month.
+    \item \( \text{price}_{p} \): selling price of part \( p \) per batch.
+    \item \( \text{min\_batches}_{p} \): minimum number of batches of part \( p \) that must be produced.
+    \item \( \text{standard\_cost} \): labor cost per hour for machine 1 during regular hours.
+    \item \( \text{overtime\_cost} \): labor cost per hour for machine 1 during overtime.
+    \item \( \text{overtime\_hour} \): maximum number of regular hours for machine 1.
+    \item \( \text{min\_profit} \): minimum profit required.
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let \( \text{batches}_{p} \) be the number of batches produced for part \( p \).
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+\text{Total Profit} = \sum_{p=1}^{P} (\text{price}_{p} \cdot \text{batches}_{p}) - \sum_{m=1}^{M} \left( \text{cost}_{m} \cdot \sum_{p=1}^{P} (\text{time}_{m,p} \cdot \text{batches}_{p}) \right) - \text{Labor Costs}
+\]
+
+\subsection*{Labor Costs for Machine 1}
+Let \( H \) be the total hours used on machine 1:
+\[
+H = \sum_{p=1}^{P} (\text{time}_{1,p} \cdot \text{batches}_{p})
+\]
+The labor costs can be formulated as:
+\[
+\text{Labor Costs} =
+\begin{cases}
+\text{standard\_cost} \cdot H, & \text{if } H \leq \text{overtime\_hour} \\
+\text{standard\_cost} \cdot \text{overtime\_hour} + \text{overtime\_cost} \cdot (H - \text{overtime\_hour}), & \text{if } H > \text{overtime\_hour}
+\end{cases}
+\]
+
+\subsection*{Constraints}
+1. Availability constraints for each machine \( m \):
+\[
+\sum_{p=1}^{P} (\text{time}_{m,p} \cdot \text{batches}_{p}) \leq \text{available}_{m}, \quad \forall m = 1, \ldots, M
+\]
+
+2. Minimum production requirements for each part \( p \):
+\[
+\text{batches}_{p} \geq \text{min\_batches}_{p}, \quad \forall p = 1, \ldots, P
+\]
+
+3. Profit constraint:
+\[
+\text{Total Profit} \geq \text{min\_profit}
+\]
+
+4. Non-negativity constraints:
+\[
+\text{batches}_{p} \geq 0, \quad \forall p = 1, \ldots, P
+\]
+
+\end{document}

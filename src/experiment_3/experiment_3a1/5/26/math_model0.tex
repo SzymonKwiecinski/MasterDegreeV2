@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Industry Production and Capacity Building}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item Let \( K \) be the number of industries.
+    \item Let \( T = 5 \) be the number of years.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{inputone}_{k,j} \): Input from industry \( j \) required by industry \( k \) to produce one unit.
+    \item \( \text{manpowerone}_k \): Manpower required by industry \( k \) to produce one unit.
+    \item \( \text{inputtwo}_{k,j} \): Input from industry \( j \) required by industry \( k \) to build one unit of productive capacity.
+    \item \( \text{manpowertwo}_k \): Manpower required by industry \( k \) to build one unit of productive capacity.
+    \item \( \text{stock}_k \): Initial stock of goods of industry \( k \).
+    \item \( \text{capacity}_k \): Initial capacity of industry \( k \).
+    \item \( \text{demand}_k \): Exogenous consumption requirement of industry \( k \).
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item \( \text{produce}_{k,t} \): Units produced by industry \( k \) in year \( t \).
+    \item \( \text{buildcapa}_{k,t} \): Units used to build productive capacity for industry \( k \) in year \( t \).
+    \item \( \text{stockhold}_{k,t} \): Amount of stock held from industry \( k \) in year \( t \).
+\end{itemize}
+
+\textbf{Objective:}
+\[
+\text{Maximize} \quad \sum_{t=1}^{T} \sum_{k=1}^{K} \text{manpowerone}_k \cdot \text{produce}_{k,t} + \sum_{k=1}^{K} \text{manpowertwo}_k \cdot \text{buildcapa}_{k,t}
+\]
+
+\textbf{Subject to:}
+
+\textbf{Production Constraints:}
+\[
+\begin{aligned}
+\text{produce}_{k,t} & \leq \text{capacity}_k + \text{stockhold}_{k,t-1} \quad \forall k, t \\
+\text{produce}_{k,t} & \geq \text{demand}_k \quad \forall k, t=1,\ldots,T \\
+\end{aligned}
+\]
+
+\textbf{Input Requirements:}
+\[
+\begin{aligned}
+\sum_{j=1}^{K} \text{inputone}_{k,j} \cdot \text{produce}_{j,t} + \text{stockhold}_{k,t-1} & \geq \text{produce}_{k,t} \quad \forall k, t \\
+\end{aligned}
+\]
+
+\textbf{Capacity Building Constraints:}
+\[
+\begin{aligned}
+\sum_{j=1}^{K} \text{inputtwo}_{k,j} \cdot \text{buildcapa}_{j,t} & \leq \text{manpowerone}_k \cdot \text{buildcapa}_{k,t} \quad \forall k, t \\
+\text{capacity}_k + \sum_{t=1}^{T} \text{buildcapa}_{k,t} & \leq \text{capacity}_k + \text{stockhold}_{k,t-1} \text{ for capacity increase at } t+2
+\end{aligned}
+\]
+
+\textbf{Stockholding Constraints:}
+\[
+\begin{aligned}
+\text{stockhold}_{k,t} & = \text{stockhold}_{k,t-1} + \text{produce}_{k,t} - \text{demand}_{k} \quad \forall k, t
+\end{aligned}
+\]
+
+\textbf{Initial Conditions:}
+\[
+\begin{aligned}
+\text{stockhold}_{k,0} & = \text{stock}_k \quad \forall k \\
+\text{capacity}_k & = \text{capacity}_k \quad \forall k
+\end{aligned}
+\]
+
+\end{document}

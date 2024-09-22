@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $k$: Index for industry, $k = 1, 2, \ldots, K$
+    \item $j$: Index for input industry, $j = 1, 2, \ldots, K$
+    \item $t$: Index for time, $t = 0, 1, 2, \ldots, T$
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $inputone_{k,j}$: Input from industry $j$ required by industry $k$ for production
+    \item $manpowerone_k$: Manpower required by industry $k$ for production
+    \item $inputtwo_{k,j}$: Input from industry $j$ required by industry $k$ for building capacity
+    \item $manpowertwo_k$: Manpower required by industry $k$ to build capacity
+    \item $stock_k$: Initial stock of industry $k$ at year 0
+    \item $capacity_k$: Initial capacity of industry $k$ at year 0
+    \item $demand_k$: Demand for industry $k$ in every year except year 0
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $produce_{k,t}$: Amount produced by industry $k$ in year $t$
+    \item $buildcapa_{k,t}$: Amount used to build productive capacity for industry $k$ in year $t$
+    \item $stock_{k,t}$: Amount of stock of industry $k$ held in year $t$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total manpower requirement over five years:
+
+\[
+\text{Maximize} \quad \sum_{t=1}^{T} \sum_{k=1}^{K} (manpowerone_k \cdot produce_{k,t} + manpowertwo_k \cdot buildcapa_{k,t})
+\]
+
+\subsection*{Constraints}
+
+\begin{align}
+    & \text{Production Constraints:} \\
+    & produce_{k,t} \leq stock_{k,t-1} + capacity_k \quad \forall k, t \\
+    & stock_{k,t} = stock_{k,t-1} + produce_{k,t} - demand_k \quad \forall k, t \\
+    & stock_{k,0} = stock_k \quad \forall k \\
+    \\
+    & \text{Input Constraints:} \\
+    & \sum_{j=1}^{K} inputone_{k,j} \cdot produce_{j,t-1} + \sum_{j=1}^{K} inputtwo_{k,j} \cdot buildcapa_{j,t-1} \leq capacity_k \quad \forall k, t \\
+    \\
+    & \text{Manpower Constraints:} \\
+    & manpowerone_k \cdot produce_{k,t} + manpowertwo_k \cdot buildcapa_{k,t} \leq \text{Available Manpower} \quad \forall k, t \\
+    \\
+    & \text{Non-negativity Constraints:} \\
+    & produce_{k,t} \geq 0, \quad buildcapa_{k,t} \geq 0, \quad stock_{k,t} \geq 0 \quad \forall k, t
+\end{align}
+
+\subsection*{Output Variables}
+\begin{itemize}
+    \item Output $produce$ over the years
+    \item Capacity building $buildcapa$ over the years
+    \item Stock holding $stockhold$ over the years
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Optimal Generator Scheduling}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item $T$: Set of time periods in a day, $t = 1, \ldots, T$
+    \item $K$: Set of generator types, $k = 1, \ldots, K$
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $demand_t$: Electricity demand in period $t$
+    \item $num_k$: Number of generators of type $k$
+    \item $minlevel_k$: Minimum operating level of generator type $k$
+    \item $maxlevel_k$: Maximum operating level of generator type $k$
+    \item $runcost_k$: Running cost at minimum level for generator type $k$
+    \item $extracost_k$: Extra cost per megawatt above minimum level for generator type $k$
+    \item $startcost_k$: Startup cost for generator type $k$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $numon_{k,t}$: Number of generators of type $k$ that are on in period $t$
+    \item $level_{k,t}$: Level at which generator type $k$ operates in period $t$
+    \item $startup_{k,t}$: Binary variable indicating if generator type $k$ is started in period $t$ (1 if started, 0 otherwise)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+
+\[
+\text{Minimize } Z = \sum_{t=1}^{T} \sum_{k=1}^{K} \left( runcost_k \cdot numon_{k,t} + startcost_k \cdot startup_{k,t} + extracost_k \cdot (level_{k,t} - minlevel_k) \cdot numon_{k,t} \right)
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item \textbf{Load Demand Constraint:}
+    \[
+    \sum_{k=1}^{K} (level_{k,t} \cdot numon_{k,t}) \geq demand_t \quad \forall t \in T
+    \]
+    
+    \item \textbf{Generator Capacity Constraints:}
+    \[
+    minlevel_k \cdot numon_{k,t} \leq level_{k,t} \leq maxlevel_k \cdot numon_{k,t} \quad \forall k \in K, \forall t \in T
+    \]
+    
+    \item \textbf{Generator Availability Constraints:}
+    \[
+    numon_{k,t} \leq num_k \quad \forall k \in K, \forall t \in T
+    \]
+
+    \item \textbf{Startup Constraints:}
+    \[
+    level_{k,t} \geq minlevel_k \cdot startup_{k,t} \quad \forall k \in K, \forall t \in T
+    \]
+\end{itemize}
+
+\subsection*{Output}
+The output of the model will be the number of generators of each type that are on in each period:
+
+\[
+\text{Output: } \{ numon: [[numon_{k, t}]_{t=1,\ldots,T}]_{k=1,\ldots,K} \}
+\]
+
+\end{document}

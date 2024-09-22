@@ -1,0 +1,85 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Oil Production}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $I$: Number of oils
+    \item $M$: Number of months
+    \item $price_{i,m}$: Purchase price of oil $i$ in month $m$
+    \item $sell\_price$: Selling price of the final product per ton
+    \item $is\_vegetable_{i}$: Indicator if oil $i$ is vegetable or not
+    \item $max\_veg$: Maximum vegetable refining capacity per month
+    \item $max\_non\_veg$: Maximum non-vegetable refining capacity per month
+    \item $storage\_size$: Maximum storage capacity per oil
+    \item $storage\_cost$: Cost of storing one ton of oil per month
+    \item $max\_hardness$: Maximum allowable hardness of the final product
+    \item $min\_hardness$: Minimum allowable hardness of the final product
+    \item $hardness_{i}$: Hardness of oil $i$
+    \item $init\_amount$: Initial storage amount of each oil
+    \item $min\_usage$: Minimum required usage of each oil if used
+    \item $dependency_{i,j}$: Dependency between oils $i$ and $j$
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item $buyquantity_{i,m}$: Amount of oil $i$ purchased in month $m$
+    \item $refine_{i,m}$: Amount of oil $i$ refined in month $m$
+    \item $storage_{i,m}$: Amount of oil $i$ stored at the end of month $m$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize profit:
+\[
+\text{Maximize } Z = \sum_{m=1}^{M} \left( sell\_price \cdot \sum_{i=1}^{I} refine_{i,m} - \sum_{i=1}^{I} price_{i,m} \cdot buyquantity_{i,m} - storage\_cost \cdot \sum_{i=1}^{I} storage_{i,m} \right)
+\]
+
+\subsection*{Constraints}
+1. **Storage constraint**:
+\[
+storage_{i,m} = storage_{i,m-1} + buyquantity_{i,m} - refine_{i,m}, \quad \forall i, m \quad (1 \leq m \leq M)
+\]
+where \(storage_{i,0} = init\_amount\).
+
+2. **Refining capacity constraints**:
+\[
+\sum_{i \in V} refine_{i,m} \leq max\_veg, \quad \forall m \quad (1 \leq m \leq M)
+\]
+\[
+\sum_{i \in NV} refine_{i,m} \leq max\_non\_veg, \quad \forall m \quad (1 \leq m \leq M)
+\]
+where \(V\) is the set of vegetable oils and \(NV\) is the set of non-vegetable oils.
+
+3. **Hardness constraint**:
+\[
+min\_hardness \leq \frac{\sum_{i=1}^{I} hardness_{i} \cdot refine_{i,m}}{\sum_{i=1}^{I} refine_{i,m}} \leq max\_hardness, \quad \forall m \quad (1 \leq m \leq M)
+\]
+
+4. **Storage limit constraint**:
+\[
+0 \leq storage_{i,m} \leq storage\_size, \quad \forall i, m \quad (1 \leq m \leq M)
+\]
+
+5. **Final month's storage constraint**:
+\[
+storage_{i,M} = init\_amount, \quad \forall i
+\]
+
+6. **Usage dependency constraint**:
+If \(refine_{i,m} > 0\) then \(refine_{j,m} > 0\) if \(dependency_{i,j} = 1\).
+
+7. **Minimum usage constraint**:
+If \(refine_{i,m} > 0\) then \(refine_{i,m} \geq min\_usage, \quad \forall i, m \quad (1 \leq m \leq M)\)
+
+8. **Oil usage constraint**:
+At most 3 oils can be used per month:
+\[
+\sum_{i=1}^{I} \text{1}_{(refine_{i,m} > 0)} \leq 3, \quad \forall m \quad (1 \leq m \leq M)
+\]
+
+\subsection*{Conclusion}
+This LP model captures the problem constraints and objectives, enabling the company to determine an optimal buying, storing, and manufacturing policy to maximize profits in the oil refining process.
+
+\end{document}

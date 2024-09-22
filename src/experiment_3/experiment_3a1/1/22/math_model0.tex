@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Variables}
+Let:
+\begin{align*}
+\text{recruit}_{k,i} & : \text{number of workers of type } k \text{ recruited in year } i \\
+\text{overmanning}_{k,i} & : \text{number of additional workers of type } k \text{ employed in year } i \\
+\text{short}_{k,i} & : \text{number of workers of type } k \text{ on short-time working in year } i \\
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+\text{requirement}_{k,i} & : \text{manpower requirement of type } k \text{ in year } i \\
+\text{strength}_{k} & : \text{current number of workers of type } k \\
+\text{lessonewaste}_{k} & : \text{wastage rate of workers of type } k \text{ with less than one year's service} \\
+\text{moreonewaste}_{k} & : \text{wastage rate of workers of type } k \text{ with more than one year's service} \\
+\text{recruit}_{k} & : \text{maximum number of workers of type } k \text{ that can be recruited in one year} \\
+\text{costredundancy}_{k} & : \text{redundancy payment for workers of type } k \\
+\text{num\_overman} & : \text{maximum additional workers allowed across all types} \\
+\text{costoverman}_{k} & : \text{cost per overmanned worker of type } k \\
+\text{num\_shortwork} & : \text{maximum number of workers that can be put on short-time working} \\
+\text{costshort}_{k} & : \text{cost per short-time worker of type } k \\
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize total redundancy costs:
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} \sum_{i=1}^{I} \text{costredundancy}_{k} \times \text{redundancy}_{k,i}
+\]
+
+\subsection*{Constraints}
+1. **Manpower Requirements:**
+\[
+\text{strength}_{k} - \text{lessonewaste}_{k} \times \text{strength}_{k} - \text{moreonewaste}_{k} \times \text{strength}_{k} + \text{recruit}_{k,i} + \text{overmanning}_{k,i} - \text{short}_{k,i} \geq \text{requirement}_{k,i}, \quad \forall k, i
+\]
+
+2. **Recruitment Limit:**
+\[
+\text{recruit}_{k,i} \leq \text{recruit}_{k}, \quad \forall k, i
+\]
+
+3. **Overmanning Limit:**
+\[
+\sum_{k=1}^{K} \sum_{i=1}^{I} \text{overmanning}_{k,i} \leq \text{num\_overman}
+\]
+
+4. **Short-time Working Limit:**
+\[
+\text{short}_{k,i} \leq \text{num\_shortwork}, \quad \forall k, i
+\]
+
+5. **Non-negativity:**
+\[
+\text{recruit}_{k,i}, \text{overmanning}_{k,i}, \text{short}_{k,i} \geq 0, \quad \forall k, i
+\]
+
+\end{document}

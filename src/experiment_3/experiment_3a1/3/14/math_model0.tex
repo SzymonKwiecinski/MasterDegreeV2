@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+Let:
+\begin{itemize}
+    \item \( P \) be the number of different products.
+    \item \( production_i \) be the quantity produced of product \( i \) (for \( i=1, \ldots, P \)).
+    \item \( upgrade \) be a binary variable indicating whether to upgrade machine capacity (1 for yes, 0 for no).
+\end{itemize}
+
+Define the parameters:
+\begin{itemize}
+    \item \( cash \): available cash.
+    \item \( hour_i \): machine hours required for each unit of product \( i \).
+    \item \( cost_i \): production cost per unit of product \( i \).
+    \item \( price_i \): selling price per unit of product \( i \).
+    \item \( investPercentage_i \): percentage of sales revenue from product \( i \) that will be reinvested.
+    \item \( upgradeHours \): additional machine hours available after upgrades.
+    \item \( upgradeCost \): cost incurred for upgrading the machine.
+    \item \( availableHours \): initial machine hours available.
+\end{itemize}
+
+\subsection*{Objective Function}
+We aim to maximize the total net income:
+
+\[
+\text{Maximize } Z = \sum_{i=1}^{P} \left( (price_i \times production_i) - (cost_i \times production_i) - (investPercentage_i \times price_i \times production_i) \right)
+\]
+
+\subsection*{Constraints}
+
+1. **Machine Capacity Constraint**:
+\[
+\sum_{i=1}^{P} hour_i \times production_i \leq availableHours + (upgrade \times upgradeHours)
+\]
+
+2. **Cash Availability Constraint**:
+\[
+\sum_{i=1}^{P} cost_i \times production_i + upgrade \times upgradeCost \leq cash
+\]
+
+3. **Non-negativity Constraints**:
+\[
+production_i \geq 0 \quad \text{for } i=1, \ldots, P
+\]
+\[
+upgrade \in \{0, 1\}
+\]
+
+\subsection*{Outputs}
+The results will include:
+\begin{itemize}
+    \item \( net\_income \): total net income of the company.
+    \item \( production \): array of production quantities \( [production_1, production_2, \ldots, production_P] \).
+    \item \( upgrade \): a boolean variable indicating whether to upgrade the machine capacity.
+\end{itemize}
+
+\end{document}

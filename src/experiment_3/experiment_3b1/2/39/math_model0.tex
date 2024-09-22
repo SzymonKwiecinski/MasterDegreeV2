@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Cafeteria Staffing Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( N \) be the total number of days.
+    \item Let \( num_n \) be the number of employees required on day \( n \) for \( n = 1, 2, \ldots, N \).
+    \item Let \( n_{\text{working}} \) be the number of consecutive working days for each employee.
+    \item Let \( n_{\text{resting}} \) be the number of consecutive resting days for each employee.
+    \item Let \( T = n_{\text{working}} + n_{\text{resting}} \) be the total cycle length for each employee.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( total\_number \) be the total number of employees to hire.
+    \item Let \( is\_work_{n, i} \) be a binary variable that indicates whether employee \( i \) is working on day \( n \):
+    \[
+    is\_work_{n, i} =
+    \begin{cases}
+      1 & \text{if employee } i \text{ works on day } n \\
+      0 & \text{otherwise}
+    \end{cases}
+    \end{equation*}
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total number of employees hired:
+\[
+\text{Minimize } total\_number
+\]
+
+\subsection*{Constraints}
+For each day \( n = 1, 2, \ldots, N \):
+\[
+\sum_{i=1}^{total\_number} is\_work_{n, i} \geq num_n
+\]
+
+For each employee \( i \):
+\begin{equation}
+is\_work_{n, i} \text{ must satisfy the working/resting schedule}
+\end{equation}
+This implies that if an employee works on day \( n \), they must work for \( n_{\text{working}} \) days and then rest for \( n_{\text{resting}} \) days, creating the following constraints:
+\[
+is\_work_{n, i} + is\_work_{n+1, i} + \ldots + is\_work_{n+n_{\text{working}}-1, i} = n_{\text{working}} \quad \text{for } n \text{ such that } n + n_{\text{working}} - 1 \leq N
+\]
+\[
+is\_work_{n+n_{\text{working}}, i} + is\_work_{n+n_{\text{working}}+1, i} + \ldots + is\_work_{n+n_{\text{working}}+n_{\text{resting}}-1, i} = 0 \quad \text{for } n \text{ such that } n+n_{\text{working}} + n_{\text{resting}} - 1 \leq N
+\]
+
+\subsection*{Output}
+The output will consist of:
+\begin{itemize}
+    \item \( total\_number \): Total number of employees hired.
+    \item \( is\_work \): A matrix where \( is\_work[n][i] \) indicates whether employee \( i \) is working on day \( n \).
+\end{itemize}
+
+\end{document}

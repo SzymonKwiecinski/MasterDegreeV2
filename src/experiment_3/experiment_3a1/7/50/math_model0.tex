@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item $p = 1, \ldots, P$: index for parts
+    \item $m = 1, \ldots, M$: index for machines
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $time_{m,p}$: hours required on machine $m$ to produce a batch of part $p$ 
+    \item $cost_{m}$: cost per hour for using machine $m$
+    \item $available_{m}$: available hours per month on machine $m$
+    \item $price_{p}$: price per batch of part $p$
+    \item $min\_batches_{p}$: minimum batches of part $p$ to produce
+    \item $extra\_cost_{m}$: cost per hour for acquiring extra time on machine $m$
+    \item $max\_extra_{m}$: maximum extra hours that can be purchased for machine $m$
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $batches_{p}$: number of batches of part $p$ produced
+    \item $extra\_time_{m}$: additional hours purchased for machine $m$
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+\text{Maximize } Z = \sum_{p=1}^{P} (price_{p} \cdot batches_{p}) - \sum_{m=1}^{M} (cost_{m} \cdot (available_{m} + extra\_time_{m})) - \sum_{m=1}^{M} (extra\_cost_{m} \cdot extra\_time_{m})
+\end{align*}
+
+\textbf{Subject to:}
+
+\textbf{Production Constraints:}
+\begin{align*}
+\sum_{p=1}^{P} (time_{m,p} \cdot batches_{p}) & \leq available_{m} + extra\_time_{m}, \quad \forall m \\
+batches_{p} & \geq min\_batches_{p}, \quad \forall p \\
+extra\_time_{m} & \leq max\_extra_{m}, \quad \forall m \\
+batches_{p} & \geq 0, \quad \forall p \\
+extra\_time_{m} & \geq 0, \quad \forall m 
+\end{align*}
+
+\textbf{Output:}
+\begin{itemize}
+    \item $batches_{p}$: the number of batches of each part produced
+    \item $extra\_time_{m}$: denotes the additional hours purchased for each machine 
+    \item $total\_profit$: represents the total profit obtained for the month
+\end{itemize}
+
+\end{document}

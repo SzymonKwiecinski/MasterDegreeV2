@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Electricity Capacity Expansion}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $T$: Total number of years
+    \item $demand_t$: Demand for electricity in year $t$
+    \item $oil_t$: Existing oil capacity available in year $t$
+    \item $coal\_cost$: Capital cost per megawatt of coal-fired capacity
+    \item $nuke\_cost$: Capital cost per megawatt of nuclear power capacity
+    \item $max\_nuke$: Maximum percentage of total capacity that can be nuclear
+    \item $coal\_life$: Lifespan of coal plants in years
+    \item $nuke\_life$: Lifespan of nuclear plants in years
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $coal_t$: Coal capacity added in year $t$
+    \item $nuke_t$: Nuclear capacity added in year $t$
+\end{itemize}
+
+\textbf{Objective Function:}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{t=1}^{T} (coal\_cost \cdot coal_t + nuke\_cost \cdot nuke_t)
+\]
+
+\textbf{Constraints:}
+1. \textbf{Capacity Constraint:}
+   The total capacity in year $t$ must meet the demand:
+   \[
+   oil_t + \sum_{j=\max(1,t-coal\_life+1)}^{t} coal_j + \sum_{j=\max(1,t-nuke\_life+1)}^{t} nuke_j \geq demand_t \quad \forall t \in \{1, \ldots, T\}
+   \]
+
+2. \textbf{Nuclear Capacity Limit:}
+   The capacity of nuclear power must not exceed the specified percentage of total capacity:
+   \[
+   \sum_{j=1}^{T} nuke_j \leq \frac{max\_nuke}{100} \left( oil_t + \sum_{j=1}^{T} coal_j + \sum_{j=1}^{T} nuke_j \right) \quad \forall t \in \{1, \ldots, T\}
+   \]
+
+3. \textbf{Non-negativity Constraints:}
+   \[
+   coal_t \geq 0, \quad nuke_t \geq 0 \quad \forall t \in \{1, \ldots, T\}
+   \]
+
+\textbf{Output:}
+The output should contain:
+\begin{itemize}
+    \item coal\_cap\_added: A list of values for $coal_t$ for each year $t$
+    \item nuke\_cap\_added: A list of values for $nuke_t$ for each year $t$
+    \item total\_cost: The total cost of the system, calculated from the objective function.
+\end{itemize}
+
+\end{document}

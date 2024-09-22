@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Road Illumination}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( N \): Number of segments of the road
+    \item \( M \): Number of lamps
+    \item \( \text{coeff}_{i,j} \): Coefficient indicating the contribution of lamp \( j \) to the illumination of segment \( i \)
+    \item \( \text{desired}_i \): Desired illumination for segment \( i \)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( \text{power}_j \): Power of lamp \( j \) (for \( j = 1, \ldots, M \))
+    \item \( \text{ill}_i \): Illumination of segment \( i \) (for \( i = 1, \ldots, N \))
+    \item \( \text{error}_i \): Absolute error for segment \( i \) (for \( i = 1, \ldots, N \))
+\end{itemize}
+
+\textbf{Objective:}
+Minimize the total absolute error:
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} \text{error}_i
+\]
+
+\textbf{Constraints:}
+The illumination of each segment is defined as:
+\[
+\text{ill}_i = \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j \quad \text{for } i = 1, \ldots, N
+\]
+
+We define the absolute errors as:
+\[
+\text{error}_i \geq \text{desired}_i - \text{ill}_i \quad \text{for } i = 1, \ldots, N
+\]
+\[
+\text{error}_i \geq \text{ill}_i - \text{desired}_i \quad \text{for } i = 1, \ldots, N
+\]
+
+\textbf{Non-negativity Constraints:}
+\[
+\text{power}_j \geq 0 \quad \text{for } j = 1, \ldots, M
+\]
+\[
+\text{error}_i \geq 0 \quad \text{for } i = 1, \ldots, N
+\]
+
+\end{document}

@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Model for Nurse Scheduling}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $period$: Number of consecutive days a nurse works (integer).
+    \item $d_j$: Demand for nurses on day $j$, where $j = 1, \ldots, 7$ (integer).
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $start_j$: Number of nurses that start their period on day $j$, where $j = 1, \ldots, 7$ (integer).
+    \item $total$: Total number of nurses hired (integer).
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } total = \sum_{j=1}^{7} start_j
+\]
+
+\textbf{Constraints:}
+\begin{itemize}
+    \item For each day $j$ (where $j = 1, \ldots, 7$):
+    \[
+    \sum_{k=0}^{period-1} start_{(j-k \mod 7)} \geq d_j \quad \forall j \in \{1, \ldots, 7\}
+    \]
+    \item Non-negativity and integer constraints:
+    \[
+    start_j \geq 0 \quad \forall j \in \{1, \ldots, 7\}
+    \]
+    \[
+    total \geq 0
+    \]
+\end{itemize}
+
+\end{document}

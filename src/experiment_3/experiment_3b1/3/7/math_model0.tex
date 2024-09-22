@@ -1,0 +1,74 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Position and Velocity Model}
+
+Consider a rocket that travels along a straight path. Let \( x_t \), \( v_t \), and \( a_t \) be the position, velocity, and acceleration, respectively, of the rocket at time \( t \). The discrete-time model of rocket motion can be described by the following equations:
+
+\[
+x_{t+1} = x_t + v_t
+\]
+
+\[
+v_{t+1} = v_t + a_t
+\]
+
+Here, \( a_t \) represents the acceleration which is under our control, determined by the rocket thrust.
+
+Assuming that the magnitude \( |a_t| \) of the acceleration is proportional to the rate of fuel consumption at time \( t \), we define the initial conditions and target conditions as follows:
+
+- Initial position: \( x_0 \)
+- Initial velocity: \( v_0 \)
+- Target position: \( x_T \)
+- Target velocity: \( v_T \)
+- Total time: \( T \)
+
+The objective of the optimization problem is to minimize the maximum thrust required, which is expressed mathematically as:
+
+\[
+\min \max_{t=0,1,\ldots,T} |a_t|
+\]
+
+\textbf{Subject to the constraints:}
+
+1. The position and velocity equations:
+
+\[
+x_{t+1} = x_t + v_t, \quad \forall t = 0, 1, \ldots, T-1
+\]
+
+\[
+v_{t+1} = v_t + a_t, \quad \forall t = 0, 1, \ldots, T-1
+\]
+
+2. Initial conditions:
+
+\[
+x_0 = \text{given}, \quad v_0 = \text{given}
+\]
+
+3. Final conditions:
+
+\[
+x_T = x_T, \quad v_T = v_T
+\]
+
+4. Fuel consumption constraint:
+
+\[
+|a_t| \text{ is proportional to fuel consumption}
+\]
+
+\textbf{Output:} The solution will yield:
+
+\[
+\{
+    "x": [x_i \text{ for } i = 0, 1, \ldots, T],
+    "v": [v_i \text{ for } i = 0, 1, \ldots, T],
+    "a": [a_i \text{ for } i = 0, 1, \ldots, T],
+    "fuel\_spend": \text{total fuel spent}
+\}
+\]
+
+\end{document}

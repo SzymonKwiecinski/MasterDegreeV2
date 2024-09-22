@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let $T$ be the total number of months.
+    \item Let $\text{deliver}_i$ be the number of units that must be delivered at the end of month $i$ for $i = 1, \ldots, T$.
+    \item Let $c_s$ be the storage cost per unit per month.
+    \item Let $c_w$ be the switching cost per unit for the change in production level, defined as $c_w |x_{i+1} - x_i|$.
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item Let $x_i$ be the number of units produced in month $i$ for $i = 1, \ldots, T$.
+    \item Let $I_i$ be the inventory held at the end of month $i$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{minimize } Z = \sum_{i=1}^{T} \left( c_s I_i + c_w |x_{i+1} - x_i| \right)
+\]
+
+\subsection*{Constraints}
+1. Inventory balance for each month:
+   \[
+   I_i = I_{i-1} + x_i - \text{deliver}_i \quad \forall i = 1, \ldots, T
+   \]
+   with $I_0 = 0$ (initial inventory).
+
+2. Inventory must be non-negative:
+   \[
+   I_i \geq 0 \quad \forall i = 1, \ldots, T
+   \]
+
+3. Production decision for the last month (no constraints on inventory):
+   \[
+   I_T = 0
+   \]
+
+4. Non-negativity constraints:
+   \[
+   x_i \geq 0 \quad \forall i = 1, \ldots, T
+   \]
+   
+\subsection*{Output}
+The output will consist of:
+\begin{itemize}
+    \item $x = [x_1, x_2, \ldots, x_T]$, the production schedule for each month.
+    \item The total cost $Z$.
+\end{itemize}
+
+\end{document}
