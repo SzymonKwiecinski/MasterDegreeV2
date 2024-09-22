@@ -9,6 +9,7 @@ from src.templates import (
     latex_math_model_template,
     wrong_code_template,
     code_error_template,
+    description_template,
 )
 import csv
 import json
@@ -56,7 +57,7 @@ class Task(BaseModel):
 
         return cls(
             number=number,
-            description_path=description_path.read_text(),
+            description=description_path.read_text(),
             data=json.loads(data_path.read_text()),
             obj=float(obj_path.read_text().replace("OBJ: ", "")),
         )
@@ -130,8 +131,11 @@ class Message:
         )
 
     @classmethod
-    def from_task(cls) -> "Message":
-        pass
+    def from_task(cls, task: Task) -> "Message":
+        return cls.from_user(
+            description_template.format(description=task.description)
+            + data_template.format(data=task.data)
+        )
 
     def dict(self) -> dict[str, str]:
         return {"role": self.role, "content": self.content}
@@ -251,7 +255,9 @@ class Report(BaseModel):
         _headers = [_ for _ in self.dict().keys()]
 
         if isinstance(self.obj_expected, float) and isinstance(self.obj_given, float):
-            if (
+            if self.obj_given == 0:
+                self.obj_status = False
+            elif (
                 int(fabs((self.obj_given - self.obj_expected) / self.obj_given) * 100)
                 <= 0.1
             ):

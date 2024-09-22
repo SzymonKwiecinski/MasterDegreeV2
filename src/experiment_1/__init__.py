@@ -1,5 +1,3 @@
-from tokenize import cookie_re
-
 from src.const import CORRECT_MODELS_PATH, EXPERIMENT_1_PATH, ABS_PYTHON_INTERPRETER
 from src.experts import PY_C_EXPERT, PY_F_EXPERT
 from src.helpers import (
