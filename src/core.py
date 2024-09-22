@@ -124,6 +124,13 @@ class Message:
         )
 
     @classmethod
+    def from_or_creator(cls, latex_math_model: str, task: Task) -> "Message":
+        return cls.from_user(
+            latex_math_model_template.format(model=latex_math_model)
+            + data_template.format(data=task.data)
+        )
+
+    @classmethod
     def from_syntax_error(cls, wrong_code: str, code_error: str) -> "Message":
         return cls.from_user(
             wrong_code_template.format(code=wrong_code)

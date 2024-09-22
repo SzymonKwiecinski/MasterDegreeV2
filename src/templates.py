@@ -6,3 +6,4 @@ code_error_template = "<CODE_ERROR>\n{error}</CODE_ERROR>\n"
 description_template = "<DESCRIPTION>\n{description}\n</DESCRIPTION>\n"
 
 python_file_name_template = "python_code{number}.py"
+latex_file_name_template = "math_model{number}.tex"

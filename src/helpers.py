@@ -101,8 +101,22 @@ def chat_completion_to_python_file(
 #     abs_path.write_text(extract_code_from_text(context))
 #
 #
-# def chat_completion_to_latex_file(
-#     dir: Path, file_name: str, chat_completion: ChatCompletion
-# ):
-#     with open(dir.joinpath(file_name + ".tex"), "w") as f:
-#         f.write(extract_code_from_text(chat_completion.choices[0].message.content))
+
+def chat_completion_to_latex_text(chat_completion: ChatCompletion) -> str:
+    text = chat_completion_to_text(chat_completion)
+    if "```latex" not in text:
+        raise ValueError("```latex not found in text")
+    # return chat_completion.choices[0].message.content
+    return extract_code_from_text(text)
+
+
+def chat_completion_to_latex_file(
+    abs_path: Path, chat_completion: ChatCompletion
+):
+    text = chat_completion_to_text(chat_completion)
+    if "```latex" not in text:
+        raise ValueError("```latex not found in text")
+    abs_path.write_text(extract_code_from_text(text))
+
+    # with open(dir.joinpath(file_name + ".tex"), "w") as f:
+    #     f.write(extract_code_from_text(chat_completion.choices[0].message.content))

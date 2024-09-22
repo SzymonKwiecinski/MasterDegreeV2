@@ -1,0 +1,10 @@
+experiment_3a1:
+  or_c_model: "gpt-4o-mini-2024-07-18"
+  py_c_model: "gpt-4o-mini-2024-07-18"
+  py_f_model: "gpt-4o-mini-2024-07-18"
+  fix_retries: 0
+experiment_3b1:
+  or_c_model: "gpt-4o-mini-2024-07-18"
+  py_c_model: "gpt-4o-mini-2024-07-18"
+  py_f_model: "gpt-4o-mini-2024-07-18"
+  fix_retries: 1

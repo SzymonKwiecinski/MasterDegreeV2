@@ -43,3 +43,21 @@ def run_experiment_2(exp_names: list[str]):
                 experiment_name=experiment_name,
                 fix_retries=experiment_config["fix_retries"],
             )
+
+
+def run_experiment_3(exp_names: list[str]):
+    from src.experiment_3 import run
+
+    with open(f"{CONFIGS_PATH}/experiment_3.yml", "r") as file:
+        experiments_config = yaml.safe_load(file)
+
+    for experiment_name, experiment_config in experiments_config.items():
+        if experiment_name in exp_names:
+            run(
+                client=Client(api_key=OPENAI_API_KEY),
+                or_c_model=ChatModel(experiment_config["or_c_model"]),
+                py_c_model=ChatModel(experiment_config["py_c_model"]),
+                py_f_model=ChatModel(experiment_config["py_f_model"]),
+                experiment_name=experiment_name,
+                fix_retries=experiment_config["fix_retries"],
+            )
