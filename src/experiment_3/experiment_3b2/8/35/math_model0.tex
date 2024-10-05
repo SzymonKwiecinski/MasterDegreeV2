@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\textbf{Objective:} Maximize profit over \( N \) periods.
+
+\textbf{Decision Variables:}
+\begin{align*}
+\text{Let } & \text{buyquantity}_{n} \geq 0 \quad \text{be the amount of commodity bought in period } n, \\
+& \text{sellquantity}_{n} \geq 0 \quad \text{be the amount of commodity sold in period } n, \\
+& \text{stock}_{n} \geq 0 \quad \text{be the stock level at the end of period } n.
+\end{align*}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } \sum_{n=1}^{N} \left( \text{price}_{n} \cdot \text{sellquantity}_{n} - \text{cost}_{n} \cdot \text{buyquantity}_{n} - \text{holding\_cost} \cdot \text{stock}_{n} \right)
+\]
+
+\textbf{Subject to constraints:}
+\begin{align*}
+& \text{Initial condition:} && \text{stock}_{0} = 0 \\
+& \text{Stock balance:} && \text{stock}_{n} = \text{stock}_{n-1} + \text{buyquantity}_{n} - \text{sellquantity}_{n}, \quad \forall n=1, \ldots, N \\
+& \text{Capacity constraint:} && \text{stock}_{n} \leq \text{capacity}, \quad \forall n=1, \ldots, N \\
+& \text{End condition:} && \text{stock}_{N} = 0 \\
+& \text{Non-negativity:} && \text{buyquantity}_{n} \geq 0, \quad \text{sellquantity}_{n} \geq 0, \quad \text{stock}_{n} \geq 0, \quad \forall n=1, \ldots, N
+\end{align*}
+
+\end{document}

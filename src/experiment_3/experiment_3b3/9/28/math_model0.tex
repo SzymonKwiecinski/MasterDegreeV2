@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Best Fit Line}
+
+Consider the following data points where \( y_k \) is the dependent variable and \( x_k \) is the independent variable for \( k = 1, 2, \ldots, K \):
+
+\begin{itemize}
+    \item \( y = [y_1, y_2, \ldots, y_K] \)
+    \item \( x = [x_1, x_2, \ldots, x_K] \)
+\end{itemize}
+
+We want to fit the best straight line \( y = bx + a \) to this set of data points by minimizing the sum of absolute deviations of each observed value of \( y \) from the value predicted by this linear relationship.
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item \( a \) be the intercept of the fitted line.
+    \item \( b \) be the slope of the fitted line.
+    \item \( d_k \) be the absolute deviation for each point, where \( d_k = |y_k - (bx_k + a)| \quad \forall k = 1, 2, \ldots, K \).
+\end{itemize}
+
+\subsection*{Objective Function}
+We want to minimize the total absolute deviation:
+\[
+\text{Minimize} \quad Z = \sum_{k=1}^{K} d_k
+\]
+
+\subsection*{Constraints}
+The absolute deviation can be expressed with the following constraints:
+\[
+d_k \geq y_k - (bx_k + a) \quad \forall k
+\]
+\[
+d_k \geq -(y_k - (bx_k + a)) \quad \forall k
+\]
+
+\subsection*{Output}
+The output of the model will provide:
+\begin{itemize}
+    \item \textbf{Intercept:} \( a \)
+    \item \textbf{Slope:} \( b \)
+\end{itemize}
+
+\end{document}

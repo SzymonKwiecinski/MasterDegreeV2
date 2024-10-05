@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\textbf{Objective:} Minimize the total cost of purchasing foods.
+
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} \text{price}_k \cdot \text{quantity}_k
+\]
+
+\textbf{Subject to:}
+
+\[
+\sum_{k=1}^{K} \text{nutri}_{k, m} \cdot \text{quantity}_k \geq \text{demand}_m, \quad \forall m = 1,\ldots,M
+\]
+
+\[
+\text{quantity}_k \geq 0, \quad \forall k = 1,\ldots,K
+\]
+
+\textbf{Where:}
+\begin{itemize}
+    \item \(\text{price}_k\) is the price per unit of food \(k\).
+    \item \(\text{demand}_m\) is the minimum required units of nutrient \(m\).
+    \item \(\text{nutri}_{k, m}\) is the amount of nutrient \(m\) contained in one unit of food \(k\).
+    \item \(\text{quantity}_k\) is the decision variable representing the quantity of food \(k\) to purchase.
+\end{itemize}
+
+\end{document}

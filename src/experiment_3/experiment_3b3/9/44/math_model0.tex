@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Auto Parts Manufacturer}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+
+Let:
+\begin{itemize}
+    \item $P$: Number of different parts.
+    \item $M$: Number of different machines.
+    \item $batches_p$: Number of batches produced for part $p$, for $p = 1, \ldots, P$.
+    \item $time_{m,p}$: Time required on machine $m$ to produce one batch of part $p$, for $m = 1, \ldots, M$ and $p = 1, \ldots, P$.
+    \item $cost_m$: Cost per hour for using machine $m$, for $m = 1, \ldots, M$.
+    \item $available_m$: Availability of machine $m$ in hours per month, for $m = 1, \ldots, M$.
+    \item $price_p$: Selling price per batch of part $p$, for $p = 1, \ldots, P$.
+    \item $min\_batches_p$: Minimum batches to produce for part $p$ to fulfill a contract, for $p = 1, \ldots, P$.
+\end{itemize}
+
+\section*{Objective Function}
+
+The objective is to maximize total profit defined as:
+
+\[
+\text{total\_profit} = \sum_{p=1}^{P} \left( price_p \cdot batches_p - \sum_{m=1}^{M} cost_m \cdot \left( \frac{time_{m,p} \cdot batches_p}{100} \right) \right)
+\]
+
+\section*{Constraints}
+
+1. **Production Constraints**:
+   Each part must meet its minimum production requirement:
+   \[
+   batches_p \geq min\_batches_p \quad \forall p = 1, \ldots, P
+   \]
+
+2. **Machine Availability Constraints**:
+   The time used on each machine must not exceed its availability:
+   \[
+   \sum_{p=1}^{P} \left( time_{m,p} \cdot batches_p \right) \leq available_m \quad \forall m = 1, \ldots, M
+   \]
+
+\section*{Model Formulation}
+
+The complete model can be presented as follows:
+
+\[
+\begin{aligned}
+\text{Maximize} \quad & \text{total\_profit} \\
+\text{subject to} \quad & batches_p \geq min\_batches_p, \quad \forall p = 1, \ldots, P \\
+& \sum_{p=1}^{P} time_{m,p} \cdot batches_p \leq available_m, \quad \forall m = 1, \ldots, M \\
+& batches_p \geq 0, \quad \forall p = 1, \ldots, P
+\end{aligned}
+\]
+
+\end{document}

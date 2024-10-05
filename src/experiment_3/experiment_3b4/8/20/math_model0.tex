@@ -1,0 +1,78 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Sets and Indices}
+\begin{align*}
+  & K = \{1, 2, \ldots, K\} \quad \text{: Index set for products} \\
+  & M = \{1, 2, \ldots, M\} \quad \text{: Index set for machines} \\
+  & I = \{1, 2, \ldots, I\} \quad \text{: Index set for months}
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+  & \text{num\_machines}[m] \quad \text{: Total number of machine $m$}\\
+  & \text{profit}[k] \quad \text{: Profit per unit of product $k$} \\
+  & \text{time}[k, m] \quad \text{: Time required for product $k$ on machine $m$} \\
+  & \text{maintain}[i, m] \quad \text{: Number of machine $m$ down for maintenance in month $i$} \\
+  & \text{limit}[k, i] \quad \text{: Maximum marketable units of product $k$ in month $i$} \\
+  & \text{store\_price} \quad \text{: Storage cost per unit per month} \\
+  & \text{keep\_quantity} \quad \text{: Required stock at the end of the period for each product} \\
+  & \text{n\_workhours} \quad \text{: Number of work hours per day} \\
+  & \text{days\_in\_month} = 24 \quad \text{: Assumed days in a month}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+  & \text{sell}[k, i] \quad \text{: Units of product $k$ sold in month $i$} \\
+  & \text{manufacture}[k, i] \quad \text{: Units of product $k$ manufactured in month $i$} \\
+  & \text{storage}[k, i] \quad \text{: Units of product $k$ stored at the end of month $i$}
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\max \sum_{i \in I} \sum_{k \in K} \left( \text{profit}[k] \cdot \text{sell}[k, i] - \text{store\_price} \cdot \text{storage}[k, i] \right)
+\]
+
+\subsection*{Constraints}
+
+\paragraph{Manufacturing Constraints:}
+For each month $i \in I$ and machine $m \in M$,
+\[
+\sum_{k \in K} \left(\text{time}[k, m] \cdot \text{manufacture}[k, i]\right) \leq \left( \text{num\_machines}[m] - \text{maintain}[i, m] \right) \cdot \text{n\_workhours} \cdot \text{days\_in\_month}
+\]
+
+\paragraph{Market Constraints:}
+For each product $k \in K$ and month $i \in I$,
+\[
+\text{sell}[k, i] \leq \text{limit}[k, i]
+\]
+
+\paragraph{Inventory Balance Constraints:}
+For each product $k \in K$ and month $i \in I$,
+\[
+\text{storage}[k, i] = \text{storage}[k, i-1] + \text{manufacture}[k, i] - \text{sell}[k, i]
+\]
+where \(\text{storage}[k, 0] = 0\) (no initial stock).
+
+\paragraph{End-of-Period Inventory Constraint:}
+For each product $k \in K$,
+\[
+\text{storage}[k, I] \geq \text{keep\_quantity}
+\]
+
+\paragraph{Storage Capacity Limit:}
+For each product $k \in K$ and month $i \in I$,
+\[
+0 \leq \text{storage}[k, i] \leq 100
+\]
+
+\subsection*{Non-negativity Constraints}
+\[
+\text{sell}[k, i], \text{manufacture}[k, i], \text{storage}[k, i] \geq 0 \quad \forall k \in K, i \in I
+\]
+
+\end{document}

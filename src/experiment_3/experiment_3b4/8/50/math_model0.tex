@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\textbf{Decision Variables:}
+\begin{align*}
+x_p & : \text{Number of batches of part } p \text{ produced, for } p = 1, ..., P \\
+\text{extra}_m & : \text{Extra hours purchased for machine } m, \text{ for } m = 1, ..., M
+\end{align*}
+
+\textbf{Objective Function:}
+
+Maximize total profit:
+\[
+\text{Profit} = \sum_{p=1}^{P} \left( \text{price}_p \cdot x_p \right) - \sum_{m=1}^{M} \left( \text{cost}_m \cdot \left( \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \right) + \text{extra}_m \cdot \text{extra\_cost}_m \right)
+\]
+
+\textbf{Constraints:}
+
+1. Machine availability including extra hours:
+\[
+\sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \leq \text{availability}_m + \text{extra}_m, \quad \forall m = 1, ..., M
+\]
+
+2. Minimum batch production requirements:
+\[
+x_p \geq \text{min\_batches}_p, \quad \forall p = 1, ..., P
+\]
+
+3. Limit on extra hours purchased:
+\[
+0 \leq \text{extra}_m \leq \text{max\_extra}_m, \quad \forall m = 1, ..., M
+\]
+
+4. Non-negativity of decision variables:
+\[
+x_p \geq 0, \quad \text{extra}_m \geq 0, \quad \forall p = 1, ..., P, \ \forall m = 1, ..., M
+\]
+
+\end{document}

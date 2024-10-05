@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item $k$: Index for products ($k = 1, \ldots, K$)
+    \item $s$: Index for stages ($s = 1, \ldots, S$)
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $produce\_time_{k, s}$: Time required to produce one unit of product $k$ at stage $s$ (hours)
+    \item $time_{s}$: Available working hours at stage $s$
+    \item $profit_{k}$: Unit profit for product $k$
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $quantity_{k}$: Quantity of product $k$ to produce
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{equation}
+\text{Maximize } Z = \sum_{k=1}^{K} profit_{k} \cdot quantity_{k}
+\end{equation}
+
+\textbf{Constraints:}
+\begin{equation}
+\sum_{k=1}^{K} produce\_time_{k, s} \cdot quantity_{k} \leq time_{s}, \quad \forall s = 1, \ldots, S
+\end{equation}
+
+\textbf{Non-negativity Constraints:}
+\begin{equation}
+quantity_{k} \geq 0, \quad \forall k = 1, \ldots, K
+\end{equation}
+
+\end{document}

@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Parameters}
+\begin{align*}
+    & \text{Let } W \text{ be the number of weeks in the season.} \\
+    & \text{Let } \text{demand}_w \text{ be the demand in week } w. \\
+    & \text{Let } \text{regular\_labor}_w \text{ be the available regular labor hours in week } w. \\
+    & \text{Let } \text{overtime\_labor}_w \text{ be the available overtime labor hours in week } w. \\
+    & \text{Let regular\_cost be the cost of regular labor per hour.} \\
+    & \text{Let overtime\_cost be the cost of overtime labor per hour.} \\
+    & \text{Let assembly\_time be the time to assemble one basket.} \\
+    & \text{Let material\_cost be the material cost of one basket.} \\
+    & \text{Let selling\_price be the selling price of one basket.} \\
+    & \text{Let holding\_cost be the holding cost per unsold basket per week.} \\
+    & \text{Let salvage\_value be the salvage value per basket at the end of the season.} \\
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    & \text{regular\_used}_w \geq 0, \quad \forall w = 1, \ldots, W \\
+    & \text{overtime\_used}_w \geq 0, \quad \forall w = 1, \ldots, W \\
+    & \text{regular\_baskets}_w \geq 0, \quad \forall w = 1, \ldots, W \\
+    & \text{overtime\_baskets}_w \geq 0, \quad \forall w = 1, \ldots, W \\
+    & \text{inventory}_w \geq 0, \quad \forall w = 1, \ldots, W \\
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\begin{align*}
+    \text{Total Profit} = & \sum_{w=1}^{W} \left( \text{selling\_price} \cdot (\text{regular\_baskets}_w + \text{overtime\_baskets}_w) - \text{material\_cost} \cdot (\text{regular\_baskets}_w + \text{overtime\_baskets}_w) \right. \\
+    & \left. - \text{regular\_cost} \cdot \text{regular\_used}_w - \text{overtime\_cost} \cdot \text{overtime\_used}_w - \text{holding\_cost} \cdot \text{inventory}_w \right) \\
+    & + \text{salvage\_value} \cdot \text{inventory}_W
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+    & \sum_{w=1}^{i} (\text{regular\_baskets}_w + \text{overtime\_baskets}_w) - \sum_{w=1}^{i} \text{demand}_w = \text{inventory}_i, \quad \forall i = 1, \ldots, W \\
+    & \text{regular\_used}_w \leq \text{regular\_labor}_w, \quad \forall w = 1, \ldots, W \\
+    & \text{overtime\_used}_w \leq \text{overtime\_labor}_w, \quad \forall w = 1, \ldots, W \\
+    & \text{regular\_baskets}_w = \frac{\text{regular\_used}_w}{\text{assembly\_time}}, \quad \forall w = 1, \ldots, W \\
+    & \text{overtime\_baskets}_w = \frac{\text{overtime\_used}_w}{\text{assembly\_time}}, \quad \forall w = 1, \ldots, W \\
+    & \text{inventory}_0 = 0 \\
+    & \text{inventory}_W \geq 0 \\
+\end{align*}
+
+\end{document}

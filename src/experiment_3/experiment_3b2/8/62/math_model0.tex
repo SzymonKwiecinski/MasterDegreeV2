@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{algorithm2e}
+
+\begin{document}
+
+\section*{Mixed-Integer Linear Programming Model for TSP}
+
+\textbf{Sets and Indices:}
+\begin{itemize}
+    \item $i, j \in \{0, 1, ..., N\}$: indices of cities, where $0$ corresponds to the start city.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $d_{i,j}$: distance between city $i$ and city $j$.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_{i,j} \in \{0, 1\}$: binary variable that equals $1$ if the traveler goes directly from city $i$ to city $j$, and $0$ otherwise.
+    \item $u_i$: a continuous variable for subtour elimination, used for each city $i$ except the start city.
+\end{itemize}
+
+\textbf{Objective Function:}
+
+\begin{align}
+    \min \sum_{i=0}^{N} \sum_{j=0}^{N} d_{i,j} x_{i,j}
+\end{align}
+
+\textbf{Constraints:}
+
+\begin{align}
+    & \sum_{j=0, j \neq i}^{N} x_{i,j} = 1, \quad \forall i = 0, ..., N  \quad \text{(1) Ensure each city is departed from exactly once} \\
+    & \sum_{i=0, i \neq j}^{N} x_{i,j} = 1, \quad \forall j = 0, ..., N  \quad \text{(2) Ensure each city is arrived at exactly once} \\
+    & u_i - u_j + N x_{i,j} \leq N - 1, \quad 1 \leq i \neq j \leq N \quad \text{(3) Subtour elimination constraint} \\
+    & u_0 = 0, \quad \text{(4) Reference point for subtour elimination} \\
+    & x_{i,j} \in \{0, 1\}, \quad \forall i, j = 0, ..., N \\
+    & u_i \geq 0, \quad \forall i = 1, ..., N
+\end{align}
+
+\textbf{Solution Output:}
+\begin{itemize}
+    \item \text{The sequence of cities visited after the start city is \texttt{visit\_order}.}
+    \item \text{The total distance traveled on this optimal journey is \texttt{total\_distance}.}
+\end{itemize}
+
+\end{document}

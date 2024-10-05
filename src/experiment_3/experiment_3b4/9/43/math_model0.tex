@@ -1,0 +1,25 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} Maximize profit
+
+\[
+Z = \sum_{j=1}^{M} (\text{price}_j - \text{cost}_j) \times x_j
+\]
+
+\textbf{Subject to:}
+
+\[
+\sum_{j=1}^{M} \text{req}_{i,j} \times x_j \leq \text{available}_i \quad \text{for each } i = 1, \ldots, N
+\]
+
+\[
+x_j \leq \text{demand}_j \quad \text{for each } j = 1, \ldots, M
+\]
+
+\[
+x_j \geq 0 \quad \text{for each } j = 1, \ldots, M
+\]
+
+\end{document}

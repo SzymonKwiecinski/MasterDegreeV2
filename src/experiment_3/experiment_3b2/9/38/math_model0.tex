@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model for Production Scheduling}
+
+\subsection*{Sets and Parameters}
+\begin{itemize}
+    \item Let \( n = 1, 2, \ldots, N \) be the index for months.
+    \item \text{demand}_{n}: The forecasted demand for month \( n \).
+    \item \text{max\_regular\_amount}: The maximum units that can be produced using regular production in any month.
+    \item \text{cost\_regular}: Cost per unit for regular production.
+    \item \text{cost\_overtime}: Cost per unit for overtime production.
+    \item \text{store\_cost}: Cost per unit for storing items from one month to the next.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{reg\_quant}_{n} \): Quantity produced using regular production in month \( n \).
+    \item \( \text{over\_quant}_{n} \): Quantity produced using overtime production in month \( n \).
+    \item \( \text{store}_{n} \): Quantity stored at the end of month \( n \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\min \sum_{n=1}^{N} \left( \text{cost\_regular} \times \text{reg\_quant}_{n} + \text{cost\_overtime} \times \text{over\_quant}_{n} + \text{store\_cost} \times \text{store}_{n} \right)
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Demand satisfaction for each month \( n \):
+    \[
+    \text{reg\_quant}_{n} + \text{over\_quant}_{n} + \text{store}_{n-1} = \text{demand}_{n} + \text{store}_{n}, \quad n = 1, 2, \ldots, N
+    \]
+    where \( \text{store}_{0} = 0 \).
+
+    \item Regular production limit for each month \( n \):
+    \[
+    \text{reg\_quant}_{n} \leq \text{max\_regular\_amount}, \quad n = 1, 2, \ldots, N
+    \]
+
+    \item Non-negativity constraints:
+    \[
+    \text{reg\_quant}_{n} \geq 0, \quad \text{over\_quant}_{n} \geq 0, \quad \text{store}_{n} \geq 0, \quad n = 1, 2, \ldots, N
+    \]
+\end{itemize}
+
+\subsection*{Output}
+The solution will provide the optimal values for:
+\begin{itemize}
+    \item \( \text{reg\_quant}_{n} \), the regular production quantity for each month.
+    \item \( \text{over\_quant}_{n} \), the overtime production quantity for each month.
+\end{itemize}
+
+\end{document}

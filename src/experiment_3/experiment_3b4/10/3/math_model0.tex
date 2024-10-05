@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+\section*{Mathematical Model for Electricity Capacity Planning}
+
+\subsection*{Parameters}
+\begin{align*}
+T & : \text{Total number of years} \\
+\text{demand}_t & : \text{Electricity demand in year } t \\
+\text{oil}_t & : \text{Available oil-fired capacity in year } t \\
+\text{coal\_cost} & : \text{Cost per megawatt of coal-fired capacity} \\
+\text{nuke\_cost} & : \text{Cost per megawatt of nuclear capacity} \\
+\text{max\_nuke} & : \text{Maximum allowable percentage of nuclear capacity} \\
+\text{coal\_life} & : \text{Lifespan of coal plants in years} \\
+\text{nuke\_life} & : \text{Lifespan of nuclear plants in years}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+\text{coal\_added}_t & : \text{Coal capacity added at the beginning of year } t \\
+\text{nuke\_added}_t & : \text{Nuclear capacity added at the beginning of year } t
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost of capacity expansion:
+\[
+\text{Minimize } Z = \sum_{t=1}^{T} (\text{coal\_cost} \cdot \text{coal\_added}_t + \text{nuke\_cost} \cdot \text{nuke\_added}_t)
+\]
+
+\subsection*{Constraints}
+1. \textbf{Demand Satisfaction:}
+   \[
+   \forall t: \quad \text{oil}_t + \sum_{k=0}^{\text{min}(t-1,\text{coal\_life}-1)} \text{coal\_added}_{t-k} + \sum_{k=0}^{\text{min}(t-1,\text{nuke\_life}-1)} \text{nuke\_added}_{t-k} \geq \text{demand}_t
+   \]
+2. \textbf{Nuclear Capacity Limit:}
+   \[
+   \forall t: \quad \sum_{k=0}^{\text{min}(t-1,\text{nuke\_life}-1)} \text{nuke\_added}_{t-k} \leq \frac{\text{max\_nuke}}{100} \left( \text{oil}_t + \sum_{k=0}^{\text{min}(t-1,\text{coal\_life}-1)} \text{coal\_added}_{t-k} + \sum_{k=0}^{\text{min}(t-1,\text{nuke\_life}-1)} \text{nuke\_added}_{t-k} \right)
+   \]
+3. \textbf{Non-negativity:}
+   \[
+   \forall t: \quad \text{coal\_added}_t \geq 0, \quad \text{nuke\_added}_t \geq 0
+   \]
+
+\end{document}

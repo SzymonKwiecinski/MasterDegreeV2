@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+Given the problem description and the input format, we need to define a linear programming model to maximize the profit based on the constraints provided.
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item Let \( p \) be the index for parts, where \( p \in \{1, 2, ..., P\} \).
+    \item Let \( m \) be the index for machines, where \( m \in \{1, 2, ..., M\} \).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{time\_required}_{m,p} \): Time in hours required on machine \( m \) for 100 parts of type \( p \).
+    \item \( \text{machine\_costs}_{m} \): Cost per hour for using machine \( m \).
+    \item \( \text{availability}_{m} \): Available hours per month for machine \( m \) (ignoring for \( m=1 \)).
+    \item \( \text{prices}_{p} \): Price per batch (of 100 parts) of part \( p \).
+    \item \( \text{min\_batches}_{p} \): Minimum batches of part \( p \) required per month.
+    \item \( \text{standard\_cost} \): Standard labor cost per hour for machine 1.
+    \item \( \text{overtime\_cost} \): Overtime labor cost per hour for machine 1 after \( \text{overtime\_hour} \).
+    \item \( \text{overtime\_hour} \): Maximum regular working hours for machine 1.
+    \item \( \text{min\_profit} \): Minimum profit required.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{batches}_{p} \): Number of batches produced of part \( p \).
+    \item \( \text{overtime\_h} \): Overtime hours used on machine 1.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize } \text{Profit} = \sum_{p=1}^{P} (\text{prices}_{p} \times \text{batches}_{p}) - \sum_{m=1}^{M} \left(\sum_{p=1}^{P} \text{time\_required}_{m,p} \times \text{batches}_{p} \times \text{machine\_costs}_{m}\right) - C_1
+\]
+where
+\[ 
+C_1 = \text{standard\_cost} \times \min(T_1, \text{overtime\_hour}) + \text{overtime\_cost} \times \text{overtime\_h} 
+\]
+and
+\[ 
+T_1 = \sum_{p=1}^{P} (\text{time\_required}_{1,p} \times \text{batches}_{p})
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+& \text{Availability constraints for machines } m = 2, \ldots, M:\\
+& \sum_{p=1}^{P} (\text{time\_required}_{m,p} \times \text{batches}_{p}) \leq \text{availability}_{m}, \quad \forall m = 2, \ldots, M \\
+& \text{Minimum batches produced:}\\
+& \text{batches}_{p} \geq \text{min\_batches}_{p}, \quad \forall p = 1, \ldots, P \\
+& \text{Overtime condition for machine 1:}\\
+& \text{overtime\_h} = \max(0, T_1 - \text{overtime\_hour}) \\
+& \text{Profit constraint:}\\
+& \text{Profit} \geq \text{min\_profit}
+\end{align*}
+
+\end{document}

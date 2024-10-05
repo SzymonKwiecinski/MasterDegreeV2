@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+
+\textbf{Objective Function:}
+
+Minimize the total cost:
+\[
+\min \sum_{t=1}^{T} \sum_{k=1}^{K} \left( \text{runcost}_k \cdot x_{k,t} + \text{extracost}_k \cdot p_{k,t} + \text{startcost}_k \cdot y_{k,t} \right)
+\]
+
+\textbf{Constraints:}
+
+1. Meet demand for each period:
+\[
+\sum_{k=1}^{K} \left( x_{k,t} \cdot \text{minlevel}_k + p_{k,t} \right) \geq \text{demand}_t \quad \forall t
+\]
+
+2. Respect operational limits of generators:
+\[
+0 \leq p_{k,t} \leq (x_{k,t} \cdot \text{maxlevel}_k - x_{k,t} \cdot \text{minlevel}_k) \quad \forall k, \forall t
+\]
+
+3. Generator availability:
+\[
+0 \leq x_{k,t} \leq \text{num}_k \quad \forall k, \forall t
+\]
+
+4. Binary start-up constraint:
+\[
+x_{k,t} - x_{k,t-1} \leq y_{k,t} \quad \forall k, \forall t
+\]
+For \( t = 1 \), the start-up binary variable \( y_{k,1} \) should be interpreted based on initial conditions or assumed zero.
+
+\textbf{Decision Variables:}
+
+- \( x_{k,t} \in \mathbb{Z}^+ \) (non-negative integer)
+- \( p_{k,t} \geq 0 \)
+- \( y_{k,t} \in \{0, 1\} \)
+
+This model optimizes which generators should be operational and at what level, to minimize costs while satisfying demand and respecting generator constraints.
+
+\end{document}

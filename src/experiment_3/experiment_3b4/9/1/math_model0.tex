@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Decision Variables}
+Let \( x_j \) be the amount of good \( j \) to be produced, for \( j = 1, 2, \ldots, M \).
+
+\subsection*{Objective Function}
+We wish to maximize the total revenue from producing the goods, represented as:
+\[
+\text{Maximize } Z = \sum_{j=1}^{M} \text{price}_j \cdot x_j
+\]
+
+\subsection*{Constraints}
+The constraints are based on the availability of raw materials. For each raw material \( i \), the total amount used cannot exceed the available amount:
+\[
+\sum_{j=1}^{M} \text{req}_{i,j} \cdot x_j \leq \text{available}_i, \quad \text{for } i = 1, 2, \ldots, N
+\]
+
+\subsection*{Non-negativity Constraints}
+The amount of each good produced must be non-negative:
+\[
+x_j \geq 0, \quad \text{for } j = 1, 2, \ldots, M
+\]
+
+\end{document}

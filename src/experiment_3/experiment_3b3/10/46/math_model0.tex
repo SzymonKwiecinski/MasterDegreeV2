@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( alloy\_amount_{a,s} \) be the amount of alloy \( a \) used in steel type \( s \) (in tons).
+    \item Let \( total\_steel_{s} \) be the total amount of steel type \( s \) produced (in tons).
+    \item Let \( total\_profit \) be the total profit from selling all types of steel.
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } total\_profit = \sum_{s=1}^{S} (steel\_price_{s} \cdot total\_steel_{s}) - \sum_{a=1}^{A} (alloy\_price_{a} \cdot \sum_{s=1}^{S} alloy\_amount_{a,s})
+\]
+
+\textbf{Constraints:}
+
+1. Material availability constraints for each alloy:
+\[
+\sum_{s=1}^{S} alloy\_amount_{a,s} \leq available_{a} \quad \forall a = 1, \ldots, A
+\]
+
+2. Carbon composition constraints for each steel type:
+\[
+\frac{\sum_{a=1}^{A} carbon_{a} \cdot alloy\_amount_{a,s}}{total\_steel_{s}} \geq carbon\_min_{s} \quad \forall s = 1, \ldots, S
+\]
+
+3. Nickel composition constraints for each steel type:
+\[
+\frac{\sum_{a=1}^{A} nickel_{a} \cdot alloy\_amount_{a,s}}{total\_steel_{s}} \leq nickel\_max_{s} \quad \forall s = 1, \ldots, S
+\]
+
+4. Alloy type 1 restriction:
+\[
+\sum_{s=1}^{S} alloy\_amount_{1,s} \leq 0.4 \cdot total\_steel_{s} \quad \forall s = 1, \ldots, S
+\]
+
+5. Non-negativity constraints:
+\[
+alloy\_amount_{a,s} \geq 0 \quad \forall a = 1, \ldots, A, \forall s = 1, \ldots, S
+\]
+\[
+total\_steel_{s} \geq 0 \quad \forall s = 1, \ldots, S
+\]
+
+\end{document}

@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Decision Variables}
+
+\begin{align*}
+\text{recruit}_{k,i} & : \text{Number of recruits in manpower category } k \text{ for year } i. \\
+\text{overmanning}_{k,i} & : \text{Number of excess workers in manpower category } k \text{ for year } i. \\
+\text{short}_{k,i} & : \text{Number of workers on short-time working in manpower category } k \text{ for year } i. \\
+\text{redundancy}_{k,i} & : \text{Number of workers made redundant in manpower category } k \text{ for year } i.
+\end{align*}
+
+\subsection*{Objective}
+
+Minimize the total cost:
+
+\begin{align*}
+\min \sum_{k=1}^{K} \sum_{i=1}^{I} \left( 
+\text{costredundancy}_k \cdot \text{redundancy}_{k, i} 
++ \text{costoverman}_k \cdot \text{overmanning}_{k, i}
++ \text{costshort}_k \cdot \text{short}_{k, i}
+\right)
+\end{align*}
+
+\subsection*{Constraints}
+
+1. \textbf{Manpower Balance:}
+
+\begin{align*}
+\text{strength}_{k,i} = \text{strength}_{k} - (\text{moreonewaste}_k \cdot \text{strength}_{k}) + \text{recruit}_{k,i} - \text{redundancy}_{k,i}
++ \text{overmanning}_{k,i} + 0.5 \cdot \text{short}_{k,i} = \text{requirement}_{k,i} \quad \forall k, \forall i
+\end{align*}
+
+2. \textbf{Recruitment Limits:}
+
+\begin{align*}
+\text{recruit}_{k,i} \leq \text{recruit}_k \quad \forall k, \forall i
+\end{align*}
+
+3. \textbf{Overmanning Limit:}
+
+\begin{align*}
+\sum_{k=1}^{K} \sum_{i=1}^{I} \text{overmanning}_{k,i} \leq \text{num\_overman}
+\end{align*}
+
+4. \textbf{Short-time Working Limit:}
+
+\begin{align*}
+\text{short}_{k,i} \leq \text{num\_shortwork} \quad \forall k, \forall i
+\end{align*}
+
+5. \textbf{Non-negativity:}
+
+\begin{align*}
+\text{recruit}_{k,i}, \text{overmanning}_{k,i}, \text{short}_{k,i}, \text{redundancy}_{k,i} \geq 0 \quad \forall k, \forall i
+\end{align*}
+
+\end{document}

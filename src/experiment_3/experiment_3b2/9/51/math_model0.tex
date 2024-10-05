@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Custom Tees Advertising Campaign}
+
+\subsection*{Decision Variables}
+Let \(x_a\) be the number of clicks (in thousands) purchased for ad type \(a\), where \(a = 1, 2, \ldots, A\).
+
+\subsection*{Objective Function}
+Maximize the total number of unique clicks:
+\[
+\text{Maximize} \quad Z = \sum_{a=1}^{A} \text{unique\_click}_{a} \cdot x_a
+\]
+
+\subsection*{Constraints}
+1. \textbf{Age Group Click Goals:}
+   \[
+   \sum_{a=1}^{A} \text{young\_click}_{a} \cdot x_a \geq \text{goal\_young}
+   \]
+   \[
+   \sum_{a=1}^{A} \text{old\_click}_{a} \cdot x_a \geq \text{goal\_old}
+   \]
+
+2. \textbf{Unique Clicks Goals:}
+   \[
+   \sum_{a=1}^{A} \text{unique\_click}_{a} \cdot x_a \geq \text{goal\_unique\_young}
+   \]
+   \[
+   \sum_{a=1}^{A} \text{unique\_click}_{a} \cdot x_a \geq \text{goal\_unique\_old}
+   \]
+
+3. \textbf{Budget Constraint:}
+   \[
+   \sum_{a=1}^{A} \text{cost}_{a} \cdot x_a \leq \text{budget}
+   \]
+
+4. \textbf{Maximum Clicks Limit:}
+   \[
+   x_a \leq \text{max\_click}_{a} \quad \forall a = 1, 2, \ldots, A
+   \]
+
+5. \textbf{Non-negativity:}
+   \[
+   x_a \geq 0 \quad \forall a = 1, 2, \ldots, A
+   \]
+
+\subsection*{Output}
+The solution will provide the number of clicks purchased for each ad type \(x_a\) and the total number of unique clicks \(Z\).
+
+\end{document}

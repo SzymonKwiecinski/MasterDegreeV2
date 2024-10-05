@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Production Schedule Optimization}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( N \) be the number of months.
+    \item Let \( demand_n \) be the demand in month \( n \) for \( n = 1, 2, \ldots, N \).
+    \item Let \( max\_regular\_amount \) be the maximum units produced using regular production in any month.
+    \item Let \( cost\_regular \) be the cost of producing one unit using regular production.
+    \item Let \( cost\_overtime \) be the cost of producing one unit using overtime production.
+    \item Let \( store\_cost \) be the cost of storing one unit for one month.
+    \item Let \( reg\_quant_n \) be the quantity of products produced using regular production in month \( n \).
+    \item Let \( over\_quant_n \) be the quantity of products produced using overtime production in month \( n \).
+    \item Let \( inventory_n \) be the inventory at the end of month \( n \).
+\end{itemize}
+
+\subsection*{Constraints}
+\begin{align}
+    & reg\_quant_n + over\_quant_n + inventory_{n-1} = demand_n + inventory_n, \quad \forall n \in \{1, 2, \ldots, N\} \\
+    & reg\_quant_n \leq max\_regular\_amount, \quad \forall n \in \{1, 2, \ldots, N\} \\
+    & reg\_quant_n, over\_quant_n \geq 0, \quad \forall n \in \{1, 2, \ldots, N\} \\
+    & inventory_0 = 0 \text{ (initial inventory)}
+\end{align}
+
+\subsection*{Objective Function}
+\begin{align}
+    \text{Minimize } Z = \sum_{n=1}^{N} \left( cost\_regular \cdot reg\_quant_n + cost\_overtime \cdot over\_quant_n + store\_cost \cdot inventory_n \right)
+\end{align}
+
+\subsection*{Output}
+The output will consist of:
+\begin{itemize}
+    \item \( reg\_quant = [reg\_quant_1, reg\_quant_2, \ldots, reg\_quant_N] \)
+    \item \( over\_quant = [over\_quant_1, over\_quant_2, \ldots, over\_quant_N] \)
+\end{itemize}
+
+\end{document}

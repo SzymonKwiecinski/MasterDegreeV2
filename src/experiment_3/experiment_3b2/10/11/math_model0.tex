@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective Function:}
+
+\[
+\text{Minimize } \sum_{i=1}^{T} \left( \text{storage\_cost} \times I_i + \text{switch\_cost} \times |x_{i} - x_{i-1}| \right)
+\]
+
+\textbf{Subject to the Constraints:}
+
+1. Inventory Balance:
+   \[
+   I_i = I_{i-1} + x_i - \text{deliver}_i \quad \forall i = 1, \ldots, T
+   \]
+   \[
+   I_0 = 0
+   \]
+
+2. Non-negativity:
+   \[
+   x_i \geq 0 \quad \forall i = 1, \ldots, T
+   \]
+   \[
+   I_i \geq 0 \quad \forall i = 1, \ldots, T
+   \]
+
+\end{document}

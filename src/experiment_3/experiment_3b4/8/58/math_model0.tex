@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mixed Integer Programming Model:}
+
+\subsection*{Objective:}
+Maximize the total profit:
+\[
+\text{Maximize } \sum_{p=1}^{P} \left( \text{price}_{p} \cdot x_p \right) - \sum_{m=1}^{M} \left( \text{cost}_{m} \cdot \sum_{p=1}^{P} \left( \text{time}_{m,p} \cdot x_p + \delta_{m1} \cdot \text{setup\_time}_{p} \cdot y_p \right) \right)
+\]
+
+\subsection*{Subject to:}
+
+\textbf{Machine availability constraints:}
+\[
+\sum_{p=1}^{P} \left( \text{time}_{m,p} \cdot x_p + \delta_{m1} \cdot \text{setup\_time}_{p} \cdot y_p \right) \leq \text{available}_{m}, \quad \forall m = 1, \ldots, M
+\]
+
+\textbf{Setup flag constraint for machine 1:}
+\[
+y_p \leq x_p, \quad \forall p = 1, \ldots, P
+\]
+
+\textbf{Non-negativity and integrality:}
+\[
+x_p \geq 0 \text{ and integer}, \quad \forall p = 1, \ldots, P
+\]
+\[
+y_p \in \{0, 1\}, \quad \forall p = 1, \ldots, P
+\]
+
+\end{document}

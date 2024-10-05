@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Model for Translator Selection}
+
+\subsection*{Sets and Indices}
+\begin{align*}
+& \text{Let } N \text{ be the number of translators available.} \\
+& \text{Let } M \text{ be the number of required languages.} \\
+& \text{Let } T = \{1, 2, \ldots, N\} \text{ be the set of translators.} \\
+& \text{Let } L = \{1, 2, \ldots, M\} \text{ be the set of required languages.}
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+& \text{cost}_i: \text{ the cost of hiring translator } i, \quad \forall i \in T. \\
+& \text{lang}_{ij}: 
+  \begin{cases} 
+  1, & \text{if translator } i \text{ can translate language } j, \\
+  0, & \text{otherwise,} 
+  \end{cases} 
+  \quad \forall i \in T, \, \forall j \in L.
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+& x_i = 
+  \begin{cases} 
+  1, & \text{if translator } i \text{ is selected,} \\
+  0, & \text{otherwise,}
+  \end{cases} 
+  \quad \forall i \in T. 
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost of selected translators:
+\begin{align*}
+\min \sum_{i \in T} \text{cost}_i \cdot x_i
+\end{align*}
+
+\subsection*{Constraints}
+Ensure every required language is covered:
+\begin{align*}
+\sum_{i \in T} \text{lang}_{ij} \cdot x_i \geq 1, \quad \forall j \in L.
+\end{align*}
+
+\subsection*{Binary Constraints}
+\begin{align*}
+x_i \in \{0, 1\}, \quad \forall i \in T.
+\end{align*}
+
+\end{document}

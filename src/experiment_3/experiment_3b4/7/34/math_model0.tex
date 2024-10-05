@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+\[
+\text{Minimize} \quad Z = \sum_{k=1}^{K} \text{price}_k \cdot x_k
+\]
+
+\textbf{Subject to:}
+\[
+\sum_{k=1}^{K} \text{nutri}_{k, m} \cdot x_k \geq \text{demand}_m \quad \text{for all } m = 1, \ldots, M
+\]
+
+\[
+x_k \geq 0 \quad \text{for all } k = 1, \ldots, K
+\]
+
+where:
+\begin{align*}
+& x_k: \text{Quantity of food } k \text{ to purchase}, \\
+& \text{price}_k: \text{Price of food } k \text{ per unit}, \\
+& \text{nutri}_{k, m}: \text{Units of nutrient } m \text{ in food } k, \\
+& \text{demand}_m: \text{Minimum required units of nutrient } m.
+\end{align*}
+
+\end{document}

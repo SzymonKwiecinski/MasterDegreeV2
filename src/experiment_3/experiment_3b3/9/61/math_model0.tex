@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for MILP Problem}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item \( N \): Number of clusters, indexed by \( i \in \{1, \ldots, N\} \)
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{isolate\_central}_{i} \): Processing time to isolate cluster \( i \) using central processing
+    \item \( \text{scan\_central}_{i} \): Processing time to scan cluster \( i \) using central processing
+    \item \( \text{isolate\_distributed}_{i} \): Processing time to isolate cluster \( i \) using distributed processing
+    \item \( \text{scan\_distributed}_{i} \): Processing time to scan cluster \( i \) using distributed processing
+    \item \( \text{central\_cost} \): Opportunity cost for central processing per hour
+    \item \( \text{distributed\_cost} \): Opportunity cost for distributed processing per hour
+    \item \( \text{max\_central} \): Maximum hours allowed for central processing
+    \item \( \text{max\_distributed} \): Maximum hours allowed for distributed processing
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( y_{i} \in \{0, 1\} \): 1 if cluster \( i \) is intervened with, 0 otherwise
+    \item \( x_{i,j,k} \geq 0 \): Amount of time spent on intervention type \( j \) (where \( j \in \{\text{isolate, scan}\} \)) using method \( k \) (where \( k \in \{\text{central, distributed}\} \)) for cluster \( i \)
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} \left( \text{central\_cost} \cdot (x_{i,\text{isolate},\text{central}} + x_{i,\text{scan},\text{central}}) + \text{distributed\_cost} \cdot (x_{i,\text{isolate},\text{distributed}} + x_{i,\text{scan},\text{distributed}}) \right)
+\]
+
+\textbf{Constraints:}
+1. Time Constraints for Central Processing:
+\[
+\sum_{i=1}^{N} (x_{i,\text{isolate},\text{central}} + x_{i,\text{scan},\text{central}}) \leq \text{max\_central}
+\]
+
+2. Time Constraints for Distributed Processing:
+\[
+\sum_{i=1}^{N} (x_{i,\text{isolate},\text{distributed}} + x_{i,\text{scan},\text{distributed}}) \leq \text{max\_distributed}
+\]
+
+3. Ensure that only one intervention type is chosen per cluster:
+\[
+x_{i,\text{isolate},\text{central}} + x_{i,\text{scan},\text{central}} + x_{i,\text{isolate},\text{distributed}} + x_{i,\text{scan},\text{distributed}} \leq y_{i} \cdot (M)
+\]
+where \( M \) is a large constant.
+
+4. Processing time limits for each intervention type:
+\[
+x_{i,\text{isolate},\text{central}} \leq \text{isolate\_central}_{i} \cdot y_{i}
+\]
+\[
+x_{i,\text{scan},\text{central}} \leq \text{scan\_central}_{i} \cdot y_{i}
+\]
+\[
+x_{i,\text{isolate},\text{distributed}} \leq \text{isolate\_distributed}_{i} \cdot y_{i}
+\]
+\[
+x_{i,\text{scan},\text{distributed}} \leq \text{scan\_distributed}_{i} \cdot y_{i}
+\]
+
+\textbf{Output:}
+The output will provide details of the interventions selected for each cluster, including:
+\begin{itemize}
+    \item \text{cluster\_id}
+    \item \text{type} ($\text{isolate}$ or $\text{scan}$)
+    \item \text{method} ($\text{central}$ or $\text{distributed}$)
+    \item \text{amount} ($x_{i,j,k}$)
+\end{itemize}
+And the \text{total\_cost} will be computed from the objective function.
+
+\end{document}

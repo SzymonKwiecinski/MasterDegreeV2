@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Model for DEC Production Optimization}
+
+\textbf{Sets and Indices:}
+\begin{align*}
+    i & : \text{Index for computer systems,} \quad i = 1, \ldots, N.
+\end{align*}
+
+\textbf{Parameters:}
+\begin{align*}
+    \text{\texttt{price}}_i & : \text{Price of system } i. \\
+    \text{\texttt{disk\_drives}}_i & : \text{Average units of disk drives requested for system } i. \\
+    \text{\texttt{256K\_boards}}_i & : \text{Average units of 256K memory boards used by system } i. \\
+    \text{\texttt{max\_cpu}} & : \text{Maximum units of CPU available.} \\
+    \text{\texttt{min\_disk}}, \text{\texttt{max\_disk}} & : \text{Minimum and maximum units of disk drives available.} \\
+    \text{\texttt{min\_mem}}, \text{\texttt{max\_mem}} & : \text{Minimum and maximum units of 256K memory boards available.} \\
+    \text{\texttt{demand}}_i & : \text{Maximum demand for system } i. \\
+    \text{\texttt{demand\_GP}}, \text{\texttt{demand\_WS}} & : \text{Maximum demand for GP and WS systems.} \\
+    \text{\texttt{preorder}}_i & : \text{Pre-orders for system } i. \\
+    \text{\texttt{alt\_mem}} & : \text{Units of alternative memory boards available.} \\
+\end{align*}
+
+\textbf{Decision Variables:}
+\begin{align*}
+    x_i & : \text{Number of systems of type } i \text{ to produce (continuous).} \\
+    y_i & : \text{Number of 256K memory boards used by system } i. \\
+    z_i & : \text{Number of alternative memory boards used by system } i \text{ (binary)}.
+\end{align*}
+
+\textbf{Objective Function:}
+\[
+\max \sum_{i=1}^{N} \text{\texttt{price}}_i \cdot x_i
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+    & \sum_{i=1}^{N} x_i \leq \text{\texttt{max\_cpu}}, & \text{(CPU availability constraint)} \\
+    & \text{\texttt{min\_disk}} \leq \sum_{i=1}^{N} \text{\texttt{disk\_drives}}_i \cdot x_i \leq \text{\texttt{max\_disk}}, & \text{(Disk drives availability constraint)} \\
+    & \text{\texttt{min\_mem}} \leq \sum_{i=1}^{N} y_i \leq \text{\texttt{max\_mem}}, & \text{(256K memory availability constraint)} \\
+    & \sum_{i=1}^{N} z_i \leq \text{\texttt{alt\_mem}}, & \text{(Alternative memory boards availability constraint)} \\
+    & x_i \leq \text{\texttt{demand}}_i, & \forall i \quad \text{(Demand constraint)} \\
+    & \sum_{i \in \text{GP}} x_i \leq \text{\texttt{demand\_GP}}, & \text{(GP demand constraint)} \\
+    & \sum_{i \in \text{WS}} x_i \leq \text{\texttt{demand\_WS}}, & \text{(WS demand constraint)} \\
+    & x_i \geq \text{\texttt{preorder}}_i, & \forall i \quad \text{(Preorder constraint)} \\
+    & y_i = \text{\texttt{256K\_boards}}_i \cdot x_i, & \forall i \quad \text{(Memory usage constraint)} \\
+\end{align*}
+
+\textbf{Note:} The variable \( z_i \) should be binary if only certain systems can use alternative memory. The set \(\text{GP}\) and \(\text{WS}\) refer to systems that are general-purpose and workstations respectively, identified by the \text{\texttt{is\_workstation}} parameter.
+
+\end{document}

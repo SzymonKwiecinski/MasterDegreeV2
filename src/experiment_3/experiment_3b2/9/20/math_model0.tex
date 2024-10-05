@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Objective Function}
+
+Maximize:
+\[
+Z = \sum_{i=1}^{I} \sum_{k=1}^{K} (\text{profit}_k \cdot y_{k,i} - \text{store\_price} \cdot s_{k,i})
+\]
+
+\subsection*{Constraints}
+
+\begin{align*}
+\text{(1) Production Time Constraints:} \quad & \sum_{k=1}^{K} \text{time}_{k,m} \cdot x_{k,i} \leq (\text{num\_machines}[m] - \text{maintain}_{i,m}) \cdot \text{n\_workhours} \cdot 24, \\
+& \forall m = 1, \ldots, M, \ \forall i = 1, \ldots, I \\
+\text{(2) Market Limitations:} \quad & y_{k,i} \leq \text{limit}_{k,i}, \\
+& \forall k = 1, \ldots, K \ \forall i = 1, \ldots, I \\
+\text{(3) Storage Balance:} \quad & s_{k,i} = s_{k,i-1} + x_{k,i} - y_{k,i}, \\
+& s_{k,0} = 0, \ \forall k = 1, \ldots, K \ \forall i = 1, \ldots, I \\
+\text{(4) Storage Capacity:} \quad & s_{k,i} \leq 100, \\
+& \forall k = 1, \ldots, K \ \forall i = 1, \ldots, I \\
+\text{(5) End of Planning Requirement:} \quad & s_{k,I} = \text{keep\_quantity}, \\
+& \forall k = 1, \ldots, K
+\end{align*}
+
+\subsection*{Decision Variables}
+
+\begin{align*}
+x_{k,i} & : \text{units of product } k \text{ manufactured in month } i \\
+s_{k,i} & : \text{units of product } k \text{ stored at the end of month } i \\
+y_{k,i} & : \text{units of product } k \text{ sold in month } i
+\end{align*}
+
+\end{document}

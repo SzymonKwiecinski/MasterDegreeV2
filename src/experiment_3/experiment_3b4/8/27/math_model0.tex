@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Sets:}
+\begin{align*}
+    & K: \text{Set of departments, indexed by } k \\
+    & L: \text{Set of cities, indexed by } l
+\end{align*}
+
+\textbf{Parameters:}
+\begin{align*}
+    & \text{benefit}_{k, l}: \text{Benefit for department } k \text{ from relocating to city } l \text{ (in thousands of pounds)} \\
+    & \text{communication}_{k, j}: \text{Communication requirement between department } k \text{ and department } j \\
+    & \text{cost}_{l, m}: \text{Unit cost of communication between city } l \text{ and city } m
+\end{align*}
+
+\textbf{Decision Variables:}
+\begin{align*}
+    & \text{islocated}_{k, l} = 
+\begin{cases} 
+      1 & \text{if department } k \text{ is located in city } l \\
+      0 & \text{otherwise}
+   \end{cases}
+\end{align*}
+
+\textbf{Objective Function:}
+
+Minimize the overall yearly cost:
+\begin{align*}
+    \min \sum_{k=1}^{K} \sum_{l=1}^{L} \left( -\text{benefit}_{k, l} \times \text{islocated}_{k, l} \right) + \sum_{k=1}^{K} \sum_{j=1}^{K} \sum_{l=1}^{L} \sum_{m=1}^{L} \left( \text{communication}_{k, j} \times \text{cost}_{l, m} \times \text{islocated}_{k, l} \times \text{islocated}_{j, m} \right)
+\end{align*}
+
+\textbf{Subject to:}
+
+\begin{align*}
+    & \sum_{l=1}^{L} \text{islocated}_{k, l} = 1, \quad \forall k \in K \quad \text{(Each department is located in exactly one city)} \\
+    & \sum_{k=1}^{K} \text{islocated}_{k, l} \leq 3, \quad \forall l \in L \quad \text{(No city hosts more than 3 departments)} \\
+    & \text{islocated}_{k, l} \in \{0, 1\}, \quad \forall k \in K, \forall l \in L 
+\end{align*}
+
+\end{document}

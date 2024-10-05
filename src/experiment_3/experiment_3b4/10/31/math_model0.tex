@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Power Station Commitment}
+
+\subsection*{Sets and Indices}
+\begin{align*}
+    & t \in \{1, 2, \ldots, T\} \quad \text{Periods in the day} \\
+    & k \in \{1, 2, \ldots, K\} \quad \text{Types of generating units}
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+    & \text{demand}_{t} \quad \text{Electricity demand in period } t \\
+    & \text{num}_{k} \quad \text{Number of units of type } k \\
+    & \text{minlevel}_{k} \quad \text{Minimum level of operation for a type } k \text{ unit} \\
+    & \text{maxlevel}_{k} \quad \text{Maximum level of operation for a type } k \text{ unit} \\
+    & \text{runcost}_{k} \quad \text{Hourly cost of running a type } k \text{ unit at minimum level} \\
+    & \text{extracost}_{k} \quad \text{Extra hourly cost per MW above the minimum level for type } k \\
+    & \text{startcost}_{k} \quad \text{Cost of starting a type } k \text{ generator}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    & \text{numon}_{k,t} \quad \text{Number of type } k \text{ generators on in period } t\\
+    & \text{output}_{k,t} \quad \text{Output level of type } k \text{ generators in period } t\\
+    & \text{start}_{k,t} \in \{0,1\} \quad \text{Binary variable indicating if a type } k \text{ generator is started in period } t
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\begin{align*}
+    \min \sum_{t=1}^{T} \sum_{k=1}^{K} \left( \text{runcost}_{k} \cdot \text{numon}_{k,t} + \text{extracost}_{k} \cdot (\text{output}_{k,t} - \text{minlevel}_{k} \cdot \text{numon}_{k,t}) + \text{startcost}_{k} \cdot \text{start}_{k,t} \right)
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+    & \sum_{k=1}^{K} \text{output}_{k,t} \geq \text{demand}_{t} \quad \forall t \quad \text{(Meet demand in each period)} \\
+    & \text{minlevel}_{k} \cdot \text{numon}_{k,t} \leq \text{output}_{k,t} \leq \text{maxlevel}_{k} \cdot \text{numon}_{k,t} \quad \forall k, t \quad \text{(Generator output limits)} \\
+    & 0 \leq \text{numon}_{k,t} \leq \text{num}_{k} \quad \forall k, t \quad \text{(Maximum number of generators of type $k$)} \\
+    & \text{start}_{k,t} \geq \text{numon}_{k,t} - \text{numon}_{k,t-1} \quad \forall k, t \geq 2 \quad \text{(Start condition)}
+\end{align*}
+
+\end{document}

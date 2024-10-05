@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{MILP Formulation}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item $K$: Set of products, indexed by $k$.
+    \item $M$: Set of machines, indexed by $m$.
+    \item $I$: Set of months, indexed by $i$.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $num_m$: Number of machines of type $m$.
+    \item $profit_k$: Profit per unit of product $k$.
+    \item $time_{k,m}$: Time required on machine $m$ to produce one unit of product $k$.
+    \item $down_m$: Number of months machine $m$ is down for maintenance.
+    \item $limit_{k,i}$: Marketing limit for product $k$ in month $i$.
+    \item $store\_price$: Cost per unit per month for storing products.
+    \item $keep\_quantity$: Desired stock at the end of the planning horizon for each product type.
+    \item $n\_workhours$: Number of work hours per shift. (Total work hours per month = $n\_workhours \times 2 \times 6 \times 24$).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $sell_{k,i}$: Quantity of product $k$ sold in month $i$.
+    \item $manufacture_{k,i}$: Quantity of product $k$ manufactured in month $i$.
+    \item $storage_{k,i}$: Inventory level of product $k$ at the end of month $i$.
+    \item $maintain_{m,i}$: Number of machines of type $m$ under maintenance in month $i$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit over all months:
+\[
+\max \sum_{i=1}^{I} \sum_{k=1}^{K} \left( profit_k \times sell_{k,i} - store\_price \times storage_{k,i} \right)
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item \textbf{Manufacturing balance:}
+    \[
+    manufacture_{k,i} = sell_{k,i} + storage_{k,i} - storage_{k,i-1} \quad \text{for } k = 1, \ldots, K, \; i = 1, \ldots, I
+    \]
+    \item \textbf{Storage limits:}
+    \[
+    0 \leq storage_{k,i} \leq 100 \quad \text{for } k = 1, \ldots, K, \; i = 1, \ldots, I
+    \]
+    \item \textbf{End stock requirement:}
+    \[
+    storage_{k,I} \geq keep\_quantity \quad \text{for } k = 1, \ldots, K
+    \]
+    \item \textbf{Machine time constraints:}
+    \[
+    \sum_{k=1}^{K} time_{k,m} \times manufacture_{k,i} \leq \left( num_m - maintain_{m,i} \right) \times n\_workhours \times 2 \times 6 \times 24 \quad \text{for } m = 1, \ldots, M, \; i = 1, \ldots, I
+    \]
+    \item \textbf{Maintenance constraints:}
+    \[
+    \sum_{i=1}^{I} maintain_{m,i} = down_m \quad \text{for } m = 1, \ldots, M
+    \]
+    \item \textbf{Selling limits:}
+    \[
+    sell_{k,i} \leq limit_{k,i} \quad \text{for } k = 1, \ldots, K, \; i = 1, \ldots, I
+    \]
+    \item \textbf{Non-negativity and integrality:}
+    \[
+    manufacture_{k,i}, sell_{k,i}, storage_{k,i}, maintain_{m,i} \geq 0
+    \]
+    \[
+    maintain_{m,i} \text{ is integer}
+    \]
+\end{itemize}
+
+\end{document}

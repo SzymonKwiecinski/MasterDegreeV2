@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Problem Formulation}
+
+Given a set of corresponding values for quantities \( x \) and \( y \):
+
+\[
+y = [y_{k} \text{ for } k = 1,\ldots,K], \quad x = [x_{k} \text{ for } k = 1,\ldots,K]
+\]
+
+We want to fit a quadratic curve of the form:
+
+\[
+y = c x^2 + b x + a
+\]
+
+where \( c \) is the coefficient of the quadratic term, \( b \) is the coefficient of the linear term, and \( a \) is the constant term.
+
+\subsection*{Objective Function}
+
+The objective is to minimize the sum of absolute deviations between the observed values of \( y \) and the predicted values given by the quadratic relationship:
+
+\[
+\min \sum_{k=1}^{K} |y_{k} - (c x_{k}^2 + b x_{k} + a)|
+\]
+
+\subsection*{Variables}
+
+We define the decision variables as follows:
+
+\begin{align*}
+c & : \text{Coefficient of the quadratic term} \\
+b & : \text{Coefficient of the linear term} \\
+a & : \text{Constant term}
+\end{align*}
+
+\subsection*{Output}
+
+The output of the model will be in the format:
+
+\[
+\{ 
+\text{"quadratic": } c, \quad 
+\text{"linear": } b, \quad 
+\text{"constant": } a 
+\}
+\]
+
+\end{document}

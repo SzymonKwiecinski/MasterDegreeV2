@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Problem Parameters}
+
+\begin{itemize}
+    \item $T$: Total number of months.
+    \item $d_i$: Number of units to deliver at the end of the $i$-th month, for $i = 1, \ldots, T$.
+    \item $c_s$: Storage cost per unit per month.
+    \item $c_{\text{switch}}$: Cost per unit change in production level.
+\end{itemize}
+
+\subsection*{Decision Variables}
+
+\begin{itemize}
+    \item $x_i$: Number of units produced in month $i$, for $i = 1, \ldots, T$.
+    \item $I_i$: Inventory level at the end of month $i$, for $i = 1, \ldots, T$.
+    \item $z_i$: Absolute change in production between month $i$ and month $i+1$, $z_i = |x_{i+1} - x_i|$, for $i = 1, \ldots, T-1$.
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Minimize the total cost:
+\[
+\min \sum_{i=1}^{T} c_s \cdot I_i + \sum_{i=1}^{T-1} c_{\text{switch}} \cdot z_i
+\]
+
+\subsection*{Constraints}
+
+\begin{align}
+    & \text{(Inventory Balance)} \notag \\
+    & I_0 = 0 \\
+    & x_i + I_{i-1} = d_i + I_i \quad \forall i = 1, \ldots, T \\    
+    & \text{(Production Switch Adjustment)} \notag \\
+    & z_i \geq x_{i+1} - x_i \quad \forall i = 1, \ldots, T-1 \\
+    & z_i \geq x_i - x_{i+1} \quad \forall i = 1, \ldots, T-1 \\
+    & \text{(Non-negativity)} \notag \\
+    & x_i \geq 0, \ I_i \geq 0, \ z_i \geq 0 \quad \forall i
+\end{align}
+
+This linear program will yield the optimal production levels $x_i$ for each month $i$, such that the total cost of production, inventory holding, and production level switching is minimized.
+
+\end{document}

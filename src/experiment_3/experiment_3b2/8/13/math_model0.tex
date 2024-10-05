@@ -1,0 +1,26 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+We aim to find the Chebychev center of the set \( P \) defined by the linear inequalities. The linear programming formulation is:
+
+\[
+\begin{align*}
+\text{maximize} \quad & r \\
+\text{subject to} \quad & \mathbf{a}_i^T \mathbf{y} + \|\mathbf{a}_i\| r \leq b_i, \quad \forall i = 1, \ldots, m \\
+& \mathbf{y} \in \mathbb{R}^N, \\
+& r \geq 0.
+\end{align*}
+\]
+
+Here, \( \|\mathbf{a}_i\| \) is the Euclidean norm of the vector \( \mathbf{a}_i \), defined as:
+
+\[
+\|\mathbf{a}_i\| = \sqrt{\sum_{j=1}^{N} a_{ij}^2}
+\]
+
+This LP will give us the center \( \mathbf{y} \) and the maximum possible radius \( r \) for which a ball is entirely contained within \( P \).
+
+\end{document}

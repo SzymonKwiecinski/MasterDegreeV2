@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Mixed-Integer Programming Model for Power Station Scheduling}
+\date{}
+\maketitle
+
+\section*{Decision Variables}
+\begin{align*}
+    & y_{k,t} \in \{0, 1\} && \text{1 if type \( k \) generator is started in period \( t \), 0 otherwise} \\
+    & numon_{k,t} \in \mathbb{Z}^+ && \text{Number of type \( k \) generators on in period \( t \)} \\
+    & level_{k,t} \geq 0 && \text{Total output above minimum for type \( k \) generators in period \( t \)}
+\end{align*}
+
+\section*{Objective Function}
+Minimize the total cost:
+\begin{align*}
+    \min \sum_{t=1}^{T} \sum_{k=1}^{K} \Bigg( numon_{k,t} \cdot runcost_k + level_{k,t} \cdot extracost_k + y_{k,t} \cdot startcost_k \Bigg)
+\end{align*}
+
+\section*{Constraints}
+\subsection*{Demand Fulfillment}
+\begin{align*}
+    \sum_{k=1}^{K} \left( numon_{k,t} \cdot minlevel_k + level_{k,t} \right) \geq demand_t, \quad \forall t = 1, \ldots, T
+\end{align*}
+
+\subsection*{Generator Limits}
+\begin{align*}
+    0 \leq numon_{k,t} \leq num_k, \quad \forall k = 1, \ldots, K, \forall t = 1, \ldots, T
+\end{align*}
+
+\subsection*{Output Level Constraints}
+\begin{align*}
+    0 \leq level_{k,t} \leq (maxlevel_k - minlevel_k) \cdot numon_{k,t}, \quad \forall k = 1, \ldots, K, \forall t = 1, \ldots, T
+\end{align*}
+
+\subsection*{Start-up Constraints}
+\begin{align*}
+    numon_{k,t} \leq numon_{k,t-1} + y_{k,t} \cdot num_k, \quad \forall k = 1, \ldots, K, \forall t = 2, \ldots, T
+\end{align*}
+
+\subsection*{Initial Condition}
+\begin{align*}
+    numon_{k,1} \leq y_{k,1} \cdot num_k, \quad \forall k = 1, \ldots, K
+\end{align*}
+
+\section*{Variable Domains}
+\begin{align*}
+    & y_{k,t} \in \{0, 1\}, \quad numon_{k,t} \in \mathbb{Z}^+, \quad level_{k,t} \geq 0
+\end{align*}
+
+\end{document}

@@ -1,0 +1,20 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+\begin{align*}
+\text{Minimize} \quad & \sum_{i=1}^{I} \sum_{j=1}^{J} \frac{x_{i, j}}{2} \times \text{distance}_{i, j} \times \text{price}
+\end{align*}
+
+\textbf{Subject to:}
+
+\begin{align*}
+& \sum_{j=1}^{J} x_{i, j} \leq \text{numdepot}_i, \quad \forall i = 1, \ldots, I \\
+& \sum_{i=1}^{I} x_{i, j} \geq \text{numport}_j, \quad \forall j = 1, \ldots, J \\
+& x_{i, j} \geq 0, \quad \forall i = 1, \ldots, I, \, j = 1, \ldots, J \\
+& x_{i, j} \text{ must be an even integer}, \quad \forall i = 1, \ldots, I, \, j = 1, \ldots, J
+\end{align*}
+
+\end{document}

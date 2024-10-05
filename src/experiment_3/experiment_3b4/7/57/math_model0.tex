@@ -1,0 +1,73 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Seaport Operations}
+
+\subsection*{Parameters:}
+
+\begin{align*}
+& \text{demands}[t] & \text{- Demand for containers in month $ t $.} \\
+& \text{unload\_costs}[t] & \text{- Cost to unload a single container in month $ t $.} \\
+& \text{unload\_capacity}[t] & \text{- Maximum containers that can be unloaded in month $ t $.} \\
+& \text{holding\_cost} & \text{- Cost to hold a container in the yard for one month.} \\
+& \text{max\_container} & \text{- Maximum containers that can be stored in the yard at any time.} \\
+& \text{init\_container} & \text{- Initial containers in the yard at the start.} \\
+& \text{num\_cranes} & \text{- Maximum cranes that can be rented per month.} \\
+& \text{crane\_capacity} & \text{- Number of containers that one crane can load onto ships.} \\
+& \text{crane\_cost} & \text{- Cost of renting one crane.}
+\end{align*}
+
+\subsection*{Decision Variables:}
+
+\begin{align*}
+& x_t & \text{- Number of containers unloaded in month $ t $.} \\
+& y_t & \text{- Number of containers stored in the yard at the end of month $ t $.} \\
+& z_t & \text{- Number of cranes rented in month $ t $.}
+\end{align*}
+
+\subsection*{Objective:}
+
+Minimize the total cost:
+\[
+\min \sum_{t=1}^{T} \left( \text{unload\_costs}[t] \cdot x_t + \text{holding\_cost} \cdot y_t + \text{crane\_cost} \cdot z_t \right)
+\]
+
+\subsection*{Constraints:}
+
+Flow balance:
+\[
+y_t = y_{t-1} + x_t - \text{demands}[t], \quad \forall t
+\]
+
+Initial condition:
+\[
+y_0 = \text{init\_container}
+\]
+
+Final condition:
+\[
+y_T = 0
+\]
+
+Unloading capacity:
+\[
+0 \leq x_t \leq \text{unload\_capacity}[t], \quad \forall t
+\]
+
+Yard capacity:
+\[
+0 \leq y_t \leq \text{max\_container}, \quad \forall t
+\]
+
+Cranes constraint:
+\[
+z_t \times \text{crane\_capacity} \geq \text{demands}[t], \quad \forall t
+\]
+
+Crane capacity limit:
+\[
+0 \leq z_t \leq \text{num\_cranes}, \quad \forall t
+\]
+
+\end{document}

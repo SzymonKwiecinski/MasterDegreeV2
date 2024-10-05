@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Steel Manufacturing}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( n_{\text{steel\_quant}} \) = tons of steel required
+    \item Let \( mn_{\text{percent}} \) = minimum percentage of Manganese (Mn)
+    \item Let \( si_{\text{min}} \) = minimum percentage of Silicon (Si)
+    \item Let \( si_{\text{max}} \) = maximum percentage of Silicon (Si)
+    \item Let \( K \) = number of minerals available
+    \item Let \( cont_{\text{si}}^{(k)} \) = percentage of Silicon in mineral \( k \)
+    \item Let \( cont_{\text{mn}}^{(k)} \) = percentage of Manganese in mineral \( k \)
+    \item Let \( mang_{\text{price}} \) = price of Manganese per ton (million euros)
+    \item Let \( cost^{(k)} \) = cost of mineral \( k \) per thousand tons (million euros)
+    \item Let \( sell_{\text{price}} \) = selling price of steel per ton (million euros)
+    \item Let \( melt_{\text{price}} \) = cost of melting a ton of mineral (million euros)
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( amount^{(k)} \) = amount of mineral \( k \) melted (in tons)
+    \item Let \( num_{\text{mang}} \) = amount of Manganese directly added (in tons)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize profit:
+\[
+\text{Profit} = (sell_{\text{price}} \cdot n_{\text{steel\_quant}}) - \left( \sum_{k=1}^{K} \left( \frac{cost^{(k)}}{1000} \cdot amount^{(k)} + melt_{\text{price}} \cdot amount^{(k)} \right) + mang_{\text{price}} \cdot num_{\text{mang}} \right)
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    & \sum_{k=1}^{K} cont_{\text{si}}^{(k)} \cdot amount^{(k)} + \frac{num_{\text{mang}}}{n_{\text{steel\_quant}}} \geq mn_{\text{percent}} \cdot n_{\text{steel\_quant}} \tag{Mn requirement} \\
+    & si_{\text{min}} \leq \sum_{k=1}^{K} cont_{\text{si}}^{(k)} \cdot amount^{(k)} \leq si_{\text{max}} \tag{Si requirement} \\
+    & amount^{(k)} \geq 0 \quad \forall k \in \{1, \ldots, K\} \tag{Non-negativity} \\
+    & num_{\text{mang}} \geq 0 \tag{Non-negativity for manganese}
+\end{align}
+
+\end{document}

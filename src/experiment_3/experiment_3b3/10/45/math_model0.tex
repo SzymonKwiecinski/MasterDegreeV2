@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item Let \( x_a \) be the number of clicks purchased for ad type \( a \) (in thousands), where \( a = 1, \ldots, A \).
+\end{itemize}
+
+\textbf{Objective:} Minimize the total cost of the ad campaign.
+\[
+\text{Minimize } Z = \sum_{a=1}^{A} \text{cost}_a \cdot x_a
+\]
+
+\textbf{Subject to:}
+
+\textbf{Constraints for total clicks from young visitors:}
+\[
+\sum_{a=1}^{A} \text{young\_click}_{a} \cdot x_a \geq \text{goal\_young}
+\]
+
+\textbf{Constraints for total clicks from old visitors:}
+\[
+\sum_{a=1}^{A} \text{old\_click}_{a} \cdot x_a \geq \text{goal\_old}
+\]
+
+\textbf{Constraints for unique clicks from young visitors:}
+\[
+\sum_{a=1}^{A} \text{unique\_click}_{a} \cdot x_a \geq \text{goal\_unique\_young}
+\]
+
+\textbf{Constraints for unique clicks from old visitors:}
+\[
+\sum_{a=1}^{A} \text{unique\_click}_{a} \cdot x_a \geq \text{goal\_unique\_old}
+\]
+
+\textbf{Constraints for maximum allowable clicks:}
+\[
+x_a \leq \text{max\_click}_{a}, \quad \forall a = 1, \ldots, A
+\]
+
+\textbf{Non-negativity constraints:}
+\[
+x_a \geq 0, \quad \forall a = 1, \ldots, A
+\]
+
+\textbf{Output:}
+\begin{itemize}
+    \item The solution provides the number of clicks purchased for each ad type \( x_a \) and the total cost \( Z \).
+\end{itemize}
+
+\end{document}

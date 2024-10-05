@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Intrusion Response Optimization}
+
+We formulate the problem as a Mixed-Integer Linear Programming (MILP) model to determine the most cost-effective combination of interventions to halt the intruder's progress within the network.
+
+\subsection*{Sets and Indices}
+\begin{align*}
+N & : \text{Number of clusters, indexed by } i. \\
+I & : \text{Set of intervention types, i.e., } \{ \text{isolate, scan} \}. \\
+M & : \text{Set of methods, i.e., } \{ \text{central, distributed} \}.
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+t_{i, m}^{\text{isolate}} & : \text{Processing time to isolate cluster } i \text{ using method } m. \\
+t_{i, m}^{\text{scan}} & : \text{Processing time to scan cluster } i \text{ using method } m. \\
+c_m & : \text{Opportunity cost per hour for method } m. \\
+\text{max\_hours}_m & : \text{Maximum hours available for method } m.
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+x_{i, m}^{\text{isolate}} & : \text{Binary variable indicating if cluster } i \text{ is isolated using method } m. \\
+x_{i, m}^{\text{scan}} & : \text{Binary variable indicating if cluster } i \text{ is scanned using method } m.
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost of interventions:
+\begin{align*}
+\text{minimize } \quad & \sum_{i=1}^{N} \sum_{m \in M} \left( c_m \cdot \left( t_{i, m}^{\text{isolate}} \cdot x_{i, m}^{\text{isolate}} + t_{i, m}^{\text{scan}} \cdot x_{i, m}^{\text{scan}} \right) \right)
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align}
+\sum_{m \in M} x_{i, m}^{\text{isolate}} + x_{i, m}^{\text{scan}} &= 1, \quad \forall i = 1, \ldots, N, & \text{(Each cluster must have one intervention)} \\
+\sum_{i=1}^{N} \left( t_{i, m}^{\text{isolate}} \cdot x_{i, m}^{\text{isolate}} + t_{i, m}^{\text{scan}} \cdot x_{i, m}^{\text{scan}} \right) &\leq \text{max\_hours}_m, \quad \forall m \in M, & \text{(Hours constraint for each method)} \\
+x_{i, m}^{\text{isolate}}, x_{i, m}^{\text{scan}} &\in \{0, 1\}, \quad \forall i = 1, \ldots, N, \forall m \in M.
+\end{align}
+
+This MILP model ensures that we select the intervention strategy for each cluster that minimizes costs while adhering to time constraints for central and distributed processing.
+
+\end{document}

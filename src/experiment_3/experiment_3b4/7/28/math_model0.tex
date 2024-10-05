@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Best Fit Line}
+
+Given data points \( (x_k, y_k) \) for \( k = 1, \ldots, K \), we aim to fit a straight line \( y = bx + a \) that minimizes the sum of absolute deviations. The problem can be formulated as follows:
+
+\subsection*{Decision Variables}
+\begin{align*}
+a & \quad \text{(intercept of the line)} \\
+b & \quad \text{(slope of the line)} \\
+d_k^+, d_k^- & \quad \text{(positive and negative deviations for each data point \( k \))}
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the sum of absolute deviations:
+\[
+\min \sum_{k=1}^{K} (d_k^+ + d_k^-)
+\]
+
+\subsection*{Constraints}
+For each data point \( k \):
+\begin{align*}
+x_k b + a + d_k^+ & \geq y_k \\
+x_k b + a - d_k^- & \leq y_k \\
+d_k^+, d_k^- & \geq 0
+\end{align*}
+
+\subsection*{Variables Bounds}
+\begin{align*}
+d_k^+, d_k^- & \geq 0 \quad \text{(non-negativity constraints for deviations)}
+\end{align*}
+
+\end{document}

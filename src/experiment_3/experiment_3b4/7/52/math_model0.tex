@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Decision Variables:}
+
+Let \( \text{send}_{p,c} \) be the amount of electricity (in million kwh) that power plant \( p \) sends to city \( c \).
+
+\textbf{Objective Function:}
+
+Minimize the total transmission cost:
+\[
+\text{Minimize} \quad \sum_{p=1}^{P} \sum_{c=1}^{C} \text{transmission}_{p,c} \cdot \text{send}_{p,c}
+\]
+
+\textbf{Constraints:}
+
+1. Supply Constraints: Each power plant \( p \) can supply up to its capacity.
+\[
+\sum_{c=1}^{C} \text{send}_{p,c} \leq \text{supply}_{p} \quad \text{for } p = 1, 2, \ldots, P
+\]
+
+2. Demand Constraints: Each city \( c \) must receive its peak demand.
+\[
+\sum_{p=1}^{P} \text{send}_{p,c} = \text{demand}_{c} \quad \text{for } c = 1, 2, \ldots, C
+\]
+
+3. Non-negativity Constraints: Amount of electricity sent must be non-negative.
+\[
+\text{send}_{p,c} \geq 0 \quad \text{for all } p \text{ and } c
+\]
+
+\textbf{Objective:}
+- Determine the values of \( \text{send}_{p,c} \) that minimize the total transmission cost.
+- Calculate the total transmission cost:
+\[
+\text{total\_cost} = \sum_{p=1}^{P} \sum_{c=1}^{C} \text{transmission}_{p,c} \cdot \text{send}_{p,c}
+\]
+
+\end{document}

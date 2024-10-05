@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Company's Problem}
+
+Define the decision variables:
+\begin{align*}
+    x_i & \text{ : number of units of product type } i \text{ produced, for } i = 1, 2, \ldots, N \\
+    z   & \text{ : number of hours of overtime assembly labor scheduled}
+\end{align*}
+
+The objective is to maximize the daily profit, given by:
+\[
+\text{Maximize } \sum_{i=1}^{N} \left( \text{price}_i \cdot x_i - \text{materialCost}_i \cdot x_i \right) - \text{overtimeAssemblyCost} \cdot z
+\]
+
+Subject to the constraints:
+\begin{align*}
+    &\text{Assembly Labor Constraint:} \\
+    & \sum_{i=1}^{N} \text{assemblyHour}_i \cdot x_i \leq \text{maxAssembly} + z \\
+    &z \leq \text{maxOvertimeAssembly} \\
+    &\text{Testing Constraint:} \\
+    & \sum_{i=1}^{N} \text{testingHour}_i \cdot x_i \leq \text{maxTesting} \\
+    &\text{Raw Material Discount Constraint (Only for Total Cost Calculation):} \\
+    &\text{If } \sum_{i=1}^{N} \text{materialCost}_i \cdot x_i > \text{discountThreshold}, \\
+    &\quad \text{apply discount}: \sum_{i=1}^{N} \text{materialCost}_i \cdot x_i \cdot \left(1 - \frac{\text{materialDiscount}}{100}\right) \\
+    &\text{Non-negativity Constraints:} \\
+    & x_i \geq 0 \quad \text{and integer, for all } i = 1, 2, \ldots, N \\
+    & z \geq 0 \quad \text{and integer}
+\end{align*}
+
+\end{document}

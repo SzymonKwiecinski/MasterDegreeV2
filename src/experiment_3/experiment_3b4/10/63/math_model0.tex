@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Formulation for Paper Cutting Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( M \): Number of different types of smaller rolls
+    \item \( N \): Number of different cutting patterns available
+    \item \( \text{large\_roll\_width} \): Width of the large roll
+    \item \( \text{inch}_j \): Width of the smaller roll type \( j \)
+    \item \( \text{demand}_j \): Demand for rolls of width \( \text{inch}_j \)
+    \item \( \text{pattern}_{i,j} \): Number of rolls of width \( \text{inch}_j \) in pattern \( i \)
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_i \): Number of times pattern \( i \) is used
+\end{itemize}
+
+\subsection*{Objective}
+\[
+\text{Minimize} \quad \sum_{i=1}^{N} x_i
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item \textbf{Demand Satisfaction:} For each roll type \( j \):
+    \[
+    \sum_{i=1}^{N} \text{pattern}_{i,j} \cdot x_i \geq \text{demand}_j, \quad \forall j = 1, \ldots, M
+    \]
+    \item \textbf{Non-negativity and Integer:}
+    \[
+    x_i \geq 0 \quad \text{and} \quad x_i \in \mathbb{Z}, \quad \forall i = 1, \ldots, N
+    \]
+\end{itemize}
+
+\end{document}

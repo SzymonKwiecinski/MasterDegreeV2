@@ -1,0 +1,75 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Warehouse Operations Optimization Model}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Formulation}
+
+Let:
+\begin{itemize}
+    \item $N$: Total number of time periods.
+    \item $capacity$: Maximum storage capacity of the warehouse.
+    \item $holding\_cost$: Cost of holding one unit of stock for one period.
+    \item $price_n$: Selling price of the commodity in period $n$ ($n = 1, \ldots, N$).
+    \item $cost_n$: Purchase cost of the commodity in period $n$ ($n = 1, \ldots, N$).
+    \item $buyquantity_n$: Amount of commodity bought in period $n$ ($n = 1, \ldots, N$).
+    \item $sellquantity_n$: Amount of commodity sold in period $n$ ($n = 1, \ldots, N$).
+    \item $stock_n$: Amount of stock in the warehouse at the end of period $n$ ($n = 1, \ldots, N$).
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Maximize total profit over the periods:
+
+\[
+\text{Maximize } Z = \sum_{n=1}^{N} \left( price_n \cdot sellquantity_n - cost_n \cdot buyquantity_n - holding\_cost \cdot stock_n \right)
+\]
+
+\subsection*{Constraints}
+
+1. Stock balance for each period:
+\[
+stock_n = stock_{n-1} + buyquantity_n - sellquantity_n \quad (n = 1, \ldots, N)
+\]
+
+2. Capacity constraint:
+\[
+stock_n \leq capacity \quad (n = 1, \ldots, N)
+\]
+
+3. Non-negativity constraints:
+\[
+buyquantity_n \geq 0, \quad sellquantity_n \geq 0, \quad stock_n \geq 0 \quad (n = 1, \ldots, N)
+\]
+
+4. Initial and final stock conditions:
+\[
+stock_0 = 0 \quad \text{and} \quad stock_N = 0
+\]
+
+\subsection*{Input Format}
+The optimization problem is defined with the following parameters:
+\begin{verbatim}
+{
+	"capacity": capacity,
+	"holding_cost": holding_cost,
+	"price": [price_{n} for n in 1,...,N],
+	"cost": [cost_{n} for n in 1,...,N]
+}
+\end{verbatim}
+
+\subsection*{Output Format}
+The solution will yield:
+\begin{verbatim}
+{
+	"buyquantity": [buyquantity_{n} for n in 1,...,N],
+	"sellquantity": [sellquantity_{n} for n in 1,...,N],
+	"stock": [stock_{n} for n in 1,...,N]
+}
+\end{verbatim}
+
+\end{document}

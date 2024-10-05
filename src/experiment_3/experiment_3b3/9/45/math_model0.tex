@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Custom Tees Advertising Campaign}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $A$: Number of different ad types
+    \item $goal\_young$: Goal of clicks from visitors aged 18-25 (in thousands)
+    \item $goal\_old$: Goal of clicks from visitors older than 25 (in thousands)
+    \item $goal\_unique\_young$: Goal of unique clicks from visitors aged 18-25 (in thousands)
+    \item $goal\_unique\_old$: Goal of unique clicks from visitors older than 25 (in thousands)
+    \item $young\_click_{a}$: Estimated percentage of clicks from the 18-25 age range for ad type $a$
+    \item $old\_click_{a}$: Estimated percentage of clicks from older visitors for ad type $a$
+    \item $cost_{a}$: Cost per 1000 clicks for ad type $a$
+    \item $max\_click_{a}$: Maximum allowable clicks for ad type $a$ (in thousands)
+    \item $unique\_click_{a}$: Estimated percentage of unique visitors for ad type $a$
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $clicks_{a}$: Number of clicks purchased for ad type $a$ (in thousands)
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+\text{Minimize } & Z = \sum_{a=1}^{A} cost_{a} \cdot clicks_{a}
+\end{align*}
+
+\textbf{Subject to:}
+\begin{align*}
+\sum_{a=1}^{A} young\_click_{a} \cdot clicks_{a} & \geq goal\_young \quad \text{(Goal for young clicks)} \\
+\sum_{a=1}^{A} old\_click_{a} \cdot clicks_{a} & \geq goal\_old \quad \text{(Goal for old clicks)} \\
+\sum_{a=1}^{A} unique\_click_{a} \cdot clicks_{a} & \geq goal\_unique\_young \quad \text{(Goal for unique young clicks)} \\
+\sum_{a=1}^{A} unique\_click_{a} \cdot clicks_{a} & \geq goal\_unique\_old \quad \text{(Goal for unique old clicks)} \\
+clicks_{a} & \leq max\_click_{a} \quad \forall a = 1, \ldots, A \quad \text{(Maximum allowable clicks)} \\
+clicks_{a} & \geq 0 \quad \forall a = 1, \ldots, A \quad \text{(Non-negativity constraint)}
+\end{align*}
+
+\textbf{Output:}
+\begin{itemize}
+    \item $clicks$: Array of number of clicks purchased for each ad type $a$, $[clicks_{1}, clicks_{2}, \ldots, clicks_{A}]$
+    \item $total\_cost$: Total cost of the ad campaign, $total\_cost = Z$
+\end{itemize}
+
+\end{document}

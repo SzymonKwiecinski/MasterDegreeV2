@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Problem Description}
+
+The investor wants to decide how many shares of stock \(i\) to sell (\( \text{sell}_i \)) in order to raise a specified net amount of money \(K\), net of capital gains taxes and transaction costs. The goal is to maximize the expected value of the portfolio at the end of the year.
+
+\section*{Mathematical Model}
+
+Let:
+\begin{itemize}
+    \item \(N\) be the number of different stocks.
+    \item \(\text{bought}_i\) be the number of shares bought of stock \(i\).
+    \item \(\text{buyPrice}_i\) be the price at which stock \(i\) was bought.
+    \item \(\text{currentPrice}_i\) be the current price of stock \(i\).
+    \item \(\text{futurePrice}_i\) be the expected price of stock \(i\) in one year.
+    \item \(\text{transactionRate}\) be the transaction cost rate (as a percentage).
+    \item \(\text{taxRate}\) be the tax rate on capital gains (as a percentage).
+    \item \(K\) be the amount of money the investor wants to raise net of costs.
+\end{itemize}
+
+We introduce the variables:
+\begin{itemize}
+    \item \(\text{sell}_i\) is the number of shares of stock \(i\) to sell.
+\end{itemize}
+
+The goal is to choose \(\text{sell}_i\) to maximize the expected value of the portfolio at the end of the year, which is given by:
+\[ 
+\text{max} \sum_{i=1}^{N} \left( \text{bought}_i - \text{sell}_i \right) \cdot \text{futurePrice}_i 
+\]
+
+Subject to the following constraints:
+\begin{align*}
+    &\sum_{i=1}^{N} \bigg[ \text{sell}_i \cdot \text{currentPrice}_i - \left( \frac{\text{taxRate}}{100} \cdot \max(0, \left( \text{sell}_i \cdot \text{currentPrice}_i - \text{sell}_i \cdot \text{buyPrice}_i \right)) \right) \\
+    &\quad - \left( \frac{\text{transactionRate}}{100} \cdot \text{sell}_i \cdot \text{currentPrice}_i \right) \bigg] \geq K, \\
+    &0 \leq \text{sell}_i \leq \text{bought}_i, \quad \forall i = 1, \ldots, N.
+\end{align*}
+
+Where:
+- The first constraint ensures that the net amount raised after taxes and transaction costs is at least \(K\).
+- The second set of constraints ensures that the investor can't sell more shares than they own.
+
+\end{document}

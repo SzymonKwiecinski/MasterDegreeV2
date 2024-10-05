@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \(N\) be the number of available currencies.
+    \item \( \text{start}_i \) for \( i = 1, \ldots, N \) is the starting amount of currency \(i\).
+    \item \( \text{limit}_i \) for \( i = 1, \ldots, N \) is the limit on the total amount of currency \(i\) that can be exchanged.
+    \item \( \text{rate}_{i,j} \) for \( i, j = 1, \ldots, N \) is the exchange rate from currency \(i\) to currency \(j\).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_{i,j} \geq 0 \): amount of currency \(i\) exchanged to currency \(j\).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the final amount of currency \(N\):
+\[
+\max \sum_{i=1}^{N} \text{rate}_{i,N} \cdot x_{i,N}
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+    & \text{Exchange Limits: } \\
+    & \sum_{j=1}^{N} x_{i,j} \leq \text{limit}_i, & \forall i = 1, \ldots, N \\
+    & \text{Initial Availability: } \\
+    & \sum_{j=1}^{N} x_{j,i} \leq \text{start}_i, & \forall i = 1, \ldots, N \\
+    & \text{Non-Negativity: } \\
+    & x_{i,j} \geq 0, & \forall i, j = 1, \ldots, N
+\end{align*}
+
+\end{document}

@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Manpower Requirements}
+
+\subsection*{Indices}
+\begin{align*}
+k & : \text{Index for manpower categories (e.g., skilled, semi-skilled, unskilled), } k = 1, \ldots, K \\
+i & : \text{Index for years, } i = 1, \ldots, I
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+\text{requirement}_{k,i} & : \text{Manpower requirement of category } k \text{ in year } i \\
+\text{strength}_k & : \text{Initial number of manpower in category } k \\
+\text{lessonewaste}_k & : \text{Wastage rate for category } k \text{ with less than one year's service} \\
+\text{moreonewaste}_k & : \text{Wastage rate for category } k \text{ with more than one year's service} \\
+\text{recruit}_k & : \text{Maximum number of new recruits possible for category } k \text{ each year} \\
+\text{costredundancy}_k & : \text{Redundancy payment cost for category } k \\
+\text{num\_overman} & : \text{Maximum allowable overmanning} \\
+\text{costoverman}_k & : \text{Additional cost per overmanned employee in category } k \\
+\text{num\_shortwork} & : \text{Maximum number of short-time workers in each category} \\
+\text{costshort}_k & : \text{Cost of short-time working per employee in category } k
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+\text{recruit}_{k,i} & : \text{Number of recruits for category } k \text{ in year } i \\
+\text{redundancy}_{k,i} & : \text{Number of redundant employees for category } k \text{ in year } i \\
+\text{overmanning}_{k,i} & : \text{Number of overmanning employees for category } k \text{ in year } i \\
+\text{short}_{k,i} & : \text{Number of short-time employees for category } k \text{ in year } i 
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the redundancy costs:
+\[
+\min \sum_{i=1}^I \sum_{k=1}^K \left( \text{redundancy}_{k,i} \cdot \text{costredundancy}_k \right) 
+\]
+
+\subsection*{Constraints}
+1. \textbf{Manpower Balance Constraints:}
+   \begin{align*}
+   \text{strength}_k + \sum_{j=1}^{i-1} \left[ \text{recruit}_{k,j} (1 - \text{lessonewaste}_k) \right] - \text{redundancy}_{k,i} - \text{moreonewaste}_k \cdot (\text{strength}_k + \sum_{j=1}^{i-1} \text{recruit}_{k,j}) + \text{overmanning}_{k,i} + 0.5 \cdot \text{short}_{k,i} = \text{requirement}_{k,i}
+   \end{align*}
+
+2. \textbf{Recruitment Constraints:}
+   \begin{align*}
+   0 \leq \text{recruit}_{k,i} \leq \text{recruit}_k 
+   \end{align*}
+
+3. \textbf{Redundancy Constraints:}
+   \begin{align*}
+   \text{redundancy}_{k,i} \geq 0
+   \end{align*}
+
+4. \textbf{Overmanning Constraints:}
+   \begin{align*}
+   0 \leq \sum_{k=1}^K \text{overmanning}_{k,i} \leq \text{num\_overman}
+   \end{align*}
+
+5. \textbf{Short-Time Working Constraints:}
+   \begin{align*}
+   0 \leq \text{short}_{k,i} \leq \text{num\_shortwork}
+   \end{align*}
+
+\end{document}

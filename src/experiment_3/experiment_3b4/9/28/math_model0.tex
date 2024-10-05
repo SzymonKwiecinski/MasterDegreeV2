@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+Given a set of data points \((x_k, y_k)\) for \(k = 1, \ldots, K\), we aim to fit a line \( y = bx + a \) such that the sum of absolute deviations is minimized.
+
+\subsection*{Decision Variables}
+
+\begin{itemize}
+    \item \(a\): Intercept of the line
+    \item \(b\): Slope of the line
+    \item \(e_k\): Non-negative deviation for each data point \((x_k, y_k)\)
+    \item \(f_k\): Non-negative deviation for each data point \((x_k, y_k)\)
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Minimize the sum of absolute deviations:
+\[
+\min \sum_{k=1}^{K} (e_k + f_k)
+\]
+
+\subsection*{Constraints}
+
+For each data point \( k = 1, \ldots, K \), the absolute deviation \( |y_k - (bx_k + a)| \) is represented using \(e_k\) and \(f_k\):
+\[
+y_k - (bx_k + a) = e_k - f_k
+\]
+\[
+e_k \geq 0, \quad f_k \geq 0 \quad \text{for } k = 1, \ldots, K
+\]
+
+\subsection*{Summary}
+
+The linear programming model is:
+
+\[
+\begin{align*}
+\text{Minimize} \quad & \sum_{k=1}^{K} (e_k + f_k) \\
+\text{Subject to} \quad & y_k - (bx_k + a) = e_k - f_k, \quad k = 1, \ldots, K \\
+& e_k \geq 0, \quad f_k \geq 0, \quad k = 1, \ldots, K
+\end{align*}
+\]
+
+\end{document}

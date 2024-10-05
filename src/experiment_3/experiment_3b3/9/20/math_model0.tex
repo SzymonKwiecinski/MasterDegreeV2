@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item \( sell_{k, i} \): the quantity of product \( k \) sold in month \( i \)
+    \item \( manufacture_{k, i} \): the quantity of product \( k \) manufactured in month \( i \)
+    \item \( storage_{k, i} \): the quantity of product \( k \) stored at the end of month \( i \)
+\end{itemize}
+
+\subsection*{Parameters}
+Given the following parameters:
+\begin{itemize}
+    \item \( num_{m} \): Number of machines in the factory
+    \item \( profit_{k} \): Profit from selling one unit of product \( k \)
+    \item \( time_{k, m} \): Hours required to produce one unit of product \( k \) on machine \( m \)
+    \item \( maintain_{i, m} \): Number of machines down for maintenance in month \( i \)
+    \item \( limit_{k, i} \): Marketing limitation for product \( k \) in month \( i \)
+    \item \( store\_price \): Cost of storing one unit of product per month
+    \item \( keep\_quantity \): Required stock of each product at the end of month \( i \)
+    \item \( n\_workhours \): Total working hours in a month
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+\text{Maximize } Z = \sum_{i=1}^{I} \sum_{k=1}^{K} (profit_{k} \cdot sell_{k, i} - store\_price \cdot storage_{k, i})
+\]
+
+\subsection*{Constraints}
+1. Production constraints:
+\[
+\sum_{k=1}^{K} time_{k, m} \cdot manufacture_{k, i} \leq n\_workhours \cdot (num_{m} - maintain_{i, m}) \quad \forall m, i
+\]
+
+2. Selling limits:
+\[
+sell_{k, i} \leq limit_{k, i} \quad \forall k, i
+\]
+
+3. Storage balance:
+\[
+storage_{k, i} = storage_{k, i-1} + manufacture_{k, i} - sell_{k, i} \quad \forall k, i
+\]
+
+4. Initial storage condition:
+\[
+storage_{k, 1} = 0 \quad \forall k
+\]
+
+5. Final storage condition:
+\[
+storage_{k, I} \geq keep\_quantity \quad \forall k
+\]
+
+6. Non-negativity constraints:
+\[
+sell_{k, i}, manufacture_{k, i}, storage_{k, i} \geq 0 \quad \forall k, i
+\]
+
+\end{document}

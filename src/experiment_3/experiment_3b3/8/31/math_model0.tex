@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mixed Integer Programming Model for Electricity Demand Satisfaction}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $T$: Number of periods in a day
+    \item $K$: Number of generator types
+    \item $demand_{t}$: Electricity demand for period $t$ (for $t = 1, \ldots, T$)
+    \item $num_{k}$: Number of generators of type $k$ available (for $k = 1, \ldots, K$)
+    \item $minlevel_{k}$: Minimum level of generation for generator type $k$
+    \item $maxlevel_{k}$: Maximum level of generation for generator type $k$
+    \item $runcost_{k}$: Hourly cost of running type $k$ generator at minimum level
+    \item $extracost_{k}$: Extra hourly cost per megawatt operated above minimum for type $k$
+    \item $startcost_{k}$: Start-up cost for type $k$ generator
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $numon_{k, t}$: Number of type $k$ generators that are on in period $t$
+    \item $x_{k, t}$: Level of generation of type $k$ generator in period $t$
+    \item $y_{k, t}$: Binary variable indicating if a type $k$ generator is started in period $t$ ($y_{k, t} = 1$ if started, 0 otherwise)
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the total cost, which includes the running costs, extra costs, and start-up costs:
+\[
+\text{Minimize } Z = \sum_{t=1}^{T} \sum_{k=1}^{K} \left( runcost_{k} \cdot numon_{k, t} + extracost_{k} \cdot \max(0, x_{k, t} - minlevel_{k}) + startcost_{k} \cdot y_{k, t} \right)
+\]
+
+\subsection*{Constraints}
+
+\begin{enumerate}
+    \item Demand Satisfaction Constraint:
+    \[
+    \sum_{k=1}^{K} x_{k, t} = demand_{t}, \quad \forall t = 1, \ldots, T
+    \]
+    
+    \item Generation Level Constraints:
+    \[
+    minlevel_{k} \cdot numon_{k, t} \leq x_{k, t} \leq maxlevel_{k} \cdot numon_{k, t}, \quad \forall k = 1, \ldots, K, \quad \forall t = 1, \ldots, T
+    \]
+
+    \item Number of Generators On:
+    \[
+    x_{k, t} \leq maxlevel_{k} \cdot numon_{k, t}, \quad \forall k = 1, \ldots, K, \quad \forall t = 1, \ldots, T
+    \]
+    
+    \item Linking Start-Up Decision:
+    \[
+    y_{k, t} \geq numon_{k, t} - numon_{k, t-1}, \quad \forall k = 1, \ldots, K, \quad \forall t = 2, \ldots, T
+    \]
+    
+    \item Non-negativity Constraints:
+    \[
+    numon_{k, t} \in \mathbb{Z}^{+}, \quad x_{k, t} \geq 0, \quad y_{k, t} \in \{0, 1\}, \quad \forall k = 1, \ldots, K, \quad \forall t = 1, \ldots, T
+    \]
+\end{enumerate}
+
+\subsection*{Output Format}
+The output will consist of the number of generators of each type that are on in each period:
+\[
+\text{"numon": } \left\{ numon_{k, t} \text{ for } t=1,\ldots,T \text{ and } k=1,\ldots,K \right\}
+\]
+
+\end{document}

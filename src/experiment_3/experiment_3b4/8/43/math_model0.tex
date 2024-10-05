@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Wild Sports}
+
+\subsection*{Parameters}
+Let:
+\begin{itemize}
+    \item $N$ be the number of raw materials.
+    \item $M$ be the number of products.
+    \item $available_i$ be the availability of raw material $i$, for $i = 1, \ldots, N$.
+    \item $req_{i,j}$ be the units of raw material $i$ required to produce one unit of product $j$, for $i = 1, \ldots, N$ and $j = 1, \ldots, M$.
+    \item $price_j$ be the selling price per unit of product $j$.
+    \item $cost_j$ be the production cost per unit of product $j$.
+    \item $demand_j$ be the forecasted maximum demand for product $j$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let:
+\begin{itemize}
+    \item $amount_j$ be the amount of product $j$ produced, for $j = 1, \ldots, M$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the profit, which is the total revenue minus the total production cost:
+\[
+\text{Maximize } \quad \sum_{j=1}^{M} (price_j - cost_j) \cdot amount_j
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Raw Material Constraints: For each raw material $i$,
+    \[
+    \sum_{j=1}^{M} req_{i,j} \cdot amount_j \leq available_i, \quad \text{for } i = 1, \ldots, N
+    \]
+    \item Demand Constraints: For each product $j$,
+    \[
+    amount_j \leq demand_j, \quad \text{for } j = 1, \ldots, M
+    \]
+    \item Non-negativity Constraints:
+    \[
+    amount_j \geq 0, \quad \text{for } j = 1, \ldots, M
+    \]
+\end{itemize}
+
+\end{document}

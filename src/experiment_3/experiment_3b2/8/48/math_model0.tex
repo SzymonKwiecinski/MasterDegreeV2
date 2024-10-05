@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\begin{align*}
+\text{total\_profit} = & \sum_{w=1}^{W} \left( \text{selling\_price} \times (\text{regular\_basket}_w + \text{overtime\_basket}_w) \right) \\
+& - \sum_{w=1}^{W} \left( \text{material\_cost} \times (\text{regular\_basket}_w + \text{overtime\_basket}_w) \right) \\
+& - \sum_{w=1}^{W} \left( \text{holding\_cost} \times \text{inventory}_{w-1} \right) \\
+& + \text{salvage\_value} \times \text{inventory}_W
+\end{align*}
+
+\subsection*{Constraints}
+
+\subsubsection*{Labor Constraints}
+\begin{align}
+\text{regular\_used}_w & \leq \text{regular\_labor}_w \quad \forall \, w \in \{1, \ldots, W\} \\
+\text{overtime\_used}_w & \leq \text{overtime\_labor}_w \quad \forall \, w \in \{1, \ldots, W\}
+\end{align}
+
+\subsubsection*{Basket Assembly}
+\begin{align}
+\text{regular\_basket}_w & = \frac{\text{regular\_used}_w}{\text{assembly\_time}} \quad \forall \, w \in \{1, \ldots, W\} \\
+\text{overtime\_basket}_w & = \frac{\text{overtime\_used}_w}{\text{assembly\_time}} \quad \forall \, w \in \{1, \ldots, W\}
+\end{align}
+
+\subsubsection*{Inventory Balance}
+\begin{align}
+\text{inventory}_{w} & = \text{inventory}_{w-1} + \text{regular\_basket}_w + \text{overtime\_basket}_w - \text{demand}_{w} \quad \forall \, w \in \{1, \ldots, W\}
+\end{align}
+
+\subsubsection*{Initial Conditions}
+\begin{align}
+\text{inventory}_0 & = 0
+\end{align}
+
+\end{document}

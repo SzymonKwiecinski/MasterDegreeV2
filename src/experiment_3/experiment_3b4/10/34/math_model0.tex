@@ -1,0 +1,13 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model for Balanced Diet:}
+
+\begin{align*}
+\text{Minimize:} \quad & \sum_{k=1}^{K} \text{price}_k \cdot x_k \\
+\text{Subject to:} \quad & \sum_{k=1}^{K} \text{nutri}_{k,m} \cdot x_k \geq \text{demand}_m, \quad \text{for } m = 1, \ldots, M \\
+& x_k \geq 0, \quad \text{for } k = 1, \ldots, K
+\end{align*}
+
+\end{document}

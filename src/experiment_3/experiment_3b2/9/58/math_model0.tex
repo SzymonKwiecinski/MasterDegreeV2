@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+
+\textbf{Parameters:}
+\begin{align*}
+& \text{Let } M \text{ be the number of machines.} \\
+& \text{Let } P \text{ be the number of parts.} \\
+& \text{Let } \text{time}_{m,p} \text{ be the hours required on machine } m \text{ for part } p. \\
+& \text{Let } \text{cost}_m \text{ be the cost per hour for machine } m. \\
+& \text{Let } \text{available}_m \text{ be the available hours per month for machine } m. \\
+& \text{Let } \text{price}_p \text{ be the price per batch of part } p. \\
+& \text{Let } \text{setup\_time}_p \text{ be the setup time required on machine 1 for part } p.
+\end{align*}
+
+\textbf{Decision Variables:}
+\begin{align*}
+& x_p \geq 0: \text{Number of batches of part } p \text{ produced.} \\
+& y_p \in \{0, 1\}: \text{Binary variable indicating if part } p \text{ is set up on machine 1.}
+\end{align*}
+
+\textbf{Objective Function:}
+\begin{equation}
+\text{Maximize } \sum_{p=1}^{P} \left(\text{price}_p \cdot x_p \right) - \sum_{m=1}^{M} \left( \text{cost}_m \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \right) - \sum_{p=1}^{P} \left( \text{setup\_time}_p \cdot \text{cost}_1 \cdot y_p \right)
+\end{equation}
+
+\textbf{Subject to:}
+\begin{align}
+& \sum_{p=1}^{P} \left(\text{time}_{m,p} \cdot x_p \right) \leq \text{available}_m, \quad \forall m = 1, \ldots, M \\
+& \text{time}_{1,p} \cdot x_p + \text{setup\_time}_p \cdot y_p \leq \text{available}_1, \quad \forall p = 1, \ldots, P \\
+& y_p \geq \frac{x_p}{\text{max}_p}, \quad \forall p = 1, \ldots, P
+\end{align}
+
+\textbf{Where:}
+\begin{align*}
+& \text{max}_p \text{ is a large number ensuring } y_p \text{ is set to 1 if } x_p > 0.
+\end{align*}
+
+\end{document}

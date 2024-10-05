@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item \( p \): index for parts, where \( p = 1, \ldots, P \)
+    \item \( m \): index for machines, where \( m = 1, \ldots, M \)
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{time}_{m,p} \): time required (in hours) on machine \( m \) to produce a batch of part \( p \)
+    \item \( \text{cost}_{m} \): cost (in dollars) per hour for using machine \( m \)
+    \item \( \text{available}_{m} \): availability (in hours) of machine \( m \) per month
+    \item \( \text{price}_{p} \): selling price (in dollars) per batch of part \( p \)
+    \item \( \text{min\_batches}_{p} \): minimum number of batches of part \( p \) that must be produced
+    \item \( \text{standard\_cost} \): standard labor cost (in dollars per hour) for machine 1
+    \item \( \text{overtime\_cost} \): overtime labor cost (in dollars per hour) for machine 1
+    \item \( \text{overtime\_hour} \): number of hours after which overtime cost applies
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{batches}_{p} \): number of batches of part \( p \) produced each month
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Total\_Profit} = \sum_{p=1}^{P} \left( \text{price}_{p} \cdot \text{batches}_{p} \right) - \sum_{m=1}^{M} \left( \text{cost}_{m} \cdot \text{time}_{m,p} \cdot \text{batches}_{p} \right) - \text{Labor\_Costs}_{\text{machine\_1}}
+\]
+
+Where the labor costs for machine 1 are given by:
+\[
+\text{Labor\_Costs}_{\text{machine\_1}} = 
+\begin{cases} 
+\text{standard\_cost} \cdot \text{time}_{1,p} \cdot \text{batches}_{p} & \text{if } \text{time}_{1,p} \cdot \text{batches}_{p} \leq \text{overtime\_hour} \\
+\text{standard\_cost} \cdot \text{overtime\_hour} + \text{overtime\_cost} \cdot \left( \text{time}_{1,p} \cdot \text{batches}_{p} - \text{overtime\_hour} \right) & \text{if } \text{time}_{1,p} \cdot \text{batches}_{p} > \text{overtime\_hour}
+\end{cases}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Machine availability constraints:
+    \[
+    \sum_{p=1}^{P} \text{time}_{m,p} \cdot \text{batches}_{p} \leq \text{available}_{m}, \quad \forall m = 1, \ldots, M
+    \]
+
+    \item Minimum production requirements:
+    \[
+    \text{batches}_{p} \geq \text{min\_batches}_{p}, \quad \forall p = 1, \ldots, P
+    \]
+
+    \item Non-negativity constraints:
+    \[
+    \text{batches}_{p} \geq 0, \quad \forall p = 1, \ldots, P
+    \]
+\end{itemize}
+
+\end{document}

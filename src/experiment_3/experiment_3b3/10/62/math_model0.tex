@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Traveling Salesman Problem (TSP)}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( N \) be the number of towns.
+    \item Let \( \text{distance}_{i,j} \) be the distance between town \( i \) and town \( j \).
+    \item Let \( \text{start\_city} \) be the city from which the traveler starts and returns.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( x_{i,j} \) be a binary variable that takes the value 1 if the traveler visits city \( j \) immediately after city \( i \), and 0 otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the total distance traveled by the traveler:
+
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} \sum_{j=1}^{N} \text{distance}_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Each city must be visited exactly once:
+    \[
+    \sum_{j=1, j \neq i}^{N} x_{i,j} = 1 \quad \forall i \in \{1, ..., N\}
+    \]
+    \item Each city must be left exactly once:
+    \[
+    \sum_{i=1, i \neq j}^{N} x_{i,j} = 1 \quad \forall j \in \{1, ..., N\}
+    \]
+    \item Subtour elimination constraints to ensure there are no cycles:
+    \[
+    u_i - u_j + N x_{i,j} \leq N-1 \quad \forall i,j \in \{1, ..., N\}, i \neq j
+    \]
+    where \( u_i \) are auxiliary variables representing the position of each city in the tour.
+    \item The traveler starts and ends at \text{start\_city}:
+    \[
+    \sum_{j=1, j \neq \text{start\_city}}^{N} x_{\text{start\_city},j} = 1
+    \]
+    \[
+    \sum_{i=1, i \neq \text{start\_city}}^{N} x_{i,\text{start\_city}} = 1
+    \]
+\end{itemize}
+
+\subsection*{Output}
+The output should include:
+\begin{itemize}
+    \item The sequence of cities visited after \text{start\_city}, denoted as \( \text{visit\_order} \).
+    \item The total distance traveled on this optimal journey, denoted as \( \text{total\_distance} \).
+\end{itemize}
+
+\end{document}

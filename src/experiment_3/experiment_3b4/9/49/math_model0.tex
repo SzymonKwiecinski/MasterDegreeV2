@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} \left( \text{price}_p \times x_p \right) - \sum_{m=1}^{M} \left( \text{cost}_m \times \sum_{p=1}^{P} \left( \text{time}_{m,p} \times x_p \right) \right)
+\]
+
+\textbf{Subject to:}
+
+1. \, For \, each \, machine \, m = 1, \ldots, M-2
+\[
+\sum_{p=1}^{P} \left( \text{time}_{m,p} \times x_p \right) \leq \text{available}_m 
+\]
+
+2. \, Combined \, availability \, for \, machines \, M \, and \, M-1
+\[
+\sum_{p=1}^{P} \left( \text{time}_{M,p} \times x_p \right) + \sum_{p=1}^{P} \left( \text{time}_{M-1,p} \times x_p \right) \leq \text{available}_M + \text{available}_{M-1}
+\]
+
+3. \, Minimum \, batches \, requirement
+\[
+x_p \geq \text{min\_batches}_p \quad \forall \, p = 1, \ldots, P
+\]
+
+4. \, Non-negativity \, constraint
+\[
+x_p \geq 0 \quad \forall \, p = 1, \ldots, P
+\]
+
+\end{document}

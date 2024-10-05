@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Rocket Path Optimization}
+
+\subsection*{Variables}
+- \(x_t\) is the position of the rocket at time \(t\) for \(t = 0, \ldots, T\).
+- \(v_t\) is the velocity of the rocket at time \(t\) for \(t = 0, \ldots, T\).
+- \(a_t\) is the acceleration of the rocket at time \(t\) for \(t = 0, \ldots, T-1\).
+- \(M\) is the maximum absolute value of acceleration.
+
+\subsection*{Objective}
+\[
+\min M
+\]
+
+\subsection*{Constraints}
+\begin{align}
+x_{t+1} &= x_t + v_t, & t = 0, 1, \ldots, T-1 \\
+v_{t+1} &= v_t + a_t, & t = 0, 1, \ldots, T-1 \\
+x_0 &= \text{given initial position} \\
+v_0 &= \text{given initial velocity} \\
+x_T &= \text{desired target position} \\
+v_T &= \text{desired target velocity} \\
+-M &\leq a_t \leq M, & t = 0, 1, \ldots, T-1
+\end{align}
+
+\end{document}

@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables:}
+\begin{align*}
+x_p & : \text{Number of batches of part } p \text{ to produce } (p = 1, \ldots, P) \\
+e_m & : \text{Additional hours purchased for machine } m \text{ } (m = 1, \ldots, M)
+\end{align*}
+
+\subsection*{Objective Function:}
+\begin{equation*}
+\text{Maximize } Z = \sum_{p=1}^{P} \text{price}_{p} \times x_p - \sum_{m=1}^{M} \left(\text{cost}_{m} \times \sum_{p=1}^{P} \text{time}_{m,p} \times x_p + \text{extra_cost}_{m} \times e_m\right)
+\end{equation*}
+
+\subsection*{Constraints:}
+\begin{align*}
+& x_p \geq \text{min\_batches}_{p}, \quad \forall p = 1, \ldots, P \\
+& \sum_{p=1}^{P} \text{time}_{m,p} \times x_p \leq \text{available}_{m} + e_m, \quad \forall m = 1, \ldots, M \\
+& 0 \leq e_m \leq \text{max\_extra}_{m}, \quad \forall m = 1, \ldots, M \\
+& x_p \geq 0, \quad \forall p = 1, \ldots, P \\
+& e_m \geq 0, \quad \forall m = 1, \ldots, M
+\end{align*}
+
+\end{document}

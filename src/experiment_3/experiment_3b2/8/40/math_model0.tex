@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Foundry Steel Production}
+
+\subsection*{Given Data}
+\begin{itemize}
+    \item $n_{\text{steel\_quant}}$: Quantity of steel to be produced (tons)
+    \item $mn_{\text{percent}}$: Minimum percentage of manganese required in steel
+    \item $si_{\text{min}}$: Minimum percentage of silicon allowed in steel
+    \item $si_{\text{max}}$: Maximum percentage of silicon allowed in steel
+    \item $contsi_k$: Silicon content percentage in mineral $k$
+    \item $contmn_k$: Manganese content percentage in mineral $k$
+    \item $mang_{\text{price}}$: Cost of direct manganese addition (million euros per ton)
+    \item $cost_k$: Cost of mineral $k$ (million euros per thousand tons)
+    \item $sell_{\text{price}}$: Selling price of steel (million euros per ton)
+    \item $melt_{\text{price}}$: Melting cost per ton of mineral (million euros)
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_k$: Amount of mineral $k$ used (in thousand tons)
+    \item $y$: Amount of manganese directly added (in tons)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the profit, given by the difference between revenue and costs:
+
+\[
+\text{Maximize} \quad Z = n_{\text{steel\_quant}} \times sell_{\text{price}} - \sum_{k=1}^{K} \left( x_k \times cost_k + x_k \times 1000 \times melt_{\text{price}} \right) - y \times mang_{\text{price}}
+\]
+
+\subsection*{Constraints}
+\begin{align}
+\sum_{k=1}^{K} x_k \times 1000 + y &= n_{\text{steel\_quant}} \quad \text{(Total steel production requirement)} \\
+\frac{\sum_{k=1}^{K} x_k \times 1000 \times contmn_k + y}{n_{\text{steel\_quant}}} &\geq mn_{\text{percent}} \quad \text{(Manganese percentage constraint)} \\
+si_{\text{min}} \times n_{\text{steel\_quant}} &\leq \sum_{k=1}^{K} x_k \times 1000 \times contsi_k \quad \text{(Minimum Silicon constraint)} \\
+si_{\text{max}} \times n_{\text{steel\_quant}} &\geq \sum_{k=1}^{K} x_k \times 1000 \times contsi_k \quad \text{(Maximum Silicon constraint)} \\
+x_k &\geq 0 \quad \text{for all } k \quad \text{(Non-negativity constraint for $x_k$)} \\
+y &\geq 0 \quad \text{(Non-negativity constraint for $y$)}
+\end{align}
+
+\end{document}

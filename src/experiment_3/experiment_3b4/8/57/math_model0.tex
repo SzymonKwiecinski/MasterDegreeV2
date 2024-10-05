@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Seaport Container Operations - MIP Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $T$: Number of months.
+    \item $\text{demand}_t$: Demand for containers by ships in month $t$.
+    \item $\text{unload\_cost}_t$: Unloading cost per container in month $t$.
+    \item $\text{unload\_capacity}_t$: Maximum containers that can be unloaded in month $t$.
+    \item $\text{holding\_cost}$: Holding cost per container per month.
+    \item $\text{max\_container}$: Maximum number of containers that can be stored in the yard.
+    \item $\text{init\_container}$: Initial number of containers in the yard at start.
+    \item $\text{num\_cranes}$: Maximum number of cranes that can be rented per month.
+    \item $\text{crane\_capacity}$: Number of containers one crane can load.
+    \item $\text{crane\_cost}$: Cost per crane.
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item $x_t$: Number of containers unloaded in month $t$.
+    \item $y_t$: Number of cranes rented in month $t$.
+    \item $s_t$: Number of containers stored in the yard at the end of month $t$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost over the period:
+\[
+\text{Minimize} \quad \sum_{t=1}^{T} \left( \text{unload\_cost}_t \cdot x_t + \text{holding\_cost} \cdot s_t + \text{crane\_cost} \cdot y_t \right)
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    \text{Initial Condition:} & \quad s_0 = \text{init\_container} \\
+    \text{Unloading Capacity:} & \quad 0 \leq x_t \leq \text{unload\_capacity}_t, \quad t = 1, \ldots, T \\
+    \text{Storage Capacity:} & \quad 0 \leq s_t \leq \text{max\_container}, \quad t = 1, \ldots, T \\
+    \text{Cranes Capacity:} & \quad 0 \leq y_t \leq \text{num\_cranes}, \quad t = 1, \ldots, T \\
+    \text{Flow Balance:} & \quad s_{t-1} + x_t = \text{demand}_t + s_t, \quad t = 1, \ldots, T \\
+    \text{Loading Requirement:} & \quad y_t \cdot \text{crane\_capacity} \geq \text{demand}_t, \quad t = 1, \ldots, T \\
+    \text{Final Condition:} & \quad s_T = 0
+\end{align}
+
+\end{document}

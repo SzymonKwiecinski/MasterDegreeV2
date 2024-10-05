@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\title{Oil Refinery Linear Programming Model}
+\author{}
+\date{}
+\maketitle
+
+\section*{Model Formulation}
+
+\subsection*{Objective}
+
+Maximize the revenue:
+\[
+\text{Revenue} = \sum_{p=1}^{P} \left( \text{price}_p \times \sum_{l=1}^{L} (\text{output}_{l,p} \times x_l) \right) - \sum_{l=1}^{L} (\text{cost}_l \times \sum_{p=1}^{P} \text{output}_{l,p} \times x_l)
+\]
+
+\subsection*{Constraints}
+
+\begin{itemize}
+    \item Crude oil constraints for each type \( i \):
+    \[
+    \sum_{l=1}^{L} (\text{input}_{l,i} \times x_l) \leq \text{allocated}_i \quad \text{for each } i = 1, \dots, O
+    \]
+    \item Non-negativity constraints:
+    \[
+    x_l \geq 0 \quad \text{for each } l = 1, \dots, L
+    \]
+\end{itemize}
+
+\end{document}

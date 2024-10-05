@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Electricity Capacity Planning}
+
+Let:
+\begin{itemize}
+    \item \( T \) be the total number of years for planning.
+    \item \( \text{demand}_t \) be the forecasted electricity demand in year \( t \).
+    \item \( \text{oil}_t \) be the existing capacity of oil-fired plants in year \( t \).
+    \item \( \text{coal\_cost} \) be the cost per megawatt of coal-fired capacity.
+    \item \( \text{nuke\_cost} \) be the cost per megawatt of nuclear power capacity.
+    \item \( \text{max\_nuke} \) be the maximum percentage of total capacity that can be nuclear.
+    \item \( \text{coal\_life} \) be the lifespan of coal plants in years.
+    \item \( \text{nuke\_life} \) be the lifespan of nuclear plants in years.
+    \item \( \text{coal\_cap\_added}_t \) be the coal capacity added in year \( t \).
+    \item \( \text{nuke\_cap\_added}_t \) be the nuclear capacity added in year \( t \).
+\end{itemize}
+
+\textbf{Objective:}
+Minimize the total cost:
+\[
+\text{Minimize} \quad \sum_{t=1}^{T} \left( \text{coal\_cost} \times \text{coal\_cap\_added}_t + \text{nuke\_cost} \times \text{nuke\_cap\_added}_t \right)
+\]
+
+\textbf{Subject to:}
+\begin{align}
+    & \text{Coal and Nuclear Capacity Balance:} \\
+    & \sum_{i = \max(1, t - \text{coal\_life} + 1)}^{t} \text{coal\_cap\_added}_i + \sum_{j = \max(1, t - \text{nuke\_life} + 1)}^{t} \text{nuke\_cap\_added}_j + \text{oil}_t \geq \text{demand}_t, \quad \forall t = 1, \ldots, T \\
+    & \text{Nuclear Capacity Constraint:} \\
+    & \sum_{j = \max(1, t - \text{nuke\_life} + 1)}^{t} \text{nuke\_cap\_added}_j \leq \frac{\text{max\_nuke}}{100} \left(\sum_{i = \max(1, t - \text{coal\_life} + 1)}^{t} \text{coal\_cap\_added}_i + \sum_{j = \max(1, t - \text{nuke\_life} + 1)}^{t} \text{nuke\_cap\_added}_j + \text{oil}_t \right), \quad \forall t = 1, \ldots, T \\
+    & \text{Non-negativity Constraints:} \\
+    & \text{coal\_cap\_added}_t \geq 0, \quad \text{nuke\_cap\_added}_t \geq 0, \quad \forall t = 1, \ldots, T
+\end{align}
+
+\end{document}

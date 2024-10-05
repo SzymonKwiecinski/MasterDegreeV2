@@ -1,0 +1,25 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Portfolio Optimization}
+
+\subsection*{Objective:}
+Maximize the expected value of the portfolio next year:
+\[
+\text{maximize} \quad \sum_{i=1}^{N} \left(bought_i - x_i\right) \times futurePrice_i
+\]
+
+\subsection*{Constraints:}
+
+\begin{align*}
+& 0 \leq x_i \leq bought_i, \quad \forall \, i = 1, \ldots, N \\
+& \sum_{i=1}^{N} \left( \text{currentPrice}_i \times x_i - \left(\text{currentPrice}_i \times x_i - \text{buyPrice}_i \times x_i\right) \times \frac{\text{taxRate}}{100} - \text{currentPrice}_i \times x_i \times \frac{\text{transactionRate}}{100} \right) \geq K
+\end{align*}
+
+\subsection*{Variables:}
+\begin{itemize}
+    \item \( x_i \): Number of shares of stock \(i\) to sell, \(i = 1, \ldots, N\)
+\end{itemize}
+
+\end{document}

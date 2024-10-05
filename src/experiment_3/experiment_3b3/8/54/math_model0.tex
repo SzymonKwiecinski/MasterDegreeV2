@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\subsection*{Decision Variables}
+Let \( b_p \) be the number of batches produced of part \( p \), for \( p = 1, 2, \ldots, P \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( time_{m,p} \): time required on machine \( m \) to produce a batch of part \( p \) (in hours).
+    \item \( cost_m \): cost per hour of using machine \( m \).
+    \item \( available_m \): availability hours per month of machine \( m \).
+    \item \( price_p \): sale price of a batch of part \( p \).
+    \item \( min\_batches_p \): minimum number of batches of part \( p \) required to fulfill a contract.
+    \item \( standard\_cost \): labor cost per hour (for Machine 1) up to \( overtime\_hour \).
+    \item \( overtime\_cost \): labor cost per hour after \( overtime\_hour \).
+    \item \( overtime\_hour \): threshold of hours for standard labor cost.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} \left( price_p \cdot b_p - \sum_{m=1}^{M} (cost_m \cdot time_{m,p} \cdot b_p) \right) - \text{Labor\_cost}
+\]
+
+Where:
+\[
+\text{Labor\_cost} = 
+\begin{cases} 
+standard\_cost \cdot \sum_{p=1}^{P} (time_{1,p} \cdot b_p) & \text{if } \sum_{p=1}^{P} (time_{1,p} \cdot b_p) \leq overtime\_hour \\
+standard\_cost \cdot overtime\_hour + overtime\_cost \cdot \left( \sum_{p=1}^{P} (time_{1,p} \cdot b_p) - overtime\_hour \right) & \text{otherwise}
+\end{cases}
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+\sum_{p=1}^{P} time_{m,p} \cdot b_p & \leq available_m, \quad \forall m = 2, 3, \ldots, M \\
+b_p & \geq min\_batches_p, \quad \forall p = 1, 2, \ldots, P \\
+b_p & \geq 0, \quad \forall p = 1, 2, \ldots, P \\
+\end{align*}
+
+\subsection*{Output}
+The solution will provide:
+\begin{itemize}
+    \item The number of batches produced: \( \{batches_p\} \) for \( p = 1, \ldots, P \).
+    \item Total profit: \( total\_profit \).
+\end{itemize}
+
+\end{document}

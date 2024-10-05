@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{MILP Model for Floppy Disk Backup Problem}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item \( j = 1, \ldots, N \): Index for files
+    \item \( i = 1, \ldots, M \): Index for disks (where \( M \) is an upper bound, \( M = N \))
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{capacity} \): Capacity of each floppy disk
+    \item \( \text{size}_j \): Size of file \( j \)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( x_{ij} \in \{0, 1\} \): 1 if file \( j \) is assigned to disk \( i \), 0 otherwise
+    \item \( y_i \in \{0, 1\} \): 1 if disk \( i \) is used, 0 otherwise
+\end{itemize}
+
+\textbf{Objective:}
+\[
+\min \sum_{i=1}^{M} y_i
+\]
+
+\textbf{Constraints:}
+
+1. Each file must be assigned to exactly one disk:
+\[
+\sum_{i=1}^{M} x_{ij} = 1, \quad \forall j = 1, \ldots, N
+\]
+
+2. Capacity constraint for each disk:
+\[
+\sum_{j=1}^{N} \text{size}_j \cdot x_{ij} \leq \text{capacity} \cdot y_i, \quad \forall i = 1, \ldots, M
+\]
+
+3. File assignment implies disk usage:
+\[
+x_{ij} \leq y_i, \quad \forall i = 1, \ldots, M, \forall j = 1, \ldots, N
+\]
+
+\end{document}

@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation for Currency Exchange Problem}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item \( x_{i,j} \) be the amount of currency \( i \) exchanged for currency \( j \).
+\end{itemize}
+
+\subsection*{Parameters}
+Given:
+\begin{itemize}
+    \item \( N \): number of available currencies
+    \item \( \text{start}_i \): initial amount of currency \( i \) for \( i = 1, \ldots, N \)
+    \item \( \text{limit}_i \): limit on currency \( i \) exchanges for \( i = 1, \ldots, N \)
+    \item \( \text{rate}_{i,j} \): exchange rate from currency \( i \) to currency \( j \) for \( i, j = 1, \ldots, N \) where \( \text{rate}_{i,j} > 0 \)
+\end{itemize}
+
+\subsection*{Objective Function}
+We aim to maximize the amount of currency \( N \) we end up with at the end of the day:
+\[
+\text{Maximize } Z = \text{final\_amount\_of\_currency}_N
+\]
+
+\subsection*{Constraints}
+1. **Exchange Limits:**
+   Each currency \( i \) must not exceed its limit during exchanges:
+   \[
+   \sum_{j=1}^{N} x_{i,j} \leq \text{limit}_i, \quad \forall i = 1, \ldots, N
+   \]
+
+2. **Initial Amounts:**
+   The total amount of currency \( i \) after all exchanges must respect the initial amount:
+   \[
+   \text{start}_i - \sum_{j=1}^{N} x_{i,j} + \sum_{k=1}^{N} x_{j,i} \geq 0, \quad \forall i = 1, \ldots, N
+   \]
+
+3. **No Cycles:**
+   The exchange rates must satisfy:
+   \[
+   \text{rate}_{i_1,i_2} \cdot \text{rate}_{i_2,i_3} \cdots \text{rate}_{i_k,i_1} \leq 1
+   \]
+
+4. **Final Amount of Currency N:**
+   We can express the final amount of currency \( N \) in terms of exchanges:
+   \[
+   \text{final\_amount\_of\_currency}_N = \text{start}_N + \sum_{i=1}^{N} x_{i,N} - \sum_{j=1}^{N} x_{N,j}
+   \]
+
+\subsection*{Summary}
+The above formulation captures the essence of the currency exchange problem, allowing us to define transactions while adhering to given constraints. The optimization can be handled using standard linear programming techniques.
+
+\end{document}

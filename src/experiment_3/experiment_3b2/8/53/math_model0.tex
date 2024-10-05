@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\textbf{Indices:}
+\begin{align*}
+& i, j \in A \quad \text{(Routes set)} \\
+& k \quad \text{(Source terminals index)} \\
+& l \quad \text{(Destination cities index)} 
+\end{align*}
+
+\textbf{Parameters:}
+\begin{align*}
+& C_{i,j} \quad \text{Cost of transporting one metric ton from } i \text{ to } j \\
+& supply_{k} \quad \text{Soybean supply at source terminal } k \\
+& demand_{l} \quad \text{Soybean demand at destination city } l \\
+\end{align*}
+
+\textbf{Decision Variables:}
+\begin{align*}
+& amount_{i,j} \quad \text{Amount of soybeans transported from } i \text{ to } j 
+\end{align*}
+
+\textbf{Objective Function:}
+Minimize the total transportation cost:
+\[
+\text{Minimize } Z = \sum_{(i,j) \in A} C_{i,j} \cdot amount_{i,j}
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+& \text{(1) Supply Constraints:} \\
+& \sum_{j:(k,j) \in A} amount_{k,j} \leq supply_{k}, \quad \forall k \\
+& \text{(2) Demand Constraints:} \\
+& \sum_{i:(i,l) \in A} amount_{i,l} \geq demand_{l}, \quad \forall l \\
+& \text{(3) Non-negativity Constraints:} \\
+& amount_{i,j} \geq 0, \quad \forall (i,j) \in A 
+\end{align*}
+
+\end{document}

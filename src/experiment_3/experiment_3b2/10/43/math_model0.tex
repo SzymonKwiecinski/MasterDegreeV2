@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\textbf{Objective:} Maximize the total profit.
+
+Let \( x_j \) represent the number of units of product \( j \) to be produced, for each \( j = 1, 2, \ldots, M \).
+
+The profit from selling product \( j \) is given by the difference between its selling price and its production cost, i.e., \( \text{profit}_j = \text{price}_j - \text{cost}_j \).
+
+The objective function to maximize the total profit is:
+
+\[
+\text{Maximize} \quad Z = \sum_{j=1}^{M} (\text{price}_j - \text{cost}_j) \cdot x_j
+\]
+
+\textbf{Subject to:}
+
+1. Raw material constraints for each material \( i = 1, 2, \ldots, N \):
+\[
+\sum_{j=1}^{M} \text{req}_{i,j} \cdot x_j \leq \text{available}_i
+\]
+
+2. Demand constraints for each product \( j = 1, 2, \ldots, M \):
+\[
+x_j \leq \text{demand}_j
+\]
+
+3. Non-negativity constraints:
+\[
+x_j \geq 0 \quad \forall \, j = 1, 2, \ldots, M
+\]
+
+\end{document}

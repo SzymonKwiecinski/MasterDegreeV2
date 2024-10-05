@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} 
+
+Minimize
+\[
+\sum_{k=1}^{K} u_k
+\]
+
+\textbf{Subject to:}
+\[
+y_k - (b x_k + a) \leq u_k, \quad \forall k = 1, \ldots, K
+\]
+\[
+(b x_k + a) - y_k \leq u_k, \quad \forall k = 1, \ldots, K
+\]
+\[
+u_k \geq 0, \quad \forall k = 1, \ldots, K
+\]
+
+\textbf{Variables:}
+- \( a \): intercept of the fitted line
+- \( b \): slope of the fitted line
+- \( u_k \): non-negative absolute deviation for each data point \( k \)
+
+\end{document}
+{
+    "intercept": intercept,
+    "slope": slope
+}

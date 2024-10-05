@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item $T$: Set of time periods, indexed by $t = 1,\ldots,T$.
+    \item $K$: Set of types of generators, indexed by $k = 1,\ldots,K$.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $demand_t$: Demand in period $t$.
+    \item $num_k$: Number of generators of type $k$.
+    \item $minlevel_k$: Minimum output level of generator type $k$.
+    \item $maxlevel_k$: Maximum output level of generator type $k$.
+    \item $runcost_k$: Cost of running generator type $k$ at minimum level.
+    \item $extracost_k$: Cost for each extra MW above minimum level for generator type $k$.
+    \item $startcost_k$: Starting cost for generator type $k$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_{k,t}$: Number of generators of type $k$ that are on in period $t$.
+    \item $y_{k,t}$: Power output level above the minimum for generators of type $k$ in period $t$.
+    \item $z_{k,t}$: Binary variable indicating if generator type $k$ is started in period $t$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost, including running, extra, and startup costs:
+\[
+\min \sum_{t=1}^{T} \sum_{k=1}^{K} \left( runcost_k \cdot x_{k,t} + extracost_k \cdot y_{k,t} + startcost_k \cdot z_{k,t} \right)
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item \textbf{Demand Satisfaction:}
+    \[
+    \sum_{k=1}^{K} \left( minlevel_k \cdot x_{k,t} + y_{k,t} \right) \ge demand_t, \quad \forall t = 1,\ldots,T
+    \]
+    \item \textbf{Generator Operating Limits:}
+    \[
+    0 \le y_{k,t} \le (maxlevel_k - minlevel_k) \cdot x_{k,t}, \quad \forall k = 1,\ldots,K, \forall t = 1,\ldots,T
+    \]
+    \item \textbf{Number of Generators:}
+    \[
+    0 \le x_{k,t} \le num_k, \quad \forall k = 1,\ldots,K, \forall t = 1,\ldots,T
+    \]
+    \item \textbf{Startup Cost:}
+    \[
+    z_{k,t} \ge x_{k,t} - x_{k,t-1}, \quad \forall k = 1,\ldots,K, \forall t = 2,\ldots,T
+    \]
+    \item \textbf{Binary Variables:}
+    \[
+    z_{k,t} \in \{0, 1\}, \quad \forall k = 1,\ldots,K, \forall t = 1,\ldots,T
+    \]
+\end{itemize}
+
+\end{document}

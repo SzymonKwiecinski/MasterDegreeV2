@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+We are given:
+
+- Prices of foods: \(\text{price}_k\) for \(k = 1, \ldots, K\).
+- Nutritional demands: \(\text{demand}_m\) for \(m = 1, \ldots, M\).
+- Nutrition content: \(\text{nutri}_{k, m}\) for each food \(k\) and nutrient \(m\).
+
+\subsection*{Objective}
+Minimize the total cost of purchasing foods:
+\[
+\text{Minimize} \quad Z = \sum_{k=1}^{K} \text{price}_k \cdot x_k
+\]
+
+\subsection*{Constraints}
+Meet the nutritional demands:
+\[
+\sum_{k=1}^{K} \text{nutri}_{k, m} \cdot x_k \geq \text{demand}_m \quad \forall m = 1, \ldots, M
+\]
+
+\subsection*{Non-negativity Constraints}
+\[
+x_k \geq 0 \quad \forall k = 1, \ldots, K
+\]
+
+\end{document}

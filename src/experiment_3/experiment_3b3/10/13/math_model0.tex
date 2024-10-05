@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Problem Formulation}
+
+We define the feasible region \( P \) as the set of points \( x \in \mathbb{R}^N \) that satisfy the linear inequality constraints:
+
+\[
+P = \{ x \in \mathbb{R}^N \mid a_i^T x \leq b_i, \; i = 1, \ldots, m \}
+\]
+
+where \( a_i \in \mathbb{R}^N \) and \( b_i \in \mathbb{R} \).
+
+A ball with center \( y \) in \( \mathbb{R}^N \) and radius \( r \) is defined as:
+
+\[
+B(y, r) = \{ x \in \mathbb{R}^N \mid \| x - y \|_2 \leq r \}
+\]
+
+Our objective is to find a ball \( B(y, r) \) that is entirely contained within the set \( P \) while maximizing the radius \( r \). The center of such a ball is referred to as the Chebyshev center of the set \( P \).
+
+\subsection*{Input}
+
+The input is provided in the following format:
+
+\begin{verbatim}
+{
+    "A": [[a_i_j for j in 1, ..., n] for i in 1, ..., m],
+    "b": [b_i for i in 1, ..., m]
+}
+\end{verbatim}
+
+\subsection*{Output}
+
+The output should include the center of the ball and the radius, formatted as follows:
+
+\begin{verbatim}
+{
+    "center": [y_j for j in 1, ..., n],
+    "radius": r
+}
+\end{verbatim}
+
+\end{document}

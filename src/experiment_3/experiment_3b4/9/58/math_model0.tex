@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item $P$: Set of parts, indexed by $p = 1, 2, \ldots, P$.
+    \item $M$: Set of machines, indexed by $m = 1, 2, \ldots, M$.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $time_{m,p}$: Time required for machine $m$ to process a batch of part $p$ (in hours).
+    \item $cost_{m}$: Operating cost per hour for machine $m$.
+    \item $available_{m}$: Available hours for machine $m$ per month.
+    \item $price_{p}$: Selling price per batch of part $p$.
+    \item $setup\_time_{p}$: Setup time required on machine 1 for part $p$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $batches_{p}$: Number of batches to produce for part $p$ (integer).
+    \item $setup\_flag_{p}$: Binary variable indicating whether setup is performed for part $p$ on machine 1.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit, which is the difference between the sales revenue and the production cost:
+
+\[
+\text{Maximize} \quad \sum_{p=1}^{P} \left( price_{p} \times batches_{p} \right) - \sum_{m=1}^{M} \sum_{p=1}^{P} \left( cost_{m} \times time_{m,p} \times batches_{p} \right) - \sum_{p=1}^{P} \left( cost_{1} \times setup\_time_{p} \times setup\_flag_{p} \right)
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Machine availability constraints for each machine $m$:
+    \[
+    \sum_{p=1}^{P} \left( time_{m,p} \times batches_{p} \right) + \delta_{m,1} \sum_{p=1}^{P} \left( setup\_time_{p} \times setup\_flag_{p} \right) \leq available_{m}, \quad \forall m \in M
+    \]
+
+    \item Setup flags constraint for machine 1 (only applicable to machine 1):
+    \[
+    batches_{p} \leq M \times setup\_flag_{p}, \quad \forall p \in P
+    \]
+    
+    \item Non-negativity and integrality:
+    \[
+    batches_{p} \geq 0 \quad \text{and integer}, \quad \forall p \in P
+    \]
+    \[
+    setup\_flag_{p} \in \{0,1\}, \quad \forall p \in P
+    \]
+\end{itemize}
+
+\end{document}

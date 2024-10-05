@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model for Optimal Lamp Powers}
+
+\subsection*{Objective}
+Minimize the total absolute error:
+\[
+\min \sum_{i=1}^{N} \text{error}_i
+\]
+
+\subsection*{Constraints}
+
+For each segment \(i = 1, \ldots, N\):
+\[
+\text{error}_i \geq \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j - \text{desired}_i
+\]
+\[
+\text{error}_i \geq -\left(\sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j - \text{desired}_i\right)
+\]
+
+Non-negativity for lamp powers:
+\[
+\text{power}_j \geq 0, \quad \forall j = 1, \ldots, M
+\]
+
+\end{document}

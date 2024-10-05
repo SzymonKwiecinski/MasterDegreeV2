@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+Given the data set with corresponding values for \(x\) and \(y\) as provided, we aim to fit a quadratic curve to minimize the sum of absolute deviations.
+
+\subsection*{Variables}
+\begin{align*}
+c & : \text{Coefficient of the quadratic term} \\
+b & : \text{Coefficient of the linear term} \\
+a & : \text{Coefficient of the constant term} \\
+z_k^+ & : \text{Positive deviation for the } k\text{-th observation} \\
+z_k^- & : \text{Negative deviation for the } k\text{-th observation}
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total absolute deviation:
+\[
+\min \sum_{k=1}^{K} (z_k^+ + z_k^-)
+\]
+
+\subsection*{Constraints}
+For each observation \(k\):
+\begin{align*}
+y_k - (c \cdot x_k^2 + b \cdot x_k + a) &= z_k^+ - z_k^- \\
+z_k^+, z_k^- & \geq 0
+\end{align*}
+
+\end{document}

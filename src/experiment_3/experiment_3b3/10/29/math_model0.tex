@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Linear Regression}
+
+Given a set of observed values \(y_k\) and corresponding \(x_k\) values for \(k = 1, \ldots, K\), the objective is to fit a straight line \(y = bx + a\) such that the maximum deviation from the observed values is minimized.
+
+\subsection*{Model Parameters}
+Let:
+\begin{itemize}
+    \item \(y_k\) be the observed value at \(k\)-th observation, where \(k = 1, \ldots, K\)
+    \item \(x_k\) be the corresponding value at \(k\)-th observation
+    \item \(a\) be the intercept of the line
+    \item \(b\) be the slope of the line
+    \item \(d_k\) be the deviation for the \(k\)-th observation
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the maximum deviation:
+\[
+\min \max_{k=1, \ldots, K} d_k
+\]
+
+\subsection*{Deviations}
+The deviation \(d_k\) is defined as:
+\[
+d_k \geq y_k - (bx_k + a) \quad \forall k
+\]
+\[
+d_k \geq -(y_k - (bx_k + a)) \quad \forall k
+\]
+
+\subsection*{Linear Programming Formulation}
+The linear programming model can thus be formulated as:
+
+\textbf{Minimize:}
+\[
+D
+\]
+
+\textbf{Subject to:}
+\begin{align*}
+    d_k & \geq y_k - (bx_k + a) \quad \forall k = 1, \ldots, K \\
+    d_k & \geq -(y_k - (bx_k + a)) \quad \forall k = 1, \ldots, K \\
+    d_k & \leq D \quad \forall k = 1, \ldots, K
+\end{align*}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item \(D\) - maximum deviation
+    \item \(a\) - intercept
+    \item \(b\) - slope
+    \item \(d_k\) - deviation for each observation
+\end{itemize}
+
+\subsection*{Output}
+The output of the model will provide:
+\begin{itemize}
+    \item \textbf{Intercept:} \(a\)
+    \item \textbf{Slope:} \(b\)
+\end{itemize}
+
+\end{document}

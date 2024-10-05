@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Stock Selling Optimization}
+
+\textbf{Variables:} \\
+Let \( x_i \) be the number of shares of stock \( i \) that the investor sells, where \( i = 1, 2, \ldots, N \).
+
+\textbf{Parameters:} \\
+Let:
+\begin{itemize}
+    \item \( \text{bought}_i \): Number of shares bought of stock \( i \) \\
+    \item \( \text{buyPrice}_i \): Purchase price per share of stock \( i \) \\
+    \item \( \text{currentPrice}_i \): Current price per share of stock \( i \) \\
+    \item \( \text{futurePrice}_i \): Expected future price per share of stock \( i \) \\
+    \item \( \text{transactionRate} \): Transaction cost rate in percentage \\
+    \item \( \text{taxRate} \): Tax rate on capital gains in percentage \\
+    \item \( K \): Net amount of money needed by the investor
+\end{itemize}
+
+\textbf{Objective Function:} \\
+Maximize the expected future value of the portfolio:
+\[
+\max \sum_{i=1}^{N} \left( \text{futurePrice}_i \cdot \text{bought}_i - x_i \cdot \text{futurePrice}_i \right)
+\]
+
+\textbf{Constraints:} \\
+The total amount raised from selling shares must cover the net amount needed:
+\[
+\sum_{i=1}^{N} \left( x_i \cdot \text{currentPrice}_i \cdot (1 - \frac{\text{transactionRate}}{100}) - (x_i \cdot \text{buyPrice}_i \cdot \frac{\text{taxRate}}{100}) \right) \geq K
+\]
+Additionally, we must ensure that the number of shares sold does not exceed the shares bought:
+\[
+0 \leq x_i \leq \text{bought}_i, \quad \forall i
+\]
+
+\textbf{Output:} \\
+The output format will be:
+\[
+\text{sell} = [x_1, x_2, \ldots, x_N]
+\]
+
+\end{document}

@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Communication Network Optimization}
+
+\textbf{Objective:} \\
+Minimize the total cost of transmission:
+\begin{equation}
+\text{Minimize} \quad \sum_{(i,j) \in A} \sum_{k,l} C_{i,j} x_{i,j}^{k,l}
+\end{equation}
+
+\textbf{Subject to:}
+
+\textbf{Flow Conservation Constraints:}
+\begin{align}
+&\sum_{j: (m,j) \in A} x_{m,j}^{k,l} - \sum_{i: (i,m) \in A} x_{i,m}^{k,l} = B_{k,l}  & \text{if } m = k \\ 
+&\sum_{j: (m,j) \in A} x_{m,j}^{k,l} - \sum_{i: (i,m) \in A} x_{i,m}^{k,l} = -B_{k,l} & \text{if } m = l \\ 
+&\sum_{j: (m,j) \in A} x_{m,j}^{k,l} - \sum_{i: (i,m) \in A} x_{i,m}^{k,l} = 0  & \text{otherwise} 
+\end{align}
+
+\textbf{Capacity Constraints:}
+\begin{equation}
+x_{i,j}^{k,l} \leq U_{i,j} \quad \forall (i,j) \in A, \forall k, l
+\end{equation}
+
+\textbf{Non-negativity Constraints:}
+\begin{equation}
+x_{i,j}^{k,l} \geq 0
+\end{equation}
+
+\end{document}

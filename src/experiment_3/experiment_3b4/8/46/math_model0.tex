@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Sets and Indices}
+\begin{align*}
+  & A: \text{Number of different alloys} \\
+  & S: \text{Number of different types of steel} \\
+  & a = 1, \ldots, A: \text{Index for alloys} \\
+  & s = 1, \ldots, S: \text{Index for steel types} \\
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+  & \text{available}_a: \text{Tons of alloy } a \text{ available} \\
+  & \text{carbon}_a: \text{Percentage of carbon in alloy } a \\
+  & \text{nickel}_a: \text{Percentage of nickel in alloy } a \\
+  & \text{alloy\_price}_a: \text{Price per ton of alloy } a \\
+  & \text{steel\_price}_s: \text{Price per ton of steel } s \\
+  & \text{carbon\_min}_s: \text{Minimum percentage of carbon required in steel } s \\
+  & \text{nickel\_max}_s: \text{Maximum percentage of nickel allowed in steel } s \\
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+  & \text{alloy\_amount}_{a,s}: \text{Amount of alloy } a \text{ used in steel type } s \\
+  & \text{total\_steel}_s: \text{Total amount of steel type } s \text{ produced} \\
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\begin{align*}
+  \text{Maximize} \quad & \sum_{s=1}^{S} \left( \text{steel\_price}_s \times \text{total\_steel}_s \right) - \sum_{s=1}^{S} \sum_{a=1}^{A} \left( \text{alloy\_price}_a \times \text{alloy\_amount}_{a,s} \right)
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+  & \sum_{s=1}^{S} \text{alloy\_amount}_{a,s} \leq \text{available}_a, \quad \forall a \\
+  & \sum_{a=1}^{A} \text{alloy\_amount}_{a,s} = \text{total\_steel}_s, \quad \forall s \\
+  & \sum_{a=1}^{A} \left( \text{carbon}_a \times \text{alloy\_amount}_{a,s} \right) \geq \text{carbon\_min}_s \times \text{total\_steel}_s, \quad \forall s \\
+  & \sum_{a=1}^{A} \left( \text{nickel}_a \times \text{alloy\_amount}_{a,s} \right) \leq \text{nickel\_max}_s \times \text{total\_steel}_s, \quad \forall s \\
+  & \text{alloy\_amount}_{1,s} \leq 0.4 \times \text{total\_steel}_s, \quad \forall s \\
+  & \text{alloy\_amount}_{a,s} \geq 0, \quad \forall a, \forall s \\
+  & \text{total\_steel}_s \geq 0, \quad \forall s \\
+\end{align*}
+
+\end{document}

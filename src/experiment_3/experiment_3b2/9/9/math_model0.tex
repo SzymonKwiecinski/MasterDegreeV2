@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\textbf{Given:}
+\begin{itemize}
+    \item Coefficients: $\text{coeff}_{i,j}$ for $i = 1, \ldots, N$ and $j = 1, \ldots, M$.
+    \item Desired illuminations: $\text{desired}_i$ for $i = 1, \ldots, N$.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $\text{power}_j$ for $j = 1, \ldots, M$.
+    \item Auxiliary variables: $z_i$ for $i = 1, \ldots, N$.
+\end{itemize}
+
+\textbf{Objective:}
+\[
+\text{Minimize} \quad \sum_{i=1}^{N} z_i
+\]
+
+\textbf{Constraints:}
+\[
+\begin{align*}
+& \text{ill}_i = \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j \quad \text{for } i = 1, \ldots, N \\
+& \text{ill}_i - \text{desired}_i \leq z_i \quad \text{for } i = 1, \ldots, N \\
+& \text{desired}_i - \text{ill}_i \leq z_i \quad \text{for } i = 1, \ldots, N
+\end{align*}
+\]
+
+\end{document}

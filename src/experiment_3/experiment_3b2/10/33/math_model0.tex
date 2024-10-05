@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mixed Integer Programming Model for the 0/1 Knapsack Problem}
+
+Given a list of \(K\) items, each with a value \( \text{value}_k \) and size \( \text{size}_k \), and a container with maximum capacity \( C \), the goal is to determine the subset of items that maximizes the total value without exceeding the container's capacity. We define binary variables \( \text{isincluded}_k \) to indicate whether item \( k \) is included in the knapsack (\(\text{isincluded}_k = 1\)) or not (\(\text{isincluded}_k = 0\)).
+
+\subsection*{Objective:}
+Maximize the total value of the selected items:
+
+\[
+\max \sum_{k=1}^{K} \text{value}_k \cdot \text{isincluded}_k
+\]
+
+\subsection*{Constraints:}
+Ensure that the total size of selected items does not exceed the capacity:
+
+\[
+\sum_{k=1}^{K} \text{size}_k \cdot \text{isincluded}_k \leq C
+\]
+
+\subsection*{Variables:}
+\[
+\text{isincluded}_k \in \{0, 1\}, \quad \forall k = 1, \ldots, K
+\]
+
+\end{document}

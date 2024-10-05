@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Minimizing Redundancy Costs}
+
+\subsection*{Variables:}
+\begin{itemize}
+    \item $x_{k,i}$: Number of recruits for manpower $k$ in year $i$.
+    \item $y_{k,i}$: Number of overmanning workers for manpower $k$ in year $i$.
+    \item $z_{k,i}$: Number of short-time working workers for manpower $k$ in year $i$.
+\end{itemize}
+
+\subsection*{Objective:}
+Minimize the total redundancy costs:
+\[
+\min \sum_{k=1}^{K} \sum_{i=1}^{I} \text{costredundancy}_{k} \cdot \left( \text{strength}_{k} + \sum_{j=1}^{i-1} \left( x_{k,j} - (\text{lessonewaste}_{k} \cdot x_{k,j} + \text{moreonewaste}_{k} \cdot (\text{strength}_{k} - x_{k,j})) \right) \right) - \text{requirement}_{k,i}
+\]
+
+\subsection*{Subject to:}
+\begin{align}
+& \text{Strength balance for manpower } k \text{ in year } i: \nonumber \\
+& \text{strength}_{k} + \sum_{j=1}^{i-1} \left( x_{k,j} - (\text{lessonewaste}_{k} \cdot x_{k,j} + \text{moreonewaste}_{k} \cdot (\text{strength}_{k} - x_{k,j})) \right) + y_{k,i} + 0.5 \cdot z_{k,i} \geq \text{requirement}_{k,i}, \forall k, i \nonumber \\
+& \text{Recruitment limits: } \quad x_{k,i} \leq \text{recruit}_{k}, \forall k, i \nonumber \\
+& \text{Overmanning limits: } \quad \sum_{k=1}^{K} y_{k,i} \leq \text{num\_overman}, \forall i \nonumber \\
+& \text{Short-time working limits: } \quad z_{k,i} \leq \text{num\_shortwork}, \forall k, i \nonumber \\
+& x_{k,i}, y_{k,i}, z_{k,i} \geq 0, \forall k, i \nonumber
+\end{align}
+
+\end{document}

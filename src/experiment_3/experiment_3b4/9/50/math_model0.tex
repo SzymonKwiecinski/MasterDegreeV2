@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+\begin{align*}
+x_p &: \text{Number of batches of part } p, \quad \forall p = 1, \ldots, P \\
+e_m &: \text{Extra time purchased for machine } m, \quad \forall m = 1, \ldots, M
+\end{align*}
+
+\subsection*{Objective Function}
+\[
+\text{Maximize} \quad Z = \sum_{p=1}^{P} \text{price}_{p} \cdot x_p - \sum_{m=1}^{M} \left( \text{cost}_{m} \cdot \left( \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \right) + \text{extra\_cost}_{m} \cdot e_m \right)
+\]
+
+\subsection*{Constraints}
+\paragraph{Minimum Production Requirements:}
+\[
+x_p \geq \text{min\_batches}_{p}, \quad \forall p = 1, \ldots, P
+\]
+
+\paragraph{Machine Time Constraints:}
+\[
+\sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \leq \text{available}_{m} + e_m, \quad \forall m = 1, \ldots, M
+\]
+
+\paragraph{Extra Time Constraints:}
+\[
+0 \leq e_m \leq \text{max\_extra}_{m}, \quad \forall m = 1, \ldots, M
+\]
+
+\paragraph{Non-Negativity Constraints:}
+\[
+x_p \geq 0, \quad \forall p = 1, \ldots, P
+\]
+\[
+e_m \geq 0, \quad \forall m = 1, \ldots, M
+\]
+
+\end{document}

@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Formulation}
+
+Given observed data \(\{(x_k, y_k)\}\) for \(k = 1, \ldots, K\), we want to fit a line \(y = bx + a\) such that we minimize the maximum deviation of the observed \(y_k\) from the predicted \(\hat{y}_k = bx_k + a\).
+
+\textit{Variables:}
+\begin{align*}
+a & : \text{intercept of the fitted line} \\
+b & : \text{slope of the fitted line} \\
+d_k & : \text{deviation for each } k \\
+D & : \text{maximum deviation to minimize}
+\end{align*}
+
+\textit{Objective:}
+\[
+\min D
+\]
+
+\textit{Subject to:}
+\begin{align*}
+d_k & \geq y_k - (bx_k + a), & \forall k = 1, \ldots, K \\
+d_k & \geq -(y_k - (bx_k + a)), & \forall k = 1, \ldots, K \\
+D & \geq d_k, & \forall k = 1, \ldots, K
+\end{align*}
+
+\end{document}

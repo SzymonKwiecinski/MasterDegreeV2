@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Trajectory Optimization Model}
+
+We are considering a rocket traveling along a straight path, governed by the following discrete-time equations:
+
+\begin{align}
+    x_{t+1} &= x_t + v_t \\
+    v_{t+1} &= v_t + a_t
+\end{align}
+
+Where:
+\begin{itemize}
+    \item \( x_t \) is the position of the rocket at time \( t \)
+    \item \( v_t \) is the velocity of the rocket at time \( t \)
+    \item \( a_t \) is the acceleration (thrust) of the rocket at time \( t \) which we control.
+\end{itemize}
+
+Given the initial conditions \( x_0 \) and \( v_0 \), we aim to ensure that at time \( T \), the rocket reaches a target position \( x_T \) with speed \( v_T \).
+
+The objective is to minimize the maximum thrust required, expressed mathematically as:
+
+\[
+\text{Minimize } z = \max_{t} |a_t|
+\]
+
+\textbf{Constraints:}
+
+The motion constraints for the rocket can be expressed as:
+
+\begin{align}
+    x_{T} &= x_0 + \sum_{t=0}^{T-1} v_t \\
+    v_{T} &= v_0 + \sum_{t=0}^{T-1} a_t
+\end{align}
+
+\textbf{Inputs:}
+\begin{itemize}
+    \item \( x_0 \): Initial position of the rocket
+    \item \( v_0 \): Initial velocity of the rocket
+    \item \( x_T \): Target position of the rocket at time \( T \)
+    \item \( v_T \): Target velocity of the rocket at time \( T \)
+    \item \( T \): Total time steps
+\end{itemize}
+
+\textbf{Output:}
+The solution should provide the following:
+\begin{itemize}
+    \item \( x \): List of positions of the rocket at each time step from 0 to \( T \)
+    \item \( v \): List of velocities of the rocket at each time step from 0 to \( T \)
+    \item \( a \): List of accelerations of the rocket at each time step from 0 to \( T \)
+    \item \( \text{fuel\_spend} \): Total fuel spent by the rocket
+\end{itemize}
+
+\textbf{Output Format:}
+\[
+\{
+    x: [x_i \text{ for } i = 0, \ldots, T],
+    v: [v_i \text{ for } i = 0, \ldots, T],
+    a: [a_i \text{ for } i = 0, \ldots, T],
+    \text{fuel\_spend}: \text{fuel\_spent}
+\}
+\]
+
+\end{document}

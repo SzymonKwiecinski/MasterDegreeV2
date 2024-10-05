@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\subsection*{Objective}
+Maximize the profit:
+\[
+Z = \sum_{k=1}^{K} \text{profit}_k \cdot x_k
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+\sum_{k=1}^{K} \text{time}_{k,s} \cdot x_k & \leq \text{capacity}_s \quad \text{for each shop } s = 1, 2, \ldots, S \\
+x_k & \geq 0 \quad \text{for each part } k = 1, 2, \ldots, K
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_k \): quantity of spare part \( k \) to be produced
+\end{itemize}
+
+\end{document}

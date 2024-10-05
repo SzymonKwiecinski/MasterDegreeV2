@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Formulation}
+
+\textbf{Objective Function:}
+
+Maximize
+\[
+Z = \sum_{i=1}^{P} \left( \text{price}_i \cdot x_i - \text{cost}_i \cdot x_i - \text{investPercentage}_i \cdot \text{price}_i \cdot x_i \right)
+\]
+
+\textbf{Subject to:}
+
+1. Cash Constraint:
+\[
+\sum_{i=1}^{P} \left( \text{cost}_i \cdot x_i + \text{investPercentage}_i \cdot \text{price}_i \cdot x_i \right) + u \cdot \text{upgradeCost} \leq \text{cash}
+\]
+
+2. Machine Hours Constraint:
+\[
+\sum_{i=1}^{P} \text{hour}_i \cdot x_i \leq \text{availableHours} + u \cdot \text{upgradeHours}
+\]
+
+3. Non-negativity and Binary Constraints:
+\[
+x_i \geq 0, \quad \forall i = 1, 2, \ldots, P
+\]
+\[
+u \in \{0, 1\}
+\]
+
+\textbf{Decision Variables:}
+
+- \( x_i \): Number of units to produce of product \( i \).
+- \( u \): Binary variable for upgrading machine hours (1 if upgraded, 0 otherwise).
+
+\end{document}

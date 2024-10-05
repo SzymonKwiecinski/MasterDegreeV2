@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\textbf{Objective:} Maximize Profit
+
+\[
+\text{Profit} = \sum_{s=1}^{S} \left( \text{steel\_price}_s \cdot y_s \right) - \sum_{a=1}^{A} \sum_{s=1}^{S} \left( \text{alloy\_price}_a \cdot x_{a,s} \right)
+\]
+
+\textbf{Subject to:}
+
+\begin{align*}
+& \sum_{s=1}^{S} x_{a,s} \leq \text{available}_a, & \forall a = 1, \ldots, A \\
+& \frac{\sum_{a=1}^{A} \text{carbon}_a \cdot x_{a,s}}{y_s} \geq \text{carbon\_min}_s, & \forall s = 1, \ldots, S \\
+& \frac{\sum_{a=1}^{A} \text{nickel}_a \cdot x_{a,s}}{y_s} \leq \text{nickel\_max}_s, & \forall s = 1, \ldots, S \\
+& x_{1,s} \leq 0.4 \cdot y_s, & \forall s = 1, \ldots, S \\
+& x_{a,s} \geq 0, & \forall a = 1, \ldots, A, \quad \forall s = 1, \ldots, S \\
+& y_s \geq 0, & \forall s = 1, \ldots, S
+\end{align*}
+
+\end{document}

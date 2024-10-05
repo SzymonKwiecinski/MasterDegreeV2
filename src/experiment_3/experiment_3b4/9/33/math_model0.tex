@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Knapsack Problem}
+
+\textbf{Given:}
+\begin{itemize}
+    \item Capacity of the knapsack: \( C \)
+    \item Value of each item: \( \text{value}_k \) for \( k = 1, \ldots, K \)
+    \item Size of each item: \( \text{size}_k \) for \( k = 1, \ldots, K \)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( x_k = \begin{cases} 
+    1, & \text{if item } k \text{ is included in the knapsack} \\
+    0, & \text{otherwise}
+    \end{cases} \) for \( k = 1, \ldots, K \)
+\end{itemize}
+
+\textbf{Objective:}
+\[
+\text{Maximize } \sum_{k=1}^{K} \text{value}_k \cdot x_k
+\]
+
+\textbf{Subject to:}
+\[
+\sum_{k=1}^{K} \text{size}_k \cdot x_k \leq C
+\]
+
+\[
+x_k \in \{0, 1\} \quad \forall k = 1, \ldots, K
+\]
+
+\end{document}

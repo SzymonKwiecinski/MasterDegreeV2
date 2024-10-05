@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model for Minimizing Food Costs}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item Let \( x_k \) denote the quantity of food \( k \) to purchase, \( k = 1, \ldots, K \).
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize} \quad Z = \sum_{k=1}^{K} \text{price}_k \times x_k
+\]
+
+\textbf{Subject to Nutritional Constraints:}
+\[
+\sum_{k=1}^{K} \text{nutri}_{k,m} \times x_k \geq \text{demand}_m \quad \forall m = 1, \ldots, M
+\]
+
+\textbf{Non-negativity Constraints:}
+\[
+x_k \geq 0 \quad \forall k = 1, \ldots, K
+\]
+
+\end{document}

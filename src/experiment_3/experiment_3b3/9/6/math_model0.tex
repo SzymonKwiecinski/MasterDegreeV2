@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Trajectory Optimization Problem}
+
+\subsection*{Variables}
+Let:
+\begin{align*}
+x_t & : \text{Position of the rocket at time } t \\
+v_t & : \text{Velocity of the rocket at time } t \\
+a_t & : \text{Acceleration of the rocket at time } t
+\end{align*}
+
+\subsection*{Model Formulation}
+The discrete-time model of the rocket's motion can be described by the following equations:
+\begin{align}
+x_{t+1} = x_t + v_t \\
+v_{t+1} = v_t + a_t
+\end{align}
+
+\subsection*{Inputs}
+The inputs of the problem are:
+\begin{align*}
+x_0 & : \text{Initial position} \\
+v_0 & : \text{Initial velocity} \\
+x_T & : \text{Target position} \\
+v_T & : \text{Target velocity} \\
+T & : \text{Total time steps}
+\end{align*}
+
+\subsection*{Objective Function}
+The objective is to minimize the total fuel spent, represented by:
+\[
+\text{minimize } \sum_{t=0}^{T-1} |a_t|
+\]
+
+\subsection*{Constraints}
+We must also satisfy the following constraints to reach the target:
+\begin{align*}
+x_0 & = x_0 \\
+v_0 & = v_0 \\
+x_T & = x_T \\
+v_T & = v_T
+\end{align*}
+
+\subsection*{Output}
+The expected output format is:
+\begin{verbatim}
+{
+    "x": [x_i for i in 1, ..., T],
+    "v": [v_i for i in 1, ..., T],
+    "a": [a_i for i in 1, ..., T],
+    "fuel_spend": fuel_spent,
+}
+\end{verbatim}
+
+\end{document}

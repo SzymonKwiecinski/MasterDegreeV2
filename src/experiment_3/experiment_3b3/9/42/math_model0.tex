@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Transporting Containers}
+\author{}
+\date{}
+\maketitle
+
+\section*{Notation}
+\begin{itemize}
+    \item Let \( I \) be the number of depots.
+    \item Let \( J \) be the number of ports.
+    \item \( \text{numdepot}_i \) = number of containers available in depot \( i \), for \( i = 1, \ldots, I \).
+    \item \( \text{numport}_j \) = number of containers required at port \( j \), for \( j = 1, \ldots, J \).
+    \item \( \text{price} \) = cost of transport per kilometer (in Euros).
+    \item \( \text{distance}_{i,j} \) = distance between depot \( i \) and port \( j \) (in kilometers).
+    \item \( \text{number}_{i,j} \) = number of containers sent from depot \( i \) to port \( j \).
+\end{itemize}
+
+\section*{Objective Function}
+Minimize the total transportation cost \( C \):
+\[
+C = \sum_{i=1}^{I} \sum_{j=1}^{J} \left( \frac{\text{number}_{i,j}}{2} \cdot \text{distance}_{i,j} \cdot \text{price} \right)
+\]
+
+\section*{Constraints}
+\subsection*{Supply Constraints}
+\[
+\sum_{j=1}^{J} \text{number}_{i,j} \leq \text{numdepot}_i, \quad \forall i = 1, \ldots, I
+\]
+
+\subsection*{Demand Constraints}
+\[
+\sum_{i=1}^{I} \text{number}_{i,j} \geq \text{numport}_j, \quad \forall j = 1, \ldots, J
+\]
+
+\subsection*{Non-negativity Constraints}
+\[
+\text{number}_{i,j} \geq 0, \quad \forall i = 1, \ldots, I, \forall j = 1, \ldots, J
+\]
+
+\section*{Output Format}
+The output should provide:
+\[
+\text{"number": } \left[ \left[ \text{number}_{i,j} \text{ for } i=1,\ldots,I \right] \text{ for } j=1,\ldots,J \right]
+\]
+
+\end{document}

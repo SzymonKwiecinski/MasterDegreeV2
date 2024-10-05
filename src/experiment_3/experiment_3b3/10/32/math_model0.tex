@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+Given a set of products that can be produced through multiple stages, we aim to maximize the profit while adhering to production time constraints. 
+
+Let:
+\begin{itemize}
+    \item $K$ = total number of products
+    \item $S$ = total number of stages
+    \item $produce\_time_{k,s}$ = time (in hours) required to produce one unit of product $k$ in stage $s$
+    \item $time_s$ = available working hours for stage $s$
+    \item $profit_k$ = profit generated from selling one unit of product $k$
+    \item $quantity_k$ = quantity of product $k$ produced
+\end{itemize}
+
+\subsection*{Objective Function}
+We want to maximize the total profit, which can be expressed as:
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} profit_k \cdot quantity_k
+\]
+
+\subsection*{Constraints}
+The production time for each stage must not exceed the available time. This can be formulated as:
+\[
+\sum_{k=1}^{K} produce\_time_{k,s} \cdot quantity_k \leq time_s \quad \text{for } s = 1, \ldots, S
+\]
+
+Additionally, we have the non-negativity constraints:
+\[
+quantity_k \geq 0 \quad \text{for } k = 1, \ldots, K
+\]
+
+\subsection*{Complete Model}
+The complete linear programming formulation can thus be represented as:
+
+\[
+\begin{align*}
+\text{Maximize } & Z = \sum_{k=1}^{K} profit_k \cdot quantity_k \\
+\text{subject to } & \sum_{k=1}^{K} produce\_time_{k,s} \cdot quantity_k \leq time_s, \quad s = 1, \ldots, S \\
+& quantity_k \geq 0, \quad k = 1, \ldots, K
+\end{align*}
+\]
+
+\end{document}

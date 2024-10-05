@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Model for Minimizing the Number of Floppy Disks}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $N$: Number of files
+    \item $M$: Large constant, e.g., $N$
+    \item $capacity$: Capacity of each floppy disk in GB
+    \item $size_j$: Size of file $j$ for $j = 1, \ldots, N$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_{ij} = \begin{cases} 
+        1, & \text{if file } j \text{ is placed on disk } i \\
+        0, & \text{otherwise}
+    \end{cases}$ for $i = 1, \ldots, M$, $j = 1, \ldots, N$
+    \item $y_i = \begin{cases} 
+        1, & \text{if disk } i \text{ is used} \\
+        0, & \text{otherwise}
+    \end{cases}$ for $i = 1, \ldots, M$
+\end{itemize}
+
+\subsection*{Objective Function}
+\[
+\text{Minimize } \sum_{i=1}^{M} y_i
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    & \sum_{j=1}^{N} x_{ij} \times size_j \leq capacity \times y_i, \quad \forall i = 1, \ldots, M \\
+    & \sum_{i=1}^{M} x_{ij} = 1, \quad \forall j = 1, \ldots, N \\
+    & x_{ij} \in \{0, 1\}, \quad \forall i = 1, \ldots, M, \, j = 1, \ldots, N \\
+    & y_i \in \{0, 1\}, \quad \forall i = 1, \ldots, M
+\end{align}
+
+\subsection*{Explanation}
+\begin{itemize}
+    \item The objective function minimizes the number of used disks.
+    \item Constraint (1) ensures that the total size of files on each disk does not exceed its capacity.
+    \item Constraint (2) ensures that each file is placed on exactly one disk.
+    \item Constraints (3) and (4) define the binary nature of the decision variables.
+\end{itemize}
+
+\end{document}

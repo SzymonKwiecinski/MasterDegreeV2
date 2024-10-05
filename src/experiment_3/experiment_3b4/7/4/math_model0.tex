@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Nurse Scheduling Problem - MILP Model}
+\author{}
+\date{}
+\maketitle
+
+\section*{Model Formulation}
+
+\subsection*{Given:}
+- \(\text{period}\): The number of consecutive working days for each nurse.
+- \(\{d_j\}_{j=1}^{7}\): Demand for nurses on each day \( j \).
+
+\subsection*{Objective:}
+Minimize the total number of nurses, given by:
+\[
+\text{total} = \sum_{j=1}^{7} x_j
+\]
+
+\subsection*{Constraints:}
+For each day \( j = 1, \ldots, 7 \):
+\[
+\sum_{i=0}^{\text{period} - 1} x_{(j-i-1) \mod 7 + 1} \geq d_j
+\]
+
+\( x_j \geq 0 \) and integer for all \( j = 1, \ldots, 7 \).
+
+\vspace{1cm}
+
+\subsection*{Decision Variables:}
+- \( x_j \): Number of nurses that start on day \( j \).
+
+\end{document}

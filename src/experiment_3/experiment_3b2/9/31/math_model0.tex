@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective Function:}
+\[
+\min \sum_{t=1}^{T} \sum_{k=1}^{K} \left( x_{k,t} \cdot \text{runcost}_k + p_{k,t} \cdot \text{extracost}_k + y_{k,t} \cdot \text{startcost}_k \right)
+\]
+
+\textbf{Subject to:}
+
+\textbf{Demand Constraints:}
+\[
+\sum_{k=1}^{K} \left( x_{k,t} \cdot \text{minlevel}_k + x_{k,t} \cdot p_{k,t} \right) \geq \text{demand}_t \quad \forall t
+\]
+
+\textbf{Power Output Constraints:}
+\[
+0 \leq p_{k,t} \leq (\text{maxlevel}_k - \text{minlevel}_k) \cdot x_{k,t} \quad \forall k, t
+\]
+
+\textbf{Startup Constraint:}
+\[
+0 \leq x_{k,t} \leq \text{num}_k \cdot y_{k,t} \quad \forall k, t
+\]
+
+\textbf{Integrality and Binary Constraints:}
+\[
+x_{k,t} \in \mathbb{Z}_{+}, \quad y_{k,t} \in \{0, 1\} \quad \forall k, t
+\]
+
+\end{document}

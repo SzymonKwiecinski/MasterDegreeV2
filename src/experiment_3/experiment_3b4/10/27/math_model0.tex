@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Decision Variables}
+Let \( x_{k,l} \) be a binary variable representing whether department \( k \) is located in city \( l \):
+\[
+x_{k,l} = 
+\begin{cases} 
+1, & \text{if department } k \text{ is located in city } l \\
+0, & \text{otherwise}
+\end{cases}
+\]
+
+\subsection*{Objective Function}
+The objective is to minimize the overall yearly cost, which includes both the benefits of relocation and communication costs. The objective function can be expressed as:
+
+\[
+\text{Minimize} \quad 
+\sum_{k=1}^{K} \sum_{l=1}^{L} x_{k,l} \cdot \text{benefit}_{k,l} 
++ \sum_{k=1}^{K} \sum_{j=1}^{K} \sum_{l=1}^{L} \sum_{m=1}^{L} x_{k,l} \cdot x_{j,m} \cdot \text{communication}_{k,j} \cdot \text{cost}_{l,m}
+\]
+
+\subsection*{Constraints}
+
+1. **Each department is located in exactly one city:**
+   \[
+   \sum_{l=1}^{L} x_{k,l} = 1, \quad \forall k \in \{1, 2, \ldots, K\}
+   \]
+
+2. **No city hosts more than three departments:**
+   \[
+   \sum_{k=1}^{K} x_{k,l} \leq 3, \quad \forall l \in \{1, 2, \ldots, L\}
+   \]
+
+3. **Binary constraint on decision variables:**
+   \[
+   x_{k,l} \in \{0, 1\}, \quad \forall k \in \{1, 2, \ldots, K\}, \forall l \in \{1, 2, \ldots, L\}
+   \]
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{benefit}_{k,l} \): Benefits for department \( k \) from relocation at city \( l \).
+    \item \( \text{communication}_{k,j} \): Quantity of communication between department \( k \) and department \( j \).
+    \item \( \text{cost}_{l,m} \): Unit cost of communication between city \( l \) and city \( m \).
+\end{itemize}
+
+\end{document}

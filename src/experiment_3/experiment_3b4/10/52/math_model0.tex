@@ -1,0 +1,19 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+\[
+\text{Minimize} \quad \sum_{p=1}^{P} \sum_{c=1}^{C} \text{transmission}_{p,c} \cdot \text{send}_{p,c}
+\]
+
+\textbf{Subject to:}
+
+\begin{align*}
+\sum_{c=1}^{C} \text{send}_{p,c} & \leq \text{supply}_{p} \quad \forall p \in \{1, \ldots, P\} \\
+\sum_{p=1}^{P} \text{send}_{p,c} & = \text{demand}_{c} \quad \forall c \in \{1, \ldots, C\} \\
+\text{send}_{p,c} & \geq 0 \quad \forall p \in \{1, \ldots, P\}, \, \forall c \in \{1, \ldots, C\}
+\end{align*}
+
+\end{document}

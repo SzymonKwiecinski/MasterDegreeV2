@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Alloy Production}
+
+\subsection*{Parameters:}
+\begin{itemize}
+    \item $alloy\_quant$: Total quantity of the alloy to be produced.
+    \item $M$: Number of metals in the target alloy composition.
+    \item $K$: Number of available alloys.
+    \item $target_m$: Target weight of metal $m$ in the desired alloy.
+    \item $ratio_{k,m}$: Ratio of metal $m$ in alloy $k$.
+    \item $price_k$: Price of alloy $k$.
+\end{itemize}
+
+\subsection*{Decision Variables:}
+\begin{itemize}
+    \item $amount_k$: Quantity of alloy $k$ to purchase.
+\end{itemize}
+
+\subsection*{Objective Function:}
+
+Minimize the total cost of purchasing the alloys:
+\[
+\text{Minimize } \sum_{k=1}^{K} price_k \times amount_k
+\]
+
+\subsection*{Constraints:}
+
+1. Total weight constraint:
+   \[
+   \sum_{k=1}^{K} amount_k = alloy\_quant
+   \]
+
+2. Metal composition constraints for each metal $m$, where $m=1,...,M$:
+   \[
+   \sum_{k=1}^{K} ratio_{k,m} \times amount_k \geq target_m
+   \]
+
+3. Non-negativity constraints:
+   \[
+   amount_k \geq 0 \quad \text{for } k=1,...,K
+   \]
+
+\subsection*{Conclusion:}
+
+The solution to this linear programming problem will provide the optimal quantities of each alloy to purchase in order to achieve the desired alloy composition at the minimum cost.
+
+\end{document}

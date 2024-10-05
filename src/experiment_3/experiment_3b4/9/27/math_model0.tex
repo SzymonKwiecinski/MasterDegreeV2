@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item Let \( K \) be the set of departments, indexed by \( k \).
+    \item Let \( L \) be the set of locations (cities), indexed by \( l \).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{benefit}_{k, l} \): Benefit for department \( k \) being relocated to city \( l \) (in thousands of pounds).
+    \item \( \text{communication}_{k, j} \): Quantity of communication between department \( k \) and department \( j \).
+    \item \( \text{cost}_{l, m} \): Unit cost of communication between city \( l \) and city \( m \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{islocated}_{k, l} \in \{0, 1\} \): Binary variable indicating if department \( k \) is relocated to city \( l \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the overall yearly cost, which is the negative of total benefits plus total communication costs:
+
+\[
+\begin{align*}
+\text{Minimize } & -\sum_{k \in K} \sum_{l \in L} \text{benefit}_{k, l} \cdot \text{islocated}_{k, l} \\
+& + \sum_{k \in K} \sum_{j \in K} \sum_{l \in L} \sum_{m \in L} \text{communication}_{k, j} \cdot \text{cost}_{l, m} \cdot \text{islocated}_{k, l} \cdot \text{islocated}_{j, m}
+\end{align*}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Each department must be located in exactly one city:
+    \[
+    \sum_{l \in L} \text{islocated}_{k, l} = 1, \quad \forall k \in K
+    \]
+    
+    \item No more than three departments can be located in any single city:
+    \[
+    \sum_{k \in K} \text{islocated}_{k, l} \leq 3, \quad \forall l \in L
+    \]
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,19 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\textbf{Objective:}
+\[
+\text{Maximize} \quad Z = \sum_{i=1}^{N-1} \text{rate}_{i,N} \cdot x_{i,N}
+\]
+
+\textbf{Subject to:}
+\begin{align*}
+& \sum_{j=1}^{N} x_{i,j} \leq \text{start}_i, && \forall i = 1, \ldots, N \\
+& \sum_{j=1}^{N} x_{i,j} + \sum_{j=1}^{N} \frac{x_{j,i}}{\text{rate}_{j,i}} \leq \text{limit}_i, && \forall i = 1, \ldots, N \\
+& x_{i,j} \geq 0, && \forall i, j = 1, \ldots, N
+\end{align*}
+
+\end{document}

@@ -1,0 +1,23 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+The goal is to fit the best straight line \( y = bx + a \) that minimizes the maximum deviation of all observed values of \( y \) from the value predicted by the linear relationship. The linear programming formulation is:
+
+\[
+\begin{align*}
+\text{Minimize} \quad & D \\
+\text{Subject to} \quad & y_k - (bx_k + a) \leq D, \quad \forall k = 1, 2, \ldots, K \\
+& (bx_k + a) - y_k \leq D, \quad \forall k = 1, 2, \ldots, K \\
+& a, b, D \in \mathbb{R}
+\end{align*}
+\]
+
+Where:
+- \( y_k \) is the observed value of \( y \).
+- \( x_k \) is the observed value of \( x \).
+- \( a \) is the intercept of the line.
+- \( b \) is the slope of the line.
+- \( D \) is the maximum deviation.
+
+\end{document}

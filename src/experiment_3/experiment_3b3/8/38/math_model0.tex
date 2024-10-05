@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Production Scheduling}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( N \) be the number of months.
+    \item Let \( demand_n \) be the demand in month \( n \) for \( n = 1, \ldots, N \).
+    \item Let \( max\_regular\_amount \) be the maximum units produced using regular production in any month.
+    \item Let \( cost\_regular \) be the cost per unit of regular production.
+    \item Let \( cost\_overtime \) be the cost per unit of overtime production.
+    \item Let \( store\_cost \) be the cost per unit stored per month.
+    
+    \item Let \( reg\_quant_n \) be the quantity produced using regular production in month \( n \).
+    \item Let \( over\_quant_n \) be the quantity produced using overtime production in month \( n \).
+    \item Let \( inventory_n \) be the inventory available at the end of month \( n \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    reg\_quant_n & : \text{Quantity produced using regular production in month } n, \quad n = 1, \ldots, N \\
+    over\_quant_n & : \text{Quantity produced using overtime production in month } n, \quad n = 1, \ldots, N \\
+    inventory_n & : \text{Inventory at the end of month } n, \quad n = 1, \ldots, N \\
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{n=1}^{N} (cost\_regular \cdot reg\_quant_n + cost\_overtime \cdot over\_quant_n + store\_cost \cdot inventory_n)
+\]
+
+\subsection*{Constraints}
+1. Demand Satisfaction:
+   \[
+   inventory_{n-1} + reg\_quant_n + over\_quant_n \geq demand_n \quad \forall n = 1, \ldots, N
+   \]
+   (for \( n = 1 \), \( inventory_0 = 0 \))
+
+2. Inventory Balance:
+   \[
+   inventory_n = inventory_{n-1} + reg\_quant_n + over\_quant_n - demand_n \quad \forall n = 1, \ldots, N
+   \]
+
+3. Regular Production Capacity:
+   \[
+   reg\_quant_n \leq max\_regular\_amount \quad \forall n = 1, \ldots, N
+   \]
+
+4. Non-Negativity Constraints:
+   \[
+   reg\_quant_n \geq 0, \quad over\_quant_n \geq 0, \quad inventory_n \geq 0 \quad \forall n = 1, \ldots, N
+   \]
+
+\end{document}

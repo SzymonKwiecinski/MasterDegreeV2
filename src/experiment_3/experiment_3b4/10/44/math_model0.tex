@@ -1,0 +1,14 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model:}
+
+\begin{align*}
+    \text{Maximize} \quad & \sum_{p=1}^P \text{price}_{p} \times x_p - \sum_{m=1}^M \left( \text{cost}_{m} \times \sum_{p=1}^P \text{time}_{m,p} \times x_p \right) \\
+    \text{Subject to} \quad & \sum_{p=1}^P \text{time}_{m,p} \times x_p \leq \text{available}_{m}, \quad \forall m = 1, \ldots, M \\
+    & x_p \geq \text{min_batches}_{p}, \quad \forall p = 1, \ldots, P \\
+    & x_p \geq 0, \quad \forall p = 1, \ldots, P \\
+\end{align*}
+
+\end{document}

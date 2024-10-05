@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MIP Model for DEC Production Planning}
+
+\subsection*{Sets and Parameters}
+\begin{itemize}
+    \item \( N \): Number of different computer systems.
+    \item \( \text{is\_workstation}_i \): Boolean indicating if system \( i \) is a workstation.
+    \item \( \text{price}_i \): Price of system \( i \).
+    \item \( \text{disk\_drives}_i \): Average units of disk drive per system \( i \).
+    \item \( \text{256K\_boards}_i \): Average units of 256K memory boards per system \( i \).
+    \item \( \text{max\_cpu} \): Maximum CPU units available.
+    \item \( \text{min\_disk}, \text{max\_disk} \): Minimum and maximum disk drives available.
+    \item \( \text{min\_mem}, \text{max\_mem} \): Minimum and maximum 256K memory boards available.
+    \item \( \text{demand}_i \): Maximum demand for system \( i \).
+    \item \( \text{demand\_GP} \): Maximum demand for GP systems.
+    \item \( \text{demand\_WS} \): Maximum demand for WS systems.
+    \item \( \text{preorder}_i \): Pre-orders for system \( i \).
+    \item \( \text{alt\_mem} \): Available alternative memory boards.
+    \item \( \text{alt\_compatible}_i \): Boolean indicating if system \( i \) can use alternative memory boards.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_i \): Number of systems \( i \) produced.
+    \item \( y_i \): Number of 256K memory boards used for system \( i \).
+    \item \( z_i \): Number of alternative memory boards used for system \( i \).
+    \item \( w_i \): Number of disk drives used for system \( i \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the profit:
+\[
+\text{Maximize } \sum_{i=1}^{N} \text{price}_i \times x_i
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    & \sum_{i=1}^{N} x_i \leq \text{max\_cpu} \\
+    & \sum_{i=1}^{N} y_i \leq \text{max\_mem} \\
+    & \sum_{i=1}^{N} z_i \leq \text{alt\_mem} \\
+    & \sum_{i=1}^{N} w_i \geq \text{min\_disk} \\
+    & \sum_{i=1}^{N} w_i \leq \text{max\_disk} \\
+    & x_i \geq \text{preorder}_i \quad \forall i \\
+    & \sum_{\text{is\_workstation}_i = \text{false}} x_i \leq \text{demand\_GP} \\
+    & \sum_{\text{is\_workstation}_i = \text{true}} x_i \leq \text{demand\_WS} \\
+    & x_i \leq \text{demand}_i \quad \forall i \\
+    & z_i = 0 \quad \text{if } \text{alt\_compatible}_i = \text{false} \\
+    & y_i + z_i = \text{256K\_boards}_i \times x_i \quad \forall i \\
+    & w_i = \text{disk\_drives}_i \times x_i \quad \forall i
+\end{align}
+
+\end{document}

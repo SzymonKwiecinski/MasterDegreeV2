@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Formulation: Maximizing Daily Profit}
+
+\subsection*{Parameters:}
+\begin{align*}
+    &N : \text{Number of product types} \\
+    &\text{For each product type } i \in \{1, \ldots, N\}: \\
+    &\quad \text{assemblyHour}_i : \text{Assembly hours required per unit of product } i \\
+    &\quad \text{testingHour}_i : \text{Testing hours required per unit of product } i \\
+    &\quad \text{materialCost}_i : \text{Material cost per unit of product } i \\
+    &\quad \text{price}_i : \text{Price per unit of product } i \\
+    &\maxAssembly : \text{Maximum assembly hours available per day} \\
+    &\maxTesting : \text{Maximum testing hours available per day} \\
+    &\maxOvertimeAssembly : \text{Maximum overtime assembly hours available per day} \\
+    &\overtimeAssemblyCost : \text{Cost per overtime assembly hour} \\
+    &\materialDiscount : \text{Percentage discount on materials if threshold exceeded} \\
+    &\discountThreshold : \text{Material cost threshold for discount} \\
+\end{align*}
+
+\subsection*{Decision Variables:}
+\begin{align*}
+    &\text{unitsProduced}_i : \text{Number of units of product } i \text{ produced (integer)} \\
+    &\text{overtimeAssembly} : \text{Number of overtime assembly hours scheduled (continuous)} \\
+    &\text{materialBought} : \text{Total amount of raw materials purchased (continuous)} \\
+\end{align*}
+
+\subsection*{Objective Function:}
+Maximize the daily profit:
+\begin{align*}
+    \text{Profit} = \sum_{i=1}^{N} \left( \text{price}_i \times \text{unitsProduced}_i \right) 
+    - \left( 1 - \frac{\materialDiscount}{100} \right) \times \text{materialBought} 
+    - \overtimeAssemblyCost \times \text{overtimeAssembly}
+\end{align*}
+
+\subsection*{Constraints:}
+\begin{align*}
+    &\sum_{i=1}^{N} \text{assemblyHour}_i \times \text{unitsProduced}_i \leq \maxAssembly + \text{overtimeAssembly} \\
+    &\sum_{i=1}^{N} \text{testingHour}_i \times \text{unitsProduced}_i \leq \maxTesting \\
+    &\text{overtimeAssembly} \leq \maxOvertimeAssembly \\
+    &\text{materialBought} = \sum_{i=1}^{N} \text{materialCost}_i \times \text{unitsProduced}_i \\
+    &\text{If } \text{materialBought} > \discountThreshold, \text{ apply discount factor} \\
+    &\text{unitsProduced}_i \geq 0 \quad \forall i \in \{1, \ldots, N\} \\
+    &\text{overtimeAssembly} \geq 0, \quad \text{materialBought} \geq 0 \\
+\end{align*}
+
+\end{document}

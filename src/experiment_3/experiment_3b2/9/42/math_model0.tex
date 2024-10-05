@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+Let \( x_{i, j} \) be the number of containers sent from depot \( i \) to port \( j \).
+
+\subsection*{Objective Function}
+Minimize the total transportation cost:
+\[
+\text{Minimize } Z = \sum_{i=1}^{I} \sum_{j=1}^{J} \frac{x_{i, j}}{2} \cdot \text{price} \cdot \text{distance}_{i, j}
+\]
+
+\subsection*{Constraints}
+1. Supply constraints for each depot:
+   \[
+   \sum_{j=1}^{J} x_{i, j} \leq \text{numdepot}_{i}, \quad \forall \, i = 1, \ldots, I
+   \]
+
+2. Demand constraints for each port:
+   \[
+   \sum_{i=1}^{I} x_{i, j} = \text{numport}_{j}, \quad \forall \, j = 1, \ldots, J
+   \]
+
+3. Non-negativity constraints:
+   \[
+   x_{i, j} \geq 0, \quad \forall \, i = 1, \ldots, I, \, j = 1, \ldots, J
+   \]
+
+\subsection*{Notes}
+- The coefficient \(\frac{1}{2}\) in the objective function accounts for the fact that each barge can carry two containers.
+
+\end{document}

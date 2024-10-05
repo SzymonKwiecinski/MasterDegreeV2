@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Objective Function}
+Maximize the expected value of the portfolio next year:
+\[
+\text{maximize} \quad \sum_{i=1}^{N} (\text{bought}_i - \text{sell}_i) \times \text{futurePrice}_i
+\]
+
+\subsection*{Constraints}
+
+1. Raise amount \(K\) net of capital gains and transaction costs:
+\[
+\sum_{i=1}^{N} \left( \text{sell}_i \times \text{currentPrice}_i \right) - \sum_{i=1}^{N} \left( \text{sell}_i \times \text{buyPrice}_i \right) \times \frac{\text{taxRate}}{100} - \sum_{i=1}^{N} \left( \text{sell}_i \times \text{currentPrice}_i \right) \times \frac{\text{transactionRate}}{100} \geq K
+\]
+
+2. Limit on maximum shares sold:
+\[
+\text{sell}_i \leq \text{bought}_i \quad \text{for all } i = 1, \ldots, N
+\]
+
+3. Non-negativity of shares sold:
+\[
+\text{sell}_i \geq 0 \quad \text{for all } i = 1, \ldots, N
+\]
+
+\end{document}

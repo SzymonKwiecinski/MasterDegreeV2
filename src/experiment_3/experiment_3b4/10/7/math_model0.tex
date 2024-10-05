@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Rocket Trajectory Control}
+
+\textbf{Decision Variables:}
+\begin{align*}
+x_t &: \text{Position of the rocket at time } t, \, t = 0, 1, \ldots, T \\
+v_t &: \text{Velocity of the rocket at time } t, \, t = 0, 1, \ldots, T \\
+a_t &: \text{Acceleration of the rocket at time } t, \, t = 0, 1, \ldots, T-1 \\
+M   &: \text{Maximum thrust (absolute value of acceleration)}
+\end{align*}
+
+\textbf{Objective:}
+\[
+\min M
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+x_{t+1} &= x_t + v_t, & t = 0, 1, \ldots, T-1 \\
+v_{t+1} &= v_t + a_t, & t = 0, 1, \ldots, T-1 \\
+x_0 &= x_0, & \text{(Initial position)} \\
+v_0 &= v_0, & \text{(Initial velocity)} \\
+x_T &= x_T, & \text{(Target position)} \\
+v_T &= v_T, & \text{(Target velocity)} \\
+-M &\le a_t \le M, & t = 0, 1, \ldots, T-1
+\end{align*}
+
+\textbf{Fuel Consumption:}
+The total fuel spent can be expressed as:
+\[
+\text{Fuel spent} = \sum_{t=0}^{T-1} |a_t|
+\]
+
+\end{document}

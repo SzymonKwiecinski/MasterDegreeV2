@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\textbf{MILP Formulation}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item $N$: Set of clusters, indexed by $i$.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $p^{\text{central}}_{\text{isolate},i}$: Processing time for isolation using central processing for cluster $i$.
+    \item $p^{\text{central}}_{\text{scan},i}$: Processing time for scanning using central processing for cluster $i$.
+    \item $p^{\text{distributed}}_{\text{isolate},i}$: Processing time for isolation using distributed processing for cluster $i$.
+    \item $p^{\text{distributed}}_{\text{scan},i}$: Processing time for scanning using distributed processing for cluster $i$.
+    \item $c^{\text{central}}$: Opportunity cost per hour for central processing.
+    \item $c^{\text{distributed}}$: Opportunity cost per hour for distributed processing.
+    \item $h^{\text{max}}_{\text{central}}$: Maximum allowed hours for central processing.
+    \item $h^{\text{max}}_{\text{distributed}}$: Maximum allowed hours for distributed processing.
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item $x^{\text{central}}_{\text{isolate},i}$: Binary variable, 1 if cluster $i$ is isolated using central processing, 0 otherwise.
+    \item $x^{\text{central}}_{\text{scan},i}$: Binary variable, 1 if cluster $i$ is scanned using central processing, 0 otherwise.
+    \item $x^{\text{distributed}}_{\text{isolate},i}$: Binary variable, 1 if cluster $i$ is isolated using distributed processing, 0 otherwise.
+    \item $x^{\text{distributed}}_{\text{scan},i}$: Binary variable, 1 if cluster $i$ is scanned using distributed processing, 0 otherwise.
+\end{itemize}
+
+\textbf{Objective:}
+\begin{align}
+    \min \ & \sum_{i \in N} \left[ c^{\text{central}} \left( p^{\text{central}}_{\text{isolate},i} x^{\text{central}}_{\text{isolate},i} + p^{\text{central}}_{\text{scan},i} x^{\text{central}}_{\text{scan},i} \right) \right. \nonumber \\
+    & \left. + c^{\text{distributed}} \left( p^{\text{distributed}}_{\text{isolate},i} x^{\text{distributed}}_{\text{isolate},i} + p^{\text{distributed}}_{\text{scan},i} x^{\text{distributed}}_{\text{scan},i} \right) \right]
+\end{align}
+
+\textbf{Constraints:}
+\begin{align}
+    & x^{\text{central}}_{\text{isolate},i} + x^{\text{central}}_{\text{scan},i} + x^{\text{distributed}}_{\text{isolate},i} + x^{\text{distributed}}_{\text{scan},i} = 1, \quad \forall i \in N \\
+    & \sum_{i \in N} \left(p^{\text{central}}_{\text{isolate},i} x^{\text{central}}_{\text{isolate},i} + p^{\text{central}}_{\text{scan},i} x^{\text{central}}_{\text{scan},i}\right) \leq h^{\text{max}}_{\text{central}} \\
+    & \sum_{i \in N} \left(p^{\text{distributed}}_{\text{isolate},i} x^{\text{distributed}}_{\text{isolate},i} + p^{\text{distributed}}_{\text{scan},i} x^{\text{distributed}}_{\text{scan},i}\right) \leq h^{\text{max}}_{\text{distributed}} \\
+    & x^{\text{central}}_{\text{isolate},i}, x^{\text{central}}_{\text{scan},i}, x^{\text{distributed}}_{\text{isolate},i}, x^{\text{distributed}}_{\text{scan},i} \in \{0, 1\}, \quad \forall i \in N
+\end{align}
+
+\end{document}

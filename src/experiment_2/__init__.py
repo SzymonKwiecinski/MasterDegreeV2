@@ -17,9 +17,12 @@ EXP_RETRY = 10  # 10
 def run(
     client: Client,
     one_prompt_model: ChatModel,
+    one_prompt_model_fix: ChatModel,
     experiment_name: str,
     fix_retries: int = 0,
 ):
+    print(f"Running experiment {one_prompt_model=}")
+    print(f"Running experiment {one_prompt_model_fix=}")
     experiment_path = EXPERIMENT_2_PATH / experiment_name
     experiment_path.mkdir(exist_ok=True)
 
@@ -28,10 +31,15 @@ def run(
         tasks.append(Task.from_folder(number=i, path=ALL_DATA_PATH / str(i)))
 
     for exp_retry in range(1, EXP_RETRY + 1):
+        if exp_retry in [1, 2, 3, 4, 5]:
+            continue
         retry_experiment_path = experiment_path / str(exp_retry)
         retry_experiment_path.mkdir(exist_ok=True)
 
         for task in tasks:
+            if exp_retry in [6]:
+                if task.number <= 43:
+                    continue
             print(f"START {exp_retry=}, {task.number=}\n")
             model_path = retry_experiment_path / str(task.number)
             model_path.mkdir(exist_ok=True)
@@ -75,7 +83,7 @@ def run(
                         ),
                     ]
                 )
-                chat_completion_one_prompt = one_prompt.run(model=one_prompt_model)
+                chat_completion_one_prompt = one_prompt.run(model=one_prompt_model_fix)
                 report.update_tokens(chat_completion_one_prompt)
                 report.code_fix_count += 1
 

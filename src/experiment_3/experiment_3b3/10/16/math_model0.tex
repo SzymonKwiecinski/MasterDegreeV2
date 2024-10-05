@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Indices:} 
+\begin{itemize}
+    \item \( i \): index for crude types (1 to \( O \))
+    \item \( p \): index for product types (1 to \( P \))
+    \item \( l \): index for production processes (1 to \( L \))
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{allocated}_i \): million barrels of crude oil type \( i \) allocated for production
+    \item \( \text{price}_p \): selling price per barrel of product \( p \)
+    \item \( \text{input}_{l,i} \): barrels of crude type \( i \) required for process \( l \)
+    \item \( \text{output}_{l,p} \): barrels of product \( p \) produced by process \( l \)
+    \item \( \text{cost}_l \): cost per barrel of product produced by process \( l \)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( x_l \): number of times process \( l \) is executed
+\end{itemize}
+
+\textbf{Objective Function:} 
+Maximize the total revenue:
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} \text{price}_p \cdot \left( \sum_{l=1}^{L} \text{output}_{l,p} \cdot x_l \right) - \sum_{l=1}^{L} \text{cost}_l \cdot \left( \sum_{p=1}^{P} \text{output}_{l,p} \cdot x_l \right)
+\]
+
+\textbf{Subject to:}
+\begin{equation}
+\sum_{l=1}^{L} \text{input}_{l,i} \cdot x_l \leq \text{allocated}_i \quad \forall i = 1, \ldots, O
+\end{equation}
+
+\textbf{Non-negativity Constraints:}
+\begin{equation}
+x_l \geq 0 \quad \forall l = 1, \ldots, L
+\end{equation}
+
+\textbf{Output:}
+The solution will provide:
+\begin{itemize}
+    \item \( \text{revenue} \): Total revenue for the month
+    \item \( \text{execute}_l \): Number of times that process \( l \) should be executed
+\end{itemize}
+
+\end{document}

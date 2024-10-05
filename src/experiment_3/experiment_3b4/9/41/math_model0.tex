@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+
+\textbf{MILP Formulation:}
+
+\begin{align*}
+    \text{Minimize} \quad & \sum_{i} y_i \\
+    \text{subject to} \quad & \sum_{j} x_{ij} \times \text{size}_j \leq \text{capacity} \cdot y_i, \quad \forall i \\
+    & \sum_{i} x_{ij} = 1, \quad \forall j \\
+    & x_{ij} \in \{0, 1\}, \quad \forall i, j \\
+    & y_i \in \{0, 1\}, \quad \forall i
+\end{align*}
+
+\textbf{Explanation:}
+
+- The objective function minimizes the total number of disks used: \(\sum_{i} y_i\).
+- The first constraint ensures that the total size of files on each disk does not exceed the disk's capacity. 
+- The second constraint ensures that each file \( j \) is assigned to exactly one disk \( i \).
+- The binary variables \( x_{ij} \) determine if file \( j \) is placed on disk \( i \).
+- The binary variables \( y_i \) indicate whether disk \( i \) is used.
+
+\end{document}

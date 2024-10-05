@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Electricity Transmission}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $P$: Number of power plants
+    \item $C$: Number of cities
+    \item $supply_p$: Capacity of power plant $p$ (in million kWh)
+    \item $demand_c$: Peak demand of city $c$ (in million kWh)
+    \item $transmission_{p,c}$: Transmission cost from power plant $p$ to city $c$ (in $/million \, kWh$)
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item $send_{p,c}$: Amount of electricity sent from power plant $p$ to city $c$ (in million kWh)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total transmission cost:
+\[
+\text{minimize } Z = \sum_{p=1}^{P} \sum_{c=1}^{C} transmission_{p,c} \cdot send_{p,c}
+\]
+
+\subsection*{Constraints}
+1. Supply constraints for each power plant:
+\[
+\sum_{c=1}^{C} send_{p,c} \leq supply_p \quad \forall p \in \{1, 2, \ldots, P\}
+\]
+
+2. Demand constraints for each city:
+\[
+\sum_{p=1}^{P} send_{p,c} \geq demand_c \quad \forall c \in \{1, 2, \ldots, C\}
+\]
+
+3. Non-negativity constraints:
+\[
+send_{p,c} \geq 0 \quad \forall p \in \{1, 2, \ldots, P\}, \, c \in \{1, 2, \ldots, C\}
+\]
+
+\end{document}

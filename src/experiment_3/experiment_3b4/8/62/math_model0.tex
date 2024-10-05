@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model for the Traveling Salesman Problem}
+
+\subsection*{Given:}
+- A set of cities \( C = \{1, 2, \ldots, N\} \)
+- Distances \( d_{i,j} \) for \( i, j \in C \) (with \( d_{i,j} = d_{j,i} \))
+- A start city \( s \in C \)
+
+\subsection*{Decision Variables:}
+- \( x_{i,j} \): Binary variable that equals 1 if the route goes directly from city \( i \) to city \( j \), 0 otherwise.
+- \( u_i \): A continuous variable that helps in eliminating sub-tours, representing the order in which the cities are visited.
+
+\subsection*{Objective:}
+Minimize the total travel distance:
+
+\[
+\text{Minimize} \quad \sum_{i=1}^{N} \sum_{j=1, j \neq i}^{N} d_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints:}
+
+1. **Visit each city once:**
+
+\[
+\sum_{j=1, j \neq i}^{N} x_{i,j} = 1 \quad \forall i \in C
+\]
+
+2. **Each city is left:**
+
+\[
+\sum_{i=1, i \neq j}^{N} x_{i,j} = 1 \quad \forall j \in C
+\]
+
+3. **Sub-tour elimination constraints:**
+
+\[
+u_i - u_j + N \cdot x_{i,j} \leq N-1 \quad \forall i, j \in \{2, \ldots, N\}, i \neq j
+\]
+
+4. **Returning to the starting city:**
+
+\[
+\sum_{j=1, j \neq s}^{N} x_{s,j} = 1
+\]
+\[
+\sum_{i=1, i \neq s}^{N} x_{i,s} = 1
+\]
+
+5. **Variable domains:**
+
+\[
+x_{i,j} \in \{0, 1\} \quad \forall i, j \in C, i \neq j
+\]
+\[
+u_i \geq 0 \quad \forall i \in C
+\]
+
+\subsection*{Solution:}
+The solution provides the sequence of cities that minimize the total travel distance starting and ending at the start city, along with the total distance traveled.
+
+\end{document}

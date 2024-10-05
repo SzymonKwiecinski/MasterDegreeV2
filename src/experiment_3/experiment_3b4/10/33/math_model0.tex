@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Knapsack MIP Formulation}
+
+\textbf{Given:}
+\begin{itemize}
+    \item A set of items indexed by \( k \) where \( k = 1, 2, \ldots, K \)
+    \item Value of item \( k \): \( \text{value}_k \)
+    \item Size of item \( k \): \( \text{size}_k \)
+    \item Maximum capacity of the container: \( C \)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\[
+\text{isincluded}_k =
+\begin{cases} 
+1, & \text{if item } k \text{ is included in the container} \\
+0, & \text{otherwise}
+\end{cases}
+\]
+
+\textbf{Objective:} Maximize the total value of the packed items
+\[
+\max \sum_{k=1}^K \text{value}_k \cdot \text{isincluded}_k
+\]
+
+\textbf{Subject to:}
+\begin{align}
+\sum_{k=1}^K \text{size}_k \cdot \text{isincluded}_k & \leq C \quad \text{(Capacity constraint)} \\
+\text{isincluded}_k & \in \{0, 1\}, \quad \forall k = 1, 2, \ldots, K
+\end{align}
+
+\end{document}

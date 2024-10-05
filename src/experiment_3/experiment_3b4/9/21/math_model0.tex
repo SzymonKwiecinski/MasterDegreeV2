@@ -1,0 +1,85 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item $K$: Set of products, indexed by $k = 1, \ldots, K$.
+    \item $M$: Set of machines, indexed by $m = 1, \ldots, M$.
+    \item $I$: Set of months, indexed by $i = 1, \ldots, I$.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $num_{m}$: Number of machines of type $m$.
+    \item $profit_k$: Profit per unit of product $k$.
+    \item $time_{k,m}$: Production time required for product $k$ on machine $m$.
+    \item $down_m$: Number of months machine $m$ must be down for maintenance.
+    \item $limit_{k,i}$: Maximum number of units of product $k$ that can be sold in month $i$.
+    \item $store\_price$: Cost to store one unit of any product for a month.
+    \item $keep\_quantity$: Desired stock of each product at the end of the planning period.
+    \item $n\_workhours$: Number of work hours per shift.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $sell_{k,i}$: Number of units of product $k$ sold in month $i$.
+    \item $manufacture_{k,i}$: Number of units of product $k$ manufactured in month $i$.
+    \item $storage_{k,i}$: Number of units of product $k$ stored at the end of month $i$.
+    \item $maintain_{m,i}$: Number of machines of type $m$ under maintenance in month $i$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit over all products and all months:
+\[
+\max \sum_{i=1}^{I} \sum_{k=1}^{K} \left( profit_k \cdot sell_{k,i} - store\_price \cdot storage_{k,i} \right)
+\]
+
+\subsection*{Constraints}
+\begin{enumerate}
+    \item \textbf{Demand Constraints:}
+    \[
+    sell_{k,i} \leq limit_{k,i}, \quad \forall k, i
+    \]
+    
+    \item \textbf{Production Constraints:}
+    \[
+    \sum_{k=1}^{K} time_{k,m} \cdot manufacture_{k,i} \leq (num_{m} - maintain_{m,i}) \cdot n\_workhours \cdot 12, \quad \forall m, i
+    \]
+    where 12 is the total number of shifts per month (6 days/week * 2 shifts/day * 4 weeks).
+
+    \item \textbf{Machine Maintenance Constraints:}
+    \[
+    \sum_{i=1}^{I} maintain_{m,i} = down_m, \quad \forall m
+    \]
+    
+    \item \textbf{Storage Balance Constraints:}
+    \[
+    storage_{k,i} = storage_{k,i-1} + manufacture_{k,i} - sell_{k,i}, \quad \forall k, i>1
+    \]
+    \[
+    storage_{k,0} = 0, \quad \forall k
+    \]
+    \[
+    storage_{k,I} = keep\_quantity, \quad \forall k
+    \]
+    
+    \item \textbf{Storage Capacity Constraints:}
+    \[
+    storage_{k,i} \leq 100, \quad \forall k, i
+    \]
+    
+    \item \textbf{Non-negativity Constraints:}
+    \[
+    sell_{k,i}, manufacture_{k,i}, storage_{k,i} \geq 0, \quad \forall k, i
+    \]
+    
+    \item \textbf{Integrality Constraints:}
+    \[
+    maintain_{m,i} \in \mathbb{Z}^{+}, \quad \forall m, i
+    \]
+\end{enumerate}
+
+\end{document}

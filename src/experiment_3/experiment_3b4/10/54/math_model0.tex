@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model for Maximizing Profit in Auto Parts Manufacturing}
+
+\subsection*{Sets and Indices}
+\begin{align*}
+P & : \text{Set of parts produced, indexed by } p = 1, 2, \ldots, P \\
+M & : \text{Set of machines used, indexed by } m = 1, 2, \ldots, M
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+\text{time\_required}_{m,p} & : \text{Time in hours required by machine } m \text{ to produce 100 parts of part } p \\
+\text{machine\_cost}_{m} & : \text{Cost per hour of operating machine } m \\
+\text{availability}_{m} & : \text{Total working hours available for machine } m \text{ per month} \\
+\text{prices}_{p} & : \text{Selling price per batch (100 parts) of part } p \\
+\text{min\_batches}_{p} & : \text{Minimum number of batches required for part } p \text{ per month} \\
+\text{standard\_cost} & : \text{Standard labor cost per hour for machine 1} \\
+\text{overtime\_cost} & : \text{Overtime labor cost per hour for machine 1} \\
+\text{overtime\_hour} & : \text{Threshold hours for overtime on machine 1}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+\text{batches}_{p} & : \text{Number of batches of part } p \text{ to be produced monthly} \quad \forall p \in P \\
+\text{hours\_machine1\_standard} & : \text{Standard operational hours for machine 1} \\
+\text{hours\_machine1\_overtime} & : \text{Overtime operational hours for machine 1}
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total profit, which is the revenue from selling the parts minus the cost of production:
+\begin{align*}
+\text{Maximize} \quad Z = \sum_{p=1}^{P} \text{prices}_{p} \times \text{batches}_{p} - \left( \sum_{m=2}^{M} \text{machine\_cost}_{m} \times \sum_{p=1}^{P} \text{time\_required}_{m,p} \times \text{batches}_{p} + \text{standard\_cost} \times \text{hours\_machine1\_standard} + \text{overtime\_cost} \times \text{hours\_machine1\_overtime} \right)
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+\text{1. Machine Time Constraint for } m = 2, \ldots, M: \\
+& \sum_{p=1}^{P} \text{time\_required}_{m,p} \times \text{batches}_{p} \leq \text{availability}_{m} \quad \forall m = 2, \ldots, M \\
+
+\text{2. Machine 1 Time Partitioning:} \\
+& \sum_{p=1}^{P} \text{time\_required}_{1,p} \times \text{batches}_{p} = \text{hours\_machine1\_standard} + \text{hours\_machine1\_overtime} \\
+
+\text{3. Overtime Constraint for Machine 1:} \\
+& \text{hours\_machine1\_standard} \leq \text{overtime\_hour} \\
+
+\text{4. Contractual Minimum Production:} \\
+& \text{batches}_{p} \geq \text{min\_batches}_{p} \quad \forall p = 1, \ldots, P \\
+
+\text{5. Non-negativity:} \\
+& \text{batches}_{p} \geq 0, \quad \text{hours\_machine1\_standard} \geq 0, \quad \text{hours\_machine1\_overtime} \geq 0
+\end{align*}
+
+\end{document}

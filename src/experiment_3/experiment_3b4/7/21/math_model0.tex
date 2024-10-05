@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Model for Production Planning}
+
+\subsection*{Sets and Indices}
+\begin{align*}
+    & M: \text{Set of machines indexed by } m \\
+    & K: \text{Set of products indexed by } k \\
+    & I: \text{Set of months indexed by } i
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+    & \text{num\_m}_m: \text{Number of machine type } m \\
+    & \text{profit}_k: \text{Profit per unit of product } k \\
+    & \text{time}_{k, m}: \text{Unit production time (hours) required for product } k \text{ on machine } m \\
+    & \text{down}_m: \text{Maintenance duration (months) for machine type } m \\
+    & \text{limit}_{k, i}: \text{Marketing limitation for product } k \text{ in month } i \\
+    & \text{store\_price}: \text{Storage cost per unit per month} \\
+    & \text{keep\_quantity}: \text{Desired stock of each product at the end} \\
+    & \text{n\_workhours}: \text{Number of work hours per shift} \\
+    & D = 24: \text{Number of working days per month (assumption)}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    & \text{sell}_{k, i}: \text{Amount of product } k \text{ sold in month } i \\
+    & \text{manufacture}_{k, i}: \text{Amount of product } k \text{ manufactured in month } i \\
+    & \text{storage}_{k, i}: \text{Stock of product } k \text{ at the end of month } i \\
+    & \text{maintain}_{m, i}: \text{Number of machines of type } m \text{ under maintenance in month } i
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total profit, considering manufacturing and storing costs:
+\begin{align*}
+    \max \sum_{i \in I} \sum_{k \in K} \left( \text{profit}_k \cdot \text{sell}_{k, i} - \text{store\_price} \cdot \text{storage}_{k, i} \right)
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+    & \text{sell}_{k, i} \leq \text{limit}_{k, i}, \quad \forall k \in K, \forall i \in I \\
+    & \text{storage}_{k, i} = \text{storage}_{k, i-1} + \text{manufacture}_{k, i} - \text{sell}_{k, i}, \quad \forall k \in K, \forall i \in I \\
+    & \text{storage}_{k, 0} = 0, \quad \forall k \in K \\
+    & \text{storage}_{k, I} \geq \text{keep\_quantity}, \quad \forall k \in K \\
+    & \sum_{k \in K} \text{time}_{k, m} \cdot \text{manufacture}_{k, i} \leq \left( \text{num\_m}_m - \text{maintain}_{m, i} \right) \cdot D \cdot 2 \cdot \text{n\_workhours}, \quad \forall m \in M, \forall i \in I \\
+    & \sum_{i' \in I} \text{maintain}_{m, i'} = \text{down}_m, \quad \forall m \in M \\
+    & \text{maintain}_{m, i} \geq 0, \quad \forall m \in M, \forall i \in I \\
+    & \text{manufacture}_{k, i} \geq 0, \text{sell}_{k, i} \geq 0, \text{storage}_{k, i} \geq 0, \quad \forall k \in K, \forall i \in I
+\end{align*}
+
+\end{document}

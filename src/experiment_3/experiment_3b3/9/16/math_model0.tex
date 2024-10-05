@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Oil Refinery Production}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Description}
+
+Let \( O \) be the number of types of crude oil available, \( P \) be the number of different products, and \( L \) be the number of production processes.
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{allocated}_i \): Million barrels of crude oil type \( i \) allocated for production, for \( i = 1, \ldots, O \).
+    \item \( \text{price}_p \): Selling price per barrel of product \( p \), for \( p = 1, \ldots, P \).
+    \item \( \text{input}_{l,i} \): Barrels of crude oil type \( i \) required for process \( l \), for \( l = 1, \ldots, L \) and \( i = 1, \ldots, O \).
+    \item \( \text{output}_{l,p} \): Barrels of product \( p \) produced by process \( l \), for \( l = 1, \ldots, L \) and \( p = 1, \ldots, P \).
+    \item \( \text{cost}_l \): Cost per barrel of product produced by process \( l \), for \( l = 1, \ldots, L \).
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( \text{execute}_l \): Number of times process \( l \) is executed, for \( l = 1, \ldots, L \).
+\end{itemize}
+
+\textbf{Objective Function:}
+We want to maximize the revenue:
+\[
+\text{maximize } R = \sum_{p=1}^{P} \text{price}_p \cdot \left( \sum_{l=1}^{L} \text{output}_{l,p} \cdot \text{execute}_l \right) - \sum_{l=1}^{L} \text{cost}_l \cdot \left( \sum_{p=1}^{P} \text{output}_{l,p} \cdot \text{execute}_l \right)
+\]
+
+\textbf{Constraints:}
+\begin{itemize}
+    \item For each type of crude oil:
+    \[
+    \sum_{l=1}^{L} \text{input}_{l,i} \cdot \text{execute}_l \leq \text{allocated}_i, \quad \text{for } i = 1, \ldots, O
+    \]
+    \item Non-negativity constraints:
+    \[
+    \text{execute}_l \geq 0, \quad \text{for } l = 1, \ldots, L
+    \]
+\end{itemize}
+
+\section*{Output}
+The output will include:
+\begin{itemize}
+    \item \( \text{revenue} \): Total revenue for the month.
+    \item \( \text{execute} \): List of \( \text{execute}_l \) values for \( l = 1, \ldots, L \).
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+\[
+\text{Maximize} \quad \text{Profit} = \sum_{j=1}^{M} ( \text{price}_j - \text{cost}_j ) \times x_j
+\]
+
+\textbf{Subject to:}
+
+Material availability constraints:
+\[
+\sum_{j=1}^{M} \text{req}_{i,j} \times x_j \leq \text{available}_i, \quad \forall i = 1, \ldots, N
+\]
+
+Demand constraints:
+\[
+x_j \leq \text{demand}_j, \quad \forall j = 1, \ldots, M
+\]
+
+Non-negativity constraints:
+\[
+x_j \geq 0, \quad \forall j = 1, \ldots, M
+\]
+
+\end{document}

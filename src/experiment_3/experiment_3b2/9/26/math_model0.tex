@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Sets and Indices}
+\begin{align*}
+& K: \text{Number of industries} \\
+& T: \text{Number of years (1 to 5)}
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+& \text{inputone}_{k,j}: \text{Input required from industry } j \text{ for industry } k \\
+& \text{manpowerone}_{k}: \text{Manpower required by industry } k \\
+& \text{inputtwo}_{k,j}: \text{Input required from industry } j \text{ to increase capacity of industry } k \\
+& \text{manpowertwo}_{k}: \text{Manpower needed to increase capacity of industry } k \\
+& \text{stock}_{k}: \text{Initial stock of industry } k \\
+& \text{capacity}_{k}: \text{Initial capacity of industry } k \\
+& \text{demand}_{k}: \text{Demand for industry } k \text{ (for years 1 to 5)}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+& \text{produce}_{k,t}: \text{Units produced by industry } k \text{ in year } t \\
+& \text{buildcapa}_{k,t}: \text{Units used to build capacity for industry } k \text{ in year } t \\
+& \text{stockhold}_{k,t}: \text{Stock of industry } k \text{ held in year } t
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total manpower requirement over five years:
+\[
+\max \sum_{k=1}^{K} \sum_{t=1}^{5} \left( \text{manpowerone}_k \, \text{produce}_{k,t} + \text{manpowertwo}_k \, \text{buildcapa}_{k,t} \right)
+\]
+
+\subsection*{Constraints}
+
+\paragraph{Capacity constraints:}
+\[
+\text{produce}_{k,t} + \text{buildcapa}_{k,t} \leq \text{capacity}_k + \sum_{i=1}^{t-2} \text{buildcapa}_{k,i}, \quad \forall k = 1,\ldots,K, \, t = 1,\ldots,5
+\]
+
+\paragraph{Stock balance constraints:}
+\[
+\text{stockhold}_{k,t} = \text{stockhold}_{k,t-1} + \text{produce}_{k,t} - \sum_{j=1}^{K} \text{inputone}_{k,j} \, \text{produce}_{j,t} - \text{demand}_k, \quad \forall k = 1,\ldots,K, \, t = 1,\ldots,5
+\]
+
+\paragraph{Initial stock and capacity constraints:}
+\[
+\text{stockhold}_{k,0} = \text{stock}_k, \quad \forall k = 1,\ldots,K
+\]
+\[
+\text{capacity}_{k,0} = \text{capacity}_k, \quad \forall k = 1,\ldots,K
+\]
+
+\paragraph{Non-negativity constraints:}
+\[
+\text{produce}_{k,t} \geq 0, \quad \text{buildcapa}_{k,t} \geq 0, \quad \text{stockhold}_{k,t} \geq 0, \quad \forall k = 1,\ldots,K, \, t = 1,\ldots,5
+\]
+
+\end{document}

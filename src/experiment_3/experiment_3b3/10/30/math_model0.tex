@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Quadratic Curve Fitting Problem}
+
+Given a set of corresponding values for \( x \) and \( y \):
+
+\[
+y = \{ y_k \,|\, k = 1, 2, \ldots, K \}
+\]
+\[
+x = \{ x_k \,|\, k = 1, 2, \ldots, K \}
+\]
+
+We aim to fit a quadratic curve of the form:
+
+\[
+y = c \cdot x^2 + b \cdot x + a
+\]
+
+where:
+- \( c \) is the coefficient of the quadratic term,
+- \( b \) is the coefficient of the linear term,
+- \( a \) is the constant term.
+
+The goal is to minimize the sum of absolute deviations of each observed value of \( y \) from the predicted value given by the quadratic relationship. This can be mathematically expressed as:
+
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} |y_k - (c \cdot x_k^2 + b \cdot x_k + a)|
+\]
+
+Subject to:
+
+\[
+y_k - (c \cdot x_k^2 + b \cdot x_k + a) \leq e_k, \quad \forall k
+\]
+\[
+-(y_k - (c \cdot x_k^2 + b \cdot x_k + a)) \leq e_k, \quad \forall k
+\]
+
+where \( e_k \geq 0 \) are the new variables representing the absolute deviations.
+
+This forms a linear programming problem where our output will be:
+
+\[
+\text{Output Format:} \quad \{ \text{quadratic}: c, \text{linear}: b, \text{constant}: a \}
+\]
+
+\end{document}

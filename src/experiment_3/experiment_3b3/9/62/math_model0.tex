@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Traveling Salesman Problem}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item \( C \): Set of cities \( \{ 1, 2, \ldots, N \} \).
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{distance}_{i,j} \): Distance between city \( i \) and city \( j \).
+    \item \( \text{start\_city} \): The starting city for the traveler.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( x_{i,j} \): Binary variable, where \( x_{i,j} = 1 \) if the traveler visits city \( j \) immediately after city \( i \), and \( x_{i,j} = 0 \) otherwise.
+\end{itemize}
+
+\textbf{Objective Function:}
+Minimize the total distance traveled:
+
+\[
+\text{Minimize } Z = \sum_{i \in C} \sum_{j \in C} \text{distance}_{i,j} x_{i,j}
+\]
+
+\textbf{Constraints:}
+\begin{itemize}
+    \item Each city is entered exactly once:
+
+    \[
+    \sum_{j \in C} x_{start\_city,j} = 1
+    \]
+
+    \item Each city is exited exactly once:
+
+    \[
+    \sum_{i \in C} x_{i,j} = 1 \quad \forall j \in C
+    \]
+
+    \item The number of visits from each city must be maintained:
+
+    \[
+    \sum_{j \in C} x_{i,j} - \sum_{j \in C} x_{j,i} = 0 \quad \forall i \in C \setminus \{start\_city\}
+    \]
+
+    \item Eliminate sub-tours (additional constraints may be used for this purpose, typically using integer programming techniques).
+\end{itemize}
+
+\textbf{Output:}
+\begin{itemize}
+    \item \( \text{visit\_order} \): The sequence of cities visited after starting from \( \text{start\_city} \).
+    \item \( \text{total\_distance} \): The total distance traveled on the optimal journey.
+\end{itemize}
+
+\end{document}

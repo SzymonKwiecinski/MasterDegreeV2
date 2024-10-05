@@ -40,6 +40,11 @@ def run_experiment_2(exp_names: list[str]):
             run(
                 client=Client(api_key=OPENAI_API_KEY),
                 one_prompt_model=ChatModel(experiment_config["one_prompt_model"]),
+                one_prompt_model_fix=ChatModel(
+                    experiment_config.get("one_prompt_model_fix")
+                    if experiment_config.get("one_prompt_model_fix")
+                    else experiment_config.get("one_prompt_model")
+                ),
                 experiment_name=experiment_name,
                 fix_retries=experiment_config["fix_retries"],
             )

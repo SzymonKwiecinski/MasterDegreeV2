@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $p \in \{1, \ldots, P\}$: index for parts
+    \item $m \in \{1, \ldots, M\}$: index for machines
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $time_{m,p}$: time required on machine $m$ to produce a batch of part $p$ (in hours)
+    \item $cost_{m}$: cost per hour for using machine $m$
+    \item $available_{m}$: total available hours for machine $m$ per month
+    \item $price_{p}$: selling price per batch of part $p$
+    \item $setup\_time_{p}$: setup time required for part $p$ on machine 1 (in hours)
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item $batches_{p}$: number of batches produced of part $p$
+    \item $setup\_flag_{p}$: binary variable indicating whether part $p$ is set up ($1$) or not ($0$)
+    \item $total\_profit$: total profit obtained for the month
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+\text{Maximize } total\_profit = \sum_{p=1}^{P} (price_{p} \cdot batches_{p}) - \sum_{m=1}^{M} \left( cost_{m} \cdot \sum_{p=1}^{P} (time_{m,p} \cdot batches_{p}) \right)
+\]
+
+\subsection*{Constraints}
+
+1. \textbf{Machine Availability Constraints}:
+\[
+\sum_{p=1}^{P} (time_{m,p} \cdot batches_{p}) \leq available_{m}, \quad \forall m \in \{1, \ldots, M\}
+\]
+
+2. \textbf{Setup Time Constraints} (only for machine 1):
+\[
+batches_{p} \leq \frac{available_{1}}{time_{1,p}} \quad \text{if } setup\_flag_{p} = 1, \quad \forall p \in \{1, \ldots, P\}
+\]
+\[
+\sum_{p=1}^{P} setup\_flag_{p} \leq 1 \quad \text{(only one part can be set up on Machine 1)}
+\]
+
+3. \textbf{Non-negativity and binary constraints}:
+\[
+batches_{p} \geq 0, \quad \forall p \in \{1, \ldots, P\}
+\]
+\[
+setup\_flag_{p} \in \{0, 1\}, \quad \forall p \in \{1, \ldots, P\}
+\]
+
+\end{document}

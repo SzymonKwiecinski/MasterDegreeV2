@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+
+\begin{document}
+
+\textbf{Objective:} Minimize the number of floppy disks used.
+
+\textbf{Notations:}
+\begin{itemize}
+    \item $N$: Number of files
+    \item $M$: A large number representing an upper bound on the number of disks (e.g., equal to $N$)
+    \item $c$: Capacity of one floppy disk (GB)
+    \item $s_j$: Size of file $j$ (GB) for $j = 1, \ldots, N$
+    \item $x_{ij}$: Binary variable where $x_{ij} = 1$ if file $j$ is placed on disk $i$, 0 otherwise
+    \item $y_i$: Binary variable where $y_i = 1$ if disk $i$ is used, 0 otherwise
+\end{itemize}
+
+\textbf{MILP Formulation:}
+
+\begin{align}
+    &\text{Minimize } \quad \sum_{i=1}^{M} y_i && \\
+    &\text{subject to} \quad \sum_{j=1}^{N} s_j \cdot x_{ij} \leq c \cdot y_i, & \forall i = 1, \ldots, M \quad &(1)\\
+    &\quad \sum_{i=1}^{M} x_{ij} = 1, & \forall j = 1, \ldots, N \quad &(2)\\
+    &\quad x_{ij} \in \{0, 1\}, & \forall i = 1, \ldots, M, \forall j = 1, \ldots, N \quad &(3)\\
+    &\quad y_i \in \{0, 1\}, & \forall i = 1, \ldots, M \quad &(4)
+\end{align}
+
+\textbf{Explanation:}
+\begin{itemize}
+    \item \textbf{Objective Function:} Minimize the total number of disks used, which is given by the sum of $y_i$.
+    \item \textbf{Constraint (1):} Ensure that the total size of files on each disk does not exceed its capacity. If disk $i$ is not used, $y_i$ is 0, and the total size must be 0.
+    \item \textbf{Constraint (2):} Each file must be assigned to exactly one disk.
+    \item \textbf{Variables:} $x_{ij}$ and $y_i$ are binary variables indicating which files are placed on which disks and whether a disk is used, respectively.
+\end{itemize}
+
+\end{document}

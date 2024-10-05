@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Custom Tees Advertising Campaign}
+
+\subsection*{Parameters}
+\begin{align*}
+    & A: \text{Number of ad types} \\
+    & \text{goal\_young}: \text{Goal for clicks from 18-25 age group (in thousands)} \\
+    & \text{goal\_old}: \text{Goal for clicks from age 25+ group (in thousands)} \\
+    & \text{goal\_unique\_young}: \text{Goal for unique clicks from 18-25 age group (in thousands)} \\
+    & \text{goal\_unique\_old}: \text{Goal for unique clicks from age 25+ group (in thousands)} \\
+    & \text{young\_clicks}_a: \text{Estimated \% of clicks for 18-25 from ad } a \\
+    & \text{old\_clicks}_a: \text{Estimated \% of clicks for 25+ from ad } a \\
+    & \text{costs}_a: \text{Cost per 1000 clicks for ad } a \\
+    & \text{max\_clicks}_a: \text{Maximum allowable clicks for ad } a \text{ (in thousands)} \\
+    & \text{unique\_clicks}_a: \text{Estimated \% of unique visitors for ad } a \\
+    & \text{budget}: \text{Total advertising budget}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    & \text{clicks}_a: \text{Number of clicks purchased for ad type } a \text{ (in thousands)}
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total number of unique clicks:
+\[
+\text{Maximize} \quad \sum_{a=1}^{A} \left( \text{unique\_clicks}_a \times \text{clicks}_a \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+    & \sum_{a=1}^{A} \left( \text{young\_clicks}_a \times \text{clicks}_a \right) \geq \text{goal\_young} \\
+    & \sum_{a=1}^{A} \left( \text{old\_clicks}_a \times \text{clicks}_a \right) \geq \text{goal\_old} \\
+    & \sum_{a=1}^{A} \left( \text{unique\_clicks}_a \times \text{clicks}_a \right) \geq \text{goal\_unique\_young} \\
+    & \sum_{a=1}^{A} \left( (1 - \text{unique\_clicks}_a) \times \text{clicks}_a \right) \geq \text{goal\_unique\_old} \\
+    & \sum_{a=1}^{A} \left( \text{costs}_a \times \text{clicks}_a \right) \leq \text{budget} \\
+    & 0 \leq \text{clicks}_a \leq \text{max\_clicks}_a, \quad \forall a = 1, \ldots, A
+\end{align*}
+
+\subsection*{Output}
+\begin{align*}
+    & \text{clicks}: \Big[ \text{clicks}_1, \ldots, \text{clicks}_A \Big] \\
+    & \text{total\_unique\_clicks} = \sum_{a=1}^{A} \left( \text{unique\_clicks}_a \times \text{clicks}_a \right)
+\end{align*}
+
+\end{document}

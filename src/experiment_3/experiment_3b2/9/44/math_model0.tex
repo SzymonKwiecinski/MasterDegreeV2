@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model}
+
+Let \( P \) be the number of different parts, and \( M \) be the number of different machines. Define the following variables and parameters:
+
+- Decision Variables:
+  \[
+  \begin{align*}
+  \text{Let } batches_p & \text{ be the number of batches of part } p \text{ produced per month, for } p = 1, 2, \ldots, P.
+  \end{align*}
+  \]
+
+- Parameters:
+  \[
+  \begin{align*}
+  \text{time\_required}_{m,p} & \text{ is the time required (in hours) on machine } m \text{ for part } p, \\
+  \text{cost}_{m} & \text{ is the cost per hour for using machine } m, \\
+  \text{available}_{m} & \text{ is the availability (in hours) of machine } m \text{ per month}, \\
+  \text{price}_{p} & \text{ is the selling price per batch of part } p, \\
+  \text{min\_batches}_{p} & \text{ is the minimum number of batches of part } p \text{ required each month.}
+  \end{align*}
+  \]
+
+- Objective Function:
+  \[
+  \text{Maximize } \text{Profit} = \sum_{p=1}^{P} (\text{price}_p \times batches_p) - \sum_{m=1}^{M} \left(\text{cost}_m \times \sum_{p=1}^{P} (\text{time\_required}_{m,p} \times batches_p)\right)
+  \]
+
+- Constraints:
+  \[
+  \begin{align*}
+  \text{(1) Availability Constraints:} \\
+  \sum_{p=1}^{P} (\text{time\_required}_{m,p} \times batches_p) & \leq \text{available}_m, \quad \forall m = 1, 2, \ldots, M
+  \end{align*}
+  \]
+  
+  \[
+  \begin{align*}
+  \text{(2) Minimum Production Constraints:} \\
+  batches_p & \geq \text{min\_batches}_p, \quad \forall p = 1, 2, \ldots, P
+  \end{align*}
+  \]
+
+  \[
+  \begin{align*}
+  \text{(3) Non-negativity Constraints:} \\
+  batches_p & \geq 0, \quad \forall p = 1, 2, \ldots, P
+  \end{align*}
+  \]
+
+\end{document}

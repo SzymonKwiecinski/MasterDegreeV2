@@ -1,0 +1,78 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Minimizing Labour Costs}
+
+\subsection*{Indices and Sets}
+\begin{itemize}
+    \item \( k \): Index for manpower categories, \( k = 1, 2, \ldots, K \).
+    \item \( i \): Index for years, \( i = 1, 2, \ldots, I \).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{requirement}_{k,i} \): Required number of manpower \( k \) in year \( i \).
+    \item \( \text{strength}_k \): Current strength of manpower \( k \).
+    \item \( \text{lessonewaste}_k \): Wastage rate for manpower \( k \) with less than one year's service.
+    \item \( \text{moreonewaste}_k \): Wastage rate for manpower \( k \) with more than one year's service.
+    \item \( \text{recruit}_k \): Maximum number of recruitments possible for manpower \( k \) in any year.
+    \item \( \text{costredundancy}_k \): Cost of making one manpower \( k \) redundant.
+    \item \( \text{num\_overman} \): Maximum number of overmanning allowed for the whole company.
+    \item \( \text{costoverman}_k \): Extra cost per overmanned manpower \( k \) per year.
+    \item \( \text{num\_shortwork} \): Maximum number of short-time workers allowed per manpower category.
+    \item \( \text{costshort}_k \): Cost per short-time working employee of manpower \( k \) per year.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{recruit}_{k,i} \): Number of manpower \( k \) recruited in year \( i \).
+    \item \( \text{redundant}_{k,i} \): Number of manpower \( k \) made redundant in year \( i \).
+    \item \( \text{overmanning}_{k,i} \): Number of overmanned manpower \( k \) in year \( i \).
+    \item \( \text{short}_{k,i} \): Number of manpower \( k \) on short-time working in year \( i \).
+    \item \( \text{employed}_{k,i} \): Number of manpower \( k \) employed at the start of year \( i \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\begin{align*}
+\text{Minimize} \quad & \sum_{i=1}^{I} \sum_{k=1}^{K} \left( \text{costredundancy}_k \cdot \text{redundant}_{k,i} + \text{costoverman}_k \cdot \text{overmanning}_{k,i} + \text{costshort}_k \cdot \text{short}_{k,i} \right)
+\end{align*}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item \textbf{Manpower Balancing:} For each \( k, i \),
+    \[
+    \text{employed}_{k,i} = 
+    \begin{cases} 
+    \text{strength}_k, & i = 1 \\
+    (1 - \text{moreonewaste}_k) \cdot (\text{employed}_{k,i-1} - \text{redundant}_{k,i-1}) + (1 - \text{lessonewaste}_k) \cdot \text{recruit}_{k,i-1}, & i > 1
+    \end{cases}
+    \]
+    
+    \item \textbf{Requirement Fulfillment:} For each \( k, i \),
+    \[
+    \text{employed}_{k,i} + \text{overmanning}_{k,i} + 0.5 \cdot \text{short}_{k,i} \geq \text{requirement}_{k,i}
+    \]
+
+    \item \textbf{Recruitment Limitation:} For each \( k, i \),
+    \[
+    \text{recruit}_{k,i} \leq \text{recruit}_k
+    \]
+
+    \item \textbf{Overmanning Limitation:} For each \( i \),
+    \[
+    \sum_{k=1}^{K} \text{overmanning}_{k,i} \leq \text{num\_overman}
+    \]
+    
+    \item \textbf{Short-time Working Limitation:} For each \( k, i \),
+    \[
+    \text{short}_{k,i} \leq \text{num\_shortwork}
+    \]
+
+    \item \textbf{Non-negativity:} All decision variables \(\text{recruit}_{k,i}, \text{redundant}_{k,i}, \text{overmanning}_{k,i}, \text{short}_{k,i}\) must be non-negative.
+\end{itemize}
+
+\end{document}

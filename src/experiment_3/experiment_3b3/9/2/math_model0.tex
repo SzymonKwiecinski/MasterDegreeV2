@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for DEC Computer Systems Production}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item $i \in \{1, \ldots, N\}$: index for the different computer systems
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $is\_workstation_i$: Whether system $i$ is a workstation (true) or general-purpose (false)
+    \item $price_i$: Price of system $i$
+    \item $disk_i$: Average disk drives requested by customers for system $i$
+    \item $mem_i$: Average 256K memory boards required for system $i$
+    \item $max\_cpu$: Maximum number of CPUs available
+    \item $min\_disk$: Minimum supply of disk drives
+    \item $max\_disk$: Maximum supply of disk drives
+    \item $min\_mem$: Minimum supply of 256K memory boards
+    \item $max\_mem$: Maximum supply of 256K memory boards
+    \item $demand_i$: Maximum demand for system $i$
+    \item $demand\_GP$: Maximum demand for the whole GP family
+    \item $demand\_WS$: Maximum demand for the whole WS family
+    \item $preorder_i$: Preorders for system $i$
+    \item $alt\_mem$: Units of alternative memory boards available
+    \item $alt\_compatible_i$: Whether alternative memory can be used with system $i$
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_i$: Number of units produced of system $i$
+    \item $y_i$: Number of alternative memory boards used for system $i$
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{equation}
+\text{Maximize } Z = \sum_{i=1}^{N} (price_i \cdot x_i) - \text{Costs}
+\end{equation}
+Where Costs is related to memory and disk drives used.
+
+\textbf{Constraints:}
+\begin{align}
+\sum_{i=1}^{N} disk_i \cdot x_i & \leq max\_disk \tag{Disk Drive Supply} \\
+\sum_{i=1}^{N} mem_i \cdot x_i + \sum_{i=1}^{N} y_i & \leq max\_mem \tag{Memory Supply} \\
+\sum_{i=1}^{N} x_i & \leq max\_cpu \tag{CPU Supply} \\
+x_i & \leq demand_i \quad \forall i \tag{Demand for each system} \\
+\sum_{i \text{ GP}} x_i & \leq demand\_GP \tag{Demand for GP family} \\
+\sum_{i \text{ WS}} x_i & \leq demand\_WS \tag{Demand for WS family} \\
+x_i & \geq preorder_i \quad \forall i \tag{Preorders must be fulfilled} \\
+y_i & \leq alt\_mem \quad \text{if } alt\_compatible_i \text{ is true} \tag{Alternative Memory Constraints}
+\end{align}
+
+\textbf{Output:}
+The output will include a JSON structure with:
+\begin{itemize}
+    \item "system\_output": A list containing details for each produced system
+    \item "profit": The total profit for the next quarter
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Electricity Demand Management}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item \( t \): index representing time periods (1 to \( T \))
+    \item \( k \): index representing generator types (1 to \( K \))
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( demand_t \): electricity demand at time \( t \)
+    \item \( num_k \): number of available generators of type \( k \)
+    \item \( minlevel_k \): minimum operational level for type \( k \)
+    \item \( maxlevel_k \): maximum operational level for type \( k \)
+    \item \( runcost_k \): cost of running type \( k \) generator at minimum level
+    \item \( extracost_k \): extra cost per megawatt above minimum level for type \( k \)
+    \item \( startcost_k \): startup cost for type \( k \) generator
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( numon_{k,t} \): number of generators of type \( k \) that are on at time \( t \)
+    \item \( level_{k,t} \): operating level of type \( k \) generator at time \( t \) (above minimum)
+    \item \( start_{k,t} \): binary variable indicating if type \( k \) generator is started at time \( t \) (1 if started, 0 otherwise)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize total cost \( C \):
+\[
+C = \sum_{t=1}^{T} \sum_{k=1}^{K} \left( runcost_k \cdot numon_{k,t} + extracost_k \cdot level_{k,t} + startcost_k \cdot start_{k,t} \right)
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item \textbf{Demand Satisfaction:}
+    \[
+    \sum_{k=1}^{K} numon_{k,t} \cdot minlevel_k + \sum_{k=1}^{K} level_{k,t} \geq demand_t, \quad \forall t
+    \]
+    
+    \item \textbf{Generator Capacity:}
+    \[
+    numon_{k,t} \cdot minlevel_k \leq \sum_{j=1}^{K} level_{j,t} \leq numon_{k,t} \cdot maxlevel_k, \quad \forall k, \forall t
+    \]
+
+    \item \textbf{Startup Decisions:}
+    \[
+    start_{k,t} \leq numon_{k,t}, \quad \forall k, \forall t
+    \]
+    
+    \item \textbf{Availability of Generators:}
+    \[
+    numon_{k,t} \leq num_k, \quad \forall k, \forall t
+    \]
+
+    \item \textbf{Non-negativity:}
+    \[
+    numon_{k,t} \geq 0, \quad \forall k, \forall t
+    \]
+    
+\end{itemize}
+
+\subsection*{Output}
+The output will be the variable \( numon \):
+\[
+\text{numon} = \left[ \left[ numon_{k,t} \, | \, t=1,\ldots,T \right] \, | \, k=1,\ldots,K \right]
+\]
+
+\end{document}

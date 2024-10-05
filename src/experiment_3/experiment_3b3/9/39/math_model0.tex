@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Mathematical Model for Cafeteria Staffing Problem}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+
+Given the required number of employees on each day \( n \) denoted by \( num_n \), the constraints of each employee's work and rest periods, we aim to minimize the total number of employees to hire while ensuring sufficient staffing for each day.
+
+\section*{Parameters}
+\begin{itemize}
+    \item \( N \): Total number of days
+    \item \( num_n \): Number of employees required on day \( n \), for \( n = 1, 2, \ldots, N \)
+    \item \( n_{\text{working}} \): Number of consecutive working days for each employee
+    \item \( n_{\text{resting}} \): Number of consecutive resting days for each employee
+    \item \( total\_number \): Total number of employees to hire
+\end{itemize}
+
+\section*{Variables}
+Let \( is\_work_{n,i} \) be a binary variable defined as:
+\[
+is\_work_{n,i} = 
+\begin{cases} 
+1 & \text{if employee } i \text{ is working on day } n \\
+0 & \text{if employee } i \text{ is resting on day } n 
+\end{cases}
+\]
+for \( n = 1, 2, \ldots, N \) and \( i = 1, 2, \ldots, total\_number \).
+
+\section*{Objective Function}
+The objective is to minimize the total number of employees:
+\[
+\text{Minimize} \quad total\_number
+\]
+
+\section*{Constraints}
+1. Staffing Requirement Constraint:
+   \[
+   \sum_{i=1}^{total\_number} is\_work_{n,i} \geq num_n, \quad \forall n = 1, 2, \ldots, N
+   \]
+
+2. Work and Rest Schedule Constraint:
+   \[
+   \sum_{j=n}^{n+n_{\text{working}}-1} is\_work_{j,i} = n_{\text{working}}, \quad \forall i, \quad n = 1, 2, \ldots, N - n_{\text{working}}
+   \]
+   \[
+   \sum_{j=n+n_{\text{working}}}^{n+n_{\text{working}}+n_{\text{resting}}-1} is\_work_{j,i} = 0, \quad \forall i, \quad n = 1, 2, \ldots, N - n_{\text{working}} - n_{\text{resting}}
+   \]
+
+3. Non-negativity and Binary Constraints:
+   \[
+   is\_work_{n,i} \in \{0, 1\}, \quad \forall n, i
+   \]
+
+\section*{Output Variables}
+The output consists of:
+\begin{itemize}
+    \item \( total\_number \): Total number of employees hired
+    \item \( is\_work \): A matrix indicating the work schedule of each employee on each day, where the entry \( is\_work_{n,i} \) represents if employee \( i \) is working on day \( n \).
+\end{itemize}
+
+\end{document}

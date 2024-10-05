@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Electricity Capacity Planning}
+
+\subsection*{Decision Variables}
+Let:
+\begin{align*}
+    \text{coal\_cap\_added}_t & : \text{The coal capacity added at the beginning of year } t, \quad \forall t = 1, \ldots, T. \\
+    \text{nuke\_cap\_added}_t & : \text{The nuclear capacity added at the beginning of year } t, \quad \forall t = 1, \ldots, T.
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost of capacity additions:
+\[
+    \text{Minimize} \quad \sum_{t=1}^T \left( \text{coal\_cost} \times \text{coal\_cap\_added}_t + \text{nuke\_cost} \times \text{nuke\_cap\_added}_t \right)
+\]
+
+\subsection*{Constraints}
+
+1. **Demand Satisfaction:**
+   \[
+   \sum_{k=1}^{t} \text{coal\_cap\_added}_k \times \mathbb{1}(t-k < \text{coal\_life}) + \sum_{k=1}^{t} \text{nuke\_cap\_added}_k \times \mathbb{1}(t-k < \text{nuke\_life}) + \text{oil\_t} \geq \text{demand\_t}, \quad \forall t = 1, \ldots, T
+   \]
+   where $\mathbb{1}(\cdot)$ is the indicator function ensuring the plant is still operational.
+
+2. **Nuclear Capacity Limit:**
+   \[
+   \sum_{k=1}^{t} \text{nuke\_cap\_added}_k \times \mathbb{1}(t-k < \text{nuke\_life}) \leq \frac{\text{max\_nuke}}{100} \times \left( \sum_{k=1}^{t} \text{coal\_cap\_added}_k \times \mathbb{1}(t-k < \text{coal\_life}) + \sum_{k=1}^{t} \text{nuke\_cap\_added}_k \times \mathbb{1}(t-k < \text{nuke\_life}) + \text{oil\_t} \right), \quad \forall t = 1, \ldots, T
+   \]
+
+3. **Non-negativity Constraints:**
+   \[
+   \text{coal\_cap\_added}_t \geq 0, \quad \text{nuke\_cap\_added}_t \geq 0, \quad \forall t = 1, \ldots, T
+   \]
+
+\end{document}

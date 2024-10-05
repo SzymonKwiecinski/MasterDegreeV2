@@ -1,0 +1,74 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Oil Refining and Blending}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item Let \( buyquantity_{i,m} \) be the quantity of oil \( i \) bought in month \( m \).
+    \item Let \( refine_{i,m} \) be the quantity of oil \( i \) refined in month \( m \).
+    \item Let \( storage_{i,m} \) be the quantity of oil \( i \) stored at the end of month \( m \).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( price_{i,m} \): Price of oil \( i \) in month \( m \).
+    \item \( sell\_price \): Selling price per ton of the final product.
+    \item \( is\_vegetable_{i} \): Indicator if oil \( i \) is a vegetable oil.
+    \item \( max\_veg \): Maximum vegetable oil refining capacity per month.
+    \item \( max\_non\_veg \): Maximum non-vegetable oil refining capacity per month.
+    \item \( storage\_size \): Maximum storage capacity for each oil.
+    \item \( storage\_cost \): Cost associated with storing each ton of oil per month.
+    \item \( max\_hardness \): Maximum allowable hardness of the final product.
+    \item \( min\_hardness \): Minimum allowable hardness of the final product.
+    \item \( hardness_{i} \): Hardness of oil \( i \).
+    \item \( init\_amount \): Initial amount of each type of oil in storage.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize profit:
+\[
+\text{Profit} = \sum_{m=1}^{M} \left( sell\_price \cdot \sum_{i=1}^{I} refine_{i,m} - \sum_{i=1}^{I} (price_{i,m} \cdot buyquantity_{i,m} + storage\_cost \cdot storage_{i,m}) \right)
+\]
+
+\subsection*{Constraints}
+
+\begin{itemize}
+
+    \item **Refining Capacity Constraints**:
+    \[
+    \sum_{i=1}^{I} refine_{i,m} \leq max\_veg \quad \forall m \text{ where } is\_vegetable_{i}=1
+    \]
+    \[
+    \sum_{i=1}^{I} refine_{i,m} \leq max\_non\_veg \quad \forall m \text{ where } is\_vegetable_{i}=0
+    \]
+
+    \item **Storage Constraints**:
+    \[
+    storage_{i,m} \leq storage\_size \quad \forall i, m
+    \]
+
+    \item **Hardness Constraints**:
+    \[
+    min\_hardness \leq \frac{\sum_{i=1}^{I} (hardness_{i} \cdot refine_{i,m})}{\sum_{i=1}^{I} refine_{i,m}} \leq max\_hardness \quad \forall m
+    \]
+
+    \item **Storage Dynamics**:
+    \[
+    storage_{i,m} = storage_{i,m-1} + buyquantity_{i,m} - refine_{i,m} \quad \forall i, m
+    \]
+
+    \item **Initial Storage Condition**:
+    \[
+    storage_{i,0} = init\_amount \quad \forall i
+    \]
+
+    \item **Final Storage Condition**:
+    \[
+    storage_{i,M} = init\_amount \quad \forall i
+    \]
+    
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model:}
+
+\textbf{Objective:} Maximize profit
+
+\begin{equation}
+\text{Maximize } \sum_{n=1}^{N} \left( \text{price}_n \times \text{sellquantity}_n - \text{cost}_n \times \text{buyquantity}_n - \text{holding\_cost} \times \text{stock}_n \right)
+\end{equation}
+
+\textbf{Subject to:}
+
+\begin{align}
+\text{stock}_n &= \text{stock}_{n-1} + \text{buyquantity}_n - \text{sellquantity}_n, \quad \forall n = 1, \ldots, N \\
+\text{stock}_0 &= 0 \\
+0 &\leq \text{stock}_n \leq \text{capacity}, \quad \forall n = 1, \ldots, N \\
+\text{buyquantity}_n &\geq 0, \quad \forall n = 1, \ldots, N \\
+\text{sellquantity}_n &\geq 0, \quad \forall n = 1, \ldots, N \\
+\text{stock}_N &= 0
+\end{align}
+
+\end{document}

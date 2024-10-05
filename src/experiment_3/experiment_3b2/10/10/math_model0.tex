@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\textbf{Indices:}
+\begin{align*}
+    n & \text{: Index for neighborhoods, } n = 1, \ldots, N \\
+    s & \text{: Index for schools, } s = 1, \ldots, S \\
+    g & \text{: Index for grades, } g = 1, \ldots, G \\
+\end{align*}
+
+\textbf{Parameters:}
+\begin{align*}
+    \text{capacity}_{s,g} & \text{: Capacity of school } s \text{ for grade } g, \\
+    \text{population}_{n,g} & \text{: Population of students in neighborhood } n \text{ for grade } g, \\
+    d_{n,s} & \text{: Distance from neighborhood } n \text{ to school } s. \\
+\end{align*}
+
+\textbf{Decision Variables:}
+\begin{align*}
+    x_{n,s,g} & \text{: Number of students of grade } g \text{ from neighborhood } n \text{ assigned to school } s. \\
+\end{align*}
+
+\textbf{Objective:}
+\begin{align*}
+    \text{Minimize } & \sum_{n=1}^{N} \sum_{s=1}^{S} \sum_{g=1}^{G} d_{n,s} \cdot x_{n,s,g} \\
+\end{align*}
+
+\textbf{Subject to:}
+\begin{align*}
+    & \sum_{s=1}^{S} x_{n,s,g} = \text{population}_{n,g} \quad \forall n, \forall g \quad & \text{(All students must be assigned)} \\
+    & \sum_{n=1}^{N} x_{n,s,g} \leq \text{capacity}_{s,g} \quad \forall s, \forall g \quad & \text{(Capacity constraints)} \\
+    & x_{n,s,g} \geq 0 \quad \forall n, \forall s, \forall g \quad & \text{(Non-negativity)}
+\end{align*}
+
+\end{document}

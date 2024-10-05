@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\begin{document}
+
+\textbf{Objective:} Minimize the total number of employees to hire.
+\begin{equation}
+\min \sum_{i=1}^{M} x_i
+\end{equation}
+
+\textbf{Subject to:}
+
+1. \textbf{Demand Satisfaction:}
+\begin{equation}
+\sum_{i=1}^{M} is\_work_{n,i} \geq num_n, \quad \forall n \in [1, N]
+\end{equation}
+
+2. \textbf{Work and Rest Cycle:} 
+\begin{align}
+is\_work_{n, i} + is\_work_{n+1, i} + \ldots + is\_work_{n + n\_working\_days - 1, i} & \leq n\_working\_days \cdot x_i, \\
+is\_work_{n + n\_working\_days, i} = 0, & \quad \forall i \in [1, M], \\
+is\_work_{n, i} = 0, & \quad \forall i \in [1, M], \quad \forall n \in [n + n\_working\_days, N]
+\end{align}
+
+3. \textbf{Binary Constraints:}
+\begin{align}
+x_i & \in \{0, 1\}, \quad \forall i \in [1, M] \\
+is\_work_{n, i} & \in \{0, 1\}, \quad \forall n \in [1, N], \forall i \in [1, M]
+\end{align}
+
+Here, \( M \) is an upper bound on the total number of employees, potentially the sum of all \( num_n \) or some larger number sufficient for the problem's constraints.
+
+The solution to this MILP will give you the minimum number of employees required and their working schedule.
+
+\end{document}

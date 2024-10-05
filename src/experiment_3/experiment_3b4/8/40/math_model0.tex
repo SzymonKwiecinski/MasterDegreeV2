@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\textbf{Decision Variables:}
+\begin{align*}
+x_k & : \text{Amount of mineral } k \text{ used (in tons), for } k=1,\ldots,K \\
+y & : \text{Amount of Manganese directly added (in tons)}
+\end{align*}
+
+\textbf{Objective Function:}
+
+Maximize the profit:
+\[
+\text{Profit} = \text{Revenue} - \text{Costs}
+\]
+where:
+\[
+\text{Revenue} = \text{sell\_price} \times \text{n\_steel\_quant}
+\]
+\[
+\text{Costs} = \sum_{k=1}^{K} \left( \frac{\text{cost}_{k}}{1000} \times x_k \right) + \text{mang\_price} \times y + \text{melt\_price} \times \sum_{k=1}^{K} x_k
+\]
+
+The profit function becomes:
+\[
+\begin{align*}
+\max & \quad \text{sell\_price} \times \text{n\_steel\_quant} - \left( \sum_{k=1}^{K} \left( \frac{\text{cost}_{k}}{1000} \times x_k \right) + \text{mang\_price} \times y + \text{melt\_price} \times \sum_{k=1}^{K} x_k \right)
+\end{align*}
+\]
+
+\textbf{Constraints:}
+
+1. Total mineral and manganese quantity constraint:
+\[
+\sum_{k=1}^{K} x_k + y = \text{n\_steel\_quant}
+\]
+
+2. Manganese percentage requirement:
+\[
+\frac{\sum_{k=1}^{K} (\text{contmn}_{k} \times x_k) + y}{\text{n\_steel\_quant}} \geq \frac{\text{mn\_percent}}{100}
+\]
+
+3. Silicon content constraints:
+\[
+\text{si\_min} \leq \frac{\sum_{k=1}^{K} (\text{contsi}_{k} \times x_k)}{\sum_{k=1}^{K} x_k} \leq \text{si\_max}
+\]
+
+4. Non-negativity constraints:
+\[
+x_k \geq 0 \quad \text{for all } k
+\]
+\[
+y \geq 0
+\]
+
+This linear programming problem can be solved using tools such as LINGO, GAMS, or any LP solver to find the optimal values for \( x_k \) and \( y \) that maximize the profit.
+
+\end{document}

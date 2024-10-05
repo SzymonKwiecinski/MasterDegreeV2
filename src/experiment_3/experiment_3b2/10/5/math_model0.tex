@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective Function:}
+
+\[
+\text{Minimize} \quad \sum_{(i,j) \in A} \sum_{(k,l)} C_{i,j} \cdot x_{i,j}^{k,l}
+\]
+
+\textbf{Subject to:}
+
+\begin{align*}
+& \text{Flow Capacity Constraints:} \\
+& \sum_{(k,l)} x_{i,j}^{k,l} \leq U_{i,j}, \quad \forall (i,j) \in A \\
+
+& \text{Flow Conservation Constraints:} \\
+& \sum_{j: (i,j) \in A} x_{i,j}^{k,l} - \sum_{j: (j,i) \in A} x_{j,i}^{k,l} = 
+\begin{cases} 
+B_{k,l}, & \text{if } i = k \\
+-B_{k,l}, & \text{if } i = l \\
+0, & \text{otherwise}
+\end{cases} \\
+& \forall \, i \in \text{nodes}, \forall \, (k,l)
+\end{align*}
+
+\end{document}

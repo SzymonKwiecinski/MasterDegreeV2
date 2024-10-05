@@ -1,0 +1,21 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+\[
+\text{Minimize} \quad Z = \sum_{s=1}^{S} \text{shift\_cost}_s \times x_s
+\]
+
+\textbf{Subject to:}
+
+\begin{align*}
+x_1 + x_S & \geq \text{officers\_needed}_1 \\
+x_1 + x_2 & \geq \text{officers\_needed}_2 \\
+& \vdots \\
+x_{S-1} + x_S & \geq \text{officers\_needed}_{S-1} \\
+x_S + x_1 & \geq \text{officers\_needed}_S \\
+x_s & \geq 0 \quad \text{for all} \quad s = 1, \ldots, S
+\end{align*}
+
+\end{document}

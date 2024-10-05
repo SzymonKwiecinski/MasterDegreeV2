@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Optimization Problem}
+
+\subsection*{Problem Formulation}
+
+Given:
+\begin{align*}
+    & x_0 \quad \text{(initial position)} \\
+    & v_0 \quad \text{(initial velocity)} \\
+    & x_T \quad \text{(target position at time } T\text{)} \\
+    & v_T \quad \text{(target velocity at time } T\text{)} \\
+    & T \quad \text{(final time)}
+\end{align*}
+
+We are tasked with determining the sequence of accelerations \( a_t \) that minimizes the total fuel consumption:
+
+\[
+\min \sum_{t=0}^{T-1} |a_t|
+\]
+
+Subject to the discrete-time dynamics:
+\begin{align*}
+    x_{t+1} &= x_t + v_t \quad \forall t = 0, 1, \ldots, T-1 \\
+    v_{t+1} &= v_t + a_t \quad \forall t = 0, 1, \ldots, T-1
+\end{align*}
+
+And the boundary conditions:
+\begin{align*}
+    x_0 &= \text{given} \\
+    v_0 &= \text{given} \\
+    x_T &= \text{given} \\
+    v_T &= \text{given}
+\end{align*}
+
+To incorporate the absolute value into the linear program, we represent each \( |a_t| \) using an auxiliary variable \( u_t \):
+
+\begin{align*}
+    a_t &\leq u_t \quad \forall t = 0, 1, \ldots, T-1 \\
+    -a_t &\leq u_t \quad \forall t = 0, 1, \ldots, T-1
+\end{align*}
+
+Thus, the objective function becomes:
+\[
+\min \sum_{t=0}^{T-1} u_t
+\]
+
+\subsection*{Solution Format}
+
+The output will be represented as:
+\begin{itemize}
+    \item \texttt{x}: List of positions at each time step from 0 to \( T \).
+    \item \texttt{v}: List of velocities at each time step from 0 to \( T \).
+    \item \texttt{a}: List of accelerations at each time step from 0 to \( T \).
+    \item \texttt{fuel\_spend}: Total fuel spent.
+\end{itemize}
+
+\end{document}

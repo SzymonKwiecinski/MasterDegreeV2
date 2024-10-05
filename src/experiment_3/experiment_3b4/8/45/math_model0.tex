@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model for Custom Tees Ad Campaign}
+
+\textbf{Decision Variables:}
+
+Let \( x_a \) be the number of thousands of clicks purchased for ad type \( a \), where \( a = 1, \ldots, A \).
+
+\textbf{Objective Function:}
+
+\[
+\text{Minimize } Z = \sum_{a=1}^{A} \text{cost}_a \cdot x_a
+\]
+
+\textbf{Constraints:}
+
+1. Achieve at least the required number of clicks from the 18-25 age range:
+   \[
+   \sum_{a=1}^{A} \text{young\_click}_{a} \cdot x_a \geq \text{goal\_young}
+   \]
+
+2. Achieve at least the required number of clicks from visitors older than 25:
+   \[
+   \sum_{a=1}^{A} \text{old\_click}_{a} \cdot x_a \geq \text{goal\_old}
+   \]
+
+3. Achieve at least the required number of unique clicks from the 18-25 age range:
+   \[
+   \sum_{a=1}^{A} \text{unique\_click}_{a} \cdot \text{young\_click}_{a} \cdot x_a \geq \text{goal\_unique\_young}
+   \]
+
+4. Achieve at least the required number of unique clicks from visitors older than 25:
+   \[
+   \sum_{a=1}^{A} \text{unique\_click}_{a} \cdot \text{old\_click}_{a} \cdot x_a \geq \text{goal\_unique\_old}
+   \]
+
+5. Respect the maximum allowable clicks for each ad type:
+   \[
+   0 \leq x_a \leq \text{max\_click}_{a}, \quad \forall a = 1, \ldots, A
+   \]
+
+\end{document}

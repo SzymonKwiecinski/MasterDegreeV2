@@ -1,9 +1,16 @@
 experiment_2a1:
   one_prompt_model: "gpt-4o-mini-2024-07-18"
+  one_prompt_model_fix: "gpt-4o-mini-2024-07-18"
   fix_retries: 0
 experiment_2b1:
   one_prompt_model: "gpt-4o-mini-2024-07-18"
+  one_prompt_model_fix: "gpt-4o-mini-2024-07-18"
   fix_retries: 1
 experiment_2b2:
   one_prompt_model: "gpt-4o-2024-08-06"
+  one_prompt_model_fix: "gpt-4o-2024-08-06"
+  fix_retries: 1
+experiment_2b3:
+  one_prompt_model: "gpt-4o-2024-08-06"
+  one_prompt_model_fix: "gpt-4o-mini-2024-07-18"
   fix_retries: 1

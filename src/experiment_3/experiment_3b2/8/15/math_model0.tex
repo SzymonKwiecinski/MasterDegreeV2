@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Formulation for Profit Maximization}
+
+\subsection*{Decision Variables}
+- Let $x_i$ be the number of units produced of the $i$-th product, where $i = 1, \ldots, N$.  
+- Let $y$ be the number of overtime assembly hours scheduled.
+
+\subsection*{Objective Function}
+Maximize the daily profit:
+
+\[
+\text{Maximize } \quad Z = \sum_{i=1}^N (\text{price}_i \cdot x_i) - \left( \sum_{i=1}^N \text{materialCost}_i \cdot x_i + \text{overtimeAssemblyCost} \cdot y \right)
+\]
+
+Where if $\sum_{i=1}^N \text{materialCost}_i \cdot x_i > \text{discountThreshold}$, apply the discount:
+
+\[
+\text{Total Material Cost} = \left(1 - \frac{\text{materialDiscount}}{100}\right) \cdot \sum_{i=1}^N \text{materialCost}_i \cdot x_i
+\]
+
+\subsection*{Constraints}
+
+1. Assembly labor constraint with overtime:
+   \[
+   \sum_{i=1}^N \text{assemblyHour}_i \cdot x_i \leq \text{maxAssembly} + y
+   \]
+
+2. Testing labor constraint:
+   \[
+   \sum_{i=1}^N \text{testingHour}_i \cdot x_i \leq \text{maxTesting}
+   \]
+
+3. Overtime assembly constraint:
+   \[
+   0 \leq y \leq \text{maxOvertimeAssembly}
+   \]
+
+4. Non-negativity and integer constraints for production units:
+   \[
+   x_i \geq 0 \quad \text{and integer for } i = 1, \ldots, N
+   \]
+
+\subsection*{Variables Output}
+
+- $\text{dailyProfit} = Z$
+- $\text{unitsProduced}_i = x_i \text{ for } i = 1, \ldots, N$
+- $\text{overtimeAssembly} = y$
+- $\text{materialBought} = \sum_{i=1}^N \text{materialCost}_i \cdot x_i$
+
+\end{document}

@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Objective}
+Minimize \( d \)
+
+\subsection*{Constraints}
+For each \( k = 1, \ldots, K \):
+\begin{align*}
+y_k - (bx_k + a) & \leq d \\
+(bx_k + a) - y_k & \leq d
+\end{align*}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item \( a \): intercept of the line
+    \item \( b \): slope of the line
+    \item \( d \): maximum deviation to be minimized
+\end{itemize}
+
+\end{document}
+{
+    "intercept": a,
+    "slope": b
+}

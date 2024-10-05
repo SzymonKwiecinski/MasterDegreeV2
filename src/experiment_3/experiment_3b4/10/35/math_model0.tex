@@ -1,0 +1,20 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\textbf{Linear Programming Model for Warehouse Operations}
+
+\[
+\begin{aligned}
+& \text{Maximize} \quad && \sum_{n=1}^{N} \left( \text{price}_n \cdot \text{sellquantity}_n - \text{cost}_n \cdot \text{buyquantity}_n - \text{holding\_cost} \cdot \text{stock}_n \right) \\
+& \text{subject to} \quad && \\
+& \text{stock}_n = \text{stock}_{n-1} + \text{buyquantity}_n - \text{sellquantity}_n, && \text{for} \; n=1,2,...,N \\
+& \text{with initial condition} \quad && \text{stock}_0 = 0 \\
+& 0 \leq \text{stock}_n \leq \text{capacity}, && \text{for} \; n=1,2,...,N \\
+& \text{buyquantity}_n \geq 0, \quad \text{sellquantity}_n \geq 0, && \text{for} \; n=1,2,...,N \\
+& \text{stock}_N = 0
+\end{aligned}
+\]
+
+\end{document}

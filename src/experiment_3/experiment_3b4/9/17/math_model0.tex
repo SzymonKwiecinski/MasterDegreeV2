@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Variables}
+\begin{align*}
+    & \text{Let } \text{sell}_i \text{ be the number of shares of stock } i \text{ to sell for } i = 1, \dots, N.
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the expected value of the portfolio next year:
+\begin{align*}
+    \max \sum_{i=1}^{N} (bought_i - \text{sell}_i) \times \text{futurePrice}_i
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+    & \sum_{i=1}^{N} \left[ \text{sell}_i \times \text{currentPrice}_i \times \left(1 - \frac{\text{transactionRate}}{100}\right) - \max\left(0, (\text{sell}_i \times \text{currentPrice}_i - \text{sell}_i \times \text{buyPrice}_i) \times \frac{\text{taxRate}}{100}\right) \right] \geq K \\
+    & 0 \leq \text{sell}_i \leq \text{bought}_i \quad \text{for each } i.
+\end{align*}
+
+\subsection*{Explanation}
+- The objective function aims to maximize the expected value of the investor's portfolio next year, considering the stocks remaining after selling some.
+- The first constraint ensures that the net amount of money raised by selling the shares (after accounting for transaction costs and capital gains taxes) is at least \( K \).
+- The second set of constraints ensures that the number of shares sold does not exceed the number of shares the investor has bought for each stock.
+
+\end{document}

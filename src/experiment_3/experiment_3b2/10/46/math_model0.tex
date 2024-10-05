@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} Maximize Profit
+\[
+\text{Maximize} \quad Z = \sum_{s=1}^{S} \left( \text{steel\_price}_s \times \sum_{a=1}^{A} x_{a,s} \right) - \sum_{a=1}^{A} \text{alloy\_price}_a \times \sum_{s=1}^{S} x_{a,s}
+\]
+
+\textbf{Subject to:}
+\begin{align*}
+\sum_{s=1}^{S} x_{a,s} & \leq \text{available}_a, & \forall a \in \{1, \ldots, A\} \\
+\frac{\sum_{a=1}^{A} \text{carbon}_a \times x_{a,s}}{\sum_{a=1}^{A} x_{a,s}} & \geq \text{carbon\_min}_s, & \forall s \in \{1, \ldots, S\} \\
+\frac{\sum_{a=1}^{A} \text{nickel}_a \times x_{a,s}}{\sum_{a=1}^{A} x_{a,s}} & \leq \text{nickel\_max}_s, & \forall s \in \{1, \ldots, S\} \\
+x_{1,s} & \leq 0.4 \times \sum_{a=1}^{A} x_{a,s}, & \forall s \in \{1, \ldots, S\} \\
+\sum_{a=1}^{A} x_{a,s} & = \text{total\_steel}_s, & \forall s \in \{1, \ldots, S\}
+\end{align*}
+
+\textbf{Non-negativity:}
+\[
+x_{a,s} \geq 0, \quad \forall a \in \{1, \ldots, A\}, \forall s \in \{1, \ldots, S\}
+\]
+
+\end{document}

@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} Minimize the total number of nurses hired.
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_j$: Number of nurses who start their shift on day $j$, for $j = 1, \ldots, 7$.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $d_j$: Demand for nurses on day $j$, for $j = 1, \ldots, 7$.
+    \item \text{period}: Number of consecutive days a nurse works.
+\end{itemize}
+
+\textbf{Constraints:}
+\begin{align}
+    &\sum_{i=0}^{\text{period}-1} x_{(j-i-1) \bmod 7 + 1} \geq d_j, \quad \forall j = 1, \ldots, 7 \\
+    &x_j \geq 0 \quad \text{and integer}, \quad \forall j = 1, \ldots, 7
+\end{align}
+
+\textbf{Objective Function:}
+\begin{align}
+    \min \sum_{j=1}^{7} x_j
+\end{align}
+
+\textbf{Explanation:} 
+\begin{itemize}
+    \item Constraint (1) ensures that the total number of nurses working on any given day $j$ meets the demand $d_j$. The summation $\sum_{i=0}^{\text{period}-1} x_{(j-i-1) \bmod 7 + 1}$ represents the number of nurses available each day, accounting for the period they work starting from day $j-i$.
+    \item Constraint (2) ensures that the number of nurses starting each day is non-negative and integer.
+    \item The objective (3) is to minimize the total number of nurses hired, which is the sum of all nurses starting their shifts on each day.
+\end{itemize}
+
+\end{document}

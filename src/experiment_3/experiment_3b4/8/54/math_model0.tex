@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Maximizing Profit}
+
+\subsection*{Decision Variables}
+Let \( x_p \) be the number of batches of part \( p \) produced each month, for \( p = 1, 2, \ldots, P \).
+
+\subsection*{Objective Function}
+Maximize the total profit, given by:
+
+\[
+\text{Total Profit} = \sum_{p=1}^{P} \text{price}_p \cdot x_p - \sum_{m=1}^{M} \text{cost}_m \cdot \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p 
+\]
+
+Note: For machine 1, consider the outsourcing and labor costs:
+
+\[
+- (\text{standard\_cost} \cdot \min(\text{overtime\_hour}, \sum_{p=1}^P \text{time}_{1,p} \cdot x_p) + \text{overtime\_cost} \cdot \max(0, \sum_{p=1}^P \text{time}_{1,p} \cdot x_p - \text{overtime\_hour}))
+\]
+
+Add this term to account for labor costs on machine 1.
+
+\subsection*{Constraints}
+
+1. \textbf{Minimum Production Requirement:}
+   \[
+   x_p \geq \text{min\_batches}_p, \quad \forall p = 1, 2, \ldots, P
+   \]
+
+2. \textbf{Machine Availability:}
+   For machines \( m = 2, 3, \ldots, M \):
+   \[
+   \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \leq \text{available}_m 
+   \]
+
+3. \textbf{Non-negativity:}
+   \[
+   x_p \geq 0, \quad \forall p = 1, 2, \ldots, P
+   \]
+   
+\end{document}

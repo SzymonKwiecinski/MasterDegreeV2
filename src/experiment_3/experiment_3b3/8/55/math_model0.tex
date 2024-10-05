@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\subsection*{Decision Variables}
+Let \( b_p \) be the number of batches produced for part \( p \), where \( p = 1, \ldots, P \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( time_{m,p} \): time required (in hours) on machine \( m \) for producing one batch of part \( p \).
+    \item \( cost_m \): cost per hour of using machine \( m \).
+    \item \( available_m \): available hours per month for machine \( m \).
+    \item \( price_p \): selling price per batch of part \( p \).
+    \item \( min\_batches_p \): minimum batches required for part \( p \).
+    \item \( standard\_cost \): standard labor cost per hour.
+    \item \( overtime\_cost \): overtime labor cost per hour.
+    \item \( overtime\_hour \): hours considered as overtime.
+    \item \( min\_profit \): minimum desired profit.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} (price_p \cdot b_p - \text{Total Cost})
+\]
+where Total Cost includes both machine costs and labor costs for machine 1.
+
+\subsection*{Constraints}
+1. **Machine Time Constraints**:
+\[
+\sum_{p=1}^{P} (time_{m,p} \cdot b_p) \leq available_m \quad \forall m = 1, \ldots, M
+\]
+
+2. **Minimum Batch Production**:
+\[
+b_p \geq min\_batches_p \quad \forall p = 1, \ldots, P
+\]
+
+3. **Profit Constraint**:
+\[
+Z \geq min\_profit
+\]
+
+4. **Labor Cost Calculation for Machine 1**:
+Define \( T \) as the total hours used for machine 1:
+\[
+T = \sum_{p=1}^{P} (time_{1,p} \cdot b_p)
+\]
+Then the cost for labor can be expressed as:
+\[
+\text{Labor Cost} =
+\begin{cases}
+    standard\_cost \cdot T & \text{if } T \leq overtime\_hour \\
+    standard\_cost \cdot overtime\_hour + overtime\_cost \cdot (T - overtime\_hour) & \text{if } T > overtime\_hour
+\end{cases}
+\]
+
+5. **Non-negativity Constraints**:
+\[
+b_p \geq 0 \quad \forall p = 1, \ldots, P
+\]
+
+\end{document}

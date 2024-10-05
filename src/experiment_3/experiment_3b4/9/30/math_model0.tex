@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Quadratic Curve Fitting using Linear Programming}
+
+Given data points \((x_k, y_k)\) for \(k = 1, \ldots, K\), our goal is to determine the coefficients \(c\), \(b\), and \(a\) of the quadratic function:
+
+\[
+y = c \cdot x^2 + b \cdot x + a
+\]
+
+We aim to minimize the sum of the absolute deviations \(|y_k - (c \cdot x_k^2 + b \cdot x_k + a)|\) for all \(k\).
+
+\subsection*{Linear Programming Model}
+
+Define \(e_k\) as the absolute deviation for each data point:
+
+\[
+e_k = |y_k - (c \cdot x_k^2 + b \cdot x_k + a)|
+\]
+
+Since absolute values can be linearized using auxiliary variables, we introduce two non-negative variables \(e_k^+\) and \(e_k^-\) such that:
+
+\[
+e_k = e_k^+ + e_k^-
+\]
+
+with constraints:
+
+\[
+y_k - (c \cdot x_k^2 + b \cdot x_k + a) = e_k^+ - e_k^-
+\]
+
+\[
+e_k^+, e_k^- \geq 0
+\]
+
+The objective is to minimize the total deviation:
+
+\[
+\min \sum_{k=1}^{K} (e_k^+ + e_k^-)
+\]
+
+Subject to the constraints:
+
+- For each \(k = 1, \ldots, K\):
+
+\[
+y_k - (c \cdot x_k^2 + b \cdot x_k + a) = e_k^+ - e_k^-
+\]
+
+\[
+e_k^+, e_k^- \geq 0
+\]
+
+By solving this linear programming problem, we obtain the coefficients \(c\), \(b\), and \(a\).
+
+\end{document}

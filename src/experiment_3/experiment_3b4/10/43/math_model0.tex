@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Decision Variables:}
+\[
+x_j \geq 0 \quad \text{for } j = 1, 2, \ldots, M
+\]
+
+\textbf{Objective Function:}
+
+Maximize the profit, which is calculated as the total revenue minus the total production cost:
+
+\[
+\text{Maximize } Z = \sum_{j=1}^{M} (price_j - cost_j) \cdot x_j
+\]
+
+\textbf{Constraints:}
+
+1. Raw Material Constraints: The total amount of each raw material used cannot exceed the available amount.
+
+\[
+\sum_{j=1}^{M} req_{i,j} \cdot x_j \leq available_i \quad \text{for } i = 1, 2, \ldots, N
+\]
+
+2. Demand Constraints: The production of each product cannot exceed its forecasted maximum demand.
+
+\[
+x_j \leq demand_j \quad \text{for } j = 1, 2, \ldots, M
+\]
+
+3. Non-negativity Constraints:
+
+\[
+x_j \geq 0 \quad \text{for } j = 1, 2, \ldots, M
+\]
+
+\end{document}

@@ -1,0 +1,19 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Maximize:}
+\[
+\sum_{p=1}^{P} \left( \sum_{l=1}^{L} \text{output}_{l,p} \cdot x_l \right) \cdot \text{price}_p - \sum_{l=1}^{L} \text{cost}_l \cdot x_l
+\]
+
+\textbf{Subject to:}
+\[
+\sum_{l=1}^{L} \text{input}_{l,i} \cdot x_l \leq \text{allocated}_i \quad \text{for all } i = 1, \ldots, O
+\]
+
+\[
+x_l \geq 0 \quad \text{for all } l = 1, \ldots, L
+\]
+
+\end{document}

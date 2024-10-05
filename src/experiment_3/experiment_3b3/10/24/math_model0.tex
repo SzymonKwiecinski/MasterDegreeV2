@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Mining Company Operations}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item $k$: index for mines, $k = 1, \ldots, n_{mines}$
+    \item $i$: index for years, $i = 1, \ldots, I$
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $n_{mines}$: total number of mines
+    \item $n_{maxwork}$: maximum number of mines that can be operated in one year
+    \item $royalty_k$: yearly royalties for mine $k$
+    \item $limit_k$: upper limit of ore extraction for mine $k$
+    \item $quality_k$: quality of ore from mine $k$
+    \item $requiredquality_i$: required quality of blended ore in year $i$
+    \item $price$: price per ton of the final blended ore
+    \item $discount$: discount rate per annum
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $isoperated_{k,i}$: binary variable, $isoperated_{k,i} = 1$ if mine $k$ is operated in year $i$, $0$ otherwise
+    \item $amount_{k,i}$: continuous variable representing the amount of ore produced by mine $k$ in year $i$
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{i=1}^{I}\sum_{k=1}^{n_{mines}} \left( (price \cdot \sum_{k=1}^{n_{mines}} amount_{k,i}) (1 + discount)^{-i} - \sum_{k=1}^{n_{mines}} royalty_k \cdot isoperated_{k,i}) \right)
+\]
+
+\textbf{Constraints:}
+\begin{itemize}
+    \item \textbf{Production Limits:}
+    \[
+    amount_{k,i} \leq limit_k \cdot isoperated_{k,i} \quad \forall k, i
+    \]
+    
+    \item \textbf{Quality Requirement:}
+    \[
+    \sum_{k=1}^{n_{mines}} \frac{quality_k \cdot amount_{k,i}}{\sum_{j=1}^{n_{mines}} amount_{j,i}} = requiredquality_i \quad \forall i
+    \]
+    
+    \item \textbf{Max Work Constraint:}
+    \[
+    \sum_{k=1}^{n_{mines}} isoperated_{k,i} \leq n_{maxwork} \quad \forall i
+    \]
+    
+    \item \textbf{Non-negativity:}
+    \[
+    amount_{k,i} \geq 0 \quad \forall k, i
+    \]
+    
+    \item \textbf{Binary Constraint:}
+    \[
+    isoperated_{k,i} \in \{0, 1\} \quad \forall k, i
+    \]
+\end{itemize}
+
+\textbf{Output Variables:}
+\begin{itemize}
+    \item $isoperated$: a binary matrix indicating whether each mine is operated in each year
+    \item $amount$: a matrix indicating the amount of ore produced by each mine in each year
+\end{itemize}
+
+\end{document}

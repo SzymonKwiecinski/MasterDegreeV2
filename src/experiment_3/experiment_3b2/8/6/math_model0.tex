@@ -1,0 +1,81 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Fuel Minimization Problem}
+
+We define the following variables:
+- \( x_t \): Position of the rocket at time \( t \)
+- \( v_t \): Velocity of the rocket at time \( t \)
+- \( a_t \): Acceleration of the rocket at time \( t \)
+
+Given:
+- \( x_0 \) and \( v_0 \) as the initial position and velocity
+- \( x_T \) and \( v_T \) as the target position and velocity at time \( T \)
+- \( T \) as the time horizon
+
+\subsection*{Objective:}
+Minimize the total fuel consumption:
+\[
+\min \sum_{t=0}^{T-1} |a_t|
+\]
+
+\subsection*{Constraints:}
+
+1. Dynamics of the rocket:
+   \[
+   x_{t+1} = x_t + v_t \quad \forall t = 0, \ldots, T-1
+   \]
+   \[
+   v_{t+1} = v_t + a_t \quad \forall t = 0, \ldots, T-1
+   \]
+
+2. Boundary conditions:
+   \[
+   x_0 = \text{given}
+   \]
+   \[
+   v_0 = \text{given}
+   \]
+   \[
+   x_T = \text{given}
+   \]
+   \[
+   v_T = \text{given}
+   \]
+
+3. Absolute value constraint for accelerations:
+   \[
+   a_t^+ - a_t^- = a_t, \quad a_t^+, a_t^- \geq 0, \quad \forall t = 0, \ldots, T-1
+   \]
+   \[
+   |a_t| = a_t^+ + a_t^-
+   \]
+
+With this setup, we formulate the LP as:
+\[
+\min \sum_{t=0}^{T-1} (a_t^+ + a_t^-)
+\]
+Subject to:
+\[
+x_{t+1} = x_t + v_t \quad \forall t = 0, \ldots, T-1
+\]
+\[
+v_{t+1} = v_t + a_t \quad \forall t = 0, \ldots, T-1
+\]
+\[
+a_t = a_t^+ - a_t^- \quad \forall t = 0, \ldots, T-1
+\]
+\[
+a_t^+, a_t^- \geq 0 \quad \forall t = 0, \ldots, T-1
+\]
+\[
+x_0 = \text{given}, \ v_0 = \text{given}
+\]
+\[
+x_T = \text{given}, \ v_T = \text{given}
+\]
+
+This model can be solved by standard linear programming solvers to obtain the positions, velocities, accelerations, and the total fuel spent.
+
+\end{document}

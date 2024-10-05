@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Gift Basket Production}
+
+\subsection*{Parameters}
+\begin{align*}
+& W \text{ : Number of weeks} \\
+& demand_{w} \text{ : Demand for week } w, \, w = 1, \ldots, W \\
+& regular\_cost \text{ : Cost of regular labor per hour} \\
+& overtime\_cost \text{ : Cost of overtime labor per hour} \\
+& assembly\_time \text{ : Hours required to assemble one basket} \\
+& material\_cost \text{ : Material cost for each basket} \\
+& selling\_price \text{ : Selling price of each basket} \\
+& holding\_cost \text{ : Holding cost for unsold baskets} \\
+& salvage\_value \text{ : Salvage value of unsold baskets at week } W \\
+& regular\_labor_{w} \text{ : Available regular labor hours for week } w \\
+& overtime\_labor_{w} \text{ : Available overtime labor hours for week } w \\
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+& regular\_used_{w} \text{ : Hours of regular labor used in week } w \\
+& overtime\_used_{w} \text{ : Hours of overtime labor used in week } w \\
+& regular\_basket_{w} \text{ : Number of baskets assembled with regular labor in week } w \\
+& overtime\_basket_{w} \text{ : Number of baskets assembled with overtime labor in week } w \\
+& inventory_{w} \text{ : Number of baskets on hand at the end of week } w \\
+& total\_profit \text{ : Total profit of the company for the season} \\
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+
+\begin{align*}
+total\_profit = \sum_{w=1}^{W} \left( (regular\_basket_{w} + overtime\_basket_{w}) \cdot selling\_price - (regular\_used_{w} \cdot regular\_cost + overtime\_used_{w} \cdot overtime\_cost) - (regular\_basket_{w} \cdot material\_cost) - (inventory_{w} \cdot holding\_cost) \right) \\
++ inventory_{W} \cdot salvage\_value
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+& regular\_used_{w} \leq regular\_labor_{w}, \quad w = 1, \ldots, W \quad \text{(Regular labor constraint)} \\
+& overtime\_used_{w} \leq overtime\_labor_{w}, \quad w = 1, \ldots, W \quad \text{(Overtime labor constraint)} \\
+& regular\_used_{w} + overtime\_used_{w} \geq (regular\_basket_{w} + overtime\_basket_{w}) \cdot assembly\_time, \quad w = 1, \ldots, W \quad \text{(Labor availability)} \\
+& inventory_{w} = inventory_{w-1} + regular\_basket_{w} + overtime\_basket_{w} - demand_{w}, \quad w = 1, \ldots, W \\
+& inventory_{1} = 0 \quad \text{(No initial inventory)} \\
+& inventory_{W} \geq 0 \quad \text{(Non-negativity of inventory at the end of the season)} \\
+& regular\_basket_{w}, overtime\_basket_{w} \geq 0, \quad w = 1, \ldots, W \quad \text{(Non-negativity of baskets)}
+\end{align*}
+
+\end{document}

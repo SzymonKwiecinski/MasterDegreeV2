@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\textbf{Decision Variables:}
+
+\begin{align*}
+\text{isoperated}_{k,i} & \quad \text{Binary variable, 1 if mine } k \text{ is operated in year } i, 0 \text{ otherwise.} \\
+\text{amount}_{k,i} & \quad \text{Amount of ore produced by mine } k \text{ in year } i.
+\end{align*}
+
+\textbf{Objective Function:}
+
+The objective is to maximize the net present value of the profit over all years:
+
+\[
+\text{Maximize} \quad \sum_{i=1}^{I} \frac{1}{(1+\text{discount})^{i}} \left( \text{price} \cdot \sum_{k=1}^{K} \text{amount}_{k,i} - \sum_{k=1}^{K} \text{royalty}_k \cdot \text{isoperated}_{k,i} \right)
+\]
+
+\textbf{Constraints:}
+
+1. **Capacity Constraints**: The amount produced by each mine cannot exceed its limit.
+   \[
+   \text{amount}_{k,i} \leq \text{limit}_k \cdot \text{isoperated}_{k,i} \quad \forall k = 1, \ldots, K, \, \forall i = 1, \ldots, I
+   \]
+
+2. **Quality Constraints**: The blended ore must meet the required quality each year.
+   \[
+   \frac{\sum_{k=1}^{K} \text{quality}_k \cdot \text{amount}_{k,i}}{\sum_{k=1}^{K} \text{amount}_{k,i}} = \text{requiredquality}_i \quad \forall i = 1, \ldots, I
+   \]
+
+3. **Maximum Mines Operated**: At most \text{n\_maxwork} mines can be operated each year.
+   \[
+   \sum_{k=1}^{K} \text{isoperated}_{k,i} \leq \text{n\_maxwork} \quad \forall i = 1, \ldots, I
+   \]
+
+\textbf{Variable Domains:}
+
+\begin{align*}
+\text{isoperated}_{k,i} & \in \{0, 1\} \quad \forall k = 1, \ldots, K, \, \forall i = 1, \ldots, I \\
+\text{amount}_{k,i} & \geq 0 \quad \forall k = 1, \ldots, K, \, \forall i = 1, \ldots, I
+\end{align*}
+
+\end{document}

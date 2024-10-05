@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Cafeteria Staffing Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( N \): Total number of days
+    \item \( \text{num}_n \): Number of employees required on day \( n \), for \( n = 1, 2, \ldots, N \)
+    \item \( d_w \): Number of working days for each employee (i.e., \( n_{\text{working\_days}} \))
+    \item \( d_r \): Number of resting days for each employee (i.e., \( n_{\text{resting\_days}} \))
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let:
+\begin{itemize}
+    \item \( \text{total\_number} \): Total number of employees to hire
+    \item \( x_{n,i} \): A binary variable that is 1 if employee \( i \) works on day \( n \), and 0 otherwise, where \( i = 1, 2, \ldots, \text{total\_number} \)
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the number of employees hired:
+\[
+\text{Minimize } \text{total\_number}
+\]
+
+\subsection*{Constraints}
+1. Ensure the required number of employees for each day \( n \):
+\[
+\sum_{i=1}^{\text{total\_number}} x_{n,i} \geq \text{num}_n, \quad \forall n = 1, 2, \ldots, N
+\]
+
+2. Each employee works for \( d_w \) days and then rests for \( d_r \) days. Define a cycle of \( d_c = d_w + d_r \). The days an employee works influence the days they can take off:
+\[
+x_{n,i} + x_{n+1,i} + \ldots + x_{n+d_w-1,i} = d_w, \quad \forall n \text{ such that } n + d_w - 1 \leq N
+\]
+\[
+x_{n+d_w,i} + x_{n+d_w+1,i} + \ldots + x_{n+d_c-1,i} = 0, \quad \forall n \text{ such that } n + d_c - 1 \leq N
+\]
+
+\subsection*{Output Variables}
+The output consists of:
+\begin{itemize}
+    \item \( \text{total\_number} \): Total number of employees hired.
+    \item \( \text{is\_work}_{n,i} \): A 2D array where \( \text{is\_work}_{n,i} \) is 1 if employee \( i \) works on day \( n \), and 0 otherwise.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Maximize:}
+\[
+\text{Total Profit} = \sum_{p=1}^{P} (\text{price}_p \cdot x_p) - \sum_{m=2}^{M} \left(\text{cost}_m \cdot \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p\right) \\
+- \left(\text{standard\_cost} \cdot \min\left(\text{overtime\_hour}, \sum_{p=1}^{P} \text{time}_{1,p} \cdot x_p\right) + \text{overtime\_cost} \cdot \max\left(0, \sum_{p=1}^{P} \text{time}_{1,p} \cdot x_p - \text{overtime\_hour}\right)\right)
+\]
+
+\textbf{Subject to:}
+\[
+\sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \leq \text{available}_m, \quad \forall m = 2, \ldots, M
+\]
+\[
+x_p \geq \text{min\_batches}_p, \quad \forall p = 1, \ldots, P
+\]
+\[
+x_p \geq 0, \quad \forall p = 1, \ldots, P
+\]
+
+\textbf{Where:}
+\begin{align*}
+x_p & : \text{Number of batches of part } p \text{ produced each month} \\
+\text{time}_{m,p} & : \text{Time required on machine } m \text{ for part } p \\
+\text{cost}_m & : \text{Cost per hour for using machine } m \\
+\text{available}_m & : \text{Availability of machine } m \text{ hours per month} \\
+\text{price}_p & : \text{Selling price of a batch of part } p \\
+\text{min\_batches}_p & : \text{Minimum required batches of part } p \text{ each month} \\
+\text{standard\_cost} & : \text{Labor cost per hour for machine 1} \\
+\text{overtime\_cost} & : \text{Overtime labor cost per hour for machine 1} \\
+\text{overtime\_hour} & : \text{Overtime threshold for machine 1 labor}
+\end{align*}
+
+\end{document}

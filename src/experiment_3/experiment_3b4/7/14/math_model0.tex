@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+% Define the given data 
+\newcommand{\cash}{\text{cash}}
+\newcommand{\hours}{\text{hour}_i}
+\newcommand{\cost}{\text{cost}_i}
+\newcommand{\price}{\text{price}_i}
+\newcommand{\investPercentage}{\text{investPercentage}_i}
+\newcommand{\upgradeHours}{\text{upgradeHours}}
+\newcommand{\upgradeCost}{\text{upgradeCost}}
+\newcommand{\availableHours}{\text{availableHours}}
+
+% Decision variables
+% Let x_i be the production quantity of the i-th product.
+% Let y be a binary variable representing whether the company upgrades the machine capacity (1 if upgrade, 0 otherwise).
+
+\begin{align*}
+\text{Maximize} \quad & \sum_{i=1}^{P} \left(\text{price}_i \times x_i - \text{cost}_i \times x_i - \text{investPercentage}_i \times \text{price}_i \times x_i\right) - \text{upgradeCost} \times y \\
+\text{Subject to:} \quad & \sum_{i=1}^{P} \text{hour}_i \times x_i \leq \text{availableHours} + \text{upgradeHours} \times y \\
+& \sum_{i=1}^{P} \text{cost}_i \times x_i + \text{upgradeCost} \times y \leq \text{cash} + \sum_{i=1}^{P} \text{investPercentage}_i \times \text{price}_i \times x_i \\
+& y \in \{0, 1\} \\
+& x_i \geq 0 \quad \forall i
+\end{align*}
+
+% The objective function maximizes the net income, which is the total revenue minus the total production costs and investment costs, and the possible upgrade cost.
+% The first constraint ensures that the total machine hours used do not exceed the available hours plus any additional hours obtained by upgrading.
+% The second constraint ensures that the total cost of production and the upgrade (if chosen) does not exceed the available cash plus the portion of the revenue that can be reinvested.
+% The decision variable y is a binary variable that indicates whether the upgrade is selected or not.
+
+\end{document}

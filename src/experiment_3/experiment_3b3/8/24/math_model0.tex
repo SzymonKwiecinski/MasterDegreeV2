@@ -1,0 +1,69 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Mining Company Operations}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $n_mines$: Number of mines
+    \item $n_{maxwork}$: Maximum number of mines that can operate in any year
+    \item $royalty_k$: Yearly royalties payable on mine $k$
+    \item $limit_k$: Upper limit of ore that can be extracted from mine $k$ in a year
+    \item $quality_k$: Quality of ore from mine $k$
+    \item $requiredquality_i$: Required quality of blended ore in year $i$
+    \item $price$: Selling price of the blended ore per ton
+    \item $discount$: Discount rate per annum
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $isoperated_{k,i}$: A binary variable indicating whether mine $k$ is operated in year $i$ (1 if operated, 0 otherwise)
+    \item $amount_{k,i}$: Amount of ore produced by mine $k$ in year $i$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+
+\[
+\text{Maximize } Z = \sum_{i=1}^{I} \left( \text{Revenue} - \text{Cost} \right)
+\]
+
+Where,
+\[
+\text{Revenue} = \sum_{k=1}^{n_{mines}} price \cdot \sum_{i=1}^{I} amount_{k,i}
+\]
+\[
+\text{Cost} = \sum_{k=1}^{n_mines} royalty_k \cdot \sum_{i=1}^{I} isoperated_{k,i}
+\]
+
+\subsection*{Constraints}
+1. **Production Quality Constraint**:
+   The quality of the blended ore must meet the required quality for each year:
+   \[
+   \sum_{k=1}^{n_mines} \frac{quality_k \cdot amount_{k,i}}{\sum_{j=1}^{n_mines} amount_{j,i}} = requiredquality_i \quad \forall i
+   \]
+
+2. **Ore Extraction Limit**:
+   The amount produced by each mine cannot exceed its extraction limit:
+   \[
+   amount_{k,i} \leq limit_k \cdot isoperated_{k,i} \quad \forall k, \forall i
+   \]
+
+3. **Operating Mines Constraint**:
+   The total number of mines operated in any year cannot exceed the maximum limit:
+   \[
+   \sum_{k=1}^{n_mines} isoperated_{k,i} \leq n_{maxwork} \quad \forall i
+   \]
+
+4. **Non-negativity**:
+   The amount produced must be non-negative:
+   \[
+   amount_{k,i} \geq 0 \quad \forall k, \forall i
+   \]
+
+5. **Binary Variable Definition**:
+   The operated variable is binary:
+   \[
+   isoperated_{k,i} \in \{0, 1\} \quad \forall k, \forall i
+\end{document}

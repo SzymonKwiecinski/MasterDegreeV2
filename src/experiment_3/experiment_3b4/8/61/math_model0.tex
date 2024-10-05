@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Network Intervention Problem}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item Let \( N \) be the number of clusters in the network.
+    \item Let \( i \) index the clusters, where \( i = 1, 2, \ldots, N \).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{isolate\_central}_i \): Processing time to isolate cluster \( i \) centrally.
+    \item \( \text{scan\_central}_i \): Processing time to scan cluster \( i \) centrally.
+    \item \( \text{isolate\_distributed}_i \): Processing time to isolate cluster \( i \) using distributed processing.
+    \item \( \text{scan\_distributed}_i \): Processing time to scan cluster \( i \) using distributed processing.
+    \item \( \text{central\_cost} \): Opportunity cost per hour for central processing.
+    \item \( \text{distributed\_cost} \): Opportunity cost per hour for distributed processing.
+    \item \( \text{max\_central} \): Maximum available hours for central processing.
+    \item \( \text{max\_distributed} \): Maximum available hours for distributed processing.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_{i,j,k} \): Binary variable, 1 if cluster \( i \) is processed with intervention \( j \) (where \( j \in \{\text{isolate, scan}\} \)) using method \( k \) (where \( k \in \{\text{central, distributed}\} \)), 0 otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost of interventions:
+\[
+\begin{align*}
+\text{Minimize } & \sum_{i=1}^{N} \left( \text{central\_cost} \times (\text{isolate\_central}_i \times x_{i, \text{isolate}, \text{central}} + \text{scan\_central}_i \times x_{i, \text{scan}, \text{central}}) \right. \\
+& \left. + \text{distributed\_cost} \times (\text{isolate\_distributed}_i \times x_{i, \text{isolate}, \text{distributed}} + \text{scan\_distributed}_i \times x_{i, \text{scan}, \text{distributed}}) \right)
+\end{align*}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Each cluster must be treated with one intervention type and one processing method:
+    \[
+    x_{i, \text{isolate}, \text{central}} + x_{i, \text{scan}, \text{central}} + x_{i, \text{isolate}, \text{distributed}} + x_{i, \text{scan}, \text{distributed}} = 1, \quad \forall i
+    \]
+
+    \item Central processing time limit:
+    \[
+    \sum_{i=1}^{N} (\text{isolate\_central}_i \times x_{i, \text{isolate}, \text{central}} + \text{scan\_central}_i \times x_{i, \text{scan}, \text{central}}) \leq \text{max\_central}
+    \]
+
+    \item Distributed processing time limit:
+    \[
+    \sum_{i=1}^{N} (\text{isolate\_distributed}_i \times x_{i, \text{isolate}, \text{distributed}} + \text{scan\_distributed}_i \times x_{i, \text{scan}, \text{distributed}}) \leq \text{max\_distributed}
+    \]
+
+    \item Binary constraints:
+    \[
+    x_{i, j, k} \in \{0, 1\}, \quad \forall i, j \in \{\text{isolate, scan}\}, k \in \{\text{central, distributed}\}
+    \]
+\end{itemize}
+
+\end{document}

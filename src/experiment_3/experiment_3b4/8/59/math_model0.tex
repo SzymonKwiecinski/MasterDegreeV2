@@ -1,0 +1,21 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{MILP Model for Translator Selection}
+
+\begin{align*}
+\text{Minimize} \quad & \sum_{i=1}^{N} c_i x_i \\
+\text{Subject to:} \quad & \sum_{i: l \in L_i} x_i \geq 1, \quad \forall l \in R \\
+& x_i \in \{0, 1\}, \quad \forall i = 1, \ldots, N
+\end{align*}
+
+\text{Where:}
+\begin{itemize}
+    \item \( x_i \) is a binary variable indicating whether translator \( i \) is selected.
+    \item \( c_i \) is the cost of hiring translator \( i \).
+    \item \( L_i \) is the set of languages that translator \( i \) can translate into.
+    \item \( R \) is the set of required languages.
+\end{itemize}
+
+\end{document}

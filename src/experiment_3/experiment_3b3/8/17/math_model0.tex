@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Investor's Portfolio}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item \( sell_i \): number of shares of stock \( i \) to be sold for \( i = 1, \ldots, N \)
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( bought_i \): number of shares of stock \( i \) bought
+    \item \( buyPrice_i \): purchase price of stock \( i \)
+    \item \( currentPrice_i \): current price of stock \( i \)
+    \item \( futurePrice_i \): expected future price of stock \( i \)
+    \item \( transactionRate \): transaction costs rate (as a percentage)
+    \item \( taxRate \): tax rate on capital gains (as a percentage)
+    \item \( K \): amount of money needed after transaction costs and taxes
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } \sum_{i=1}^{N} (futurePrice_i \cdot bought_i - currentPrice_i \cdot sell_i)
+\]
+
+\textbf{Subject to:}
+
+The investor must raise at least \( K \) net of transaction costs and capital gains:
+\[
+\sum_{i=1}^{N} \left( (currentPrice_i \cdot sell_i) \left(1 - \frac{transactionRate}{100}\right) - \left( (currentPrice_i \cdot sell_i - buyPrice_i \cdot sell_i) \cdot \frac{taxRate}{100} \right) \right) \geq K
+\]
+
+The number of shares sold cannot exceed the number bought:
+\[
+0 \leq sell_i \leq bought_i \quad \forall i = 1, \ldots, N
+\]
+
+\textbf{Output:}
+\[
+\text{Sell shares: } \{ sell_i \, | \, i = 1, \ldots, N \}
+\]
+
+\end{document}

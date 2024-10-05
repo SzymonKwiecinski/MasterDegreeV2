@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Communication Network Optimization}
+
+We are given a communication network with $n$ nodes connected by a set of links $A$. For each link $(i, j) \in A$, it can carry up to $U_{i,j}$ bits per second with a cost of $C_{i,j}$ per bit transmitted. Each node $k$ generates data at rate $B_{k,l}$ bits per second, which must be sent to node $l$. The goal is to find the paths that minimize the total cost of transmitting all data.
+
+\subsection*{Sets and Parameters}
+\begin{itemize}
+    \item $N$: Set of nodes.
+    \item $A$: Set of directed links $(i, j)$.
+    \item $U_{i,j}$: Capacity of link $(i, j)$ (in bits per second).
+    \item $C_{i,j}$: Cost per bit on link $(i, j)$.
+    \item $B_{k,l}$: Data rate from source node $k$ to destination node $l$ (in bits per second).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_{ij}^{kl}$: Flow (in bits per second) from node $k$ to node $l$ on link $(i, j)$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total transmission cost:
+\begin{align*}
+    \min \sum_{(i,j) \in A} \sum_{(k,l)} C_{i,j} x_{ij}^{kl}
+\end{align*}
+
+\subsection*{Constraints}
+\begin{enumerate}
+    \item \textbf{Flow conservation:} 
+    \begin{align*}
+        \sum_{j:(i,j) \in A} x_{ij}^{kl} - \sum_{j:(j,i) \in A} x_{ji}^{kl} = 
+        \begin{cases} 
+        B_{k,l}, & \text{if } i = k, \\
+        -B_{k,l}, & \text{if } i = l, \\
+        0, & \text{otherwise}.
+        \end{cases} \forall i \in N, \forall (k,l)
+    \end{align*}
+    
+    \item \textbf{Capacity constraint:}
+    \begin{align*}
+        \sum_{(k,l)} x_{ij}^{kl} \leq U_{i,j}, \quad \forall (i,j) \in A
+    \end{align*}
+    
+    \item \textbf{Non-negativity:}
+    \begin{align*}
+        x_{ij}^{kl} \geq 0, \quad \forall (i,j) \in A, \forall (k,l)
+    \end{align*}
+\end{enumerate}
+
+This linear programming model determines the flow $x_{ij}^{kl}$ along each link $(i, j)$ for each source-destination pair $(k, l)$, such that all data reach their destinations at minimum cost, while respecting the link capacities.
+
+\end{document}

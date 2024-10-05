@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+
+\begin{document}
+
+\section*{Mathematical Model for Traveling Salesman Problem}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item Let $C = \{1, 2, ..., N\}$ be the set of cities, where $N$ is the total number of towns (excluding the start city).
+    \item Let $0$ denote the start city.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $\text{distance}_{i,j}$: The distance between city $i$ and city $j$, for $i, j \in C \cup \{0\}$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_{i,j}$: Binary variable which equals 1 if the path goes directly from city $i$ to city $j$, and 0 otherwise, for $i, j \in C \cup \{0\}$.
+    \item $u_i$: A continuous variable representing the order of visit for city $i$, for $i \in C$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total distance traveled:
+\begin{equation}
+    \min \sum_{i \in C \cup \{0\}} \sum_{j \in C \cup \{0\}, j \neq i} \text{distance}_{i,j} \cdot x_{i,j}
+\end{equation}
+
+\subsection*{Constraints}
+\begin{align}
+    & \sum_{j \in C} x_{0,j} = 1 \quad &\text{(Leave start city exactly once)} \\
+    & \sum_{i \in C} x_{i,0} = 1 \quad &\text{(Return to start city exactly once)} \\
+    & \sum_{j \in C \cup \{0\}, j \neq i} x_{i,j} = 1, \quad \forall i \in C &\text{(Exactly one outgoing arc per city)} \\
+    & \sum_{i \in C \cup \{0\}, i \neq j} x_{i,j} = 1, \quad \forall j \in C &\text{(Exactly one incoming arc per city)} \\
+    & u_i - u_j + N \cdot x_{i,j} \leq N-1, \quad \forall i, j \in C, i \neq j &\text{(Subtour elimination)} \\
+    & x_{i,j} \in \{0, 1\}, \quad \forall i, j \in C \cup \{0\} \\
+    & u_i \geq 1, \quad \forall i \in C
+\end{align}
+
+\subsection*{Explanation}
+- \textbf{Objective Function:} Minimize the total travel distance.
+- \textbf{Constraints:} 
+  - Ensure the traveler leaves the start city exactly once and returns back.
+  - Ensure exactly one outgoing and incoming connection per city.
+  - Use subtour elimination constraints to prevent cycles not including the start city.
+  - Binary constraints ensure that routes are either selected or not.
+  - Order constraints help in avoiding subtours, taking $N$ as an upper bound for the number of cities.
+
+\end{document}

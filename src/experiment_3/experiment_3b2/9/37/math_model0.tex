@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Spare Parts Production}
+
+\subsection*{Objective}
+Maximize the profit from producing spare parts:
+\[
+\text{Maximize} \quad Z = \sum_{k=1}^{K} \text{profit}_k \cdot x_k
+\]
+
+\subsection*{Subject to Constraints}
+\begin{align*}
+\sum_{k=1}^{K} \text{time}_{k, s} \cdot x_k & \leq \text{capacity}_s, \quad \text{for } s = 1, 2, \ldots, S \\
+x_k & \geq 0, \quad \text{for } k = 1, 2, \ldots, K
+\end{align*}
+
+\subsection*{Decision Variables}
+- \( x_k \): Quantity of spare part \( k \) to be produced.
+
+\subsection*{Parameters}
+- \( \text{time}_{k, s} \): Worker-hours for part \( k \) in shop \( s \).
+- \( \text{profit}_k \): Profit per unit of part \( k \).
+- \( \text{capacity}_s \): Capacity of shop \( s \) in worker-hours.
+
+\end{document}

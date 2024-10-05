@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model}
+
+\textbf{Sets and Indices:}
+\begin{itemize}
+    \item \( K \) - Set of departments, indexed by \( k \)
+    \item \( L \) - Set of possible cities (including London), indexed by \( l \)
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{benefit}_{k, l} \) - Benefit for department \( k \) from relocation at city \( l \) (in thousands of pounds)
+    \item \( \text{communication}_{k, j} \) - Communication requirement between department \( k \) and department \( j \)
+    \item \( \text{cost}_{l, m} \) - Unit cost of communication between city \( l \) and city \( m \)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( \text{islocated}_{k, l} \in \{0, 1\} \) - Binary variable indicating if department \( k \) is relocated to city \( l \) (1 if yes, 0 otherwise)
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\min \sum_{k=1}^{K} \sum_{l=1}^{L} -\text{benefit}_{k, l} \cdot \text{islocated}_{k, l} + \sum_{k=1}^{K} \sum_{j=1}^{K} \sum_{l=1}^{L} \sum_{m=1}^{L} \text{communication}_{k, j} \cdot \text{cost}_{l, m} \cdot \text{islocated}_{k, l} \cdot \text{islocated}_{j, m}
+\]
+
+\textbf{Constraints:}
+\begin{align}
+    & \sum_{l=1}^{L} \text{islocated}_{k, l} = 1, \quad \forall k = 1, \ldots, K \quad \text{(each department is located in exactly one city)} \\
+    & \sum_{k=1}^{K} \text{islocated}_{k, l} \leq 3, \quad \forall l = 1, \ldots, L \quad \text{(no more than 3 departments in any city)}
+\end{align}
+
+\end{document}

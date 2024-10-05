@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Model for Nurse Scheduling}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \text{period}: the number of consecutive days a nurse works.
+    \item \( d_j \): demand for nurses on day \( j \), \( j = 1, \ldots, 7 \).
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( x_j \): number of nurses starting their period on day \( j \), \( j = 1, \ldots, 7 \).
+\end{itemize}
+
+\textbf{Objective:}
+\[
+\text{Minimize} \quad Z = \sum_{j=1}^{7} x_j
+\]
+
+\textbf{Constraints:}
+For each day \( j = 1, \ldots, 7 \):
+\[
+\sum_{i=0}^{\text{period}-1} x_{(j-i-1 \mod 7) + 1} \ge d_j
+\]
+where \( x_{(j-i-1 \mod 7) + 1} \) accounts for wraparound days.
+
+\textbf{Non-negativity and Integer Constraints:}
+\[
+x_j \ge 0, \quad x_j \in \mathbb{Z}, \quad \text{for } j = 1, \ldots, 7
+\]
+
+\end{document}

@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $p$: index for parts, where $p = 1, 2, \ldots, P$
+    \item $m$: index for machines, where $m = 1, 2, \ldots, M$
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $time_{m,p}$: time required on machine $m$ to produce 100 batches of part $p$ (hours)
+    \item $cost_{m}$: cost per hour of using machine $m$
+    \item $available_{m}$: availability of machine $m$ (hours per month)
+    \item $price_{p}$: selling price per batch of part $p$
+    \item $min\_batches_{p}$: minimum batches of part $p$ required to fulfill the contract
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $batches_{p}$: number of batches of part $p$ produced (for $p = 1, 2, \ldots, P$)
+\end{itemize}
+
+\subsection*{Objective Function}
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} (price_{p} \cdot batches_{p}) - \sum_{m=1}^{M} (cost_{m} \cdot \sum_{p=1}^{P} \left( \frac{time_{m,p}}{100} \cdot batches_{p} \right))
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+\text{1. Machine Availability:} & \quad \sum_{p=1}^{P} \left( \frac{time_{m,p}}{100} \cdot batches_{p} \right) \leq available_{m}, \quad \forall m = 1, \ldots, M\\
+\text{2. Minimum Production Requirement:} & \quad batches_{p} \geq min\_batches_{p}, \quad \forall p = 1, \ldots, P\\
+\text{3. Non-negativity:} & \quad batches_{p} \geq 0, \quad \forall p = 1, \ldots, P
+\end{align*}
+
+\end{document}

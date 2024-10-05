@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model for Traveling Salesman Problem}
+
+\textbf{Sets and Indices:}
+\begin{itemize}
+    \item Let $I = \{ 1, 2, \ldots, N \}$ be the set of cities, where $1$ corresponds to the \texttt{start\_city}.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $d_{ij}$: Distance between city $i$ and $j$, for $i, j \in I$.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_{ij} = 
+    \begin{cases} 
+    1, & \text{if the route includes a direct path from city $i$ to $j$} \\ 
+    0, & \text{otherwise} 
+    \end{cases} \quad \forall i, j \in I, i \neq j$
+    \item $u_i$: A continuous variable representing the order of visit of city $i$, for $i \in I$.
+\end{itemize}
+
+\textbf{Objective Function:}
+
+Minimize the total travel distance:
+\[
+\min \sum_{i \in I}\sum_{j \in I, j \neq i} d_{ij} x_{ij}
+\]
+
+\textbf{Constraints:}
+
+1. Each city must be visited exactly once (except the \texttt{start\_city} which is both start and end):
+\[
+\sum_{j \in I, j \neq i} x_{ij} = 1 \quad \forall i \in I
+\]
+
+2. Each city must be left exactly once:
+\[
+\sum_{i \in I, i \neq j} x_{ij} = 1 \quad \forall j \in I
+\]
+
+3. Subtour elimination constraints (Miller-Tucker-Zemlin formulation):
+\[
+u_i - u_j + N \cdot x_{ij} \leq N - 1 \quad \forall i, j \in I, i \neq j, 2 \leq u_i, u_j \leq N
+\]
+\[
+u_{\text{start\_city}} = 1
+\]
+
+\textbf{Variable Domains:}
+\begin{itemize}
+    \item $x_{ij} \in \{0, 1\} \quad \forall i, j \in I, i \neq j$
+    \item $u_i \geq 0 \quad \forall i \in I$
+\end{itemize}
+
+\end{document}

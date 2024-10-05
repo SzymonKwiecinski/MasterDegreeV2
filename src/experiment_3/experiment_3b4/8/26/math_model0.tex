@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model for Maximizing Total Manpower Requirement}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $k$: Industry index, $k = 1, \ldots, K$
+    \item $t$: Year index, $t = 1, \ldots, 5$
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $\text{inputone}_{k, j}$: Input required from industry $j$ for producing unit in industry $k$
+    \item $\text{manpowerone}_{k}$: Manpower needed for producing unit in industry $k$
+    \item $\text{inputtwo}_{k, j}$: Input required from industry $j$ for building capacity in industry $k$
+    \item $\text{manpowertwo}_{k}$: Manpower needed for building capacity in industry $k$
+    \item $\text{stock}_{k}$: Initial stock for industry $k$
+    \item $\text{capacity}_{k}$: Initial capacity for industry $k$
+    \item $\text{demand}_{k}$: Exogenous consumption requirement for industry $k$ (for $t \geq 1$)
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $\text{produce}_{k, t}$: Amount produced by industry $k$ in year $t$
+    \item $\text{buildcapa}_{k, t}$: Amount used to build capacity by industry $k$ in year $t$
+    \item $\text{stockhold}_{k, t}$: Stock held by industry $k$ in year $t$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total manpower requirement over five years:
+\[
+\text{Maximize} \quad \sum_{k=1}^{K} \sum_{t=1}^{5} \left( \text{manpowerone}_{k} \cdot \text{produce}_{k, t} + \text{manpowertwo}_{k} \cdot \text{buildcapa}_{k, t} \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+&\text{Production and Stock Balance Constraints:} \\
+& \quad \text{stockhold}_{k, t-1} + \text{produce}_{k, t} = \sum_{j=1}^{K} \text{inputone}_{k, j} \cdot \text{produce}_{j, t} + \sum_{j=1}^{K} \text{inputtwo}_{k, j} \cdot \text{buildcapa}_{j, t} + \text{demand}_{k} + \text{stockhold}_{k, t}, \quad \forall k, \forall t \geq 1 \\
+
+&\text{Capacity Constraints:} \\
+& \quad \text{produce}_{k, t} \leq \text{capacity}_{k} + \sum_{i=0}^{t-2} \text{buildcapa}_{k, i}, \quad \forall k, \forall t \geq 1 \\
+
+&\text{Initial Conditions:} \\
+& \quad \text{stockhold}_{k, 0} = \text{stock}_{k}, \quad \forall k \\
+& \quad \text{capacity}_{k, 0} = \text{capacity}_{k}, \quad \forall k \\
+
+&\text{Non-negativity Constraints:} \\
+& \quad \text{produce}_{k, t} \geq 0, \quad \text{buildcapa}_{k, t} \geq 0, \quad \text{stockhold}_{k, t} \geq 0, \quad \forall k, \forall t
+\end{align*}
+
+\end{document}

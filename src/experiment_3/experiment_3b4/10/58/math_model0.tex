@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mixed-Integer Programming Formulation}
+
+\textbf{Decision Variables:}
+\begin{align*}
+x_p & : \text{Number of batches produced for part } p, \, x_p \in \mathbb{Z}_{\geq 0} \\
+y_p & : \text{Binary variable indicating setup for part } p, \, y_p \in \{0, 1\}
+\end{align*}
+
+\textbf{Objective Function:}
+\begin{align*}
+\text{Maximize } & \sum_{p=1}^{P} \left( \text{price}_p \times x_p \right) - 
+\sum_{m=1}^{M} \left( \sum_{p=1}^{P} \left( \text{time}_{m,p} \times x_p \right) \times \text{cost}_m \right)\\
+& - \sum_{p=1}^{P} \left( \text{setup\_time}_p \times y_p \times \text{cost}_1 \right)
+\end{align*}
+
+\textbf{Subject to:}
+\begin{align*}
+& \sum_{p=1}^{P} \text{time}_{m,p} \times x_p + (\text{setup\_time}_p \times y_p \times \delta_{m1}) \leq \text{available}_m, & \forall m \\
+& y_p \geq \frac{x_p}{1 + \epsilon}, & \forall p \\
+& x_p \in \mathbb{Z}_{\geq 0}, y_p \in \{0, 1\}, & \forall p
+\end{align*}
+
+\noindent where \( \delta_{m1} \) is Kronecker delta, equal to 1 if \( m = 1 \) and 0 otherwise.
+
+\end{document}

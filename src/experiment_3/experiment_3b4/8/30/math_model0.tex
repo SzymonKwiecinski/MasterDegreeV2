@@ -1,0 +1,21 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Mathematical Model}
+
+\begin{align*}
+\text{Minimize:} \quad & \sum_{k=1}^{K} (e_k^+ + e_k^-) \\
+\text{Subject to:} \quad & y_k - (c \cdot x_k^2 + b \cdot x_k + a) = e_k^+ - e_k^-, \quad \forall k \\
+& e_k^+ \geq 0, \quad e_k^- \geq 0, \quad \forall k
+\end{align*}
+
+\textbf{Where:}
+\begin{itemize}
+    \item \( c \) is the coefficient of the quadratic term.
+    \item \( b \) is the coefficient of the linear term.
+    \item \( a \) is the coefficient of the constant term.
+    \item \( e_k^+ \) and \( e_k^- \) are non-negative variables representing the positive and negative deviations for data point \( k \).
+\end{itemize}
+
+\end{document}

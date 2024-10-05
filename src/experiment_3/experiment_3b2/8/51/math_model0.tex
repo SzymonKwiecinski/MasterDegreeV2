@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model:}
+
+\begin{align*}
+  \text{Let } & A \text{ be the number of ad types.} \\
+  & x_a \text{ be the number of clicks purchased (in thousands) for ad type } a \text{ for } a = 1, \ldots, A. \\
+\end{align*}
+
+\text{Objective: Maximize the total unique clicks:}
+\begin{align*}
+  \max \quad & \sum_{a=1}^{A} \text{unique\_click}_{a} \times x_a
+\end{align*}
+
+\text{Subject to the constraints:}
+\begin{align*}
+  \text{(1) Total clicks from young visitors:} & \quad \sum_{a=1}^{A} \text{young\_click}_{a} \times x_a \geq \text{goal\_young} \\
+  \text{(2) Total clicks from older visitors:} & \quad \sum_{a=1}^{A} \text{old\_click}_{a} \times x_a \geq \text{goal\_old} \\
+  \text{(3) Total unique clicks from young visitors:} & \quad \sum_{a=1}^{A} \text{young\_click}_{a} \times \text{unique\_click}_{a} \times x_a \geq \text{goal\_unique\_young} \\
+  \text{(4) Total unique clicks from older visitors:} & \quad \sum_{a=1}^{A} \text{old\_click}_{a} \times \text{unique\_click}_{a} \times x_a \geq \text{goal\_unique\_old} \\
+  \text{(5) Budget constraint:} & \quad \sum_{a=1}^{A} \text{cost}_{a} \times x_a \leq \text{budget} \\
+  \text{(6) Maximum allowable clicks:} & \quad x_a \leq \text{max\_click}_{a} \quad \forall a \\
+  \text{(7) Non-negativity:} & \quad x_a \geq 0 \quad \forall a
+\end{align*}
+
+\end{document}

@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item Let $n = 1, 2, \ldots, N$ be the indices for Streets.
+    \item Let $w = 1, 2, \ldots, W$ be the indices for Avenues.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_{n,w}^{\text{north}}$: A binary variable that is 1 if the path moves north from intersection $(n, w)$, 0 otherwise.
+    \item $x_{n,w}^{\text{west}}$: A binary variable that is 1 if the path moves west from intersection $(n, w)$, 0 otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total travel time:
+\[
+\text{Minimize} \quad \text{total\_time} = \sum_{n=1}^{N-1} \sum_{w=1}^{W} \text{north\_time}_{n,w} \cdot x_{n,w}^{\text{north}} + \sum_{n=1}^{N} \sum_{w=1}^{W-1} \text{west\_time}_{n,w} \cdot x_{n,w}^{\text{west}}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item \textbf{Flow Constraints:}\\
+    For each intersection $(n, w)$:
+    \begin{align*}
+    & \text{If } n < N: \quad x_{n,w}^{\text{north}} + x_{n,w+1}^{\text{west}} = x_{n+1,w}^{\text{north}} + x_{n,w}^{\text{west}} \\
+    & \text{If } w < W: \quad x_{n,w}^{\text{west}} + x_{n+1,w}^{\text{north}} = x_{n,w+1}^{\text{west}} + x_{n,w}^{\text{north}}
+    \end{align*}
+
+    \item \textbf{Boundary Conditions:}
+    \begin{align*}
+    & x_{1,1}^{\text{north}} + x_{1,1}^{\text{west}} = 1 \quad \text{(Starting point)} \\
+    & x_{N,W}^{\text{north}} + x_{N,W}^{\text{west}} = 0 \quad \text{(No movement from destination)}
+    \end{align*}
+    
+    \item \textbf{Binary Constraints:}
+    \begin{align*}
+    & x_{n,w}^{\text{north}}, x_{n,w}^{\text{west}} \in \{0, 1\} \quad \forall n, w
+    \end{align*}
+\end{itemize}
+
+\section*{Output Interpretation}
+\begin{itemize}
+    \item The optimal paths are given by the non-zero $x_{n,w}^{\text{north}}$ and $x_{n,w}^{\text{west}}$ variables.
+    \item The total time taken is the value of the objective function at optimum.
+\end{itemize}
+
+\end{document}

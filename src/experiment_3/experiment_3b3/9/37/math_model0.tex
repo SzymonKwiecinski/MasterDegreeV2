@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Spare Automobile Parts Production}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item $k$: Index for spare parts, where $k = 1, 2, \ldots, K$
+    \item $s$: Index for shops, where $s = 1, 2, \ldots, S$
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $time_{k,s}$: Worker-hours required for part $k$ in shop $s$
+    \item $profit_{k}$: Profit from part $k$
+    \item $capacity_{s}$: Capacity in working hours of shop $s$
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $quantity_{k}$: Quantity of spare part $k$ to be produced
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+\text{Maximize:} \quad & Z = \sum_{k=1}^{K} profit_{k} \cdot quantity_{k}
+\end{align*}
+
+\textbf{Constraints:}
+\begin{align*}
+\sum_{k=1}^{K} time_{k,s} \cdot quantity_{k} & \leq capacity_{s}, \quad \forall s = 1, 2, \ldots, S \\
+quantity_{k} & \geq 0, \quad \forall k = 1, 2, \ldots, K
+\end{align*}
+
+\textbf{Output:}
+The solution will provide the quantities of each spare part to be made:
+\begin{align*}
+\text{Output: } \{quantity: [quantity_{k} \text{ for } k = 1, \ldots, K]\}
+\end{align*}
+
+\end{document}

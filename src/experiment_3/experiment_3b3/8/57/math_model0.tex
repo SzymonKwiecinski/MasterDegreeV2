@@ -1,0 +1,69 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Parameters}
+\begin{align*}
+& T \text{ : Total number of months} \\
+& demand_{t} \text{ : Demand for containers in month } t, \; t = 1, \ldots, T \\
+& unload\_cost_{t} \text{ : Unloading cost per container in month } t \\
+& unload\_capacity_{t} \text{ : Maximum unloading capacity in month } t \\
+& holding\_cost \text{ : Holding cost per container} \\
+& max\_container \text{ : Maximum containers that can be stored at the end of any month} \\
+& init\_container \text{ : Initial number of containers at the start of month 1} \\
+& num\_cranes \text{ : Maximum number of cranes that can be rented each month} \\
+& crane\_capacity \text{ : Capacity of each crane to load containers} \\
+& crane\_cost \text{ : Cost of renting a crane}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+& amount_{t} \text{ : Number of containers unloaded in month } t, \; t = 1, \ldots, T \\
+& crane_{t} \text{ : Number of cranes rented in month } t, \; t = 1, \ldots, T \\
+& containers_{t} \text{ : Number of containers in the yard at the end of month } t, \; t = 1, \ldots, T
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Total Cost} = \sum_{t=1}^{T} \left( unload\_cost_{t} \cdot amount_{t} + holding\_cost \cdot containers_{t} + crane\_cost \cdot crane_{t} \right)
+\]
+
+\subsection*{Constraints}
+1. Demand Fulfillment:
+\[
+amount_{t} + containers_{t-1} - containers_{t} = demand_{t}, \quad t = 1, \ldots, T
+\]
+where \( containers_{0} = init\_container \).
+
+2. Unloading Capacity:
+\[
+amount_{t} \leq unload\_capacity_{t}, \quad t = 1, \ldots, T
+\]
+
+3. Maximum Storage Capacity:
+\[
+containers_{t} \leq max\_container, \quad t = 1, \ldots, T
+\]
+
+4. Crane Loading Constraint:
+\[
+crane_{t} \cdot crane\_capacity \geq demand_{t}, \quad t = 1, \ldots, T
+\]
+\[
+crane_{t} \leq num\_cranes, \quad t = 1, \ldots, T
+\]
+
+5. Yard Empty After Last Month:
+\[
+containers_{T} = 0
+\]
+
+6. Non-negativity Constraints:
+\[
+amount_{t} \geq 0, \quad crane_{t} \geq 0, \quad containers_{t} \geq 0, \quad t = 1, \ldots, T
+\]
+
+\end{document}

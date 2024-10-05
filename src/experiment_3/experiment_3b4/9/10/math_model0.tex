@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+Let \( x_{n,s,g} \) be the number of students of grade \( g \) in neighborhood \( n \) assigned to school \( s \).
+
+\subsection*{Objective Function}
+Minimize the total distance traveled by all students:
+\[
+\text{Minimize} \quad \sum_{n=1}^{N} \sum_{s=1}^{S} \sum_{g=1}^{G} d_{n,s} \cdot x_{n,s,g}
+\]
+
+\subsection*{Constraints}
+
+1. Capacity Constraint:
+\[
+\sum_{n=1}^{N} x_{n,s,g} \leq \text{capacity}_{s,g} \quad \forall s, \forall g
+\]
+
+2. Population Constraint:
+\[
+\sum_{s=1}^{S} x_{n,s,g} = \text{population}_{n,g} \quad \forall n, \forall g
+\]
+
+3. Non-negativity Constraint:
+\[
+x_{n,s,g} \geq 0 \quad \forall n, \forall s, \forall g
+\]
+
+\end{document}

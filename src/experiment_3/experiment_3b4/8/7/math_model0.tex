@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+
+\textbf{Objective:}
+\[
+\min \max_{t=0, \ldots, T-1} |a_t|
+\]
+
+\textbf{Subject to:}
+\begin{align*}
+x_{t+1} &= x_t + v_t, \quad t = 0, 1, \ldots, T-1 \\
+v_{t+1} &= v_t + a_t, \quad t = 0, 1, \ldots, T-1 \\
+x_0 &= x_0 \quad \text{(Given)} \\
+v_0 &= v_0 \quad \text{(Given)} \\
+x_T &= x_T \quad \text{(Target position)} \\
+v_T &= v_T \quad \text{(Target velocity)} \\
+|a_t| &\leq M, \quad t = 0, 1, \ldots, T-1
+\end{align*}
+
+\textbf{Where:}
+\begin{align*}
+x_t &: \text{position of the rocket at time } t \\
+v_t &: \text{velocity of the rocket at time } t \\
+a_t &: \text{acceleration (control variable) at time } t \\
+M &: \text{maximum allowable thrust (fuel consumption)} \\
+\end{align*}
+
+\textbf{Fuel Consumption:}
+\[
+\text{Fuel Spend} = \sum_{t=0}^{T-1} |a_t|
+\]
+
+\end{document}

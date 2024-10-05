@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+Maximize
+\[
+\text{Profit} = \text{sell\_price} \times n_{\text{steel\_quant}} - \sum_{k=1}^{K} \left(\text{cost}_k \times \frac{x_k}{1000}\right) - \text{melt\_price} \times n_{\text{steel\_quant}} - \text{mang\_price} \times y
+\]
+
+\textbf{Subject to:}
+
+1. Total steel production:
+   \[
+   \sum_{k=1}^{K} x_k + y = n_{\text{steel\_quant}}
+   \]
+
+2. Manganese content constraint:
+   \[
+   \sum_{k=1}^{K} \left(\frac{\text{contmn}_k}{100}\right) x_k + y \geq \left(\frac{\text{mn\_percent}}{100}\right) n_{\text{steel\_quant}}
+   \]
+
+3. Silicon content lower bound:
+   \[
+   \sum_{k=1}^{K} \left(\frac{\text{contsi}_k}{100}\right) x_k \geq \left(\frac{\text{si\_min}}{100}\right) n_{\text{steel\_quant}}
+   \]
+
+4. Silicon content upper bound:
+   \[
+   \sum_{k=1}^{K} \left(\frac{\text{contsi}_k}{100}\right) x_k \leq \left(\frac{\text{si\_max}}{100}\right) n_{\text{steel\_quant}}
+   \]
+
+5. Non-negativity constraints:
+   \[
+   x_k \geq 0 \quad \forall k = 1, \ldots, K
+   \]
+   \[
+   y \geq 0
+   \]
+
+\end{document}

@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{MILP Model for Translator Selection}
+
+We are given:
+\begin{itemize}
+    \item A set of $N$ translators, indexed by $i$.
+    \item Each translator $i$ has a cost $c_i$.
+    \item A set of languages $L_i$ that translator $i$ can translate into.
+    \item A set of required languages $M$.
+\end{itemize}
+
+\textbf{Decision Variables}:
+\[
+x_i = 
+\begin{cases} 
+1, & \text{if translator } i \text{ is selected} \\
+0, & \text{otherwise}
+\end{cases}
+\]
+
+\textbf{Objective}:
+Minimize the total cost of selected translators:
+\[
+\text{Minimize } \sum_{i=1}^{N} c_i \cdot x_i
+\]
+
+\textbf{Constraints}:
+\begin{itemize}
+    \item Ensure all required languages are covered:
+    \[
+    \forall m \in \text{required\_languages}, \quad \sum_{i: m \in L_i} x_i \geq 1
+    \]
+    This ensures that for each required language $m$, there is at least one translator who can translate into language $m$.
+
+    \item Binary constraint on selection:
+    \[
+    x_i \in \{0, 1\} \quad \forall i = 1, \ldots, N
+    \]
+\end{itemize}
+
+This formulation ensures that we select the minimum cost combination of translators such that all required languages can be translated.
+
+\end{document}

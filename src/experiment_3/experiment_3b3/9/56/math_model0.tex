@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Delivery Person Path Optimization}
+\author{}
+\date{}
+\maketitle
+
+\section{Problem Definition}
+
+Consider a delivery person starting at the intersection of the 1st Avenue and 1st Street and needing to reach the intersection of the Wth Avenue and Nth Street on a grid formed by N-1 rows and W-1 columns. The delivery person can only move north or west, and the unique walking times for each block vary due to pedestrian traffic.
+
+\section{Variables}
+
+Let:
+\begin{itemize}
+    \item \( x_{n,w} \): binary variable indicating if the path from intersection \((w, n)\) to \((w+1, n)\) is used (west movement).
+    \item \( y_{n,w} \): binary variable indicating if the path from intersection \((w, n)\) to \((w, n+1)\) is used (north movement).
+\end{itemize}
+
+\section{Parameters}
+
+\begin{itemize}
+    \item \( \text{west\_time}_{n,w} \): time taken to move west from intersection \((w, n)\) to \((w+1, n)\).
+    \item \( \text{north\_time}_{n,w} \): time taken to move north from intersection \((w, n)\) to \((w, n+1)\).
+\end{itemize}
+
+\section{Objective Function}
+
+The objective is to minimize the total time taken, defined as:
+
+\[
+\text{Minimize } Z = \sum_{n=1}^{N-1} \sum_{w=1}^{W-1} \left( \text{west\_time}_{n,w} \cdot x_{n,w} + \text{north\_time}_{n,w} \cdot y_{n,w} \right)
+\]
+
+\section{Constraints}
+
+The following constraints must hold:
+
+1. Flow conservation for west movements:
+\[
+\sum_{w=1}^{W-1} x_{n,w} \leq 1 \quad \forall n \in \{1, \ldots, N-1\}
+\]
+
+2. Flow conservation for north movements:
+\[
+\sum_{n=1}^{N-1} y_{n,w} \leq 1 \quad \forall w \in \{1, \ldots, W-1\}
+\]
+
+3. Boundary and Initial Conditions:
+\[
+x_{1,1} + y_{1,1} = 1
+\]
+\[
+x_{N-1,W-1} + y_{N-1,W-1} = 0
+\]
+
+4. Binary constraints:
+\[
+x_{n,w} \in \{0, 1\} \quad \forall n,w
+\]
+\[
+y_{n,w} \in \{0, 1\} \quad \forall n,w
+\]
+
+\section{Output}
+
+The output consists of the following:
+
+\begin{itemize}
+    \item \texttt{"paths"}: A list of tuples \((\text{street}_{n}, \text{avenue}_{w})\) indicating the optimal path.
+    \item \texttt{"total\_time"}: Total time taken to travel the path.
+\end{itemize}
+
+\end{document}

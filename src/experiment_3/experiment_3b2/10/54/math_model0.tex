@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model for Maximizing Profit}
+
+\subsection*{Decision Variables}
+Let \( x_p \) be the number of batches of part \( p \) produced per month, for \( p = 1, \ldots, P \).
+
+\subsection*{Objective Function}
+Maximize the profit given by:
+\[
+Z = \sum_{p=1}^{P} \text{price}_{p} \cdot x_p - \sum_{m=1}^{M} \text{cost}_m \cdot \left( \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \right) - \text{Labor Cost for Machine 1}
+\]
+
+Where the labor cost for Machine 1 is calculated as:
+\[
+\text{Labor Cost for Machine 1} = 
+\begin{cases} 
+\text{standard_cost} \times T_1, & \text{if } T_1 \leq \text{overtime_hour} \\
+\text{standard_cost} \times \text{overtime_hour} + \text{overtime_cost} \times (T_1 - \text{overtime_hour}), & \text{if } T_1 > \text{overtime_hour}
+\end{cases}
+\]
+Here, \( T_1 = \sum_{p=1}^{P} \text{time}_{1,p} \cdot x_p \).
+
+\subsection*{Constraints}
+1. Minimum production requirement for each part:
+   \[
+   x_p \geq \text{min_batches}_{p} \quad \forall \, p = 1, \ldots, P
+   \]
+
+2. Machine availability (except Machine 1):
+   \[
+   \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \leq \text{available}_m \quad \forall \, m = 2, \ldots, M
+   \]
+
+3. Non-negativity constraint:
+   \[
+   x_p \geq 0 \quad \forall \, p = 1, \ldots, P
+   \]
+
+\end{document}

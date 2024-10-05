@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Indices}
+\begin{itemize}
+    \item $k = 1, \ldots, n_{\text{mines}}$: Index for mines
+    \item $i = 1, \ldots, I$: Index for years
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $n_{\text{maxwork}}$: Maximum number of mines that can be operated in any one year
+    \item $\text{royalty}_k$: Yearly royalty payable if mine $k$ is kept open
+    \item $\text{limit}_k$: Maximum amount of ore that can be extracted from mine $k$ in a year
+    \item $\text{quality}_k$: Quality of ore from mine $k$
+    \item $\text{requiredquality}_i$: Required quality of blended ore in year $i$
+    \item $\text{price}$: Selling price per ton of ore
+    \item $\text{discount}$: Discount rate per annum
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_{k,i}$: Amount of ore produced from mine $k$ in year $i$
+    \item $y_{k,i} \in \{0, 1\}$: Binary variable, 1 if mine $k$ is operated in year $i$, 0 otherwise
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the discounted profit:
+\[
+\max \sum_{i=1}^{I} \left( \frac{\text{price} \left(\sum_{k=1}^{n_{\text{mines}}} x_{k,i}\right) - \sum_{k=1}^{n_{\text{mines}}} \text{royalty}_k y_{k,i}}{(1 + \text{discount})^i} \right)
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    & \sum_{k=1}^{n_{\text{mines}}} y_{k,i} \leq n_{\text{maxwork}}, && \forall i \label{eq:max_work}\\
+    & x_{k,i} \leq \text{limit}_k \, y_{k,i}, && \forall k, \forall i \label{eq:limit}\\
+    & \frac{\sum_{k=1}^{n_{\text{mines}}} x_{k,i} \cdot \text{quality}_k}{\sum_{k=1}^{n_{\text{mines}}} x_{k,i}} = \text{requiredquality}_i, && \forall i \label{eq:quality}\\
+    & y_{k,i} \leq y_{k,i-1}, && \forall k, \forall i > 1 \label{eq:operation_order}
+\end{align}
+
+\subsection*{Explanation of Constraints}
+\begin{itemize}
+    \item Constraint \eqref{eq:max_work} ensures that at most $n_{\text{maxwork}}$ mines are operated in any year.
+    \item Constraint \eqref{eq:limit} ensures that the amount extracted from each mine does not exceed its limit and is zero if the mine is not operated.
+    \item Constraint \eqref{eq:quality} ensures that the quality of the blended ore meets the required standard.
+    \item Constraint \eqref{eq:operation_order} ensures a mine can only be operated if it was operated in the previous year.
+\end{itemize}
+
+\end{document}

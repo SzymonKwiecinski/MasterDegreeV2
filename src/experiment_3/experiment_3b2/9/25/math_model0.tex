@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+Maximize:
+\[
+\sum_{k=1}^{K} \sum_{t=T-1}^{T} \text{produce}_{k, t}
+\]
+
+Subject to:
+
+\begin{align*}
+\text{Production and Stock Constraints:} \\
+\text{produce}_{k, t} + \text{buildcapa}_{k, t} + \text{stock}_{k, t+1} &= \text{capacity}_{k, t} + \text{stock}_{k, t} & \forall k, \forall t \\
+\text{capacity}_{k, t+1} &= \text{capacity}_{k, t} + \text{buildcapa}_{k, t-1} & \forall k, \forall t \geq 2 \\
+
+\text{Input Constraints:} \\
+\sum_{j=1}^{K} \text{inputone}_{k, j} \times \text{produce}_{j, t} &\leq \text{capacity}_{k, t} & \forall k, \forall t \\
+\sum_{j=1}^{K} \text{inputtwo}_{k, j} \times \text{buildcapa}_{j, t} &\leq \text{capacity}_{k, t} & \forall k, \forall t \\
+
+\text{Manpower Constraints:} \\
+\sum_{k=1}^{K} (\text{manpowerone}_k \times \text{produce}_{k, t} + \text{manpowertwo}_k \times \text{buildcapa}_{k, t}) &\leq \text{manpower\_limit} & \forall t \\
+
+\text{Non-negativity:} \\
+\text{produce}_{k, t}, \text{buildcapa}_{k, t}, \text{stock}_{k, t} &\geq 0 & \forall k, \forall t
+\end{align*}
+
+\section*{Variables Initialization}
+
+\begin{itemize}
+\item \text{Initial Stocks and Capacities:}
+\begin{align*}
+\text{stock}_{k, 0} &= \text{initial stock}_k \\
+\text{capacity}_{k, 0} &= \text{initial capacity}_k \\
+\end{align*}
+\end{itemize}
+
+\end{document}

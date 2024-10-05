@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model:}
+
+Let \( x_k \) be the quantity of food \( k \) to purchase.
+
+\textbf{Objective:}
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} \text{price}_k \cdot x_k
+\]
+
+\textbf{Subject to:}
+\[
+\sum_{k=1}^{K} \text{nutri}_{k, m} \cdot x_k \geq \text{demand}_m \quad \text{for all } m = 1, \ldots, M
+\]
+
+\textbf{Non-negativity constraints:}
+\[
+x_k \geq 0 \quad \text{for all } k = 1, \ldots, K
+\]
+
+\end{document}

@@ -1,0 +1,14 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Mathematical Model:}
+
+\begin{align*}
+\text{Minimize} \quad & - \sum_{k=1}^{K} \sum_{l=1}^{L} \text{benefit}_{k,l} \cdot x_{k,l} + \sum_{k=1}^{K} \sum_{j=1}^{K} \sum_{l=1}^{L} \sum_{m=1}^{L} \text{communication}_{k,j} \cdot \text{cost}_{l,m} \cdot x_{k,l} \cdot x_{j,m} \\
+\text{subject to:} \quad & \sum_{l=1}^{L} x_{k,l} = 1, \quad \forall k = 1, \ldots, K \\
+& \sum_{k=1}^{K} x_{k,l} \leq 3, \quad \forall l = 1, \ldots, L \\
+& x_{k,l} \in \{0, 1\}, \quad \forall k = 1, \ldots, K, \forall l = 1, \ldots, L
+\end{align*}
+
+\end{document}

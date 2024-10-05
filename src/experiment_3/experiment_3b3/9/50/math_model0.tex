@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+Let \( P \) be the number of different parts and \( M \) be the number of different machines. Define the following variables:
+
+\begin{itemize}
+    \item \( batches_{p} \): number of batches of part \( p \) produced (for \( p = 1, \ldots, P \)).
+    \item \( extra\_time_{m} \): additional hours purchased for machine \( m \) (for \( m = 1, \ldots, M \)).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} \left( price_{p} \cdot batches_{p} - \sum_{m=1}^{M} (cost_{m} \cdot \left( \frac{time_{m,p}}{100} \cdot batches_{p} \right) + extra\_costs_{m} \cdot extra\_time_{m}) \right)
+\]
+
+\subsection*{Constraints}
+1. **Machine Time Availability**:
+
+\[
+\sum_{p=1}^{P} \left( time_{m,p} \cdot batches_{p} \right) \leq available_{m} + extra\_time_{m}, \quad \forall m = 1, \ldots, M
+\]
+
+2. **Minimum Batch Production**:
+
+\[
+batches_{p} \geq min\_batches_{p}, \quad \forall p = 1, \ldots, P
+\]
+
+3. **Maximum Extra Time**:
+
+\[
+extra\_time_{m} \leq max\_extra_{m}, \quad \forall m = 1, \ldots, M
+\]
+
+4. **Non-negativity**:
+
+\[
+batches_{p} \geq 0 \quad \text{and} \quad extra\_time_{m} \geq 0, \quad \forall p = 1, \ldots, P, \forall m = 1, \ldots, M
+\]
+
+\subsection*{Output}
+The solution will provide:
+\begin{itemize}
+    \item \( batches \): List of \( batches_{p} \) for \( p = 1, \ldots, P \).
+    \item \( extra\_time \): List of \( extra\_time_{m} \) for \( m = 1, \ldots, M \).
+    \item \( total\_profit \): Total profit obtained for the month.
+\end{itemize}
+
+\end{document}

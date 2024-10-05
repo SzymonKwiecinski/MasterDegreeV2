@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item $i \in \{1, \ldots, O\}$: Index for crude oil types.
+    \item $p \in \{1, \ldots, P\}$: Index for products.
+    \item $l \in \{1, \ldots, L\}$: Index for production processes.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $\text{allocated}_i$: Available barrels of crude oil type $i$.
+    \item $\text{price}_p$: Selling price per barrel of product $p$.
+    \item \(\text{input}_{l,i}\): Barrels of crude oil type $i$ used in process $l$.
+    \item \(\text{output}_{l,p}\): Barrels of product $p$ produced by process $l$.
+    \item \(\text{cost}_l\): Cost per barrel of product produced by process $l$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \(x_l\): Number of times to execute process $l$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total revenue:
+\[
+\text{Maximize } z = \sum_{p=1}^{P} \sum_{l=1}^{L} \left( \text{output}_{l,p} \times \text{price}_p - \text{cost}_l \right) x_l
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Crude oil allocation constraints:
+    \[
+    \sum_{l=1}^{L} \text{input}_{l,i} \times x_l \leq \text{allocated}_i, \quad \forall i = 1, \ldots, O
+    \]
+    \item Non-negativity constraints:
+    \[
+    x_l \geq 0, \quad \forall l = 1, \ldots, L
+    \]
+\end{itemize}
+
+\end{document}

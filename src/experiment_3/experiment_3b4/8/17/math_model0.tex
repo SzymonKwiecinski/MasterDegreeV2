@@ -1,0 +1,18 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model}
+
+\textbf{Objective:} Maximize the expected value of the portfolio next year
+\[
+\max \sum_{i=1}^{N} (bought_i - \text{sell}_i) \cdot futurePrice_i
+\]
+
+\textbf{Subject to:}
+\begin{align*}
+& \sum_{i=1}^{N} \left( \text{sell}_i \cdot \text{currentPrice}_i \cdot \left(1 - \frac{\text{transactionRate}}{100}\right) - (\text{sell}_i \cdot (\text{currentPrice}_i - \text{buyPrice}_i) \cdot \frac{\text{taxRate}}{100}) \right) \geq K \\
+& 0 \leq \text{sell}_i \leq bought_i, \quad \text{for all } i = 1, \ldots, N
+\end{align*}
+
+\end{document}

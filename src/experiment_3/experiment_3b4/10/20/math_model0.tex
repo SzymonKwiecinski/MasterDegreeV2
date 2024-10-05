@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+Maximize the total profit over all products and months:
+
+\[
+\text{Maximize } \quad Z = \sum_{i=1}^{I} \sum_{k=1}^{K} \left( \text{profit}_k \cdot \text{sell}_{k,i} - \text{store\_price} \cdot \text{storage}_{k,i} \right)
+\]
+
+\textbf{Subject to:}
+
+1. \textit{Manufacturing Constraints}: For each month \( i \) and machine type \( m \):
+
+\[
+\sum_{k=1}^{K} \text{time}_{k,m} \cdot \text{manufacture}_{k,i} \leq (\text{num\_machines}_m - \text{maintain}_{i,m}) \cdot 24 \cdot \text{n\_workhours} 
+\]
+
+2. \textit{Sales and Stock Constraints}: For each product \( k \) and month \( i \):
+
+\[
+\text{sell}_{k,i} \leq \text{limit}_{k,i}
+\]
+
+3. \textit{Inventory Balance Constraints}: For each product \( k \) and month \( i \):
+
+\[
+\text{storage}_{k,i} = \text{storage}_{k,i-1} + \text{manufacture}_{k,i} - \text{sell}_{k,i}
+\]
+
+4. \textit{Storage Constraints}: For each product \( k \) and month \( i \):
+
+\[
+\text{storage}_{k,i} \leq 100
+\]
+
+5. \textit{End-of-Period Stock Requirement}: For each product \( k \) at the end of the planning horizon:
+
+\[
+\text{storage}_{k,I} = \text{keep\_quantity}
+\]
+
+6. \textit{Non-Negativity Constraints}:
+
+\[
+\text{sell}_{k,i}, \text{manufacture}_{k,i}, \text{storage}_{k,i} \geq 0 \quad \forall k, i
+\]
+
+\end{document}

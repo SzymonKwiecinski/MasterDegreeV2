@@ -1,0 +1,23 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Objective Function}
+\[
+\text{maximize} \quad \sum_{m=1}^{M} \left( \text{sell\_price} \cdot \sum_{i=1}^{I} \text{refine}_{i, m} - \sum_{i=1}^{I} (\text{buy\_price}_{i, m} \cdot \text{buyquantity}_{i, m} + \text{storage\_cost} \cdot \text{storage}_{i, m}) \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+\sum_{i \in \text{vegetable}} \text{refine}_{i, m} &\leq \text{max\_vegetable\_refining\_per\_month}, \quad \forall m \\
+\sum_{i \in \text{non-vegetable}} \text{refine}_{i, m} &\leq \text{max\_non\_vegetable\_refining\_per\_month}, \quad \forall m \\
+0 \leq \text{storage}_{i, m} &\leq \text{storage\_size}, \quad \forall i, \forall m \\
+\text{init\_amount} + \sum_{k=1}^{m} (\text{buyquantity}_{i, k} - \text{refine}_{i, k}) &= \text{storage}_{i, m}, \quad \forall i, \forall m \\
+\text{storage}_{i, 0} &= \text{init\_amount}, \quad \forall i \\
+\text{storage}_{i, M} &= \text{init\_amount}, \quad \forall i \\
+\text{min\_hardness} \leq \frac{\sum_{i=1}^{I} \text{hardness}_{i} \cdot \text{refine}_{i, m}}{\sum_{i=1}^{I} \text{refine}_{i, m}} &\leq \text{max\_hardness}, \quad \forall m
+\end{align*}
+
+\end{document}

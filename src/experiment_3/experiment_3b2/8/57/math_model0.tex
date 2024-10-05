@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+\[
+\min \sum_{t=1}^{T} \left( \text{unload\_cost}_t \cdot x_t + \text{holding\_cost} \cdot s_t + \text{crane\_cost} \cdot y_t \right)
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+\text{(1) Load containers to satisfy demand:} &\\
+& x_t + s_{t-1} = \text{demand}_t + s_t, & \forall t \in \{1, \dots, T\}\\
+\text{(2) Initial containers in yard:} &\\
+& s_0 = \text{init\_container}\\
+\text{(3) Final yard condition:} &\\
+& s_T = 0\\
+\text{(4) Unloading capacity constraint:} &\\
+& x_t \leq \text{unload\_capacity}_t, & \forall t \in \{1, \dots, T\}\\
+\text{(5) Maximum yard capacity constraint:} &\\
+& s_t \leq \text{max\_container}, & \forall t \in \{1, \dots, T\}\\
+\text{(6) Crane capacity constraint:} &\\
+& \text{demand}_t \leq \text{crane\_capacity} \cdot y_t, & \forall t \in \{1, \dots, T\}\\
+\text{(7) Maximum number of cranes constraint:} &\\
+& y_t \leq \text{num\_cranes}, & \forall t \in \{1, \dots, T\}\\
+\text{(8) Non-negativity constraints:} &\\
+& x_t, s_t, y_t \geq 0, & \forall t \in \{1, \dots, T\} \\
+& x_t, s_t, y_t \text{ are integers}, & \forall t \in \{1, \dots, T\}
+\end{align*}
+
+\end{document}

@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+\[
+\min M
+\]
+
+\textbf{Subject to:}
+
+\[
+x_{t+1} = x_t + v_t, \quad t = 0, 1, \ldots, T-1
+\]
+
+\[
+v_{t+1} = v_t + a_t, \quad t = 0, 1, \ldots, T-1
+\]
+
+\[
+x_0 = x_0^{\text{given}}
+\]
+
+\[
+v_0 = v_0^{\text{given}}
+\]
+
+\[
+x_T = x_T^{\text{given}}
+\]
+
+\[
+v_T = v_T^{\text{given}}
+\]
+
+\[
+-M \leq a_t \leq M, \quad t = 0, 1, \ldots, T-1
+\]
+
+The total fuel spent can be calculated as:
+\[
+\text{fuel\_spend} = \sum_{t = 0}^{T-1} |a_t|
+\]
+
+\end{document}

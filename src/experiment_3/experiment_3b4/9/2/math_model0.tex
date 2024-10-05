@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item $N$: Number of systems.
+    \item $i$: Index for each system, $i = 1, \ldots, N$.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $\text{is\_workstation}_i$: Boolean, 1 if system $i$ is a workstation, 0 otherwise.
+    \item $\text{price}_i$: Price of system $i$.
+    \item \text{disk\_drives}_i$: Average disk drives required for system $i$.
+    \item \text{mem}_i$: Average 256K memory boards required for system $i$.
+    \item $\text{max\_cpu}$: Maximum number of CPUs available.
+    \item $\text{min\_disk}$, $\text{max\_disk}$: Min and max disk drives available.
+    \item $\text{min\_mem}$, $\text{max\_mem}$: Min and max 256K memory boards available.
+    \item $\text{demand}_i$: Maximum demand for system $i$.
+    \item $\text{demand\_GP}$: Maximum demand for GP family.
+    \item $\text{demand\_WS}$: Maximum demand for WS family.
+    \item $\text{preorder}_i$: Preorders for system $i$.
+    \item $\text{alt\_mem}$: Alternate memory boards available.
+    \item $\text{alt\_compatible}_i$: Boolean, 1 if system $i$ can use alternative memory board, 0 otherwise.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_i$: Number of systems $i$ produced (continuous variable).
+    \item $m_i$: Number of 256K memory boards used for system $i$ (continuous variable).
+    \item $a_i$: Number of alternative memory boards used for system $i$ (continuous variable).
+    \item $d_i$: Number of disk drives used for system $i$ (continuous variable).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+\text{Profit} = \sum_{i=1}^{N} \text{price}_i \cdot x_i
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    \sum_{i=1}^{N} x_i &\leq \text{max\_cpu} & \text{(CPU constraint)}\\
+    \sum_{i=1}^{N} d_i &\leq \text{max\_disk} & \text{(Max disk constraint)}\\
+    \sum_{i=1}^{N} d_i &\geq \text{min\_disk} & \text{(Min disk constraint)}\\
+    \sum_{i=1}^{N} m_i &\leq \text{max\_mem} & \text{(Max 256K memory constraint)}\\
+    \sum_{i=1}^{N} m_i &\geq \text{min\_mem} & \text{(Min 256K memory constraint)}\\
+    \sum_{i=1}^{N} a_i &\leq \text{alt\_mem} & \text{(Alternative memory constraint)}\\
+    m_i + a_i &= \text{mem}_i \cdot x_i, & \forall i \\
+    d_i &= \text{disk\_drives}_i \cdot x_i, & \forall i \\
+    x_i &\leq \text{demand}_i, & \forall i \\
+    x_i &\geq \text{preorder}_i, & \forall i \\
+    \sum_{i:\text{is\_workstation}_i = 0} x_i &\leq \text{demand\_GP} & \text{(GP system constraint)} \\
+    \sum_{i:\text{is\_workstation}_i = 1} x_i &\leq \text{demand\_WS} & \text{(WS system constraint)} \\
+    a_i &\leq \text{alt\_compatible}_i \cdot x_i, & \forall i
+\end{align}
+
+\end{document}

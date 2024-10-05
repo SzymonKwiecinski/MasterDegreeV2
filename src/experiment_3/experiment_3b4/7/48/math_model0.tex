@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Sets:}
+\begin{align*}
+    & W = \text{Set of weeks, indexed by } w.
+\end{align*}
+
+\subsection*{Parameters:}
+\begin{align*}
+    & \text{regular\_cost} : \text{Cost of regular labor per hour.} \\
+    & \text{overtime\_cost} : \text{Cost of overtime labor per hour.} \\
+    & \text{assembly\_time} : \text{Hours required to assemble one basket.} \\
+    & \text{material\_cost} : \text{Material cost per basket.} \\
+    & \text{selling\_price} : \text{Selling price per basket.} \\
+    & \text{holding\_cost} : \text{Holding cost per unsold basket.} \\
+    & \text{salvage\_value} : \text{Salvage value per unsold basket at end of season.} \\
+    & \text{demand}_w : \text{Demand for baskets in week } w. \\
+    & \text{regular\_labor}_w : \text{Regular labor hours available in week } w. \\
+    & \text{overtime\_labor}_w : \text{Overtime labor hours available in week } w.
+\end{align*}
+
+\subsection*{Decision Variables:}
+\begin{align*}
+    & \text{regular\_used}_w : \text{Hours of regular labor used in week } w. \\
+    & \text{overtime\_used}_w : \text{Hours of overtime labor used in week } w. \\
+    & \text{regular\_basket}_w : \text{Baskets assembled with regular labor in week } w. \\
+    & \text{overtime\_basket}_w : \text{Baskets assembled with overtime labor in week } w. \\
+    & \text{inventory}_w : \text{Baskets on hand at the end of week } w.
+\end{align*}
+
+\subsection*{Objective Function:}
+Maximize total profit:
+\begin{align*}
+    \text{Total Profit} = &\sum_{w \in W} \left(\text{selling\_price} \times (\text{regular\_basket}_w + \text{overtime\_basket}_w) \right) \\
+                          & - \sum_{w \in W} \left(\text{material\_cost} \times (\text{regular\_basket}_w + \text{overtime\_basket}_w) \right) \\
+                          & - \sum_{w \in W} \left(\text{regular\_cost} \times \text{regular\_used}_w + \text{overtime\_cost} \times \text{overtime\_used}_w \right) \\
+                          & - \sum_{w \in W-1} \left(\text{holding\_cost} \times \text{inventory}_w \right) \\
+                          & + \text{salvage\_value} \times \text{inventory}_W
+\end{align*}
+
+\subsection*{Constraints:}
+\begin{align*}
+    & \text{regular\_used}_w \leq \text{regular\_labor}_w, \quad \forall w \in W \\
+    & \text{overtime\_used}_w \leq \text{overtime\_labor}_w, \quad \forall w \in W \\
+    & \text{regular\_basket}_w = \frac{\text{regular\_used}_w}{\text{assembly\_time}}, \quad \forall w \in W \\
+    & \text{overtime\_basket}_w = \frac{\text{overtime\_used}_w}{\text{assembly\_time}}, \quad \forall w \in W \\
+    & \text{inventory}_1 = \text{regular\_basket}_1 + \text{overtime\_basket}_1 - \text{demand}_1 \\
+    & \text{inventory}_w = \text{inventory}_{w-1} + \text{regular\_basket}_w + \text{overtime\_basket}_w - \text{demand}_w, \quad \forall w \in W, \, w > 1 \\
+    & \text{inventory}_w \geq 0, \quad \forall w \in W
+\end{align*}
+
+\end{document}

@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Production and Inventory Scheduling}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+The company must deliver a specified quantity of its product at the end of each month. The objective is to minimize the total costs incurred due to production levels and inventory storage over a defined period of \( T \) months. 
+
+\section*{Parameters}
+\begin{itemize}
+    \item \( \text{deliver}_i \): units of product to be delivered at the end of month \( i \)
+    \item \( \text{storage\_cost} \): cost per unit held in inventory per month
+    \item \( \text{switch\_cost} \): cost incurred due to changes in production levels between months
+\end{itemize}
+
+\section*{Variables}
+\begin{itemize}
+    \item \( x_i \): units produced in month \( i \)
+    \item \( I_i \): inventory at the end of month \( i \)
+\end{itemize}
+
+\section*{Objective Function}
+The total cost to be minimized is given by:
+\[
+\text{Minimize} \quad \sum_{i=1}^{T} \left( \text{storage\_cost} \cdot I_i + \text{switch\_cost} \cdot |x_{i+1} - x_i| \right)
+\]
+
+\section*{Constraints}
+The constraints for the model are as follows:
+
+1. Inventory balance:
+\[
+I_i = I_{i-1} + x_i - \text{deliver}_i \quad \text{for } i = 1, \ldots, T
+\]
+with \( I_0 = 0 \).
+
+2. Non-negativity of production and inventory:
+\[
+x_i \geq 0, \quad I_i \geq 0 \quad \text{for } i = 1, \ldots, T
+\]
+
+3. The inventory at the end of the last month does not carry over:
+\[
+I_T = 0
+\]
+
+\section*{Output}
+The output will include:
+\begin{itemize}
+    \item \( x = [x_1, x_2, \ldots, x_T] \): production schedule
+    \item cost: total minimized cost
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item $t = 1, \ldots, T$: Time periods (months)
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $\text{demand}_t$: Demand for containers in month $t$
+    \item $\text{unload\_cost}_t$: Unloading cost per container in month $t$
+    \item $\text{unload\_capacity}_t$: Maximum number of containers that can be unloaded in month $t$
+    \item $\text{holding\_cost}$: Holding cost per container per month
+    \item $\text{max\_container}$: Maximum number of containers the yard can store at the end of any month
+    \item $\text{init\_container}$: Initial number of containers in the yard
+    \item $\text{num\_cranes}$: Maximum number of cranes that can be rented each month
+    \item $\text{crane\_capacity}$: Capacity of each crane in terms of loading containers
+    \item $\text{crane\_cost}$: Cost for renting each crane
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_t$: Number of containers unloaded in month $t$
+    \item $y_t$: Number of cranes rented in month $t$
+    \item $s_t$: Number of containers stored in the yard at the end of month $t$
+\end{itemize}
+
+\textbf{Objective:}
+\[
+\text{Minimize} \quad \sum_{t=1}^{T} \left( \text{unload\_cost}_t \cdot x_t + \text{holding\_cost} \cdot s_t + \text{crane\_cost} \cdot y_t \right)
+\]
+
+\textbf{Constraints:}
+\begin{align}
+    x_t &\leq \text{unload\_capacity}_t, \quad \forall t = 1, \ldots, T \\
+    y_t &\leq \text{num\_cranes}, \quad \forall t = 1, \ldots, T \\
+    s_t &\leq \text{max\_container}, \quad \forall t = 1, \ldots, T \\
+    y_t \cdot \text{crane\_capacity} &\geq \text{demand}_t, \quad \forall t = 1, \ldots, T \\
+    s_0 &= \text{init\_container} \\
+    s_{t-1} + x_t - \text{demand}_t &= s_t, \quad \forall t = 1, \ldots, T \\
+    s_T &= 0
+\end{align}
+
+\textbf{Variable Domains:}
+\begin{align}
+    x_t &\geq 0 \quad \text{and integer}, \quad \forall t = 1, \ldots, T \\
+    y_t &\geq 0 \quad \text{and integer}, \quad \forall t = 1, \ldots, T \\
+    s_t &\geq 0 \quad \text{and integer}, \quad \forall t = 0, \ldots, T
+\end{align}
+
+\end{document}

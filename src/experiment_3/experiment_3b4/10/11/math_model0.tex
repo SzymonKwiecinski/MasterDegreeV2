@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Formulation}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_i$: Number of units produced in month $i$ for $i = 1, \ldots, T$.
+    \item $I_i$: Inventory at the end of month $i$ for $i = 1, \ldots, T-1$.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $\text{deliver}_i$: Units to be delivered at the end of month $i$ for $i = 1, \ldots, T$.
+    \item $\text{storage\_cost}$: Cost per unit per month for storing inventory.
+    \item $\text{switch\_cost}$: Cost per unit change in production level.
+\end{itemize}
+
+\textbf{Objective:}
+\begin{equation}
+\text{Minimize} \quad \sum_{i=1}^{T} \text{storage\_cost} \cdot I_i + \sum_{i=1}^{T-1} \text{switch\_cost} \cdot |x_{i+1} - x_i|
+\end{equation}
+
+\textbf{Constraints:}
+\begin{align}
+    & I_0 = 0 \\
+    & x_i + I_{i-1} - I_i = \text{deliver}_i, \quad i = 1, \ldots, T \\
+    & x_i \geq 0, \quad i = 1, \ldots, T \\
+    & I_i \geq 0, \quad i = 1, \ldots, T-1
+\end{align}
+
+\end{document}

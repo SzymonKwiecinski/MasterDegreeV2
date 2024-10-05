@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Decision Variables:}  
+- \( \text{produce}_{k,t} \): Units produced by industry \( k \) in year \( t \). \\
+- \( \text{buildcapa}_{k,t} \): Units used to build productive capacity for industry \( k \) in year \( t \). \\
+- \( \text{stockhold}_{k,t} \): Stock held by industry \( k \) at the end of year \( t \). \\
+
+\textbf{Objective:}  
+Maximize the total manpower requirement over five years:
+
+\[
+\text{Maximize} \quad \sum_{k=1}^{K} \sum_{t=1}^{5} (\text{manpowerone}_k \cdot \text{produce}_{k,t} + \text{manpowertwo}_k \cdot \text{buildcapa}_{k,t})
+\]
+
+\textbf{Constraints:}
+
+1. Demand Satisfaction:
+   \[
+   \text{produce}_{k,t} + \text{stockhold}_{k,t-1} - \text{stockhold}_{k,t} \geq \text{demand}_{k}, \quad \forall k, \forall t \geq 1
+   \]
+
+2. Input Requirements:
+   \[
+   \sum_{j=1}^{K} \text{inputone}_{k,j} \cdot \text{produce}_{j,t} + \sum_{j=1}^{K} \text{inputtwo}_{k,j} \cdot \text{buildcapa}_{j,t} \leq \text{capacity}_{k,t}, \quad \forall k, \forall t
+   \]
+
+3. Productive Capacity Update:
+   \[
+   \text{capacity}_{k,t} = \text{capacity}_{k,t-1} + \text{buildcapa}_{k,t-2}, \quad \forall k, t \geq 3
+   \]
+
+4. Initial Capacity and Stock:
+   \[
+   \text{capacity}_{k,0} = \text{capacity}_{k}, \quad \forall k
+   \]
+   \[
+   \text{stockhold}_{k,0} = \text{stock}_{k}, \quad \forall k
+   \]
+
+5. Non-negativity:
+   \[
+   \text{produce}_{k,t} \geq 0, \text{buildcapa}_{k,t} \geq 0, \text{stockhold}_{k,t} \geq 0, \quad \forall k, \forall t
+   \]
+
+\end{document}

@@ -1,0 +1,22 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model for Quadratic Curve Fitting:}
+
+\begin{align*}
+\text{Minimize} \quad & \sum_{k=1}^{K} (e_k^+ + e_k^-) \\
+\text{Subject to} \quad & y_k = c \cdot x_k^2 + b \cdot x_k + a + e_k^+ - e_k^-, \quad k = 1, \ldots, K \\
+& e_k^+ \geq 0, \quad e_k^- \geq 0, \quad k = 1, \ldots, K
+\end{align*}
+
+\textbf{Where:}
+
+\begin{itemize}
+    \item \( a \) is the constant coefficient.
+    \item \( b \) is the linear coefficient.
+    \item \( c \) is the quadratic coefficient.
+    \item \( e_k^+ \) and \( e_k^- \) are non-negative deviations for each data point \( k \).
+\end{itemize}
+
+\end{document}

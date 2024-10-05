@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+Minimize the total cost:
+
+\[
+\min \sum_{t=1}^{T} \sum_{k=1}^{K} \left( \text{numon}_{k,t} \cdot \text{runcost}_{k} + \text{output}_{k,t} \cdot \text{extracost}_{k} + \text{start}_{k,t} \cdot \text{startcost}_{k} \right)
+\]
+
+\textbf{Constraints:}
+
+1. Meet demand for each period:
+\[
+\sum_{k=1}^{K} \left( \text{numon}_{k,t} \cdot \text{minlevel}_{k} + \text{output}_{k,t} \right) \geq \text{demand}_{t} \quad \forall t \in \{1,\ldots,T\}
+\]
+
+2. Respect generator output limits:
+\[
+0 \leq \text{output}_{k,t} \leq (\text{maxlevel}_{k} - \text{minlevel}_{k}) \cdot \text{numon}_{k,t} \quad \forall k \in \{1,\ldots,K\}, \forall t \in \{1,\ldots,T\}
+\]
+
+3. Limit the number of generators that can be on:
+\[
+0 \leq \text{numon}_{k,t} \leq \text{num}_{k} \quad \forall k \in \{1,\ldots,K\}, \forall t \in \{1,\ldots,T\}
+\]
+
+4. Startup logic:
+\[
+\text{start}_{k,t} \geq \text{numon}_{k,t} - \text{numon}_{k,t-1} \quad \forall k \in \{1,\ldots,K\}, \forall t \in \{2,\ldots,T\}
+\]
+
+5. Initial conditions:
+\[
+\text{start}_{k,1} \geq \text{numon}_{k,1} \quad \forall k \in \{1,\ldots,K\}
+\]
+
+\textbf{Decision Variables:}
+
+- \( \text{numon}_{k,t} \): Integer, \( \forall k \in \{1,\ldots,K\}, \forall t \in \{1,\ldots,T\} \)
+- \( \text{output}_{k,t} \): Continuous, \( \forall k \in \{1,\ldots,K\}, \forall t \in \{1,\ldots,T\} \)
+- \( \text{start}_{k,t} \): Binary, \( \forall k \in \{1,\ldots,K\}, \forall t \in \{1,\ldots,T\} \)
+
+\end{document}

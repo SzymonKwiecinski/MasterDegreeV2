@@ -1,0 +1,14 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model:}
+
+\begin{align*}
+& \text{Minimize } & \sum_{s=1}^{S} \text{shift\_cost}_{s} \cdot x_{s} \\
+\text{subject to:} & \\
+& x_{s} + x_{s-1} \geq \text{officers\_needed}_{s}, & \forall s = 1, \ldots, S \\
+& x_{s} \geq 0, & \forall s = 1, \ldots, S \\
+\end{align*}
+
+\end{document}

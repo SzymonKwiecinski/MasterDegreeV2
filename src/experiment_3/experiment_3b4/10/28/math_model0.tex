@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model:}
+
+\[
+\text{Minimize } \sum_{k=1}^{K} (u_k + v_k)
+\]
+
+subject to:
+
+\[
+u_k - v_k = y_k - (bx_k + a) \quad \forall k = 1, 2, \ldots, K
+\]
+
+\[
+u_k \geq 0, \quad v_k \geq 0 \quad \forall k = 1, 2, \ldots, K
+\]
+
+\textbf{Decision Variables:}
+
+- \( a \): Intercept of the line.
+- \( b \): Slope of the line.
+- \( u_k, v_k \): Non-negative deviations for each data point \( k \).
+
+\end{document}

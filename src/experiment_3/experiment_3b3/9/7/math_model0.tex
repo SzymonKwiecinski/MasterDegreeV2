@@ -1,0 +1,79 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Motion Optimization Problem}
+
+We are tasked with modeling the motion of a rocket along a straight path using a linear programming approach. We define:
+
+\begin{itemize}
+    \item \( x_t \): position of the rocket at time \( t \)
+    \item \( v_t \): velocity of the rocket at time \( t \)
+    \item \( a_t \): acceleration of the rocket at time \( t \)
+\end{itemize}
+
+The discrete-time model is given by the following equations:
+
+\begin{align}
+    x_{t+1} &= x_t + v_t \\
+    v_{t+1} &= v_t + a_t
+\end{align}
+
+We control the acceleration \( a_t \), which is related to the thrust and, in turn, to the fuel consumption. Our objective is to minimize the maximum thrust required, defined as:
+
+\[
+\text{Minimize } \max_{t} |a_t|
+\]
+
+### Inputs
+
+The inputs are defined as follows:
+
+\begin{align*}
+    x_0 & : \text{initial position} \\
+    v_0 & : \text{initial velocity} \\
+    x_T & : \text{target position} \\
+    v_T & : \text{target velocity} \\
+    T & : \text{total time}
+\end{align*}
+
+### Constraints
+
+We have the following constraints based on the motion equations:
+
+\begin{align}
+    x_T &= x_0 + \sum_{t=0}^{T-1} v_t \\
+    v_T &= v_0 + \sum_{t=0}^{T-1} a_t
+\end{align}
+
+Additionally, we assume that the acceleration is bounded:
+
+\[
+|a_t| \leq M \quad \forall t = 0, 1, \ldots, T-1
+\]
+
+where \( M \) is a constant that represents the maximum thrust.
+
+### Outputs
+
+The required outputs are:
+
+\begin{itemize}
+    \item \( x \): a list of positions of the rocket at each time step from 0 to \( T \)
+    \item \( v \): a list of velocities of the rocket at each time step from 0 to \( T \)
+    \item \( a \): a list of accelerations of the rocket at each time step from 0 to \( T \)
+    \item \( \text{fuel\_spend} \): total fuel spent by the rocket
+\end{itemize}
+
+The output format is specified as follows:
+
+\[
+\text{Output} = \{
+    "x": [x_i \text{ for } i = 0, \ldots, T],
+    "v": [v_i \text{ for } i = 0, \ldots, T],
+    "a": [a_i \text{ for } i = 0, \ldots, T],
+    "fuel\_spend": \text{fuel\_spent}
+\}
+\]
+
+\end{document}

@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+\[
+\text{Maximize} \quad \sum_{n=1}^{N} \left( \texttt{price}[n-1] \cdot y_n - \texttt{cost}[n-1] \cdot x_n - \texttt{holding_cost} \cdot s_n \right)
+\]
+
+\textbf{Subject to:}
+
+\text{Stock balance:}
+\[
+s_{n} = s_{n-1} + x_n - y_n \quad \forall n=1,...,N, \quad s_0 = 0
+\]
+
+\text{Capacity constraint:}
+\[
+0 \leq s_n \leq \texttt{capacity} \quad \forall n=1,...,N
+\]
+
+\text{Non-negativity:}
+\[
+x_n \geq 0, \quad y_n \geq 0, \quad s_n \geq 0 \quad \forall n=1,...,N
+\]
+
+\text{Final stock condition:}
+\[
+s_N = 0
+\]
+
+\end{document}

@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Custom Tees' Advertising Campaign}
+
+\textbf{Decision Variables:}
+\[
+x_a \quad \text{(number of clicks in thousands for ad type } a, \forall a = 1, \ldots, A)
+\]
+
+\textbf{Objective: Minimize the total cost of the ad campaign}
+\[
+\text{Minimize } \sum_{a=1}^{A} \text{cost}_a \cdot x_a
+\]
+
+\textbf{Subject to:}
+\begin{align*}
+& \sum_{a=1}^{A} \text{young\_click}_{a} \cdot x_a \geq \text{goal\_young} \\
+& \sum_{a=1}^{A} \text{old\_click}_{a} \cdot x_a \geq \text{goal\_old} \\
+& \sum_{a=1}^{A} \text{unique\_click}_{a} \cdot \text{young\_click}_{a} \cdot x_a \geq \text{goal\_unique\_young} \\
+& \sum_{a=1}^{A} \text{unique\_click}_{a} \cdot \text{old\_click}_{a} \cdot x_a \geq \text{goal\_unique\_old} \\
+& 0 \leq x_a \leq \text{max\_click}_{a} \quad \forall a = 1, \ldots, A
+\end{align*}
+
+\textbf{Where:}
+\begin{itemize}
+    \item \( x_a \) is the number of clicks purchased for ad type \( a \) in thousands.
+    \item \( \text{total\_cost} = \sum_{a=1}^{A} \text{cost}_a \cdot x_a \) is the total cost of the ad campaign.
+\end{itemize}
+
+\end{document}

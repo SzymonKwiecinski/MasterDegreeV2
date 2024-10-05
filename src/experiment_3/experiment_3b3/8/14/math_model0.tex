@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item Let \( x_i \) be the number of units produced of product \( i \) for \( i = 1, \ldots, P \).
+    \item Let \( u \) be a binary variable where \( u = 1 \) if the company should upgrade its machine capacity and \( u = 0 \) otherwise.
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{i=1}^{P} \left( (price_i - cost_i) \cdot x_i - investPercentage_i \cdot (price_i \cdot x_i) \right) - upgradeCost \cdot u
+\]
+
+\textbf{Subject to the Constraints:}
+
+1. Cash Availability Constraint:
+\[
+\sum_{i=1}^{P} cost_i \cdot x_i \leq cash + \sum_{i=1}^{P} investRate_i \cdot (price_i \cdot x_i)
+\]
+
+2. Machine Capacity Constraint:
+\[
+\sum_{i=1}^{P} hour_i \cdot x_i \leq availableHours + upgradeHours \cdot u
+\]
+
+3. Non-negativity Constraints:
+\[
+x_i \geq 0 \quad \forall i \in \{1, 2, \ldots, P\}
+\]
+\[
+u \in \{0, 1\}
+\]
+
+\textbf{Output Variables:}
+- The total net income is given by:
+\[
+\text{net income} = Z
+\]
+- The production quantities are represented by \( x_i \) for each product \( i \).
+
+\end{document}

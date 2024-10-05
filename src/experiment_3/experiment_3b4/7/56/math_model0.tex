@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $N$: Total number of streets.
+    \item $W$: Total number of avenues.
+    \item $west\_time_{n,w}$: Time to move from intersection $(n, w)$ to $(n, w+1)$ for $n = 1, \ldots, N$ and $w = 1, \ldots, W-1$.
+    \item $north\_time_{n,w}$: Time to move from intersection $(n, w)$ to $(n+1, w)$ for $n = 1, \ldots, N-1$ and $w = 1, \ldots, W$.
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item $x_{n,w}^{\text{west}}$: Binary variable, equals 1 if the path moves from intersection $(n, w)$ to $(n, w+1)$.
+    \item $x_{n,w}^{\text{north}}$: Binary variable, equals 1 if the path moves from intersection $(n, w)$ to $(n+1, w)$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total travel time:
+\begin{equation}
+\min \sum_{n=1}^{N} \sum_{w=1}^{W-1} west\_time_{n,w} \cdot x_{n,w}^{\text{west}} + \sum_{n=1}^{N-1} \sum_{w=1}^{W} north\_time_{n,w} \cdot x_{n,w}^{\text{north}}
+\end{equation}
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Flow balance constraints:
+    \begin{align*}
+        &\text{At the starting point $(1,1)$:} \\
+        &x_{1,1}^{\text{west}} + x_{1,1}^{\text{north}} = 1
+    \end{align*}
+    \begin{align*}
+        &\text{For each interior intersection $(n,w)$:} \\
+        &x_{n-1,w}^{\text{north}} + x_{n,w-1}^{\text{west}} = x_{n,w}^{\text{north}} + x_{n,w}^{\text{west}} \\
+        &\quad \text{for } n = 2, \ldots, N, \; w = 2, \ldots, W
+    \end{align*}
+    \begin{align*}
+        &\text{At the destination $(N,W)$:} \\
+        &x_{N,W-1}^{\text{west}} + x_{N-1,W}^{\text{north}} = 1
+    \end{align*}
+    \item Binary constraints:
+    \begin{align*}
+        &x_{n,w}^{\text{west}}, x_{n,w}^{\text{north}} \in \{0, 1\} \quad \text{for all } n, w
+    \end{align*}
+\end{itemize}
+
+\end{document}

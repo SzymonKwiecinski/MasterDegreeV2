@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Decision Variables}
+\begin{align*}
+\text{amount}_t & : \text{Number of containers unloaded in month } t. \\
+\text{crane}_t & : \text{Number of cranes rented in month } t. \\
+\text{store}_t & : \text{Number of containers stored at the end of month } t.
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost over the period:
+\[
+\text{Total Cost} = \sum_{t=1}^{T} \left( \text{unload\_cost}_t \times \text{amount}_t + \text{holding\_cost} \times \text{store}_t + \text{crane\_cost} \times \text{crane}_t \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+\text{amount}_t & \leq \text{unload\_capacity}_t, \quad \forall t = 1, \ldots, T & \text{(Unloading capacity constraint)} \\
+\text{crane}_t & \leq \text{num\_cranes}, \quad \forall t = 1, \ldots, T & \text{(Maximum cranes constraint)} \\
+\text{crane}_t \times \text{crane\_capacity} & \geq \text{demand}_t, \quad \forall t = 1, \ldots, T & \text{(Meet demand constraint)} \\
+\text{store}_t & \leq \text{max\_container}, \quad \forall t = 1, \ldots, T & \text{(Storage capacity constraint)} \\
+\text{store}_1 & = \text{init\_container} + \text{amount}_1 - \text{demand}_1 & \text{(Initial storage calculation)} \\
+\text{store}_{t} & = \text{store}_{t-1} + \text{amount}_t - \text{demand}_t, \quad \forall t = 2, \ldots, T & \text{(Storage balance)} \\
+\text{store}_T & = 0 & \text{(End storage requirement)}
+\end{align*}
+
+\subsection*{Variables}
+\begin{align*}
+\text{amount}_t & \geq 0, \quad \forall t = 1, \ldots, T & \text{(Non-negativity)} \\
+\text{crane}_t & \in \mathbb{Z}_{\geq 0}, \quad \forall t = 1, \ldots, T & \text{(Integer number of cranes)} \\
+\text{store}_t & \geq 0, \quad \forall t = 1, \ldots, T & \text{(Non-negativity)}
+\end{align*}
+
+\end{document}

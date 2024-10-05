@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Problem Formulation:}
+
+We wish to find the Chebyshev center of the set \( P \) described by:
+
+\[
+P = \{ \mathbf{x} \in \mathbb{R}^N \mid \mathbf{a}_i^T \mathbf{x} \leq b_i, \, i = 1, \ldots, m \}
+\]
+
+The objective is to maximize the radius \( r \) of a ball centered at \( \mathbf{y} \) such that:
+
+\[
+\begin{align*}
+\text{maximize} \quad & r \\
+\text{subject to} \quad & \mathbf{a}_i^T \mathbf{y} + r \|\mathbf{a}_i\| \leq b_i, \quad i = 1, \ldots, m
+\end{align*}
+\]
+
+Here, \( \|\mathbf{a}_i\| \) denotes the Euclidean norm of the vector \( \mathbf{a}_i \).
+
+\end{document}

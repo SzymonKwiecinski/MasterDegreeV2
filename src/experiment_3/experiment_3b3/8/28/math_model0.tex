@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Linear Regression}
+
+Given a set of observed values \( y_k \) and corresponding values \( x_k \) for \( k = 1, \ldots, K \), we aim to fit the best straight line of the form \( y = bx + a \). The objective is to minimize the sum of absolute deviations between the observed values and the predicted values.
+
+Let us define the parameters and variables involved in our linear programming model:
+
+\begin{itemize}
+    \item Let \( a \) be the intercept of the fitted line.
+    \item Let \( b \) be the slope of the fitted line.
+    \item Let \( d_k \) represent the absolute deviation for each observation, defined as \( d_k = |y_k - (bx_k + a)| \) for \( k = 1, 2, \ldots, K \).
+\end{itemize}
+
+\subsection*{Objective Function}
+
+We want to minimize the total absolute deviation:
+
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} d_k
+\]
+
+\subsection*{Constraints}
+
+To incorporate the absolute values into our linear programming formulation, we can use auxiliary variables. We introduce non-negative variables \( u_k \) and \( v_k \) such that:
+
+\[
+d_k = u_k + v_k \quad \text{for each } k
+\]
+
+with the following constraints for each \( k \):
+
+\[
+y_k - (bx_k + a) \leq u_k \quad \text{(upper bound)}
+\]
+\[
+-(y_k - (bx_k + a)) \leq v_k \quad \text{(lower bound)}
+\]
+
+These constraints ensure that the absolute deviation \( d_k \) is represented correctly.
+
+\subsection*{Final Model}
+
+The complete linear programming model can be summarized as follows:
+
+\begin{align*}
+\text{Minimize } & Z = \sum_{k=1}^{K} (u_k + v_k) \\
+\text{Subject to } & \\
+& y_k - (bx_k + a) \leq u_k & \forall k = 1, \ldots, K \\
+& -(y_k - (bx_k + a)) \leq v_k & \forall k = 1, \ldots, K \\
+& u_k \geq 0, v_k \geq 0 & \forall k = 1, \ldots, K
+\end{align*}
+
+\subsection*{Output Variables}
+
+After solving the linear programming model, we obtain:
+
+\begin{itemize}
+    \item The value of \( a \) which represents the intercept of the fitted line.
+    \item The value of \( b \) which represents the slope of the fitted line.
+\end{itemize}
+
+The output format is:
+
+\[
+\begin{align*}
+\text{Output:} \quad \{ & \\
+& \text{"intercept": } a, \\
+& \text{"slope": } b \\
+& \}
+\end{align*}
+\]
+
+\end{document}

@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Electricity Capacity Planning}
+
+\subsection*{Objective Function}
+
+\[
+\text{Minimize } \sum_{t=1}^T \left( \text{coal\_cost} \cdot x_t^{\text{coal}} + \text{nuke\_cost} \cdot x_t^{\text{nuke}} \right)
+\]
+
+\subsection*{Constraints}
+
+1. \textbf{Demand Satisfaction:}
+   \[
+   o_t + \sum_{j=\max(1, t-\text{coal\_life}+1)}^{t} x_j^{\text{coal}} + \sum_{j=\max(1, t-\text{nuke\_life}+1)}^{t} x_j^{\text{nuke}} \geq \text{demand}_t
+   \]
+
+2. \textbf{Nuclear Capacity Limit:}
+   \[
+   \sum_{j=\max(1, t-\text{nuke\_life}+1)}^{t} x_j^{\text{nuke}} \leq \frac{\text{max\_nuke}}{100} \times \left( o_t + \sum_{j=\max(1, t-\text{coal\_life}+1)}^{t} x_j^{\text{coal}} + \sum_{j=\max(1, t-\text{nuke\_life}+1)}^{t} x_j^{\text{nuke}} \right)
+   \]
+
+3. \textbf{Non-negativity:}
+   \[
+   x_t^{\text{coal}} \geq 0, \quad x_t^{\text{nuke}} \geq 0 \quad \forall \, t = 1, \ldots, T
+   \]
+
+\end{document}

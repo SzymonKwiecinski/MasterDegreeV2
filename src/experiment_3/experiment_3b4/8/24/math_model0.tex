@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Decision Variables:}
+\[
+\begin{align*}
+x_{k,i} & : \text{Amount of ore extracted from mine } k \text{ in year } i, \\
+y_{k,i} & : \text{Binary variable indicating if mine } k \text{ is operated in year } i.
+\end{align*}
+\]
+
+\textbf{Objective Function:}
+Maximize the Net Present Value (NPV) of the profit:
+\[
+\max \sum_{i=1}^{I} \frac{1}{(1 + \text{discount})^i} \left( \sum_{k=1}^{K} \text{price} \cdot x_{k,i} - \text{royalty}_k \cdot y_{k,i} \right)
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+& \sum_{k=1}^{K} y_{k,i} \leq \text{n\_maxwork}, & \forall i = 1,...,I \quad & \text{(Max number of mines operated)} \\
+& x_{k,i} \leq \text{limit}_k \cdot y_{k,i}, & \forall k = 1,...,K, \forall i = 1,...,I \quad & \text{(Production limit based on operation)} \\
+& \sum_{k=1}^{K} \frac{x_{k,i} \cdot \text{quality}_k}{\sum_{m=1}^{K} x_{m,i}} = \text{requiredquality}_i, & \forall i = 1,...,I \quad & \text{(Blended quality requirement)} \\
+& y_{k,i} \in \{0, 1\}, & \forall k = 1,...,K, \forall i = 1,...,I \quad & \text{(Binary operation decision)} \\
+& x_{k,i} \geq 0, & \forall k = 1,...,K, \forall i = 1,...,I \quad & \text{(Non-negativity)}
+\end{align*}
+
+\end{document}

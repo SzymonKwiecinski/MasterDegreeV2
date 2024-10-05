@@ -1,0 +1,18 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\begin{align*}
+\text{Minimize:} \quad & \sum_{k=1}^{K} z_k \\
+\text{Subject to:} \quad & z_k \geq y_k - (c \cdot x_k^2 + b \cdot x_k + a), \quad \forall k = 1, 2, \ldots, K \\
+& z_k \geq -(y_k - (c \cdot x_k^2 + b \cdot x_k + a)), \quad \forall k = 1, 2, \ldots, K \\
+& \text{where } z_k \geq 0, \quad \forall k = 1, 2, \ldots, K.
+\end{align*}
+
+\text{Variables:}
+- $c$: the coefficient of the quadratic term.
+- $b$: the coefficient of the linear term.
+- $a$: the coefficient of the constant term.
+- $z_k$: auxiliary variables for each data point $k$.
+
+\end{document}

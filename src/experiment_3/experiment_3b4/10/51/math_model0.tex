@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+Maximize the total number of unique clicks:
+\[
+\text{Maximize} \quad \sum_{a=1}^{A} \text{unique\_click}_{a} \times \text{clicks}_{a}
+\]
+
+\textbf{Subject to the following constraints:}
+
+1. Age group 18-25 click goal:
+\[
+\sum_{a=1}^{A} \text{young\_click}_{a} \times \text{clicks}_{a} \geq \text{goal\_young}
+\]
+
+2. Age group older than 25 click goal:
+\[
+\sum_{a=1}^{A} \text{old\_click}_{a} \times \text{clicks}_{a} \geq \text{goal\_old}
+\]
+
+3. Unique clicks goal for age group 18-25:
+\[
+\sum_{a=1}^{A} \text{unique\_click}_{a} \times \text{young\_click}_{a} \times \text{clicks}_{a} \geq \text{goal\_unique\_young}
+\]
+
+4. Unique clicks goal for age group older than 25:
+\[
+\sum_{a=1}^{A} \text{unique\_click}_{a} \times \text{old\_click}_{a} \times \text{clicks}_{a} \geq \text{goal\_unique\_old}
+\]
+
+5. Budget constraint:
+\[
+\sum_{a=1}^{A} \text{cost}_{a} \times \text{clicks}_{a} \leq \text{budget}
+\]
+
+6. Maximum clicks constraint for each ad type:
+\[
+0 \leq \text{clicks}_{a} \leq \text{max\_click}_{a} \quad \forall a = 1, 2, \ldots, A
+\]
+
+\textbf{Decision Variables:}
+\[
+\text{clicks}_{a} \text{ for } a = 1, 2, \ldots, A
+\]
+
+\end{document}

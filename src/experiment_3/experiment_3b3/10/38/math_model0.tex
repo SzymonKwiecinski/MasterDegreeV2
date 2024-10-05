@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Production Scheduling}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item Let $N$ be the number of months.
+    \item Let $demand_n$ be the demand for month $n$ where $n = 1, 2, ..., N$.
+    \item Let $max\_regular\_amount$ be the maximum number of units that can be produced using regular production in a month.
+    \item Let $cost\_regular$ be the cost per unit for regular production.
+    \item Let $cost\_overtime$ be the cost per unit for overtime production.
+    \item Let $store\_cost$ be the cost of storing one unit for one month.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item Let $reg\_quant_n$ be the quantity of products produced using regular production in month $n$.
+    \item Let $over\_quant_n$ be the quantity of products produced using overtime production in month $n$.
+    \item Let $inventory_n$ be the inventory carried over to month $n$.
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+\text{Minimize } Z = \sum_{n=1}^{N} \left( cost\_regular \cdot reg\_quant_n + cost\_overtime \cdot over\_quant_n + store\_cost \cdot inventory_n \right)
+\end{align*}
+
+\textbf{Constraints:}
+\begin{align*}
+1. & \quad reg\_quant_n + over\_quant_n + inventory_{n-1} - inventory_n = demand_n, \quad \forall n = 1, 2, ..., N \\
+2. & \quad reg\_quant_n \leq max\_regular\_amount, \quad \forall n = 1, 2, ..., N \\
+3. & \quad inventory_n \geq 0, \quad \forall n = 1, 2, ..., N \\
+4. & \quad reg\_quant_n \geq 0, \quad \forall n = 1, 2, ..., N \\
+5. & \quad over\_quant_n \geq 0, \quad \forall n = 1, 2, ..., N \\
+\end{align*}
+
+\textbf{Output:}
+\begin{align*}
+\{ 
+    "reg\_quant": [reg\_quant_1, reg\_quant_2, \ldots, reg\_quant_N], \\
+    "over\_quant": [over\_quant_1, over\_quant_2, \ldots, over\_quant_N] 
+\}
+\end{align*}
+
+\end{document}

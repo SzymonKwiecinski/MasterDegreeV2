@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Manpower Management}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Statement}
+A company is undergoing changes affecting its manpower requirements in future years due to new machinery installation and an expected downturn in trade.
+
+\section*{Parameters}
+\begin{itemize}
+    \item $K$: Number of manpower categories
+    \item $I$: Number of years
+    \item $requirement_{k, i}$: Estimated manpower requirement for category $k$ in year $i$
+    \item $strength_{k}$: Current number of manpower in category $k$
+    \item $lessonewaste_{k}$: Wastage rate for manpower $k$ with less than one year's service
+    \item $moreonewaste_{k}$: Wastage rate for manpower $k$ with more than one year's service
+    \item $recruit_{k}$: Maximum number of recruits for manpower category $k$ in one year
+    \item $costredundancy_{k}$: Redundancy payment for manpower category $k$
+    \item $num\_overman$: Maximum number of overmanned workers allowed
+    \item $costoverman_{k}$: Extra cost per overmanned employee per year for manpower category $k$
+    \item $num\_shortwork$: Maximum number of short-time workers allowed in each category
+    \item $costshort_{k}$: Cost of short-time working per employee per year for manpower category $k$
+\end{itemize}
+
+\section*{Decision Variables}
+Let:
+\begin{itemize}
+    \item $recruit_{k, i}$: Number of recruits for manpower category $k$ in year $i$
+    \item $overmanning_{k, i}$: Number of overmanned workers for manpower category $k$ in year $i$
+    \item $short_{k, i}$: Number of short-time workers for manpower category $k$ in year $i$
+\end{itemize}
+
+\section*{Objective Function}
+Minimize the total redundancy costs:
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} \sum_{i=1}^{I} costredundancy_{k} \cdot (strength_{k} + recruit_{k, i} - requirement_{k, i} - overmanning_{k, i} - 0.5 \cdot short_{k, i})
+\]
+
+\section*{Constraints}
+1. Manpower balance:
+\[
+strength_{k} + recruit_{k, i} - (strength_{k} \cdot (1 - lessonewaste_{k}) \cdot (1 - moreonewaste_{k})) - short_{k, i} \leq requirement_{k, i} + overmanning_{k, i}, \quad \forall k, i
+\]
+2. Recruitment limit:
+\[
+recruit_{k, i} \leq recruit_{k}, \quad \forall k, i
+\]
+3. Overmanning limit:
+\[
+\sum_{k=1}^{K} overmanning_{k, i} \leq num\_overman, \quad \forall i
+\]
+4. Short-time working limit:
+\[
+short_{k, i} \leq num\_shortwork, \quad \forall k, i
+\]
+5. Non-negativity:
+\[
+recruit_{k, i} \geq 0, \quad overmanning_{k, i} \geq 0, \quad short_{k, i} \geq 0, \quad \forall k, i
+\]
+
+\end{document}

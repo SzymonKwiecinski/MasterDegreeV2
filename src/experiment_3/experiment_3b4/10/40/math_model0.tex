@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Mathematical Model:}
+
+\begin{itemize}
+    \item Let \( K \) be the number of different minerals available.
+    \item Let \( \text{amount}_k \) be the amount (in tons) of mineral \( k \) to be used.
+    \item Let \( \text{num\_mang} \) be the amount (in tons) of Manganese directly added.
+    \item Let \( \text{contsi}_k \) and \( \text{contmn}_k \) be the Si and Mn content percentage of mineral \( k \).
+    \item Let \( \text{cost}_k \) be the cost of using 1000 tons of mineral \( k \) in million euros.
+    \item Let \( \text{n\_steel\_quant} \) be the total amount of steel required in tons.
+    \item Let \( \text{mn\_percent} \), \( \text{si\_min} \), and \( \text{si\_max} \) be the specified Mn percentage, minimum Si percentage, and maximum Si percentage respectively.
+    \item Let \( \text{mang\_price} \) and \( \text{melt\_price} \) be the cost of Manganese per ton and smelting cost per ton respectively.
+
+\end{itemize}
+
+\textbf{Objective Function:}
+
+Maximize profit:
+\[
+\text{Maximize: } \text{profit} = \text{sell\_price} \cdot \text{n\_steel\_quant} - \sum_{k=1}^{K} \left( \text{amount}_k \cdot \left(\frac{\text{cost}_k}{1000} + \text{melt\_price}\right) \right) - \text{num\_mang} \cdot \text{mang\_price}
+\]
+
+\textbf{Constraints:}
+
+\begin{align*}
+& 1. \ \sum_{k=1}^{K} \text{amount}_k + \text{num\_mang} = \text{n\_steel\_quant} \quad &\text{(Balance constraint for total steel quantity)} \\
+& 2. \ \sum_{k=1}^{K} \text{contmn}_k \cdot \text{amount}_k + \text{num\_mang} \geq \text{mn\_percent} \cdot \text{n\_steel\_quant} \quad &\text{(Manganese content requirement)} \\
+& 3. \ \text{si\_min} \cdot \text{n\_steel\_quant} \leq \sum_{k=1}^{K} \text{contsi}_k \cdot \text{amount}_k \leq \text{si\_max} \cdot \text{n\_steel\_quant} \quad &\text{(Silicon content requirement)} \\
+& 4. \ \text{amount}_k \geq 0 \quad \forall k=1,...,K \quad &\text{(Non-negativity for minerals)} \\
+& 5. \ \text{num\_mang} \geq 0 \quad &\text{(Non-negativity for Manganese)}
+\end{align*}
+
+\end{document}

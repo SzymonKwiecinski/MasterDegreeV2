@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model for Production Scheduling}
+
+\subsection*{Decision Variables}
+Let:
+\begin{align*}
+    \text{reg\_quant}_n & : \text{Quantity produced in regular time in month } n, \\
+    \text{over\_quant}_n & : \text{Quantity produced in overtime in month } n, \\
+    \text{store}_n & : \text{Quantity stored at the end of month } n.
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+    \text{demand}_n & : \text{Demand in month } n, \\
+    \text{max\_regular\_amount} & : \text{Maximum units that can be produced in regular time per month}, \\
+    \text{cost\_regular} & : \text{Cost per unit produced in regular time}, \\
+    \text{cost\_overtime} & : \text{Cost per unit produced in overtime}, \\
+    \text{store\_cost} & : \text{Cost to store one unit over one month}.
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\min \sum_{n=1}^{N} \left( \text{cost\_regular} \times \text{reg\_quant}_n + \text{cost\_overtime} \times \text{over\_quant}_n + \text{store\_cost} \times \text{store}_n \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+    \text{reg\_quant}_n & \leq \text{max\_regular\_amount}, \quad \forall n = 1, \ldots, N, \\
+    \text{reg\_quant}_n + \text{over\_quant}_n + \text{store}_{n-1} & = \text{demand}_n + \text{store}_n, \quad \forall n = 1, \ldots, N, \\
+    \text{store}_0 & = 0, \\
+    \text{store}_n & \geq 0, \quad \forall n = 1, \ldots, N, \\
+    \text{reg\_quant}_n, \text{over\_quant}_n & \geq 0, \quad \forall n = 1, \ldots, N.
+\end{align*}
+
+\end{document}

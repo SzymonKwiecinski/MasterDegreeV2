@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Formulation}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( N \): Number of available translators.
+    \item \text{cost}_i: Cost of hiring translator \( i \).
+    \item \text{languages}_i: Set of languages translator \( i \) can translate into.
+    \item \text{required\_languages}: Set of required languages.
+\end{itemize}
+
+\subsection*{Variables}
+\[
+x_i = 
+\begin{cases} 
+1, & \text{if translator } i \text{ is selected} \\
+0, & \text{otherwise}
+\end{cases}
+\quad \forall i = 1, \ldots, N
+\]
+
+\subsection*{Objective}
+\[
+\text{Minimize} \quad \sum_{i=1}^{N} \text{cost}_i \cdot x_i
+\]
+
+\subsection*{Constraints}
+Ensure coverage of all required languages:
+\[
+\sum_{i \,:\, \text{language}_m \in \text{languages}_i} x_i \geq 1 \quad \forall \text{language}_m \in \text{required\_languages}
+\]
+
+\end{document}

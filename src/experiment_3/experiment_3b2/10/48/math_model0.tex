@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model}
+
+\textbf{Given:}
+\begin{itemize}
+    \item $W$: Number of weeks in the season.
+    \item $\text{demand}_{w}$: Demand for baskets in week $w$.
+    \item $\text{regular\_labor}_{w}$: Maximum regular labor hours available in week $w$.
+    \item $\text{regular\_cost}$: Cost per hour for regular labor.
+    \item $\text{overtime\_labor}_{w}$: Maximum overtime labor hours available in week $w$.
+    \item $\text{overtime\_cost}$: Cost per hour for overtime labor.
+    \item $\text{assembly\_time}$: Hours of labor required to assemble one basket.
+    \item $\text{material\_cost}$: Material cost per basket.
+    \item $\text{selling\_price}$: Selling price per basket.
+    \item $\text{holding\_cost}$: Holding cost per unsold basket at the end of each week.
+    \item $\text{salvage\_value}$: Salvage value per unsold basket at the end of week $W$.
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item $\text{regular\_used}_{w}$: Hours of regular labor used in week $w$.
+    \item $\text{overtime\_used}_{w}$: Hours of overtime labor used in week $w$.
+    \item $\text{regular\_basket}_{w}$: Number of baskets assembled with regular labor in week $w$.
+    \item $\text{overtime\_basket}_{w}$: Number of baskets assembled with overtime labor in week $w$.
+    \item $\text{inventory}_{w}$: Number of baskets on hand at the end of week $w$.
+\end{itemize}
+
+\textbf{Objective:}
+
+Maximize the total profit over the season:
+
+\[
+\begin{aligned}
+\text{max} \quad & \sum_{w=1}^{W} \left( \text{selling\_price} \times (\text{regular\_basket}_w + \text{overtime\_basket}_w) - \text{regular\_cost} \times \text{regular\_used}_w \right. \\
+& \left. - \text{overtime\_cost} \times \text{overtime\_used}_w - \text{material\_cost} \times (\text{regular\_basket}_w + \text{overtime\_basket}_w) \right. \\
+& \left. - \text{holding\_cost} \times \text{inventory}_{w} \right) + \text{salvage\_value} \times \text{inventory}_{W}
+\end{aligned}
+\]
+
+\textbf{Subject to:}
+
+For each week $w = 1, \ldots, W$:
+
+\begin{align*}
+& \text{regular\_used}_{w} + \text{overtime\_used}_{w} \geq \text{assembly\_time} (\text{regular\_basket}_{w} + \text{overtime\_basket}_{w}) \\
+& \text{regular\_used}_{w} \leq \text{regular\_labor}_{w} \\
+& \text{overtime\_used}_{w} \leq \text{overtime\_labor}_{w} \\
+& \text{inventory}_{w-1} + \text{regular\_basket}_{w} + \text{overtime\_basket}_{w} = \text{demand}_{w} + \text{inventory}_{w} \\
+& \text{inventory}_{0} = 0
+\end{align*}
+
+All variables $\text{regular\_used}_{w}$, $\text{overtime\_used}_{w}$, $\text{regular\_basket}_{w}$, $\text{overtime\_basket}_{w}$, $\text{inventory}_{w}$ must be non-negative.
+
+\end{document}

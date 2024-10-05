@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Container Transportation}
+
+\subsection*{Decision Variables}
+Let \( x_{i, j} \) denote the number of containers sent from depot \( i \) to port \( j \).
+
+\subsection*{Objective Function}
+Minimize the total transportation cost:
+\[
+\text{Minimize} \quad \sum_{i=1}^{I} \sum_{j=1}^{J} \frac{\text{price} \times \text{distance}_{i, j}}{2} \times x_{i, j}
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+\text{Supply Constraints:} & \quad \sum_{j=1}^{J} x_{i, j} \leq \text{numdepot}_i, \quad \forall i \\
+\text{Demand Constraints:} & \quad \sum_{i=1}^{I} x_{i, j} \geq \text{numport}_j, \quad \forall j \\
+\text{Barge Constraints:} & \quad x_{i, j} \equiv 0 \pmod{2}, \quad \forall i, j \\
+\text{Non-negativity Constraints:} & \quad x_{i, j} \geq 0, \quad \forall i, j
+\end{align*}
+
+\end{document}

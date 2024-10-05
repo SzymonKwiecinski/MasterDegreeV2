@@ -1,0 +1,84 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\begin{document}
+
+\section*{Mixed Integer Linear Programming Model for Oil Manufacturing Problem}
+
+\subsection*{Sets and Indices}
+\begin{align*}
+  & i \in \{1, \ldots, I\} \quad \text{(index for oils)} \\
+  & m \in \{1, \ldots, M\} \quad \text{(index for months)}
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+  & \text{buy\_price}_{i,m} \quad \text{(price of oil $i$ in month $m$)} \\
+  & \text{sell\_price} \quad \text{(selling price of final product per ton)} \\
+  & \text{is\_vegetable}_{i} \quad \text{(1 if oil $i$ is vegetable, 0 otherwise)} \\
+  & \text{max\_veg} \quad \text{(max refining capacity for vegetable oils per month)} \\
+  & \text{max\_non\_veg} \quad \text{(max refining capacity for non-vegetable oils per month)} \\
+  & \text{storage\_size} \quad \text{(max storage capacity per oil type)} \\
+  & \text{storage\_cost} \quad \text{(cost of storing per ton per month)} \\
+  & \text{max\_hardness} \quad \text{(maximum required hardness)} \\
+  & \text{min\_hardness} \quad \text{(minimum required hardness)} \\
+  & \text{hardness}_{i} \quad \text{(hardness of oil $i$)} \\
+  & \text{init\_amount} \quad \text{(initial storage amount for each oil)} \\
+  & \text{min\_usage} \quad \text{(minimum usage requirement if oil is used)} \\
+  & \text{dependency}_{i,j} \quad \text{(1 if oil $j$ must be used when oil $i$ is used)}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+  & \text{buy}_{i,m} \geq 0 \quad \text{(quantity of oil $i$ purchased in month $m$)} \\
+  & \text{refine}_{i,m} \geq 0 \quad \text{(quantity of oil $i$ refined in month $m$)} \\
+  & \text{storage}_{i,m} \geq 0 \quad \text{(quantity of oil $i$ stored at the end of month $m$)} \\
+  & \text{use}_{i,m} \in \{0,1\} \quad \text{(1 if oil $i$ is used in month $m$, 0 otherwise)}
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total profit over all months:
+\[
+\max \sum_{m=1}^{M} \left( \text{sell\_price} \sum_{i=1}^{I} \text{refine}_{i,m} - \sum_{i=1}^{I} \left( \text{buy\_price}_{i,m} \cdot \text{buy}_{i,m} + \text{storage\_cost} \cdot \text{storage}_{i,m-1} \right) \right)
+\]
+
+\subsection*{Constraints}
+
+\paragraph{Refining Capacity Constraints:}
+\begin{align*}
+  & \sum_{i=1}^{I} (\text{is\_vegetable}_{i} \cdot \text{refine}_{i,m}) \leq \text{max\_veg}, \quad \forall m \\
+  & \sum_{i=1}^{I} ((1-\text{is\_vegetable}_{i}) \cdot \text{refine}_{i,m}) \leq \text{max\_non\_veg}, \quad \forall m
+\end{align*}
+
+\paragraph{Storage Constraints:}
+\begin{align*}
+  & \text{storage}_{i,m} = \text{storage}_{i,m-1} + \text{buy}_{i,m} - \text{refine}_{i,m}, \quad \forall i, m \\
+  & \text{storage}_{i,0} = \text{init\_amount}, \quad \forall i \\
+  & \text{storage}_{i,M} = \text{init\_amount}, \quad \forall i \\
+  & 0 \leq \text{storage}_{i,m} \leq \text{storage\_size}, \quad \forall i, m
+\end{align*}
+
+\paragraph{Hardness Constraints:}
+\begin{align*}
+  & \text{min\_hardness} \leq \frac{\sum_{i=1}^{I} \text{hardness}_{i} \cdot \text{refine}_{i,m}}{\sum_{i=1}^{I} \text{refine}_{i,m}} \leq \text{max\_hardness}, \quad \forall m
+\end{align*}
+
+\paragraph{Usage Constraints:}
+\begin{align*}
+  & \text{refine}_{i,m} \geq \text{min\_usage} \times \text{use}_{i,m}, \quad \forall i, m \\
+  & \sum_{i=1}^{I} \text{use}_{i,m} \leq 3, \quad \forall m
+\end{align*}
+
+\paragraph{Dependency Constraints:}
+\begin{align*}
+  & \text{use}_{i,m} \leq \text{use}_{j,m}, \quad \forall i, j \text{ where } \text{dependency}_{i,j} = 1, \forall m
+\end{align*}
+
+\subsection*{Non-negativity and Binary Constraints}
+\begin{align*}
+  & \text{buy}_{i,m}, \text{refine}_{i,m}, \text{storage}_{i,m} \geq 0, \quad \forall i, m \\
+  & \text{use}_{i,m} \in \{0,1\}, \quad \forall i, m
+\end{align*}
+
+\end{document}

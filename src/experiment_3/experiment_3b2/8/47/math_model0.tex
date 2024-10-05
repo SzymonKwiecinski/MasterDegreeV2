@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Police Officer Shifts}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item $S$: Set of shifts, indexed by $s = 1, 2, \ldots, S$.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $officers\_needed_s$: Number of police officers required for shift $s$.
+    \item $shift\_cost_s$: Cost for starting a shift at $s$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_s$: Number of officers starting at shift $s$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost of assigning officers:
+\[
+\text{Minimize} \quad \sum_{s=1}^{S} shift\_cost_s \cdot x_s
+\]
+
+\subsection*{Constraints}
+Ensure the required number of officers are on duty for each shift:
+\begin{align*}
+    x_s + x_{s-1} &\geq officers\_needed_s, \quad \text{for } s = 1,2,\ldots,S-1 \\
+    x_S + x_{1} &\geq officers\_needed_S \\
+    x_s &\geq 0 \quad \text{and integer, for all } s
+\end{align*}
+
+\subsection*{Explanation}
+\begin{itemize}
+    \item The first set of constraints ensures that at least the required number of officers are working for each shift. Each officer works for two consecutive shifts, meaning the number of officers on duty for shift $s$ includes those starting at shift $s$ and those who started at shift $s-1$.
+    \item The second constraint wraps around, ensuring coverage between shift $S$ and shift $1$.
+    \item The objective is to minimize the total cost associated with starting shifts.
+\end{itemize}
+
+\end{document}

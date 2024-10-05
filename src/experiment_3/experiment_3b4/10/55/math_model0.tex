@@ -1,0 +1,17 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\begin{align*}
+\text{Maximize } & \sum_{p=1}^{P} \left( \text{price}_p \cdot x_p - \sum_{m=2}^{M} \text{time}_{m,p} \cdot x_p \cdot \text{cost}_m \right) \\
+& - \left( \text{standard\_cost} \cdot y + \text{overtime\_cost} \cdot z \right) \\
+\text{subject to:} \\
+& \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \leq \text{available}_m, \quad m = 2, \ldots, M, \\
+& x_p \geq \text{min\_batches}_p, \quad p = 1, \ldots, P, \\
+& y + z = \sum_{p=1}^{P} \text{time}_{1,p} \cdot x_p, \\
+& 0 \leq y \leq \text{overtime\_hour}, \\
+& \sum_{p=1}^{P} \left( \text{price}_p \cdot x_p - \sum_{m=2}^{M} \text{time}_{m,p} \cdot x_p \cdot \text{cost}_m \right) \\
+& - \left( \text{standard\_cost} \cdot y + \text{overtime\_cost} \cdot z \right) \geq \text{min\_profit}.
+\end{align*}
+
+\end{document}

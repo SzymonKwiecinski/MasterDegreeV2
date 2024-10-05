@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model for Student Assignment Problem}
+
+\textbf{Objective:}
+
+Minimize the total distance:
+\[
+\text{minimize} \quad \sum_{n=1}^{N} \sum_{s=1}^{S} \sum_{g=1}^{G} d_{n,s} \cdot x_{n,s,g}
+\]
+
+\textbf{Subject to:}
+
+Capacity constraints for each school and grade:
+\[
+\sum_{n=1}^{N} x_{n,s,g} \leq \text{capacity}_{s,g}, \quad \forall s = 1, \ldots, S, \; \forall g = 1, \ldots, G
+\]
+
+Population constraints for each neighborhood and grade:
+\[
+\sum_{s=1}^{S} x_{n,s,g} = \text{population}_{n,g}, \quad \forall n = 1, \ldots, N, \; \forall g = 1, \ldots, G
+\]
+
+Non-negativity constraints:
+\[
+x_{n,s,g} \geq 0, \quad \forall n = 1, \ldots, N, \; \forall s = 1, \ldots, S, \; \forall g = 1, \ldots, G
+\]
+
+\end{document}

@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $P$: Number of different parts.
+    \item $M$: Number of different machines.
+    \item $time_{m,p}$: Hours required of machine $m$ to produce a batch of part $p$.
+    \item $cost_{m}$: Cost per hour of using machine $m$.
+    \item $available_{m}$: Available machine-hours for machine $m$ per month.
+    \item $price_{p}$: Selling price per batch of part $p$.
+    \item $min\_batches_{p}$: Minimum number of batches of part $p$ required to be produced each month.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $batches_{p}$: Number of batches of part $p$ to be produced (integer).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} \left( price_{p} \times batches_{p} \right) - \sum_{m=1}^{M} \left( cost_{m} \times \sum_{p=1}^{P} \left( time_{m,p} \times batches_{p} \right) \right)
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Machine availability constraint for each machine $m$:
+    \[
+    \sum_{p=1}^{P} \left( time_{m,p} \times batches_{p} \right) \leq available_{m}, \quad \forall m = 1, \ldots, M
+    \]
+    \item Minimum production constraint for each part $p$:
+    \[
+    batches_{p} \geq min\_batches_{p}, \quad \forall p = 1, \ldots, P
+    \]
+    \item Non-negativity and integer constraints:
+    \[
+    batches_{p} \geq 0, \quad batches_{p} \in \mathbb{Z}, \quad \forall p = 1, \ldots, P
+    \]
+\end{itemize}
+
+\end{document}

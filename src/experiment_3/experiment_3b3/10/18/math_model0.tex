@@ -1,0 +1,79 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Maximizing Profit in Oil Refining}
+
+\textbf{Indices:} \\
+\begin{itemize}
+    \item $i$: Index for the different types of oils (1,...,I)
+    \item $m$: Index for the months (0,...,M)
+\end{itemize}
+
+\textbf{Parameters:} \\
+\begin{itemize}
+    \item $price_{i,m}$: Buying price of oil $i$ in month $m$
+    \item $sell\_price$: Selling price of the final product per ton
+    \item $is\_vegetable_i$: Indicator for whether oil $i$ is vegetable (1) or non-vegetable (0)
+    \item $max\_veg$: Maximum tons of vegetable oils refined per month
+    \item $max\_veg$: Maximum tons of non-vegetable oils refined per month
+    \item $storage\_size$: Maximum storage capacity for each oil
+    \item $storage\_cost$: Cost of storing one ton of oil per month
+    \item $max\_hardness$: Maximum acceptable hardness of the final product
+    \item $min\_hardness$: Minimum acceptable hardness of the final product
+    \item $hardness_i$: Hardness of oil $i$
+    \item $init\_amount$: Initial amount of each oil in storage
+\end{itemize}
+
+\textbf{Decision Variables:} \\
+\begin{itemize}
+    \item $buyquantity_{i,m}$: Amount of oil $i$ bought in month $m$
+    \item $refine_{i,m}$: Amount of oil $i$ refined in month $m$
+    \item $storage_{i,m}$: Amount of oil $i$ stored at the end of month $m$
+\end{itemize}
+
+\textbf{Objective Function:}
+
+Maximize profit:
+\[
+\text{Maximize } Z = \sum_{m=1}^{M} \left( sell\_price \cdot \sum_{i=1}^{I} refine_{i,m} - \sum_{i=1}^{I} \left( price_{i,m} \cdot buyquantity_{i,m} + storage\_cost \cdot storage_{i,m} \right) \right)
+\]
+
+\textbf{Constraints:} 
+
+1. **Storage Change:**
+\[
+storage_{i,m} = storage_{i,m-1} + buyquantity_{i,m} - refine_{i,m} \quad \forall i, m
+\]
+
+2. **Initial Storage:**
+\[
+storage_{i,0} = init\_amount \quad \forall i
+\]
+
+3. **Final Storage:**
+\[
+storage_{i,M} = init\_amount \quad \forall i
+\]
+
+4. **Vegetable Refining Capacity:**
+\[
+\sum_{i \, | \, is\_vegetable_i=1} refine_{i,m} \leq max\_veg \quad \forall m
+\]
+
+5. **Non-Vegetable Refining Capacity:**
+\[
+\sum_{i \, | \, is\_vegetable_i=0} refine_{i,m} \leq max\_veg \quad \forall m
+\]
+
+6. **Storage Limit:**
+\[
+0 \leq storage_{i,m} \leq storage\_size \quad \forall i, m
+\]
+
+7. **Hardness Constraints:**
+\[
+min\_hardness \leq \frac{\sum_{i=1}^{I} hardness_{i} \cdot refine_{i,m}}{\sum_{i=1}^{I} refine_{i,m}} \leq max\_hardness
+\]
+
+\end{document}

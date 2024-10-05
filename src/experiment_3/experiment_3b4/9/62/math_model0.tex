@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\begin{document}
+
+\section*{MILP Formulation for Traveling Salesman Problem}
+
+\subsection*{Parameters}
+\begin{align*}
+    & \text{Let } N \text{ be the number of towns to visit.} \\
+    & \text{Let } \text{distance}_{i,j} \text{ be the distance between city } i \text{ and city } j. \\
+    & \text{Let } \text{start\_city} \text{ be the starting city for the journey.}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    x_{i,j} &= 
+    \begin{cases} 
+    1, & \text{if the traveler moves directly from city } i \text{ to city } j, \\
+    0, & \text{otherwise.}
+    \end{cases} \\
+    u_i &= \text{position of city } i \text{ in the tour.}
+\end{align*}
+
+\subsection*{Objective Function}
+\[
+\min \sum_{i=1}^{N} \sum_{j=1}^{N} \text{distance}_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    \sum_{j=1, j \neq i}^{N} x_{i,j} &= 1, \quad \forall i \in \{1, \ldots, N\} \quad \text{(each city is left exactly once)} \\
+    \sum_{i=1, i \neq j}^{N} x_{i,j} &= 1, \quad \forall j \in \{1, \ldots, N\} \quad \text{(each city is entered exactly once)} \\
+    u_i - u_j + N \cdot x_{i,j} &\leq N-1, \quad \forall i,j \in \{2, \ldots, N\}, i \neq j \quad \text{(subtour elimination)}
+\end{align}
+
+\subsection*{Additional Constraints}
+\begin{align*}
+    &u_1 = 1 \quad \text{(the start city has position 1)} \\
+    &x_{i,j} \in \{0,1\}, \quad \forall i, j \in \{1, \ldots, N\} \\
+    &u_i \in \{2, \ldots, N\}, \quad \forall i \in \{2, \ldots, N\}
+\end{align*}
+
+\end{document}

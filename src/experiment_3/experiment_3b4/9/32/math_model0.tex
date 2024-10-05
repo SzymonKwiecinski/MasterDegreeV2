@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+Let \( x_k \) be the quantity of product \( k \) to be produced, where \( k = 1, \ldots, K \).
+
+\subsection*{Objective Function}
+Maximize the profit:
+\[
+\max \sum_{k=1}^{K} \text{profit}_k \cdot x_k
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+\text{1. Production time constraints:} \\
+\sum_{k=1}^{K} \text{produce\_time}_{k,s} \cdot x_k & \leq \text{time}_s, & \forall s = 1, \ldots, S \\
+\text{2. Non-negativity constraints:} \\
+x_k & \geq 0, & \forall k = 1, \ldots, K
+\end{align*}
+
+\end{document}

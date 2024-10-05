@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model for Maximizing Profit}
+
+\subsection*{Decision Variables}
+Let \( x_p \) be the number of batches of part \( p \) produced, where \( p = 1, \ldots, P \).
+
+\subsection*{Objective Function}
+We aim to maximize the total profit, which is the total revenue minus the total costs. The total revenue from selling the parts is:
+
+\[
+\text{Total Revenue} = \sum_{p=1}^P (\text{price}_p \cdot x_p)
+\]
+
+The total cost for machine usage is:
+
+\[
+\text{Total Cost} = \sum_{m=1}^M \left( \text{cost}_m \cdot \sum_{p=1}^P \left( \text{time}_{m,p} \cdot x_p \right) \right)
+\]
+
+Thus, the objective function is:
+
+\[
+\text{Maximize} \quad Z = \sum_{p=1}^P (\text{price}_p \cdot x_p) - \sum_{m=1}^M \left( \text{cost}_m \cdot \sum_{p=1}^P \left( \text{time}_{m,p} \cdot x_p \right) \right)
+\]
+
+\subsection*{Constraints}
+1. Machine Time Constraints:
+   \[
+   \sum_{p=1}^P \left( \text{time}_{m,p} \cdot x_p \right) \leq \text{available}_m, \quad \forall m = 1, \ldots, M-2 
+   \]
+
+2. Combined Machine Availability for Machine \( M \) and \( M-1 \):
+   \[
+   \sum_{p=1}^P \left( \text{time}_{M,p} \cdot x_p \right) + \sum_{p=1}^P \left( \text{time}_{M-1,p} \cdot x_p \right) \leq \text{available}_M + \text{available}_{M-1}
+   \]
+
+3. Minimum Batch Production Constraints:
+   \[
+   x_p \geq \text{min\_batches}_p, \quad \forall p = 1, \ldots, P
+   \]
+
+4. Non-negativity Constraints:
+   \[
+   x_p \geq 0, \quad \forall p = 1, \ldots, P
+   \]
+
+\end{document}

@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Formulation for Currency Exchange}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Formulation}
+
+Let:
+\begin{itemize}
+    \item \( N \): Number of available currencies.
+    \item \( start_i \): Initial units of currency \( i \) for \( i = 1, \ldots, N \).
+    \item \( limit_i \): Maximum limit of currency \( i \) that can be exchanged for any day for \( i = 1, \ldots, N \).
+    \item \( rate_{i,j} \): Exchange rate from currency \( i \) to currency \( j \) for \( i, j = 1, \ldots, N \) (with \( rate_{i,j} > 0 \)).
+\end{itemize}
+
+\subsection*{Decision Variables}
+Define the decision variables:
+\[
+x_{i,j} \geq 0 
+\]
+where \( x_{i,j} \) represents the amount of currency \( i \) that is exchanged for currency \( j \).
+
+\subsection*{Objective Function}
+The objective is to maximize the total amount of currency \( N \) at the end of the day:
+\[
+\text{Maximize } Z = x_{N} + \sum_{j=1}^{N} x_{N,j}
+\]
+
+where \( x_{N} \) is the amount of currency \( N \) held at the end of the day, and \( x_{N,j} \) is the amount exchanged from currency \( N \) to currency \( j \).
+
+\subsection*{Constraints}
+1. **Exchange Limits**:
+   For each currency \( i \):
+   \[
+   \sum_{j=1}^{N} x_{i,j} \leq limit_i \quad \forall i = 1, \ldots, N
+   \]
+
+2. **Starting Amounts**:
+   At the end of the day, the amount of each currency \( i \) must be equal to the starting amount plus the transactions made:
+   \[
+   \text{Final amount of currency } i = start_i + \sum_{j \neq i} x_{i,j} - \sum_{k \neq i} x_{k,i} \quad \forall i = 1, \ldots, N
+   \]
+
+3. **Non-negativity**:
+   \[
+   x_{i,j} \geq 0 \quad \forall i, j
+   \]
+
+4. **Cycle Constraints**:
+   Given that for any cycle of currencies \( i_1, i_2, \ldots, i_k \):
+   \[
+   rate_{i_1,i_2}, rate_{i_2,i_3}, \ldots, rate_{i_k,i_1} \leq 1
+   \]
+
+\subsection*{Conclusion}
+This linear programming formulation provides a structured approach to maximize the final amount of currency \( N \) by strategically managing the available currencies under given constraints.
+
+\end{document}

@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+The problem can be modeled as a linear programming problem where we want to minimize the total cost of expanding electric capacity over the next \( T \) years while meeting demand and adhering to constraints on nuclear capacity.
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item Let \( x_t^{\text{coal}} \) be the coal capacity added in year \( t \).
+    \item Let \( x_t^{\text{nuke}} \) be the nuclear capacity added in year \( t \).
+\end{itemize}
+
+\textbf{Objective Function:}
+Minimize the total cost:
+\[ 
+\text{Minimize } Z = \sum_{t=1}^{T} \left( \text{coal\_cost} \cdot x_t^{\text{coal}} + \text{nuke\_cost} \cdot x_t^{\text{nuke}} \right)
+\]
+
+\textbf{Constraints:}
+\begin{itemize}
+    \item \text{Demand constraints:} For each year \( t \),
+    \[
+    \text{oil}_t + \sum_{j=\max(1, t-\text{coal\_life}+1)}^{t} x_j^{\text{coal}} + \sum_{j=\max(1, t-\text{nuke\_life}+1)}^{t} x_j^{\text{nuke}} \geq \text{demand}_t
+    \]
+
+    \item \text{Nuclear capacity constraints:} For each year \( t \),
+    \[
+    \sum_{j=\max(1, t-\text{nuke\_life}+1)}^{t} x_j^{\text{nuke}} \leq \frac{\text{max\_nuke}}{100} \cdot \left( \text{oil}_t + \sum_{j=\max(1, t-\text{coal\_life}+1)}^{t} x_j^{\text{coal}} + \sum_{j=\max(1, t-\text{nuke\_life}+1)}^{t} x_j^{\text{nuke}} \right)
+    \]
+
+    \item \text{Non-negativity constraints:}
+    \[
+    x_t^{\text{coal}} \geq 0, \quad x_t^{\text{nuke}} \geq 0 \quad \text{for all } t
+    \]
+\end{itemize}
+
+\end{document}

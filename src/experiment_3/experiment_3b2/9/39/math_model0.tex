@@ -1,0 +1,19 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+We can represent the problem as:
+
+\[
+\begin{align*}
+\text{Minimize} \quad & \sum_{i=1}^{M} x_i \\
+\text{Subject to:} \quad & \sum_{i=1}^{M} y_{i,n} \geq \text{num}_n, \quad \forall n = 1, \ldots, N \\
+& \sum_{j=0}^{\text{n\_working\_days}-1} y_{i,n+j} \leq \text{n\_working\_days} \cdot x_i, \quad \forall i, n \text{ such that } n+j \leq N \\
+& \sum_{j=\text{n\_working\_days}}^{\text{n\_working\_days}+\text{n\_resting\_days}-1} y_{i,n+j} = 0, \quad \forall i, n \text{ such that } n+j \leq N \\
+& x_i, y_{i,n} \in \{0, 1\}, \quad \forall i, n
+\end{align*}
+\]
+
+\end{document}

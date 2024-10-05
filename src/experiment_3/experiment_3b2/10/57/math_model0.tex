@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Sets and Indices}
+\begin{align*}
+    & t \in \{1, 2, \ldots, T\} \quad \text{(Time periods, i.e., months)}
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+    & \text{demand}_{t} \quad \text{Demand for containers in month } t \\
+    & \text{unload\_cost}_{t} \quad \text{Cost to unload a container in month } t \\
+    & \text{unload\_capacity}_{t} \quad \text{Maximum number of containers that can be unloaded in month } t \\
+    & \text{holding\_cost} \quad \text{Holding cost per container per month} \\
+    & \text{max\_container} \quad \text{Maximum containers that can be stored in the yard at the end of any month} \\
+    & \text{init\_container} \quad \text{Initial number of containers in the yard} \\
+    & \text{num\_cranes} \quad \text{Maximum number of cranes available for rent each month} \\
+    & \text{crane\_capacity} \quad \text{Number of containers a single crane can load onto ships} \\
+    & \text{crane\_cost} \quad \text{Rental cost per crane per month}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    & \text{amount}_{t} \quad \text{Number of containers to unload in month } t \\
+    & \text{crane}_{t} \quad \text{Number of cranes rented in month } t \\
+    & \text{store}_{t} \quad \text{Number of containers stored in the yard at the end of month } t
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\begin{align*}
+    \min \sum_{t=1}^{T} \left( \text{unload\_cost}_{t} \cdot \text{amount}_{t} + \text{holding\_cost} \cdot \text{store}_{t} + \text{crane\_cost} \cdot \text{crane}_{t} \right)
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+    & \text{amount}_{t} \leq \text{unload\_capacity}_{t}, \quad \forall t \\
+    & \text{store}_{1} = \text{init\_container} + \text{amount}_{1} - \text{demand}_{1} \\
+    & \text{store}_{t} = \text{store}_{t-1} + \text{amount}_{t} - \text{demand}_{t}, \quad \forall t = 2, \ldots, T \\
+    & \text{store}_{t} \leq \text{max\_container}, \quad \forall t \\
+    & \text{store}_{T} = 0 \quad \text{(Yard should be empty at end of last month)} \\
+    & \text{demand}_{t} \leq \text{crane}_{t} \cdot \text{crane\_capacity}, \quad \forall t \\
+    & \text{crane}_{t} \leq \text{num\_cranes}, \quad \forall t \\
+    & \text{amount}_{t}, \text{store}_{t} \geq 0, \quad \forall t \\
+    & \text{crane}_{t} \in \mathbb{Z}_+, \quad \forall t
+\end{align*}
+
+\end{document}

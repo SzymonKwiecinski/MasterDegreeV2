@@ -1,0 +1,18 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\textbf{Objective:}
+\begin{align*}
+\text{Minimize } & \sum_{k=1}^{K} \text{price}_k \cdot x_k
+\end{align*}
+
+\textbf{Subject to constraints:}
+\begin{align*}
+& \sum_{k=1}^{K} x_k = \text{alloy\_quant} \\
+& \sum_{k=1}^{K} \text{ratio}_{k,m} \cdot x_k = \text{target}_m \cdot \text{alloy\_quant}, \quad \forall m = 1, \ldots, M \\
+& x_k \geq 0, \quad \forall k = 1, \ldots, K
+\end{align*}
+
+\end{document}

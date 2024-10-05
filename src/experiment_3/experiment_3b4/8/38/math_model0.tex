@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+\begin{align*}
+\text{reg\_quant}_n &: \text{Regular production quantity in month } n \\
+\text{over\_quant}_n &: \text{Overtime production quantity in month } n \\
+\text{store}_n &: \text{Number of units stored at the end of month } n
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\min \sum_{n=1}^{N} \left( \text{cost\_regular} \times \text{reg\_quant}_n + \text{cost\_overtime} \times \text{over\_quant}_n + \text{store\_cost} \times \text{store}_n \right)
+\]
+
+\subsection*{Constraints}
+
+\begin{align*}
+\text{reg\_quant}_n + \text{over\_quant}_n + \text{store}_{n-1} - \text{store}_n &= \text{demand}_{n}, \quad \forall n = 1, \ldots, N \\
+\text{reg\_quant}_n &\leq \text{max\_regular\_amount}, \quad \forall n = 1, \ldots, N \\
+\text{reg\_quant}_n, \text{over\_quant}_n, \text{store}_n &\geq 0, \quad \forall n = 1, \ldots, N \\
+\text{store}_0 &= 0
+\end{align*}
+
+\end{document}

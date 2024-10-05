@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Objective Function}
+Maximize the total net income:
+\[
+\text{Net Income} = \sum_{i=1}^{P} \left[ ( \text{price}_i - \text{cost}_i - \text{investPercentage}_i \cdot \text{price}_i ) \cdot x_i \right] - \text{upgradeCost} \cdot u
+\]
+
+\subsection*{Constraints}
+1. Cash Constraint:
+\[
+\sum_{i=1}^{P} \text{cost}_i \cdot x_i \leq \text{cash} + \sum_{i=1}^{P} \text{investPercentage}_i \cdot \text{price}_i \cdot x_i
+\]
+
+2. Machine Capacity Constraint:
+\[
+\sum_{i=1}^{P} \text{hour}_i \cdot x_i \leq \text{availableHours} + \text{upgradeHours} \cdot u
+\]
+
+3. Binary Constraint for Upgrade Decision:
+\[
+u \in \{0, 1\}
+\]
+
+4. Non-negativity constraint for production:
+\[
+x_i \geq 0, \quad \forall i = 1, ..., P
+\]
+
+\end{document}

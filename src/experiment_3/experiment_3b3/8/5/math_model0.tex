@@ -1,0 +1,77 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Communication Network Optimization}
+
+\subsection*{Notation}
+\begin{itemize}
+    \item Let \( n \) be the number of nodes in the communication network.
+    \item Let \( A \) be the set of all links in the network, where a link is represented as an ordered pair \( (i, j) \).
+    \item Let \( U_{i,j} \) be the maximum capacity (in bits per second) of the link \( (i, j) \).
+    \item Let \( C_{i,j} \) be the cost per bit transmitted along the link \( (i, j) \).
+    \item Let \( B_{k,l} \) be the data generation rate (in bits per second) from node \( k \) to destination node \( l \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let \( x_{i,j} \) be the flow of data (in bits per second) transmitted along the link \( (i, j) \).
+
+\subsection*{Objective Function}
+We aim to minimize the total cost of transmission:
+\[
+\text{Minimize} \quad Z = \sum_{(i,j) \in A} C_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+1. **Flow Capacity Constraint**: The flow along each link cannot exceed its capacity:
+   \[
+   x_{i,j} \leq U_{i,j}, \quad \forall (i,j) \in A
+   \]
+
+2. **Flow Conservation Constraint**: For each node \( k \) (except for source and destination nodes), the flow in must equal the flow out:
+   \[
+   \sum_{j: (k,j) \in A} x_{k,j} - \sum_{i: (i,k) \in A} x_{i,k} = 0, \quad \forall k \text{ where } k \text{ is not a source or destination node}
+   \]
+
+3. **Supply Constraint**: The flow originating from a source node to its destination must equal the rate of data generation:
+   \[
+   \sum_{j: (k,j) \in A} x_{k,j} = B_{k,l}, \quad \forall k, l \text{ where } k \text{ is a source node}
+   \]
+
+4. **Demand Constraint**: The flow into a destination node must match the total data rate required to be delivered:
+   \[
+   \sum_{i: (i,l) \in A} x_{i,l} = \sum_{k} B_{k,l}, \quad \forall l \text{ where } l \text{ is a destination node}
+   \]
+
+5. **Non-negativity Constraint**: The flow on each link must be non-negative:
+   \[
+   x_{i,j} \geq 0, \quad \forall (i,j) \in A
+   \]
+
+\subsection*{Output Variables}
+\begin{itemize}
+    \item \( \text{total\_cost} \): The total cost of all the paths.
+    \item \( \text{path\_cost} \): The cost associated with each specific path.
+    \item \( \text{path\_flow} \): The flow going through each corresponding path.
+\end{itemize}
+
+\subsection*{Output Format}
+The output should be structured as follows:
+\begin{verbatim}
+{
+    "optimized_paths": {
+        "paths": [
+            {
+                "source": k,
+                "destination": l,
+                "route": [k, i_1, i_2, ..., l],
+                "path_flow": path_flow,
+                "path_cost": path_cost
+            },
+            for id in 1, ..., m 
+        ],
+    "total_cost": "total_cost"
+}
+\end{verbatim}
+
+\end{document}

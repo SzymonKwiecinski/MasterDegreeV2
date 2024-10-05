@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+
+\textbf{Mathematical Model for Minimum Employee Hiring Problem}
+
+\textbf{Input Parameters:}
+\begin{itemize}
+    \item \(num_n\): Required number of employees on day \(n\), for \(n = 1, 2, \ldots, N\).
+    \item \(n_{\text{working\_days}}\): Number of consecutive days an employee works.
+    \item \(n_{\text{resting\_days}}\): Number of consecutive days an employee rests.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \(x_i = 1\) if employee \(i\) is hired, 0 otherwise.
+    \item \(y_{n,i} = 1\) if employee \(i\) works on day \(n\), 0 otherwise.
+\end{itemize}
+
+\textbf{Objective Function:}
+
+\[
+\min \sum_{i=1}^{\infty} x_i
+\]
+
+\textbf{Constraints:}
+
+1. Daily Staffing Requirement:
+    \[
+    \sum_{i=1}^{\infty} y_{n,i} \geq num_n, \quad \text{for } n = 1, 2, \ldots, N
+    \]
+
+2. Employee Work Cycle:
+    \[
+    y_{n,i} + y_{n+1,i} + \ldots + y_{n+n_{\text{working\_days}}-1,i} = n_{\text{working\_days}} \cdot x_i, \quad \forall i, \forall n
+    \]
+    \[
+    y_{n+n_{\text{working\_days}},i} + \ldots + y_{n+n_{\text{working\_days}}+n_{\text{resting\_days}}-1,i} = 0, \quad \forall i, \forall n
+    \]
+
+3. Binary Constraints:
+    \[
+    x_i \in \{0, 1\} , \quad y_{n,i} \in \{0, 1\}, \quad \forall i, \forall n
+    \]
+
+\textbf{Solution Outputs:}
+- \(\text{total\_number} = \sum_{i=1}^{\infty} x_i\)
+- \(\text{is\_work} = \left\{y_{n,i}\right\}\)
+
+\end{document}

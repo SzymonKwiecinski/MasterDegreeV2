@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Linear Regression}
+
+Given a set of observed values of \( x \) and \( y \):
+
+\[
+y = [y_{1}, y_{2}, \ldots, y_{K}]
+\]
+\[
+x = [x_{1}, x_{2}, \ldots, x_{K}]
+\]
+
+We aim to fit the best straight line of the form:
+
+\[
+y = bx + a
+\]
+
+where \( b \) is the slope and \( a \) is the intercept. Our objective is to minimize the maximum deviation of all observed \( y \) values from the predicted values:
+
+\[
+\text{Minimize } D = \max_{k} |y_{k} - (bx_{k} + a)|
+\]
+
+To express this in a linear programming form, we introduce auxiliary variables \( d_k \) for each observed data point:
+
+\[
+d_{k} \geq y_{k} - (bx_{k} + a), \quad \forall k = 1, 2, \ldots, K
+\]
+\[
+d_{k} \geq -(y_{k} - (bx_{k} + a)), \quad \forall k = 1, 2, \ldots, K
+\]
+
+Thus, we can formulate the problem as follows:
+
+\[
+\text{Minimize } D
+\]
+
+subject to:
+
+\[
+d_{k} \geq (y_{k} - bx_{k} - a), \quad \forall k
+\]
+\[
+d_{k} \geq -(y_{k} - bx_{k} - a), \quad \forall k
+\]
+\[
+D \geq d_{k}, \quad \forall k
+\]
+
+The solution to this linear programming problem will yield the optimal values of \( a \) (intercept) and \( b \) (slope).
+
+\paragraph{Output:}
+\begin{itemize}
+    \item \textbf{intercept} represents the intercept of the fitted line: \( a \)
+    \item \textbf{slope} represents the slope of the fitted line: \( b \)
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Roll Cutting Problem}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item \( j \): Index for the different roll widths, \( j = 1, 2, \ldots, M \) 
+    \item \( i \): Index for the different cutting patterns, \( i = 1, 2, \ldots, N \)
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( L \): Width of the large roll (\textit{large\_roll\_width})
+    \item \( d_j \): Demand for rolls of width \( j \) (\textit{demand\_j})
+    \item \( p_{i,j} \): Number of rolls of width \( j \) produced by pattern \( i \) (\textit{pattern\_{i,j}})
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item \( x_i \): Number of times pattern \( i \) is used
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize} \quad Z = \sum_{i=1}^{N} x_i
+\]
+(The total number of large rolls used)
+
+\textbf{Constraints:}
+\[
+\sum_{i=1}^{N} p_{i,j} x_i \geq d_j, \quad \forall j \in \{1, 2, \ldots, M\}
+\]
+(The demand constraint for each roll width)
+
+\[
+x_i \geq 0, \quad \forall i \in \{1, 2, \ldots, N\}
+\]
+(The non-negativity constraint for the number of patterns used)
+
+\end{document}

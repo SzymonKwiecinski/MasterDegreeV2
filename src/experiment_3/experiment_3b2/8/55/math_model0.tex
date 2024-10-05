@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Sets and Indices}
+\begin{align*}
+    & M: \text{Set of machines, indexed by } m = 1, \ldots, M \\
+    & P: \text{Set of parts, indexed by } p = 1, \ldots, P 
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+    & \text{time\_required}_{m,p}: \text{Time (hours) required on machine } m \text{ to produce a batch of part } p \\
+    & \text{cost}_{m}: \text{Cost per hour for using machine } m \\
+    & \text{available}_{m}: \text{Maximum available hours per month for machine } m \\
+    & \text{price}_{p}: \text{Price at which a batch of part } p \text{ is sold} \\
+    & \text{min\_batches}_{p}: \text{Minimum batches of part } p \text{ required} \\
+    & \text{standard\_cost}: \text{Standard labor cost per hour for machine 1} \\
+    & \text{overtime\_cost}: \text{Overtime labor cost per hour for machine 1} \\
+    & \text{overtime\_hour}: \text{Overtime hour limit}\\
+    & \text{min\_profit}: \text{Minimum desired profit}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    & \text{batches}_{p}: \text{Number of batches of part } p \text{ to produce} 
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\begin{align*}
+    \text{Profit} = \sum_{p=1}^{P} \text{price}_{p} \times \text{batches}_{p} - \sum_{m=2}^{M} \left( \sum_{p=1}^{P} \text{time\_required}_{m,p} \times \text{batches}_{p} \times \text{cost}_{m} \right) \\
+    - \left( \min\left(\sum_{p=1}^{P} \text{time\_required}_{1,p} \times \text{batches}_{p}, \text{overtime\_hour}\right) \times \text{standard\_cost} \right. \\
+    \left. + \max\left(0, \sum_{p=1}^{P} \text{time\_required}_{1,p} \times \text{batches}_{p} - \text{overtime\_hour}\right) \times \text{overtime\_cost} \right)
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+    & \sum_{p=1}^{P} \text{time\_required}_{m,p} \times \text{batches}_{p} \leq \text{available}_{m}, \quad \forall m = 2, \ldots, M \\
+    & \text{batches}_{p} \geq \text{min\_batches}_{p}, \quad \forall p = 1, \ldots, P \\
+    & \sum_{p=1}^{P} \text{price}_{p} \times \text{batches}_{p} - \sum_{m=2}^{M} \left( \sum_{p=1}^{P} \text{time\_required}_{m,p} \times \text{batches}_{p} \times \text{cost}_{m} \right) \\
+    & \quad - \left( \min\left(\sum_{p=1}^{P} \text{time\_required}_{1,p} \times \text{batches}_{p}, \text{overtime\_hour}\right) \times \text{standard\_cost} \right. \\
+    & \quad \left. + \max\left(0, \sum_{p=1}^{P} \text{time\_required}_{1,p} \times \text{batches}_{p} - \text{overtime\_hour}\right) \times \text{overtime\_cost} \right) \geq \text{min\_profit} \\
+    & \text{batches}_{p} \geq 0, \quad \forall p = 1, \ldots, P
+\end{align*}
+
+\end{document}

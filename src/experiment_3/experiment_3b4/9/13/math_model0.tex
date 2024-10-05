@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\textbf{Problem Statement:}
+
+Given a set \( P = \{ x \in \mathbb{R}^N \,|\, a_i^T x \leq b_i, \, i = 1, \ldots, m \} \), we want to find the center \( y \) and the largest radius \( r \) of a ball, completely contained within \( P \).
+
+\textbf{Mathematical Formulation:}
+
+Let \( y \in \mathbb{R}^N \) be the center of the ball and \( r \) be its radius. The Chebychev center problem can be formulated as the following linear programming problem:
+
+- \textbf{Objective:} Maximize \( r \)
+
+- \textbf{Constraints:}
+  \[
+  a_i^T y + \lVert a_i \rVert r \leq b_i, \quad i = 1, \ldots, m
+  \]
+
+Here, \( \lVert a_i \rVert \) denotes the Euclidean norm of the vector \( a_i \).
+
+\textbf{Variables:} 
+- \( y \in \mathbb{R}^N \) (center of the Chebychev ball)
+- \( r \in \mathbb{R} \) (radius of the Chebychev ball)
+
+\textbf{Linear Program:}
+\begin{align*}
+\text{maximize} \quad & r \\
+\text{subject to} \quad & a_i^T y + \lVert a_i \rVert r \leq b_i, \quad i = 1, \ldots, m \\
+                        & y \in \mathbb{R}^N, \, r \in \mathbb{R}
+\end{align*}
+
+\end{document}

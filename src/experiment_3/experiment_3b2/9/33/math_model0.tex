@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Knapsack Problem Formulation}
+
+Given:
+\begin{itemize}
+    \item $K$: Total number of items.
+    \item $C$: Maximum capacity of the knapsack.
+    \item $\text{value}_k$: Value of item $k$, for $k = 1, \ldots, K$.
+    \item $\text{size}_k$: Size of item $k$, for $k = 1, \ldots, K$.
+\end{itemize}
+
+Define:
+\begin{itemize}
+    \item $x_k$: Binary variable, $x_k = 1$ if item $k$ is included in the knapsack, and $x_k = 0$ otherwise.
+\end{itemize}
+
+\textbf{Objective:}
+\[
+\text{Maximize} \quad \sum_{k=1}^{K} \text{value}_k \cdot x_k
+\]
+
+\textbf{Subject to:}
+\[
+\sum_{k=1}^{K} \text{size}_k \cdot x_k \leq C
+\]
+
+\[
+x_k \in \{0, 1\} \quad \text{for} \quad k = 1, \ldots, K
+\]
+
+\end{document}

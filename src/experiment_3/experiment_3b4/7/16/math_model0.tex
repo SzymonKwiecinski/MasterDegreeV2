@@ -1,0 +1,25 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Decision Variables:}
+
+Let \( x_l \) be the number of times process \( l \) is executed, for \( l = 1, \ldots, L \).
+
+\textbf{Objective Function:}
+
+Maximize the total revenue minus the cost of production:
+\[
+\text{Maximize } Z = \sum_{l=1}^{L} \left( \sum_{p=1}^{P} \text{output}_{l,p} \times \text{price}_p - \text{cost}_l \right) \times x_l
+\]
+
+\textbf{Subject to:}
+
+\begin{align*}
+& \sum_{l=1}^{L} \text{input}_{l,i} \times x_l \leq \text{allocated}_i, \quad \text{for } i = 1, \ldots, O \\
+& x_l \geq 0, \quad \text{for } l = 1, \ldots, L
+\end{align*}
+
+\end{document}

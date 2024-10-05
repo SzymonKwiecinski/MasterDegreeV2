@@ -1,0 +1,73 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Economic Production}
+\author{}
+\date{}
+\maketitle
+
+\section*{Variables}
+Let:
+\begin{itemize}
+    \item \( produce_{k, t} \): amount of units produced by industry \( k \) in year \( t \)
+    \item \( buildcapa_{k, t} \): amount of units used to build productive capacity for industry \( k \) in year \( t \)
+    \item \( stock_{k, t} \): amount of stock of industry \( k \) held in year \( t \)
+\end{itemize}
+
+\section*{Parameters}
+Let:
+\begin{itemize}
+    \item \( inputone_{k, j} \): input from industry \( j \) required by industry \( k \)
+    \item \( manpowerone_{k} \): units of manpower required by industry \( k \) for production
+    \item \( inputtwo_{k, j} \): input from industry \( j \) required by industry \( k \) to build productive capacity
+    \item \( manpowertwo_{k} \): units of manpower required by industry \( k \) to build productive capacity
+    \item \( stock_{k} \): initial stock of industry \( k \) at year 0
+    \item \( capacity_{k} \): initial productive capacity of industry \( k \)
+    \item \( demand_{k} \): consumption requirement of industry \( k \) in each year (except year 0)
+\end{itemize}
+
+\section*{Objective Function}
+Maximize total manpower requirement over five years:
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} \sum_{t=1}^{5} (manpowerone_{k} \cdot produce_{k, t} + manpowertwo_{k} \cdot buildcapa_{k, t})
+\]
+
+\section*{Constraints}
+1. Balance constraints for production and consumption:
+\[
+produce_{k, t} + stock_{k, t-1} = demand_{k} + stock_{k, t} \quad \forall k, \; t=1,2,3,4,5
+\]
+
+2. Capacity constraints:
+\[
+stock_{k, t} \leq capacity_{k} \quad \forall k, \; t=1,2,3,4,5
+\]
+
+3. Resource constraints for production:
+\[
+\sum_{j=1}^{K} inputone_{k, j} \cdot produce_{j, t} + stock_{k, t-1} \geq produce_{k, t} \quad \forall k, \; t=1,2,3,4,5
+\]
+
+4. Resource constraints for building capacity:
+\[
+\sum_{j=1}^{K} inputtwo_{k, j} \cdot buildcapa_{j, t} + stock_{k, t-1} \geq buildcapa_{k, t} \quad \forall k, \; t=1,2,3,4,5
+\]
+
+5. Initial conditions:
+\[
+stock_{k, 0} = stock_{k} \quad \forall k
+\]
+\[
+capacity_{k} = capacity_{k} + \sum_{t=1}^{4} buildcapa_{k, t} \quad \forall k
+\]
+
+\section*{Output Structure}
+The output format will be:
+\begin{itemize}
+    \item \( produce \): a matrix such that \( produce = [[produce_{k, t} \; for \; t=1,...,5] \; for \; k=1,...,K] \)
+    \item \( buildcapa \): a matrix such that \( buildcapa = [[buildcapa_{k, t} \; for \; t=1,...,5] \; for \; k=1,...,K] \)
+    \item \( stockhold \): a matrix such that \( stockhold = [[stock_{k, t} \; for \; t=1,...,5] \; for \; k=1,...,K] \)
+\end{itemize}
+
+\end{document}

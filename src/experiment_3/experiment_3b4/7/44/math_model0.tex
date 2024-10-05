@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item \( M \): Set of machines, indexed by \( m \).
+    \item \( P \): Set of parts, indexed by \( p \).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{time\_required}_{m,p} \): Time required on machine \( m \) to produce 100 units of part \( p \).
+    \item \( \text{cost}_{m} \): Cost per hour of using machine \( m \).
+    \item \( \text{available}_{m} \): Available hours per month for machine \( m \).
+    \item \( \text{price}_{p} \): Selling price per batch (100 units) of part \( p \).
+    \item \( \text{min\_batches}_{p} \): Minimum number of batches of part \( p \) required to fulfill a contract.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{batches}_{p} \): Number of batches of part \( p \) to produce.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize } \quad \sum_{p=1}^{P} \left( \text{price}_{p} \times \text{batches}_{p} \right) - \sum_{m=1}^{M} \left( \text{cost}_{m} \times \sum_{p=1}^{P} \text{time\_required}_{m,p} \times \text{batches}_{p} \right)
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Machine availability constraints:
+    \[
+    \sum_{p=1}^{P} \text{time\_required}_{m,p} \times \text{batches}_{p} \leq \text{available}_{m}, \quad \forall m = 1, \ldots, M
+    \]
+    \item Minimum production requirement for each part:
+    \[
+    \text{batches}_{p} \geq \text{min\_batches}_{p}, \quad \forall p = 1, \ldots, P
+    \]
+    \item Non-negativity constraints:
+    \[
+    \text{batches}_{p} \geq 0, \quad \forall p = 1, \ldots, P
+    \]
+\end{itemize}
+
+\end{document}

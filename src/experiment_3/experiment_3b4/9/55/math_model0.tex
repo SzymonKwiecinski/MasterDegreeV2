@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+\[
+\text{Maximize } \sum_{p=1}^{P} \text{price}_p \cdot x_p - \sum_{m=2}^{M} \text{cost}_m \cdot \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p - \text{Cost}_{\text{Machine 1}}
+\]
+
+\textbf{Subject to:}
+\[ 
+x_p \geq \text{min_batches}_p, \quad \forall p = 1, 2, \ldots, P 
+\]
+
+\[
+\sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \leq \text{available}_m, \quad \forall m = 2, 3, \ldots, M
+\]
+
+\[
+\sum_{p=1}^{P} \text{price}_p \cdot x_p - \sum_{m=2}^{M} \text{cost}_m \cdot \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p - \text{Cost}_{\text{Machine 1}} \geq \text{min_profit}
+\]
+
+\textbf{Cost for Machine 1:}
+\[
+\text{Cost}_{\text{Machine 1}} = 
+\begin{cases} 
+\sum_{p=1}^{P} \text{time}_{1,p} \cdot x_p \cdot \text{standard_cost}, & \text{if } \sum_{p=1}^{P} \text{time}_{1,p} \cdot x_p \leq \text{overtime_hour} \\
+\text{overtime_hour} \cdot \text{standard_cost} + \left( \sum_{p=1}^{P} \text{time}_{1,p} \cdot x_p - \text{overtime_hour} \right) \cdot \text{overtime_cost}, & \text{if } \sum_{p=1}^{P} \text{time}_{1,p} \cdot x_p > \text{overtime_hour}
+\end{cases}
+\]
+
+\end{document}

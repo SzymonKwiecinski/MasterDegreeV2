@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Formulation for Project Assignment Problem}
+
+\subsection*{Sets and Indices}
+\begin{align*}
+I & : \text{Set of projects, indexed by } i = 1, \ldots, I \\
+J & : \text{Set of consultants, indexed by } j = 1, \ldots, J
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+f_j & : \text{Fixed cost of hiring consultant } j, \quad \forall j \in J \\
+c_{i,j} & : \text{Additional cost of assigning project } i \text{ to consultant } j, \quad \forall i \in I, j \in J \\
+K & : \text{Maximum number of projects a consultant can be assigned}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+x_{i,j} & = 
+\begin{cases} 
+1 & \text{if project } i \text{ is assigned to consultant } j \\ 
+0 & \text{otherwise} 
+\end{cases} \\
+y_j & = 
+\begin{cases} 
+1 & \text{if consultant } j \text{ is hired} \\ 
+0 & \text{otherwise}
+\end{cases}
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize } Z = \sum_{j=1}^{J} f_j y_j + \sum_{i=1}^{I} \sum_{j=1}^{J} c_{i,j} x_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{align}
+& \sum_{j=1}^{J} x_{i,j} = 1, \quad \forall i \in I & \text{(Each project is assigned to exactly one consultant)} \\
+& \sum_{i=1}^{I} x_{i,j} \leq K y_j, \quad \forall j \in J & \text{(A consultant can handle up to } K \text{ projects)} \\
+& x_{i,j} \leq y_j, \quad \forall i \in I, j \in J & \text{(If project } i \text{ is assigned, consultant } j \text{ must be hired)} \\
+& x_{i,j} \in \{0, 1\}, \quad \forall i \in I, j \in J & \\
+& y_j \in \{0, 1\}, \quad \forall j \in J &
+\end{align}
+
+\end{document}

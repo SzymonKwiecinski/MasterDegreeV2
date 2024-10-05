@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{MILP Model for Daily Profit Maximization}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    x_i & : \text{Number of units produced of product type } i, \, \forall i \in \{1, \ldots, N\} \\
+    o & : \text{Number of hours of overtime assembly labor scheduled}
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+    \text{assemblyHour}_i & : \text{Assembly hours required for product type } i, \, \forall i \in \{1, \ldots, N\} \\
+    \text{testingHour}_i & : \text{Testing hours required for product type } i, \, \forall i \in \{1, \ldots, N\} \\
+    \text{materialCost}_i & : \text{Material cost for product type } i, \, \forall i \in \{1, \ldots, N\} \\
+    \text{price}_i & : \text{Selling price of product type } i, \, \forall i \in \{1, \ldots, N\} \\
+    \text{maxAssembly} & : \text{Maximum assembly hours available per day} \\
+    \text{maxTesting} & : \text{Maximum testing hours available per day} \\
+    \text{maxOvertimeAssembly} & : \text{Maximum overtime assembly hours available per day} \\
+    \text{overtimeAssemblyCost} & : \text{Cost per overtime assembly hour} \\
+    \text{materialDiscount} & : \text{Percentage discount on materials if threshold is met} \\
+    \text{discountThreshold} & : \text{Threshold for material cost to apply discount}
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the daily profit:
+\begin{align*}
+    \text{Profit} = \sum_{i=1}^{N} \left(\text{price}_i \cdot x_i \right) - \left( \sum_{i=1}^{N} \text{materialCost}_i \cdot x_i  \right) \times \left(1 - d\right) - \text{overtimeAssemblyCost} \times o 
+\end{align*}
+where
+\begin{align*}
+    d = 
+    \begin{cases} 
+      \frac{\text{materialDiscount}}{100}, & \text{if } \sum_{i=1}^{N} \text{materialCost}_i \cdot x_i > \text{discountThreshold} \\
+      0, & \text{otherwise}
+    \end{cases}
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+    & \sum_{i=1}^{N} \text{assemblyHour}_i \cdot x_i \leq \text{maxAssembly} + o \\
+    & \sum_{i=1}^{N} \text{testingHour}_i \cdot x_i \leq \text{maxTesting} \\
+    & o \leq \text{maxOvertimeAssembly} \\
+    & x_i \geq 0, \, x_i \in \mathbb{Z}, \, \forall i \in \{1, \ldots, N\} \\
+    & o \geq 0
+\end{align*}
+
+\end{document}

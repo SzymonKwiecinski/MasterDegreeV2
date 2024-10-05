@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Electricity Distribution}
+
+\textbf{Indices:} \\
+Let \( p \) denote the index for power plants, where \( p = 1, 2, \ldots, P \). \\
+Let \( c \) denote the index for cities, where \( c = 1, 2, \ldots, C \).
+
+\textbf{Parameters:} \\
+Let \( supply_{p} \) be the capacity of power plant \( p \) (in million kWh). \\
+Let \( demand_{c} \) be the peak demand of city \( c \) (in million kWh). \\
+Let \( transmission_{p,c} \) be the transmission cost of power plant \( p \) supplying city \( c \) (in \$ per million kWh).
+
+\textbf{Variables:} \\
+Let \( send_{p,c} \) be the amount of electricity (in million kWh) that power plant \( p \) sends to city \( c \).
+
+\textbf{Objective Function:} \\
+Minimize the total transmission cost:
+\[
+\text{Minimize } Z = \sum_{p=1}^{P} \sum_{c=1}^{C} transmission_{p,c} \cdot send_{p,c}
+\]
+
+\textbf{Constraints:} \\
+1. Demand constraints for each city:
+\[
+\sum_{p=1}^{P} send_{p,c} = demand_{c}, \quad \forall c = 1, 2, \ldots, C
+\]
+2. Supply constraints for each power plant:
+\[
+\sum_{c=1}^{C} send_{p,c} \leq supply_{p}, \quad \forall p = 1, 2, \ldots, P
+\]
+3. Non-negativity constraints:
+\[
+send_{p,c} \geq 0, \quad \forall p = 1, 2, \ldots, P, \quad \forall c = 1, 2, \ldots, C
+\]
+
+\textbf{Output Information:} \\
+The solution will provide:
+- \( send_{p,c} \): the amount of electricity power plant \( p \) sends to city \( c \) (in million kWh).
+- \( total\_cost \): the total transmission cost for the utility.
+
+\end{document}

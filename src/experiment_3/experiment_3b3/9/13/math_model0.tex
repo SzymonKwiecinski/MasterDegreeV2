@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Finding the Chebyshev Center}
+
+Consider the problem of finding a ball with center $\mathbf{y} \in \mathbb{R}^N$ and radius $r$ that is entirely contained within the set $\mathcal{P}$ defined by the constraints:
+
+\[
+\mathcal{P} = \left\{ \mathbf{x} \in \mathbb{R}^N \mid \mathbf{a}_i^T \mathbf{x} \leq b_i, \; i = 1, \ldots, m \right\}
+\]
+
+where $\mathbf{a}_i \in \mathbb{R}^N$ and $b_i \in \mathbb{R}$.
+
+The ball with center $\mathbf{y}$ and radius $r$ is defined as:
+
+\[
+B(\mathbf{y}, r) = \left\{ \mathbf{x} \in \mathbb{R}^N \mid \|\mathbf{x} - \mathbf{y}\|_2 \leq r \right\}
+\]
+
+To find the largest possible radius $r$ such that the ball $B(\mathbf{y}, r)$ is entirely contained in the set $\mathcal{P}$, we can formulate the following linear programming problem.
+
+\subsection*{Objective Function}
+Maximize the radius $r$:
+
+\[
+\text{Maximize } r
+\]
+
+\subsection*{Constraints}
+The ball must be contained within the set $\mathcal{P}$, which leads to the following constraints for all $i = 1,\ldots,m$:
+
+\[
+\mathbf{a}_i^T (\mathbf{y} + r \cdot \mathbf{u}) \leq b_i \quad \text{for all } \|\mathbf{u}\|_2 \leq 1
+\]
+
+This can be formulated using the fact that for any unit vector $\mathbf{u}$, we have $-\mathbf{u} \leq r$ and $\mathbf{u} \leq r$. Hence, we can reframe the constraints as:
+
+\[
+\mathbf{a}_i^T \mathbf{y} + r \cdot \mathbf{a}_i^T \mathbf{u} \leq b_i \quad \forall \mathbf{u} \text{ such that } \|\mathbf{u}\|_2 \leq 1
+\]
+
+This leads to the derived constraints:
+
+\[
+\mathbf{a}_i^T \mathbf{y} - r \|\mathbf{a}_i\|_2 \leq b_i
+\]
+and
+\[
+\mathbf{a}_i^T \mathbf{y} + r \|\mathbf{a}_i\|_2 \leq b_i
+\]
+
+Thus combining this for maximizing $r$, we get the final set of constraints.
+
+\subsection*{Summary}
+The complete linear programming formulation becomes:
+
+\begin{align*}
+\text{Maximize} & \quad r \\
+\text{Subject to} & \quad \mathbf{a}_i^T \mathbf{y} + r \|\mathbf{a}_i\|_2 \leq b_i, \; i = 1, \ldots, m \\
+& \quad \mathbf{a}_i^T \mathbf{y} - r \|\mathbf{a}_i\|_2 \leq b_i, \; i = 1, \ldots, m
+\end{align*}
+
+The solution to this linear programming problem will provide the center $\mathbf{y}$ of the optimal ball and the maximum radius $r$.
+
+\end{document}

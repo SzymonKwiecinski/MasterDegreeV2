@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model:}
+
+\begin{align*}
+\text{Minimize:} \quad & t \\
+\text{Subject to:} \quad & y_k - (bx_k + a) \leq t, \quad \forall k = 1, \dots, K, \\
+                        & -(y_k - (bx_k + a)) \leq t, \quad \forall k = 1, \dots, K.
+\end{align*}
+
+\textbf{Where:}
+\begin{align*}
+b & : \text{Slope of the best fit line} \\
+a & : \text{Intercept of the best fit line} \\
+t & : \text{Maximum absolute deviation, to be minimized}
+\end{align*}
+
+\end{document}
+{
+    "intercept": intercept_value,
+    "slope": slope_value
+}

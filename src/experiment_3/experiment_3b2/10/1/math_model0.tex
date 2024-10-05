@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+Let \( x_j \) be the amount of good \( j \) to be produced, for \( j = 1, \ldots, M \).
+
+\subsection*{Objective Function}
+Maximize the total revenue:
+\[
+Z = \sum_{j=1}^{M} \text{price}_j \times x_j
+\]
+
+\subsection*{Constraints}
+
+1. Raw material constraints for each \( i = 1, \ldots, N \):
+   \[
+   \sum_{j=1}^{M} \text{req}_{i,j} \times x_j \leq \text{available}_i
+   \]
+
+2. Non-negativity constraints:
+   \[
+   x_j \geq 0 \quad \forall \, j = 1, \ldots, M
+   \]
+
+\end{document}

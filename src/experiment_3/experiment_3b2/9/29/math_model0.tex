@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} Minimize the maximum deviation, \( z \).
+
+\textbf{Constraints:}
+For each \( k \) (where \( k = 1, \ldots, K \)):
+\begin{align*}
+y_k - (bx_k + a) &\leq z \\
+(bx_k + a) - y_k &\leq z
+\end{align*}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item \( a \): intercept of the fitted line
+    \item \( b \): slope of the fitted line
+    \item \( z \): maximum deviation to be minimized
+\end{itemize}
+
+The goal is to solve the linear programming problem with the objective:
+\[
+\min z
+\]
+
+subject to the above constraints for each pair \((x_k, y_k)\).
+
+\end{document}

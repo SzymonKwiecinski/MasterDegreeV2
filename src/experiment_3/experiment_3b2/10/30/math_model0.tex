@@ -1,0 +1,26 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+Objective:
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} z_k
+\]
+
+Subject to:
+\[
+z_k \geq y_k - (c \cdot x_k^2 + b \cdot x_k + a), \quad \forall k = 1, \ldots, K
+\]
+\[
+z_k \geq -(y_k - (c \cdot x_k^2 + b \cdot x_k + a)), \quad \forall k = 1, \ldots, K
+\]
+
+Variables:
+- \( c \): quadratic coefficient
+- \( b \): linear coefficient
+- \( a \): constant coefficient
+- \( z_k \geq 0 \): absolute deviation for each data point
+
+\end{document}

@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Custom Tees Ad Campaign}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+
+\[
+\min \sum_{a=1}^{A} \text{cost}_a \cdot x_a
+\]
+
+\subsection*{Constraints}
+
+1. Total clicks from the 18-25 age range:
+
+\[
+\sum_{a=1}^{A} \text{young\_click}_a \cdot x_a \geq \text{goal\_young}
+\]
+
+2. Total clicks from visitors older than 25:
+
+\[
+\sum_{a=1}^{A} \text{old\_click}_a \cdot x_a \geq \text{goal\_old}
+\]
+
+3. Total unique clicks from the 18-25 age range:
+
+\[
+\sum_{a=1}^{A} \text{unique\_click}_a \cdot \text{young\_click}_a \cdot x_a \geq \text{goal\_unique\_young}
+\]
+
+4. Total unique clicks from visitors older than 25:
+
+\[
+\sum_{a=1}^{A} \text{unique\_click}_a \cdot \text{old\_click}_a \cdot x_a \geq \text{goal\_unique\_old}
+\]
+
+5. Maximum allowable clicks for each ad type:
+
+\[
+0 \leq x_a \leq \text{max\_click}_a \quad \text{for each } a = 1, 2, \ldots, A
+\]
+
+\end{document}

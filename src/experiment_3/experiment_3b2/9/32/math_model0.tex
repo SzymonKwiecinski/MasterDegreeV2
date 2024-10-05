@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Decision Variables:}
+\[
+x_k \quad \text{for } k = 1, \ldots, K
+\]
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} \text{profit}_{k} \times x_k
+\]
+
+\textbf{Constraints:}
+\[
+\sum_{k=1}^{K} \text{produce\_time}_{k, s} \times x_k \leq \text{time}_{s} \quad \text{for each stage } s = 1, \ldots, S
+\]
+
+\textbf{Non-negativity Constraints:}
+\[
+x_k \geq 0 \quad \text{for each product } k = 1, \ldots, K
+\]
+
+\end{document}

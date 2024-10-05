@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item \( k \in \{1, 2, \ldots, K\} \) : Index for mines.
+    \item \( i \in \{1, 2, \ldots, I\} \) : Index for years.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{n\_mines} \): Number of mines (\(K\)).
+    \item \( \text{n\_maxwork} \): Maximum number of mines that can operate in any one year.
+    \item \( \text{royalty}_k \): Yearly royalties payable for mine \( k \).
+    \item \( \text{limit}_k \): Upper limit of ore extraction from mine \( k \).
+    \item \( \text{quality}_k \): Quality of ore from mine \( k \).
+    \item \( \text{requiredquality}_i \): Required quality of blended ore in year \( i \).
+    \item \( \text{price} \): Selling price per ton of final blended ore.
+    \item \( \text{discount} \): Annual discount rate.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{isoperated}_{k,i} \in \{0, 1\} \): Binary variable indicating whether mine \( k \) is operated in year \( i \).
+    \item \( \text{amount}_{k,i} \geq 0 \): Amount of ore produced by mine \( k \) in year \( i \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the discounted profit over all years:
+\[
+\max \sum_{i=1}^{I} \left( \frac{1}{(1 + \text{discount})^{i}} \left( \text{price} \times \sum_{k=1}^{K} \text{amount}_{k,i} - \sum_{k=1}^{K} \text{royalty}_k \times \text{isoperated}_{k,i} \right) \right)
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item \textbf{Quality Constraint:}
+    \[
+    \sum_{k=1}^{K} \text{amount}_{k,i} \times \text{quality}_k = \text{requiredquality}_i \times \sum_{k=1}^{K} \text{amount}_{k,i}, \quad \forall i
+    \]
+
+    \item \textbf{Capacity Constraint:}
+    \[
+    \text{amount}_{k,i} \leq \text{limit}_k \times \text{isoperated}_{k,i}, \quad \forall k, \forall i
+    \]
+
+    \item \textbf{Operational Constraint:}
+    \[
+    \sum_{k=1}^{K} \text{isoperated}_{k,i} \leq \text{n\_maxwork}, \quad \forall i
+    \]
+
+    \item \textbf{Non-negativity:}
+    \[
+    \text{amount}_{k,i} \geq 0, \quad \forall k, \forall i
+    \]
+
+    \item \textbf{Binary Constraint:}
+    \[
+    \text{isoperated}_{k,i} \in \{0, 1\}, \quad \forall k, \forall i
+    \]
+\end{itemize}
+
+\section*{Output}
+The solution will provide:
+\begin{itemize}
+    \item \(\text{isoperated}_{k,i}\) : Whether mine \( k \) is operated in year \( i \).
+    \item \(\text{amount}_{k,i}\) : Amount of ore produced by mine \( k \) in year \( i \).
+\end{itemize}
+
+\end{document}

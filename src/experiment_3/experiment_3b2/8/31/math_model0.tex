@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mixed Integer Programming Model}
+
+\subsection*{Parameters}
+\begin{align*}
+& \text{demand}_t \quad \text{for } t = 1,\ldots,T \\
+& \text{num}_k \quad \text{for } k = 1,\ldots,K \\
+& \text{minlevel}_k \quad \text{for } k = 1,\ldots,K \\
+& \text{maxlevel}_k \quad \text{for } k = 1,\ldots,K \\
+& \text{runcost}_k \quad \text{for } k = 1,\ldots,K \\
+& \text{extracost}_k \quad \text{for } k = 1,\ldots,K \\
+& \text{startcost}_k \quad \text{for } k = 1,\ldots,K
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+& x_{k,t} \quad \text{Number of generators of type } k \text{ that are on in period } t \\
+& y_{k,t} \quad \text{Binary variable indicating if any generator of type } k \text{ is started in period } t
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\begin{align*}
+\min \sum_{t=1}^{T} \sum_{k=1}^{K} \left( x_{k,t} \cdot \text{runcost}_k + (g_{k,t} - x_{k,t} \cdot \text{minlevel}_k) \cdot \text{extracost}_k + y_{k,t} \cdot \text{startcost}_k \right)
+\end{align*}
+
+\subsection*{Constraints}
+Demand constraint:
+\begin{align*}
+\sum_{k=1}^{K} x_{k,t} \cdot \text{minlevel}_k + \sum_{k=1}^{K} (g_{k,t} - x_{k,t} \cdot \text{minlevel}_k) \geq \text{demand}_t \quad \forall t
+\end{align*}
+
+Generation limits:
+\begin{align*}
+x_{k,t} \cdot \text{minlevel}_k \leq g_{k,t} \leq x_{k,t} \cdot \text{maxlevel}_k \quad \forall k, t
+\end{align*}
+
+Number of generators constraints: 
+\begin{align*}
+0 \leq x_{k,t} \leq \text{num}_k \quad \forall k, t
+\end{align*}
+
+Start-up constraints:
+\begin{align*}
+y_{k,t} \geq x_{k,t} - x_{k,t-1} \quad \forall k, t > 1
+\end{align*}
+
+\end{document}

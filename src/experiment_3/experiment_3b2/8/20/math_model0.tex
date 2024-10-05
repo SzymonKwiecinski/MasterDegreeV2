@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item $K$: Set of products, indexed by $k$.
+    \item $M$: Set of machines, indexed by $m$.
+    \item $I$: Set of months, indexed by $i$.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $num_{m}$: Number of machine $m$ available initially.
+    \item $profit_k$: Profit per unit of product $k$.
+    \item $time_{k, m}$: Production time required for product $k$ on machine $m$ (hours).
+    \item $maintain_{i, m}$: Number of machines $m$ down for maintenance in month $i$.
+    \item $limit_{k, i}$: Marketing limitation on product $k$ in month $i$.
+    \item $store\_price$: Storage cost per unit per month.
+    \item $keep\_quantity$: Required stock of each product at the end of the planning period.
+    \item $n\_workhours$: Number of work hours per day.
+    \item $D = 24$: Number of working days in a month.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    & sell_{k, i}: \text{Quantity of product } k \text{ sold in month } i. \\
+    & manufacture_{k, i}: \text{Quantity of product } k \text{ manufactured in month } i. \\
+    & storage_{k, i}: \text{Stock of product } k \text{ at the end of month } i.
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total profit over all months:
+\[
+\max \sum_{i=1}^{I} \sum_{k=1}^{K} \left( profit_k \times sell_{k, i} - store\_price \times storage_{k, i} \right)
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item \textbf{Machine Capacity Constraints:}
+    \[
+    \sum_{k=1}^{K} time_{k, m} \times manufacture_{k, i} \leq \left(num_{m} - maintain_{i, m}\right) \times n\_workhours \times D, \quad \forall m, i
+    \]
+    
+    \item \textbf{Market Limit Constraints:}
+    \[
+    sell_{k, i} \leq limit_{k, i}, \quad \forall k, i
+    \]
+    
+    \item \textbf{Manufacturing and Inventory Balance:}
+    \[
+    storage_{k, i} = storage_{k, i-1} + manufacture_{k, i} - sell_{k, i}, \quad \forall k, i > 1
+    \]
+    \[
+    storage_{k, 0} = 0, \quad \forall k
+    \]
+    
+    \item \textbf{End of Planning Period Stock Requirement:}
+    \[
+    storage_{k, I} = keep\_quantity, \quad \forall k
+    \]
+    
+    \item \textbf{Storage Capacity Constraints:}
+    \[
+    storage_{k, i} \leq 100, \quad \forall k, i
+    \]
+    
+    \item \textbf{Non-negativity:}
+    \[
+    sell_{k, i}, manufacture_{k, i}, storage_{k, i} \geq 0, \quad \forall k, i
+    \]
+\end{itemize}
+
+\end{document}

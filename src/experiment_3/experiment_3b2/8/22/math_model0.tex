@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Manpower Planning}
+
+Let \( K \) represent the number of skill categories and \( I \) represent the number of years for planning.
+
+\subsection*{Decision Variables:}
+
+\begin{align*}
+x_{k,i} & : \text{Number of manpower recruited in skill category } k \text{ in year } i. \\
+o_{k,i} & : \text{Number of overmanning manpower in skill category } k \text{ in year } i. \\
+s_{k,i} & : \text{Number of manpower on short-time working in skill category } k \text{ in year } i.
+\end{align*}
+
+\subsection*{Parameters:}
+
+\begin{align*}
+\text{requirement}_{k,i} & : \text{Manpower requirement for category } k \text{ in year } i. \\
+\text{strength}_k & : \text{Current strength of manpower for category } k. \\
+\text{lessonewaste}_k & : \text{Wastage rate of manpower } k \text{ with less than one year's service.} \\
+\text{moreonewaste}_k & : \text{Wastage rate of manpower } k \text{ with more than one year's service.} \\
+\text{recruit}_k & : \text{Maximum number of workers that can be recruited for } k \text{ each year.} \\
+\text{costredundancy}_k & : \text{Redundancy payment cost for manpower } k. \\
+\text{num\_overman} & : \text{Maximum number of overmanning allowed over the company.} \\
+\text{costoverman}_k & : \text{Cost per overmanning employee per year for manpower } k. \\
+\text{num\_shortwork} & : \text{Maximum short-time working allowed per category.} \\
+\text{costshort}_k & : \text{Cost per short-time employee per year for manpower } k.
+\end{align*}
+
+\subsection*{Objective:}
+
+Minimize the total redundancy payment over all categories and years:
+
+\[
+\min \sum_{k=1}^{K} \sum_{i=1}^{I} \text{costredundancy}_k \cdot \left( \text{strength}_k + x_{k,i} - \text{requirement}_{k,i} - o_{k,i} - 0.5 \cdot s_{k,i} \right)
+\]
+
+\subsection*{Constraints:}
+
+1. \textbf{Labour Balance:}
+   Ensure that the manpower meets the requirement considering recruitment, wastage, overmanning and short-time work:
+   \[
+   \text{strength}_k + x_{k,i} \cdot (1 - \text{lessonewaste}_k)^{i \leq 1} \cdot (1 - \text{moreonewaste}_k)^{i > 1} + o_{k,i} + 0.5 \cdot s_{k,i} \geq \text{requirement}_{k,i}, \quad \forall k, \forall i
+   \]
+
+2. \textbf{Recruitment Limits:}
+   \[
+   0 \leq x_{k,i} \leq \text{recruit}_k, \quad \forall k, \forall i
+   \]
+
+3. \textbf{Overmanning Limits:}
+   \[
+   \sum_{k=1}^{K} o_{k,i} \leq \text{num\_overman}, \quad \forall i
+   \]
+
+4. \textbf{Short-time Working Limits:}
+   \[
+   0 \leq s_{k,i} \leq \text{num\_shortwork}, \quad \forall k, \forall i
+   \]
+
+5. \textbf{Non-negativity:}
+   \[
+   x_{k,i}, o_{k,i}, s_{k,i} \geq 0, \quad \forall k, \forall i
+   \]
+
+\noindent
+This linear programming model aims to minimize redundancy by optimizing recruitment, overmanning, and short-time working while satisfying manpower requirements for each skill category over the planning horizon.
+
+\end{document}

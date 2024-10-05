@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\textbf{Objective:}
+
+Minimize the total transportation cost:
+\[
+Z = \sum_{i=1}^{I} \sum_{j=1}^{J} \frac{1}{2} \times \text{distance}_{i,j} \times \text{price} \times x_{i,j}
+\]
+
+\textbf{Subject to:}
+
+Supply constraints for each depot:
+\[
+\sum_{j=1}^{J} x_{i,j} \leq \text{numdepot}_i \quad \forall i \in \{1, \ldots, I\}
+\]
+
+Demand constraints for each port:
+\[
+\sum_{i=1}^{I} x_{i,j} = \text{numport}_j \quad \forall j \in \{1, \ldots, J\}
+\]
+
+Non-negativity constraints:
+\[
+x_{i,j} \geq 0 \quad \forall i \in \{1, \ldots, I\}, j \in \{1, \ldots, J\}
+\]
+
+\end{document}

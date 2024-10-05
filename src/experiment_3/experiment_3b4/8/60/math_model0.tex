@@ -1,0 +1,19 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+\[
+\text{Minimize} \quad \sum_{j=1}^{J} f_j y_j + \sum_{i=1}^{I} \sum_{j=1}^{J} c_{i,j} x_{i,j}
+\]
+
+\textbf{Subject to:}
+
+\begin{align}
+& \sum_{j=1}^{J} x_{i,j} = 1, && \forall i = 1, \ldots, I \\
+& \sum_{i=1}^{I} x_{i,j} \leq K y_j, && \forall j = 1, \ldots, J \\
+& x_{i,j} \leq y_j, && \forall i = 1, \ldots, I, \forall j = 1, \ldots, J \\
+& x_{i,j} \in \{0, 1\}, \quad y_j \in \{0, 1\} && \forall i = 1, \ldots, I, \forall j = 1, \ldots, J
+\end{align}
+
+\end{document}

@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Objective Function}
+\begin{align*}
+\text{Maximize } & \sum_{w=1}^{W} \left( \text{selling\_price} \cdot \text{demand}_{w} + \text{salvage\_value} \cdot \text{inventory}_W \right) \\
+& - \left( \sum_{w=1}^{W} \left( \text{regular\_cost} \cdot \text{regular\_used}_w + \text{overtime\_cost} \cdot \text{overtime\_used}_w + \text{material\_cost} \cdot (\text{regular\_basket}_w + \text{overtime\_basket}_w) + \text{holding\_cost} \cdot \text{inventory}_w \right) \right)
+\end{align*}
+
+\subsection*{Constraints}
+Demand constraints:
+\begin{align*}
+\text{regular\_basket}_w + \text{overtime\_basket}_w + \text{inventory}_{w-1} &= \text{demand}_{w} + \text{inventory}_w, \quad \forall w = 1, \ldots, W
+\end{align*}
+Where \(\text{inventory}_0 = 0\).
+
+Labor constraints:
+\begin{align*}
+\text{regular\_used}_w &\leq \text{regular\_labor}_w, \quad \forall w = 1, \ldots, W \\
+\text{overtime\_used}_w &\leq \text{overtime\_labor}_w, \quad \forall w = 1, \ldots, W
+\end{align*}
+
+Assembly constraints:
+\begin{align*}
+\text{regular\_basket}_w &= \frac{\text{regular\_used}_w}{\text{assembly\_time}}, \quad \forall w = 1, \ldots, W \\
+\text{overtime\_basket}_w &= \frac{\text{overtime\_used}_w}{\text{assembly\_time}}, \quad \forall w = 1, \ldots, W
+\end{align*}
+
+\end{document}

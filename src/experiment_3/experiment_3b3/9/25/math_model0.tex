@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Industry Production}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item \( produce_{k, t} \): the amount of units produced by industry \( k \) in year \( t \)
+    \item \( buildcapa_{k, t} \): the amount of units used to build productive capacity for industry \( k \) in year \( t \)
+    \item \( stock_{k, t} \): the amount of stock of industry \( k \) held at the end of year \( t \)
+\end{itemize}
+
+\subsection*{Inputs}
+Given:
+\begin{itemize}
+    \item \( inputone_{k, j} \): input from industry \( j \) required by industry \( k \)
+    \item \( manpowerone_{k} \): units of manpower required by industry \( k \)
+    \item \( inputtwo_{k, j} \): input from industry \( j \) required to build productive capacity for industry \( k \)
+    \item \( manpowertwo_{k} \): units of manpower required to build productive capacity for industry \( k \)
+    \item \( stock_{k} \): initial stock of industry \( k \) at year 0
+    \item \( capacity_{k} \): productive capacity of industry \( k \)
+    \item \( manpower\_limit \): total manpower capacity available per year
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total production in the last two years:
+\[
+\text{Maximize} \quad \sum_{k=1}^{K} (produce_{k, T-1} + produce_{k, T})
+\]
+
+\subsection*{Constraints}
+1. **Production Constraints:**
+\[
+produce_{k, t} \leq stock_{k, t-1} + \sum_{j=1}^{K} inputone_{k, j} \cdot produce_{j, t-1}, \quad \forall k, \forall t \geq 1
+\]
+2. **Manpower Constraints:**
+\[
+\sum_{k=1}^{K} manpowerone_{k} \cdot produce_{k, t} + \sum_{k=1}^{K} manpowertwo_{k} \cdot buildcapa_{k, t} \leq manpower\_limit, \quad \forall t
+\]
+3. **Capacity Building Constraints:**
+\[
+capacity_{k, t+2} \geq capacity_{k, t} + \sum_{j=1}^{K} inputtwo_{k, j} \cdot buildcapa_{j, t}, \quad \forall k, \forall t
+\]
+4. **Stock Balance Constraints:**
+\[
+stock_{k, t} = stock_{k, t-1} + produce_{k, t} - \sum_{j=1}^{K} buildcapa_{j, t} \cdot inputtwo_{j, k}, \quad \forall k, \forall t
+\]
+
+\subsection*{Initial Conditions}
+\[
+stock_{k, 0} = stock_{k}, \quad capacity_{k, 0} = capacity_{k}, \quad \forall k
+\]
+
+\subsection*{Output}
+The output will be:
+\[
+\{ 
+    produce: [[produce_{k, t} \text{ for } t=1,\ldots,T] \text{ for } k=1,\ldots,K], 
+    buildcapa: [[buildcapa_{k, t} \text{ for } t=1,\ldots,T] \text{ for } k=1,\ldots,K], 
+    stockhold: [[stock_{k, t} \text{ for } t=1,\ldots,T] \text{ for } k=1,\ldots,K] 
+\}
+\]
+
+\end{document}

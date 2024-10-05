@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Sets and Indices}
+\begin{align*}
+& \text{Let } K \text{ be the number of mines (indexed by } k = 1, 2, \ldots, n\_mines\text{)} \\
+& \text{Let } I \text{ be the number of years (indexed by } i = 1, 2, \ldots, I\text{)}
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+& \text{royalty}_{k} \text{: Yearly royalty for mine } k \\
+& \text{limit}_{k} \text{: Maximum ore extractable from mine } k \text{ in any year} \\
+& \text{quality}_{k} \text{: Quality of ore from mine } k \\
+& \text{requiredquality}_{i} \text{: Required quality of the blended ore in year } i \\
+& \text{price} \text{: Selling price per ton of blended ore} \\
+& \text{discount} \text{: Discount rate per annum} \\
+& n\_maxwork \text{: Maximum number of mines that can be operated each year}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+& \text{isoperated}_{k,i} \in \{0, 1\} \text{: Binary variable indicating if mine } k \text{ is operated in year } i \\
+& \text{amount}_{k,i} \geq 0 \text{: Continuous variable indicating the amount of ore extracted from mine } k \text{ in year } i
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the discounted profit over the years:
+\begin{align*}
+\max \sum_{i=1}^{I} \frac{1}{(1 + \text{discount})^i} \left[ \text{price} \cdot \sum_{k=1}^{K} \text{amount}_{k,i} - \sum_{k=1}^{K} \text{royalty}_{k} \cdot \text{isoperated}_{k,i} \right]
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+& \sum_{k=1}^{K} \text{amount}_{k,i} \cdot \text{quality}_{k} = \text{requiredquality}_{i} \cdot \sum_{k=1}^{K} \text{amount}_{k,i}, \quad \forall i = 1, \ldots, I \\
+& \sum_{k=1}^{K} \text{isoperated}_{k,i} \leq n\_maxwork, \quad \forall i = 1, \ldots, I \\
+& \text{amount}_{k,i} \leq \text{limit}_{k} \cdot \text{isoperated}_{k,i}, \quad \forall k = 1, \ldots, K, \forall i = 1, \ldots, I \\
+& \text{amount}_{k,i} \geq 0, \quad \forall k = 1, \ldots, K, \forall i = 1, \ldots, I \\
+& \text{isoperated}_{k,i} \in \{0, 1\}, \quad \forall k = 1, \ldots, K, \forall i = 1, \ldots, I 
+\end{align*}
+
+\end{document}

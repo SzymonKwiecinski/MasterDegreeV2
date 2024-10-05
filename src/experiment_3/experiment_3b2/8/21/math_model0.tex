@@ -1,0 +1,92 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Formulation for Manufacturing Optimization}
+
+\subsection*{Parameters:}
+
+\begin{itemize}
+    \item $M$: Number of machines.
+    \item $K$: Number of products.
+    \item $I$: Number of months.
+    \item $num_{m}$: Number of machine type $m$.
+    \item $profit_{k}$: Profit per unit of product $k$.
+    \item $time_{k,m}$: Production time required for product $k$ on machine $m$.
+    \item $down_{m}$: Number of months machine $m$ is down for maintenance.
+    \item $limit_{k,i}$: Maximum units of product $k$ allowed in month $i$.
+    \item $store\_price$: Cost to store one unit of product per month.
+    \item $keep\_quantity$: Quantity of products desired in stock at the end of planning period.
+    \item $n\_workhours$: Working hours per shift.
+\end{itemize}
+
+\subsection*{Decision Variables:}
+
+\begin{itemize}
+    \item $sell_{k,i}$: Units of product $k$ sold in month $i$.
+    \item $manufacture_{k,i}$: Units of product $k$ manufactured in month $i$.
+    \item $storage_{k,i}$: Units of product $k$ stored at the end of month $i$.
+    \item $maintain_{m,i}$: Number of machines of type $m$ under maintenance in month $i$.
+\end{itemize}
+
+\subsection*{Objective Function:}
+
+Maximize total profit:
+
+\[
+\text{Maximize } \sum_{i=1}^{I} \sum_{k=1}^{K} \left( profit_{k} \cdot sell_{k,i} - store\_price \cdot storage_{k,i} \right)
+\]
+
+\subsection*{Constraints:}
+
+\begin{itemize}
+    \item \textbf{Production constraints for each machine:}
+
+    \[
+    \sum_{k=1}^{K} time_{k,m} \cdot manufacture_{k,i} \leq \left(num_{m} - maintain_{m,i}\right) \cdot 2 \cdot n\_workhours \cdot 24, \quad \forall m, \forall i
+    \]
+
+    \item \textbf{Maintenance constraints:}
+
+    \[
+    \sum_{i=1}^{I} maintain_{m,i} = down_{m}, \quad \forall m
+    \]
+
+    \item \textbf{Marketing limits:}
+
+    \[
+    sell_{k,i} \leq limit_{k,i}, \quad \forall k, \forall i
+    \]
+
+    \item \textbf{Inventory balance:}
+
+    \[
+    storage_{k,i} = storage_{k,i-1} + manufacture_{k,i} - sell_{k,i}, \quad \forall k, \forall i > 1
+    \]
+    \[
+    storage_{k,0} = 0, \quad \forall k
+    \]
+
+    \item \textbf{Ending stock requirement:}
+
+    \[
+    storage_{k,I} \geq keep\_quantity, \quad \forall k
+    \]
+
+    \item \textbf{Storage capacity:}
+
+    \[
+    storage_{k,i} \leq 100, \quad \forall k, \forall i
+    \]
+
+    \item \textbf{Non-negativity and integrality constraints:}
+
+    \[
+    sell_{k,i}, manufacture_{k,i}, storage_{k,i} \geq 0, \quad \forall k, \forall i
+    \]
+    \[
+    maintain_{m,i} \in \mathbb{Z}_+, \quad \forall m, \forall i
+    \]
+\end{itemize}
+
+\end{document}

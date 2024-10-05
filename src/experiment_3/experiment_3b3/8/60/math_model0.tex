@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Consultant Assignment Problem}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item \( I \): Set of projects, indexed by \( i \) (where \( i = 1, 2, \ldots, I \))
+    \item \( J \): Set of consultants, indexed by \( j \) (where \( j = 1, 2, \ldots, J \))
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( f_j \): Fixed cost of hiring consultant \( j \) for \( j \in J \)
+    \item \( c_{i,j} \): Additional cost of assigning project \( i \) to consultant \( j \) for \( i \in I, j \in J \)
+    \item \( K \): Maximum number of projects that can be assigned to each consultant
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_{j} \): Binary variable that indicates whether consultant \( j \) is hired (1) or not (0) for \( j \in J \)
+    \item \( assignment_{j,i} \): Binary variable that indicates whether project \( i \) is assigned to consultant \( j \) (1) or not (0) for \( i \in I, j \in J \)
+\end{itemize}
+
+\subsection*{Objective Function}
+The objective is to minimize the total cost, which can be expressed as:
+\[
+\text{Minimize } Z = \sum_{j=1}^{J} f_j \cdot x_j + \sum_{i=1}^{I} \sum_{j=1}^{J} c_{i,j} \cdot assignment_{j,i}
+\]
+
+\subsection*{Constraints}
+\begin{enumerate}
+    \item Each project can be assigned to at most one consultant:
+    \[
+    \sum_{j=1}^{J} assignment_{j,i} \leq 1, \quad \forall i \in I
+    \]
+
+    \item A consultant can be assigned to a maximum of \( K \) projects:
+    \[
+    \sum_{i=1}^{I} assignment_{j,i} \leq K \cdot x_j, \quad \forall j \in J
+    \]
+
+    \item A project can only be assigned to a consultant if that consultant is hired:
+    \[
+    assignment_{j,i} \leq x_j, \quad \forall i \in I, \forall j \in J
+    \]
+
+    \item Binary constraints on the decision variables:
+    \[
+    x_j \in \{0, 1\}, \quad \forall j \in J
+    \]
+    \[
+    assignment_{j,i} \in \{0, 1\}, \quad \forall i \in I, \forall j \in J
+    \]
+\end{enumerate}
+
+\end{document}

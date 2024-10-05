@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+Given:
+\begin{itemize}
+    \item Observed values \( y_k \) for \( k = 1, \ldots, K \)
+    \item Predictor values \( x_k \) for \( k = 1, \ldots, K \)
+\end{itemize}
+
+Objective:
+\[
+\min \sum_{k=1}^{K} e_k
+\]
+
+Subject to:
+\begin{align*}
+    y_k - (bx_k + a) & \leq e_k, \quad \forall k = 1, \ldots, K \\
+    -(y_k - (bx_k + a)) & \leq e_k, \quad \forall k = 1, \ldots, K
+\end{align*}
+
+Where:
+\begin{itemize}
+    \item \( a \) is the intercept
+    \item \( b \) is the slope
+    \item \( e_k \) is the absolute deviation for each \( k \)
+\end{itemize}
+
+Output:
+\begin{itemize}
+    \item \texttt{intercept}: \texttt{a}
+    \item \texttt{slope}: \texttt{b}
+\end{itemize}
+
+\end{document}

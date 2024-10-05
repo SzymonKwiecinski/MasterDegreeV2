@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Parameters}
+\begin{align*}
+    & W: \text{Width of the large roll (large\_roll\_width)} \\
+    & M: \text{Number of different types of smaller rolls} \\
+    & N: \text{Number of different cutting patterns} \\
+    & \text{inch}_j: \text{Width of smaller rolls, } j = 1, \ldots, M \\
+    & \text{demand}_j: \text{Demand for smaller rolls of width } \text{inch}_j, j = 1, \ldots, M \\
+    & \text{pattern}_{i,j}: \text{Number of rolls of width } \text{inch}_j \text{ produced by pattern } i, i = 1, \ldots, N, j = 1, \ldots, M
+\end{align*}
+
+\textbf{Decision Variables}
+\begin{align*}
+    & x_i: \text{Number of large rolls cut using pattern } i, i = 1, \ldots, N \\
+\end{align*}
+
+\textbf{Objective Function}
+\begin{align*}
+    \min \sum_{i=1}^{N} x_i
+\end{align*}
+
+\textbf{Constraints}
+\begin{align*}
+    & \sum_{i=1}^{N} \text{pattern}_{i,j} \cdot x_i \geq \text{demand}_j, \quad j = 1, \ldots, M \quad & \text{(Meet the demand for each roll type)} \\
+    & x_i \geq 0 \quad \text{and integer}, \quad i = 1, \ldots, N \quad & \text{(Non-negativity and integrality)}
+\end{align*}
+
+\end{document}

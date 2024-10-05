@@ -1,0 +1,26 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+
+\textbf{Objective:}
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} \text{price}_{p} \cdot x_p - \sum_{m=1}^{M} \text{cost}_{m} \cdot \left( \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p + \delta_{m,1} \sum_{p=1}^{P} \text{setup\_time}_{p} \cdot y_p \right)
+\]
+
+\textbf{Subject to:}
+
+\begin{align*}
+& \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p + \delta_{m,1} \sum_{p=1}^{P} \text{setup\_time}_{p} \cdot y_p \leq \text{available}_{m}, & \forall m = 1, ..., M \\
+& y_p \in \{0, 1\}, & \forall p = 1, ..., P \\
+& x_p \geq 0, & \forall p = 1, ..., P \\
+& y_p = 0 \quad \text{or} \quad x_p \geq 0.01, & \forall p = 1, ..., P \\
+\end{align*}
+
+\textbf{Definitions:}
+- \( x_p \): Number of batches of part \( p \) to produce.
+- \( y_p \): Binary variable indicating if machine 1 setup is required for part \( p \).
+- \( \delta_{m,1} \): Indicator function, equal to 1 if \( m = 1 \), otherwise 0.
+
+\end{document}

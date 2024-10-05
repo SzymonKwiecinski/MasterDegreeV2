@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{MILP Model for Translator Selection}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $N$: Number of available translators.
+    \item $M$: Number of required languages.
+    \item $\text{cost}_i$: Cost of hiring translator $i$, for $i = 1, \ldots, N$.
+    \item $\text{languages}_i$: Set of languages that translator $i$ can translate into.
+    \item $\text{required\_languages}$: Set of languages that must be covered.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_i$: Binary variable that is 1 if translator $i$ is selected, 0 otherwise, for $i = 1, \ldots, N$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost of hiring translators:
+\[
+\text{Minimize} \quad \sum_{i=1}^{N} \text{cost}_i \cdot x_i
+\]
+
+\subsection*{Constraints}
+Ensure that all required languages are covered:
+\[
+\forall \text{language\_m} \in \text{required\_languages}, \quad \sum_{i=1}^{N} \left( \text{if language\_m} \in \text{languages}_i \right) \cdot x_i \geq 1
+\]
+
+\subsection*{Model Explanation}
+\begin{itemize}
+    \item \textbf{Objective:} The objective function calculates the total cost of hiring the selected translators. The goal is to minimize this cost.
+    \item \textbf{Constraint:} For each required language, at least one of the selected translators must be able to translate into that language. This is ensured by the constraint which guarantees that for each language, there exists at least one translator capable of translating it.
+\end{itemize}
+
+\end{document}

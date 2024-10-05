@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+
+\begin{document}
+
+\section*{MILP Formulation for Disk Usage Minimization Problem}
+
+\subsection*{Parameters:}
+
+\begin{itemize}
+    \item Let $C$ be the capacity of each floppy disk (in GB).
+    \item Let $N$ be the number of files.
+    \item Let $s_j$ be the size of file $j$ for $j = 1, \ldots, N$.
+\end{itemize}
+
+\subsection*{Decision Variables:}
+
+\begin{itemize}
+    \item $x_{ij} \in \{0, 1\}$: A binary variable that equals 1 if file $j$ is assigned to disk $i$, and 0 otherwise.
+    \item $y_i \in \{0, 1\}$: A binary variable that equals 1 if disk $i$ is used, and 0 otherwise.
+\end{itemize}
+
+\subsection*{Objective Function:}
+
+Minimize the number of disks used:
+\[
+\text{Minimize } \sum_{i=1}^{M} y_i
+\]
+where $M$ is the maximum number of disks that might be used, initially assumed to be equal to $N$.
+
+\subsection*{Constraints:}
+
+\begin{enumerate}
+    \item Each file must be on exactly one disk:
+    \[
+    \sum_{i=1}^{M} x_{ij} = 1, \quad \forall j = 1, \ldots, N
+    \]
+
+    \item The total size of files on each disk cannot exceed its capacity:
+    \[
+    \sum_{j=1}^{N} s_j \cdot x_{ij} \leq C \cdot y_i, \quad \forall i = 1, \ldots, M
+    \]
+
+    \item A disk is considered used if any file is assigned to it:
+    \[
+    x_{ij} \leq y_i, \quad \forall i = 1, \ldots, M, \; j = 1, \ldots, N
+    \]
+\end{enumerate}
+
+\section*{Solution Variables:}
+
+\begin{itemize}
+    \item $n\_disks$: The total number of disks used.
+    \item $whichdisk$: An array where the $j^{th}$ element indicates the disk to which file $j$ is assigned.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Transportation Problem Formulation}
+
+We define the following parameters and sets:
+
+\begin{itemize}
+    \item Let \( n \) be the number of cities.
+    \item Let \( k \) be the terminal city.
+    \item Let \( p \) be the port city.
+    \item Let \( l \) be the destination city.
+    \item Let \( A \) be the set of all routes.
+    \item Let \( C_{i,j} \) be the transportation cost per metric ton along route from city \( i \) to city \( j \).
+    \item Let \( supply_k \) be the total supply of soybeans at terminal \( k \).
+    \item Let \( demand_l \) be the total demand of soybeans at destination \( l \).
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item Let \( amount_{i,j} \) be the amount of soybeans shipped from city \( i \) to city \( j \).
+\end{itemize}
+
+\textbf{Objective Function:}
+We want to minimize the total transportation cost:
+\[
+\text{Minimize } Z = \sum_{(i,j) \in A} C_{i,j} \cdot amount_{i,j}
+\]
+
+\textbf{Subject to:}
+1. Supply constraints:
+\[
+\sum_{j \in \text{outgoing}(k)} amount_{k,j} \leq supply_k \quad \forall k
+\]
+2. Demand constraints:
+\[
+\sum_{i \in \text{incoming}(l)} amount_{i,l} \geq demand_l \quad \forall l
+\]
+3. Non-negativity constraints:
+\[
+amount_{i,j} \geq 0 \quad \forall (i,j) \in A
+\]
+
+\textbf{Output:}
+The expected output format is:
+\begin{verbatim}
+{
+    "distribution": [
+        {"from": i,
+         "to": j,
+         "amount": amount_{i,j}
+        }
+        for id in 1, ..., m
+    ],
+    "total_cost": total_cost
+}
+\end{verbatim}
+
+\end{document}

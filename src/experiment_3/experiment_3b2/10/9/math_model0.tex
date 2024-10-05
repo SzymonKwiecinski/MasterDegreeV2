@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Variables}
+\begin{align*}
+\text{power}_j & \text{ for } j = 1, 2, \ldots, M \\
+\text{err}_i & \text{ for } i = 1, 2, \ldots, N \\
+\text{ill}_i & \text{ for } i = 1, 2, \ldots, N
+\end{align*}
+
+\subsection*{Objective}
+Minimize the total absolute error:
+\[
+\min \sum_{i=1}^{N} \text{err}_i
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+\text{ill}_i & = \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j, \quad \text{for } i = 1, 2, \ldots, N \\
+\text{ill}_i - \text{desired}_i & \leq \text{err}_i, \quad \text{for } i = 1, 2, \ldots, N \\
+\text{desired}_i - \text{ill}_i & \leq \text{err}_i, \quad \text{for } i = 1, 2, \ldots, N \\
+\text{power}_j & \geq 0, \quad \text{for } j = 1, 2, \ldots, M \\
+\text{err}_i & \geq 0, \quad \text{for } i = 1, 2, \ldots, N
+\end{align*}
+
+\end{document}

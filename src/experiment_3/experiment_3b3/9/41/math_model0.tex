@@ -1,0 +1,77 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Mathematical Model for Floppy Disk Backup Problem}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+
+We are given a set of files with their sizes and a set of floppy disks with a fixed capacity. We want to allocate these files to the disks such that the number of disks used is minimized while respecting the capacity constraint of each disk.
+
+\section*{Variables}
+
+Let:
+\begin{itemize}
+    \item $n$ be the number of files.
+    \item $m$ be the number of disks.
+    \item $C$ be the capacity of each floppy disk (in GB).
+    \item $size_j$ be the size of file $j$ (for $j = 1, 2, \ldots, n$).
+    \item $x_{ij}$ be a binary variable such that:
+    \[
+    x_{ij} = 
+    \begin{cases} 
+    1 & \text{if file } j \text{ is placed on disk } i \\
+    0 & \text{otherwise}
+    \end{cases}
+    \]
+\end{itemize}
+
+\section*{Objective Function}
+
+Minimize the number of disks used:
+
+\[
+\text{Minimize } n_{disks} = \sum_{i=1}^{m} y_i
+\]
+
+Where:
+\[
+y_i = 
+\begin{cases} 
+1 & \text{if disk } i \text{ is used} \\
+0 & \text{otherwise}
+\end{cases}
+\]
+
+\section*{Constraints}
+
+1. Each file must be assigned to exactly one disk:
+
+\[
+\sum_{i=1}^{m} x_{ij} = 1 \quad \forall j = 1, 2, \ldots, n
+\]
+
+2. The total size of files on each disk cannot exceed its capacity:
+
+\[
+\sum_{j=1}^{n} size_j \cdot x_{ij} \leq C \cdot y_i \quad \forall i = 1, 2, \ldots, m
+\]
+
+3. Ensure that if a disk is used, it must contain at least one file:
+
+\[
+y_i \geq x_{ij} \quad \forall i = 1, 2, \ldots, m, \forall j = 1, 2, \ldots, n
+\]
+
+\section*{Output Variables}
+
+The output will consist of:
+\begin{itemize}
+    \item $n_{disks}$: Total number of floppy disks used.
+    \item $whichdisk$: An array where $whichdisk[j] = i$ indicates that file $j$ is placed on disk $i$.
+\end{itemize}
+
+\end{document}

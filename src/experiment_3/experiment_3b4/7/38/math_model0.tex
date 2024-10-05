@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Production Scheduling}
+
+\textbf{Objective:}
+
+\[
+\text{Minimize} \quad Z = \sum_{n=1}^{N} \left( cost\_regular \cdot reg\_quant_n + cost\_overtime \cdot over\_quant_n + store\_cost \cdot inv_n \right)
+\]
+
+\textbf{Subject to:}
+
+\begin{align*}
+& reg\_quant_n + over\_quant_n + inv_{n-1} = demand_n + inv_n, \quad \forall n = 1, \ldots, N \\
+& reg\_quant_n \leq max\_regular\_amount, \quad \forall n = 1, \ldots, N \\
+& reg\_quant_n \geq 0, \quad \forall n = 1, \ldots, N \\
+& over\_quant_n \geq 0, \quad \forall n = 1, \ldots, N \\
+& inv_n \geq 0, \quad \forall n = 1, \ldots, N \\
+& inv_0 = 0
+\end{align*}
+
+\end{document}

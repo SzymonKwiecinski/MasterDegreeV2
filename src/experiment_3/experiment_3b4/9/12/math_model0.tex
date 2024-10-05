@@ -1,0 +1,16 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\textbf{Linear Programming Formulation:}
+
+\begin{align*}
+    & \text{Maximize } Z = \sum_{i=1}^{N-1} x_{i,N} \cdot \text{rate}_{i,N} + \text{start}_N - \sum_{j=1}^{N-1} x_{N,j} \\
+    & \text{subject to} \\
+    & \sum_{j=1}^{N} x_{i,j} \leq \text{limit}_i, \quad \forall i = 1, \ldots, N \\
+    & \text{start}_i + \sum_{j=1}^{N} x_{j,i} \cdot \text{rate}_{j,i} = \sum_{j=1}^{N} x_{i,j} + \text{final}_i, \quad \forall i = 1, \ldots, N \\
+    & x_{i,j} \geq 0, \quad \forall i, j = 1, \ldots, N \\
+\end{align*}
+
+\end{document}

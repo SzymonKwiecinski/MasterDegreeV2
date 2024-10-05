@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model for Maximizing Profit}
+
+\textbf{Variables:}
+\begin{align*}
+& \text{Let } x_j \text{ be the amount of product } j \text{ produced, for } j = 1, \ldots, M. \\
+& \text{Let } total\_profit \text{ be the total profit for the month.}
+\end{align*}
+
+\textbf{Objective Function:}
+\begin{align*}
+\text{Maximize } total\_profit = \sum_{j=1}^{M} (price_j - cost_j) \cdot x_j
+\end{align*}
+
+\textbf{Subject to:}
+\begin{align*}
+& \text{Raw Material Constraints:} \\
+& \sum_{j=1}^{M} req_{i,j} \cdot x_j \leq available_i, \quad \forall i = 1, \ldots, N \\
+& \text{Demand Constraints:} \\
+& x_j \leq demand_j, \quad \forall j = 1, \ldots, M \\
+& \text{Non-negativity Constraints:} \\
+& x_j \geq 0, \quad \forall j = 1, \ldots, M 
+\end{align*}
+
+\end{document}

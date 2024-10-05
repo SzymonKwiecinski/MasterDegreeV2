@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Quadratic Curve Fitting Using Linear Programming}
+
+Given a set of data points \((x_k, y_k)\) for \( k = 1, 2, \ldots, K\), we aim to fit the quadratic curve \( y = c \cdot x^2 + b \cdot x + a \) by minimizing the sum of absolute deviations from the observed values.
+
+\subsection*{Variables}
+\begin{itemize}
+    \item \( a \): Constant coefficient.
+    \item \( b \): Linear coefficient.
+    \item \( c \): Quadratic coefficient.
+    \item \( d_k \): Absolute deviation for the \( k \)-th data point.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the sum of absolute deviations:
+\[
+\min \sum_{k=1}^{K} d_k
+\]
+
+\subsection*{Constraints}
+For each data point \( (x_k, y_k) \):
+\[
+d_k \geq y_k - (c \cdot x_k^2 + b \cdot x_k + a), \quad \text{for } k = 1, 2, \ldots, K
+\]
+\[
+d_k \geq -(y_k - (c \cdot x_k^2 + b \cdot x_k + a)), \quad \text{for } k = 1, 2, \ldots, K
+\]
+
+These constraints ensure that \( d_k \) is the absolute deviation between the observed value \( y_k \) and the predicted value given by the quadratic model.
+
+\subsection*{Solution}
+After formulating this linear programming problem, a suitable solver can be used to find the optimal values for \( a \), \( b \), and \( c \) such that the objective function is minimized.
+
+\end{document}

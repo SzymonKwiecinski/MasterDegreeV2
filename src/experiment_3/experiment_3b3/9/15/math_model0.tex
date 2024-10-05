@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item \( i \): Index for product type where \( i = 1, \ldots, N \)
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{assemblyHour}_i \): Hours of assembly labor required for product \( i \)
+    \item \( \text{testingHour}_i \): Hours of testing required for product \( i \)
+    \item \( \text{materialCost}_i \): Cost of raw materials for product \( i \) (in \$)
+    \item \( \text{maxAssembly} \): Maximum assembly hours available per day
+    \item \( \text{maxTesting} \): Maximum testing hours available per day
+    \item \( \text{price}_i \): Sale price of product \( i \) (in \$)
+    \item \( \text{maxOvertimeAssembly} \): Maximum hours of overtime assembly labor allowed
+    \item \( \text{overtimeAssemblyCost} \): Cost per hour of overtime assembly labor
+    \item \( \text{materialDiscount} \): Discount percentage on material cost
+    \item \( \text{discountThreshold} \): Minimum bill amount to qualify for material discount (in \$)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( x_i \): Number of units of product \( i \) produced
+    \item \( y \): Hours of overtime assembly labor scheduled
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{i=1}^{N} \text{price}_i \cdot x_i - \left( \sum_{i=1}^{N} \text{materialCost}_i \cdot x_i - d \right) - (y \cdot \text{overtimeAssemblyCost})
+\]
+where 
+\[
+d = 
+\begin{cases} 
+\text{materialDiscount} \cdot \sum_{i=1}^{N} \text{materialCost}_i \cdot x_i / 100 & \text{if } \sum_{i=1}^{N} \text{materialCost}_i \cdot x_i > \text{discountThreshold} \\
+0 & \text{otherwise}
+\end{cases}
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+\sum_{i=1}^{N} \text{assemblyHour}_i \cdot x_i & \leq \text{maxAssembly} + y \quad \text{(Assembly labor constraint)} \\
+\sum_{i=1}^{N} \text{testingHour}_i \cdot x_i & \leq \text{maxTesting} \quad \text{(Testing labor constraint)} \\
+y & \leq \text{maxOvertimeAssembly} \quad \text{(Overtime constraint)} \\
+x_i & \geq 0 \quad \text{(Non-negativity constraint for production)} \\
+y & \geq 0 \quad \text{(Non-negativity constraint for overtime)}
+\end{align*}
+
+\textbf{Output Variables:}
+\begin{itemize}
+    \item \( \text{dailyProfit} = Z \)
+    \item \( \text{unitsProduced}_i = x_i \)
+    \item \( \text{overtimeAssembly} = y \)
+    \item \( \text{materialBought} = \sum_{i=1}^{N} \text{materialCost}_i \cdot x_i \)
+\end{itemize}
+
+\end{document}

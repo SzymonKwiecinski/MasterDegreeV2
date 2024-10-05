@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+
+\begin{align*}
+\text{Maximize } & \sum_{m=1}^{M} \Bigg( \text{sell\_price} \sum_{i=1}^{I} y_{i,m} - \sum_{i=1}^{I} \text{buy\_price}_{i,m} x_{i,m} - \text{storage\_cost} \sum_{i=1}^{I} s_{i,m} \Bigg)
+\end{align*}
+
+Subject to:
+
+\begin{align*}
+& \text{Storage dynamics for each oil \( i \) and month \( m \):} \\
+& s_{i,m} = s_{i,m-1} + x_{i,m} - y_{i,m}, \quad \forall i, \forall m \\
+& \text{Initial storage: } s_{i,0} = \text{init\_amount}, \quad \forall i \\
+
+& \text{Storage capacity:} \\
+& 0 \leq s_{i,m} \leq \text{storage\_size}, \quad \forall i, \forall m \\
+
+& \text{Refining constraints:} \\
+& \sum_{i \in \text{Vegetable Oils}} y_{i,m} \leq \text{max\_vegetable\_refining\_per\_month}, \quad \forall m \\
+& \sum_{i \in \text{Non-Vegetable Oils}} y_{i,m} \leq \text{max\_non\_vegetable\_refining\_per\_month}, \quad \forall m \\
+
+& \text{Hardness constraint:} \\
+& \text{min\_hardness} \leq \frac{\sum_{i=1}^{I} \text{hardness}_{i} y_{i,m}}{\sum_{i=1}^{I} y_{i,m}} \leq \text{max\_hardness}, \quad \forall m \\
+& \sum_{i=1}^{I} y_{i,m} \geq \text{min\_usage} \sum_{i=1}^{I} z_{i,m}, \quad \forall m \\
+
+& \text{Oil usage constraint:} \\
+& z_{i,m} \leq 1, \quad \forall i, \forall m \\
+& y_{i,m} \leq \text{max\_refine} \cdot z_{i,m}, \quad \forall i, \forall m \\
+& z_{i,m} + z_{j,m} \geq \text{dependency}_{i,j} \cdot z_{i,m}, \quad \forall i, j, \forall m \\
+
+& \text{At most three oils may be used:} \\
+& \sum_{i=1}^{I} z_{i,m} \leq 3, \quad \forall m \\
+
+& \text{End of the last month storage:} \\
+& s_{i,M} = \text{init\_amount}, \quad \forall i \\
+\end{align*}
+
+\end{document}

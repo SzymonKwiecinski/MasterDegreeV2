@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Parameters:}
+\begin{align*}
+N &= \text{Number of systems} \\
+\text{is\_workstation}_i &= \text{True if system } i \text{ is a workstation, False otherwise} \\
+\text{price}_i &= \text{Price of system } i \\
+\text{disk\_drives}_i &= \text{Number of disk drives requested for system } i \\
+\text{256K\_boards}_i &= \text{Number of 256K memory boards used for system } i \\
+\text{max\_cpu} &= \text{Maximum number of CPUs available} \\
+\text{min\_disk}, \text{max\_disk} &= \text{Minimum and maximum number of disk drives available} \\
+\text{min\_mem}, \text{max\_mem} &= \text{Minimum and maximum number of 256K memory boards available} \\
+\text{demand}_i &= \text{Maximum demand for system } i \\
+\text{demand\_GP}, \text{demand\_WS} &= \text{Maximum demand for GP and WS families} \\
+\text{preorder}_i &= \text{Pre-orders for system } i \text{ that must be fulfilled} \\
+\text{alt\_mem} &= \text{Units of alternative memory boards available} \\
+\text{alt\_compatible}_i &= \text{True if system } i \text{ can use alternative memory boards, False otherwise}
+\end{align*}
+
+\textbf{Decision Variables:}
+\begin{align*}
+x_i &= \text{Number of systems } i \text{ produced} \\
+\text{alt\_used}_i &= \text{Number of alternative memory boards used for system } i
+\end{align*}
+
+\textbf{Objective:} Maximize profit
+\[
+\text{Profit} = \sum_{i=1}^{N} \text{price}_i \times x_i
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+\sum_{i=1}^{N} x_i &\leq \text{max\_cpu} && \text{(CPU constraint)} \\
+\sum_{i=1}^{N} \text{disk\_drives}_i \times x_i &\leq \text{max\_disk} && \text{(Max disk drives constraint)} \\
+\sum_{i=1}^{N} \text{disk\_drives}_i \times x_i &\geq \text{min\_disk} && \text{(Min disk drives constraint)} \\
+\sum_{i=1}^{N} \text{256K\_boards}_i \times x_i &\leq \text{max\_mem} && \text{(Max 256K memory boards constraint)} \\
+\sum_{i=1}^{N} \text{256K\_boards}_i \times x_i &\geq \text{min\_mem} && \text{(Min 256K memory boards constraint)} \\
+x_i &\leq \text{demand}_i && \forall i \text{(Demand constraint for each system)} \\
+\sum_{\text{is\_workstation}_i = \text{False}} x_i &\leq \text{demand\_GP} && \text{(Demand constraint for GP systems)} \\
+\sum_{\text{is\_workstation}_i = \text{True}} x_i &\leq \text{demand\_WS} && \text{(Demand constraint for WS systems)} \\
+x_i &\geq \text{preorder}_i && \forall i \text{(Pre-order fulfillment)} \\
+\text{alt\_used}_i &\leq x_i \times \text{alt\_compatible}_i \times \text{alt\_mem} && \forall i \text{(Alternative memory usage constraint)} \\
+\end{align*}
+\end{document}

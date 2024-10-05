@@ -1,0 +1,16 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Mixed-Integer Linear Programming Model:}
+
+\begin{align*}
+    \text{Minimize} \quad & \sum_{j=1}^{J} f_j \cdot y_j + \sum_{i=1}^{I} \sum_{j=1}^{J} c_{i,j} \cdot x_{j,i} \\
+    \text{subject to} \quad & \sum_{j=1}^{J} x_{j,i} = 1, \quad \forall i = 1, \ldots, I \\
+    & x_{j,i} \leq y_j, \quad \forall i = 1, \ldots, I, \quad \forall j = 1, \ldots, J \\
+    & \sum_{i=1}^{I} x_{j,i} \leq K \cdot y_j, \quad \forall j = 1, \ldots, J \\
+    & x_{j,i} \in \{0, 1\}, \quad \forall i = 1, \ldots, I, \quad \forall j = 1, \ldots, J \\
+    & y_j \in \{0, 1\}, \quad \forall j = 1, \ldots, J
+\end{align*}
+
+\end{document}

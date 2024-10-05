@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Electricity Capacity Expansion}
+
+\subsection*{Objective Function}
+\[
+\text{Minimize} \quad \sum_{t=1}^{T} (\text{coal\_cost} \times \text{coal\_cap\_added}_t + \text{nuke\_cost} \times \text{nuke\_cap\_added}_t)
+\]
+
+\subsection*{Constraints}
+
+\paragraph{Demand Satisfaction:}
+\[
+\text{oil\_cap}_t + \sum_{i=\max(1, t-\text{coal\_life}+1)}^{t} \text{coal\_cap\_added}_i + \sum_{i=\max(1, t-\text{nuke\_life}+1)}^{t} \text{nuke\_cap\_added}_i \geq \text{demand}_t, \quad \forall t
+\]
+
+\paragraph{Nuclear Capacity Limit:}
+\[
+\sum_{i=\max(1, t-\text{nuke\_life}+1)}^{t} \text{nuke\_cap\_added}_i \leq \frac{\text{max\_nuke}}{100} \left( \text{oil\_cap}_t + \sum_{i=\max(1, t-\text{coal\_life}+1)}^{t} \text{coal\_cap\_added}_i + \sum_{i=\max(1, t-\text{nuke\_life}+1)}^{t} \text{nuke\_cap\_added}_i \right), \quad \forall t
+\]
+
+\paragraph{Non-negativity:}
+\[
+\text{coal\_cap\_added}_t \geq 0, \quad \text{nuke\_cap\_added}_t \geq 0, \quad \forall t
+\]
+
+\end{document}

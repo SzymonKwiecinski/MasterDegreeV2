@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Auto Parts Manufacturer}
+\author{}
+\date{}
+\maketitle
+
+\section*{Variables}
+\begin{itemize}
+    \item Let \( b_p \) be the number of batches of part \( p \) produced each month, for \( p = 1, \dots, P \).
+    \item Let \( extra_m \) be the extra time purchased for machine \( m \), for \( m = 1, \dots, M \).
+\end{itemize}
+
+\section*{Parameters}
+\begin{itemize}
+    \item \( time_{m,p} \): time required (in hours) on machine \( m \) to produce a batch of part \( p \).
+    \item \( cost_{m} \): cost per hour for using machine \( m \).
+    \item \( available_{m} \): availability of machine \( m \) (in hours) per month.
+    \item \( price_{p} \): selling price of part \( p \) per batch.
+    \item \( min\_batches_{p} \): minimum batches of part \( p \) that must be produced each month.
+    \item \( extra\_cost_{m} \): cost per hour for extra time on machine \( m \).
+    \item \( max\_extra_{m} \): maximum extra hours that can be purchased for machine \( m \).
+\end{itemize}
+
+\section*{Objective Function}
+Maximize the total profit:
+\[
+\text{Total Profit} = \sum_{p=1}^{P} (price_{p} \cdot b_{p}) - \sum_{m=1}^{M} (cost_{m} \cdot (available_{m} + extra_{m})) - \sum_{m=1}^{M} (extra\_cost_{m} \cdot extra_{m})
+\]
+
+\section*{Constraints}
+1. Time constraints for each machine:
+\[
+\sum_{p=1}^{P} (time_{m,p} \cdot b_{p}) \leq available_{m} + extra_{m}, \quad \forall m = 1, \dots, M
+\]
+
+2. Minimum production requirements:
+\[
+b_{p} \geq min\_batches_{p}, \quad \forall p = 1, \dots, P
+\]
+
+3. Limit on extra time:
+\[
+0 \leq extra_{m} \leq max\_extra_{m}, \quad \forall m = 1, \dots, M
+\]
+
+4. Non-negativity constraints:
+\[
+b_{p} \geq 0, \quad \forall p = 1, \dots, P
+\]
+
+\section*{Output}
+The solution will provide:
+\begin{itemize}
+    \item \( batches \): the number of batches of each part produced \( [b_{p} \text{ for } p=1, \ldots, P] \)
+    \item \( extra\_time \): additional hours purchased for each machine \( [extra_{m} \text{ for } m=1, \ldots, M] \)
+    \item \( total\_profit \): total profit obtained for the month
+\end{itemize}
+
+\end{document}

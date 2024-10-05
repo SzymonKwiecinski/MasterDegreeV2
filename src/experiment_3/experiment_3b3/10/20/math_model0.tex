@@ -1,0 +1,65 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Maximizing Profit}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item Let \( M \) be the number of machines, \( K \) the number of products, and \( I \) the number of months.
+    \item \( num_{m} \): number of machines available for production.
+    \item \( profit_{k} \): profit from product \( k \).
+    \item \( time_{k, m} \): time required to produce product \( k \) on machine \( m \) (hours).
+    \item \( maintain_{i, m} \): number of machines \( m \) that will be down in month \( i \).
+    \item \( limit_{k, i} \): marketing limitation on product \( k \) in month \( i \).
+    \item \( store\_price \): cost of storing one unit of product per month.
+    \item \( keep\_quantity \): desired stock of each product at the end of each month.
+    \item \( n\_workhours \): number of working hours available in a month.
+    \item Assume a month has 24 days.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( sell_{k, i} \): quantity of product \( k \) sold in month \( i \).
+    \item \( manufacture_{k, i} \): quantity of product \( k \) manufactured in month \( i \).
+    \item \( storage_{k, i} \): quantity of product \( k \) stored at the end of month \( i \).
+\end{itemize}
+
+\textbf{Objective Function:}
+Maximize profit:
+\[
+\text{Max} \quad Z = \sum_{i=1}^{I} \sum_{k=1}^{K} (profit_{k} \cdot sell_{k, i} - store\_price \cdot storage_{k, i})
+\]
+
+\textbf{Subject to:}
+1. \textbf{Production time constraint:}
+\[
+\sum_{k=1}^{K} \sum_{m=1}^{M} time_{k, m} \cdot manufacture_{k, i} \leq n\_workhours \cdot (num_{m} - \sum_{m=1}^{M} maintain_{i, m}) \quad \forall i=1,\ldots,I
+\]
+
+2. \textbf{Sales limitation:}
+\[
+sell_{k, i} \leq limit_{k, i} \quad \forall k=1,\ldots,K, \forall i=1,\ldots,I
+\]
+
+3. \textbf{Storage constraint:}
+\[
+storage_{k, i} = storage_{k, i-1} + manufacture_{k, i} - sell_{k, i} \quad \forall k=1,\ldots,K, \forall i=1,\ldots,I
+\]
+
+4. \textbf{Storage capacity:}
+\[
+storage_{k, i} \leq 100 \quad \forall k=1,\ldots,K, \forall i=1,\ldots,I
+\]
+
+5. \textbf{Ending inventory requirement:}
+\[
+storage_{k, I} \geq keep\_quantity \quad \forall k=1,\ldots,K
+\]
+
+6. \textbf{Non-negativity constraints:}
+\[
+sell_{k, i} \geq 0, \quad manufacture_{k, i} \geq 0, \quad storage_{k, i} \geq 0 \quad \forall k=1,\ldots,K, \forall i=1,\ldots,I
+\]
+
+\end{document}

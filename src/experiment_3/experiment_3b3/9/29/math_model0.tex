@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Linear Regression}
+
+Given a set of observed values \( (x_k, y_k) \) for \( k = 1, 2, \ldots, K \), we want to fit the best straight line \( y = bx + a \) by minimizing the maximum deviation of the observed values \( y_k \) from the predicted values \( \hat{y}_k = bx_k + a \).
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item \( a \) be the intercept of the fitted line.
+    \item \( b \) be the slope of the fitted line.
+    \item \( d_k \) be the deviation for each observation \( k \), defined as \( d_k = y_k - (bx_k + a) \).
+\end{itemize}
+
+\subsection*{Objective Function}
+We want to minimize the maximum deviation:
+\[
+\text{Minimize } D
+\]
+subject to:
+\[
+d_k \leq D \quad \forall k
+\]
+\[
+-d_k \leq D \quad \forall k
+\]
+
+\subsection*{Constraints}
+The deviations are defined as:
+\[
+d_k = y_k - (bx_k + a) \quad \forall k
+\]
+
+This leads to the following set of linear constraints:
+\[
+y_k - bx_k - a \leq D \quad \forall k
+\]
+\[
+-bx_k - a + y_k \leq D \quad \forall k
+\]
+
+\subsection*{Final Model}
+The complete linear programming model can be summarized as follows:
+
+\begin{align*}
+\text{Minimize} \quad & D \\
+\text{subject to} \quad & y_k - bx_k - a \leq D, \quad \forall k \\
+& -bx_k - a + y_k \leq D, \quad \forall k \\
+& D \geq 0 \\
+& a \in \mathbb{R}, \quad b \in \mathbb{R}, \quad D \in \mathbb{R}
+\end{align*}
+
+\subsection*{Output}
+The output of this model will yield:
+\begin{itemize}
+    \item \( \text{intercept} = a \)
+    \item \( \text{slope} = b \)
+\end{itemize}
+
+\end{document}

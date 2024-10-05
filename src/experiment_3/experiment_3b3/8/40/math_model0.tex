@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Steel Production}
+
+\subsection*{Parameters}
+\begin{align*}
+n_{\text{steel quant}} & : \text{Total tons of steel required} \\
+mn_{\text{percent}} & : \text{Minimum percentage of manganese (Mn)} \\
+si_{\text{min}} & : \text{Minimum percentage of silicon (Si)} \\
+si_{\text{max}} & : \text{Maximum percentage of silicon (Si)} \\
+\text{contsi}_k & : \text{Percentage of Si in mineral } k \\
+\text{contmn}_k & : \text{Percentage of Mn in mineral } k \\
+mang_{\text{price}} & : \text{Price of Manganese (in million euros per ton)} \\
+\text{cost}_k & : \text{Cost of mineral } k \text{ (in million euros per ton)} \\
+sell_{\text{price}} & : \text{Selling price of steel (in million euros per ton)} \\
+melt_{\text{price}} & : \text{Cost of smelting a ton of mineral (in million euros)}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+\text{amount}_k & : \text{Amount of mineral } k \text{ to be melted} \\
+num_{\text{mang}} & : \text{Amount of Manganese to be added directly}
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize profit:
+\[
+Z = \left( sell_{\text{price}} - (mang_{\text{price}} \cdot num_{\text{mang}} + \sum_{k=1}^{K} \left( \text{cost}_k \cdot \text{amount}_k + melt_{\text{price}} \cdot \text{amount}_k \right)) \right) \cdot n_{\text{steel quant}}
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+\text{1. Si Content Constraint:} \\
+\sum_{k=1}^{K} (\text{contsi}_k \cdot \text{amount}_k) + 0 & \geq si_{\text{min}} \cdot n_{\text{steel quant}} \\
+\sum_{k=1}^{K} (\text{contsi}_k \cdot \text{amount}_k) + 0 & \leq si_{\text{max}} \cdot n_{\text{steel quant}} \\
+
+\text{2. Mn Content Constraint:} \\
+\sum_{k=1}^{K} (\text{contmn}_k \cdot \text{amount}_k) + num_{\text{mang}} & \geq mn_{\text{percent}} \cdot n_{\text{steel quant}} \\
+
+\text{3. Non-negativity Constraints:} \\
+\text{amount}_k & \geq 0, \quad \forall k = 1, \ldots, K \\
+num_{\text{mang}} & \geq 0 
+\end{align*}
+
+\end{document}

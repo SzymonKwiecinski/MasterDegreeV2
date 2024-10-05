@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Formulation of the Transportation Problem}
+
+\textbf{Decision Variables:}
+\[
+x_{i,j} \quad \text{for } \{(i,j) \in A\}
+\]
+
+\textbf{Objective Function:}
+Minimize the total transportation cost:
+\[
+\text{Minimize } Z = \sum_{(i,j) \in A} C_{i,j} \cdot x_{i,j}
+\]
+
+\textbf{Subject to:}
+
+\begin{itemize}
+    \item \text{Supply Constraints:}
+    \[
+    \sum_{j: (i,j) \in A} x_{i,j} \leq supply_{k}, \quad \forall k \text{ (terminal cities)}
+    \]
+    \item \text{Demand Constraints:}
+    \[
+    \sum_{i: (i,j) \in A} x_{i,j} \geq demand_{l}, \quad \forall l \text{ (destination cities)}
+    \]
+    \item \text{Non-negativity:}
+    \[
+    x_{i,j} \geq 0, \quad \forall (i,j) \in A
+    \]
+\end{itemize}
+
+\end{document}

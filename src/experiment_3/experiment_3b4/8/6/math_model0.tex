@@ -1,0 +1,18 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model:} 
+
+\begin{align*}
+\text{Minimize} \quad & \sum_{t=0}^{T-1} u_t \\
+\text{subject to} \quad & x_{t+1} = x_t + v_t, \quad t = 0, \ldots, T-1 \\
+& v_{t+1} = v_t + a_t, \quad t = 0, \ldots, T-1 \\
+& x_1 = x_0 + v_0 \\
+& v_1 = v_0 + a_0 \\
+& x_T = x_T \\
+& v_T = v_T \\
+& u_t \geq a_t, \quad u_t \geq -a_t, \quad t = 0, \ldots, T-1
+\end{align*}
+
+\end{document}

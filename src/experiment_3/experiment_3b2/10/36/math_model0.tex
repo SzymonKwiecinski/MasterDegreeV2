@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $alloy\_quant$: Desired total quantity of the new alloy (in lbs).
+    \item $target_m$: Target weight of metal $m$ in the new alloy.
+    \item $ratio_{k,m}$: Ratio of metal $m$ in alloy $k$.
+    \item $price_k$: Price per lb of alloy $k$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $amount_k$: Amount of alloy $k$ to be purchased (in lbs).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost of purchasing alloys:
+\[
+\text{Minimize } \sum_{k=1}^{K} price_k \cdot amount_k
+\]
+
+\subsection*{Constraints}
+Ensure the final alloy meets the target weight for each metal:
+\[
+\sum_{k=1}^{K} amount_k = alloy\_quant
+\]
+
+For each metal $m$:
+\[
+\sum_{k=1}^{K} ratio_{k,m} \cdot amount_k = target_m
+\]
+
+Non-negativity constraints:
+\[
+amount_k \geq 0 \quad \text{for all } k = 1, \ldots, K
+\]
+
+\end{document}

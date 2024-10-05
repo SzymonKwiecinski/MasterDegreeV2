@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\textbf{Objective:} Maximize the radius of the ball, \( r \).
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( y \in \mathbb{R}^N \): The center of the ball.
+    \item \( r \in \mathbb{R} \): The radius of the ball.
+\end{itemize}
+
+\textbf{Optimization Problem:}
+
+\begin{align*}
+    \max \quad & r \\
+    \text{subject to} \quad & a_i^T y + \| a_i \| r \leq b_i, \quad i = 1, \ldots, m \\
+    & r \geq 0
+\end{align*}
+
+where \( a_i \) are the rows of the matrix \( A \) and \( b_i \) are the elements of vector \( b \).
+
+\textbf{Explanation:}
+
+The constraints \( a_i^T y + \| a_i \| r \leq b_i \) ensure that the ball with center \( y \) and radius \( r \) does not violate any of the linear inequalities that define the polyhedral set \( P \). Here, \( \| a_i \| \) denotes the Euclidean norm of the vector \( a_i \).
+
+The variable \( r \) must be non-negative since it represents a radius.
+
+\end{document}

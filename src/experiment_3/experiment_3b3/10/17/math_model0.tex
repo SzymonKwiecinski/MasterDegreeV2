@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Stock Selling Decision}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $N$: Number of different stocks
+    \item $bought_i$: Shares of stock $i$ that were bought
+    \item $buyPrice_i$: Price per share of stock $i$ at the time of purchase
+    \item $currentPrice_i$: Current price per share of stock $i$
+    \item $futurePrice_i$: Expected price per share of stock $i$ in one year
+    \item $transactionRate$: Transaction cost rate (percentage) for selling shares
+    \item $taxRate$: Tax rate (percentage) on capital gains
+    \item $K$: The net amount of money the investor wants to raise
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $sell_i$: Number of shares of stock $i$ to sell
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+\text{Maximize:} & \quad \sum_{i=1}^{N} \left( futurePrice_i \cdot (bought_i - sell_i) \right) 
+\end{align*}
+
+\textbf{Constraints:}
+\begin{align*}
+\text{1. Capital Gains and Transaction Costs:} & \quad \sum_{i=1}^{N} \left( currentPrice_i \cdot sell_i \cdot (1 - \frac{transactionRate}{100}) - buyPrice_i \cdot sell_i \cdot (1 - \frac{taxRate}{100}) \right) \geq K \\
+\text{2. Non-Negativity:} & \quad sell_i \geq 0 \quad \forall i = 1, \ldots, N \\
+\text{3. Maximum Shares Constraint:} & \quad sell_i \leq bought_i \quad \forall i = 1, \ldots, N
+\end{align*}
+
+\textbf{Output:}
+\begin{itemize}
+    \item $sell$: Vector of shares $sell_i$ for $i = 1, \ldots, N$ indicating the number of shares to sell to meet the investor's goals.
+\end{itemize}
+
+\end{document}

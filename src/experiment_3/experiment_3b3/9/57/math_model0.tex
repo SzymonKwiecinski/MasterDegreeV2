@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Seaport Operations}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $T$: Total number of months
+    \item $demand_{t}$: Demand for containers by ships in month $t$, for $t = 1, \ldots, T$
+    \item $unload\_cost_{t}$: Cost to unload a container in month $t$, for $t = 1, \ldots, T$
+    \item $unload\_capacity_{t}$: Maximum containers that can be unloaded in month $t$, for $t = 1, \ldots, T$
+    \item $holding\_cost$: Cost to hold a container for one month
+    \item $max\_container$: Maximum number of containers that can be stored in the yard
+    \item $init\_container$: Initial number of containers in the yard at the start of month 1
+    \item $num\_cranes$: Maximum number of cranes that can be rented each month
+    \item $crane\_capacity$: Capacity of each crane to load containers
+    \item $crane\_cost$: Cost to rent one crane
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $amount_{t}$: Number of containers unloaded in month $t$, for $t = 1, \ldots, T$
+    \item $crane_{t}$: Number of cranes rented in month $t$, for $t = 1, \ldots, T$
+    \item $storage_{t}$: Number of containers held in the yard at the end of month $t$, for $t = 0, \ldots, T$
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{total\_cost} = \sum_{t=1}^{T} \left( unload\_cost_{t} \cdot amount_{t} + holding\_cost \cdot storage_{t} + crane\_cost \cdot crane_{t} \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+    & 1. \quad amount_{t} \leq unload\_capacity_{t} \quad \forall t \in \{1, \ldots, T\} \\
+    & 2. \quad amount_{t} + storage_{t-1} - storage_{t} = demand_{t} \quad \forall t \in \{1, \ldots, T\} \\
+    & 3. \quad storage_{t} \leq max\_container \quad \forall t \in \{1, \ldots, T\} \\
+    & 4. \quad storage_{0} = init\_container \\
+    & 5. \quad storage_{T} = 0 \\
+    & 6. \quad crane_{t} \cdot crane\_capacity \geq amount_{t} \quad \forall t \in \{1, \ldots, T\} \\
+    & 7. \quad crane_{t} \leq num\_cranes \quad \forall t \in \{1, \ldots, T\} \\
+    & 8. \quad amount_{t} \geq 0 \quad \forall t \in \{1, \ldots, T\} \\
+    & 9. \quad crane_{t} \geq 0 \quad \forall t \in \{1, \ldots, T\} \\
+    & 10. \quad storage_{t} \geq 0 \quad \forall t \in \{1, \ldots, T\}
+\end{align*}
+
+\end{document}

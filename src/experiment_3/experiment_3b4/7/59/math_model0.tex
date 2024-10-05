@@ -1,0 +1,43 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Translator Selection Problem}
+
+\subsection*{Decision Variables}
+Let \( x_i \) be a binary variable such that:
+\[
+x_i = 
+\begin{cases} 
+1, & \text{if translator } i \text{ is selected} \\
+0, & \text{otherwise}
+\end{cases}
+\]
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( N \) is the number of translators.
+    \item \( M \) is the number of required languages.
+    \item \( \text{cost}_i \) is the cost associated with translator \( i \).
+    \item \( \text{languages}_i \) is the set of languages that translator \( i \) can translate into.
+    \item \( \text{required\_languages} \) is the set of languages needed.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost of selected translators:
+\[
+\text{Minimize } \sum_{i=1}^{N} \text{cost}_i \times x_i
+\]
+
+\subsection*{Constraints}
+Each required language must be covered by at least one selected translator:
+\[
+\forall \ m \in \text{required\_languages}, \quad \sum_{i: m \in \text{languages}_i} x_i \geq 1
+\]
+
+The decision variables must be binary:
+\[
+x_i \in \{0, 1\}, \quad \forall i = 1, \dots, N
+\]
+
+\end{document}

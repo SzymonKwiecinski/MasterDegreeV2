@@ -1,0 +1,17 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize} \quad \sum_{i=1}^{T} \text{storage\_cost} \cdot I_i + \sum_{i=1}^{T-1} \text{switch\_cost} \cdot |x_{i+1} - x_i|
+\]
+
+\textbf{Subject to the Constraints:}
+\begin{align*}
+& I_{i-1} + x_i = \text{deliver}_i + I_i, & \forall i = 1, \ldots, T \\
+& x_i \geq 0, \, I_i \geq 0, & \forall i = 1, \ldots, T \\
+& I_0 = 0
+\end{align*}
+
+\end{document}

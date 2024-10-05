@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Seaport Container Management Model}
+
+\subsection*{Decision Variables}
+\begin{align*}
+x_t &\quad \text{Number of containers unloaded in month } t, \\
+y_t &\quad \text{Number of cranes rented in month } t, \\
+s_t &\quad \text{Inventory of containers in the yard at the end of month } t.
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+demand_t &\quad \text{Demand for containers by ships in month } t, \\
+unload\_cost_t &\quad \text{Cost to unload a container in month } t, \\
+unload\_capacity_t &\quad \text{Maximum unloading capacity in month } t, \\
+holding\_cost &\quad \text{Cost to hold a container per month}, \\
+max\_container &\quad \text{Maximum storage capacity of the yard}, \\
+init\_container &\quad \text{Initial number of containers in the yard}, \\
+num\_cranes &\quad \text{Maximum number of cranes available}, \\
+crane\_capacity &\quad \text{Loading capacity of each crane}, \\
+crane\_cost &\quad \text{Rental cost per crane}.
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Total Cost} = \sum_{t=1}^{T} \left( unload\_cost_t \cdot x_t + holding\_cost \cdot s_t + crane\_cost \cdot y_t \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+x_t &\leq unload\_capacity_t, & \forall t, \\
+s_1 &= init\_container + x_1 - demand_1, \\
+s_t &= s_{t-1} + x_t - demand_t, & \forall t \geq 2, \\
+s_t &\leq max\_container, & \forall t, \\
+y_t \cdot crane\_capacity &\geq demand_t, & \forall t, \\
+y_t &\leq num\_cranes, & \forall t, \\
+s_T &= 0, \\
+x_t &\geq 0, & \forall t, \\
+y_t &\in \mathbb{Z}_{\geq 0}, & \forall t, \\
+s_t &\geq 0, & \forall t.
+\end{align*}
+
+\subsection*{Description}
+This model aims to minimize the total cost of unloading, holding in the yard, and crane rentals over the planning horizon of $T$ months. The constraints ensure that:
+- Unloading per month does not exceed the capacity.
+- Inventory balance is maintained across months.
+- The yard does not exceed its storage capacity.
+- Crane rentals are sufficient to meet the loading demands.
+- The yard is empty by the end of the planning horizon.
+- Variables are non-negative, and crane rentals are integer.
+
+\end{document}

@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\textbf{Objective:} Minimize 
+
+\[
+\sum_{n=1}^{N} \left( \text{cost\_regular} \cdot x_n + \text{cost\_overtime} \cdot y_n + \text{store\_cost} \cdot s_n \right)
+\]
+
+\textbf{Subject to:}
+
+\[
+x_n + y_n + s_{n-1} = \text{demand}[n] + s_n \quad \text{for } n = 1, \ldots, N
+\]
+
+\[
+x_n \leq \text{max\_regular\_amount} \quad \text{for } n = 1, \ldots, N
+\]
+
+\[
+x_n \geq 0, \quad y_n \geq 0, \quad s_n \geq 0 \quad \text{for } n = 1, \ldots, N
+\]
+
+Note: \( s_0 = 0 \).
+
+\end{document}

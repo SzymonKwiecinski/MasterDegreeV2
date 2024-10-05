@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} Maximize the total profit
+
+\[
+\text{Total Profit} = \sum_{p=1}^{P} \left( \text{price}_p \cdot x_p \right) - \sum_{m=2}^{M} \left( \text{cost}_m \cdot \sum_{p=1}^{P} \left( \text{time}_{m,p} \cdot x_p \right) \right) - \text{Labor Cost for Machine 1}
+\]
+
+\textbf{Labor Cost for Machine 1:}
+\[
+\text{Labor Cost} = 
+\begin{cases} 
+\text{standard\_cost} \cdot H_1, & \text{if } H_1 \leq \text{overtime\_hour} \\
+\text{standard\_cost} \cdot \text{overtime\_hour} + \text{overtime\_cost} \cdot (H_1 - \text{overtime\_hour}), & \text{if } H_1 > \text{overtime\_hour}
+\end{cases}
+\]
+where \( H_1 = \sum_{p=1}^{P} \left( \text{time}_{1,p} \cdot x_p \right)\)
+
+\textbf{Constraints:}
+1. Demand Constraints for each part \( p \):
+\[
+x_p \geq \text{min\_batches}_p, \quad \forall p = 1, \ldots, P
+\]
+
+2. Machine Availability Constraints for each machine \( m \neq 1 \):
+\[
+\sum_{p=1}^{P} \left( \text{time}_{m,p} \cdot x_p \right) \leq \text{available}_m, \quad \forall m = 2, \ldots, M
+\]
+
+\textbf{Decision Variables:}
+- \( x_p \geq 0, \quad \forall p = 1, \ldots, P \)
+
+\end{document}

@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} Minimize the sum of absolute deviations:
+\[
+\min \sum_{k=1}^{K} |y_k - (bx_k + a)|
+\]
+
+To handle absolute values in linear programming, we introduce additional variables \( e_k \) (for errors), and rewrite the objective function using these variables:
+
+\[
+\min \sum_{k=1}^{K} e_k
+\]
+
+\textbf{Subject to:}
+\[
+y_k - (bx_k + a) \leq e_k, \quad \text{for } k = 1, 2, \ldots, K
+\]
+\[
+-(y_k - (bx_k + a)) \leq e_k, \quad \text{for } k = 1, 2, \ldots, K
+\]
+\[
+e_k \geq 0, \quad \text{for } k = 1, 2, \ldots, K
+\]
+
+Where:
+- \( a \) is the intercept of the line.
+- \( b \) is the slope of the line.
+- \( e_k \) are the error variables representing the absolute deviations.
+
+This linear programming model will yield the values for the intercept \( a \) and the slope \( b \) that minimize the total absolute deviation.
+
+\end{document}

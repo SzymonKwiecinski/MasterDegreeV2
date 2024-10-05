@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Objective}
+\[
+\max \sum_{k=1}^{K} \sum_{t=T-1}^{T} \text{produce}_{k,t}
+\]
+
+\subsection*{Constraints}
+
+1. \textbf{Input Requirement:}
+\[
+\sum_{j=1}^{K} \text{inputone}_{k,j} \cdot \text{produce}_{j,t} + \text{inputtwo}_{k,j} \cdot \text{buildcapa}_{j,t} \leq \text{capacity}_{k}
+\]
+
+2. \textbf{Manpower Limit:}
+\[
+\sum_{k=1}^{K} (\text{manpowerone}_k \cdot \text{produce}_{k,t} + \text{manpowertwo}_k \cdot \text{buildcapa}_{k,t}) \leq \text{manpower\_limit}
+\]
+
+3. \textbf{Stock Flow:}
+\[
+\text{stock}_{k,t} = \text{stock}_{k,t-1} + \text{produce}_{k,t-1} - \sum_{j=1}^{K} \text{inputone}_{k,j} \cdot \text{produce}_{j,t} - \text{inputtwo}_{k,j} \cdot \text{buildcapa}_{j,t}
+\]
+
+4. \textbf{Capacity Update:}
+\[
+\text{capacity}_{k,t+1} = \text{capacity}_{k,t} + \text{buildcapa}_{k,t-2}
+\]
+
+5. \textbf{Non-negativity:}
+\[
+\text{produce}_{k,t} \geq 0, \quad \text{buildcapa}_{k,t} \geq 0, \quad \text{stock}_{k,t} \geq 0
+\]
+
+\end{document}

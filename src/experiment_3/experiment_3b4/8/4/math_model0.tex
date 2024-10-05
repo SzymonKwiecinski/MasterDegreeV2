@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Problem Formulation}
+
+\textbf{Given:}
+\begin{itemize}
+    \item \( \text{period} \): The continuous number of days each nurse works during the night shift.
+    \item \( d_j \): The demand for nurses on day \( j \) where \( j = 1, \ldots, 7 \).
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item \( \text{start}_j \): Number of nurses that start their period of work on day \( j \).
+\end{itemize}
+
+\textbf{Objective:}
+
+Minimize the total number of nurses hired:
+\[
+\text{Minimize} \quad \text{Total} = \sum_{j=1}^{7} \text{start}_j
+\]
+
+\textbf{Constraints:}
+- The demand for nurses each day \( j \) must be met:
+  \[
+  \begin{align*}
+    \text{For } j = 1 &: \text{start}_1 + \text{start}_7 \cdot \delta_{7,\text{period}>1} + \cdots + \text{start}_{8-\text{period}} \geq d_1, \\
+    \text{For } j = 2 &: \text{start}_2 + \text{start}_1 \cdot \delta_{\text{period}>1} + \cdots + \text{start}_{9-\text{period}} \geq d_2, \\
+    &\vdots \\
+    \text{For } j = 7 &: \text{start}_7 + \text{start}_6 \cdot \delta_{\text{period}>1} + \cdots + \text{start}_{14-\text{period}} \geq d_7,
+  \end{align*}
+  \]
+  where \( \delta_{\text{condition}} \) is 1 if condition is true, 0 otherwise.
+
+- Non-negativity and integrality constraints:
+  \[
+  \text{start}_j \geq 0, \quad \text{start}_j \in \mathbb{Z} \quad \forall j = 1, \ldots, 7
+  \]
+
+\end{document}

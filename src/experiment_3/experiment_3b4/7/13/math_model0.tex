@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming for Chebychev Center}
+
+Given:
+
+\[
+\begin{array}{c}
+A = \begin{bmatrix}
+a_{1,1} & a_{1,2} & \cdots & a_{1,N} \\
+a_{2,1} & a_{2,2} & \cdots & a_{2,N} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{m,1} & a_{m,2} & \cdots & a_{m,N}
+\end{bmatrix} \\
+b = \begin{bmatrix} b_1 \\ b_2 \\ \vdots \\ b_m \end{bmatrix}
+\end{array}
+\]
+
+Objective: Maximize \( r \)
+
+Subject to:
+
+\[
+\begin{aligned}
+\var{a}_1^T \var{y} + \|\var{a}_1\|_2 \times r & \leq b_1, \\
+\var{a}_2^T \var{y} + \|\var{a}_2\|_2 \times r & \leq b_2, \\
+& \vdots \\
+\var{a}_m^T \var{y} + \|\var{a}_m\|_2 \times r & \leq b_m.
+\end{aligned}
+\]
+
+Where:
+- \( \|\var{a}_i\|_2 = \sqrt{a_{i,1}^2 + a_{i,2}^2 + \cdots + a_{i,N}^2} \)
+- \( \var{y} \in \mathbb{R}^N \)
+- \( r \) is the radius of the ball.
+
+The Chebychev center is given by the optimal \( \var{y} \) and \( r \).
+
+\end{document}

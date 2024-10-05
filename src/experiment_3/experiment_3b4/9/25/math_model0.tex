@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Economic Model: Multi-Industry Linear Programming}
+
+\subsection*{Objective}
+Maximize total production in the last two years (year T-1 and T).
+
+\subsection*{Decision Variables}
+Let \( \text{produce}_{k, t} \) be the amount of units produced by industry \( k \) in year \( t \).
+
+Let \( \text{buildcapa}_{k, t} \) be the amount of units used to build productive capacity for industry \( k \) in year \( t \).
+
+Let \( \text{stockhold}_{k, t} \) be the stock of industry \( k \) held in year \( t \).
+
+\subsection*{Constraints}
+
+1. \textbf{Production Capacity Constraints:}
+   \[
+   \text{produce}_{k, t} \leq \text{capacity}_{k} + \sum_{j=1}^{K} \text{buildcapa}_{j, t-2} \cdot \text{inputtwo}_{k, j} \quad \forall k, t \geq 2
+   \]
+
+2. \textbf{Resource Utilization:} For each industry \( k \) in each year \( t \):
+   \[
+   \sum_{j=1}^{K} \text{produce}_{j, t} \cdot \text{inputone}_{k, j} + \sum_{j=1}^{K} \text{buildcapa}_{j, t} \cdot \text{inputtwo}_{k, j} \leq \text{stockhold}_{k, t-1} + \text{produce}_{k, t} + \text{stockhold}_{k, t}
+   \]
+
+3. \textbf{Manpower Constraints:}
+   \[
+   \sum_{k=1}^{K} \left( \text{produce}_{k, t} \cdot \text{manpowerone}_{k} + \text{buildcapa}_{k, t} \cdot \text{manpowertwo}_{k} \right) \leq \text{manpower\_limit} \quad \forall t
+   \]
+
+4. \textbf{Stock Balance:}
+   \[
+   \text{stockhold}_{k, t} = \text{stockhold}_{k, t-1} + \text{produce}_{k, t} - \sum_{j=1}^{K} \left( \text{produce}_{j, t} \cdot \text{inputone}_{k, j} + \text{buildcapa}_{j, t} \cdot \text{inputtwo}_{k, j} \right) \quad \forall k, t
+   \]
+
+5. \textbf{Initial Conditions:}
+   \[
+   \text{stockhold}_{k, 0} = \text{stock}_{k} \quad \forall k
+   \]
+   \[
+   \text{capacity}_{k, 0} = \text{capacity}_{k} \quad \forall k
+   \]
+
+\subsection*{Objective Function}
+Maximize the following expression for the last two years:
+\[
+\max \sum_{k=1}^{K} \left( \text{produce}_{k, T-1} + \text{produce}_{k, T} \right)
+\]
+
+\end{document}

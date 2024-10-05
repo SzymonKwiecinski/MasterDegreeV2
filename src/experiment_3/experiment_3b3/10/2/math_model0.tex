@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mixed Integer Programming Model for DEC Computer Systems Production}
+
+\textbf{Sets:}
+\begin{itemize}
+    \item $N$: Set of computer systems indexed by $i = 1, \ldots, N$.
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $is\_workstation_i \in \{0, 1\}$: Indicates if system $i$ is a workstation (1) or general-purpose (0).
+    \item $price_i$: Price of system $i$ in dollars.
+    \item $disk_i$: Average disk drives requested per system $i$.
+    \item $mem_i$: Average 256K memory boards requested per system $i$.
+    \item $max\_cpu$: Maximum available CPU units.
+    \item $min\_disk$: Minimum available disk drives.
+    \item $max\_disk$: Maximum available disk drives.
+    \item $min\_mem$: Minimum available 256K memory boards.
+    \item $max\_mem$: Maximum available 256K memory boards.
+    \item $demand_i$: Maximum demand for system $i$.
+    \item $demand\_GP$: Maximum demand for the general-purpose family.
+    \item $demand\_WS$: Maximum demand for the workstation family.
+    \item $preorder_i$: Preorders received for system $i$.
+    \item $alt\_mem$: Available alternative memory boards.
+    \item $alt\_compatible_i \in \{0, 1\}$: Indicates if system $i$ can use alternative memory.
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_i$: Number of system $i$ produced (continuous).
+    \item $y_i$: Number of alternative memory boards used for system $i$ (integer).
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{i=1}^{N} (price_i \cdot x_i) - \text{Costs}
+\]
+
+\textbf{Subject to:}
+\begin{align*}
+    & \sum_{i=1}^{N} x_i \leq max\_cpu & \text{(CPU constraint)} \\
+    & \sum_{i=1}^{N} disk_i \cdot x_i \leq max\_disk & \text{(Disk drive constraint)} \\
+    & \sum_{i=1}^{N} mem_i \cdot x_i + y_i \leq max\_mem & \text{(Memory constraint)} \\
+    & \sum_{i=1}^{N} x_i \geq \sum_{i=1}^{N} preorder_i & \text{(Preorder fulfillment)} \\
+    & x_i \leq demand_i & \forall i \in N & \text{(Demand constraint for each system)} \\
+    & \sum_{i \text{ s.t. } is\_workstation_i} x_i \leq demand\_WS & \text{(Workstation demand)} \\
+    & \sum_{i \text{ s.t. } is\_workstation_i=0} x_i \leq demand\_GP & \text{(GP demand)} \\
+    & y_i \leq alt\_mem & \forall i \text{ where } alt\_compatible_i=1 & \text{(Alternative memory board allocation)} \\
+    & x_i \geq preorder_i & \forall i \in N & \text{(Minimum production for preorders)} \\
+    & x_i \geq 0 & \forall i \in N & \text{(Non-negativity)} \\
+\end{align*}
+
+\textbf{Output Variables:}
+\begin{itemize}
+    \item $system\_output$: List of produced systems with their respective board and drive usage.
+    \item $profit$: Total profit for the next quarter.
+\end{itemize}
+
+\end{document}

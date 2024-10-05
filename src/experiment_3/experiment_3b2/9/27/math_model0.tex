@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Mathematical Model:}
+
+\textbf{Sets and Indices:}
+\begin{itemize}
+    \item \( k \in \{1, \ldots, K\} \): Departments
+    \item \( l, m \in \{1, \ldots, L\} \): Cities
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \(\text{benefit}_{k, l}\): Benefit (in thousands of pounds) if department \( k \) is located in city \( l \).
+    \item \(\text{communication}_{k, j}\): Communication requirement between department \( k \) and department \( j \).
+    \item \(\text{cost}_{l, m}\): Unit cost of communication between city \( l \) and city \( m \).
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( x_{kl} \): Binary variable, 1 if department \( k \) is located in city \( l \), 0 otherwise.
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize} \quad -\sum_{k=1}^{K} \sum_{l=1}^{L} \text{benefit}_{k, l} \cdot x_{kl} + \sum_{k=1}^{K} \sum_{j=1}^{K} \sum_{l=1}^{L} \sum_{m=1}^{L} \text{communication}_{k, j} \cdot \text{cost}_{l, m} \cdot x_{kl} \cdot x_{jm}
+\]
+
+\textbf{Constraints:}
+\begin{align}
+    & \sum_{l=1}^{L} x_{kl} = 1, \quad \forall k \in \{1, \ldots, K\} \quad \text{(Each department must be in one city)} \\
+    & \sum_{k=1}^{K} x_{kl} \leq 3, \quad \forall l \in \{1, \ldots, L\} \quad \text{(No city can have more than 3 departments)} \\
+    & x_{kl} \in \{0, 1\}, \quad \forall k \in \{1, \ldots, K\}, l \in \{1, \ldots, L\} \quad \text{(Binary decision variables)}
+\end{align}
+
+\end{document}

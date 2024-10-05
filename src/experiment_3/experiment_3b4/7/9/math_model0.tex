@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model for Optimal Lamp Power}
+
+\subsection*{Problem Data}
+\begin{itemize}
+    \item Let \( N \) be the number of road segments.
+    \item Let \( M \) be the number of lamps.
+    \item Let \( \text{coeff}_{i,j} \) be the known coefficients for each road segment \( i \) and lamp \( j \).
+    \item Let \( \text{desired}_i \) be the desired illumination for the \( i \)-th segment.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{power}_j \): The power of the \( j \)-th lamp.
+    \item \( \text{error}_i \): The absolute error for the \( i \)-th road segment.
+\end{itemize}
+
+\subsection*{Objective}
+Minimize the total absolute error:
+\[
+\text{Minimize} \quad \sum_{i=1}^{N} \text{error}_i
+\]
+
+\subsection*{Constraints}
+For each road segment \( i = 1, \ldots, N \):
+\begin{align*}
+    \text{ill}_i &= \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j \\
+    \text{error}_i &\geq \text{ill}_i - \text{desired}_i \\
+    \text{error}_i &\geq \text{desired}_i - \text{ill}_i
+\end{align*}
+
+\subsection*{Variables Domain}
+\begin{itemize}
+    \item \( \text{power}_j \geq 0 \) for all \( j = 1, \ldots, M \).
+    \item \( \text{error}_i \geq 0 \) for all \( i = 1, \ldots, N \).
+\end{itemize}
+
+\end{document}

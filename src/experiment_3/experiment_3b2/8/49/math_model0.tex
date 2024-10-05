@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+We are given a division of an auto parts manufacturer producing \( P \) different parts using \( M \) different machines. The goal is to determine the number of batches of each part to produce in order to maximize the profit.
+
+\subsection*{Decision Variables}
+
+Let:
+\[
+x_p \geq 0 \quad \text{for } p = 1, 2, \dots, P
+\]
+represent the number of batches of part \( p \) produced each month. 
+
+\subsection*{Objective Function}
+
+The objective is to maximize the total profit. The profit for selling one batch of part \( p \) is given by the price minus the cost incurred on machines. Hence, the objective function is:
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} \left( \text{price}_{p} - \sum_{m=1}^{M} \text{time}_{m,p} \times \text{cost}_{m} \right) \times x_p
+\]
+
+\subsection*{Constraints}
+
+We have the following constraints:
+
+1. **Machine Availability Constraints:**
+
+   The total time used on each machine \( m \) should not exceed the available hours, except for machines \( M \) and \( M-1 \) which can share availability. This results in:
+   \[
+   \sum_{p=1}^{P} \text{time}_{m,p} \times x_p \leq \text{available}_{m} \quad \text{for } m = 1, 2, \ldots, M-2
+   \]
+
+   For machines \( M \) and \( M-1 \), we have:
+   \[
+   \sum_{p=1}^{P} \text{time}_{M,p} \times x_p + \sum_{p=1}^{P} \text{time}_{M-1,p} \times x_p \leq \text{available}_{M} + \text{available}_{M-1}
+   \]
+
+2. **Minimum Batch Requirements:**
+
+   Each part must meet a minimum batch production requirement to fulfill a contract:
+   \[
+   x_p \geq \text{min\_batches}_{p} \quad \text{for } p = 1, 2, \ldots, P
+   \]
+
+\end{document}

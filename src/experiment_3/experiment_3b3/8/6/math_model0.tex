@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Motion Optimization Problem}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item $x_t$: Position of the rocket at time $t$.
+    \item $v_t$: Velocity of the rocket at time $t$.
+    \item $a_t$: Acceleration of the rocket at time $t$ (control variable).
+\end{itemize}
+
+\textbf{Discrete-time Model:}
+\begin{align}
+    x_{t+1} &= x_t + v_t \quad \forall t = 0, 1, \dots, T-1 \\
+    v_{t+1} &= v_t + a_t \quad \forall t = 0, 1, \dots, T-1
+\end{align}
+
+\textbf{Inputs:}
+\begin{itemize}
+    \item Initial position: $x_0$
+    \item Initial velocity: $v_0$
+    \item Target position: $x_T$
+    \item Target velocity: $v_T$
+    \item Time horizon: $T$
+\end{itemize}
+
+\textbf{Objective Function:}
+The objective is to minimize the total fuel consumption given by:
+\[
+\text{minimize} \quad \sum_{t=0}^{T-1} |a_t|
+\]
+
+\textbf{Constraints:}
+\begin{align}
+    x_0 &= \text{initial position} \\
+    v_0 &= \text{initial velocity} \\
+    x_T &= \text{target position} \\
+    v_T &= \text{target velocity} \\
+    \text{Evolution equations}\quad (1) \text{ and } (2) \text{ must hold for } t=0,1,\ldots,T-1
+\end{align}
+
+\textbf{Output Format:}
+The output of the problem will be structured as follows:
+\begin{verbatim}
+{
+    "x": [x_i for i in 0, ..., T],
+    "v": [v_i for i in 0, ..., T],
+    "a": [a_i for i in 0, ..., T-1],
+    "fuel_spend": fuel_spent,
+}
+\end{verbatim}
+
+\end{document}

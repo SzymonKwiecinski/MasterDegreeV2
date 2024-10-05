@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Decision Variables}
+\begin{align*}
+& \text{Let } \text{buyquantity}_{i, m} \text{ be the tons of raw oil } i \text{ purchased in month } m \\
+& \text{Let } \text{refine}_{i, m} \text{ be the tons of raw oil } i \text{ refined in month } m \\
+& \text{Let } \text{storage}_{i, m} \text{ be the tons of raw oil } i \text{ stored at the end of month } m \\
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize profit:
+\[
+\sum_{m=1}^{M} \left( \text{sell\_price} \cdot \sum_{i=1}^{I} \text{refine}_{i, m} - \sum_{i=1}^{I} \left( \text{buy\_price}_{i, m} \cdot \text{buyquantity}_{i, m} + \text{storage\_cost} \cdot \text{storage}_{i, m} \right) \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+& \text{Hardness constraint:} \\
+& \min\_hardness \leq \frac{\sum_{i=1}^{I} \text{hardness}_{i} \cdot \text{refine}_{i, m}}{\sum_{i=1}^{I} \text{refine}_{i, m}} \leq \max\_hardness, \quad \forall m = 1, \ldots, M \\
+
+& \text{Production capacity constraints:} \\
+& \sum_{i \in \text{vegetable oils}} \text{refine}_{i, m} \leq \text{max\_vegetable\_refining\_per\_month}, \quad \forall m = 1, \ldots, M \\
+& \sum_{i \in \text{non-vegetable oils}} \text{refine}_{i, m} \leq \text{max\_non\_vegetable\_refining\_per\_month}, \quad \forall m = 1, \ldots, M \\
+
+& \text{Storage capacity constraints:} \\
+& \text{storage}_{i, m} \leq \text{storage\_size}, \quad \forall i = 1, \ldots, I, \forall m = 1, \ldots, M \\
+
+& \text{Material balance constraints:} \\
+& \text{storage}_{i, m} = \text{storage}_{i, m-1} + \text{buyquantity}_{i, m} - \text{refine}_{i, m}, \quad \forall i = 1, \ldots, I, \forall m = 1, \ldots, M \\
+
+& \text{Initial storage:} \\
+& \text{storage}_{i, 0} = \text{init\_amount}, \quad \forall i = 1, \ldots, I \\
+
+& \text{End period storage requirement:} \\
+& \text{storage}_{i, M} = \text{init\_amount}, \quad \forall i = 1, \ldots, I \\
+
+& \text{Non-negativity constraints:} \\
+& \text{buyquantity}_{i, m}, \text{refine}_{i, m}, \text{storage}_{i, m} \geq 0, \quad \forall i = 1, \ldots, I, \forall m = 1, \ldots, M \\
+\end{align*}
+
+\end{document}

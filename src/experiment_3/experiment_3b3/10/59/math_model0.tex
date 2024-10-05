@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Translator Selection Problem}
+
+\subsection*{Sets and Parameters}
+\begin{itemize}
+    \item Let $N$ be the total number of available translators.
+    \item Let $M$ be the total number of required languages.
+    \item Let $C_i$ be the cost of hiring translator $i$, for $i = 1, \ldots, N$.
+    \item Let $L_i$ be the set of languages that translator $i$ can translate to.
+    \item Let $R_m$ be the required language $m$, for $m = 1, \ldots, M$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+Define binary decision variables:
+\begin{itemize}
+    \item $x_i = \begin{cases} 
+    1 & \text{if translator } i \text{ is selected} \\
+    0 & \text{otherwise}
+    \end{cases}$, for $i = 1, \ldots, N$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost of hiring the selected translators:
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} C_i \cdot x_i
+\]
+
+\subsection*{Constraints}
+Ensure all required languages are covered:
+\[
+\sum_{i=1}^{N} x_i \cdot \delta_{ij} \geq 1, \quad \forall j = 1, \ldots, M
+\]
+where $\delta_{ij} = 1$ if translator $i$ can translate language $j$, and $\delta_{ij} = 0$ otherwise.
+
+\subsection*{Formulation Summary}
+The mathematical formulation of the problem is as follows:
+
+\begin{align*}
+\text{Minimize } & Z = \sum_{i=1}^{N} C_i \cdot x_i \\
+\text{Subject to } & \sum_{i=1}^{N} x_i \cdot \delta_{ij} \geq 1, \quad \forall j = 1, \ldots, M \\
+& x_i \in \{0, 1\}, \quad \forall i = 1, \ldots, N
+\end{align*}
+
+\subsection*{Output}
+The output will consist of:
+\begin{itemize}
+    \item A list of selected translators' IDs.
+    \item The total cost associated with hiring these translators.
+\end{itemize}
+
+\end{document}

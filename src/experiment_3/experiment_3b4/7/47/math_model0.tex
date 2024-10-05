@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model for Shift Assignment}
+
+\subsection*{Objective}
+Minimize the total cost of officers starting at each shift:
+\[
+\text{Minimize } \sum_{s=1}^{S} \text{shift\_cost}_{s} \cdot x_s
+\]
+
+\subsection*{Constraints}
+Ensure that during each shift, the required number of officers is on duty:
+\[
+x_s + x_{s-1} \geq \text{officers\_needed}_{s}, \quad \forall s = 1, \ldots, S
+\]
+
+Assuming a circular shift pattern, we can also express:
+\[
+x_0 \equiv x_S
+\]
+
+\subsection*{Non-negativity Constraints}
+\[
+x_s \geq 0, \quad \forall s = 1, \ldots, S
+\]
+
+\end{document}

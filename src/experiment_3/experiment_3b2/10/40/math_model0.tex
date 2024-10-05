@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective Function:}
+
+Maximize Profit:
+\[
+\text{Profit} = (\text{sell price} \times n_{\text{steel quant}}) - \left( \sum_{k=1}^{K} \frac{\text{cost}_k}{1000} x_k + \text{mang price} \times M + \text{melt price} \times \sum_{k=1}^{K} x_k \right)
+\]
+
+\textbf{Subject to the Constraints:}
+
+1. Steel Quantity Constraint:
+\[
+\sum_{k=1}^{K} x_k + M = n_{\text{steel quant}}
+\]
+
+2. Manganese Content Constraint:
+\[
+\sum_{k=1}^{K} \text{contmn}_k x_k + M \geq \frac{\text{mn percent}}{100} \times n_{\text{steel quant}}
+\]
+
+3. Silicon Content Constraints:
+\[
+\sum_{k=1}^{K} \text{contsi}_k x_k \geq \frac{\text{si min}}{100} \times n_{\text{steel quant}}
+\]
+\[
+\sum_{k=1}^{K} \text{contsi}_k x_k \leq \frac{\text{si max}}{100} \times n_{\text{steel quant}}
+\]
+
+4. Non-negativity Constraints:
+\[
+x_k, M \geq 0 \quad \text{for all } k
+\]
+
+\end{document}

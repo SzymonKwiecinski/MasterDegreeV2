@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Economy of Interdependent Industries}
+
+Let \( K \) be the number of industries and \( T = 5 \) the number of years considered.
+
+\subsection*{Sets and Indices}
+\begin{align*}
+k, j & : \text{Indices for industries, } k, j \in \{1, \ldots, K\} \\
+t & : \text{Time period, } t \in \{1, \ldots, T\}
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+\text{inputone}_{k,j} & : \text{Units of industry } j \text{ required to produce one unit in industry } k \\
+\text{manpowerone}_k & : \text{Manpower required to produce one unit in industry } k \\
+\text{inputtwo}_{k,j} & : \text{Units of industry } j \text{ needed to build capacity in industry } k \\
+\text{manpowertwo}_k & : \text{Manpower needed to build capacity of industry } k \\
+\text{stock}_k & : \text{Initial stock of industry } k \text{ at year 0} \\
+\text{capacity}_k & : \text{Initial capacity of industry } k \text{ at year 0} \\
+\text{demand}_k & : \text{Demand of industry } k \text{ to be satisfied each year from year 1}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+\text{produce}_{k,t} & : \text{Amount of units produced by industry } k \text{ in year } t \\
+\text{buildcapa}_{k,t} & : \text{Amount of units used to build productive capacity for industry } k \text{ in year } t \\
+\text{stockhold}_{k,t} & : \text{Amount of stock of industry } k \text{ held at the end of year } t
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total manpower requirement over five years:
+\[
+\max \sum_{k=1}^{K} \sum_{t=1}^{T} \left( \text{manpowerone}_k \cdot \text{produce}_{k,t} + \text{manpowertwo}_k \cdot \text{buildcapa}_{k,t} \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+\text{Production capacity constraints:} \\
+& \text{produce}_{k,t} \leq \text{capacity}_{k,t-1} + \sum_{j=1}^{K} \text{stockhold}_{j,t-1} \cdot \text{inputone}_{j,k}, && \forall k, t \\
+& \text{capacity}_{k,t} = \text{capacity}_{k,t-1} + \text{buildcapa}_{k,t-2}, && \forall k, t \geq 3 \\
+
+\text{Demand satisfaction:} \\
+& \text{produce}_{k,t} \geq \text{demand}_k, && \forall k, t \geq 1 \\
+
+\text{Stock update:} \\
+& \text{stockhold}_{k,t} = \text{stockhold}_{k,t-1} + \text{produce}_{k,t} - \sum_{j=1}^{K} \text{inputone}_{k,j} \cdot \text{produce}_{j,t} - \sum_{j=1}^{K} \text{inputtwo}_{k,j} \cdot \text{buildcapa}_{j,t}, && \forall k, t \\
+
+\text{Initial conditions:} \\
+& \text{stockhold}_{k,0} = \text{stock}_k, \quad \text{capacity}_{k,0} = \text{capacity}_k, && \forall k
+\end{align*}
+
+\subsection*{Non-negativity Constraints}
+\begin{align*}
+\text{produce}_{k,t} \geq 0, \quad \text{buildcapa}_{k,t} \geq 0, \quad \text{stockhold}_{k,t} \geq 0, \quad \forall k, t
+\end{align*}
+
+\end{document}

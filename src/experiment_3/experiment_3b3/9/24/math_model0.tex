@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( n \) be the number of mines, indexed by \( k \) where \( k \in \{1, 2, \ldots, n\} \).
+    \item Let \( I \) be the number of years, indexed by \( i \) where \( i \in \{1, 2, \ldots, I\} \).
+    \item Let \( n_{maxwork} \) be the maximum number of mines that can be operated in a year.
+    \item Let \( royalty_k \) be the yearly royalties for mine \( k \).
+    \item Let \( limit_k \) be the maximum amount of ore that can be extracted from mine \( k \) in a year.
+    \item Let \( quality_k \) be the quality of ore extracted from mine \( k \).
+    \item Let \( requiredquality_i \) be the required quality of the blended ore in year \( i \).
+    \item Let \( price \) be the selling price per ton of the blended ore.
+    \item Let \( discount \) be the discount rate applied per annum.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( isoperated_{k,i} \) be a binary variable that takes the value 1 if mine \( k \) is operated in year \( i \), and 0 otherwise.
+    \item Let \( amount_{k,i} \) be the amount of ore produced from mine \( k \) in year \( i \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the profit:
+\[
+\text{Maximize } Z = \sum_{i=1}^{I} \left( \frac{price \cdot \sum_{k=1}^{n} amount_{k,i}}{(1 + discount)^{i}} - \sum_{k=1}^{n} royalty_k \cdot isoperated_{k,i} \right)
+\]
+
+\subsection*{Constraints}
+1. **Mine Operation Constraint**:
+   \[
+   \sum_{k=1}^{n} isoperated_{k,i} \leq n_{maxwork}, \quad \forall i \in \{1, 2, \ldots, I\}
+   \]
+
+2. **Quality Constraint**:
+   \[
+   \sum_{k=1}^{n} \frac{quality_k \cdot amount_{k,i}}{\sum_{j=1}^{n} amount_{j,i}} = requiredquality_i, \quad \forall i \in \{1, 2, \ldots, I\}
+   \]
+
+3. **Production Limit Constraint**:
+   \[
+   amount_{k,i} \leq limit_k \cdot isoperated_{k,i}, \quad \forall k \in \{1, 2, \ldots, n\}, \forall i \in \{1, 2, \ldots, I\}
+   \]
+
+4. **Non-negativity Constraint**:
+   \[
+   amount_{k,i} \geq 0, \quad \forall k \in \{1, 2, \ldots, n\}, \forall i \in \{1, 2, \ldots, I\}
+   \]
+
+5. **Binary Constraint**:
+   \[
+   isoperated_{k,i} \in \{0, 1\}, \quad \forall k \in \{1, 2, \ldots, n\}, \forall i \in \{1, 2, \ldots, I\}
+   \]
+
+\end{document}

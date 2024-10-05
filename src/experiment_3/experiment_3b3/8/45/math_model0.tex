@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Custom Tees Advertising Campaign}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( A \) be the number of different ad types.
+    \item \( \text{goal\_young} \): Goal of clicks from visitors aged 18-25 (in thousands).
+    \item \( \text{goal\_old} \): Goal of clicks from visitors older than 25 (in thousands).
+    \item \( \text{goal\_unique\_young} \): Goal of unique clicks from visitors aged 18-25 (in thousands).
+    \item \( \text{goal\_unique\_old} \): Goal of unique clicks from visitors older than 25 (in thousands).
+    \item \( \text{young\_click}_{a} \): Percentage of clicks from age 18-25 for ad type \( a \).
+    \item \( \text{old\_click}_{a} \): Percentage of clicks from visitors older than 25 for ad type \( a \).
+    \item \( \text{cost}_{a} \): Cost per 1000 clicks of ad type \( a \).
+    \item \( \text{max\_click}_{a} \): Maximum allowable clicks (in thousands) for ad type \( a \).
+    \item \( \text{unique\_click}_{a} \): Estimated percentage of unique visitors for ad type \( a \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let \( x_a \) be the number of clicks purchased for ad type \( a \) (in thousands), where \( a = 1, \ldots, A \).
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize} \quad Z = \sum_{a=1}^{A} \text{cost}_{a} \cdot x_a
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+\text{1. Age 18-25 Clicks Goal: } & \sum_{a=1}^{A} \text{young\_click}_{a} \cdot x_a \geq \text{goal\_young} \\
+\text{2. Age >25 Clicks Goal: } & \sum_{a=1}^{A} \text{old\_click}_{a} \cdot x_a \geq \text{goal\_old} \\
+\text{3. Unique Age 18-25 Clicks Goal: } & \sum_{a=1}^{A} \text{unique\_click}_{a} \cdot x_a \geq \text{goal\_unique\_young} \\
+\text{4. Unique Age >25 Clicks Goal: } & \sum_{a=1}^{A} \text{unique\_click}_{a} \cdot x_a \geq \text{goal\_unique\_old} \\
+\text{5. Maximum Clicks for Each Ad Type: } & 0 \leq x_a \leq \text{max\_click}_{a}, \quad \forall a = 1, \ldots, A \\
+\end{align*}
+
+\subsection*{Output}
+The output will be:
+\begin{itemize}
+    \item \( \text{clicks} = [x_a \text{ for } a = 1, \ldots, A] \)
+    \item \( \text{total\_cost} = Z \)
+\end{itemize}
+
+\end{document}

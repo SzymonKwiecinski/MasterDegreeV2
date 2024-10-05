@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Formulation for Roll Cutting Problem}
+
+\subsection*{Parameters}
+\begin{align*}
+    & W: \text{Width of the large roll (large\_roll\_width)} \\
+    & M: \text{Number of different smaller roll types} \\
+    & \text{For } j = 1, \ldots, M: \\
+    & \quad w_j: \text{Width of smaller roll type } j \text{ (inch\_j)} \\
+    & \quad d_j: \text{Demand for roll type } j \text{ (demand\_j)} \\
+    & N: \text{Number of available cutting patterns} \\
+    & \text{For } i = 1, \ldots, N: \\
+    & \quad a_{ij}: \text{Number of rolls of width } w_j \text{ produced by pattern } i \text{ (pattern\_{i,j})} \\
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    x_i: & \quad \text{Integer variable representing the number of times cutting pattern } i \text{ is used.}
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total number of large rolls used:
+\[
+\min \sum_{i=1}^{N} x_i
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+    & \sum_{i=1}^{N} a_{ij} x_i \geq d_j, \quad \forall j \in \{1, 2, \ldots, M\} \quad \text{(Demand satisfaction for each roll type)} \\
+    & x_i \geq 0 \text{ and integer}, \quad \forall i \in \{1, 2, \ldots, N\}
+\end{align*}
+
+\subsection*{Explanation}
+The objective is to minimize the number of large rolls used, represented by $\sum_{i=1}^{N} x_i$. The constraints ensure that the demand for each type of smaller roll is met by the cutting patterns available, which is expressed by $\sum_{i=1}^{N} a_{ij} x_i \geq d_j$ for each roll type $j$. The decision variables $x_i$ are integers since partial rolls cannot be used.
+
+\end{document}

@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+Let \( P \) be the number of parts and \( M \) the number of machines.
+
+\subsection*{Parameters}
+
+\begin{itemize}
+    \item \( \text{time\_required}_{m,p} \): Time in hours required on machine \( m \) to produce 100 parts of type \( p \).
+    \item \( \text{machine\_costs}_m \): Cost in dollars per hour for using machine \( m \).
+    \item \( \text{availability}_m \): Available hours per month for machine \( m \).
+    \item \( \text{prices}_p \): Selling price per 100 parts of type \( p \).
+    \item \( \text{min\_batches}_p \): Minimum number of batches of part \( p \) required to meet contractual obligations.
+\end{itemize}
+
+\subsection*{Decision Variables}
+
+\begin{itemize}
+    \item \( \text{batches}_p \): Number of batches of part \( p \) to produce.
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Maximize the profit, which is the revenue minus the cost of machine usage:
+
+\[
+\text{Maximize } \text{Profit} = \sum_{p=1}^{P} \left( \text{prices}_p \times \text{batches}_p \right) - \sum_{m=1}^{M} \left( \text{machine\_costs}_m \times \sum_{p=1}^{P} \text{time\_required}_{m,p} \times \text{batches}_p \right)
+\]
+
+\subsection*{Constraints}
+
+\begin{itemize}
+    \item Machine availability for machines 1 to \( M-2 \):
+    \[
+    \sum_{p=1}^{P} \text{time\_required}_{m,p} \times \text{batches}_p \leq \text{availability}_m \quad \forall m = 1, 2, \ldots, M-2
+    \]
+    
+    \item Combined machine availability for machines \( M \) and \( M-1 \):
+    \[
+    \sum_{p=1}^{P} \text{time\_required}_{M,p} \times \text{batches}_p + \sum_{p=1}^{P} \text{time\_required}_{M-1,p} \times \text{batches}_p \leq \text{availability}_M + \text{availability}_{M-1}
+    \]
+    
+    \item Minimum production requirements:
+    \[
+    \text{batches}_p \geq \text{min\_batches}_p \quad \forall p = 1, 2, \ldots, P
+    \]
+    
+    \item Non-negativity:
+    \[
+    \text{batches}_p \geq 0 \quad \forall p = 1, 2, \ldots, P
+    \]
+\end{itemize}
+
+\end{document}

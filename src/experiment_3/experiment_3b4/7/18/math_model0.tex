@@ -1,0 +1,23 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective Function:}
+\begin{align*}
+\text{Maximize} \quad Z = & \sum_{m=1}^{M} \left( \text{sell\_price} \times \sum_{i=1}^{I} \text{refine}_{i,m} \right) \\
+& - \sum_{m=1}^{M} \left( \sum_{i=1}^{I} \text{buy\_price}_{i,m} \times \text{buyquantity}_{i,m} \right) \\
+& - \sum_{m=1}^{M} \left( \text{storage\_cost} \times \sum_{i=1}^{I} \text{storage}_{i,m} \right)
+\end{align*}
+
+\textbf{Constraints:}
+\begin{align*}
+& \text{storage}_{i,m-1} + \text{buyquantity}_{i,m} = \text{refine}_{i,m} + \text{storage}_{i,m} & \forall i, \forall m=1,...,M \\
+& \text{storage}_{i,0} = \text{init\_amount} & \forall i \\
+& \text{storage}_{i,m} \leq \text{storage\_size} & \forall i, \forall m \\
+& \sum_{\text{is\_vegetable}_i = 1} \text{refine}_{i,m} \leq \text{max\_vegetable\_refining\_per\_month} & \forall m \\
+& \sum_{\text{is\_vegetable}_i = 0} \text{refine}_{i,m} \leq \text{max\_non\_vegetable\_refining\_per\_month} & \forall m \\
+& \text{min\_hardness} \leq \frac{\sum_{i=1}^{I} \text{hardness}_{i} \times \text{refine}_{i,m}}{\sum_{i=1}^{I} \text{refine}_{i,m}} \leq \text{max\_hardness} & \forall m \\
+& \text{storage}_{i,M} = \text{init\_amount} & \forall i
+\end{align*}
+
+\end{document}

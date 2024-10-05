@@ -1,0 +1,96 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for DEC Production Optimization}
+
+\subsection*{Parameters}
+
+\begin{itemize}
+    \item \(N\): Number of computer systems.
+    \item \(is\_workstation_i\): Boolean indicating if system \(i\) is a workstation (WS).
+    \item \(price_i\): Price of system \(i\).
+    \item \(disk_i\): Average number of disk drives required for system \(i\).
+    \item \(mem_i\): Number of 256K memory boards required for system \(i\).
+    \item \(max\_cpu\): Maximum number of CPUs available for production.
+    \item \(min\_disk\): Minimum supply of disk drives.
+    \item \(max\_disk\): Maximum supply of disk drives.
+    \item \(min\_mem\): Minimum supply of 256K memory boards.
+    \item \(max\_mem\): Maximum supply of 256K memory boards.
+    \item \(demand_i\): Maximum demand for system \(i\).
+    \item \(demand\_GP\): Maximum demand for the GP family.
+    \item \(demand\_WS\): Maximum demand for the WS family.
+    \item \(preorder_i\): Preorders for system \(i\) that must be fulfilled.
+    \item \(alt\_mem\): Number of alternative memory boards available.
+    \item \(alt\_compatible_i\): Boolean indicating if system \(i\) can use alternative memory boards.
+\end{itemize}
+
+\subsection*{Decision Variables}
+
+Let \(x_i\) be the number of system \(i\) produced. Define:
+\begin{itemize}
+    \item \(y_i\): Number of 256K memory boards used for system \(i\).
+    \item \(z_i\): Number of alternative memory boards used for system \(i\).
+    \item \(d_i\): Number of disk drives used for system \(i\).
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Maximize the profit:
+\[
+\text{Maximize } Z = \sum_{i=1}^{N} (price_i \cdot x_i) - \text{cost\_of\_boards} - \text{cost\_of\_drives}
+\]
+
+\subsection*{Constraints}
+
+1. CPU constraint:
+\[
+\sum_{i=1}^{N} x_i \leq max\_cpu
+\]
+
+2. Disk drives constraints:
+\[
+\sum_{i=1}^{N} d_i \cdot x_i \in [min\_disk, max\_disk]
+\]
+
+3. Memory constraints:
+\[
+\sum_{i=1}^{N} mem_i \cdot x_i + z_i \leq max\_mem
+\]
+\[
+z_i \leq alt\_mem \text{ for } alt\_compatible_i = \text{true}
+\]
+
+4. Demand constraints for systems:
+\[
+preorder_i + x_i \leq demand_i \quad \forall i
+\]
+
+5. GP Family Demand Constraint:
+\[
+\sum_{i: is\_workstation_i = \text{false}} x_i \leq demand\_GP
+\]
+
+6. WS Family Demand Constraint:
+\[
+\sum_{i: is\_workstation_i = \text{true}} x_i \leq demand\_WS
+\]
+
+\subsection*{Output}
+
+The output will be given in a JSON format:
+\[
+\{
+    "system\_output": [
+        \{
+            "num\_produced": x_i,
+            "total\_256K\_boards\_used": mem\_used_i,
+            "total\_alt\_boards\_used": alt\_used_i,
+            "total\_disk\_drives\_used": disk\_used_i
+        \} \text{ for } i = 1, \ldots, T
+    ],
+    "profit": Z
+\}
+\]
+
+\end{document}

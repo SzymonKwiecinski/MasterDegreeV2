@@ -1,0 +1,63 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item \( p \): Index for parts, where \( p = 1, 2, \ldots, P \)
+    \item \( m \): Index for machines, where \( m = 1, 2, \ldots, M \)
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{time}_{m,p} \): Time required (in hours) on machine \( m \) to produce one batch of part \( p \)
+    \item \( \text{cost}_{m} \): Cost per hour for using machine \( m \)
+    \item \( \text{available}_{m} \): Available hours per month for machine \( m \)
+    \item \( \text{price}_{p} \): Selling price per batch of part \( p \)
+    \item \( \text{min\_batches}_{p} \): Minimum number of batches of part \( p \) that must be produced
+    \item \( \text{standard\_cost} \): Standard labor cost per hour for machine 1
+    \item \( \text{overtime\_cost} \): Overtime labor cost per hour for machine 1
+    \item \( \text{overtime\_hour} \): Number of hours after which overtime cost applies
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item \( \text{batches}_{p} \): Number of batches of part \( p \) produced
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} \left( \text{price}_{p} \cdot \text{batches}_{p} \right) - \sum_{m=1}^{M} \left( \text{cost}_{m} \cdot \left( \sum_{p=1}^{P} \text{time}_{m,p} \cdot \text{batches}_{p} \right) \right) - \text{Labor Cost}
+\]
+
+\textbf{Subject to:}
+
+1. Machine time constraints:
+\[
+\sum_{p=1}^{P} \text{time}_{m,p} \cdot \text{batches}_{p} \leq \text{available}_{m}, \quad \forall m = 1, 2, \ldots, M
+\]
+
+2. Minimum batches requirement:
+\[
+\text{batches}_{p} \geq \text{min\_batches}_{p}, \quad \forall p = 1, 2, \ldots, P
+\]
+
+3. Labor cost calculation for Machine 1:
+Let \( T_1 = \sum_{p=1}^{P} \text{time}_{1,p} \cdot \text{batches}_{p} \) be the total hours used on Machine 1.
+
+\[
+\text{Labor Cost} =
+\begin{cases}
+\text{standard\_cost} \cdot T_1 & \text{if } T_1 \leq \text{overtime\_hour} \\
+\text{standard\_cost} \cdot \text{overtime\_hour} + \text{overtime\_cost} \cdot (T_1 - \text{overtime\_hour}) & \text{if } T_1 > \text{overtime\_hour}
+\end{cases}
+\]
+
+4. Non-negativity constraints:
+\[
+\text{batches}_{p} \geq 0, \quad \forall p = 1, 2, \ldots, P
+\]
+
+\end{document}

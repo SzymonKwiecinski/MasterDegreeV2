@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Decision Variables:}
+
+Let \( x_l \) be the number of times process \( l \) is executed.
+
+\textbf{Objective Function:}
+
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} \left( \sum_{l=1}^{L} \text{output\_l\_p} \times x_l \right) \times \text{price\_p} - \sum_{l=1}^{L} \text{cost\_l} \times \left( \sum_{p=1}^{P} \text{output\_l\_p} \times x_l \right)
+\]
+
+\textbf{Subject to constraints:}
+
+1. Resource allocation constraints for crude oils:
+
+\[
+\sum_{l=1}^{L} \text{input\_l\_i} \times x_l \leq \text{allocated\_i} \quad \forall i = 1, \ldots, O
+\]
+
+2. Non-negativity constraints:
+
+\[
+x_l \geq 0 \quad \forall l = 1, \ldots, L
+\]
+
+\end{document}

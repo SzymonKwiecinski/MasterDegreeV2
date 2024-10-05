@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Parameters}
+\begin{align*}
+& W: \text{Total number of weeks} \\
+& demand_{w}: \text{Demand for week } w \\
+& regular\_labor_{w}: \text{Available regular labor hours for week } w \\
+& overtime\_labor_{w}: \text{Available overtime labor hours for week } w \\
+& regular\_cost: \text{Cost of regular labor per hour} \\
+& overtime\_cost: \text{Cost of overtime labor per hour} \\
+& assembly\_time: \text{Time to assemble one basket (hours)} \\
+& material\_cost: \text{Material cost for each basket} \\
+& selling\_price: \text{Selling price for each basket} \\
+& holding\_cost: \text{Holding cost for unsold baskets} \\
+& salvage\_value: \text{Salvage value of unsold baskets at week } W
+\end{align*}
+
+\subsection*{Variables}
+\begin{align*}
+& regular\_used_{w}: \text{Hours of regular labor used in week } w \\
+& overtime\_used_{w}: \text{Hours of overtime labor used in week } w \\
+& regular\_baskets_{w}: \text{Number of baskets assembled with regular labor in week } w \\
+& overtime\_baskets_{w}: \text{Number of baskets assembled with overtime labor in week } w \\
+& inventory_{w}: \text{Number of baskets on hand at the end of week } w \\
+& total\_profit: \text{Total profit for the season}
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+\text{total\_profit} = \sum_{w=1}^{W} \left( (regular\_baskets_{w} + overtime\_baskets_{w}) \cdot selling\_price - (regular\_used_{w} \cdot regular\_cost + overtime\_used_{w} \cdot overtime\_cost + (regular\_baskets_{w} + overtime\_baskets_{w}) \cdot material\_cost + inventory_{w} \cdot holding\_cost) \right) + inventory_{W} \cdot salvage\_value
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+& \text{1. Labor constraints:} \\
+& regular\_used_{w} + overtime\_used_{w} \leq regular\_labor_{w} + overtime\_labor_{w}, \quad \forall w \in \{1, \dots, W\} \\
+
+& \text{2. Demand fulfillment:} \\
+& regular\_baskets_{w} + overtime\_baskets_{w} + inventory_{w-1} \geq demand_{w}, \quad \forall w \in \{1, \dots, W\} \\
+& inventory_{w} = inventory_{w-1} + regular\_baskets_{w} + overtime\_baskets_{w} - demand_{w}, \quad \forall w \in \{1, \dots, W\} \\
+
+& \text{3. Initial inventory:} \\
+& inventory_{1} = 0 \\
+
+& \text{4. Non-negativity constraints:} \\
+& regular\_used_{w}, overtime\_used_{w}, regular\_baskets_{w}, overtime\_baskets_{w}, inventory_{w} \geq 0, \quad \forall w \in \{1, \dots, W\}
+\end{align*}
+
+\end{document}

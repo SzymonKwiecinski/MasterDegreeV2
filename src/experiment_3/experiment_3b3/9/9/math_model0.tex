@@ -1,0 +1,84 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Lamp Power Optimization}
+
+\subsection*{Problem Definition}
+
+We have a road divided into \(N\) segments illuminated by \(M\) lamps. The illumination of the \(i\)-th segment can be expressed as:
+
+\[
+\text{ill}_i = \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j
+\]
+
+where \(\text{coeff}_{i,j}\) are known coefficients that represent the contribution of lamp \(j\) to the illumination of segment \(i\). The goal is to choose the lamp powers \(\text{power}_j\) such that the illuminations of the segments are as close as possible to the desired illumination levels.
+
+\subsection*{Objective Function}
+
+We define the absolute error for each segment \(i\) as:
+
+\[
+\text{error}_i = | \text{ill}_i - \text{desired}_i |
+\]
+
+We aim to minimize the total absolute error across all segments:
+
+\[
+\text{Minimize} \quad \sum_{i=1}^{N} \text{error}_i
+\]
+
+This can be rewritten by introducing auxiliary variables \(e_i\) to represent the errors:
+
+\[
+\text{Minimize} \quad \sum_{i=1}^{N} e_i
+\]
+
+subject to the constraints:
+
+\[
+\text{ill}_i - \text{desired}_i \leq e_i \quad \forall i
+\]
+\[
+-\text{ill}_i + \text{desired}_i \leq e_i \quad \forall i
+\]
+
+\subsection*{Constraints}
+
+The illumination for each segment can be expressed as:
+
+\[
+\text{ill}_i = \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j \quad \forall i
+\]
+
+\subsection*{Decision Variables}
+
+The decision variables in this model are:
+
+- \(\text{power}_j\): the power of the \(j\)-th lamp for \(j = 1, \ldots, M\)
+- \(e_i\): the absolute error for the \(i\)-th segment for \(i = 1, \ldots, N\)
+
+\subsection*{Final Model Formulation}
+
+The complete linear programming model can be formulated as follows:
+
+\[
+\begin{align*}
+\text{Minimize} \quad & \sum_{i=1}^{N} e_i \\
+\text{subject to} \quad & \text{ill}_i = \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j, \quad \forall i \\
+& \text{ill}_i - \text{desired}_i \leq e_i, \quad \forall i \\
+& -\text{ill}_i + \text{desired}_i \leq e_i, \quad \forall i \\
+& \text{power}_j \geq 0, \quad \forall j \\
+\end{align*}
+\]
+
+\subsection*{Output}
+
+The optimal solution will yield:
+
+\begin{itemize}
+    \item \(\text{power}_j\): the optimal power of the \(j\)-th lamp for \(j = 1, \ldots, M\)
+    \item \(\text{error}\): the total absolute error between the illuminations and desired illuminations
+\end{itemize}
+
+\end{document}

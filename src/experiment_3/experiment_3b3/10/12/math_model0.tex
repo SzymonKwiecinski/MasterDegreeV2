@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\subsection*{Variables}
+Let \( x_{i,j} \) be the amount of currency \( i \) exchanged for currency \( j \).
+
+\subsection*{Parameters}
+- Let \( N \) be the number of currencies.
+- Let \( \text{start}_i \) be the initial amount of currency \( i \).
+- Let \( \text{limit}_i \) be the maximum amount of currency \( i \) that can be exchanged in a day.
+- Let \( \text{rate}_{i,j} \) be the exchange rate from currency \( i \) to currency \( j \).
+
+\subsection*{Objective Function}
+Maximize the total amount of currency \( N \) at the end of the day:
+\[
+\text{maximize} \quad x_{N,j} \quad \text{for all } j \in \{1, \ldots, N\}
+\]
+
+\subsection*{Constraints}
+
+1. **Currency Exchange Limits**:
+   For each currency \( i \):
+   \[
+   \sum_{j=1}^{N} x_{i,j} \leq \text{limit}_i \quad \forall i \in \{1, \ldots, N\}
+   \]
+
+2. **Initial Amounts**:
+   The amount of currency \( i \) after exchanges should not exceed the total of initial amounts minus what has been exchanged:
+   \[
+   \text{start}_i - \sum_{j=1}^{N} x_{i,j} + \sum_{j=1}^{N} x_{j,i} \geq 0 \quad \forall i \in \{1, \ldots, N\}
+   \]
+
+3. **Non-negativity**:
+   \[
+   x_{i,j} \geq 0 \quad \forall i,j \in \{1, \ldots, N\}
+   \]
+
+4. **Exchange Rate Constraints**:
+   The amount exchanged from currency \( i \) to currency \( j \) must respect the exchange rates:
+   \[
+   x_{i,j} \leq \text{start}_i \cdot \text{rate}_{i,j} \quad \forall i,j \in \{1, \ldots, N\}
+   \]
+
+5. **Cycle Inequality**:
+   Ensure that wealth cannot be multiplied through cycles:
+   \[
+   \text{rate}_{i_1,i_2} \cdot \text{rate}_{i_2,i_3} \cdots \text{rate}_{i_k,i_1} \leq 1 \quad \text{for any cycle } i_1, i_2, \ldots, i_k
+   \]
+
+\end{document}

@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model:}
+
+\textbf{Objective:}
+\[
+\text{Maximize: } z = n_{\text{steel\_quant}} \cdot \text{sell\_price} - \sum_{k=1}^{K} \left( \text{cost}_{k} \cdot x_k + \text{melt\_price} \cdot x_k \right) - \text{mang\_price} \cdot y
+\]
+
+\textbf{Subject to:}
+
+\begin{enumerate}
+    \item Total Steel Production Constraint:
+    \[
+    \sum_{k=1}^{K} x_k = \frac{n_{\text{steel\_quant}}}{1000}
+    \]
+
+    \item Manganese Content Constraint:
+    \[
+    \sum_{k=1}^{K} \left(\text{contmn}_{k} \cdot x_k \right) + y \geq \frac{\text{mn\_percent}}{100} \cdot n_{\text{steel\_quant}}
+    \]
+
+    \item Silicon Content Constraints:
+    \[
+    \frac{\text{si\_min}}{100} \cdot n_{\text{steel\_quant}} \leq \sum_{k=1}^{K} \left( \text{contsi}_{k} \cdot x_k \right) \leq \frac{\text{si\_max}}{100} \cdot n_{\text{steel\_quant}}
+    \]
+
+    \item Non-negativity Constraints:
+    \[
+    x_k \geq 0 \quad \forall k
+    \]
+    \[
+    y \geq 0
+    \]
+\end{enumerate}
+
+\end{document}

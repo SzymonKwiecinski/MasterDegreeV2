@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Formulation for Network Intrusion Response}
+
+\subsection*{Parameters}
+\begin{align*}
+N &: \text{Number of clusters} \\
+\text{isolate\_central}_i &: \text{Time to isolate cluster $i$ using central processing} \\
+\text{scan\_central}_i &: \text{Time to scan cluster $i$ using central processing} \\
+\text{isolate\_distributed}_i &: \text{Time to isolate cluster $i$ using distributed processing} \\
+\text{scan\_distributed}_i &: \text{Time to scan cluster $i$ using distributed processing} \\
+\text{central\_cost} &: \text{Cost per hour for central processing} \\
+\text{distributed\_cost} &: \text{Cost per hour for distributed processing} \\
+\text{max\_central} &: \text{Maximum hours available for central processing} \\
+\text{max\_distributed} &: \text{Maximum hours available for distributed processing}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+x_{i,j} &: \begin{cases} 
+1, & \text{if cluster $i$ is processed using method $j$ (0 for central, 1 for distributed)} \\
+0, & \text{otherwise}
+\end{cases} \\
+y_{i,k} &: \begin{cases} 
+1, & \text{if cluster $i$ is treated with method $k$ (0 for isolate, 1 for scan)} \\
+0, & \text{otherwise}
+\end{cases}
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\begin{align*}
+\text{Minimize } & \sum_{i=1}^{N} \left( x_{i,0} (y_{i,0} \cdot \text{isolate\_central}_i + y_{i,1} \cdot \text{scan\_central}_i) \cdot \text{central\_cost} \right. \\
+& \left. + x_{i,1} (y_{i,0} \cdot \text{isolate\_distributed}_i + y_{i,1} \cdot \text{scan\_distributed}_i) \cdot \text{distributed\_cost} \right)
+\end{align*}
+
+\subsection*{Constraints}
+\begin{align*}
+& \sum_{i=1}^{N} x_{i,0} \left(y_{i,0} \cdot \text{isolate\_central}_i + y_{i,1} \cdot \text{scan\_central}_i\right) \leq \text{max\_central} \\
+& \sum_{i=1}^{N} x_{i,1} \left(y_{i,0} \cdot \text{isolate\_distributed}_i + y_{i,1} \cdot \text{scan\_distributed}_i\right) \leq \text{max\_distributed} \\
+& x_{i,0} + x_{i,1} = 1 \quad \forall i \in \{1, \ldots, N\} \\
+& y_{i,0} + y_{i,1} = 1 \quad \forall i \in \{1, \ldots, N\} \\
+& x_{i,j} \in \{0, 1\} \quad \forall i \in \{1, \ldots, N\}, \, j \in \{0, 1\} \\
+& y_{i,k} \in \{0, 1\} \quad \forall i \in \{1, \ldots, N\}, \, k \in \{0, 1\}
+\end{align*}
+
+\end{document}

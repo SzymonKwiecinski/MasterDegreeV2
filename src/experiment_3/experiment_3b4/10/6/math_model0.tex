@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model for Rocket Trajectory Optimization}
+
+\subsection*{Objective:}
+Minimize the total fuel consumption:
+\[
+\min \sum_{t=0}^{T-1} |a_t|
+\]
+
+\subsection*{Constraints:}
+
+1. Initial conditions:
+   \[
+   x_0 = \text{given}, \quad v_0 = \text{given}
+   \]
+
+2. Motion equations for \( t = 0, 1, 2, \ldots, T-1 \):
+   \[
+   x_{t+1} = x_t + v_t 
+   \]
+   \[
+   v_{t+1} = v_t + a_t
+   \]
+
+3. Final conditions:
+   \[
+   x_T = \text{given}, \quad v_T = \text{given}
+   \]
+
+\subsection*{Variables:}
+- \( x_t \): Position of the rocket at time \( t \)
+- \( v_t \): Velocity of the rocket at time \( t \)
+- \( a_t \): Acceleration of the rocket at time \( t \)
+
+\subsection*{Note:}
+The absolute value constraint on the acceleration \(|a_t|\) can be linearized by introducing auxiliary variables and constraints:
+Let \( a_t^+ \geq 0 \) and \( a_t^- \geq 0 \).
+
+Then, express \( a_t = a_t^+ - a_t^- \) and add the constraint:
+\[
+a_t^+ + a_t^- = |a_t|
+\]
+
+The new objective becomes:
+\[
+\min \sum_{t=0}^{T-1} (a_t^+ + a_t^-)
+\]
+
+The LP model now includes these auxiliary variables for each time step to handle the absolute value constraint linearly.
+
+\end{document}

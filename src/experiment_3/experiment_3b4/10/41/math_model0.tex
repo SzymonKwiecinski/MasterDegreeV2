@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{MILP Model:}
+
+\textbf{Objective:}
+\[
+\min \sum_{i=1}^M y_i
+\]
+
+\textbf{Subject to:}
+\[
+\sum_{i=1}^M x_{ij} = 1 \quad \forall j = 1, \ldots, N
+\]
+
+\[
+\sum_{j=1}^N \text{size}_j \times x_{ij} \leq \text{capacity} \times y_i \quad \forall i = 1, \ldots, M
+\]
+
+\[
+x_{ij} \in \{0,1\} \quad \forall i = 1, \ldots, M, \; \forall j = 1, \ldots, N
+\]
+
+\[
+y_i \in \{0,1\} \quad \forall i = 1, \ldots, M
+\]
+
+\end{document}

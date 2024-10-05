@@ -1,0 +1,77 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Motion Optimization Problem}
+
+Let \( x_t \), \( v_t \), and \( a_t \) represent the position, velocity, and acceleration of the rocket at time \( t \), respectively. The equations for the discrete-time model are given by:
+
+\[
+x_{t+1} = x_t + v_t
+\]
+\[
+v_{t+1} = v_t + a_t
+\]
+
+We have control over the acceleration \( a_t \), which is related to the fuel consumption. The objective is to minimize the total fuel consumed, which is proportional to the sum of the absolute values of the accelerations over the time steps:
+
+\[
+\text{Objective: } \min \sum_{t=0}^{T-1} |a_t|
+\]
+
+We are given the following initial conditions and target parameters:
+
+- Initial position: \( x_0 \)
+- Initial velocity: \( v_0 \)
+- Target position: \( x_T \)
+- Target velocity: \( v_T \)
+- Final time step: \( T \)
+
+The constraints for this optimization problem can be formalized as follows:
+
+- Initial condition constraints:
+  \[
+  x_0 = x_0, \quad v_0 = v_0
+  \]
+
+- State transition constraints for \( t = 0, 1, \ldots, T-1 \):
+  \[
+  x_{t+1} = x_t + v_t, \quad v_{t+1} = v_t + a_t
+  \]
+
+- Terminal condition constraints:
+  \[
+  x_T = x_T, \quad v_T = v_T
+  \]
+
+Thus, to summarize, the optimization problem can be stated as follows:
+
+\begin{align*}
+\text{Minimize: } & \sum_{t=0}^{T-1} |a_t| \\
+\text{Subject to: } & x_{t+1} = x_t + v_t, \quad t = 0, 1, \ldots, T-1 \\
+& v_{t+1} = v_t + a_t, \quad t = 0, 1, \ldots, T-1 \\
+& x_0 = x_0, \quad v_0 = v_0 \\
+& x_T = x_T, \quad v_T = v_T
+\end{align*}
+
+The output of the optimization should include:
+
+\begin{itemize}
+    \item \( x \): a list of positions at each time step from 0 to \( T \)
+    \item \( v \): a list of velocities at each time step from 0 to \( T \)
+    \item \( a \): a list of accelerations at each time step from 0 to \( T \)
+    \item \( \text{fuel\_spend} \): total fuel spent by the rocket
+\end{itemize}
+
+The output format is:
+
+\[
+\{ 
+    "x": [x_i \text{ for } i = 0, \ldots, T],
+    "v": [v_i \text{ for } i = 0, \ldots, T],
+    "a": [a_i \text{ for } i = 0, \ldots, T],
+    "fuel\_spend": \text{fuel\_spent}
+\}
+\]
+
+\end{document}

@@ -1,0 +1,69 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item Let \( P \) be the number of different parts.
+    \item Let \( M \) be the number of different machines.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{time}_{m,p} \): time required (in hours) on machine \( m \) for producing a batch of part \( p \).
+    \item \( \text{cost}_{m} \): cost per hour for using machine \( m \).
+    \item \( \text{available}_{m} \): available hours per month for machine \( m \).
+    \item \( \text{price}_{p} \): price received for each batch of part \( p \).
+    \item \( \text{min\_batches}_{p} \): minimum batches of part \( p \) to be produced each month.
+    \item \( \text{standard\_cost} \): standard labor cost per hour for machine 1.
+    \item \( \text{overtime\_cost} \): overtime labor cost per hour for machine 1.
+    \item \( \text{overtime\_hour} \): hours before overtime applies.
+    \item \( \text{min\_profit} \): minimum desired profit.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( x_{p} \) be the number of batches produced for part \( p \) (for \( p = 1, \ldots, P \)).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+
+\[
+\text{Total Profit} = \sum_{p=1}^{P} \left( \text{price}_{p} \cdot x_{p} \right) - \sum_{m=1}^{M} \left( \text{cost}_{m} \cdot \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_{p} \right) - \text{Labor Cost}
+\]
+
+Where the Labor Cost for machine 1 is defined as follows:
+
+\[
+\text{Labor Cost} = 
+\begin{cases}
+\text{standard\_cost} \cdot \text{total\_time}_{1} & \text{if } \text{total\_time}_{1} \leq \text{overtime\_hour} \\
+\text{standard\_cost} \cdot \text{overtime\_hour} + \text{overtime\_cost} \cdot (\text{total\_time}_{1} - \text{overtime\_hour}) & \text{otherwise}
+\end{cases}
+\]
+
+Where:
+
+\[
+\text{total\_time}_{1} = \sum_{p=1}^{P} \text{time}_{1,p} \cdot x_{p}
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+1. & \quad \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_{p} \leq \text{available}_{m} & \text{for } m = 1, \ldots, M \\
+2. & \quad x_{p} \geq \text{min\_batches}_{p} & \text{for } p = 1, \ldots, P \\
+3. & \quad \text{Total Profit} \geq \text{min\_profit} \\
+4. & \quad x_{p} \geq 0 \quad \text{(non-negativity)} & \text{for } p = 1, \ldots, P
+\end{align*}
+
+\subsection*{Output}
+The output should provide:
+\begin{itemize}
+    \item Batches produced for each part: \( \{ x_{p} \}_{p=1}^{P} \)
+    \item Total profit: \( \text{Total Profit} \)
+\end{itemize}
+
+\end{document}

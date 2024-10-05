@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+
+\section*{MILP Formulation for Maximizing Daily Profit}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_i$: Number of units produced of product type $i$, $i=1,\ldots,N$ (integer).
+    \item $y$: Number of hours of overtime assembly labor scheduled (integer).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the daily profit:
+\begin{align}
+    \text{Maximize} \quad & \sum_{i=1}^{N} (\text{price}_i \cdot x_i) - \text{Total Material Cost} - (\text{overtimeAssemblyCost} \cdot y)
+\end{align}
+
+\subsection*{Constraints}
+\begin{enumerate}
+    \item Assembly labor time, including overtime:
+    \begin{align}
+        \sum_{i=1}^{N} (\text{assemblyHour}_i \cdot x_i) &\leq \text{maxAssembly} + y
+    \end{align}
+    \item Overtime labor constraint:
+    \begin{align}
+        0 \leq y &\leq \text{maxOvertimeAssembly}
+    \end{align}
+    \item Testing labor time:
+    \begin{align}
+        \sum_{i=1}^{N} (\text{testingHour}_i \cdot x_i) &\leq \text{maxTesting}
+    \end{align}
+    \item Material cost, considering possible discount:
+    \begin{align}
+        \text{Total Material Cost} = 
+        \begin{cases} 
+        \left(1 - \frac{\text{materialDiscount}}{100}\right) \cdot \sum_{i=1}^{N} (\text{materialCost}_i \cdot x_i), & \text{if } \sum_{i=1}^{N} (\text{materialCost}_i \cdot x_i) > \text{discountThreshold} \\ 
+        \sum_{i=1}^{N} (\text{materialCost}_i \cdot x_i), & \text{otherwise} 
+        \end{cases}
+    \end{align}
+\end{enumerate}
+
+\end{document}

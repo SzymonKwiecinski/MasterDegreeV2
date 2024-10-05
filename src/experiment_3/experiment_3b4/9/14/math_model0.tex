@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Production Planning}
+
+We are tasked with creating a linear programming model for maximizing the total net income of a company that produces \( P \) different products, subject to cash availability and machine capacity limitations. Below is the formulation of the problem:
+
+\subsection*{Decision Variables}
+\begin{align*}
+x_i &: \text{Number of units of product } i \text{ to produce, for } i = 1, 2, \ldots, P. \\
+y &: \text{Boolean variable indicating whether to upgrade the machine capacity or not (0/1).}
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+\text{cash} &: \text{Available cash.} \\
+\text{hour}_i &: \text{Machine hours required per unit of product } i. \\
+\text{cost}_i &: \text{Production cost per unit of product } i. \\
+\text{price}_i &: \text{Selling price per unit of product } i. \\
+\text{investPercentage}_i &: \text{Investment rate from sales revenue for product } i. \\
+\text{upgradeHours} &: \text{Additional machine hours if upgrade is chosen.} \\
+\text{upgradeCost} &: \text{Cost required to upgrade the machine capacity.} \\
+\text{availableHours} &: \text{Total available machine hours without upgrade.}
+\end{align*}
+
+\subsection*{Objective Function}
+
+The objective is to maximize the total net income:
+\[
+\text{Maximize } \sum_{i=1}^{P} \left( ( \text{price}_i - \text{cost}_i - \text{price}_i \times \text{investPercentage}_i ) x_i \right) - y \times \text{upgradeCost}
+\]
+
+\subsection*{Constraints}
+
+1. Machine capacity constraint (with conditional upgrade):
+\[
+\sum_{i=1}^{P} \text{hour}_i \times x_i \leq \text{availableHours} + y \times \text{upgradeHours}
+\]
+
+2. Cash constraint:
+\[
+\sum_{i=1}^{P} \text{cost}_i \times x_i \leq \text{cash} + \sum_{i=1}^{P} \text{price}_i \times \text{investPercentage}_i \times x_i
+\]
+
+3. Binary constraint for upgrade decision:
+\[
+y \in \{0, 1\}
+\]
+
+4. Non-negativity constraint for production:
+\[
+x_i \geq 0, \quad \text{for } i = 1, 2, \ldots, P
+\]
+
+\end{document}

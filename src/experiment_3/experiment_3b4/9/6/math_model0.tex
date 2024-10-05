@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Rocket Fuel Minimization}
+
+Given the problem, we want to minimize the total fuel consumption over the time period from $t = 0$ to $t = T-1$. 
+
+Let:
+- $x_t$ represent the position of the rocket at time $t$,
+- $v_t$ represent the velocity of the rocket at time $t$,
+- $a_t$ represent the acceleration of the rocket at time $t$.
+
+The discrete-time equations of motion are given by:
+\begin{align}
+    x_{t+1} &= x_t + v_t \quad \forall t = 0, 1, \dots, T-1, \\
+    v_{t+1} &= v_t + a_t \quad \forall t = 0, 1, \dots, T-1.
+\end{align}
+
+The objective is to minimize the total fuel consumption, which is proportional to the sum of the absolute values of the accelerations:
+\[
+\text{Minimize } \sum_{t=0}^{T-1} |a_t|
+\]
+
+Subject to the constraints:
+\begin{align}
+    x_0 &= \text{given initial position}, \\
+    v_0 &= \text{given initial velocity}, \\
+    x_T &= \text{target position}, \\
+    v_T &= \text{target velocity}.
+\end{align}
+
+Additionally, we can linearize the absolute value function by introducing auxiliary variables $a^+_t$ and $a^-_t$ (where $a_t = a^+_t - a^-_t$ and $|a_t| = a^+_t + a^-_t$):
+\begin{align}
+    a_t &= a^+_t - a^-_t \quad \forall t = 0, 1, \dots, T-1, \\
+    a^+_t, a^-_t &\geq 0 \quad \forall t = 0, 1, \dots, T-1.
+\end{align}
+
+The linear programming problem in standard form becomes:
+\begin{align}
+    \text{Minimize } & \sum_{t=0}^{T-1} (a^+_t + a^-_t) \\
+    \text{Subject to:} \\
+    x_{t+1} &= x_t + v_t \quad \forall t = 0, 1, \dots, T-1, \\
+    v_{t+1} &= v_t + a^+_t - a^-_t \quad \forall t = 0, 1, \dots, T-1, \\
+    x_0 &= \text{given initial position}, \\
+    v_0 &= \text{given initial velocity}, \\
+    x_T &= \text{target position}, \\
+    v_T &= \text{target velocity}, \\
+    a^+_t, a^-_t &\geq 0 \quad \forall t = 0, 1, \dots, T-1.
+\end{align}
+
+This formulation captures the essence of the problem constraints and objectives.
+
+\end{document}

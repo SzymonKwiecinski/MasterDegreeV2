@@ -1,0 +1,20 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Formulation}
+
+\textbf{Objective:}
+\[
+\min \sum_{i=1}^{N} (\text{error}_i^+ + \text{error}_i^-)
+\]
+
+\textbf{Subject to:}
+
+\begin{align*}
+& \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j + \text{error}_i^+ - \text{error}_i^- = \text{desired}_i, & \forall i = 1, \ldots, N \\
+& \text{error}_i^+ \geq 0, & \forall i = 1, \ldots, N \\
+& \text{error}_i^- \geq 0, & \forall i = 1, \ldots, N \\
+\end{align*}
+
+\end{document}

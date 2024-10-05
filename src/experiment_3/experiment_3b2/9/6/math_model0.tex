@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Formulation for Rocket Fuel Minimization:}
+
+\textbf{Given:}
+\begin{itemize}
+    \item Initial position, \( x_0 \)
+    \item Initial velocity, \( v_0 \)
+    \item Target position, \( x_T \)
+    \item Target velocity, \( v_T \)
+    \item Time horizon, \( T \)
+\end{itemize}
+
+\textbf{Objective:}
+Minimize the total fuel spent, given by:
+\[
+\min \sum_{t=0}^{T-1} |a_t|
+\]
+
+\textbf{Subject to:}
+\begin{align*}
+x_{t+1} &= x_t + v_t, & \text{for } t = 0, 1, \ldots, T-1\\
+v_{t+1} &= v_t + a_t, & \text{for } t = 0, 1, \ldots, T-1\\
+x_0 &= \text{given initial position},\\
+v_0 &= \text{given initial velocity},\\
+x_T &= \text{desired target position},\\
+v_T &= \text{desired target velocity}.
+\end{align*}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item \( x_t \): Position at time \( t \)
+    \item \( v_t \): Velocity at time \( t \)
+    \item \( a_t \): Acceleration (control) at time \( t \)
+\end{itemize}
+
+\textbf{Output:}
+\begin{itemize}
+    \item List of positions \( x = \{x_t\}_{t=0}^{T} \)
+    \item List of velocities \( v = \{v_t\}_{t=0}^{T} \)
+    \item List of accelerations \( a = \{a_t\}_{t=0}^{T-1} \)
+    \item Total fuel spent: \( \text{fuel\_spend} = \sum_{t=0}^{T-1} |a_t| \)
+\end{itemize}
+
+\end{document}

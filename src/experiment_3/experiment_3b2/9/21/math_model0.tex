@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} Maximize Profit
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $sell_{k, i}$: Amount of product $k$ sold in month $i$.
+    \item $manufacture_{k, i}$: Amount of product $k$ manufactured in month $i$.
+    \item $storage_{k, i}$: Amount of product $k$ stored at the end of month $i$.
+    \item $maintain_{m, i}$: Number of machine type $m$ under maintenance in month $i$.
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize } \sum_{i=1}^{I} \sum_{k=1}^{K} \left( profit_{k} \times sell_{k, i} - store\_price \times storage_{k, i} \right)
+\]
+
+\textbf{Subject to:}
+
+\begin{align}
+    & \text{1. Production capacity constraint on each machine:} \nonumber \\
+    & \sum_{k=1}^{K} (manufacture_{k, i} \times time_{k, m}) \leq \left( num_{m} - maintain_{m, i} \right) \times n\_workhours \times 2 \times 24, \quad \forall m, \forall i \nonumber \\
+    & \text{2. Maintenance constraint on each machine:} \nonumber \\
+    & \sum_{i=1}^{I} maintain_{m, i} = down_{m}, \quad \forall m \nonumber \\
+    & \text{3. Marketing limitation on products:} \nonumber \\
+    & sell_{k, i} \leq limit_{k, i}, \quad \forall k, \forall i \nonumber \\
+    & \text{4. Inventory balance equation:} \nonumber \\
+    & storage_{k, i} = storage_{k, i-1} + manufacture_{k, i} - sell_{k, i}, \quad \forall k, \forall i \nonumber \\
+    & \text{5. Initial inventory:} \nonumber \\
+    & storage_{k, 0} = 0, \quad \forall k \nonumber \\
+    & \text{6. Final inventory requirement:} \nonumber \\
+    & storage_{k, I} = keep\_quantity, \quad \forall k \nonumber \\
+    & \text{7. Storage capacity limit:} \nonumber \\
+    & storage_{k, i} \leq 100, \quad \forall k, \forall i \nonumber \\
+    & \text{8. Non-negativity constraints:} \nonumber \\
+    & sell_{k, i}, manufacture_{k, i}, storage_{k, i}, maintain_{m, i} \geq 0, \quad \forall k, \forall i, \forall m \nonumber
+\end{align}
+
+\end{document}

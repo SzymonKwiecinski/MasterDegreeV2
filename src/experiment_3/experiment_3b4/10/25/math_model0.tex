@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} \left( \text{produce}_{k,T-1} + \text{produce}_{k,T} \right)
+\]
+
+\textbf{Subject to:}
+
+\text{Initial Stock and Capacity:}
+\[
+\text{stockhold}_{k,0} = \text{stock}_{k}, \quad \text{capacity}_{k,0} = \text{capacity}_{k} \quad \forall k
+\]
+
+\text{Production Capacity:}
+\[
+\text{produce}_{k,t} \leq \text{capacity}_{k,t-1} + \text{stockhold}_{k,t-1} \quad \forall k, \forall t
+\]
+
+\text{Manpower Constraints:}
+\[
+\sum_{k=1}^{K} \left( \text{manpowerone}_{k} \cdot \text{produce}_{k,t} + \text{manpowertwo}_{k} \cdot \text{buildcapa}_{k,t} \right) \leq \text{manpower\_limit} \quad \forall t
+\]
+
+\text{Input Balance for Production and Capacity Building:}
+\[
+\sum_{j=1}^{K} \text{inputone}_{k,j} \cdot \text{produce}_{k,t} + \text{inputtwo}_{k,j} \cdot \text{buildcapa}_{k,t} \leq \text{stockhold}_{j,t-1} + \text{produce}_{j,t-1} \quad \forall k, \forall t
+\]
+
+\text{Stock Flow Constraints:}
+\[
+\text{stockhold}_{k,t} = \text{stockhold}_{k,t-1} + \text{produce}_{k,t} - \sum_{j=1}^{K} \left( \text{inputone}_{j,k} \cdot \text{produce}_{j,t} + \text{inputtwo}_{j,k} \cdot \text{buildcapa}_{j,t} \right) \quad \forall k, \forall t
+\]
+
+\text{Capacity Increase Constraints:}
+\[
+\text{capacity}_{k,t} = \text{capacity}_{k,t-1} + \text{buildcapa}_{k,t-2} \quad \forall k, t \geq 2
+\]
+
+\end{document}

@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\begin{document}
+
+\section*{Traveling Salesman Problem Formulation}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item Let \( C = \{1, 2, \ldots, N\} \) be the set of cities to visit, plus the start city.
+    \item Index \( i, j \in C \) represent cities.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{distance}_{i,j} \): Distance between city \( i \) and city \( j \).
+    \item \( \text{start\_city} \): The starting city for the journey.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_{i,j} = \begin{cases} 
+    1, & \text{if the path from city \( i \) to city \( j \) is taken;} \\
+    0, & \text{otherwise.}
+    \end{cases} \)
+    \item \( u_i \): A continuous variable representing the order in the tour where city \( i \) is visited.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total traveled distance:
+\[
+\min \sum_{i \in C} \sum_{j \in C, j \neq i} \text{distance}_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{align}
+& \sum_{j \in C, j \neq i} x_{i,j} = 1, \quad \forall i \in C \quad \text{(leave each city once)} \\
+& \sum_{i \in C, i \neq j} x_{i,j} = 1, \quad \forall j \in C \quad \text{(enter each city once)} \\
+& u_{i} - u_{j} + N \cdot x_{i,j} \leq N - 1, \quad \forall i \neq j, \, i, j \in C \quad \text{(subtour elimination)} \\
+& u_{\text{start\_city}} = 1 \quad \text{(start city's order)} \\
+& x_{i,j} \in \{0,1\}, \quad \forall i, j \in C \\
+& 2 \leq u_i \leq N, \quad \forall i \in C, \, i \neq \text{start\_city}
+\end{align}
+
+\subsection*{Output}
+\begin{itemize}
+    \item \text{visit\_order}: The sequence in which cities are visited, with \text{start\_city} at both the beginning and the end.
+    \item \text{total\_distance}: The total distance traveled for the optimal route.
+\end{itemize}
+
+\end{document}

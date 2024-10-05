@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Lamp Power Optimization}
+
+\subsection*{Problem Definition}
+Consider a road divided into \( N \) segments that is illuminated by \( M \) lamps. Let \( \text{power}_j \) be the power of the \( j \)-th lamp. The illumination \( \text{ill}_i \) of the \( i \)-th segment is given by:
+
+\[
+\text{ill}_i = \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j
+\]
+
+where \( \text{coeff}_{i,j} \) are known coefficients. Let \( \text{desired}_i \) be the desired illumination of road segment \( i \).
+
+\subsection*{Objective}
+We aim to choose the lamp powers \( \text{power}_j \) so that the illuminations \( \text{ill}_i \) are close to the desired illuminations \( \text{desired}_i \) by minimizing the absolute error.
+
+\subsection*{Mathematical Formulation}
+Define the absolute error for each segment as:
+
+\[
+\text{error}_i = |\text{ill}_i - \text{desired}_i|
+\]
+
+The objective is to minimize the total absolute error:
+
+\[
+\min \sum_{i=1}^{N} \text{error}_i
+\]
+
+Taking into account the relationship between illuminations and powers, the optimization problem can be expressed as:
+
+\[
+\min \sum_{i=1}^{N} \left| \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j - \text{desired}_i \right|
+\]
+
+\subsection*{Constraints}
+Assuming that the power of each lamp must be non-negative, we have the following constraints:
+
+\[
+\text{power}_j \geq 0 \quad \text{for } j = 1, \ldots, M
+\]
+
+\subsection*{Output}
+The expected output of the optimization will include:
+
+\begin{enumerate}
+    \item \( \text{power}_j \) - the optimal power of the \( j \)-th lamp.
+    \item \( \text{error} \) - the total absolute error between the illuminations \( \text{ill}_i \) and the desired illuminations \( \text{desired}_i \).
+\end{enumerate}
+
+The output format will be:
+
+\[
+\{
+    "power": [\text{power}_j \text{ for } j = 1, \ldots, M],
+    "error": \text{error}
+\}
+\]
+
+\end{document}

@@ -1,0 +1,23 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Mathematical Model for Maximizing Revenue of an Oil Refinery}
+
+\textbf{Decision Variables:}
+\begin{align*}
+x_l & : \text{Number of times process } l \text{ is executed for } l = 1, 2, \ldots, L.
+\end{align*}
+
+\textbf{Objective Function:}
+\begin{align*}
+\text{Maximize } & \quad \sum_{l=1}^{L} \sum_{p=1}^{P} (\text{output}_{l,p} \times \text{price}_p \times x_l) - \sum_{l=1}^{L} (\text{cost}_l \times x_l)
+\end{align*}
+
+\textbf{Constraints:}
+\begin{align*}
+\sum_{l=1}^{L} (\text{input}_{l,i} \times x_l) & \leq \text{allocated}_i, \quad \text{for each crude type } i = 1, 2, \ldots, O \\
+x_l & \geq 0, \quad \text{for each process } l = 1, 2, \ldots, L
+\end{align*}
+
+\end{document}

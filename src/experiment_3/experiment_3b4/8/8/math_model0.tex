@@ -1,0 +1,15 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\textbf{Linear Programming Model}
+
+\begin{align*}
+\text{Maximize } & Z = \sum_{k=1}^{K} \text{profit}_{k} \cdot x_k \\
+\text{Subject to:} \\
+& \sum_{k=1}^{K} \text{time}_{k, s} \cdot x_k \leq \text{capacity}_{s}, \quad \forall s \in \{1, \ldots, S\} \\
+& x_k \geq 0, \quad \forall k \in \{1, \ldots, K\}
+\end{align*}
+
+\end{document}

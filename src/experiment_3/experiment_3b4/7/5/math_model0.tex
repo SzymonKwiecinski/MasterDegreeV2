@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Communication Network}
+
+\subsection*{Decision Variables}
+Let \( x_{i,j}^{k,l} \) be the flow of data from node \( k \) to node \( l \) through link \( (i, j) \).
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize} \quad \sum_{(i,j) \in A} \sum_{(k, l)} C_{i,j} \cdot x_{i,j}^{k,l}
+\]
+
+\subsection*{Constraints}
+
+\subsubsection*{Flow Conservation}
+For each node \( i \) and each data flow from \( k \) to \( l \):
+\[
+\sum_{j: (i,j) \in A} x_{i,j}^{k,l} - \sum_{j: (j,i) \in A} x_{j,i}^{k,l} = 
+\begin{cases} 
+B_{k,l}, & \text{if } i = k \\ 
+-B_{k,l}, & \text{if } i = l \\ 
+0, & \text{otherwise}
+\end{cases}
+\]
+
+\subsubsection*{Capacity Constraints}
+Ensuring link capacities are not exceeded:
+\[
+\sum_{(k, l)} x_{i,j}^{k,l} \leq U_{i,j}, \quad \forall (i,j) \in A
+\]
+
+\subsubsection*{Non-negativity}
+\[
+x_{i,j}^{k,l} \geq 0, \quad \forall (i,j) \in A, \forall (k, l)
+\]
+
+\end{document}

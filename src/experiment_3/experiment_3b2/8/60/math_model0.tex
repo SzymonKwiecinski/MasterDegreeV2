@@ -1,0 +1,20 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Formulation}
+
+\subsection*{Objective}
+\[
+\text{Minimize} \quad \sum_{j \in J} f_j y_j + \sum_{i \in I} \sum_{j \in J} c_{i,j} x_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{align}
+& \sum_{j \in J} x_{i,j} = 1, \quad \forall i \in I \tag{Assignment Constraint} \\
+& x_{i,j} \leq y_j, \quad \forall i \in I, \forall j \in J \tag{Hiring Constraint} \\
+& \sum_{i \in I} x_{i,j} \leq K y_j, \quad \forall j \in J \tag{Capacity Constraint} \\
+& x_{i,j} \in \{0, 1\}, \quad y_j \in \{0, 1\}, \quad \forall i \in I, \forall j \in J \tag{Binary Variables}
+\end{align}
+
+\end{document}

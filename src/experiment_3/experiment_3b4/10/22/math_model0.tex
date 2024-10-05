@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\paragraph{Objective:}
+Minimize redundancy costs:
+\[
+\text{Minimize } \sum_{i=1}^{I} \sum_{k=1}^{K} \text{costredundancy}_k \times r_{k,i}
+\]
+
+\paragraph{Subject to:}
+
+1. **Balance of Manpower:**
+   \begin{align*}
+   \text{strength}_{k} & + x_{k,i} - r_{k,i} - \text{lessonewaste}_k \times x_{k,i} - \text{moreonewaste}_k \times (\text{strength}_{k} + x_{k,i-1} - r_{k,i-1}) \\
+   & + y_{k,i} + 0.5 \times z_{k,i} = \text{requirement}_{k,i}, \\
+   & \forall k = 1, \ldots, K, \; \forall i = 1, \ldots, I
+   \end{align*}
+
+2. **Recruitment Limit:**
+   \[
+   0 \leq x_{k,i} \leq \text{recruit}_{k}, \; \forall k = 1, \ldots, K, \; \forall i = 1, \ldots, I
+   \]
+
+3. **Overmanning Limit:**
+   \[
+   \sum_{k=1}^{K} y_{k,i} \leq \text{num\_overman}, \; \forall i = 1, \ldots, I
+   \]
+
+4. **Short-time working Limit:**
+   \[
+   0 \leq z_{k,i} \leq \text{num\_shortwork}, \; \forall k = 1, \ldots, K, \; \forall i = 1, \ldots, I
+   \]
+
+5. **Non-negativity:**
+   \[
+   x_{k,i}, y_{k,i}, z_{k,i}, r_{k,i} \geq 0, \; \forall k = 1, \ldots, K, \; \forall i = 1, \ldots, I
+   \]
+
+\end{document}

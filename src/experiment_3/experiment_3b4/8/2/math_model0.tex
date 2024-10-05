@@ -1,0 +1,85 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for DEC Production Planning}
+
+\textbf{Decision Variables:}
+
+Let \( x_i \) be the number of systems of type \( i \) to produce.
+
+\textbf{Parameters:}
+
+\begin{itemize}
+    \item \( \text{price}_i \): Price of system \( i \)
+    \item \( \text{disk}_i \): Average disk drives requested per system \( i \)
+    \item \( \text{mem}_i \): Average 256K memory boards per system \( i \)
+    \item \( \text{demand}_i \): Maximum demand for system \( i \)
+    \item \( \text{preorder}_i \): Pre-orders for system \( i \)
+    \item \( \text{max\_cpu} \): Maximum CPU units available
+    \item \( \text{min\_disk} \), \( \text{max\_disk} \): Minimum and maximum supply of disk drives
+    \item \( \text{min\_mem} \), \( \text{max\_mem} \): Minimum and maximum supply of 256K memory boards
+    \item \( \text{demand\_GP} \): Maximum demand for GP systems
+    \item \( \text{demand\_WS} \): Maximum demand for WS systems
+    \item \( \text{alt\_mem} \): Units of alternative memory boards available
+    \item \( \text{is\_workstation}[i] \): Boolean indicating if system \( i \) is a workstation
+    \item \( \text{alt\_compatible}[i] \): Boolean indicating if system \( i \) can use alternative memory
+\end{itemize}
+
+\textbf{Objective:}
+
+Maximize the profit:
+
+\[
+\text{Profit} = \sum_{i=1}^{N} \text{price}_i \cdot x_i
+\]
+
+\textbf{Constraints:}
+
+1. CPU Constraint:
+   \[
+   \sum_{i=1}^{N} x_i \leq \text{max\_cpu}
+   \]
+
+2. Disk Drive Supply Constraint:
+   \[
+   \text{min\_disk} \leq \sum_{i=1}^{N} \text{disk}_i \cdot x_i \leq \text{max\_disk}
+   \]
+
+3. Memory Boards Supply Constraint:
+   \[
+   \text{min\_mem} \leq \sum_{i=1}^{N} \text{mem}_i \cdot x_i \leq \text{max\_mem}
+   \]
+
+4. Demand Constraints for Each System:
+   \[
+   x_i \leq \text{demand}_i \quad \forall i
+   \]
+
+5. Pre-order Fulfillment:
+   \[
+   x_i \geq \text{preorder}_i \quad \forall i
+   \]
+
+6. GP Systems Demand Constraint:
+   \[
+   \sum_{i, \text{not WS}} x_i \leq \text{demand\_GP}
+   \]
+
+7. WS Systems Demand Constraint:
+   \[
+   \sum_{i, \text{WS}} x_i \leq \text{demand\_WS}
+   \]
+
+8. Alternative Memory Utilization:
+   \[
+   \sum_{i, \text{alt\_compatible}[i]} (\text{mem}_i \cdot x_i - \text{mem}_i) \leq \text{alt\_mem}
+   \]
+
+\textbf{Note:}
+- The alternative memory utilization constraint assumes that if a system is compatible to use the alternative memory, it will fully utilize the alternative memory before using 256K boards.
+
+\textbf{Relaxation:}
+The number of systems produced, \( x_i \), is considered as a continuous variable (floating point) for simplification.
+
+\end{document}

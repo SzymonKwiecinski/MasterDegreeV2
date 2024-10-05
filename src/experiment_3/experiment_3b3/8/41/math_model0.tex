@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Floppy Disk Backup Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $C$: Capacity of each floppy disk (in GB).
+    \item $N$: Number of files to be backed up.
+    \item $size_j$: Size of file $j$, for $j \in \{1, 2, \ldots, N\}$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_{d}$: Binary variable that equals 1 if disk $d$ is used, 0 otherwise.
+    \item $y_{jd}$: Binary variable that equals 1 if file $j$ is placed on disk $d$, 0 otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total number of floppy disks used:
+
+\[
+\text{Minimize } Z = \sum_{d=1}^{D} x_d
+\]
+
+where $D$ is the maximum number of disks used.
+
+\subsection*{Constraints}
+\begin{enumerate}
+    \item Each file must be assigned to exactly one disk:
+    \[
+    \sum_{d=1}^{D} y_{jd} = 1, \quad \forall j \in \{1, 2, \ldots, N\}
+    \]
+
+    \item The total size of files on a disk cannot exceed its capacity:
+    \[
+    \sum_{j=1}^{N} size_j \cdot y_{jd} \leq C \cdot x_d, \quad \forall d \in \{1, 2, \ldots, D\}
+    \]
+
+    \item Indicate that if a disk is used, at least one file must be on it:
+    \[
+    y_{jd} \leq x_d, \quad \forall j \in \{1, 2, \ldots, N\}, \; \forall d \in \{1, 2, \ldots, D\}
+    \]
+
+\end{enumerate}
+
+\subsection*{Output}
+The output will consist of:
+\begin{itemize}
+    \item $n\_disks$: Total number of floppy disks used.
+    \item $whichdisk$: An array where $whichdisk_j$ represents the disk on which file $j$ is stored.
+\end{itemize}
+
+\end{document}

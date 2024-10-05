@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( \text{reg\_quant}_n \): Quantity produced using regular production in month \( n \).
+    \item \( \text{over\_quant}_n \): Quantity produced using overtime production in month \( n \).
+    \item \( \text{inv}_n \): Inventory at the end of month \( n \).
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } \sum_{n=1}^{N} \left( \text{cost\_regular} \times \text{reg\_quant}_n + \text{cost\_overtime} \times \text{over\_quant}_n + \text{store\_cost} \times \text{inv}_n \right)
+\]
+
+\textbf{Subject to:}
+\begin{align*}
+& \text{reg\_quant}_n + \text{over\_quant}_n + \text{inv}_{n-1} = \text{demand}_n + \text{inv}_n, & \forall n = 1, 2, \ldots, N \\
+& \text{reg\_quant}_n \leq \text{max\_regular\_amount}, & \forall n = 1, 2, \ldots, N \\
+& \text{reg\_quant}_n, \text{over\_quant}_n, \text{inv}_n \geq 0, & \forall n = 1, 2, \ldots, N
+\end{align*}
+
+\end{document}

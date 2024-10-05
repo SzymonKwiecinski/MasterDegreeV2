@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Steel Production}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item \( x_{a,s} \): amount of alloy \( a \) used in steel type \( s \) (in tons)
+    \item \( y_s \): amount of steel type \( s \) produced (in tons)
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item \( \text{available}_{a} \): available tons of alloy \( a \)
+    \item \( \text{carbon}_{a} \): percentage of carbon in alloy \( a \)
+    \item \( \text{nickel}_{a} \): percentage of nickel in alloy \( a \)
+    \item \( \text{alloy\_price}_{a} \): purchase price of alloy \( a \) (per ton)
+    \item \( \text{steel\_price}_{s} \): selling price of steel type \( s \) (per ton)
+    \item \( \text{carbon\_min}_{s} \): minimum percentage of carbon required in steel type \( s \)
+    \item \( \text{nickel\_max}_{s} \): maximum allowable percentage of nickel in steel type \( s \)
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Maximize} \quad Z = \sum_{s=1}^{S} (y_s \cdot \text{steel\_price}_{s}) - \sum_{a=1}^{A} \sum_{s=1}^{S} (x_{a,s} \cdot \text{alloy\_price}_{a})
+\]
+
+\textbf{Constraints:}
+
+1. \textbf{Alloy usage:}
+\[
+\sum_{s=1}^{S} x_{a,s} \leq \text{available}_{a} \quad \forall a \in \{1, 2, \ldots, A\}
+\]
+
+2. \textbf{Carbon requirement for steel:}
+\[
+\sum_{a=1}^{A} x_{a,s} \cdot \frac{\text{carbon}_{a}}{100} \geq y_s \cdot \frac{\text{carbon\_min}_{s}}{100} \quad \forall s \in \{1, 2, \ldots, S\}
+\]
+
+3. \textbf{Nickel limit for steel:}
+\[
+\sum_{a=1}^{A} x_{a,s} \cdot \frac{\text{nickel}_{a}}{100} \leq y_s \cdot \frac{\text{nickel\_max}_{s}}{100} \quad \forall s \in \{1, 2, \ldots, S\}
+\]
+
+4. \textbf{Limit on alloy 1 usage:}
+\[
+\sum_{s=1}^{S} x_{1,s} \leq 0.4 \cdot \sum_{s=1}^{S} y_s
+\]
+
+5. \textbf{Non-negativity constraints:}
+\[
+x_{a,s} \geq 0 \quad \forall a \in \{1, 2, \ldots, A\}, \quad \forall s \in \{1, 2, \ldots, S\}
+\]
+\[
+y_s \geq 0 \quad \forall s \in \{1, 2, \ldots, S\}
+\]
+
+\end{document}

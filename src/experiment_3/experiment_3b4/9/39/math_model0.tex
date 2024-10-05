@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{LP Model for Cafeteria Employee Scheduling}
+
+Given the input parameters:
+\begin{itemize}
+    \item \( \text{num}[n] \) for \( n = 1, \ldots, N \), representing the required number of employees on day \( n \).
+    \item \( n_{\text{working\_days}} \) represents the number of consecutive working days.
+    \item \( n_{\text{resting\_days}} \) represents the number of consecutive rest days.
+\end{itemize}
+
+We define:
+\begin{align*}
+    & \text{Decision Variables:} \\
+    & x_{i,n} = 
+    \begin{cases} 
+    1, & \text{if employee } i \text{ works on day } n \\
+    0, & \text{otherwise}
+    \end{cases} \\
+    & \text{for } i = 1, \ldots, \text{total\_number} \text{ and } n = 1, \ldots, N.
+\end{align*}
+
+\subsection*{Objective Function}
+
+Minimize the total number of employees:
+\[
+\min \text{total\_number}
+\]
+
+\subsection*{Constraints}
+
+\begin{enumerate}
+    \item Ensure enough employees each day:
+    \[
+    \sum_{i=1}^{\text{total\_number}} x_{i,n} \geq \text{num}[n] \quad \forall n = 1, \ldots, N
+    \]
+    
+    \item Working and resting schedule constraints:
+    \begin{align*}
+    & \text{For each } i, \text{ if } x_{i,n} = 1 \text{ for } n = k, k+1, \ldots, k + n_{\text{working\_days}} - 1, \text{ then } \\
+    & x_{i,n'} = 0 \text{ for } n' = k + n_{\text{working\_days}}, \ldots, k + n_{\text{working\_days}} + n_{\text{resting\_days}} - 1
+    \end{align*}
+
+    \item Binary constraints for decision variables:
+    \[
+    x_{i,n} \in \{0, 1\} \quad \forall i, \forall n
+    \]
+\end{enumerate}
+
+\subsection*{Summary}
+
+The above model calculates the minimum number of employees (total\_number) and assigns a working/resting schedule (is\_work) such that the required number of employees is available each day while respecting the working and resting day rules.
+
+\end{document}

@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Indices:}
+\begin{itemize}
+    \item $k$: Index for industries ($k = 1, \ldots, K$)
+    \item $t$: Index for years ($t = 1, \ldots, T$)
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $inputone_{k, j}$: Input from industry $j$ required by industry $k$
+    \item $manpowerone_{k}$: Manpower required by industry $k$ for production
+    \item $inputtwo_{k, j}$: Input from industry $j$ required by industry $k$ to build capacity
+    \item $manpowertwo_{k}$: Manpower required by industry $k$ to build capacity
+    \item $stock_{k}$: Initial stock of industry $k$ at year 0
+    \item $capacity_{k}$: Current capacity of industry $k$
+    \item $demand_{k}$: Exogenous consumption requirement from industry $k$
+\end{itemize}
+
+\textbf{Variables:}
+\begin{itemize}
+    \item $produce_{k, t}$: Units produced by industry $k$ in year $t$
+    \item $buildcapa_{k, t}$: Units used to build productive capacity for industry $k$ in year $t$
+    \item $stockhold_{k, t}$: Stock of industry $k$ held in year $t$
+\end{itemize}
+
+\textbf{Objective:} 
+\[
+\text{Maximize } Z = \sum_{t=1}^{T} \sum_{k=1}^{K} manpowerone_{k} \cdot produce_{k, t} + \sum_{k=1}^{K} manpowertwo_{k} \cdot buildcapa_{k, t}
+\]
+
+\textbf{Constraints:}
+
+1. \textbf{Production Constraints:}\\
+\[
+produce_{k, t} + stockhold_{k, t-1} = \sum_{j=1}^{K} inputone_{k, j} \cdot produce_{j, t-1} + stockhold_{k, t} + demand_{k}, \quad \forall k, t
+\]
+
+2. \textbf{Capacity Building Constraints:}\\
+\[
+buildcapa_{k, t} \leq capacity_{k} + stockhold_{k, t-1} + \sum_{j=1}^{K} inputtwo_{k, j} \cdot produce_{j, t-1}, \quad \forall k, t
+\]
+
+3. \textbf{Manpower Constraints:}\\
+\[
+\sum_{k=1}^{K} manpowerone_{k} \cdot produce_{k, t} + \sum_{k=1}^{K} manpowertwo_{k} \cdot buildcapa_{k, t} \leq M, \quad \forall t
+\]
+where \(M\) is the maximum available manpower in the economy.
+
+4. \textbf{Stock Update Constraints:}\\
+\[
+stockhold_{k, t} = stockhold_{k, t-1} + produce_{k, t} - demand_{k}, \quad \forall k, t
+\]
+
+5. \textbf{Non-negativity Constraints:}\\
+\[
+produce_{k, t} \geq 0, \quad buildcapa_{k, t} \geq 0, \quad stockhold_{k, t} \geq 0, \quad \forall k, t
+\]
+
+\end{document}

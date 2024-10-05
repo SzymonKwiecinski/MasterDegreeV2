@@ -1,0 +1,22 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model}
+
+\textbf{Objective:}
+\[
+\text{Minimize} \quad \sum_{a=1}^{A} \text{cost}_a \cdot x_a
+\]
+
+\textbf{Subject to:}
+\begin{align*}
+& \sum_{a=1}^{A} \text{young\_click}_a \cdot x_a \geq \text{goal\_young} \\
+& \sum_{a=1}^{A} \text{old\_click}_a \cdot x_a \geq \text{goal\_old} \\
+& \sum_{a=1}^{A} \text{young\_click}_a \cdot \text{unique\_click}_a \cdot x_a \geq \text{goal\_unique\_young} \\
+& \sum_{a=1}^{A} \text{old\_click}_a \cdot \text{unique\_click}_a \cdot x_a \geq \text{goal\_unique\_old} \\
+& 0 \leq x_a \leq \text{max\_click}_a, \quad \forall a = 1, 2, \ldots, A \\
+& x_a \geq 0, \quad \forall a = 1, 2, \ldots, A
+\end{align*}
+
+\end{document}

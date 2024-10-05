@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Alloy Production}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+A manufacturer wishes to produce a total of \( \text{alloy\_quant} \) lb of an alloy that consists of several kinds of metals. The target composition by weight for metal \( m \) is represented as \( \text{target}_m \). 
+
+Several different alloys \( k \) are available, each containing a specific ratio of metal \( m \) given by \( \text{ratio}_{k,m} \), and each alloy is sold at a price of \( \text{price}_k \).
+
+\section*{Variables}
+Let \( x_k \) represent the amount of alloy \( k \) to be purchased, where \( k = 1, \ldots, K \).
+
+\section*{Objective Function}
+The objective is to minimize the total cost of purchasing the alloys, which can be expressed as:
+\[
+\text{Minimize } Z = \sum_{k=1}^{K} \text{price}_k \cdot x_k
+\]
+
+\section*{Constraints}
+The following constraints must be satisfied:
+
+1. The total weight of the alloys must equal the target alloy weight:
+\[
+\sum_{k=1}^{K} x_k = \text{alloy\_quant}
+\]
+
+2. The target composition of metal \( m \) must be met:
+\[
+\sum_{k=1}^{K} \text{ratio}_{k,m} \cdot x_k = \text{target}_m, \quad \text{for } m = 1, \ldots, M
+\]
+
+3. All amounts of alloys must be non-negative:
+\[
+x_k \geq 0, \quad \text{for } k = 1, \ldots, K
+\]
+
+\section*{Output}
+The outputs of the LP model will indicate the amounts of each alloy to be purchased:
+\[
+\text{amount} = [x_k \text{ for } k = 1, \ldots, K]
+\]
+
+\end{document}

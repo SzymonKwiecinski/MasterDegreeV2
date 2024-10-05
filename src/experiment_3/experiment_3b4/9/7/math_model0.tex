@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Rocket Trajectory Optimization}
+
+\subsection*{Objective}
+Minimize the maximum thrust required, which is given by:
+
+\[
+\text{minimize} \quad M = \max_{t} |a_t|
+\]
+
+\subsection*{Constraints}
+
+1. **Position and Velocity Constraints**:
+   \begin{align*}
+   x_{t+1} &= x_t + v_t & \forall t = 0, \ldots, T-1 \\
+   v_{t+1} &= v_t + a_t & \forall t = 0, \ldots, T-1
+   \end{align*}
+
+2. **Initial Conditions**:
+   \begin{align*}
+   x_0 &= \text{given initial position (input)} \\
+   v_0 &= \text{given initial velocity (input)}
+   \end{align*}
+
+3. **Target Conditions**:
+   \begin{align*}
+   x_T &= \text{target position (input)} \\
+   v_T &= \text{target velocity (input)}
+   \end{align*}
+
+4. **Thrust (Acceleration) Constraints**:
+   The magnitude of each acceleration must be bounded by the maximum thrust:
+   \[
+   -M \leq a_t \leq M \quad \forall t = 0, \ldots, T-1
+   \]
+
+5. **Fuel Usage**:
+   Total fuel spend can be represented as the sum of absolute values of accelerations:
+   \[
+   \text{Fuel Spend} = \sum_{t=0}^{T-1} |a_t|
+   \]
+
+\subsection*{Decision Variables}
+
+- \(x_t\): Position of the rocket at time \(t\).
+- \(v_t\): Velocity of the rocket at time \(t\).
+- \(a_t\): Acceleration of the rocket at time \(t\).
+- \(M\): Maximum absolute acceleration, to be minimized.
+
+\subsection*{Model Formulation}
+
+To solve the above problem, we'll use linear programming techniques. The main objective is to minimize \(M\), subject to the position, velocity, and boundary constraints. 
+
+The optimization problem can be implemented and solved using any LP solver by defining it with the given sets of constraints and conditions.
+
+\end{document}

@@ -1,0 +1,34 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+Minimize the total cost:
+\[
+\text{Total Cost} = \sum_{i=1}^{T} \text{storage\_cost} \times I_i + \sum_{i=1}^{T-1} \text{switch\_cost} \times |x_{i+1} - x_i|
+\]
+
+Where:
+- \( I_i \) is the inventory at the end of month \( i \).
+- \( |x_{i+1} - x_i| \) is the absolute change in production levels between consecutive months.
+
+\textbf{Constraints:}
+
+1. Inventory Balance:
+\[
+I_0 = 0 \quad (\text{Initial Inventory})
+\]
+\[
+I_i = I_{i-1} + x_i - \text{deliver}_i, \quad \forall i = 1, 2, \ldots, T
+\]
+\[
+I_T = 0 \quad (\text{Final Inventory})
+\]
+
+2. Non-negativity:
+\[
+x_i \geq 0, \quad I_i \geq 0, \quad \forall i = 1, 2, \ldots, T
+\]
+
+\end{document}

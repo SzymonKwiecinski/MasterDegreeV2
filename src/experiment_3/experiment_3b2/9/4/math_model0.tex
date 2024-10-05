@@ -1,0 +1,13 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{MILP Model for Nurse Scheduling:}
+
+\begin{align*}
+\min \quad & \text{total} = \sum_{j=1}^{7} \text{start}_j \\
+\text{s.t.} \quad & \sum_{k=0}^{\text{period}-1} \text{start}_{(j-k-1) \mod 7 + 1} \geq d_j, \quad j = 1, \ldots, 7 \\
+& \text{start}_j \geq 0, \quad \text{integer}, \quad j = 1, \ldots, 7 \\
+\end{align*}
+
+\end{document}

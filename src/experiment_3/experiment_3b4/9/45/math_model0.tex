@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model for Custom Tees Advertising Campaign}
+
+\textbf{Objective:} Minimize the total cost of the ad campaign.
+
+\[
+\text{Minimize } Z = \sum_{a=1}^{A} \text{cost}_a \cdot \text{clicks}_a
+\]
+
+\textbf{Subject to:}
+
+\begin{align*}
+\sum_{a=1}^{A} \text{young\_click}_{a} \cdot \text{clicks}_{a} &\geq \text{goal\_young} \quad \text{(Total young clicks goal)} \\
+\sum_{a=1}^{A} \text{old\_click}_{a} \cdot \text{clicks}_{a} &\geq \text{goal\_old} \quad \text{(Total old clicks goal)} \\
+\sum_{a=1}^{A} \text{unique\_click}_{a} \cdot \text{clicks}_{a} &\geq \text{goal\_unique\_young} \quad \text{(Unique clicks from young visitors)} \\
+\sum_{a=1}^{A} \text{unique\_click}_{a} \cdot \text{clicks}_{a} &\geq \text{goal\_unique\_old} \quad \text{(Unique clicks from old visitors)} \\
+0 \leq \text{clicks}_a &\leq \text{max\_click}_{a}, \quad a = 1, \ldots, A \quad \text{(Maximum allowable clicks for each ad type)} \\
+\text{clicks}_a &\geq 0, \quad a = 1, \ldots, A \quad \text{(Non-negativity constraint)}
+\end{align*}
+
+\textbf{Variables:}
+
+\begin{itemize}
+    \item \( \text{clicks}_{a} \): Number of thousands of clicks purchased for ad type \( a \).
+    \item \( \text{cost}_{a} \): Cost per thousand clicks for ad type \( a \).
+    \item \( \text{young\_click}_{a} \): Percentage of clicks from the 18-25 age range for ad type \( a \).
+    \item \( \text{old\_click}_{a} \): Percentage of clicks from older visitors for ad type \( a \).
+    \item \( \text{unique\_click}_{a} \): Estimated percentage of unique visitors for ad type \( a \).
+\end{itemize}
+
+\end{document}

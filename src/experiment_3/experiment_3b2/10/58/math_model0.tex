@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Mathematical Model for Maximizing Profit in Auto Parts Manufacturing}
+
+\subsection*{Sets and Indices}
+- Let \( P \) denote the set of parts, indexed by \( p \).
+- Let \( M \) denote the set of machines, indexed by \( m \).
+
+\subsection*{Parameters}
+- \( \text{time\_required}[m][p] \): Time required (in hours) to produce a batch of part \( p \) on machine \( m \).
+- \( \text{machine\_costs}[m] \): Cost per hour of using machine \( m \).
+- \( \text{availability}[m] \): Availability of machine \( m \) (in hours) per month.
+- \( \text{prices}[p] \): Selling price per batch of part \( p \).
+- \( \text{setup\_time}[p] \): Setup time required for machine 1 for part \( p \).
+
+\subsection*{Decision Variables}
+- \( \text{batches}_p \): Number of batches of part \( p \) produced. (Integer variable)
+- \( \text{setup\_flags}_p \): Binary variable indicating whether machine 1 is set up for part \( p \) or not.
+  \[
+  \text{setup\_flags}_p = 
+  \begin{cases} 
+  1, & \text{if machine 1 is set up for part } p \\
+  0, & \text{otherwise}
+  \end{cases}
+  \]
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize:} \quad \sum_{p=1}^{P} \left( \text{prices}[p] \times \text{batches}_p \right) - \sum_{m=1}^{M} \sum_{p=1}^{P} \left( \text{machine\_costs}[m] \times \text{time\_required}[m][p] \times \text{batches}_p \right) - \sum_{p=1}^{P} \left( \text{setup\_time}[p] \times \text{setup\_flags}_p \times \text{machine\_costs}[1] \right)
+\]
+
+\subsection*{Constraints}
+1. Machine Availability:
+   \[
+   \sum_{p=1}^{P} \left( \text{time\_required}[m][p] \times \text{batches}_p \right) + \begin{cases} \sum_{p=1}^{P} \left( \text{setup\_time}[p] \times \text{setup\_flags}_p \right), & \text{if } m = 1 \\ 0, & \text{if } m \neq 1 \end{cases} \leq \text{availability}[m] \quad \forall m \in M
+   \]
+
+2. Linking setup flags to production:
+   \[
+   \text{batches}_p \leq U \times \text{setup\_flags}_p \quad \forall p \in P 
+   \]
+   Where \( U \) is a large constant (e.g., the maximum possible production limit).
+
+3. Non-negativity and Integrality:
+   \[
+   \text{batches}_p \in \mathbb{Z}^+, \quad \text{setup\_flags}_p \in \{0, 1\} \quad \forall p \in P
+   \]
+
+\end{document}

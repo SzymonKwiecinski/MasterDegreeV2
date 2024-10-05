@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Soybean Transportation}
+
+We are given a transportation network with the following components: 
+- Terminal cities denoted by $k$
+- Port cities denoted by $p$
+- Destination cities denoted by $l$
+- Transportation routes $A$ with associated costs $C_{i,j}$ for transporting soybeans from city $i$ to city $j$
+
+\subsection*{Objective}
+The objective is to minimize the total transportation cost while satisfying supply and demand constraints.
+
+\subsection*{Decision Variables}
+Let $x_{i,j}$ be the quantity of soybeans transported from city $i$ to city $j$.
+
+\subsection*{Objective Function}
+
+The total cost $C$ to be minimized is given by the sum of the transportation costs across all routes:
+
+\[
+\text{Minimize } C = \sum_{(i,j) \in A} C_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+
+1. \textbf{Supply Constraints:} Each terminal city $k$ should not send more soybeans than it has:
+
+\[
+\sum_{j \mid (k, j) \in A} x_{k,j} \leq \text{supply}_{k}, \quad \forall k
+\]
+
+2. \textbf{Demand Constraints:} Each destination city $l$ should receive the required demand:
+
+\[
+\sum_{i \mid (i, l) \in A} x_{i,l} = \text{demand}_{l}, \quad \forall l
+\]
+
+3. \textbf{Flow Balance Constraints: } For port city $p$, the inflow must equal the outflow:
+
+\[
+\sum_{i \mid (i, p) \in A} x_{i,p} = \sum_{j \mid (p, j) \in A} x_{p,j}, \quad \forall p
+\]
+
+4. \textbf{Non-negativity Constraints: } All transported quantities must be non-negative:
+
+\[
+x_{i,j} \geq 0, \quad \forall (i,j) \in A
+\]
+
+\end{document}

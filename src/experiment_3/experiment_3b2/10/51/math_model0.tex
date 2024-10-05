@@ -1,0 +1,21 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Maximizing Unique Clicks}
+
+\subsection*{Objective Function}
+\[
+\text{Maximize } \sum_{a=1}^{A} \text{unique\_click}_{a} \times x_a
+\]
+
+\subsection*{Constraints}
+
+\begin{align*}
+& \sum_{a=1}^{A} \left(\frac{\text{young\_click}_{a}}{100}\right) \times x_a \geq \text{goal\_young} \\
+& \sum_{a=1}^{A} \left(\frac{\text{old\_click}_{a}}{100}\right) \times x_a \geq \text{goal\_old} \\
+& \sum_{a=1}^{A} \text{cost}_{a} \times x_a \leq \text{budget} \\
+& 0 \leq x_a \leq \text{max\_click}_{a}, \quad \text{for } a = 1, \ldots, A
+\end{align*}
+
+\end{document}

@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Paper Cutting Problem}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $L$: large roll width (inches)
+    \item $M$: number of different types of smaller rolls
+    \item $d_j$: demand for rolls of width $j$ (for $j = 1, \ldots, M$)
+    \item $N$: number of different cutting patterns available
+    \item $p_{i,j}$: number of rolls produced of width $j$ using cutting pattern $i$ (for $i = 1, \ldots, N$ and $j = 1, \ldots, M$)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_i$: number of times cutting pattern $i$ is used (for $i = 1, \ldots, N$)
+\end{itemize}
+
+\textbf{Objective:}
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} x_i
+\]
+
+\textbf{Subject to:}
+\[
+\sum_{i=1}^{N} p_{i,j} x_i \geq d_j \quad \forall j = 1, \ldots, M
+\]
+\[
+x_i \geq 0 \quad \forall i = 1, \ldots, N
+\]
+
+\textbf{Constraints:}
+\begin{itemize}
+    \item The total width of smaller rolls produced by each pattern cannot exceed the width of the large roll:
+    \[
+    \sum_{j=1}^{M} j \cdot p_{i,j} \leq L \quad \forall i = 1, \ldots, N
+    \]
+\end{itemize}
+
+\end{document}

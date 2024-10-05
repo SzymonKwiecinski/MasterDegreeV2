@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{mathtools}
+
+\begin{document}
+
+\section*{MILP Model for Refining and Blending Oils}
+
+\subsection*{Indices and Sets}
+\begin{align*}
+    &i \in \{1, \ldots, I\} \quad \text{(Oil types)} \\
+    &m \in \{1, \ldots, M\} \quad \text{(Months)}
+\end{align*}
+
+\subsection*{Parameters}
+\begin{align*}
+    &\text{buy\_price}_{i,m} &\quad \text{Price to purchase oil $i$ in month $m$} \\
+    &\text{sell\_price} &\quad \text{Price per ton of the final product} \\
+    &\text{is\_vegetable}_i &\quad \text{Indicator if oil $i$ is vegetable (1 for vegetable, 0 for non-vegetable)} \\
+    &\text{max\_vegetable\_refining\_per\_month} &\quad \text{Max refining capacity for vegetable oils} \\
+    &\text{max\_non\_vegetable\_refining\_per\_month} &\quad \text{Max refining capacity for non-vegetable oils} \\
+    &\text{storage\_size} &\quad \text{Max storage capacity for each oil} \\
+    &\text{storage\_cost} &\quad \text{Cost per ton per month of storage} \\
+    &\text{max\_hardness} \,,\, \text{min\_hardness} &\quad \text{Bounds on the hardness of the final product} \\
+    &\text{hardness}_i &\quad \text{Hardness of oil $i$} \\
+    &\text{init\_amount} &\quad \text{Initial amount of oil in storage} \\
+    &\text{min\_usage} &\quad \text{Minimum usage of an oil if used in a month} \\
+    &\text{dependency}_{i,j} &\quad \text{Dependency indicator (1 if using oil $i$ requires using oil $j$)} \\
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+    &\text{buyquantity}_{i,m} \geq 0 &\quad \text{Tons of oil $i$ purchased in month $m$} \\
+    &\text{refine}_{i,m} \geq 0 &\quad \text{Tons of oil $i$ refined in month $m$} \\
+    &\text{storage}_{i,m} \geq 0 &\quad \text{Tons of oil $i$ in storage at the end of month $m$} \\
+    &\text{use}_{i,m} \in \{0,1\} &\quad \text{Binary variable, 1 if oil $i$ is used in month $m$} 
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize total profit:
+\[
+\max \sum_{m=1}^{M} \left( \text{sell\_price} \cdot \left(\sum_{i=1}^{I} \text{refine}_{i,m}\right) - \sum_{i=1}^{I} \text{buy\_price}_{i,m} \cdot \text{buyquantity}_{i,m} - \text{storage\_cost} \cdot \sum_{i=1}^{I} \text{storage}_{i,m} \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+    &\text{Storage and Flow Balance:} &\\
+    &\quad \text{storage}_{i,m} = \text{storage}_{i,m-1} + \text{buyquantity}_{i,m} - \text{refine}_{i,m}, &\forall i,\, \forall m \\
+    &\quad \text{storage}_{i,0} = \text{init\_amount}, &\forall i \\
+    &\quad \text{storage}_{i,M} = \text{init\_amount}, &\forall i \\
+
+    &\text{Refining Capacity:} &\\
+    &\quad \sum_{i \in \text{vegetable}} \text{refine}_{i,m} \leq \text{max\_vegetable\_refining\_per\_month}, &\forall m \\
+    &\quad \sum_{i \in \text{non-vegetable}} \text{refine}_{i,m} \leq \text{max\_non\_vegetable\_refining\_per\_month}, &\forall m \\
+
+    &\text{Hardness Constraints:} & \\
+    &\quad \text{min\_hardness} \leq \frac{\sum_{i=1}^{I} \text{hardness}_i \cdot \text{refine}_{i,m}}{\sum_{i=1}^{I} \text{refine}_{i,m}} \leq \text{max\_hardness}, &\forall m \text{ where } \sum_{i=1}^{I} \text{refine}_{i,m} > 0 \\
+
+    &\text{Storage Capacity:} &\\
+    &\quad \text{storage}_{i,m} \leq \text{storage\_size}, &\forall i,\, \forall m \\
+
+    &\text{Oil Usage Restrictions:} &\\
+    &\quad \text{use}_{i,m} \cdot \text{min\_usage} \leq \text{refine}_{i,m}, &\forall i,\, \forall m \\
+    &\quad \sum_{i=1}^{I} \text{use}_{i,m} \leq 3, &\forall m \\
+
+    &\text{Dependency Constraints:} &\\
+    &\quad \text{use}_{i,m} \cdot \text{dependency}_{i,j} \leq \text{use}_{j,m}, &\forall i,j,\, \forall m \\
+\end{align*}
+
+\end{document}

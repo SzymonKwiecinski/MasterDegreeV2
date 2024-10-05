@@ -1,0 +1,21 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+\[
+\text{Minimize} \quad \sum_{i=1}^{I} x_i
+\]
+
+\textbf{Subject to:}
+\begin{align*}
+&\sum_{i=1}^{I} y_{n,i} \geq num_n, \quad \forall n = 1, \ldots, N \\
+&y_{n,i} + y_{n+1,i} + \ldots + y_{n+n_{\text{working}}-1,i} \leq n_{\text{working}} \times x_i, \\
+&\quad \forall i = 1, \ldots, I, \quad \forall n \\
+&y_{n+n_{\text{working}},i} = 0, \ldots, y_{n+n_{\text{working}}+n_{\text{resting}}-1,i} = 0, \\
+&\quad \forall i = 1, \ldots, I \\
+&y_{n,i} \leq x_i, \quad \forall n = 1, \ldots, N, \quad \forall i = 1, \ldots, I \\
+&x_i \in \{0,1\}, \quad y_{n,i} \in \{0,1\}, \quad \forall n, i
+\end{align*}
+
+\end{document}

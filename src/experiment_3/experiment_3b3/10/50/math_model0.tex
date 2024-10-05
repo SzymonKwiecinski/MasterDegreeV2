@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturer}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $P$: Number of different parts
+    \item $M$: Number of different machines
+    \item $time_{m,p}$: Hours required on machine $m$ to produce a batch of part $p$
+    \item $cost_{m}$: Cost per hour for using machine $m$
+    \item $available_{m}$: Available hours per month for machine $m$
+    \item $price_{p}$: Selling price per batch of part $p$
+    \item $min\_batches_{p}$: Minimum batches required for part $p$ each month
+    \item $extra\_costs_{m}$: Cost per hour for extra available time for machine $m$
+    \item $max\_extra_{m}$: Maximum extra hours that can be purchased for machine $m$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $batches_{p}$: Number of batches produced for part $p$ 
+    \item $extra\_time_{m}$: Extra hours purchased for machine $m$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+
+\[
+\text{Maximize } Z = \sum_{p=1}^{P} (price_{p} \cdot batches_{p}) - \sum_{m=1}^{M} (cost_{m} \cdot (available_{m} + extra\_time_{m})) - \sum_{m=1}^{M} (extra\_costs_{m} \cdot extra\_time_{m})
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Machine time constraint:
+    \[
+    \sum_{p=1}^{P} (time_{m,p} \cdot batches_{p}) \leq available_{m} + extra\_time_{m}, \quad \forall m = 1, \ldots, M
+    \]
+    
+    \item Minimum batch production requirement:
+    \[
+    batches_{p} \geq min\_batches_{p}, \quad \forall p = 1, \ldots, P
+    \]
+    
+    \item Maximum extra time purchase:
+    \[
+    extra\_time_{m} \leq max\_extra_{m}, \quad \forall m = 1, \ldots, M
+    \]
+
+    \item Non-negativity constraints:
+    \[
+    batches_{p} \geq 0, \quad \forall p = 1, \ldots, P
+    \]
+    \[
+    extra\_time_{m} \geq 0, \quad \forall m = 1, \ldots, M
+    \]
+\end{itemize}
+
+\subsection*{Output}
+The output should provide:
+\begin{itemize}
+    \item $batches$: List of $batches_{p}$ for each part $p$
+    \item $extra\_time$: List of $extra\_time_{m}$ for each machine $m$
+    \item $total\_profit$: Total profit obtained for the month
+\end{itemize}
+
+\end{document}

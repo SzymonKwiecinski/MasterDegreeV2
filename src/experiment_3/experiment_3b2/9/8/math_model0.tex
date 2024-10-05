@@ -1,0 +1,23 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} Maximize the total profit from producing spare parts.
+
+\[
+\begin{align*}
+\text{Maximize} \quad & Z = \sum_{k=1}^{K} \text{profit}_k \cdot \text{quantity}_k \\
+\text{Subject to} \quad & \sum_{k=1}^{K} \text{time}_{k,s} \cdot \text{quantity}_k \leq \text{capacity}_s, \quad \forall s = 1, \ldots, S, \\
+& \text{quantity}_k \geq 0, \quad \forall k = 1, \ldots, K.
+\end{align*}
+\]
+
+\textbf{Where:}
+\begin{itemize}
+    \item \( \text{quantity}_k \) is the amount of spare part \( k \) to be produced.
+    \item \( \text{profit}_k \) is the profit from one unit of spare part \( k \).
+    \item \( \text{time}_{k,s} \) is the worker-hours needed to produce one unit of part \( k \) in shop \( s \).
+    \item \( \text{capacity}_s \) is the available worker-hours in shop \( s \).
+\end{itemize}
+
+\end{document}

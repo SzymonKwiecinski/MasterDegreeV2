@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\textbf{Decision Variables:}
+\[
+x_{i,j} \geq 0 \quad \text{for each pair of currencies } i, j, \, i \neq j
+\]
+where \( x_{i,j} \) represents the amount of currency \( i \) that is exchanged to currency \( j \).
+
+\textbf{Objective Function:}
+\[
+\text{Maximize} \quad \sum_{i=1}^{N-1} rate_{i,N} \cdot x_{i,N} 
+\]
+This maximizes the total units of currency \( N \) obtained from other currencies.
+
+\textbf{Constraints:}
+\begin{align*}
+\text{Supply constraints:} & \\
+x_{i,j} & \leq start_i, \quad \forall \, i = 1, \ldots, N, \, j = 1, \ldots, N, \, i \neq j \\
+\text{Exchange limit constraints:} & \\
+\sum_{j=1}^{N} x_{i,j} + \sum_{j=1}^{N} \frac{x_{j,i}}{rate_{j,i}} & \leq limit_i, \quad \forall \, i = 1, \ldots, N \\
+\text{Non-negativity constraints:} & \\
+x_{i,j} & \geq 0, \quad \forall \, i, j = 1, \ldots, N,\, i \neq j
+\end{align*}
+
+\textbf{Initial and Balance Constraints:}
+
+For each currency \( i \):
+\[
+\sum_{j=1}^{N} x_{j,i} \cdot rate_{j,i} - \sum_{j=1}^{N} x_{i,j} = start_i, \quad i = 1, \ldots, N
+\]
+
+\end{document}

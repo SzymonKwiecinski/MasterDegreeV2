@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Translator Selection Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $N$: Total number of translators available.
+    \item $M$: Total number of required languages.
+    \item $cost_i$: Cost associated with translator $i$, for $i = 1, 2, \ldots, N$.
+    \item $languages_i$: Set of languages that translator $i$ can translate, for $i = 1, 2, \ldots, N$.
+    \item $required\_languages$: Set of languages that need to be translated, denoted as $\{language_1, language_2, \ldots, language_M\}$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_i$: Binary variable that equals 1 if translator $i$ is selected, and 0 otherwise, for $i = 1, 2, \ldots, N$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost of selected translators:
+\[
+\text{Minimize } Z = \sum_{i=1}^{N} cost_i \cdot x_i
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Ensure that all required languages are covered by the selected translators:
+    \[
+    \sum_{i=1}^{N} x_i \cdot \mathbb{I}[language_m \in languages_i] \geq 1 \quad \forall m = 1, 2, \ldots, M
+    \]
+    where $\mathbb{I}[\cdot]$ is an indicator function that equals 1 if the condition is true, and 0 otherwise.
+\end{itemize}
+
+\subsection*{Model Formulation}
+The complete formulation of the Mixed-Integer Linear Programming (MILP) model is given by:
+
+\begin{align*}
+\text{Minimize } & Z = \sum_{i=1}^{N} cost_i \cdot x_i \\
+\text{Subject to: } & \sum_{i=1}^{N} x_i \cdot \mathbb{I}[language_m \in languages_i] \geq 1, \quad \forall m = 1, 2, \ldots, M \\
+& x_i \in \{0, 1\}, \quad \forall i = 1, 2, \ldots, N
+\end{align*}
+
+\end{document}

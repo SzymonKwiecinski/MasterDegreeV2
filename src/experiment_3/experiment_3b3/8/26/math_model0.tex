@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Variables}
+Let 
+\begin{itemize}
+    \item \( produce_{k,t} \): units produced by industry \( k \) in year \( t \)
+    \item \( buildcapa_{k,t} \): units used to build productive capacity for industry \( k \) in year \( t \)
+    \item \( stock_{k,t} \): amount of stock of industry \( k \) held in year \( t \)
+\end{itemize}
+
+\subsection*{Parameters}
+Given parameters are:
+\begin{itemize}
+    \item \( inputone_{k,j} \): units of input from industry \( j \) required by industry \( k \)
+    \item \( manpowerone_{k} \): units of manpower required by industry \( k \)
+    \item \( inputtwo_{k,j} \): units of input from industry \( j \) required to build capacity for industry \( k \)
+    \item \( manpowertwo_{k} \): units of manpower required to build capacity for industry \( k \)
+    \item \( stock_{k} \): initial stock of industry \( k \) in year 0
+    \item \( capacity_{k} \): initial capacity of industry \( k \)
+    \item \( demand_{k} \): exogenous demand for industry \( k \) in years 1 to 5
+    \item \( T = 5 \): planning horizon (years)
+    \item \( K \): number of industries
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total manpower requirement over five years:
+
+\[
+\text{Maximize} \quad Z = \sum_{t=1}^{T} \sum_{k=1}^{K} manpowerone_{k} \cdot produce_{k,t} + \sum_{k=1}^{K} manpowertwo_{k} \cdot buildcapa_{k,t}
+\]
+
+\subsection*{Constraints}
+
+\begin{align*}
+\text{Production Balance:} & \quad produce_{k,t} + stock_{k,t-1} = \sum_{j=1}^{K} inputone_{k,j} \cdot produce_{j,t-1} + stock_{k,t} \quad \forall k, t \\
+\text{Capacity Build:} & \quad buildcapa_{k,t} \cdot inputtwo_{k,j} + stock_{k,t-1} \geq demand_{k} \quad \forall k, t \\
+\text{Stock Evolution:} & \quad stock_{k,t} = stock_{k,t-1} + produce_{k,t} - demand_{k} + buildcapa_{k,t} \quad \forall k, t \\
+\text{Capacity Constraints:} & \quad capacity_{k} \geq \sum_{t=1}^{T} buildcapa_{k,t} \quad \forall k \\
+\text{Non-negativity:} & \quad produce_{k,t} \geq 0, \quad buildcapa_{k,t} \geq 0, \quad stock_{k,t} \geq 0 \quad \forall k, t
+\end{align*}
+
+\end{document}

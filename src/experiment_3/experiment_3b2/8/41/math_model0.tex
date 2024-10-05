@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Model for Disk Usage Optimization}
+
+\subsection*{Given:}
+\begin{itemize}
+    \item \(\text{capacity}\): Capacity of each floppy disk in GB.
+    \item \(\text{size}_j\): Size of file \(j\) in GB, \(j = 1, \ldots, N\).
+\end{itemize}
+
+\subsection*{Objective:}
+Minimize the number of floppy disks used:
+\[
+\min \sum_{i=1}^{M} y_i
+\]
+
+\subsection*{Constraints:}
+\begin{align}
+    & \sum_{i=1}^{M} x_{ij} = 1, \quad \forall j = 1, \ldots, N \\
+    & \sum_{j=1}^{N} \text{size}_j \cdot x_{ij} \leq \text{capacity} \cdot y_i, \quad \forall i = 1, \ldots, M \\
+    & x_{ij} \leq y_i, \quad \forall i = 1, \ldots, M, \, j = 1, \ldots, N \\
+    & x_{ij} \in \{0, 1\}, \quad \forall i = 1, \ldots, M, \, j = 1, \ldots, N \\
+    & y_i \in \{0, 1\}, \quad \forall i = 1, \ldots, M
+\end{align}
+
+\subsection*{Explanation:}
+\begin{itemize}
+    \item \(x_{ij}\) is a binary variable indicating if file \(j\) is placed on disk \(i\).
+    \item \(y_i\) is a binary variable indicating if disk \(i\) is used.
+    \item Constraint (1) ensures each file is assigned to exactly one disk.
+    \item Constraint (2) ensures that the total size of files on any disk does not exceed its capacity.
+    \item Constraint (3) ensures that a disk is marked as used if any file is placed on it.
+\end{itemize}
+
+\end{document}

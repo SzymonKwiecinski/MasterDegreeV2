@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for MIP Problem}
+
+\subsection*{Parameters:}
+
+\begin{itemize}
+    \item $n\_mines$: Number of mines
+    \item $n\_maxwork$: Maximum number of mines that can be operated in any one year
+    \item $royalty_{k}$: Yearly royalties payable on mine $k$, for $k = 1, \ldots, K$
+    \item $limit_{k}$: Upper limit of ore extraction from mine $k$ in a year, for $k = 1, \ldots, K$
+    \item $quality_{k}$: Quality of ore from mine $k$, for $k = 1, \ldots, K$
+    \item $requiredquality_{i}$: Required quality of blended ore in year $i$, for $i = 1, \ldots, I$
+    \item $price$: Selling price per ton of blended ore
+    \item $discount$: Discount rate for future cash flows
+\end{itemize}
+
+\subsection*{Variables:}
+
+\begin{itemize}
+    \item $isoperated_{k, i} \in \{0, 1\}$: Binary variable indicating whether mine $k$ is operated in year $i$
+    \item $amount_{k, i} \geq 0$: Amount of ore produced by mine $k$ in year $i$
+\end{itemize}
+
+\subsection*{Objective Function:}
+
+Maximize the discounted profit over the years:
+
+\[
+\max \sum_{i=1}^{I} \left( \frac{1}{(1 + discount)^i} \left( price \times \sum_{k=1}^{K} amount_{k, i} - \sum_{k=1}^{K} royalty_{k} \times isoperated_{k, i} \right) \right)
+\]
+
+\subsection*{Constraints:}
+
+\begin{itemize}
+    \item Mining limit constraint for each mine and year:
+    \[
+    0 \leq amount_{k, i} \leq limit_{k} \times isoperated_{k, i}, \quad \forall k = 1, \ldots, K, \forall i = 1, \ldots, I
+    \]
+
+    \item Quality blending constraint for each year:
+    \[
+    \sum_{k=1}^{K} quality_{k} \times amount_{k, i} = requiredquality_{i} \times \sum_{k=1}^{K} amount_{k, i}, \quad \forall i = 1, \ldots, I
+    \]
+
+    \item Maximum number of operated mines constraint for each year:
+    \[
+    \sum_{k=1}^{K} isoperated_{k, i} \leq n\_maxwork, \quad \forall i = 1, \ldots, I
+    \]
+
+    \item Non-negativity constraint for amounts:
+    \[
+    amount_{k, i} \geq 0, \quad \forall k = 1, \ldots, K, \forall i = 1, \ldots, I
+    \]
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,29 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Objective}
+
+Minimize the total cost:
+\[
+\text{minimize} \quad \sum_{s=1}^{S} \text{shift\_cost}_s \times x_s
+\]
+
+\subsection*{Constraints}
+
+For each shift \( s \), ensure that the number of officers assigned meets the demand:
+
+\[
+x_s + x_{s-1} \geq \text{officers\_needed}_s, \quad \forall s = 1, \ldots, S
+\]
+
+Note: The indices should consider the circular nature of shifts if \( s = 1 \), \( x_0 \) corresponds to \( x_S \) if the last shift wraps around.
+
+\subsection*{Variables}
+\[
+x_s \geq 0 \quad \text{and integer}, \quad \forall s = 1, \ldots, S
+\]
+
+\end{document}

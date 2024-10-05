@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_{n,s,g} \): Number of students of grade \( g \) in neighborhood \( n \) assigned to school \( s \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total distance traveled by all students:
+
+\[
+\text{Minimize} \quad \sum_{n=1}^{N} \sum_{s=1}^{S} \sum_{g=1}^{G} d_{n,s} \cdot x_{n,s,g}
+\]
+
+\subsection*{Constraints}
+
+\begin{enumerate}
+    \item \textbf{Capacity Constraints:}
+    \[
+    \sum_{n=1}^{N} x_{n,s,g} \leq \text{capacity}_{s,g}, \quad \forall s \in \{1, \ldots, S\}, \forall g \in \{1, \ldots, G\}
+    \]
+
+    \item \textbf{Population Constraints:}
+    \[
+    \sum_{s=1}^{S} x_{n,s,g} = \text{population}_{n,g}, \quad \forall n \in \{1, \ldots, N\}, \forall g \in \{1, \ldots, G\}
+    \]
+
+    \item \textbf{Non-negativity Constraints:}
+    \[
+    x_{n,s,g} \geq 0, \quad \forall n \in \{1, \ldots, N\}, \forall s \in \{1, \ldots, S\}, \forall g \in \{1, \ldots, G\}
+    \]
+\end{enumerate}
+
+\end{document}

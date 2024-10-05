@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\textbf{Problem Formulation:}
+
+Given:
+\begin{itemize}
+    \item Coefficients matrix: \(\text{coeff} = [\text{coeff}_{i,j}]\) for \(i = 1, \ldots, N\) and \(j = 1, \ldots, M\)
+    \item Desired illumination: \(\text{desired} = [\text{desired}_i]\) for \(i = 1, \ldots, N\)
+\end{itemize}
+
+Variables:
+\begin{itemize}
+    \item Lamp power: \(\text{power} = [\text{power}_j]\) for \(j = 1, \ldots, M\)
+    \item Error: \(\text{error} = [\text{error}_i]\) for \(i = 1, \ldots, N\)
+\end{itemize}
+
+Objective:
+\[
+\text{Minimize } \sum_{i=1}^{N} \text{error}_i
+\]
+
+Subject to:
+\[
+-\text{error}_i \leq \sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j - \text{desired}_i \leq \text{error}_i, \quad \forall i = 1, \ldots, N
+\]
+
+\end{document}

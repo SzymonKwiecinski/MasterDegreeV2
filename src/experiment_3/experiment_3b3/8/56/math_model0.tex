@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Delivery Problem}
+
+\subsection*{Variables}
+Let:
+\begin{itemize}
+    \item $N$: Number of streets
+    \item $W$: Number of avenues
+    \item $west\_time_{n,w}$: Time to move from intersection $(w, n)$ to $(w+1, n)$
+    \item $north\_time_{n,w}$: Time to move from intersection $(w, n)$ to $(w, n+1)$
+    \item $x_{n,w}$: Binary variable, where $x_{n,w} = 1$ if the delivery person moves north from $(w, n)$, and $0$ otherwise.
+    \item $y_{n,w}$: Binary variable, where $y_{n,w} = 1$ if the delivery person moves west from $(w, n)$, and $0$ otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total time taken to traverse the grid:
+\[
+\text{minimize} \quad T = \sum_{n=1}^{N-1} \sum_{w=1}^{W} north\_time_{n,w} \cdot x_{n,w} + \sum_{n=1}^{N} \sum_{w=1}^{W-1} west\_time_{n,w} \cdot y_{n,w}
+\]
+
+\subsection*{Constraints}
+Movement constraints:
+\begin{itemize}
+    \item Each intersection can only have one movement decision at a time:
+    \[
+    x_{n,w} + y_{n,w} \leq 1, \quad \forall n \in \{1, \ldots, N-1\}, \forall w \in \{1, \ldots, W\}
+    \]
+    \item Boundary conditions for the beginning and end of the path:
+    \[
+    \sum_{w=1}^{W-1} y_{1,w} = 0 \quad \text{(start point)}
+    \]
+    \[
+    \sum_{w=1}^{W} x_{N-1,w} = 1 \quad \text{(end point)}
+    \]
+\end{itemize}
+
+\subsection*{Output}
+The output will consist of:
+\begin{itemize}
+    \item `paths`: The sequence of intersections traversed by the delivery person.
+    \item `total_time`: The total time taken to travel the path.
+\end{itemize}
+
+\end{document}

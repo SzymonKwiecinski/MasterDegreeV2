@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:} Maximize the profit:
+
+\[
+\text{Profit} = \sum_{p=1}^{P} \left( pr_p \cdot x_p \right) - \sum_{m=1}^{M} \left( c_m \cdot \sum_{p=1}^{P} t_{m,p} \cdot x_p \right)
+\]
+
+\textbf{Subject to the constraints:}
+
+1. Machine availability constraints for \( m = 1, \ldots, M-2 \):
+
+\[
+\sum_{p=1}^{P} t_{m,p} \cdot x_p \leq a_m \quad \text{for } m = 1, \ldots, M-2
+\]
+
+2. Combined availability constraint for Machine \( M \) and Machine \( M-1 \):
+
+\[
+\sum_{p=1}^{P} t_{M,p} \cdot x_p + \sum_{p=1}^{P} t_{M-1,p} \cdot x_p \leq a_M + a_{M-1}
+\]
+
+3. Minimum production requirements:
+
+\[
+x_p \geq \text{min\_batches}_p \quad \text{for } p = 1, \ldots, P
+\]
+
+4. Non-negativity constraints:
+
+\[
+x_p \geq 0 \quad \text{for } p = 1, \ldots, P
+\]
+
+\end{document}

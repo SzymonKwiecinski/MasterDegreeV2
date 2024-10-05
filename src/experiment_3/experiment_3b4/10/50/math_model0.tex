@@ -1,0 +1,22 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+Maximize:
+\[
+\sum_{p=1}^P \text{price}_p \cdot x_p - \sum_{m=1}^M \left( \text{cost}_m \cdot \sum_{p=1}^P \text{time}_{m,p} \cdot x_p + \text{extra\_cost}_m \cdot e_m \right)
+\]
+
+\textbf{Subject to:}
+
+\begin{align*}
+& \sum_{p=1}^P \text{time}_{m,p} \cdot x_p \leq \text{available}_m + e_m, && \forall m = 1, \ldots, M \\
+& x_p \geq \text{min\_batches}_p, && \forall p = 1, \ldots, P \\
+& 0 \leq e_m \leq \text{max\_extra}_m, && \forall m = 1, \ldots, M \\
+& x_p \geq 0, \quad \text{integer}, && \forall p = 1, \ldots, P \\
+& e_m \geq 0, && \forall m = 1, \ldots, M
+\end{align*}
+
+\end{document}

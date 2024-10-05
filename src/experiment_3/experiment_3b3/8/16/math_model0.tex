@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Oil Refinery Production}
+
+\subsection*{Variables}
+Let \( x_l \) be the number of times process \( l \) is executed for \( l = 1, 2, \ldots, L \).
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{allocated}_i \): million barrels of crude oil type \( i \) allocated for production.
+    \item \( \text{price}_p \): selling price of product \( p \) per barrel.
+    \item \( \text{input}_{l,i} \): barrels of crude type \( i \) required for process \( l \).
+    \item \( \text{output}_{l,p} \): barrels of product \( p \) produced by process \( l \).
+    \item \( \text{cost}_l \): cost per barrel of product produced by process \( l \).
+\end{itemize}
+
+\subsection*{Objective Function}
+We want to maximize the total revenue given by:
+
+\[
+\text{Revenue} = \sum_{p=1}^{P} \text{price}_p \cdot \sum_{l=1}^{L} \text{output}_{l,p} \cdot x_l - \sum_{l=1}^{L} \text{cost}_l \cdot \sum_{p=1}^{P} \text{output}_{l,p} \cdot x_l
+\]
+
+This can be rewritten as:
+
+\[
+\text{Maximize } Z = \sum_{l=1}^{L} \left( \sum_{p=1}^{P} \text{price}_p \cdot \text{output}_{l,p} - \text{cost}_l \cdot \sum_{p=1}^{P} \text{output}_{l,p} \right) x_l
+\]
+
+\subsection*{Constraints}
+The constraints are based on the allocation of crude oil:
+
+\[
+\sum_{l=1}^{L} \text{input}_{l,i} \cdot x_l \leq \text{allocated}_i \quad \text{for } i = 1, 2, \ldots, O
+\]
+
+\subsection*{Non-negativity}
+The number of times each process is executed cannot be negative:
+
+\[
+x_l \geq 0 \quad \text{for } l = 1, 2, \ldots, L
+\]
+
+\subsection*{Output}
+Let \( \text{execute}_l = x_l \) for \( l = 1, 2, \ldots, L \), and the revenue is given by \( Z \).
+
+\end{document}

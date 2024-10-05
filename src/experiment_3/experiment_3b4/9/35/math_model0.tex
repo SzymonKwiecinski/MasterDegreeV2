@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Warehouse Operation}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_n \): buy quantity in period \( n \)
+    \item \( y_n \): sell quantity in period \( n \)
+    \item \( s_n \): stock level at the end of period \( n \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\max \sum_{n=1}^{N} \left( \text{price}_n \cdot y_n - \text{cost}_n \cdot x_n - \text{holding\_cost} \cdot s_n \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+    & \text{Capacity constraint:} \\
+    & 0 \leq s_n \leq \text{capacity}, \quad \forall n = 1, \ldots, N \\
+    \\
+    & \text{Flow balance constraint:} \\
+    & s_{n-1} + x_n - y_n = s_n, \quad \forall n = 1, \ldots, N \\
+    \\
+    & \text{Initial and final stock conditions:} \\
+    & s_0 = 0 \\
+    & s_N = 0
+\end{align*}
+
+\subsection*{Remarks}
+- The warehouse must start and end empty.
+- Stock levels and buying/selling quantities are non-negative.
+
+\end{document}

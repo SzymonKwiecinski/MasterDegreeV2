@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+\[
+\text{maximize} \quad \sum_{i=1}^{N-1} x_{i,N} \times \text{rate}_{i,N} + \text{start}_N + \sum_{j=1}^{N-1} x_{N,j} \times \text{rate}_{N,j}
+\]
+
+\textbf{Constraints:}
+
+1. \text{Currency Start Constraint:}
+   \[
+   \sum_{j=1}^{N} x_{j,i} \times \text{rate}_{j,i} + \text{start}_i - \sum_{k=1}^{N} x_{i,k} \leq \text{start}_i, \quad \forall i
+   \]
+
+2. \text{Exchange Limit Constraint:}
+   \[
+   \sum_{j=1}^{N} x_{i,j} \leq \text{limit}_i, \quad \forall i
+   \]
+
+3. \text{Non-negativity Constraint:}
+   \[
+   x_{i,j} \geq 0, \quad \forall i, j
+   \]
+
+4. \text{Currency Cycle Condition:}
+   \[
+   \text{rate}_{i_1, i_2} \times \text{rate}_{i_2, i_3} \times \cdots \times \text{rate}_{i_k, i_1} \leq 1
+   \]
+
+\end{document}

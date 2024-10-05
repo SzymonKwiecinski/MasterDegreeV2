@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Fitting a Line}
+
+Given data points \((x_k, y_k)\) for \(k = 1, \ldots, K\), we aim to find the best fitting line of the form:
+
+\[
+y = bx + a
+\]
+
+where \(b\) is the slope and \(a\) is the intercept. The objective is to minimize the sum of the absolute deviations between the observed values \(y_k\) and the predicted values \((bx_k + a)\).
+
+The objective function to minimize can be expressed as:
+
+\[
+\min \sum_{k=1}^{K} |y_k - (bx_k + a)|
+\]
+
+To convert this into a standard linear programming form, we introduce auxiliary variables \(d_k\) to represent the absolute deviations:
+
+\[
+d_k \geq y_k - (bx_k + a) \quad \forall k
+\]
+\[
+d_k \geq -(y_k - (bx_k + a)) \quad \forall k
+\]
+
+This implies:
+
+\[
+d_k \geq |y_k - (bx_k + a)| \quad \forall k
+\]
+
+Thus, the complete formulation is:
+
+\[
+\text{Minimize } \sum_{k=1}^{K} d_k
+\]
+
+subject to:
+
+\[
+d_k \geq y_k - (bx_k + a) \quad \forall k
+\]
+\[
+d_k \geq -(y_k - (bx_k + a)) \quad \forall k
+\]
+
+The output of this linear programming problem will yield the optimal values of \(a\) (intercept) and \(b\) (slope), defined as:
+
+\begin{itemize}
+    \item \textbf{Intercept}: \(a\)
+    \item \textbf{Slope}: \(b\)
+\end{itemize}
+
+The final results can be formatted as:
+
+\[
+\{\text{"intercept"}: a, \text{"slope"}: b\}
+\]
+
+\end{document}

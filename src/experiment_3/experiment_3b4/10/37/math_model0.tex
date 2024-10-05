@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Formulation:}
+
+\textbf{Decision Variables:}
+
+Let \( x_k \) be the quantity of spare part \( k \) to be produced.
+
+\textbf{Objective Function:}
+
+Maximize the total profit:
+
+\[
+Z = \sum_{k=1}^{K} \text{profit}_k \times x_k
+\]
+
+\textbf{Subject to Constraints:}
+
+1. Shop Capacity Constraints:
+   \[
+   \sum_{k=1}^{K} \text{time}_{k, s} \times x_k \leq \text{capacity}_s, \quad \forall s = 1, \ldots, S
+   \]
+
+2. Non-negativity Constraints:
+   \[
+   x_k \geq 0, \quad \forall k = 1, \ldots, K
+   \]
+
+\end{document}

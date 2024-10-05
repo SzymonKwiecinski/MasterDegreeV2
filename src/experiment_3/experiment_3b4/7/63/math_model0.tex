@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Model for Paper Roll Cutting Problem}
+
+\subsection*{Objective}
+
+Minimize the total number of large rolls used:
+
+\[
+\text{minimize} \quad \sum_{i=1}^{N} x_i
+\]
+
+\subsection*{Constraints}
+
+1. Demand satisfaction for each roll width type \( j \):
+
+\[
+\sum_{i=1}^{N} a_{i,j} x_i \geq \text{demand}_j \quad \forall j = 1, \ldots, M
+\]
+
+2. Non-negativity and integer constraints for cutting patterns:
+
+\[
+x_i \geq 0 \quad \text{and} \quad x_i \in \mathbb{Z} \quad \forall i = 1, \ldots, N
+\]
+
+\subsection*{Definitions}
+
+- \( x_i \) : Number of times pattern \( i \) is used.
+- \( a_{i,j} \) : Number of rolls of width \( j \) produced by pattern \( i \).
+- \( \text{demand}_j \) : Demand for rolls of width \( j \).
+
+\end{document}

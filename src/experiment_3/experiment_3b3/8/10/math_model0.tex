@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for School Assignment Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let $N$ be the number of neighborhoods.
+    \item Let $S$ be the number of schools.
+    \item Let $G$ be the number of grades at each school.
+    \item Let $capacity_{s,g}$ be the capacity of school $s$ for grade $g$.
+    \item Let $population_{n,g}$ be the student population of neighborhood $n$ for grade $g$.
+    \item Let $d_{n,s}$ be the distance of school $s$ from neighborhood $n$.
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let $x_{n,s,g}$ be the number of students of grade $g$ in neighborhood $n$ assigned to school $s$.
+
+\subsection*{Objective Function}
+We want to minimize the total distance traveled by all students:
+\[
+\text{Minimize } Z = \sum_{n=1}^{N} \sum_{s=1}^{S} \sum_{g=1}^{G} d_{n,s} \cdot x_{n,s,g}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item \textbf{Capacity Constraints:} The total number of students assigned to each school for each grade cannot exceed the school's capacity:
+    \[
+    \sum_{n=1}^{N} x_{n,s,g} \leq capacity_{s,g}, \quad \forall s, g
+    \]
+    
+    \item \textbf{Population Constraints:} All students in each neighborhood for each grade must be assigned to schools:
+    \[
+    \sum_{s=1}^{S} x_{n,s,g} = population_{n,g}, \quad \forall n, g
+    \]
+
+    \item \textbf{Non-negativity Constraints:} The number of students assigned cannot be negative:
+    \[
+    x_{n,s,g} \geq 0, \quad \forall n, s, g
+    \]
+\end{itemize}
+
+\subsection*{Output}
+We seek to find:
+\begin{itemize}
+    \item The assignment of students: $x_{n,s,g}$ for all $n$, $s$, and $g$.
+    \item The total distance traveled by all students, represented as $\text{total\_distance}$.
+\end{itemize}
+
+\end{document}

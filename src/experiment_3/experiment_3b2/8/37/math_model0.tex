@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+Let \( \text{quantity}_k \) be the quantity of spare part \( k \) to be produced.
+
+\subsection*{Objective Function}
+
+Maximize the profit:
+\[
+\text{Maximize: } Z = \sum_{k=1}^{K} \text{profit}_k \cdot \text{quantity}_k
+\]
+
+\subsection*{Subject to Constraints}
+
+1. Capacity constraints for each shop \( s \):
+\[
+\sum_{k=1}^{K} \text{time}_{k, s} \cdot \text{quantity}_k \leq \text{capacity}_s, \quad \forall s = 1, \ldots, S
+\]
+
+2. Non-negativity constraints:
+\[
+\text{quantity}_k \geq 0, \quad \forall k = 1, \ldots, K
+\]
+
+\end{document}

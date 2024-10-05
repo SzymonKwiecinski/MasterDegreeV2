@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Rocket Trajectory Optimization}
+
+\textbf{Objective:} Minimize the total fuel consumption,
+\[
+\min \sum_{t=0}^{T-1} |a_t|
+\]
+
+\textbf{Subject to the constraints:}
+\begin{align*}
+x_{t+1} &= x_t + v_t, \quad \text{for } t = 0, 1, \ldots, T-1, \\
+v_{t+1} &= v_t + a_t, \quad \text{for } t = 0, 1, \ldots, T-1, \\
+x_0 &= \text{given initial position}, \\
+v_0 &= \text{given initial velocity}, \\
+x_T &= \text{target position at time } T, \\
+v_T &= \text{target velocity at time } T.
+\end{align*}
+
+\textbf{Decision variables:}
+- \( x_t \) for \( t = 0, 1, \ldots, T \)
+- \( v_t \) for \( t = 0, 1, \ldots, T \)
+- \( a_t \) for \( t = 0, 1, \ldots, T-1 \)
+
+\textbf{Remarks:}
+- \( |a_t| \) represents the absolute value of acceleration, relevant for fuel consumption.
+- The absolute value can be handled in linear programming by introducing additional variables and constraints, e.g., \( a_t = a_t^+ - a_t^- \) with \( a_t^+, a_t^- \geq 0 \) and minimizing \( a_t^+ + a_t^- \).
+
+\end{document}

@@ -1,0 +1,22 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Decision Variables:} \\
+Let \( x_s \) be the number of officers starting a shift at \( s \) for \( s = 1, \ldots, S \).
+
+\textbf{Objective Function:} \\
+Minimize the total cost:
+\[
+\text{Minimize} \quad \sum_{s=1}^{S} \text{shift\_cost}_s \cdot x_s
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+x_s + x_{(s+1) \mod S} & \geq \text{officers\_needed}_s, \quad \forall s = 1, \ldots, S \\
+x_s & \geq 0, \quad \forall s = 1, \ldots, S
+\end{align*}
+
+\end{document}

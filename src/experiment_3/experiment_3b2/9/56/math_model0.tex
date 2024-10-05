@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\textbf{Sets and Indices:}
+\begin{itemize}
+    \item $n = 1, 2, \ldots, N$ : index for streets
+    \item $w = 1, 2, \ldots, W$ : index for avenues
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $\text{west\_time}_{n,w}$: time to move from intersection $(n, w)$ to $(n, w+1)$
+    \item $\text{north\_time}_{n,w}$: time to move from intersection $(n, w)$ to $(n+1, w)$
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_{n,w}^N$: binary variable, equals 1 if moving north from intersection $(n, w)$; 0 otherwise
+    \item $x_{n,w}^W$: binary variable, equals 1 if moving west from intersection $(n, w)$; 0 otherwise
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize } \sum_{n=1}^{N}\sum_{w=1}^{W-1} \text{west\_time}_{n,w} \cdot x_{n,w}^W + \sum_{n=1}^{N-1}\sum_{w=1}^{W} \text{north\_time}_{n,w} \cdot x_{n,w}^N
+\]
+
+\textbf{Constraints:}
+\begin{align*}
+& \sum_{w=1}^{W-1} x_{1,w}^W + \sum_{n=1}^{N-1} x_{n,1}^N = 1 & \text{(Start at (1,1))} \\
+& \sum_{w=1}^{W-1} x_{N,w}^W + \sum_{n=1}^{N-1} x_{n,W}^N = 1 & \text{(End at (N,W))} \\
+& x_{n,w}^N + x_{n,w}^W = 1, & \forall n = 1, \dots, N, \forall w = 1, \dots, W \\
+& x_{n,w}^N, x_{n,w}^W \in \{0, 1\} & \forall n, \forall w
+\end{align*}
+
+\end{document}

@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Sets and Parameters}
+
+\begin{itemize}
+    \item Let $M$ be the set of machines, $m \in M$ with $|M| = \text{number of machines}$.
+    \item Let $K$ be the set of products, $k \in K$ with $|K| = \text{number of products}$.
+    \item Let $I$ be the set of months, $i \in I$ with $|I| = \text{number of months}$.
+    \item $\text{num\_machines}_m$: Number of machine $m$ available each month when not under maintenance.
+    \item $\text{profit}_k$: Profit per unit of product $k$.
+    \item $\text{time}_{k,m}$: Hours required on machine $m$ to produce one unit of product $k$.
+    \item $\text{maintain}_{i,m}$: Number of machine $m$ down for maintenance in month $i$.
+    \item $\text{limit}_{k,i}$: Maximum units of product $k$ that can be sold in month $i$.
+    \item $\text{store\_price}$: Storage cost per unit product per month.
+    \item $\text{keep\_quantity}$: Minimum stock required for each product at the end of each month.
+    \item $\text{n\_workhours}$: Number of working hours per day.
+\end{itemize}
+
+\subsection*{Decision Variables}
+
+\begin{itemize}
+    \item $x_{k,i}$: Number of units of product $k$ manufactured in month $i$.
+    \item $y_{k,i}$: Number of units of product $k$ sold in month $i$.
+    \item $s_{k,i}$: Number of units of product $k$ stored at the end of month $i$.
+\end{itemize}
+
+\subsection*{Objective Function}
+
+Maximize the total profit over all months:
+
+\[
+\max \sum_{i \in I} \left( \sum_{k \in K} \left( \text{profit}_k \cdot y_{k,i} - \text{store\_price} \cdot s_{k,i} \right) \right)
+\]
+
+\subsection*{Constraints}
+
+\begin{align}
+    &\text{Manufacturing Constraint:} \notag \\
+    &\sum_{k \in K} \text{time}_{k,m} \cdot x_{k,i} \leq 24 \cdot \text{n\_workhours} \cdot (\text{num\_machines}_m - \text{maintain}_{i,m}), \quad \forall i \in I, \forall m \in M \\
+    &\text{Sales Constraint:} \notag \\
+    &y_{k,i} \leq \text{limit}_{k,i}, \quad \forall k \in K, \forall i \in I \\
+    &\text{Inventory Balance:} \notag \\
+    &s_{k,i-1} + x_{k,i} = y_{k,i} + s_{k,i}, \quad \forall k \in K, \forall i \in I \\
+    &\text{Storage Limitation:} \notag \\
+    &s_{k,i} \leq 100, \quad \forall k \in K, \forall i \in I \\
+    &\text{End of Month Stock Requirement:} \notag \\
+    &s_{k,I} = \text{keep\_quantity}, \quad \forall k \in K \\
+    &\text{Non-negativity:} \notag \\
+    &x_{k,i}, y_{k,i}, s_{k,i} \geq 0, \quad \forall k \in K, \forall i \in I
+\end{align}
+
+\end{document}

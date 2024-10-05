@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Decision Variables:}
+\[
+x_p = \text{Number of batches of part } p \text{ produced each month, for } p = 1, \ldots, P
+\]
+
+\textbf{Objective Function:}
+
+Maximize the total profit:
+\[
+\text{Profit} = \sum_{p=1}^{P} \text{price}_p \cdot x_p - \sum_{m=1}^{M} \text{cost}_m \cdot \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p - \text{additional labor cost}
+\]
+
+Where additional labor cost for machine 1 is:
+\[
+\text{additional labor cost} = \begin{cases} 
+\text{standard\_cost} \cdot \sum_{p=1}^{P} \text{time}_{1,p} \cdot x_p, & \text{if } \sum_{p=1}^{P} \text{time}_{1,p} \cdot x_p \leq \text{overtime\_hour} \\
+\text{standard\_cost} \cdot \text{overtime\_hour} + \text{overtime\_cost} \cdot \left( \sum_{p=1}^{P} \text{time}_{1,p} \cdot x_p - \text{overtime\_hour} \right), & \text{otherwise}
+\end{cases}
+\]
+
+\textbf{Constraints:}
+
+1. Machine time constraints for machines 2 to M:
+\[
+\sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \leq \text{available}_m, \quad \forall m = 2, \ldots, M
+\]
+
+2. Contractual obligations:
+\[
+x_p \geq \text{min\_batches}_p, \quad \forall p = 1, \ldots, P
+\]
+
+3. Non-negativity:
+\[
+x_p \geq 0, \quad \forall p = 1, \ldots, P
+\]
+
+\section*{Summary}
+
+The objective is to determine the values of \( x_p \) that maximize the profit while satisfying all constraints.
+
+\end{document}

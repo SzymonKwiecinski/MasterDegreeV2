@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\textbf{Decision Variables:}
+\begin{align*}
+\text{coal\_add}_t &: \text{Number of megawatts of coal-fired capacity added in year } t. \\
+\text{nuke\_add}_t &: \text{Number of megawatts of nuclear capacity added in year } t. 
+\end{align*}
+
+\textbf{Objective: Minimize the total cost of capacity expansion}
+\[
+\text{Minimize} \quad \sum_{t=1}^{T} \left( \text{coal\_cost} \times \text{coal\_add}_t + \text{nuke\_cost} \times \text{nuke\_add}_t \right)
+\]
+
+\textbf{Constraints:}
+
+1. \textbf{Demand Satisfaction:}
+\[
+\sum_{\tau=\max(1, t-\text{coal\_life}+1)}^{t} \text{coal\_add}_\tau + \sum_{\tau=\max(1, t-\text{nuke\_life}+1)}^{t} \text{nuke\_add}_\tau + \text{oil}_t \geq \text{demand}_t \quad \forall t
+\]
+
+2. \textbf{Nuclear Capacity Limit:}
+\[
+\sum_{\tau=\max(1, t-\text{nuke\_life}+1)}^{t} \text{nuke\_add}_\tau \leq \frac{\text{max\_nuke}}{100} \left( \sum_{\tau=\max(1, t-\text{coal\_life}+1)}^{t} \text{coal\_add}_\tau + \sum_{\tau=\max(1, t-\text{nuke\_life}+1)}^{t} \text{nuke\_add}_\tau + \text{oil}_t \right) \quad \forall t
+\]
+
+3. \textbf{Non-negativity:}
+\[
+\text{coal\_add}_t \geq 0, \quad \text{nuke\_add}_t \geq 0 \quad \forall t
+\]
+
+\end{document}

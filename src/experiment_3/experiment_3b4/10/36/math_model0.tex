@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model for Alloy Production}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_k$: Amount (in pounds) of alloy $k$ to purchase, for $k = 1, \ldots, K$.
+\end{itemize}
+
+\textbf{Objective Function:}
+\[
+\text{Minimize} \quad \sum_{k=1}^{K} \text{price}_k \cdot x_k 
+\]
+
+\textbf{Subject to:}
+\begin{itemize}
+    \item \textbf{Total Alloy Production Requirement:}
+    \[
+    \sum_{k=1}^{K} x_k = \text{alloy\_quant} 
+    \]
+    
+    \item \textbf{Metal Composition Requirement:}
+    \[
+    \sum_{k=1}^{K} \text{ratio}_{k,m} \cdot x_k = \text{target}_m, \quad \text{for each } m = 1, \ldots, M
+    \]
+    
+    \item \textbf{Non-negativity Constraints:}
+    \[
+    x_k \geq 0, \quad \text{for each } k = 1, \ldots, K
+    \]
+\end{itemize}
+
+\end{document}

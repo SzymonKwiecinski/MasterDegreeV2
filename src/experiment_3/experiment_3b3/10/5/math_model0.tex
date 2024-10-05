@@ -1,0 +1,80 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Communication Network}
+
+\subsection*{Sets}
+\begin{itemize}
+    \item Let \( N \) be the set of nodes.
+    \item Let \( A \) be the set of all links, where each link is described by the ordered pair \( (i,j) \).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( U_{i,j} \): Capacity of link \( (i,j) \) in bits per second.
+    \item \( C_{i,j} \): Cost per bit transmitted along link \( (i,j) \).
+    \item \( B_{k,l} \): Data generation rate from node \( k \) to node \( l \) in bits per second.
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item Let \( x_{i,j} \): Flow of data on link \( (i,j) \) in bits per second.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost \( Z \):
+\[
+Z = \sum_{(i,j) \in A} C_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Flow conservation constraints for each node \( k \):
+    \[
+    \sum_{j | (k,j) \in A} x_{k,j} - \sum_{i | (i,k) \in A} x_{i,k} = 
+    \begin{cases} 
+    B_{k,l} & \text{if } k \text{ is the source of data to } l \\
+    0 & \text{otherwise} 
+    \end{cases}
+    \]
+    
+    \item Capacity constraints for each link \( (i,j) \):
+    \[
+    x_{i,j} \leq U_{i,j} \quad \forall (i,j) \in A
+    \]
+
+    \item Non-negativity constraints:
+    \[
+    x_{i,j} \geq 0 \quad \forall (i,j) \in A
+    \]
+\end{itemize}
+
+\subsection*{Output Variables}
+\begin{itemize}
+    \item \( \text{total\_cost} \): Represents the total cost of all the paths.
+    \item \( \text{path\_cost} \): Represents the cost of the corresponding path.
+    \item \( \text{path\_flow} \): Represents the flow going through the corresponding path.
+\end{itemize}
+
+\subsection*{Output Format}
+The output is structured as follows:
+\begin{verbatim}
+{
+    "optimized_paths": {
+        "paths": [
+            {
+                "source": k,
+                "destination": l,
+                "route": [k, i_1, i_2, ..., l],
+                "path_flow": path_flow,
+                "path_cost": path_cost
+            },
+            ...
+        ],
+        "total_cost": "total_cost"
+    }
+}
+\end{verbatim}
+
+\end{document}

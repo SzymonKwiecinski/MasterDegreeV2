@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item Let \( x_p \) be the number of batches of part \( p \) produced, for \( p = 1, \ldots, P \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Profit} = \sum_{p=1}^{P} \left( \text{price}_{p} \cdot x_p \right) - \sum_{m=1}^{M} \left( \text{cost}_{m} \cdot \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \right)
+\]
+For machine 1, the cost needs to consider both standard and overtime charges:
+\[
+\text{Labor Cost for Machine 1} = 
+\begin{cases} 
+\text{standard\_cost} \cdot \sum_{p=1}^{P} \text{time}_{1,p} \cdot x_p, & \text{if } \sum_{p=1}^{P} \text{time}_{1,p} \cdot x_p \leq \text{overtime\_hour} \\ 
+\text{standard\_cost} \cdot \text{overtime\_hour} + \text{overtime\_cost} \cdot \left(\sum_{p=1}^{P} \text{time}_{1,p} \cdot x_p - \text{overtime\_hour}\right), & \text{otherwise}
+\end{cases}
+\]
+So, substitute accordingly for machine 1 in the objective function.
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Machine Usage Constraints for \( m = 2, \ldots, M \):
+    \[
+    \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \leq \text{available}_{m}
+    \]
+    \item Minimum Batches Requirement:
+    \[
+    x_p \geq \text{min\_batches}_{p} \quad \forall \; p = 1, \ldots, P
+    \]
+    \item Profit Requirement:
+    \[
+    \text{Profit} \geq \text{min\_profit}
+    \]
+\end{itemize}
+
+\subsection*{Non-Negativity Constraints}
+\[
+x_p \geq 0 \quad \forall \; p = 1, \ldots, P
+\]
+
+\end{document}

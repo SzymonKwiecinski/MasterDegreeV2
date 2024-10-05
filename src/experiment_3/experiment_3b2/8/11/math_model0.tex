@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Objective Function}
+
+Minimize the total cost:
+\[
+\min \sum_{i=1}^{T} \text{storage\_cost} \cdot s_i + \sum_{i=1}^{T-1} \text{switch\_cost} \cdot |x_{i+1} - x_i|
+\]
+
+\subsection*{Constraints}
+
+1. Inventory balance for each month \( i \):
+   \[
+   s_{i-1} + x_i = \text{deliver}_i + s_i \quad \text{for } i = 1, 2, \ldots, T
+   \]
+
+2. Initial inventory:
+   \[
+   s_0 = 0
+   \]
+
+3. Non-negativity constraints:
+   \[
+   x_i \geq 0, \quad s_i \geq 0 \quad \text{for } i = 1, 2, \ldots, T
+   \]
+
+4. No ending inventory:
+   \[
+   s_T = 0
+   \]
+
+\subsection*{Note}
+The term \( |x_{i+1} - x_i| \) in the objective function can be handled by introducing auxiliary variables for each absolute value.
+
+\end{document}

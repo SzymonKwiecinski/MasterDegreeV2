@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+% Sets and parameters
+Let \( N \) be the number of Streets, and \( W \) be the number of Avenues. \\
+Let \( \text{west\_time}_{n,w} \) be the time to move west from the intersection of \( w \)th Avenue and \( n \)th Street. \\
+Let \( \text{north\_time}_{n,w} \) be the time to move north from the intersection of \( w \)th Avenue and \( n \)th Street. \\
+
+% Decision variables
+Define \( x_{n,w}^{west} \) as a binary variable that is 1 if moving west from intersection \((n, w)\), 0 otherwise. \\
+Define \( x_{n,w}^{north} \) as a binary variable that is 1 if moving north from intersection \((n, w)\), 0 otherwise. \\
+
+% Objective function
+\textbf{Minimize:} 
+\[
+\text{Total time} = \sum_{n=1}^{N} \sum_{w=1}^{W-1} \text{west\_time}_{n,w} \cdot x_{n,w}^{west} + \sum_{n=1}^{N-1} \sum_{w=1}^{W} \text{north\_time}_{n,w} \cdot x_{n,w}^{north}
+\]
+
+% Constraints
+\textbf{Subject to:}
+\begin{align*}
+1. & \quad \sum_{w=1}^{W-1} x_{1,w}^{west} + \sum_{n=1}^{N-1} x_{n,1}^{north} = m \\
+2. & \quad \sum_{n=1}^{N} x_{n,W-1}^{west} + \sum_{w=1}^{W} x_{N-1,w}^{north} = m \\
+3. & \quad \sum_{w=1}^{W-1} x_{n,w}^{west} + x_{n,1}^{north} \leq 1 \quad \text{for all } n \\
+4. & \quad \sum_{n=1}^{N-1} x_{n,w}^{north} + x_{1,w}^{west} \leq 1 \quad \text{for all } w \\
+5. & \quad x_{n,w}^{west}, x_{n,w}^{north} \in \{0, 1\} \quad \text{for all } n,w
+\end{align*}
+
+\textbf{Explanation:}
+\begin{itemize}
+    \item The objective is to minimize the total travel time by choosing optimal paths.
+    \item The constraints ensure that the delivery person starts from the initial position and reaches the destination by moving only northward or westward per the defined path constraints.
+    \item Each path from \( (n, w) \) involves a binary decision of moving either north or west.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Maximizing Profit in Spare Automobile Parts Production}
+\author{}
+\date{}
+\maketitle
+
+\section*{Variables}
+Let \( x_k \) be the quantity of spare part \( k \) produced, where \( k = 1, 2, \ldots, K \).
+
+\section*{Parameters}
+\begin{itemize}
+    \item \( time_{k, s} \): The required worker-hours for part \( k \) in shop \( s \).
+    \item \( profit_k \): The profit from part \( k \).
+    \item \( capacity_s \): The capacity of shop \( s \) in working hours.
+\end{itemize}
+
+\section*{Objective Function}
+The objective is to maximize the total profit from producing the spare parts:
+\[
+\text{Maximize } Z = \sum_{k=1}^{K} profit_k \cdot x_k
+\]
+
+\section*{Constraints}
+The production of each part must adhere to the capacity constraints of each shop. For each shop \( s \):
+\[
+\sum_{k=1}^{K} time_{k, s} \cdot x_k \leq capacity_s \quad \text{for } s = 1, 2, \ldots, S
+\]
+
+Additionally, we need to ensure that the quantities of parts produced are non-negative:
+\[
+x_k \geq 0 \quad \text{for } k = 1, 2, \ldots, K
+\]
+
+\section*{Model Formulation}
+The linear programming model can be summarized as follows:
+
+\begin{align*}
+\text{Maximize } & Z = \sum_{k=1}^{K} profit_k \cdot x_k \\
+\text{subject to } & \sum_{k=1}^{K} time_{k, s} \cdot x_k \leq capacity_s \quad \forall s = 1, 2, \ldots, S \\
+& x_k \geq 0 \quad \forall k = 1, 2, \ldots, K
+\end{align*}
+
+\end{document}

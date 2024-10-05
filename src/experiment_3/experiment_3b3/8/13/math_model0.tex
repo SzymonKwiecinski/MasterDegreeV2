@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Finding the Chebyshev Center}
+
+Let $\mathcal{P}$ be the feasible region defined by the set of linear inequalities:
+\[
+\mathcal{P} = \{ \mathbf{x} \in \mathbb{R}^N \mid \mathbf{a}_i^T \mathbf{x} \leq b_i, \, i = 1, \ldots, m \}
+\]
+where $\mathbf{a}_i \in \mathbb{R}^N$ and $b_i \in \mathbb{R}$.
+
+We want to find the Chebyshev center of the set $\mathcal{P}$, which is defined as the center $\mathbf{y}$ and radius $r$ of the largest ball contained in $\mathcal{P}$. Mathematically, we express this as finding $\mathbf{y}$ and $r$ such that:
+
+\[
+\text{maximize} \quad r
+\]
+subject to:
+\[
+\|\mathbf{x} - \mathbf{y}\|_2 \leq r \quad \forall \mathbf{x} \in \mathcal{P}
+\]
+
+This can be rewritten in the form of linear inequalities as follows. For any point $\mathbf{x} \in \mathcal{P}$, we have:
+\[
+\mathbf{x} \in \mathcal{P} \implies \mathbf{a}_i^T \mathbf{x} \leq b_i, \, i = 1, \ldots, m
+\]
+And since we want the ball centered at $\mathbf{y}$ with radius $r$, we have:
+\[
+\mathbf{x} \in \mathcal{B}(\mathbf{y}, r) \implies \|\mathbf{x} - \mathbf{y}\|_2 \leq r
+\]
+
+Using the definition of the Euclidean norm, we can expand this constraint:
+\[
+\sqrt{(x_1 - y_1)^2 + (x_2 - y_2)^2 + \ldots + (x_N - y_N)^2} \leq r
+\]
+
+This gives us a set of constraints for $r$, which can be handled using auxiliary variables and a linear programming framework.
+
+Thus, the problem of finding the Chebyshev center can be formulated as:
+
+\begin{align*}
+\text{maximize} \quad & r \\
+\text{subject to} \quad & \mathbf{a}_i^T \mathbf{y} + r \geq b_i, \, i = 1, \ldots, m \\
+& \mathbf{a}_i^T \mathbf{y} - r \leq b_i, \, i = 1, \ldots, m \\
+& r \geq 0
+\end{align*}
+
+\end{document}

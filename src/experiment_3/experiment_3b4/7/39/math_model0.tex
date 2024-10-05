@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+\begin{document}
+
+\textbf{Linear Programming Model:}
+
+Objective:
+\begin{align}
+    \text{Minimize} \quad & \sum_{i=1}^{M} z_i
+\end{align}
+
+Where:
+\begin{itemize}
+    \item \(z_i = 1\) if employee \(i\) is hired, and 0 otherwise.
+    \item \(x_{i,n} = 1\) if employee \(i\) works on day \(n\), and 0 otherwise.
+    \item \(M\) is the maximum potential number of employees, set initially as a large number.
+\end{itemize}
+
+Subject to:
+\begin{align}
+    & \sum_{i=1}^{M} x_{i,n} \geq \text{num}_n, \quad \forall n = 1, \ldots, N \\
+    & x_{i,n} = 0, \quad \forall n = 1, \ldots, N, \quad \text{if employee } i \text{ is resting} \\
+    & \text{Each employee works for } n_{\text{working\_days}} \text{ consecutive days} \\
+    & \text{followed by } n_{\text{resting\_days}} \text{ consecutive rest days} \\
+    & z_i \geq x_{i,n}, \quad \forall i, \forall n \quad \text{(ensure } z_i = 1 \text{ if any } x_{i,n} = 1 \text{)}
+\end{align}
+
+Where the cycling pattern is given by:
+\[
+\text{If } x_{i,n} = 1 \text{ from day } n \text{ to } n + n_{\text{working\_days}} - 1, 
+\]
+then
+\[
+x_{i,n+k} = 0 \text{ for } k = n_{\text{working\_days}}, \ldots, n_{\text{working\_days}} + n_{\text{resting\_days}} - 1
+\]
+
+\end{document}

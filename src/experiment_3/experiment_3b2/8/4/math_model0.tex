@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Nurse Scheduling}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $period$: Number of consecutive days a nurse works, followed by $(7 - period)$ days off.
+    \item $d_j$: Demand for nurses on day $j$, for $j = 1, \ldots, 7$.
+\end{itemize}
+
+\subsection*{Variables}
+\begin{itemize}
+    \item $start_j$: Integer variable representing the number of nurses starting their period on day $j$, for $j = 1, \ldots, 7$.
+    \item $total$: Integer variable representing the total number of nurses hired.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total number of nurses hired:
+\[
+\text{Minimize} \quad total = \sum_{j=1}^{7} start_j
+\]
+
+\subsection*{Constraints}
+For each day $j$, the number of nurses available should meet the demand:
+\[
+\begin{align*}
+& \sum_{i=j-period+1}^{j} start_i \geq d_j, \quad \forall j = 1, \ldots, 7
+\end{align*}
+\]
+where the indices are considered modulo 7, i.e., $start_{j} = start_{j+7}$ for $j < 1$ or $j > 7$. 
+
+\subsection*{Explanation}
+- Each nurse works continuously for \texttt{period} days starting from their assigned start day, so for any day $j$, the number of nurses who start from the last \texttt{period} days should be at least the demand $d_j$.
+
+\end{document}

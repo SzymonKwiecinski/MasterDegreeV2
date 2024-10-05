@@ -1,0 +1,32 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\subsection*{Objective:}
+\[
+\text{Minimize } \sum_{(i,j) \in A} \sum_{(k,l)} C_{i,j} \cdot x_{i,j}^{k,l}
+\]
+
+\subsection*{Constraints:}
+
+\begin{align*}
+& \text{Flow Conservation at Source } k: \\
+& \sum_{j: (k,j) \in A} x_{k,j}^{k,l} - \sum_{i: (i,k) \in A} x_{i,k}^{k,l} = B_{k,l} && \forall (k,l) \\
+
+& \text{Flow Conservation at Destination } l: \\
+& \sum_{i: (i,l) \in A} x_{i,l}^{k,l} - \sum_{j: (l,j) \in A} x_{l,j}^{k,l} = B_{k,l} && \forall (k,l) \\
+
+& \text{Flow Conservation at Intermediate Nodes } n \neq k, l: \\
+& \sum_{j: (n,j) \in A} x_{n,j}^{k,l} - \sum_{i: (i,n) \in A} x_{i,n}^{k,l} = 0 && \forall (k,l), \forall n \neq k,l \\
+
+& \text{Capacity Constraints:} \\
+& \sum_{(k,l)} x_{i,j}^{k,l} \leq U_{i,j} && \forall (i,j) \in A \\
+
+& \text{Non-negativity Constraints:} \\
+& x_{i,j}^{k,l} \geq 0 && \forall (i,j) \in A, \forall (k,l)
+
+\end{align*}
+
+\end{document}

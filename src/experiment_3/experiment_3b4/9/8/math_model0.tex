@@ -1,0 +1,23 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Decision Variables:}
+\begin{align*}
+x_k &: \text{Quantity of part } k \text{ to be produced, for } k = 1, \ldots, K.
+\end{align*}
+
+\textbf{Objective Function:}
+\begin{align*}
+\text{Maximize } Z &= \sum_{k=1}^{K} \text{profit}_k \cdot x_k
+\end{align*}
+
+\textbf{Subject to Constraints:}
+\begin{align*}
+&\sum_{k=1}^{K} \text{time}_{k,s} \cdot x_k \leq \text{capacity}_s, \quad s = 1, \ldots, S \\
+&x_k \geq 0, \quad k = 1, \ldots, K
+\end{align*}
+
+\end{document}

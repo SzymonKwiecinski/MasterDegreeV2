@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Model for Nurse Scheduling}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( \text{period} \): Number of consecutive days a nurse works.
+    \item \( d_j \): Demand for nurses on day \( j \), \( j = 1, \ldots, 7 \).
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( \text{start}_j \): Number of nurses starting their period on day \( j \), \( j = 1, \ldots, 7 \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total number of nurses hired:
+\[
+\min \sum_{j=1}^{7} \text{start}_j
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+\forall j = 1,\ldots,7, \quad \sum_{i=j-\text{period}+1}^{j} \text{start}_i & \geq d_j \\
+\text{start}_i & \geq 0 \quad \text{and integer} \quad \forall i = 1,\ldots,7
+\end{align*}
+
+\subsection*{Explanation}
+\begin{itemize}
+    \item The constraint ensures that for each day \( j \), the sum of nurses who have started within the last \( \text{period} \) days is at least the demand \( d_j \).
+    \item Indices in the constraints are calculated modulo 7 to account for the weekly cycle, i.e., after day 7, the next day is day 1.
+\end{itemize}
+
+\end{document}

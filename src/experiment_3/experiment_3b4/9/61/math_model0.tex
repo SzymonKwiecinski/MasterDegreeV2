@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Model for Network Intrusion Intervention}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item $i \in \{1, \ldots, N\}$: Index for clusters.
+    \item $\text{type} \in \{\text{isolate}, \text{scan}\}$: Intervention types.
+    \item $\text{method} \in \{\text{central}, \text{distributed}\}$: Processing methods.
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $PT_{\text{central}}^{\text{isolate}}[i]$: Processing time for isolating cluster $i$ centrally.
+    \item $PT_{\text{central}}^{\text{scan}}[i]$: Processing time for scanning cluster $i$ centrally.
+    \item $PT_{\text{distributed}}^{\text{isolate}}[i]$: Processing time for isolating cluster $i$ distributedly.
+    \item $PT_{\text{distributed}}^{\text{scan}}[i]$: Processing time for scanning cluster $i$ distributedly.
+    \item $\text{central\_cost}$: Cost per hour for central processing.
+    \item $\text{distributed\_cost}$: Cost per hour for distributed processing.
+    \item $\text{max\_central}$: Maximum allowable central processing hours.
+    \item $\text{max\_distributed}$: Maximum allowable distributed processing hours.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $x_{\text{central}}^{\text{isolate}}[i]$: Binary variable, 1 if isolating cluster $i$ centrally, 0 otherwise.
+    \item $x_{\text{central}}^{\text{scan}}[i]$: Binary variable, 1 if scanning cluster $i$ centrally, 0 otherwise.
+    \item $x_{\text{distributed}}^{\text{isolate}}[i]$: Binary variable, 1 if isolating cluster $i$ distributedly, 0 otherwise.
+    \item $x_{\text{distributed}}^{\text{scan}}[i]$: Binary variable, 1 if scanning cluster $i$ distributedly, 0 otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\begin{align*}
+\text{Minimize} \quad & \sum_{i=1}^{N} \left( \text{central\_cost} \cdot \left( x_{\text{central}}^{\text{isolate}}[i] \cdot PT_{\text{central}}^{\text{isolate}}[i] + x_{\text{central}}^{\text{scan}}[i] \cdot PT_{\text{central}}^{\text{scan}}[i] \right) \right.\\
+& \left. + \text{distributed\_cost} \cdot \left( x_{\text{distributed}}^{\text{isolate}}[i] \cdot PT_{\text{distributed}}^{\text{isolate}}[i] + x_{\text{distributed}}^{\text{scan}}[i] \cdot PT_{\text{distributed}}^{\text{scan}}[i] \right) \right)
+\end{align*}
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Each cluster must have exactly one type and method of intervention:
+    \begin{align*}
+    x_{\text{central}}^{\text{isolate}}[i] + x_{\text{central}}^{\text{scan}}[i] + x_{\text{distributed}}^{\text{isolate}}[i] + x_{\text{distributed}}^{\text{scan}}[i] = 1, \quad \forall i
+    \end{align*}
+
+    \item Total central processing time should not exceed the maximum allowed:
+    \begin{align*}
+    \sum_{i=1}^{N} \left( x_{\text{central}}^{\text{isolate}}[i] \cdot PT_{\text{central}}^{\text{isolate}}[i] + x_{\text{central}}^{\text{scan}}[i] \cdot PT_{\text{central}}^{\text{scan}}[i] \right) \leq \text{max\_central}
+    \end{align*}
+
+    \item Total distributed processing time should not exceed the maximum allowed:
+    \begin{align*}
+    \sum_{i=1}^{N} \left( x_{\text{distributed}}^{\text{isolate}}[i] \cdot PT_{\text{distributed}}^{\text{isolate}}[i] + x_{\text{distributed}}^{\text{scan}}[i] \cdot PT_{\text{distributed}}^{\text{scan}}[i] \right) \leq \text{max\_distributed}
+    \end{align*}
+
+    \item Binary constraints for decision variables:
+    \begin{align*}
+    x_{\text{central}}^{\text{isolate}}[i], x_{\text{central}}^{\text{scan}}[i], x_{\text{distributed}}^{\text{isolate}}[i], x_{\text{distributed}}^{\text{scan}}[i] \in \{0, 1\}, \quad \forall i
+    \end{align*}
+\end{itemize}
+
+\end{document}

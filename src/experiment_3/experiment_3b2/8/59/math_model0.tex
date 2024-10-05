@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Translator Selection}
+
+\subsection*{Sets and Parameters}
+\begin{itemize}
+    \item Let \( N \) be the total number of translators.
+    \item Let \( M \) be the number of required languages.
+    \item \( \text{cost}_i \) be the cost associated with translator \( i \).
+    \item \( \text{languages}_i \) be the set of languages that translator \( i \) can translate into.
+    \item \( \text{required\_languages} \) be the set of required languages \(\{ \text{language}_1, \text{language}_2, \ldots, \text{language}_M \}\).
+\end{itemize}
+
+\subsection*{Decision Variable}
+\begin{itemize}
+    \item \( x_i = 
+    \begin{cases} 
+        1, & \text{if translator } i \text{ is selected} \\ 
+        0, & \text{otherwise} 
+    \end{cases} \)
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost of hiring translators:
+\[
+\text{Minimize } \sum_{i=1}^{N} \text{cost}_i \cdot x_i
+\]
+
+\subsection*{Constraints}
+Ensure all required languages are covered:
+\[
+\sum_{i \, \text{such that} \, \text{language}_m \in \text{languages}_i} x_i \geq 1, \quad \forall \, \text{language}_m \in \text{required\_languages}
+\]
+
+\end{document}

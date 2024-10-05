@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model}
+
+\subsection*{Sets and Indices}
+\begin{itemize}
+    \item \( I \): Set of projects, indexed by \( i = 1, \ldots, I \).
+    \item \( J \): Set of consultants, indexed by \( j = 1, \ldots, J \).
+\end{itemize}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item \( f_j \): Fixed cost of hiring consultant \( j \).
+    \item \( c_{i,j} \): Additional cost of assigning project \( i \) to consultant \( j \).
+    \item \( K \): Maximum number of projects a consultant can be assigned.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_{i,j} \): Binary variable, equals 1 if project \( i \) is assigned to consultant \( j \), 0 otherwise.
+    \item \( y_j \): Binary variable, equals 1 if consultant \( j \) is hired, 0 otherwise.
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\min \sum_{j=1}^{J} f_j y_j + \sum_{i=1}^{I} \sum_{j=1}^{J} c_{i,j} x_{i,j}
+\]
+
+\subsection*{Constraints}
+\begin{enumerate}
+    \item Each project must be assigned to exactly one consultant:
+    \[
+    \sum_{j=1}^{J} x_{i,j} = 1, \quad \forall i = 1, \ldots, I
+    \]
+    
+    \item A consultant must be hired if they are assigned any projects:
+    \[
+    x_{i,j} \leq y_j, \quad \forall i = 1, \ldots, I, \quad \forall j = 1, \ldots, J
+    \]
+    
+    \item Each consultant can be assigned up to \( K \) projects:
+    \[
+    \sum_{i=1}^{I} x_{i,j} \leq K y_j, \quad \forall j = 1, \ldots, J
+    \]
+    
+    \item Binary constraints on decision variables:
+    \[
+    x_{i,j} \in \{0, 1\}, \quad y_j \in \{0, 1\}, \quad \forall i = 1, \ldots, I, \quad \forall j = 1, \ldots, J
+    \]
+\end{enumerate}
+
+\end{document}

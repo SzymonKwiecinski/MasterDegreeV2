@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{MILP Formulation for Production Planning}
+
+\textbf{Decision Variables:}
+
+\begin{align*}
+& \text{manufacture}_{k, i} \quad \text{(units of product $k$ manufactured in month $i$)} \\
+& \text{sell}_{k, i} \quad \text{(units of product $k$ sold in month $i$)} \\
+& \text{storage}_{k, i} \quad \text{(units of product $k$ stored at end of month $i$)} \\
+& \text{maintain}_{m, i} \quad \text{(binary variable indicating maintenance of machine $m$ in month $i$)}
+\end{align*}
+
+\textbf{Objective:}
+
+\[
+\max \sum_{i=1}^{I} \sum_{k=1}^{K} \left( \text{profit}_{k} \times \text{sell}_{k, i} - \text{store\_price} \times \text{storage}_{k, i} \right)
+\]
+
+\textbf{Constraints:}
+
+\begin{align*}
+& \text{Inventory balance:} \\
+& \text{storage}_{k, i-1} + \text{manufacture}_{k, i} = \text{sell}_{k, i} + \text{storage}_{k, i}, & \forall k, i \\
+& \text{(Initial condition: } \text{storage}_{k, 0} = 0) \\
+\\
+& \text{Production capacity:} \\
+& \sum_{k=1}^{K} \text{time}_{k, m} \times \text{manufacture}_{k, i} \leq n_{\text{workhours}} \times 2 \times 24 \times 6 \times (\text{num}_{m} - \sum_{j=1}^{i} \text{maintain}_{m, j}), & \forall m, i \\
+\\
+& \text{Marketing limitation:} \\
+& \text{sell}_{k, i} \leq \text{limit}_{k, i}, & \forall k, i \\
+\\
+& \text{Storage limitation:} \\
+& \text{storage}_{k, i} \leq 100, & \forall k, i \\
+\\
+& \text{End inventory requirement:} \\
+& \text{storage}_{k, I} = \text{keep\_quantity}, & \forall k \\
+\\
+& \text{Maintenance constraint:} \\
+& \sum_{i=1}^{I} \text{maintain}_{m, i} = \text{down}_{m}, & \forall m
+\end{align*}
+
+\end{document}

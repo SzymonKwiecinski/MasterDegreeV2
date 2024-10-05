@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{Linear Programming Model for Production and Inventory Schedule}
+\author{}
+\date{}
+\maketitle
+
+\section*{Problem Definition}
+
+Let:
+\begin{itemize}
+    \item $T$: Total number of months
+    \item $deliver_i$: Units to be delivered at the end of month $i$, for $i = 1, \ldots, T$
+    \item $storage\_cost$: Cost of storing one unit of product per month
+    \item $switch\_cost$: Cost incurred for changing production levels between months
+    \item $x_i$: Units produced in month $i$
+    \item $I_i$: Inventory at the end of month $i$
+\end{itemize}
+
+The objective is to minimize the total cost, which includes production costs, storage costs, and switching costs.
+
+\section*{Mathematical Model}
+
+\subsection*{Objective Function}
+Minimize:
+\[
+\text{Total Cost} = \sum_{i=1}^{T} \left( storage\_cost \cdot I_i + switch\_cost \cdot |x_{i+1} - x_i| \right) 
+\]
+
+\subsection*{Constraints}
+1. Inventory balance:
+\[
+I_i = I_{i-1} + x_i - deliver_i, \quad \text{for } i = 1, \ldots, T
+\]
+where $I_0 = 0$ (initial inventory).
+
+2. Non-negativity of production and inventory:
+\[
+x_i \geq 0, \quad I_i \geq 0, \quad \text{for } i = 1, \ldots, T
+\]
+
+3. Inventory does not need to be stored after the last month:
+\[
+I_T = 0
+\]
+
+\subsection*{Outputs}
+The outputs are:
+\begin{itemize}
+    \item $x = [x_1, x_2, \ldots, x_T]$: Number of units produced each month
+    \item $cost$: Total minimized cost
+\end{itemize}
+
+\end{document}

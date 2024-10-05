@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+\[
+\min \sum_{k=1}^{K} (e_k^+ + e_k^-)
+\]
+
+\textbf{Subject to:}
+
+\[
+e_k^+ - e_k^- = y_k - (bx_k + a), \quad \forall k = 1, \ldots, K
+\]
+
+\[
+e_k^+, e_k^- \geq 0, \quad \forall k = 1, \ldots, K
+\]
+
+\textbf{Variables:}
+
+- \(a\): intercept of the line
+- \(b\): slope of the line
+- \(e_k^+, e_k^-\): non-negative deviations for each data point
+
+Solving this linear programming problem will give the optimal values for \(a\) and \(b\), which in turn will be your output for intercept and slope:
+
+\textbf{Output:}
+
+\begin{verbatim}
+{
+    "intercept": a,
+    "slope": b
+}
+\end{verbatim}
+
+\end{document}

@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Rocket Trajectory Optimization}
+
+Let \( x_t \), \( v_t \), and \( a_t \) represent the position, velocity, and acceleration of the rocket at time \( t \), respectively. The evolution of the rocket's state can be described by the following discrete-time equations:
+
+\[
+x_{t+1} = x_t + v_t
+\]
+\[
+v_{t+1} = v_t + a_t
+\]
+
+Where the acceleration \( a_t \) is controlled through thrust, and its magnitude \( |a_t| \) is proportional to the rate of fuel consumption at time \( t \).
+
+Given the initial conditions:
+
+\[
+x_0 = \text{initial position}
+\]
+\[
+v_0 = \text{initial velocity}
+\]
+
+We want to reach a target position \( x_T \) with a target velocity \( v_T \) at time \( T \). The goal is to minimize the maximum thrust required, which can be expressed mathematically as:
+
+\[
+\text{Minimize} \quad M = \max_{t=0}^{T} |a_t|
+\]
+
+### Subject to the constraints:
+
+1. Position and velocity constraints:
+   \[
+   x_{t+1} = x_t + v_t, \quad \text{for } t = 0, 1, \ldots, T-1
+   \]
+   \[
+   v_{t+1} = v_t + a_t, \quad \text{for } t = 0, 1, \ldots, T-1
+   \]
+
+2. Boundary conditions:
+   \[
+   x_0 = x_0, \quad v_0 = v_0
+   \]
+   \[
+   x_T = x_T, \quad v_T = v_T
+   \]
+
+3. Acceleration thrust bounds:
+   \[
+   -M \leq a_t \leq M, \quad \text{for } t = 0, 1, \ldots, T-1
+   \]
+
+### Output Information
+
+The output should be structured as follows:
+
+\[
+\text{Output} = 
+\begin{cases}
+x = [x_i \text{ for } i = 0, 1, \ldots, T] \\
+v = [v_i \text{ for } i = 0, 1, \ldots, T] \\
+a = [a_i \text{ for } i = 0, 1, \ldots, T] \\
+\text{fuel\_spend} = \text{total fuel consumed}
+\end{cases}
+\]
+
+\end{document}

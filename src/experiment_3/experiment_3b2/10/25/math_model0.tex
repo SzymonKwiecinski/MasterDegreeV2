@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $K$: Number of industries.
+    \item $T$: Number of years (considering at least the last two years for maximizing production).
+    \item $\text{inputone}_{k, j}$: Input required from industry $j$ for producing in industry $k$.
+    \item $\text{manpowerone}_{k}$: Manpower required for producing in industry $k$.
+    \item $\text{inputtwo}_{k, j}$: Input required from industry $j$ for building capacity in industry $k$.
+    \item $\text{manpowertwo}_{k}$: Manpower required for building capacity in industry $k$.
+    \item $\text{stock}_k$: Initial stock of industry $k$ at year 0.
+    \item $\text{capacity}_k$: Initial productive capacity of industry $k$ at year 0.
+    \item $\text{manpower\_limit}$: Yearly manpower capacity limit.
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $\text{produce}_{k, t}$: Units produced by industry $k$ in year $t$.
+    \item $\text{buildcapa}_{k, t}$: Units used to build productive capacity in industry $k$ in year $t$.
+    \item $\text{stockhold}_{k, t}$: Stock held by industry $k$ in year $t$.
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total production in the last two years:
+\[
+\max \sum_{k=1}^{K} \sum_{t=T-1}^{T} \text{produce}_{k, t}
+\]
+
+\subsection*{Constraints}
+\begin{align}
+& \text{Production Constraints:} \notag \\
+& \text{produce}_{k, t} + \text{buildcapa}_{k, t} \leq \text{capacity}_{k, t-1} + \text{stockhold}_{k, t-1}, \quad \forall k, \forall t \\
+& \text{Stock Balance:} \notag \\
+& \text{stockhold}_{k, t} = \text{stockhold}_{k, t-1} + \text{produce}_{k, t} - \sum_{j=1}^{K} \text{inputone}_{j, k} \cdot \text{produce}_{j, t} - \sum_{j=1}^{K} \text{inputtwo}_{j, k} \cdot \text{buildcapa}_{j, t}, \quad \forall k, \forall t \\
+& \text{Capacity Expansion:} \notag \\
+& \text{capacity}_{k, t} = \text{capacity}_{k, t-1} + \text{buildcapa}_{k, t-2}, \quad \forall k, t \geq 3 \\
+& \text{Manpower Limit:} \notag \\
+& \sum_{k=1}^{K} (\text{manpowerone}_{k} \cdot \text{produce}_{k, t} + \text{manpowertwo}_{k} \cdot \text{buildcapa}_{k, t}) \leq \text{manpower\_limit}, \quad \forall t \\
+& \text{Non-negativity:} \notag \\
+& \text{produce}_{k, t}, \text{buildcapa}_{k, t}, \text{stockhold}_{k, t} \geq 0, \quad \forall k, \forall t
+\end{align}
+
+\subsection*{Initial Conditions}
+\begin{align}
+& \text{stockhold}_{k, 0} = \text{stock}_k, \quad \forall k \\
+& \text{capacity}_{k, 0} = \text{capacity}_k, \quad \forall k
+\end{align}
+
+\end{document}

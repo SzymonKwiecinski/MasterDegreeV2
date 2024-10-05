@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Steel Production}
+
+\subsection*{Parameters}
+\begin{align*}
+n_{steel\_quant} & : \text{Tons of steel required} \\
+mn_{percent} & : \text{Minimum percentage of Manganese (Mn)} \\
+si_{min} & : \text{Minimum percentage of Silicon (Si)} \\
+si_{max} & : \text{Maximum percentage of Silicon (Si)} \\
+contsi_{k} & : \text{Percentage of Silicon in mineral } k \\
+contmn_{k} & : \text{Percentage of Manganese in mineral } k \\
+mang\_price & : \text{Price of Manganese (million euros per ton)} \\
+cost_{k} & : \text{Cost of mineral } k \text{ (million euros per thousand tons)} \\
+sell\_price & : \text{Selling price of steel (million euros per ton)} \\
+melt\_price & : \text{Cost of smelting a ton of mineral (million euros)}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+amount_{k} & : \text{Amount of mineral } k \text{ melted (in tons)} \\
+num\_mang & : \text{Amount of Manganese added (in tons)}
+\end{align*}
+
+\subsection*{Objective Function}
+The objective is to maximize profit, which can be expressed as:
+\begin{align*}
+\text{Maximize} \quad Z = & \left( sell\_price \cdot n_{steel\_quant} \right) \\
+& - \left( \sum_{k=1}^{K} \left( \frac{cost_{k}}{1000} \cdot amount_{k} \right) + melt\_price \cdot \sum_{k=1}^{K} amount_{k} + mang\_price \cdot num\_mang \right)
+\end{align*}
+
+\subsection*{Constraints}
+1. \text{Steel production constraint (total mass of steel)}:
+\begin{align*}
+\sum_{k=1}^{K} amount_{k} + num\_mang = & n_{steel\_quant}
+\end{align*}
+
+2. \text{Manganese percentage constraint}:
+\begin{align*}
+\frac{\sum_{k=1}^{K} (contmn_{k} \cdot amount_{k}) + num\_mang}{n_{steel\_quant}} \geq & \frac{mn_{percent}}{100}
+\end{align*}
+
+3. \text{Silicon percentage constraints}:
+\begin{align*}
+si_{min} \leq & \frac{\sum_{k=1}^{K} (contsi_{k} \cdot amount_{k})}{n_{steel\_quant}} \leq si_{max}
+\end{align*}
+
+4. \text{Non-negativity constraints}:
+\begin{align*}
+amount_{k} \geq & 0 \quad \forall k \\
+num\_mang \geq & 0
+\end{align*}
+
+\end{document}

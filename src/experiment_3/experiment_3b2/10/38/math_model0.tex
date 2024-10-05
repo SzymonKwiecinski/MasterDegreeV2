@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item \( x_n \): Number of units produced using regular production in month \( n \).
+    \item \( y_n \): Number of units produced using overtime production in month \( n \).
+    \item \( s_n \): Number of units stored at the end of month \( n \).
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize} \quad \sum_{n=1}^{N} \left( \text{cost\_regular} \cdot x_n + \text{cost\_overtime} \cdot y_n + \text{store\_cost} \cdot s_n \right)
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+    & x_n + y_n + s_{n-1} = \text{demand}_n + s_n, \quad \forall n = 1, \ldots, N \\
+    & x_n \leq \text{max\_regular\_amount}, \quad \forall n = 1, \ldots, N \\
+    & x_n \geq 0, \, y_n \geq 0, \, s_n \geq 0, \quad \forall n = 1, \ldots, N \\
+    & s_0 = 0
+\end{align*}
+
+\subsection*{Explanation}
+\begin{itemize}
+    \item The first constraint ensures that the production plus the inventory from the previous month meets the demand in the current month while updating the inventory for the next month.
+    \item The second constraint limits the regular production to the maximum allowed quantity.
+    \item The non-negativity constraints ensure that production and storage quantities are not negative.
+\end{itemize}
+
+\end{document}

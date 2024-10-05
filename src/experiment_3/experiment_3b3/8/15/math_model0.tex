@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Daily Profit Maximization}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $N$: Number of product types
+    \item $assemblyHour_i$: Hours of assembly labor required for product type $i$
+    \item $testingHour_i$: Hours of testing required for product type $i$
+    \item $materialCost_i$: Cost of raw materials for product type $i$ (in dollars)
+    \item $maxAssembly$: Maximum hours of assembly labor available per day
+    \item $maxTesting$: Maximum hours of testing available per day
+    \item $price_i$: Selling price of product type $i$ (in dollars)
+    \item $maxOvertimeAssembly$: Maximum hours of overtime assembly labor allowed
+    \item $overtimeAssemblyCost$: Cost of overtime assembly labor per hour
+    \item $materialDiscount$: Discount percentage on materials for high-volume purchases
+    \item $discountThreshold$: Purchase threshold for obtaining a material discount (in dollars)
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $x_i$: Number of units produced of product type $i$ for $i = 1, \ldots, N$
+    \item $overtimeAssembly$: Number of hours of overtime assembly labor scheduled
+\end{itemize}
+
+\textbf{Objective Function:}
+\begin{align*}
+    \text{Maximize } Z &= \text{dailyProfit} = \sum_{i=1}^N (price_i \cdot x_i) - \left( \sum_{i=1}^N (materialCost_i \cdot x_i) + (overtimeAssemblyCost \cdot overtimeAssembly) \right) \\
+    &= \sum_{i=1}^N (price_i \cdot x_i) - \sum_{i=1}^N (materialCost_i \cdot x_i) - (overtimeAssemblyCost \cdot overtimeAssembly)
+\end{align*}
+
+\textbf{Subject to:}
+\begin{align*}
+    \sum_{i=1}^N (assemblyHour_i \cdot x_i) + overtimeAssembly &\leq maxAssembly + maxOvertimeAssembly \\
+    \sum_{i=1}^N (testingHour_i \cdot x_i) &\leq maxTesting \\
+    \sum_{i=1}^N (materialCost_i \cdot x_i) &\geq discountThreshold \implies \text{Use discount} \\
+    x_i &\geq 0 \quad \forall i \in \{1, \ldots, N\} \\
+    overtimeAssembly &\geq 0
+\end{align*}
+
+\textbf{Output:}
+\begin{align*}
+    dailyProfit &= Z \\
+    unitsProduced &= [x_1, x_2, \ldots, x_N] \\
+    materialBought &= \sum_{i=1}^N (materialCost_i \cdot x_i)
+\end{align*}
+
+\end{document}

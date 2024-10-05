@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturing Division}
+
+\subsection*{Decision Variables}
+Let \( x_p \) be the number of batches of part \( p \) produced each month, where \( p = 1, 2, \ldots, P \).
+
+Let \( e_m \) be the extra available hours purchased for machine \( m \), where \( m = 1, 2, \ldots, M \).
+
+\subsection*{Objective Function}
+Maximize the total profit, given by:
+
+\[
+\text{Total Profit} = \sum_{p=1}^{P} \text{price}_p \cdot x_p - \sum_{m=1}^{M} \text{cost}_m \cdot \left( \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \right) - \sum_{m=1}^{M} \text{extra\_cost}_m \cdot e_m
+\]
+
+\subsection*{Constraints}
+1. Time constraints for each machine \( m \):
+   \[
+   \sum_{p=1}^{P} \text{time}_{m,p} \cdot x_p \leq \text{available}_m + e_m, \quad \forall m = 1, 2, \ldots, M
+   \]
+
+2. Production constraints for each part \( p \):
+   \[
+   x_p \geq \text{min\_batches}_p, \quad \forall p = 1, 2, \ldots, P
+   \]
+
+3. Extra hours constraints for each machine \( m \):
+   \[
+   0 \leq e_m \leq \text{max\_extra}_m, \quad \forall m = 1, 2, \ldots, M
+   \]
+
+4. Non-negativity constraints:
+   \[
+   x_p \geq 0 \quad \text{and} \quad e_m \geq 0, \quad \forall p = 1, 2, \ldots, P, \quad \forall m = 1, 2, \ldots, M
+   \]
+
+\end{document}

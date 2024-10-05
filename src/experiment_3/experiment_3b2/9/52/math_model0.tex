@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Formulation}
+
+\subsection*{Sets and Parameters}
+\begin{align*}
+P & : \text{Number of power plants} \\
+C & : \text{Number of cities} \\
+\text{supply}_p & : \text{Capacity of power plant } p \text{ (in million kwh)} \\
+\text{demand}_c & : \text{Demand of city } c \text{ (in million kwh)} \\
+\text{transmission}_{p,c} & : \text{Transmission cost from power plant } p \text{ to city } c \text{ (in \$/million kwh)}
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+\text{send}_{p,c} & : \text{Electricity sent from power plant } p \text{ to city } c \text{ (in million kwh)}
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize the total transmission cost:
+\[
+\text{Minimize} \quad \sum_{p=1}^{P} \sum_{c=1}^{C} \text{transmission}_{p,c} \times \text{send}_{p,c}
+\]
+
+\subsection*{Constraints}
+\begin{enumerate}
+    \item \textbf{Supply Constraints for each power plant:}
+    \[
+    \sum_{c=1}^{C} \text{send}_{p,c} \leq \text{supply}_{p}, \quad \forall p = 1, \ldots, P
+    \]
+    
+    \item \textbf{Demand Constraints for each city:}
+    \[
+    \sum_{p=1}^{P} \text{send}_{p,c} = \text{demand}_{c}, \quad \forall c = 1, \ldots, C
+    \]
+    
+    \item \textbf{Non-negativity Constraints:}
+    \[
+    \text{send}_{p,c} \geq 0, \quad \forall p = 1, \ldots, P, \quad \forall c = 1, \ldots, C
+    \]
+\end{enumerate}
+
+\end{document}

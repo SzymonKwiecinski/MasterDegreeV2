@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\title{LP Model for Maximizing Revenue in an Oil Refinery}
+\author{}
+\date{}
+\maketitle
+
+\section{Objective}
+Maximize the total revenue:
+
+\[
+\text{Maximize } z = \sum_{p=1}^{P} \left(\text{price}_p \cdot \sum_{l=1}^{L} \text{output}_{l,p} \cdot x_l\right) - \sum_{l=1}^{L} \text{cost}_l \cdot \sum_{p=1}^{P} \text{output}_{l,p} \cdot x_l
+\]
+
+\section{Constraints}
+1. Crude oil allocation constraints:
+\[
+\sum_{l=1}^{L} \text{input}_{l,i} \cdot x_l \leq \text{allocated}_i, \quad \forall i = 1, \ldots, O
+\]
+
+2. Non-negativity constraints:
+\[
+x_l \geq 0, \quad \forall l = 1, \ldots, L
+\]
+
+\section{Variables}
+- \( x_l \): Number of times process \( l \) is executed.
+
+\end{document}

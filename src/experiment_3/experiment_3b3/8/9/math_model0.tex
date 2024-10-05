@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Lamp Power Optimization}
+
+\subsection*{Problem Definition}
+Consider a road divided into \(N\) segments illuminated by \(M\) lamps. Let \(power_j\) represent the power of the \(j\)-th lamp. The illumination of the \(i\)-th segment is given by:
+
+\[
+ill_i = \sum_{j=1}^{M} coeff_{i,j} \cdot power_j
+\]
+
+where \(coeff_{i,j}\) are known coefficients. Let \(desired_i\) be the desired illumination for the road segment \(i\). Our goal is to select the lamp powers \(power_j\) such that the illuminations \(ill_i\) are close to the desired illuminations \(desired_i\).
+
+\subsection*{Input}
+The input is structured as follows:
+
+\begin{itemize}
+    \item \(coeff\): A matrix of coefficients where \(coeff[i][j]\) corresponds to the coefficient of the \(j\)-th lamp for the \(i\)-th segment.
+    \item \(desired\): A vector of desired illuminations for each segment, where \(desired[i]\) is the desired illumination for the \(i\)-th segment.
+\end{itemize}
+
+\subsection*{Objective}
+We aim to minimize the absolute error between the actual illuminations and the desired illuminations, defined as:
+
+\[
+\text{error} = \sum_{i=1}^{N} |ill_i - desired_i|
+\]
+
+\subsection*{Optimization Problem}
+The optimization problem can be formulated as follows:
+
+\begin{align*}
+\text{Minimize} & \quad \sum_{i=1}^{N} |ill_i - desired_i| \\
+\text{subject to} & \quad ill_i = \sum_{j=1}^{M} coeff_{i,j} \cdot power_j \quad \text{for } i = 1, \ldots, N \\
+& \quad power_j \geq 0 \quad \text{for } j = 1, \ldots, M
+\end{align*}
+
+\subsection*{Output}
+The output of the optimization process will include:
+
+\begin{itemize}
+    \item \(power\): The optimal power settings for the \(M\) lamps, represented as a vector where \(power[j]\) is the power of the \(j\)-th lamp.
+    \item \(error\): The absolute error calculated between the actual and desired illuminations.
+\end{itemize}
+
+\end{document}

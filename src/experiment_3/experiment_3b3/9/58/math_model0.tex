@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Auto Parts Production}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $P$: Number of parts
+    \item $M$: Number of machines
+    \item $time_{m,p}$: Time (in hours) required on machine $m$ to produce a batch of part $p$
+    \item $cost_{m}$: Cost (per hour) of using machine $m$
+    \item $available_{m}$: Available hours per month on machine $m$
+    \item $price_{p}$: Selling price per batch of part $p$
+    \item $setup\_time_{p}$: Setup time (in hours) required on machine $1$ for part $p$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $batches_{p}$: Number of batches produced for part $p$
+    \item $setup\_flags_{p}$: Binary variable indicating if part $p$ is set up ($1$ if set up, $0$ otherwise)
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize total profit:
+
+\[
+\text{Total Profit} = \sum_{p=1}^{P} (price_{p} \cdot batches_{p}) - \sum_{m=1}^{M} \left( cost_{m} \cdot \sum_{p=1}^{P} time_{m,p} \cdot batches_{p} \right) - \sum_{p=1}^{P} (setup\_time_{p} \cdot setup\_flags_{p} \cdot cost_{1})
+\]
+
+\subsection*{Constraints}
+\begin{align}
+\text{Machine Availability Constraints:} \quad & \sum_{p=1}^{P} time_{m,p} \cdot batches_{p} + \sum_{p=1}^{P} setup\_flags_{p} \cdot setup\_time_{p} \leq available_{m}, \quad \forall m \in \{1, \ldots, M\} \\
+\text{Setup Flag Constraints:} \quad & batches_{p} \leq M \cdot setup\_flags_{p}, \quad \forall p \in \{1, \ldots, P\} \\
+\text{Non-negativity Constraints:} \quad & batches_{p} \geq 0, \quad \forall p \in \{1, \ldots, P\} \\
+& setup\_flags_{p} \in \{0, 1\}, \quad \forall p \in \{1, \ldots, P\}
+\end{align}
+
+\end{document}

@@ -1,0 +1,23 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model for the Largest Inscribed Ball}
+
+\begin{align*}
+\text{Maximize} \quad & r \\
+\text{Subject to} \quad & \mathbf{a_i}^T \mathbf{y} + r \|\mathbf{a_i}\| \leq b_i, \quad i = 1, \ldots, m \\
+& r \geq 0 \\
+& \mathbf{y} \in \mathbb{R}^N
+\end{align*}
+
+\paragraph{Where:}
+\begin{itemize}
+    \item \(\mathbf{y}\) is the center of the ball in \(\mathbb{R}^N\).
+    \item \(r\) is the radius of the ball.
+    \item \(\mathbf{a_i}\) are the coefficients of the linear inequalities.
+    \item \(b_i\) are the constants from the linear inequalities.
+    \item \(\|\mathbf{a_i}\|\) denotes the Euclidean norm of \(\mathbf{a_i}\).
+\end{itemize}
+
+\end{document}

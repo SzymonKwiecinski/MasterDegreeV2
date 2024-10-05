@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Transportation Problem as a Linear Program}
+
+We are tasked with modeling the transportation of soybeans from terminal cities to destination cities via port cities, minimizing the transportation costs.
+
+\subsection*{Sets and Indices}
+- Let \( \mathcal{K} \) be the set of terminal cities.
+- Let \( \mathcal{L} \) be the set of destination cities.
+- Let \( \mathcal{P} \) be the set of port cities.
+- Let \( \mathcal{A} \subseteq (\mathcal{K} \cup \mathcal{P}) \times (\mathcal{P} \cup \mathcal{L}) \) be the set of all routes.
+
+\subsection*{Parameters}
+- \( C_{i,j} \): Cost per metric ton to transport soybeans along route \((i, j) \).
+- \( \text{supply}_k \): Supply of soybeans at terminal city \( k \).
+- \( \text{demand}_l \): Demand for soybeans at destination city \( l \).
+
+\subsection*{Decision Variables}
+- \( x_{i,j} \): Amount of soybeans transported from city \( i \) to city \( j \).
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Minimize} \quad \sum_{(i,j) \in \mathcal{A}} C_{i,j} \cdot x_{i,j}
+\]
+
+\subsection*{Constraints}
+1. Supply Constraints for each terminal city \( k \):
+\[
+\sum_{(k,j) \in \mathcal{A}} x_{k,j} \leq \text{supply}_k \quad \forall k \in \mathcal{K}
+\]
+
+2. Demand Constraints for each destination city \( l \):
+\[
+\sum_{(i,l) \in \mathcal{A}} x_{i,l} \geq \text{demand}_l \quad \forall l \in \mathcal{L}
+\]
+
+3. Flow Conservation for each port city \( p \):
+\[
+\sum_{(i,p) \in \mathcal{A}} x_{i,p} = \sum_{(p,j) \in \mathcal{A}} x_{p,j} \quad \forall p \in \mathcal{P}
+\]
+
+4. Non-negativity Constraints:
+\[
+x_{i,j} \geq 0 \quad \forall (i,j) \in \mathcal{A}
+\]
+
+\end{document}

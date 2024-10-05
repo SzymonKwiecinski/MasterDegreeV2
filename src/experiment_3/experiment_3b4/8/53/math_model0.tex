@@ -1,0 +1,40 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Transportation Problem Formulation}
+
+\textit{Decision Variables:}
+\[
+x_{i,j} = \text{amount of soybeans shipped from city } i \text{ to city } j
+\]
+
+\textit{Objective Function:}
+\[
+\text{Minimize } \sum_{(i,j) \in A} C_{i,j} \cdot x_{i,j}
+\]
+
+\textit{Subject to:}
+
+\textit{1. Supply Constraints:}
+\[
+\forall k, \quad \sum_{j \mid (k,j) \in A} x_{k,j} \leq \text{supply}_k
+\]
+
+\textit{2. Demand Constraints:}
+\[
+\forall l, \quad \sum_{i \mid (i,l) \in A} x_{i,l} \geq \text{demand}_l
+\]
+
+\textit{3. Flow Conservation Constraints:}
+\[
+\forall j \text{ (intermediate city)}, \quad 
+\sum_{i \mid (i,j) \in A} x_{i,j} = \sum_{k \mid (j,k) \in A} x_{j,k}
+\]
+
+\textit{4. Non-negativity:}
+\[
+x_{i,j} \geq 0, \quad \forall (i,j) \in A
+\]
+
+\end{document}

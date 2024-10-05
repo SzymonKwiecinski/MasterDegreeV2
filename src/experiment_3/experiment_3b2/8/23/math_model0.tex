@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+\begin{align*}
+& \text{recruit}_{k, i}: \text{Number of new recruits for manpower } k \text{ in year } i \\
+& \text{overmanning}_{k, i}: \text{Number of overmanned employees for manpower } k \text{ in year } i \\
+& \text{short}_{k, i}: \text{Number of employees on short-time working for manpower } k \text{ in year } i \\
+& \text{redundant}_{k, i}: \text{Number of redundant employees for manpower } k \text{ in year } i \\
+& \text{total}_{k, i}: \text{Total number of employees in manpower } k \text{ at the end of year } i \\
+\end{align*}
+
+\subsection*{Objective Function}
+Minimize total costs:
+\[
+\begin{align*}
+\text{Minimize} \quad Z = & \sum_{k=1}^{K} \sum_{i=1}^{I} \left( \text{costredundancy}_{k} \cdot \text{redundant}_{k, i} + \text{costoverman}_{k} \cdot \text{overmanning}_{k, i} \right.\\
+& \left. + \text{costshort}_{k} \cdot \text{short}_{k, i} \right)
+\end{align*}
+\]
+
+\subsection*{Constraints}
+\begin{align*}
+& \text{Initial Condition:} \quad \text{total}_{k,0} = \text{strength}_{k} \quad \forall k \\
+& \text{Manpower Balance:} \quad \text{total}_{k,i} = (1 - \text{moreonewaste}_{k}) \cdot \text{total}_{k,i-1} + \text{recruit}_{k,i} \\
+& \quad \quad \ - \text{redundant}_{k,i} + \text{overmanning}_{k,i} \quad \forall k, i \\
+& \text{Short-time Working Limit:} \quad \text{short}_{k,i} \leq \text{num_shortwork} \quad \forall k, i \\
+& \text{Service Requirements:} \quad \text{requirement}_{k,i} \leq \text{total}_{k,i} + 0.5 \cdot \text{short}_{k,i} \quad \forall k, i \\
+& \text{Recruitment Limits:} \quad \text{recruit}_{k,i} \leq \text{recruit}_{k} \quad \forall k, i \\
+& \text{Overmanning Limits:} \quad \sum_{k=1}^{K} \text{overmanning}_{k, i} \leq \text{num_overman} \quad \forall i \\
+& \text{Non-Negativity:} \quad \text{recruit}_{k,i}, \text{overmanning}_{k,i}, \text{short}_{k,i}, \\
+& \quad \quad \ \ \ \ \ \ \text{redundant}_{k,i}, \text{total}_{k,i} \geq 0 \quad \forall k, i
+\end{align*}
+
+\end{document}

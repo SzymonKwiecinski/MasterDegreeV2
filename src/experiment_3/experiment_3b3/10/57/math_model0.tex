@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Container Management at a Seaport}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $T$: number of months
+    \item $demand_{t}$: demand for containers by ships in month $t$ for $t = 1, \ldots, T$
+    \item $unload\_cost_{t}$: unloading cost per container in month $t$
+    \item $unload\_capacity_{t}$: unloading capacity in month $t$
+    \item $holding\_cost$: holding cost per container per month
+    \item $max\_container$: maximum number of containers the yard can store at the end of any month
+    \item $init\_container$: initial number of containers in the yard at month 1
+    \item $num\_cranes$: maximum number of cranes that can be rented each month
+    \item $crane\_capacity$: capacity of each crane for loading containers
+    \item $crane\_cost$: rental cost per crane per month
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $amount_{t}$: number of containers unloaded in month $t$
+    \item $crane_{t}$: number of cranes rented in month $t$
+    \item $storage_{t}$: number of containers stored in the yard at the end of month $t$
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Total Cost} = \sum_{t=1}^{T} \left( unload\_cost_{t} \cdot amount_{t} + holding\_cost \cdot storage_{t} + crane\_cost \cdot crane_{t} \right)
+\]
+
+\subsection*{Constraints}
+\begin{align}
+    \text{1. Demand fulfillment:} & \quad amount_{t} \geq demand_{t} \quad \forall t \in \{1, \ldots, T\} \\
+    \text{2. Unloading capacity:} & \quad amount_{t} \leq unload\_capacity_{t} \quad \forall t \in \{1, \ldots, T\} \\
+    \text{3. Crane capacity:} & \quad crane_{t} \cdot crane\_capacity \geq amount_{t} \quad \forall t \in \{1, \ldots, T\} \\
+    \text{4. Crane rental limit:} & \quad crane_{t} \leq num\_cranes \quad \forall t \in \{1, \ldots, T\} \\
+    \text{5. Storage balance:} & \quad storage_{t} = storage_{t-1} + amount_{t} - demand_{t} \quad \forall t \in \{1, \ldots, T\} \\
+    \text{6. Initial storage:} & \quad storage_{1} = init\_container \\
+    \text{7. Maximum storage:} & \quad storage_{t} \leq max\_container \quad \forall t \in \{1, \ldots, T\} \\
+    \text{8. Final storage:} & \quad storage_{T} = 0
+\end{align}
+
+\end{document}

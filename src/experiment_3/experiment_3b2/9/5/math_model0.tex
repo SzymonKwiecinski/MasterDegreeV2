@@ -1,0 +1,54 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Sets and Indices:}
+\begin{itemize}
+    \item Nodes: $N = \{1, 2, \ldots, n\}$
+    \item Links: $A = \{(i, j) \mid i, j \in N\}$
+\end{itemize}
+
+\textbf{Parameters:}
+\begin{itemize}
+    \item $U_{i,j}$: Maximum capacity (bits per second) for link $(i,j) \in A$
+    \item $C_{i,j}$: Cost per bit for link $(i,j) \in A$
+    \item $B_{k,l}$: Data rate (bits per second) from node $k$ to node $l$
+\end{itemize}
+
+\textbf{Decision Variables:}
+\begin{itemize}
+    \item $f_{i,j}^{k,l}$: Flow (bits per second) on link $(i,j) \in A$ for data from source $k$ to destination $l$
+\end{itemize}
+
+\textbf{Objective Function:}
+Minimize the total transmission cost:
+\[
+\text{Minimize } Z = \sum_{(i,j) \in A} \sum_{(k,l)} C_{i,j} \cdot f_{i,j}^{k,l}
+\]
+
+\textbf{Constraints:}
+\begin{itemize}
+    \item \textbf{Flow Conservation:} For each $(k,l)$ and each node $i \neq k,l$:
+    \[
+    \sum_{j: (i,j) \in A} f_{i,j}^{k,l} - \sum_{j: (j,i) \in A} f_{j,i}^{k,l} = 
+    \begin{cases} 
+    B_{k,l}, & \text{if } i = k \\
+    -B_{k,l}, & \text{if } i = l \\
+    0, & \text{otherwise}
+    \end{cases}
+    \]
+
+    \item \textbf{Capacity Constraints:} For each link $(i,j) \in A$:
+    \[
+    \sum_{k,l} f_{i,j}^{k,l} \leq U_{i,j}
+    \]
+
+    \item \textbf{Non-negativity Constraints:} 
+    \[
+    f_{i,j}^{k,l} \geq 0 \quad \forall (i,j) \in A, \forall (k,l)
+    \]
+\end{itemize}
+
+\end{document}

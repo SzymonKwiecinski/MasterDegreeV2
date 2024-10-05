@@ -2,26 +2,21 @@
 \usepackage{amsmath}
 \begin{document}
 
-\title{Linear Programming Model for Production Optimization}
-\author{}
-\date{}
-\maketitle
+\textbf{Linear Programming Model:}
 
-\section*{Objective Function}
-Maximize the total revenue:
+\textbf{Objective:} 
 \[
-Z = \sum_{j=1}^{M} \text{price}_j \cdot x_j
+\text{Maximize} \quad Z = \sum_{j=1}^{M} \text{price}_j \cdot x_j 
 \]
 
-\section*{Constraints}
-\begin{align*}
-\text{For each raw material } i = 1, \ldots, N: \\
-\sum_{j=1}^{M} \text{req}_{i,j} \cdot x_j &\leq \text{available}_i
-\end{align*}
-
-\section*{Non-negativity Constraints}
+\textbf{Subject to:}
 \[
-x_j \geq 0 \quad \text{for all } j = 1, \ldots, M
+\sum_{j=1}^{M} \text{req}_{i,j} \cdot x_j \leq \text{available}_i, \quad \forall i = 1, \ldots, N
+\]
+
+\textbf{Non-negativity:}
+\[
+x_j \geq 0, \quad \forall j = 1, \ldots, M
 \]
 
 \end{document}

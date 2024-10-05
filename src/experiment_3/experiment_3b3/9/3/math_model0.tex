@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Electricity Capacity Expansion Planning}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $T$: Total number of years
+    \item $demand_t$: Demand in megawatts during year $t$, for $t = 1, \ldots, T$
+    \item $oil_t$: Existing oil-fired capacity available during year $t$
+    \item $coal\_cost$: Capital cost per megawatt of coal-fired capacity
+    \item $nuke\_cost$: Capital cost per megawatt of nuclear power capacity
+    \item $max\_nuke$: Maximum percentage of total capacity that can be nuclear
+    \item $coal\_life$: Lifespan of coal plants
+    \item $nuke\_life$: Lifespan of nuclear plants
+    \item $coal\_t$: Coal capacity added in year $t$
+    \item $nuke\_t$: Nuclear capacity added in year $t$
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $coal_t \geq 0$: Capacity of coal-fired power plants added in year $t$, for $t = 1, \ldots, T$
+    \item $nuke_t \geq 0$: Capacity of nuclear power plants added in year $t$, for $t = 1, \ldots, T$
+\end{itemize}
+
+\subsection*{Objective Function}
+Minimize the total cost:
+\[
+\text{Total Cost} = \sum_{t=1}^{T} (coal\_cost \cdot coal_t + nuke\_cost \cdot nuke_t)
+\]
+
+\subsection*{Constraints}
+1. \textbf{Capacity Requirement:}
+   \[
+   oil_t + \sum_{j=\max(1, t - coal\_life + 1)}^{t} coal_j + \sum_{j=\max(1, t - nuke\_life + 1)}^{t} nuke_j \geq demand_t, \quad \forall t = 1, \ldots, T
+   \]
+   
+2. \textbf{Nuclear Capacity Limit:}
+   \[
+   \sum_{j=1}^{t} nuke_j \leq \frac{max\_nuke}{100} \left( oil_t + \sum_{j=1}^{t} coal_j + \sum_{j=1}^{t} nuke_j \right), \quad \forall t = 1, \ldots, T
+   \]
+
+3. \textbf{Non-negativity:}
+   \[
+   coal_t \geq 0, \quad nuke_t \geq 0, \quad \forall t = 1, \ldots, T
+   \]
+
+\subsection*{Output}
+The output should consist of:
+\begin{itemize}
+    \item coal\_cap\_added: List of coal capacity added in each year
+    \item nuke\_cap\_added: List of nuclear capacity added in each year
+    \item total\_cost: Total cost of the capacity expansion plan
+\end{itemize}
+
+\end{document}

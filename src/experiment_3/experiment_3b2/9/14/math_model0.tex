@@ -1,0 +1,21 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Objective:}
+
+Maximize the net income:
+
+\[
+\text{Maximize} \quad \sum_{i=1}^{P} \left( (\text{price}_i - \text{cost}_i - \text{investPercentage}_i \times \text{price}_i) \times x_i \right) - \text{upgradeCost} \times y
+\]
+
+\textbf{Subject to:}
+\begin{align*}
+& \sum_{i=1}^{P} \text{hour}_i \times x_i \leq \text{availableHours} + \text{upgradeHours} \times y & \quad \text{(Machine hours constraint)} \\
+& \sum_{i=1}^{P} \text{cost}_i \times x_i \leq \text{cash} + \sum_{i=1}^{P} \text{investPercentage}_i \times \text{price}_i \times x_i - \text{upgradeCost} \times y & \quad \text{(Cash availability constraint)} \\
+& x_i \geq 0 & \quad \text{for } i = 1, \ldots, P \\
+& y \in \{0, 1\} & \quad \text{(Binary upgrade decision)}
+\end{align*}
+
+\end{document}

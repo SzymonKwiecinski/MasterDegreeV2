@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\subsection*{Decision Variables}
+\begin{align*}
+\text{let } & \text{produce}_{k, t} & \text{: the amount of units produced by industry } k \text{ in year } t, \\
+& \text{buildcapa}_{k, t} & \text{: the amount of units used to build productive capacity for industry } k \text{ in year } t, \\
+& \text{stockhold}_{k, t} & \text{: the amount of stock of industry } k \text{ held in year } t.
+\end{align*}
+
+\subsection*{Objective Function}
+Maximize the total manpower requirement over five years:
+\[
+\max \sum_{t=1}^{5} \sum_{k=1}^{K} \left( \text{manpowerone}_k \cdot \text{produce}_{k, t} + \text{manpowertwo}_k \cdot \text{buildcapa}_{k, t} \right)
+\]
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item \textbf{Production Constraints:} Each industry's production depends on its inputs and productive capacity:
+    \[
+    \text{produce}_{k, t} \leq \text{capacity}_{k, t}, \quad \forall k, \forall t
+    \]
+
+    \item \textbf{Capacity Building Constraints:} Uses current production to build future capacity:
+    \[
+    \sum_{j=1}^{K} \text{inputtwo}_{k, j} \cdot \text{buildcapa}_{j, t} \leq \text{produce}_{k, t}, \quad \forall k, \forall t
+    \]
+
+    \item \textbf{Stock Balance Constraints:} Stocks account for production, consumption, and carryover:
+    \[
+    \text{stockhold}_{k, t} = \text{stockhold}_{k, t-1} + \text{produce}_{k, t} - \sum_{j=1}^{K} \text{inputone}_{k, j} \cdot \text{produce}_{j, t} - \text{demand}_{k}, \quad \forall k, \forall t \geq 1
+    \]
+    where \(\text{stockhold}_{k, 0} = \text{stock}_{k}\).
+
+    \item \textbf{Capacity Update Constraints:} Update productive capacity with lag:
+    \[
+    \text{capacity}_{k, t+2} = \text{capacity}_{k, t+1} + \text{buildcapa}_{k, t}, \quad \forall k, t=0,1,\ldots,3
+    \]
+    Initial capacity is given: \(\text{capacity}_{k, 0} = \text{capacity}_{k}\).
+\end{itemize}
+
+\end{document}

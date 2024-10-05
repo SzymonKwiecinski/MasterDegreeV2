@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for the Engineering Factory Optimization Problem}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item $M$: Number of machines
+    \item $K$: Number of products
+    \item $I$: Number of months
+    \item $profit_k$: Profit from selling product $k$, for $k=1,\ldots,K$
+    \item $time_{k,m}$: Production time for product $k$ on machine $m$, for $k=1,\ldots,K$ and $m=1,\ldots,M$
+    \item $down_m$: Maintenance period for machine $m$, in months, for $m=1,\ldots,M$
+    \item $limit_{k,i}$: Marketing limitation for product $k$ in month $i$, for $k=1,\ldots,K$ and $i=1,\ldots,I$
+    \item $store\_price$: Cost of storing one unit of product per month
+    \item $keep\_quantity$: Desired storage quantity for each product at the end of the month
+    \item $n\_workhours$: Total working hours per day (two shifts)
+\end{itemize}
+
+\subsection*{Decision Variables}
+\begin{itemize}
+    \item $sell_{k,i}$: Quantity of product $k$ sold in month $i$, for $k=1,\ldots,K$ and $i=1,\ldots,I$
+    \item $manufacture_{k,i}$: Quantity of product $k$ manufactured in month $i$, for $k=1,\ldots,K$ and $i=1,\ldots,I$
+    \item $storage_{k,i}$: Quantity of product $k$ stored at the end of month $i$, for $k=1,\ldots,K$ and $i=1,\ldots,I$
+    \item $maintain_{m,i}$: Number of machines $m$ under maintenance in month $i$, for $m=1,\ldots,M$ and $i=1,\ldots,I$
+\end{itemize}
+
+\subsection*{Objective Function}
+Maximize the total profit:
+\[
+\text{Maximize } Z = \sum_{i=1}^{I} \sum_{k=1}^{K} profit_k \cdot sell_{k,i} - \sum_{i=1}^{I} \sum_{k=1}^{K} store\_price \cdot storage_{k,i}
+\]
+
+\subsection*{Constraints}
+
+\begin{itemize}
+    \item \textbf{Production Capacity:}
+    \[
+    \sum_{k=1}^{K} time_{k,m} \cdot manufacture_{k,i} \leq (n\_workhours \cdot 24 \cdot 6) \cdot (1 - \sum_{j=1}^{down_m} maintain_{m,j}), \quad \forall m \in \{1,\ldots,M\}, \forall i \in \{1,\ldots,I\}
+    \]
+    
+    \item \textbf{Marketing Limitations:}
+    \[
+    sell_{k,i} \leq limit_{k,i}, \quad \forall k \in \{1,\ldots,K\}, \forall i \in \{1,\ldots,I\}
+    \]
+
+    \item \textbf{Storage Balance:}
+    \[
+    storage_{k,i} = storage_{k,i-1} + manufacture_{k,i} - sell_{k,i}, \quad \forall k \in \{1,\ldots,K\}, \forall i \in \{2,\ldots,I\}
+    \]
+    \[
+    storage_{k,1} = 0, \quad \forall k \in \{1,\ldots,K\}
+    \]
+
+    \item \textbf{End of Month Stock Requirement:}
+    \[
+    storage_{k,I} \geq keep\_quantity, \quad \forall k \in \{1,\ldots,K\}
+    \]
+    
+    \item \textbf{Non-negativity:}
+    \[
+    sell_{k,i}, manufacture_{k,i}, storage_{k,i} \geq 0, \quad \forall k \in \{1,\ldots,K\}, \forall i \in \{1,\ldots,I\}
+    \]
+\end{itemize}
+
+\subsection*{Output}
+The solution to this model will yield the following:
+\begin{itemize}
+    \item $sell_{k,i}$: Quantity sold of each product in each month
+    \item $manufacture_{k,i}$: Quantity manufactured of each product in each month
+    \item $storage_{k,i}$: Quantity stored of each product in each month
+    \item $maintain_{m,i}$: Number of machines under maintenance in each month
+\end{itemize}
+
+\end{document}

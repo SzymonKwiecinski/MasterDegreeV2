@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mathematical Model for Manpower Management}
+
+\subsection*{Parameters}
+\begin{align*}
+& K: \text{Number of manpower categories} \\
+& I: \text{Number of years} \\
+& \text{requirement}_{k, i}: \text{Estimated manpower requirement for category } k \text{ in year } i \\
+& \text{strength}_{k}: \text{Current number of manpower in category } k \\
+& \text{lessonewaste}_{k}: \text{Wastage rate of manpower in category } k \text{ with less than one year's service} \\
+& \text{moreonewaste}_{k}: \text{Wastage rate of manpower in category } k \text{ with more than one year's service} \\
+& \text{recruit}_{k}: \text{Maximum number of recruits for manpower category } k \\
+& \text{costredundancy}_{k}: \text{Redundancy payment for manpower category } k \\
+& \text{num\_overman}: \text{Maximum overmanning allowed for the company} \\
+& \text{costoverman}_{k}: \text{Cost of overmanning per employee in category } k \\
+& \text{num\_shortwork}: \text{Maximum number of short-time workers allowed per category} \\
+& \text{costshort}_{k}: \text{Cost of short-time working per employee in category } k \\
+\end{align*}
+
+\subsection*{Decision Variables}
+\begin{align*}
+& \text{recruit}_{k, i}: \text{Number of recruits in category } k \text{ for year } i \\
+& \text{overmanning}_{k, i}: \text{Number of overmanned employees in category } k \text{ for year } i \\
+& \text{short}_{k, i}: \text{Number of short-time workers in category } k \text{ for year } i \\
+\end{align*}
+
+\subsection*{Objective Function}
+The objective is to minimize redundancy costs:
+\begin{align*}
+\text{Minimize } Z = \sum_{k=1}^{K} \sum_{i=1}^{I} \text{costredundancy}_{k} \cdot \text{redundancy}_{k, i}
+\end{align*}
+
+where redundancy can be expressed as:
+\begin{align*}
+\text{redundancy}_{k, i} = \max(0, \text{strength}_{k} - \text{requirement}_{k, i} - \text{overmanning}_{k, i} - 0.5 \cdot \text{short}_{k, i})
+\end{align*}
+
+\subsection*{Constraints}
+1. **Manpower Availability**
+\begin{align*}
+\text{strength}_{k} - \text{lessonewaste}_{k} \cdot \text{recruit}_{k, i} - \text{moreonewaste}_{k} \cdot \text{strength}_{k} + \text{recruit}_{k, i} + \text{overmanning}_{k, i} + 0.5 \cdot \text{short}_{k, i} \geq \text{requirement}_{k, i}, \quad \forall k, i
+\end{align*}
+
+2. **Recruitment Limit**
+\begin{align*}
+\text{recruit}_{k, i} \leq \text{recruit}_{k}, \quad \forall k, i
+\end{align*}
+
+3. **Overmanning Limit**
+\begin{align*}
+\sum_{k=1}^{K} \sum_{i=1}^{I} \text{overmanning}_{k, i} \leq \text{num\_overman}
+\end{align*}
+
+4. **Short-time Working Limit**
+\begin{align*}
+\text{short}_{k, i} \leq \text{num\_shortwork}, \quad \forall k, i
+\end{align*}
+
+5. **Non-negativity**
+\begin{align*}
+\text{recruit}_{k, i}, \text{overmanning}_{k, i}, \text{short}_{k, i} \geq 0, \quad \forall k, i
+\end{align*}
+
+\end{document}

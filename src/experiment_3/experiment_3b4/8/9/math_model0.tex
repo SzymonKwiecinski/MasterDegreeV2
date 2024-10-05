@@ -1,0 +1,23 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Linear Programming Model:}
+
+\textbf{Objective:}
+\[
+\min \sum_{i=1}^{N} (\text{error}_i^+ + \text{error}_i^-)
+\]
+
+\textbf{Constraints:}
+\[
+\sum_{j=1}^{M} \text{coeff}_{i,j} \cdot \text{power}_j - \text{desired}_i = \text{error}_i^+ - \text{error}_i^- \quad \text{for all } i
+\]
+\[
+\text{error}_i^+ \geq 0, \quad \text{error}_i^- \geq 0 \quad \text{for all } i
+\]
+\[
+\text{power}_j \geq 0 \quad \text{for all } j
+\]
+
+\end{document}

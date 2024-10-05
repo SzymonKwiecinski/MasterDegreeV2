@@ -1,0 +1,25 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\textbf{Decision Variables:}
+\begin{align*}
+x_k &: \text{Amount of mineral } k \text{ melted (in thousands of tons)} \\
+y &: \text{Amount of Manganese directly added (in tons)}
+\end{align*}
+
+\textbf{Objective Function:}
+\[
+\max \left( \text{sell\_price} \cdot n_{\text{steel\_quant}} - \left( \sum_{k=1}^{K} \text{cost}_k \cdot x_k + \text{mang\_price} \cdot y + \text{melt\_price} \cdot n_{\text{steel\_quant}} \right) \right)
+\]
+
+\textbf{Subject to Constraints:}
+\begin{align*}
+&\sum_{k=1}^{K} x_k + y = n_{\text{steel\_quant}} \\
+&\sum_{k=1}^{K} \text{contmn}_k \cdot x_k + y \geq \text{mn\_percent} \cdot n_{\text{steel\_quant}} \\
+&\text{si\_min} \cdot n_{\text{steel\_quant}} \leq \sum_{k=1}^{K} \text{contsi}_k \cdot x_k \leq \text{si\_max} \cdot n_{\text{steel\_quant}} \\
+&x_k \geq 0 \quad \text{for all } k \\
+&y \geq 0
+\end{align*}
+
+\end{document}

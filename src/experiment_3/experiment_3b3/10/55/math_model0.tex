@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model for Auto Parts Manufacturing}
+
+\subsection*{Parameters}
+\begin{itemize}
+    \item Let \( P \) be the number of different parts produced.
+    \item Let \( M \) be the number of different machines.
+    \item Let \( \text{time}_{m,p} \) be the time required (in hours) on machine \( m \) to produce a batch of 100 part \( p \).
+    \item Let \( \text{cost}_{m} \) be the cost per hour for using machine \( m \).
+    \item Let \( \text{available}_{m} \) be the availability of machine \( m \) (in hours) per month.
+    \item Let \( \text{price}_{p} \) be the price per batch of part \( p \).
+    \item Let \( \text{min\_batches}_{p} \) be the minimum number of batches of part \( p \) that must be produced per month.
+    \item Let \( \text{standard\_cost} \) be the standard labor cost per hour.
+    \item Let \( \text{overtime\_cost} \) be the labor cost per hour after \( \text{overtime\_hour} \).
+    \item Let \( \text{overtime\_hour} \) be the number of hours up to which the standard cost applies.
+    \item Let \( \text{min\_profit} \) be the minimum desired profit.
+\end{itemize}
+
+\subsection*{Decision Variables}
+Let \( \text{batches}_{p} \) be the number of batches produced for part \( p \).
+
+\subsection*{Objective Function}
+Maximize total profit:
+
+\[
+\text{Total Profit} = \sum_{p=1}^{P} \left( \text{price}_{p} \cdot \text{batches}_{p} - \sum_{m=1}^{M} \text{cost}_{m} \cdot \frac{\text{time}_{m,p} \cdot \text{batches}_{p}}{100} \right) - \text{labor\_cost}
+\]
+
+where \( \text{labor\_cost} \) considers standard and overtime labor costs.
+
+\subsection*{Constraints}
+\begin{itemize}
+    \item Availability Constraints for each machine:
+    \[
+    \sum_{p=1}^{P} \text{time}_{m,p} \cdot \text{batches}_{p} \leq \text{available}_{m} \quad \text{for each } m = 1, \ldots, M
+    \]
+
+    \item Minimum Batches Requirement:
+    \[
+    \text{batches}_{p} \geq \text{min\_batches}_{p} \quad \text{for each } p = 1, \ldots, P
+    \]
+
+    \item Minimum Profit Constraint:
+    \[
+    \text{Total Profit} \geq \text{min\_profit}
+    \]
+
+    \item Labor Cost Calculation:
+    \[
+    \text{labor\_cost} = \begin{cases} 
+    \text{standard\_cost} \cdot \text{time} & \text{if } \text{time} \leq \text{overtime\_hour} \\
+    \text{standard\_cost} \cdot \text{overtime\_hour} + \text{overtime\_cost} \cdot (\text{time} - \text{overtime\_hour}) & \text{if } \text{time} > \text{overtime\_hour}
+    \end{cases}
+    \]
+    where \( \text{time} = \sum_{m=1}^{M} \sum_{p=1}^{P} \text{time}_{m,p} \cdot \text{batches}_{p} \).
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Linear Programming Model}
+
+\textbf{Objective Function:}
+
+\[
+\min \sum_{k=1}^{K} \sum_{i=1}^{I} \left( \text{costredundancy}_{k} \cdot (\text{strength}_{k} + x_{k,i-1} - \text{requirement}_{k,i}) + \text{costoverman}_{k} \cdot z_{k,i} + \text{costshort}_{k} \cdot y_{k,i} + \text{recruit}_{k} \cdot x_{k,i} \right)
+\]
+
+\textbf{Subject to:}
+
+\[
+\text{For each } k \in \{1, \ldots, K\}, i \in \{1, \ldots, I\}:
+\]
+
+\[
+\text{(1) Manpower Balance: } \text{strength}_{k} + x_{k,i-1} - \text{lessonewaste}_{k} \cdot x_{k,i} - \text{moreonewaste}_{k} \cdot (\text{strength}_{k} - x_{k,i}) = \text{requirement}_{k,i} + y_{k,i} + z_{k,i}
+\]
+
+\[
+\text{(2) Short-time Working Limit: } y_{k,i} \leq \text{num\_shortwork}
+\]
+
+\[
+\text{(3) Overmanning Constraint: } \sum_{k=1}^{K} z_{k,i} \leq \text{num\_overman}
+\]
+
+\[
+\text{(4) Recruitment Constraint: } x_{k,i} \leq \text{recruit}_{k}
+\]
+
+\[
+x_{k,i}, y_{k,i}, z_{k,i} \geq 0
+\]
+
+\text{Additional Conditions:}
+
+- All workers currently have more than one year of service.
+- Initial manpower \( \text{strength}_{k} \) for each category is given.
+- Wastage rates apply as described for less than and more than one year's service.
+
+\end{document}

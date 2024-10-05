@@ -1,0 +1,26 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Mixed Integer Programming Model for DEC}
+
+\subsection*{Objective:}
+\[
+\text{Maximize} \quad \text{Profit} = \sum_{i=1}^{N} (\text{price}_i \times x_i)
+\]
+
+\subsection*{Constraints:}
+\begin{align*}
+& x_i \geq \text{preorder}_i, \quad \forall i \\
+& x_i \leq \text{demand}_i, \quad \forall i \\
+& \sum_{i \in \text{GP}} x_i \leq \text{demand\_GP} \\
+& \sum_{i \in \text{WS}} x_i \leq \text{demand\_WS} \\
+& \sum_{i=1}^{N} x_i \leq \text{max\_cpu} \\
+& \sum_{i=1}^{N} \text{disk}_i \times x_i \leq \text{max\_disk} \\
+& \sum_{i=1}^{N} \text{disk}_i \times x_i \geq \text{min\_disk} \\
+& \sum_{i=1}^{N} \text{mem}_i \times x_i \leq \text{max\_mem} \\
+& \sum_{i=1}^{N} \text{mem}_i \times x_i \geq \text{min\_mem} \\
+& \sum_{i \in \text{alt\_compatible}} \text{alt\_memory}_i \times x_i \leq \text{alt\_mem} 
+\end{align*}
+
+\end{document}
