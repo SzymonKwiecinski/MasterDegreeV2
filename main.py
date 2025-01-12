@@ -13,12 +13,14 @@ OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
 
 
 def run_experiment_1(exp_names: list[str]):
+    # Import skryptu dla eksperymentu 1
     from src.experiment_1 import run
-
+    # Wczytanie pliku konfiguracyjnego dla eksperymentu 1
     with open(f"{CONFIGS_PATH}/experiment_1.yml", "r") as file:
         experiments_config = yaml.safe_load(file)
 
     for experiment_name, experiment_config in experiments_config.items():
+        # Wywołanie eksperymentu dla wybranej wariancji konfiguracji
         if experiment_name in exp_names:
             run(
                 client=Client(api_key=OPENAI_API_KEY),

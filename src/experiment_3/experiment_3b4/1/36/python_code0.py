@@ -31,7 +31,7 @@ x = [pulp.LpVariable(f'x_{k}', lowBound=0) for k in range(K)]
 problem += pulp.lpSum(price[k] * x[k] for k in range(K))
 
 # Total weight constraint
-problem += pulp.lpSum(x[k] for k in range(K)) == alloy_quant
+problem += pulp.lpSum([x[k] for k in range(K)]) == alloy_quant
 
 # Metal proportion requirements
 for m in range(M):

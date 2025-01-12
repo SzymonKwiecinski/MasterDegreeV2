@@ -18,28 +18,33 @@ from math import fabs
 from pydantic import BaseModel
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Modele LLM, jakich używamy w danej pracy
 class ChatModel(str, Enum):
     GPT_4O = "gpt-4o-2024-08-06"
     GPT_4O_MINI = "gpt-4o-mini-2024-07-18"
-
-
-PRICE_MAPPER_PROMPT_PER_MILION_TOKENS: dict[ChatModel, float] = {
-    ChatModel.GPT_4O: 2.50,
-    ChatModel.GPT_4O_MINI: 0.15,
-}
-
-PRICE_MAPPER_COMPLETION_PER_MILION_TOKENS: dict[ChatModel, float] = {
-    ChatModel.GPT_4O: 10.0,
-    ChatModel.GPT_4O_MINI: 0.60,
-}
-
-
+# Dostępne role używane w konwersacji
+#  z czatem LLM
 class Role(str, Enum):
     SYSTEM = "system"
     USER = "user"
     ASSISTANT = "assistant"
-
-
+# Klasa na dane do eksperymentów 2, 3
 class Task(BaseModel):
     number: int
     description: str
@@ -62,10 +67,7 @@ class Task(BaseModel):
             obj=float(obj_path.read_text().replace("OBJ: ", "")),
         )
 
-    def formulate_question(self) -> str:
-        pass
-
-
+# Klasa na dane do eksperymentu 1
 class CorrectModel(BaseModel):
     number: int
     latex_math_model: str
@@ -74,7 +76,7 @@ class CorrectModel(BaseModel):
 
     @classmethod
     def from_folder(
-        cls, number: int, path: Path | str, latex_file: str = "model10.tex"
+        cls, number: int, path: Path | str, latex_file: str
     ) -> "CorrectModel":
         if isinstance(path, str):
             path = Path(path)
@@ -90,10 +92,8 @@ class CorrectModel(BaseModel):
             obj=float(obj_path.read_text().replace("OBJ: ", "")),
         )
 
-    def formulate_question(self) -> str:
-        pass
-
-
+# Warstwa abstrakcji, aby łatwiej
+#  manipulować wiadomościami do i z czatu
 class Message:
     def __init__(self, role: Role, content: str) -> None:
         self.role = role
@@ -146,25 +146,22 @@ class Message:
 
     def dict(self) -> dict[str, str]:
         return {"role": self.role, "content": self.content}
-
-
+# Klasa na dane dla Ekspertów
 class Expert:
     def __init__(
         self,
         name: str,
         background: str,
         role: Role = Role.SYSTEM,
-        # model: ChatModel = ChatModel.GPT_4O_MINI,
     ) -> None:
         self.name = name
         self.background = background
         self.role = role
-        # self.model = model
 
     def __repr__(self):
         return f"{self.background} | {self.role}"
-
-
+# Warstwa abstrakcji pozwalająca łatwiej
+#  korzystać z API openai
 class OpenAiPrompt:
     def __init__(
         self,
@@ -223,8 +220,9 @@ class OpenAiPrompt:
                     if _ in _content:
                         _content = _content.replace(_, "#### ")
                 f.write(f"{_content}\n\n")
-
-
+# Warstwa abstrakcji pozwalająca dodawać
+#  w łatwy sposób tworzyć raport na podstawie
+#  przebiegu eksperymentu dla jednego zadania
 class Report(BaseModel):
     experiment_name: str
     experiment_iteration: int
@@ -280,3 +278,15 @@ class Report(BaseModel):
         with open(_report_path, "a", newline="") as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=_headers)
             writer.writerow(self.dict())
+
+
+PRICE_MAPPER_PROMPT_PER_MILION_TOKENS: dict[ChatModel, float] = {
+    ChatModel.GPT_4O: 2.50,
+    ChatModel.GPT_4O_MINI: 0.15,
+}
+
+PRICE_MAPPER_COMPLETION_PER_MILION_TOKENS: dict[ChatModel, float] = {
+    ChatModel.GPT_4O: 10.0,
+    ChatModel.GPT_4O_MINI: 0.60,
+}
+

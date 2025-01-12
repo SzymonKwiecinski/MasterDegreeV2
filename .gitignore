@@ -16,3 +16,4 @@ out
 spikes
 .DS_Store
 *__pycache__*
+priv

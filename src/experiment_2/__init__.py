@@ -10,8 +10,8 @@ from src.core import ChatModel, OpenAiPrompt, Message
 from src.templates import python_file_name_template, code_error_template
 from openai import Client
 
-TASKS_NUMBER = 63  # 63
-EXP_RETRY = 10  # 10
+TASKS_NUMBER = 63
+EXP_RETRY = 10
 
 
 def run(
@@ -31,15 +31,10 @@ def run(
         tasks.append(Task.from_folder(number=i, path=ALL_DATA_PATH / str(i)))
 
     for exp_retry in range(1, EXP_RETRY + 1):
-        if exp_retry in [1, 2, 3, 4, 5]:
-            continue
         retry_experiment_path = experiment_path / str(exp_retry)
         retry_experiment_path.mkdir(exist_ok=True)
 
         for task in tasks:
-            if exp_retry in [6]:
-                if task.number <= 43:
-                    continue
             print(f"START {exp_retry=}, {task.number=}\n")
             model_path = retry_experiment_path / str(task.number)
             model_path.mkdir(exist_ok=True)
